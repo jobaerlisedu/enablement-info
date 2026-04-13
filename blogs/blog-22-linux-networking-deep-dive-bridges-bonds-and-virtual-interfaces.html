@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Underneath the hood of every Kubernetes cluster, virtual machine host, or cloud gateway lies the Linux Networking Stack. In 2026, understanding how to manipulate packets at the kernel level using virtual interfaces is what separates a System Admin from a Cloud Architect.">
+  <title>Linux Networking Deep Dive: Bridges, Bonds, and Virtual Interfaces | enablement.info</title>
+
+
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Bootstrap Icons (Keep legacy support if needed, but prefer boxicons) -->
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/style.css">
+
+  
+  
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body, html { margin: 0; padding: 0; background: var(--bg-dark);  color: var(--text-main); }
+    .blog-content-wrapper { max-width: 100%; margin: 0 auto; }
+    .glass-panel { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 20px; }
+    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
+    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
+    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
+    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
+    .article-body p { margin-bottom: 20px; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
+    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
+    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
+    .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
+    .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
+  </style>
+
+</head>
+
+<body>
+  <header class="glass-header">
+    <div class="container">
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a href="../index.html">
+              <i class='bx bx-home-alt-2'></i>
+              <span class="nav-text">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="../blogs.html" class="active">
+              <i class='bx bx-book-content'></i>
+              <span class="nav-text">Blog</span>
+            </a>
+          </li>
+          <li>
+            <a href="../courses.html">
+              <i class='bx bx-play-circle'></i>
+              <span class="nav-text">Courses</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-content-wrapper">
+    <div class="container">
+      <a href="../../blogs.html" class="back-btn">
+          <i class='bx bx-arrow-back'></i>
+          <span>Back to Articles</span>
+        </a>
+
+        <article class="glass-panel">
+          <header class="article-header">
+            <h1>Linux Networking Deep Dive: Bridges, Bonds, and Virtual Interfaces</h1>
+            <div class="article-meta">
+              <span><i class='bx bx-calendar'></i> Jan 23, 2026</span>
+              
+              <span><i class='bx bx-category'></i> Networking</span>
+            
+              
+              <span><i class='bx bx-user'></i> Jobaer Hossain</span></div>
+          </header>
+
+          <div class="article-body">
+<p>Underneath the hood of every Kubernetes cluster, virtual machine host, or cloud gateway lies the Linux Networking Stack. In 2026, understanding how to manipulate packets at the kernel level using virtual interfaces is what separates a System Admin from a Cloud Architect.</p>
+
+                <h3>1. NIC Bonding: Resilience and Aggregate Bandwidth</h3>
+                <p>Bonding (or Link Aggregation) allows you to treat multiple physical interfaces as one logical link. Whether you use <strong>Mode 1 (Active-Backup)</strong> for pure redundancy or <strong>Mode 4 (802.3ad/LACP)</strong> for high-speed trunking, bonding ensures your server stays connected even if a cable is pulled or a switch port fails.</p>
+                <div class="code-block">
+                  # Checking bond status in the kernel<br>
+                  cat /proc/net/bonding/bond0
+                </div>
+
+                <h3>2. Linux Bridges: The Virtual Switch</h3>
+                <p>A bridge (<code>br0</code>) behaves exactly like a physical Layer 2 switch. It is the fundamental component that allows Virtual Machines (KVM/QEMU) and Containers to communicate with the physical network. By attaching physical interfaces and virtual <code>tap</code> interfaces to a bridge, you create a virtualized switching fabric within the host memory.</p>
+
+                [Image showing a Linux Bridge connecting Physical NICs to Virtual Machine vNICs]
+
+                <h3>3. Veth Pairs: The "Patch Cable" of Containers</h3>
+                <p>Virtual Ethernet (veth) pairs are the magic behind Docker and Podman. A veth pair acts like a virtual patch cable with two ends. One end stays in the <strong>Root Network Namespace</strong> (connected to a bridge), while the other end is pushed into a <strong>Container Namespace</strong>. This is how containers get their own private IP stack while still reaching the outside world.</p>
+
+                <h3>4. VLAN Tagging (802.1Q) on Linux</h3>
+                <p>In enterprise environments, a single physical link often carries traffic for multiple networks. Linux handles this by creating sub-interfaces (e.g., <code>eth0.10</code> for VLAN 10). This allows a single Linux server to act as a "Router-on-a-stick" or a security gateway for multiple isolated segments.</p>
+                <div class="code-block">
+                  # Creating a VLAN tagged interface via iproute2<br>
+                  ip link add link eth0 name eth0.100 type vlan id 100<br>
+                  ip link set dev eth0.100 up
+                </div>
+
+                <h3>5. Network Namespaces: Total Isolation</h3>
+                <p>Namespaces allow you to have multiple, completely separate routing tables and interface lists on a single Linux kernel. This is how modern SDNs prevent overlapping IP ranges from conflicting. You can run a web server in <code>ns_web</code> and a database in <code>ns_db</code>, and they won't even see each other's interfaces unless you explicitly link them.</p>
+
+                <div class="tech-summary-box">
+                  <div class="net-badge">Networking Mastery Toolkit</div>
+                  <ul class="mt-3">
+                    <li><strong>Command Line:</strong> Abandon <code>ifconfig</code> for the modern <code>ip</code> (iproute2) suite.</li>
+                    <li><strong>Troubleshooting:</strong> Use <code>tcpdump</code> to capture traffic on specific virtual bridges.</li>
+                    <li><strong>Performance:</strong> Adjust MTU sizes (Jumbo Frames) for high-speed storage traffic.</li>
+                    <li><strong>Automation:</strong> Use <code>Netplan</code> (Ubuntu) or <code>nmcli</code> (RHEL) for persistent configurations.</li>
+                  </ul>
+                  <hr>
+                  <p class="mb-0"><strong>Summary:</strong> Linux networking is no longer just about giving a server an IP address. It’s about building complex, virtualized topologies that move data efficiently and securely. Mastering bridges, bonds, and namespaces gives you the power to design the infrastructure of tomorrow.</p>
+                </div>
+</div>
+          </div>
+        </article>
+      </div>
+    <footer class="glass-footer">
+      <div class="container">
+        <p>&copy; 2026 enablement.info. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </main>
+<script>
+    if (window.self !== window.top) {
+        document.addEventListener("DOMContentLoaded", function() {
+            var hd = document.querySelector('.glass-header'); if(hd) hd.style.display = 'none';
+            var ft = document.querySelector('.glass-footer'); if(ft) ft.style.display = 'none';
+            var bb = document.querySelector('.back-btn'); if(bb) bb.style.display = 'none';
+            var ov = document.querySelector('.overlay'); if(ov) ov.style.paddingTop = '0';
+            var mainWrapper = document.querySelector('main'); 
+            if(mainWrapper) {
+                mainWrapper.style.paddingLeft = '0';
+                mainWrapper.style.paddingRight = '0';
+                mainWrapper.style.paddingTop = '10px';
+                mainWrapper.style.margin = '0 auto';
+            }
+        });
+    }
+</script>
+  </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

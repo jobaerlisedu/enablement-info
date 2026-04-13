@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="সহজে শিখুন Network Engineering. OSI Model: 7 Layers of Computer Network নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>OSI Model: 7 Layers of Computer Network | enablement.info</title>
+
+
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+  <!-- CSS -->
+
+
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>What is OSI Model? - Layers of OSI Model</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>OSI (Open Systems Interconnection) Model হলো একগুচ্ছ নিয়ম বা Protocolের সেট, যা ব্যাখ্যা করে একটি Networkের মাধ্যমে বিভিন্ন Computer সিস্টেম কীভাবে একে অপরের সাথে যোগাযোগ (communicate) করে। OSI Model তৈরি করেছিল International Organization for Standardization (ISO)। OSI Model-এ ৭টি Layer (layer) থাকে এবং প্রতিটি Layerের নির্দিষ্ট কাজ (functions) এবং দায়িত্ব (responsibilities) রয়েছে। এই Layerড অ্যাপ্রোচের কারণে বিভিন্ন Device এবং টেকনোলজির পক্ষে একসাথে কাজ করা সহজ হয়।</p>
+          
+          <div class="content-box">
+            <strong>Note:</strong> OSI Model ডাটা Transmission এবং Network সমস্যাগুলো ম্যানেজ করার জন্য একটি পরিষ্কার Structure (structure) প্রদান করে। Network সিস্টেম কীভাবে কাজ করে তা বোঝার জন্য একটি রেফারেন্স হিসেবে OSI Model ব্যাপকভাবে ব্যবহৃত হয়।
+          </div>
+
+          <h2>1. Physical Layer (Layer 1)</h2>
+          <p>OSI reference model-এর সবচেয়ে নিচের Layer হলো Physical Layer। এটি Deviceগুলোর মধ্যে প্রকৃত ফিজিক্যাল কানেকশন (actual physical connection) নিশ্চিত করার জন্য কাজ করে। ফিজিক্যাল Layerে তথ্য Bits (bits) আকারে (0 এবং 1) থাকে।</p>
+          <ul>
+            <li>Physical Layer এক Node (node) থেকে পরবর্তী Nodeে ইনডিভিজুয়াল Bits (individual bits) ট্রান্সমিট করার জন্য দায়ী।</li>
+            <li>ডাটা রিসিভ করার সময়, এই Layer প্রাপ্ত Signalকে গ্রহণ করে, সেটিকে 0 এবং 1-এ কনভার্ট করে Data Link layer-এ পাঠায়, যা আবার ফ্রেম (frame) তৈরি করে।</li>
+            <li>সাধারণ Physical Layer Deviceগুলো হলো Hub, Repeater, Modem এবং Cables।</li>
+          </ul>
+
+          <p><strong>Functions of Physical Layer:</strong></p>
+          <ul>
+            <li><strong>Bit Synchronization:</strong> Physical layer একটি ক্লক (clock) প্রদান করে Bitগুলোর সিঙ্ক্রোনাইজেশন (synchronization) করে। এই ক্লক প্রেরক (sender) এবং গ্রাহক (receiver) উভয়কেই কন্ট্রোল করে Bit-লেভেলে সিঙ্ক্রোনাইজেশন প্রদান করে।</li>
+            <li><strong>Bit Rate Control:</strong> Physical layer Transmission রেট (transmission rate) ডিফাইন করে, অর্থাৎ প্রতি সেকেন্ডে কত Bit পাঠানো হবে তা নির্ধারণ করে।</li>
+            <li><strong>Physical Topologies:</strong> Physical layer ঠিক করে একটি Networkে বিভিন্ন Device বা Nodeগুলো কীভাবে সাজানো থাকবে, যেমন bus topology, star topology, অথবা mesh topology।</li>
+            <li><strong>Transmission Mode:</strong> Physical layer আরও ঠিক করে দুটি কানেক্টেড Deviceের মধ্যে কীভাবে ডাটা ফ্লো হবে। এর বিভিন্ন মোডগুলো হলো Simplex, Half-duplex এবং Full duplex।</li>
+          </ul>
+
+          <h2>2. Data Link Layer (Layer 2)</h2>
+          <p>Data Link Layer মেসেজের Node-টু-Node Deliveryর (node-to-node delivery) জন্য দায়ী। এই Layerের প্রধান কাজ হলো ফিজিক্যাল Layerের মাধ্যমে এক Node থেকে অন্য Nodeে ডাটা ট্রান্সফার যেন ত্Rootিমুক্ত (error-free) হয় তা নিশ্চিত করা।</p>
+          <ul>
+            <li>যখন একটি প্যাকেট (packet) Networkে পৌঁছায়, তখন হোস্টের MAC address ব্যবহার করে প্যাকেটটিকে ট্রান্সমিট করা DLL-এর দায়িত্ব।</li>
+            <li>Data Link Layer-এ প্যাকেটকে ফ্রেম (Frame) বলা হয়। Switches এবং Bridges হলো সাধারণ Data Link Layer Device।</li>
+            <li>Network layer থেকে পাওয়া প্যাকেটকে NIC (Network Interface Card)-এর ফ্রেম সাইজের ওপর ভিত্তি করে আরও ছোট ফ্রেমে ভাগ করা হয়। DLL প্রতিটি ফ্রেমের হেডারে (header) প্রেরক এবং গ্রাহকের MAC address যুক্ত (encapsulate) করে।</li>
+            <li>গ্রাহকের MAC address পাওয়ার জন্য তারে (wire) একটি ARP (Address Resolution Protocol) রিকোয়েস্ট পাঠানো হয়, যা জানতে চায় "এই IP address-টি কার?" তখন ডেস্টিনেশন হোস্ট তার নিজের MAC address দিয়ে রিপ্লাই দেয়।</li>
+          </ul>
+
+          <p><strong>Sublayers of Data Link Layer:</strong></p>
+          <ul>
+            <li>Logical Link Control (LLC)</li>
+            <li>Media Access Control (MAC)</li>
+          </ul>
+
+          <p><strong>Functions of the Data Link Layer:</strong></p>
+          <ul>
+            <li><strong>Framing:</strong> Framing হলো ডাটা Link Layerের একটি কাজ। এটি প্রেরককে এমন এক সেট Bit পাঠানোর সুযোগ দেয় যা গ্রাহকের কাছে অর্থবহ হয়। ফ্রেমের শুরুতে এবং শেষে স্পেশাল Bit প্যাটার্ন যুক্ত করে এটি করা হয়।</li>
+            <li><strong>Physical Addressing:</strong> ফ্রেম তৈরি করার পর, Data link layer প্রতিটি ফ্রেমের হেডারে প্রেরক এবং গ্রাহকের ফিজিক্যাল অ্যাড্রেস বা MAC addresses যুক্ত করে।</li>
+            <li><strong>Error Control:</strong> Data link layer Error Controlের মেকানিজম প্রদান করে, যার মাধ্যমে এটি ক্ষতিগ্রস্ত (damaged) বা হারিয়ে যাওয়া ফ্রেম শনাক্ত (detect) এবং পুনরায় প্রেরণ (retransmit) করে।</li>
+            <li><strong>Flow Control:</strong> দুই পাশেই ডাটা রেট সমান হতে হবে, নাহলে ডাটা নষ্ট (corrupt) হয়ে যেতে পারে। তাই flow control, অ্যাকনলেজমেন্ট (acknowledgment) পাওয়ার আগে ঠিক কতটা ডাটা পাঠানো যাবে তা কোঅর্ডিনেট করে।</li>
+            <li><strong>Access Control:</strong> যখন একাধিক Device একটি সিঙ্গেল কমিউনিকেশন Channel শেয়ার করে, তখন ডাটা Link Layerের MAC sub-layer নির্ধারণ করতে সাহায্য করে যে নির্দিষ্ট সময়ে কোন Deviceটির কাছে Channelের কন্ট্রোল থাকবে।</li>
+          </ul>
+
+          <h2>3. Network Layer (Layer 3)</h2>
+          <p>Network Layer ভিন্ন ভিন্ন Networkে অবস্থিত এক হোস্ট থেকে অন্য হোস্টে ডাটা Transmissionের (transmission of data) জন্য কাজ করে। এটি প্যাকেট রাউটিং (packet routing) অর্থাৎ লভ্য Rootগুলো (available routes) থেকে প্যাকেট পাঠানোর জন্য সবচেয়ে ছোট পথ নির্বাচন করার দায়িত্ব পালন করে।</p>
+          <ul>
+            <li>Network layer দ্বারা প্রেরক এবং গ্রাহকের IP address হেডারে যুক্ত করা হয়। Network layer-এ সেগমেন্টকে প্যাকেট (Packet) বলা হয়।</li>
+            <li>Network layer Router (routers) এবং Switchের (switches) মতো নেটওয়ার্কিং Device দ্বারা ইমপ্লিমেন্ট করা হয়।</li>
+          </ul>
+
+          <p><strong>Functions of the Network Layer:</strong></p>
+          <ul>
+            <li><strong>Routing:</strong> Network layer Protocolগুলো নির্ধারণ করে উৎস (source) থেকে গন্তব্য (destination) পর্যন্ত কোন Rootটি উপযুক্ত। Network layer-এর এই কাজটিকে রাউটিং (routing) বলা হয়।</li>
+            <li><strong>Logical Addressing:</strong> প্রতিটি Deviceকে ইন্টার-Networkে (inter-network) অনন্যভাবে (uniquely) চিহ্নিত করার জন্য, Network Layer একটি অ্যাড্রেসিং স্কিম ডিফাইন করে। Network Layer হেডারে প্রেরক এবং গ্রাহকের IP addresses যুক্ত করে। এই ঠিকানা প্রতিটি Deviceকে বিশ্বজুড়ে এবং অনন্যভাবে আলাদা করে।</li>
+          </ul>
+
+          <h2>4. Transport Layer (Layer 4)</h2>
+          <p>Transport Layer Application Layerকে সার্ভিস প্রদান করে এবং Network Layer থেকে সার্ভিস গ্রহণ করে। ট্রান্সPort Layerে ডাটাকে সেগমেন্ট (Segments) বলা হয়। এটি সম্পূর্ণ মেসেজের এন্ড-টু-এন্ড Deliveryর (end-to-end delivery) জন্য দায়ী।</p>
+          <ul>
+            <li>Transport layer সফল ডাটা Transmissionের অ্যাকনলেজমেন্ট প্রদান করে এবং কোনো ত্Rootি পাওয়া গেলে ডাটা পুনরায় প্রেরণ করে।</li>
+            <li>Transport Layer-এ ব্যবহৃত Protocolগুলো হলো TCP, UDP, NetBIOS, PPTP।</li>
+            <li>প্রেরকের দিকে, ট্রান্সPort Layer ওপরের Layerগুলো থেকে ফরমেটেড ডাটা গ্রহণ করে, সেগমেন্টেশন (Segmentation) করে এবং সঠিক ডাটা Transmission নিশ্চিত করতে ফ্লো এবং Error Control (Flow and error control) ইমপ্লিমেন্ট করে। এটি হেডারে সোর্স এবং ডেস্টিনেশন Port নম্বর (Source and Destination port number) যুক্ত করে সেগমেন্টেড ডাটাকে Network Layer-এর দিকে পাঠিয়ে দেয়।</li>
+            <li>এই ডেস্টিনেশন Port নম্বর সাধারণত ডিফল্টভাবে বা ম্যানুয়ালি কনফিগার করা থাকে। (যেমন: যখন কোনো ওয়েব Application একটি ওয়েব Serverকে রিকোয়েস্ট পাঠায়, তখন এটি সাধারণত Port নম্বর 80 ব্যবহার করে, কারণ এটি ওয়েব Applicationের জন্য ডিফল্ট Port)।</li>
+            <li>গ্রাহকের দিকে, Transport Layer তার হেডার থেকে Port নম্বর পড়ে এবং প্রাপ্ত ডাটাকে নির্দিষ্ট Applicationের কাছে ফরোয়ার্ড করে দেয়। এটি সেগমেন্টেড ডাটাকে সিকোয়েন্সিং (sequencing) এবং রিঅ্যাসেম্বলিংও (reassembling) করে।</li>
+          </ul>
+
+          <p><strong>Functions of the Transport Layer:</strong></p>
+          <ul>
+            <li><strong>Segmentation and Reassembly:</strong> এই Layer সেশন (session) Layer থেকে মেসেজ গ্রহণ করে এবং মেসেজটিকে ছোট ছোট ইউনিটে ভাগ করে। উৎপন্ন প্রতিটি সেগমেন্টের সাথে একটি হেডার থাকে। গন্তব্য Stationে ট্রান্সPort Layer মেসেজটিকে পুনরায় একত্রিত (reassemble) করে।</li>
+            <li><strong>Service Point Addressing:</strong> মেসেজকে সঠিক প্রসেসে Delivery করার জন্য, ট্রান্সPort Layerের হেডারে সার্ভিস পয়েন্ট অ্যাড্রেস বা Port অ্যাড্রেস (service point address or port address) নামে এক ধরনের ঠিকানা যুক্ত করা হয়। এভাবে, এই অ্যাড্রেস স্পেসিফাই করে ট্রান্সPort Layer নিশ্চিত করে যে মেসেজটি সঠিক প্রসেসে Delivery হয়েছে।</li>
+          </ul>
+
+          <p><strong>Services Provided by Transport Layer:</strong></p>
+          <ul>
+            <li>Connection-Oriented Service (সংযোগ-ভিত্তিক পরিষেবা)</li>
+            <li>Connectionless Service (সংযোগহীন পরিষেবা)</li>
+          </ul>
+
+          <h2>5. Session Layer (Layer 5)</h2>
+          <p>OSI Model-এর Session Layer দুটি Deviceের মধ্যে কানেকশন এস্টাব্লিশ (connection establishment), কানেকশন ম্যানেজ করা এবং সেশন টার্মিনেট (session termination) করার জন্য কাজ করে। এটি অথেন্টিকেশন (authentication) এবং সিকিউরিটিও প্রদান করে। সেশন Layerে ব্যবহৃত Protocolগুলো হলো NetBIOS, PPTP।</p>
+
+          <p><strong>Functions of the Session Layer:</strong></p>
+          <ul>
+            <li><strong>Session Establishment, Maintenance, and Termination:</strong> এই Layer দুটি প্রসেসকে একটি কানেকশন এস্টাব্লিশ, ব্যবহার এবং বন্ধ করার সুযোগ দেয়।</li>
+            <li><strong>Synchronization:</strong> এই Layer কোনো প্রসেসকে ডাটার মধ্যে চেকপয়েন্ট (checkpoints) বা সিঙ্ক্রোনাইজেশন পয়েন্ট যোগ করতে দেয়। এই পয়েন্টগুলো এরর শনাক্ত করতে সাহায্য করে, ফলে ডাটা ঠিকমতো রি-সিঙ্ক্রোনাইজড হয় এবং ডাটা লস এড়ানো যায়।</li>
+            <li><strong>Dialog Controller:</strong> Session layer দুটি সিস্টেমকে half-duplex বা full duplex মোডে একে অপরের সাথে যোগাযোগ শুরু করার সুযোগ দেয়।</li>
+          </ul>
+
+          <p><strong>Example Scenario:</strong><br>
+          ধরা যাক একজন ইউজার তার ব্রাউজারে কোনো মেসেঞ্জার Application ব্যবহার করে অন্য কাউকে মেসেজ পাঠাতে চাইছে। এখানে “Messenger” Application Layer হিসেবে কাজ করে যা ইউজারকে ডাটা তৈরি করার ইন্টারফেস দেয়। এই মেসেজ বা ডাটা কমপ্রেস করা হয়, ঐচ্ছিকভাবে এনক্রিপ্ট করা হয় (ডাটা সেনসিটিভ হলে), এবং Bitsে (0 এবং 1) কনভার্ট করা হয় যাতে এটি ট্রান্সমিট করা যায়।</p>
+
+          <h2>6. Presentation Layer (Layer 6)</h2>
+          <p>Presentation Layer-কে ট্রান্সলেশন Layerও (Translation layer) বলা হয়। Application Layer থেকে পাওয়া ডাটা এখানে এক্সট্রাক্ট করা হয় এবং Networkে ট্রান্সমিট করার জন্য প্রয়োজনীয় ফরম্যাট অনুযায়ী ম্যানিপুলেট করা হয়। প্রেজেন্টেশন Layerে ব্যবহৃত Protocolগুলো হলো TLS/SSL। JPEG, MPEG, GIF হলো ডাটা এনকোড করার জন্য ব্যবহৃত Standard বা ফরম্যাট, যা প্রেজেন্টেশন Layerের কাজের একটি অংশ।</p>
+
+          <p><strong>Functions of the Presentation Layer:</strong></p>
+          <ul>
+            <li><strong>Translation:</strong> যেমন, ASCII থেকে EBCDIC-এ রূপান্তর।</li>
+            <li><strong>Encryption/ Decryption:</strong> ডাটা এনক্রিপশন ডাটাকে অন্য একটি ফর্ম বা কোডে রূপান্তর করে। এনক্রিপ্টেড ডাটাকে সাইফারটেক্সট (ciphertext) বলা হয়, আর ডিক্রিপ্টেড ডাটাকে প্লেইন টেক্সট (plain text) বলা হয়। ডাটা এনক্রিপ্ট এবং ডিক্রিপ্ট করার জন্য একটি কী ভ্যালু (key value) ব্যবহার করা হয়।</li>
+            <li><strong>Compression:</strong> Networkে ট্রান্সমিট করার জন্য প্রয়োজনীয় Bit's সংখ্যা কমিয়ে দেয়।</li>
+          </ul>
+
+          <h2>7. Application Layer (Layer 7)</h2>
+          <p>OSI Reference Model-এর একেবারেই ওপরের Layer হলো Application Layer, যা Network Application দ্বারা ইমপ্লিমেন্ট করা হয়। এই Applicationগুলো Networkের মাধ্যমে ট্রান্সফার করার জন্য ডাটা তৈরি (produce) করে।</p>
+          <ul>
+            <li>এই Layerটি Application সার্ভিসের Network অ্যাক্সেস করার এবং ইউজারকে প্রাপ্ত তথ্য দেখানোর একটি উইন্ডো হিসেবে কাজ করে।</li>
+            <li>Application layer-এ ব্যবহৃত Protocolগুলো হলো SMTP, FTP, DNS ইত্যাদি।</li>
+          </ul>
+
+          <p><strong>Functions of the Application Layer:</strong></p>
+          <ul>
+            <li><strong>Network Virtual Terminal (NVT):</strong> এটি কোনো ইউজারকে একটি রিমোট হোস্টে (remote host) লগ-ইন করার সুযোগ দেয়।</li>
+            <li><strong>File Transfer Access and Management (FTAM):</strong> এই Application কোনো ইউজারকে একটি রিমোট হোস্টের ফাইল অ্যাক্সেস করতে, ফাইল রিTreeভ করতে এবং ফাইল ম্যানেজ বা কন্ট্রোল করতে সাহায্য করে।</li>
+            <li><strong>Mail Services:</strong> ইমেইল সার্ভিস প্রদান করে।</li>
+            <li><strong>Directory Services:</strong> এই Application বিভিন্ন অবজেক্ট এবং সার্ভিস সম্পর্কে গ্লোবাল তথ্যের জন্য ডিস্Treeবিউটেড Database সোর্স এবং অ্যাক্সেস প্রদান করে।</li>
+          </ul>
+
+          <h2>How Data Flows Through OSI Model</h2>
+          <p>যখন আমরা এক Device থেকে অন্য Deviceে তথ্য ট্রান্সফার করি, তখন তা OSI model-এর ৭টি Layer দিয়ে ট্রাভেল করে। প্রথমে ডাটা প্রেরকের দিক থেকে ৭টি Layer ধরে নিচে নামে এবং এরপর গ্রাহকের দিকে পুনরায় ৭টি Layer বেয়ে ওপরে ওঠে। ডাটা নিচের ধাপ অনুযায়ী (step-by-step process) OSI model-এর মধ্য দিয়ে প্রবাহিত হয়:</p>
+
+          <ol>
+            <li><strong>Application Layer:</strong> Application ডাটা তৈরি করে।</li>
+            <li><strong>Presentation Layer:</strong> ডাটা ফরম্যাট এবং এনক্রিপ্ট করা হয়।</li>
+            <li><strong>Session Layer:</strong> কানেকশন এস্টাব্লিশ এবং ম্যানেজ করা হয়।</li>
+            <li><strong>Transport Layer:</strong> নির্ভরযোগ্য Deliveryর জন্য ডাটাকে সেগমেন্টে ভাগ করা হয়।</li>
+            <li><strong>Network Layer:</strong> সেগমেন্টগুলোকে প্যাকেটে সেজানো হয় এবং রাউট করা হয়।</li>
+            <li><strong>Data Link Layer:</strong> প্যাকেটগুলোকে ফ্রেমে আবদ্ধ করে পরবর্তী Deviceে পাঠানো হয়।</li>
+            <li><strong>Physical Layer:</strong> ফ্রেমগুলোকে Bitsে কনভার্ট করে ফিজিক্যালি ট্রান্সমিট করা হয়।</li>
+          </ol>
+          <p>প্রতিটি Layer নির্দিষ্ট তথ্য যুক্ত করে যাতে নিশ্চিত হওয়া যায় যে ডাটা সঠিকভাবে তার গন্তব্যে পৌঁছাবে, এবং গন্তব্যে পৌঁছানোর পর এই ধাপগুলো উল্টোভাবে (reverse) কাজ করে।</p>
+
+          <h3>Example of Data Flow:</h3>
+          <p>ধরা যাক, Person A তার বন্ধু Person B-কে একটি ইমেইল পাঠাচ্ছে।</p>
+          <ul>
+            <li><strong>Step 1:</strong> Person A একটি ইমেইল Application (যেমন Gmail, Outlook) ব্যবহার করে ইমেইল লেখে। (এটি Application Layer-এ ঘটে)।</li>
+            <li><strong>Step 2:</strong> Presentation Layer-এ, ইমেইল Application ডাটা Transmissionের জন্য প্রস্তুতি নেয়, যেমন ডাটা এনক্রিপ্ট (encrypt) এবং ফরম্যাট করা।</li>
+            <li><strong>Step 3:</strong> Session Layer-এ, প্রেরক এবং প্রাপকের মধ্যে একটি কানেকশন তৈরি হয়।</li>
+            <li><strong>Step 4:</strong> Transport Layer-এ, ইমেইল ডাটা ছোট ছোট সেগমেন্টে বিভক্ত হয়। তথ্যের Reliability বজায় রাখার জন্য এটি সিকোয়েন্স নম্বর এবং এরর-চেকিং তথ্য যোগ করে।</li>
+            <li><strong>Step 5:</strong> Network Layer-এ, প্যাকেটের অ্যাড্রেসিং করা হয় যাতে ট্রান্সফার করার জন্য সেরা Root খুঁজে পাওয়া যায়।</li>
+            <li><strong>Step 6:</strong> Data Link Layer-এ, ডাটা প্যাকেটগুলো ফ্রেমের মধ্যে এনক্যাপসুলেট করা হয়, তারপর লোকাল Deviceের জন্য MAC অ্যাড্রেস যোগ করা হয় এবং এরর ডিটেকশন ব্যবহার করে ভুল চেক করা হয়।</li>
+            <li><strong>Step 7:</strong> Physical Layer-এ, ফ্রেমগুলো Electrical বা অপটিক্যাল Signal হিসেবে Ethernet Cable বা ওয়াইফাই-এর মাধ্যমে ট্রান্সমিট করা হয়।</li>
+          </ul>
+          <p>ইমেইলটি প্রাপকের (Person B) কাছে পৌঁছানোর পর, প্রসেসটি উল্টে যাবে এবং ইমেইল কন্টেন্ট ডিক্রিপ্ট হবে। অবশেষে, Person B-এর ইমেইল ক্লায়েন্টে ইমেইলটি দেখা যাবে।</p>
+
+          <div class="table-wrapper">
+             <table class="table">
+                <thead>
+                  <tr>
+                    <th>Layer</th>
+                    <th>Working</th>
+                    <th>Protocol Data Unit</th>
+                    <th>Protocols</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Physical Layer</td>
+                    <td>Deviceগুলোর মধ্যে ফিজিক্যাল কানেকশন তৈরি করা।</td>
+                    <td>Bits</td>
+                    <td>USB, SONET/SDH, etc.</td>
+                  </tr>
+                  <tr>
+                    <td>DataLink Layer</td>
+                    <td>মেসেজের Node-টু-Node Delivery।</td>
+                    <td>Frames</td>
+                    <td>Ethernet, PPP, etc.</td>
+                  </tr>
+                  <tr>
+                    <td>Network Layer</td>
+                    <td>ভিন্ন ভিন্ন Networkে ডাটা Transmission।</td>
+                    <td>Packets</td>
+                    <td>IP, ICMP, IGMP, OSPF, etc.</td>
+                  </tr>
+                  <tr>
+                    <td>Transport Layer</td>
+                    <td>Network Layer থেকে সার্ভিস নিয়ে Application Layer-কে দেওয়া।</td>
+                    <td>Segments (TCP) / Datagrams (UDP)</td>
+                    <td>TCP, UDP, SCTP, etc.</td>
+                  </tr>
+                  <tr>
+                    <td>Session Layer</td>
+                    <td>কানেকশন তৈরি, Maintenance এবং Security নিশ্চিত করা।</td>
+                    <td>Data</td>
+                    <td>NetBIOS, RPC, PPTP, etc.</td>
+                  </tr>
+                  <tr>
+                    <td>Presentation Layer</td>
+                    <td>ডাটা এক্সট্রাক্ট করা এবং Transmissionের জন্য উপযুক্ত ফরম্যাটে রূপান্তর।</td>
+                    <td>Data</td>
+                    <td>TLS/SSL, MIME, etc.</td>
+                  </tr>
+                  <tr>
+                    <td>Application Layer</td>
+                    <td>ক্লায়েন্ট শনাক্ত করা এবং যোগাযোগ সিঙ্ক্রোনাইজ করা।</td>
+                    <td>Data</td>
+                    <td>FTP, SMTP, DNS, DHCP, etc.</td>
+                  </tr>
+                </tbody>
+             </table>
+          </div>
+
+          <h2>Why Does the OSI Model Matter?</h2>
+          <p>OSI Model গুরুত্বপূর্ণ কারণ এটি ইউজারকে "Networkে ডাটা কীভাবে মুভ করে?" তার একটি পরিষ্কার Structure (clear structure) প্রদান করে। যেহেতু OSI Model-এ ৭টি Layer রয়েছে এবং প্রতিটি Layerের নির্দিষ্ট কাজ আছে, তাই পুরো Networkকে নিয়ে একসাথে চিন্তা না করে কেবল একটি নির্দিষ্ট Layerে ফোকাস করার মাধ্যমে অত্যন্ত জটিল Network সমস্যা বুঝতে, শনাক্ত করতে এবং সমাধান করতে এটি সাহায্য করে।</p>
+          <p><strong>Note:</strong> যদিও আধুনিক Internetে সরাসরি OSI Model ব্যবহৃত হয় না (TCP/IP ব্যবহৃত হয়), তারপরও Network সমস্যা সমাধানের জন্য OSI Model এখনও অনেক বেশি কার্যকর। এটি মানুষকে খুব সহজে Network কনসেপ্ট বুঝতে সাহায্য করে।</p>
+
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script type="module" src="../js/network-background.js"></script>
+  </div>
+</body>
+
+</html>

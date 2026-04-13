@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="নিখুঁত নেটওয়ার্ক ইঞ্জিনিয়ারিং শিখুন। Switching কী এবং এর প্রধান প্রকারভেদগুলো যথা: Circuit, Message এবং Packet Switching-এর বিস্তারিত বর্ণনা।">
+  <title>Switching: Circuit, Message and Packet Switching | enablement.info</title>
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Switching: Detailed Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> January 20, 2026</span>
+
+            <span><i class='bx bx-category'></i> Networking</span>
+
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <h2><i class="bi bi-arrow-left-right"></i> Switching কী?</h2>
+          <p><strong>Switching</strong> হলো নেটওয়ার্কিংয়ের সেই প্রক্রিয়া যার মাধ্যমে ডেটা প্যাকেটগুলোকে এক লোকাল
+            নেটওয়ার্ক থেকে অন্য নেটওয়ার্কে পাঠানো হয়। এই কাজটি মূলত সুইচের মাধ্যমে সম্পন্ন করা হয় এবং এটি OSI মডেলের
+            Data Link Layer (Layer 2)-এ কাজ করে। এটি প্রতিটি ডিভাইসের MAC অ্যাড্রেস ব্যবহার করে ডেটাকে সঠিক গন্তব্যে
+            পাঠাতে সাহায্য করে এবং নেটওয়ার্কের কার্যক্ষমতা বৃদ্ধি করে।</p>
+
+          <div class="content-box">
+            <ul>
+              <li>সুইচ একটি নেটওয়ার্কে অনেকগুলো ডিভাইসকে কানেক্ট করতে সাহায্য করে।</li>
+              <li>এটি ডেটা প্যাকেটগুলোকে শুধু নির্ধারিত প্রাপকের কাছে পাঠায় যা নেটওয়ার্কে কলিশন বা জ্যাম কমায়।</li>
+              <li>নিজে থেকে MAC Address Table তৈরি করে সঠিক পোর্টে ডেটা ফরওয়ার্ড করে।</li>
+              <li>প্রয়োজনে এক্সটার্নাল নেটওয়ার্কের সাথে যোগাযোগের জন্য এটি রাউটারের সহায়তা নেয়।</li>
+            </ul>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-diagram-2"></i> Network Switching-এর কাজের ধাপসমূহ</h2>
+          <p>Switching প্রক্রিয়াটি মূলত কয়েকটি ধাপে সম্পন্ন হয়:</p>
+
+          <div class="diagram-container" style="max-width:100%;">
+            <div
+              style="display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:8px; padding:10px 0;">
+              <!-- Step 1 -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <div
+                  style="width:70px;height:70px;border-radius:50%;border:2px solid var(--primary-color);background:rgba(33,150,243,0.1);display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-arrow-down-circle" style="font-size:1.8rem;color:var(--primary-color);"></i>
+                </div>
+                <span style="font-size:0.8rem;color:#666;text-align:center;">১. Frame রিসিভ</span>
+              </div>
+              <!-- Arrow -->
+              <div style="color:var(--primary-color); font-size: 1.5rem; margin-bottom: 20px;">➜</div>
+              <!-- Step 2 -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <div
+                  style="width:70px;height:70px;border-radius:50%;border:2px solid var(--primary-color);background:rgba(33,150,243,0.1);display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-upc-scan" style="font-size:1.8rem;color:var(--primary-color);"></i>
+                </div>
+                <span style="font-size:0.8rem;color:#666;text-align:center;">২. MAC শনাক্ত</span>
+              </div>
+              <!-- Arrow -->
+              <div style="color:var(--primary-color); font-size: 1.5rem; margin-bottom: 20px;">➜</div>
+              <!-- Step 3 -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <div
+                  style="width:70px;height:70px;border-radius:50%;border:2px solid var(--primary-color);background:rgba(33,150,243,0.1);display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-table" style="font-size:1.8rem;color:var(--primary-color);"></i>
+                </div>
+                <span style="font-size:0.8rem;color:#666;text-align:center;">৩. Table চেক</span>
+              </div>
+              <!-- Arrow -->
+              <div style="color:var(--primary-color); font-size: 1.5rem; margin-bottom: 20px;">➜</div>
+              <!-- Step 4 -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <div
+                  style="width:70px;height:70px;border-radius:50%;border:2px solid var(--primary-color);background:rgba(33,150,243,0.1);display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-send" style="font-size:1.8rem;color:var(--primary-color);"></i>
+                </div>
+                <span style="font-size:0.8rem;color:#666;text-align:center;">৪. Forwarding</span>
+              </div>
+              <!-- Arrow -->
+              <div style="color:var(--primary-color); font-size: 1.5rem; margin-bottom: 20px;">➜</div>
+              <!-- Step 5 -->
+              <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+                <div
+                  style="width:70px;height:70px;border-radius:50%;border:2px solid #4caf50;background:rgba(76,175,80,0.1);display:flex;align-items:center;justify-content:center;">
+                  <i class="bi bi-check-circle" style="font-size:1.8rem;color:#4caf50;"></i>
+                </div>
+                <span style="font-size:0.8rem;color:#666;text-align:center;">৫. Transmission</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="content-box">
+            <ol>
+              <li><strong>Frame Reception:</strong> সুইচ যখন কোনো ডিভাইস থেকে ডেটা ফ্রেম পায়, তখন সে সেটি রিসিভ করে।
+              </li>
+              <li><strong>MAC Extraction:</strong> ফ্রেমের হেডার থেকে ডেস্টিনেশন ম্যাক অ্যাড্রেস শনাক্ত করা হয়।</li>
+              <li><strong>Lookup:</strong> সুইচের নিজের রাখা MAC Table থেকে গন্তব্য অ্যাড্রেসটি খুঁজে দেখা হয়।</li>
+              <li><strong>Forwarding & Flooding:</strong> যদি অ্যাড্রেস খুঁজে পাওয়া যায় তবে সেই পোর্টে ডেটা পাঠানো হয়
+                অন্যথায় ব্রডকাস্ট করা হয়।</li>
+              <li><strong>Table Update:</strong> সোর্স ডিভাইসের অ্যাড্রেসটি ভবিষ্যতে ব্যবহারের জন্য টেবিলে আপডেট রাখা
+                হয়।</li>
+              <li><strong>Transmission:</strong> সবশেষে ডেটা সফলভাবে গন্তব্যে পৌঁছায়।</li>
+            </ol>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-grid-3x3-gap"></i> Switching-এর প্রধান প্রকারভেদ</h2>
+          <p>নেটওয়ার্কে ডেটা আদান-প্রদানের জন্য নিচের ৩টি টেকনিক সবচেয়ে বেশি ব্যবহৃত হয়:</p>
+
+          <div class="content-box">
+            <h3 style="color:#2196f3">১. সার্কিট সুইচিং (Circuit Switching)</h3>
+            <p>এটি একটি কানেকশন ওরিয়েন্টেড পদ্ধতি যা টেলিকম নেটওয়ার্কে বেশি দেখা যায়। এতে প্রেরক ও প্রাপকের মধ্যে একটি
+              ডেডিকেটেড পাথ তৈরি হয়।</p>
+            <ul>
+              <li>পুরো সেশন জুড়ে পাথটি অন্য কেউ ব্যবহার করতে পারে না।</li>
+              <li>ব্যান্ডউইডথ ফিক্সড থাকে এবং কোনো ডেটা লস হওয়ার ভয় থাকে না।</li>
+            </ul>
+            <p><strong>উদাহরণ:</strong> টেলিফোন কল যেখানে কথা বলার সময় লাইনটি আপনার জন্য বুকড থাকে।</p>
+          </div>
+
+          <div class="content-box">
+            <h3 style="color:#2196f3">২. মেসেজ সুইচিং (Message Switching)</h3>
+            <p>এই পদ্ধতিতে পুরো মেসেজ একবারে একটি নোড থেকে অন্য নোডে পাঠানো হয়। এটি 'Store and Forward' মেকানিজমে চলে।
+            </p>
+            <ul>
+              <li>মেসেজটি এক নোডে সেভ হয় তারপর পরবর্তী নোডে ফরওয়ার্ড করা হয়।</li>
+              <li>সরাসরি কোনো পাথ না থাকলেও মাঝখানের নোডগুলো ডেটা স্টোর করতে পারে।</li>
+            </ul>
+            <p><strong>উদাহরণ:</strong> প্রাচীন ও আধুনিক ই-মেইল সিস্টেম যা ধাপে ধাপে প্রাপকের কাছে পৌঁছায়।</p>
+          </div>
+
+          <div class="content-box">
+            <h3 style="color:#9c27b0">৩. প্যাকেট সুইচিং (Packet Switching)</h3>
+            <p>এটি আধুনিক ইন্টারনেটের প্রাণ। এতে ডেটাকে অনেকগুলো ছোট ছোট প্যাকেটে ভাগ করে ইনডিপেনডেন্টলি পাঠানো হয়।</p>
+            <ul>
+              <li>প্রতিটি প্যাকেট ভিন্ন ভিন্ন পথ দিয়ে গন্তব্যে পৌঁছাতে পারে।</li>
+              <li>এটি ডেটার ট্রাফিক অনুযায়ী ডাইনামিকভাবে পথ পরিবর্তন করে যা ব্যান্ডউইডথ সাশ্রয় করে।</li>
+            </ul>
+            <p><strong>উদাহরণ:</strong> গ্লোবাল ইন্টারনেট ওয়েবসাইট ভিজিট বা অনলাইন ভিডিও স্ট্রিমিং।</p>
+          </div>
+
+          <hr>
+
+          <!-- Custom CSS Diagram: Circuit vs Packet Switching -->
+          <div style="overflow-x: auto; margin: 25px 0;">
+            <h4 style="margin-top: 0; color: #2e7d32; margin-bottom: 25px; font-size: 1.1rem; text-align: center;">
+              Circuit vs Packet Switching (Visual Comparison)</h4>
+
+            <div
+              style="display: flex; gap: 30px; justify-content: center; min-width: min(600px, 88vw); max-width: 800px; margin: 0 auto; font-family: 'Courier New', monospace; font-weight: bold; font-size: 0.9rem; text-align: center;">
+
+              <div
+                style="flex: 1; background: rgba(33,150,243,0.05); border: 1px solid rgba(33,150,243,0.2); padding: 15px; border-radius: 10px;">
+                <h5 style="color: #2196f3; margin-top: 0;">Circuit Switching</h5>
+                <div style="height: 100px; position: relative; margin: 15px 0;">
+                  <div style="position: absolute; top: 50%; left: 0; right: 0; height: 4px; background: #2196f3;">
+                  </div>
+                  <div
+                    style="position: absolute; top: 35%; left: 0; width: 30px; height: 30px; background: #2196f3; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;">
+                    A</div>
+                  <div
+                    style="position: absolute; top: 35%; right: 0; width: 30px; height: 30px; background: #2196f3; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;">
+                    B</div>
+                </div>
+                <p style="font-size: 0.8rem; font-weight: normal; color: #666;">উচ্চ নির্ভরযোগ্যতা এবং ফিক্সড লাইন
+                  কানেকশন।</p>
+              </div>
+
+              <div
+                style="flex: 1; background: rgba(156,39,176,0.05); border: 1px solid rgba(156,39,176,0.2); padding: 15px; border-radius: 10px;">
+                <h5 style="color: #9c27b0; margin-top: 0;">Packet Switching</h5>
+                <div style="height: 100px; position: relative; margin: 15px 0;">
+                  <!-- Packets -->
+                  <div
+                    style="position: absolute; top: 10%; left: 40%; width: 20px; height: 15px; background: #9c27b0; border-radius: 3px; font-size: 0.6rem; color: #fff; display: flex; align-items: center; justify-content: center;">
+                    P1</div>
+                  <div
+                    style="position: absolute; top: 70%; left: 60%; width: 20px; height: 15px; background: #9c27b0; border-radius: 3px; font-size: 0.6rem; color: #fff; display: flex; align-items: center; justify-content: center;">
+                    P2</div>
+                  <div
+                    style="position: absolute; top: 40%; left: 20%; width: 20px; height: 15px; background: #9c27b0; border-radius: 3px; font-size: 0.6rem; color: #fff; display: flex; align-items: center; justify-content: center;">
+                    P3</div>
+
+                  <div
+                    style="position: absolute; top: 35%; left: 0; width: 30px; height: 30px; background: #9c27b0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;">
+                    A</div>
+                  <div
+                    style="position: absolute; top: 35%; right: 0; width: 30px; height: 30px; background: #9c27b0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff;">
+                    B</div>
+                </div>
+                <p style="font-size: 0.8rem; font-weight: normal; color: #666;">আধুনিক ইন্টারনেট ডাইনামিক এবং
+                  ইফিসিয়েন্ট।</p>
+              </div>
+
+            </div>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-info-circle"></i> সারসংক্ষেপ</h2>
+          <p>সুইচিং হলো নেটওয়ার্কিংয়ের অত্যন্ত গুরুত্বপূর্ণ একটি প্রক্রিয়া। যেখানে ভয়েস কল বা লাইভ কমিউনিকেশনের জন্য
+            সার্কিট সুইচিং আদর্শ, সেখানে উন্নত গ্লোবাল নেটওয়ার্কিংয়ের অধিকাংশ কাজই প্যাকেট সুইচিংয়ের মাধ্যমে সম্পন্ন
+            হয়। এটি নেটওয়ার্কের নির্ভরযোগ্যতা ও উচ্চ গতি নিশ্চিত করে।</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script type="module" src="../js/network-background.js"></script>
+  </div>
+</body>
+
+</html>

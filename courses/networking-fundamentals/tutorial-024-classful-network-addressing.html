@@ -1,0 +1,398 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="নিখুঁত নেটওয়ার্ক ইঞ্জিনিয়ারিং শিখুন। Classful IP Addressing এবং এর গঠন সম্পর্কে বিস্তারিত তথ্য।">
+  <title>Classful IP Addressing | enablement.info</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+  <script
+    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Classful IP Addressing</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> February 27, 2026</span>
+
+            <span><i class='bx bx-category'></i> Networking</span>
+
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p><strong>Classful IP Addressing</strong> হলো আইপি অ্যাড্রেস অ্যাসাইন করার একটি পুরনো পদ্ধতি (১৯৮১-১৯৯৩),
+            যেখানে IPv4 অ্যাড্রেস স্পেসকে পাঁচটি প্রধান ক্লাসে ভাগ করা হয়েছিল। প্রতিটি ক্লাসের শুরুর নির্দিষ্ট কিছু বিট
+            দেখে এটি কোন ক্লাসের আইপি তা নির্ধারণ করা হতো। এই পদ্ধতিতে নেটওয়ার্ক ও হোস্ট বিটের সংখ্যা আগে থেকেই ফিক্সড
+            থাকতো যা অ্যাড্রেস ব্যবহারের কোনো নমনীয়তা (flexibility) বজায় রাখতো না।</p>
+
+          <div class="content-box">
+            <i class="bi bi-info-circle"></i> বর্তমানে এই ক্লাসিফিকেশন পদ্ধতির পরিবর্তে আরও আধুনিক ও ফ্লেক্সিবল
+            <strong>CIDR (Classless Inter-Domain Routing)</strong> পদ্ধতি ব্যবহৃত হয়।
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-display"></i> IP Address-এর বিভিন্ন সংকেত (Notations)</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+            <div class="content-box">
+              <h3><i class="bi bi-dot"></i> Dotted Decimal</h3>
+              <p>সবচেয়ে প্রচলিত পদ্ধতি, যেখানে ৩২-বিট বাইনারি অ্যাড্রেসকে ৮-বিট করে ৪টি সেগমেন্টে (Octet) ডট দিয়ে আলাদা
+                করে প্রকাশ করা হয়।</p>
+              <ul>
+                <li>৪টি অক্টেটের মান ০ থেকে ২৫৫ পর্যন্ত হয়।</li>
+                <li>উদাহরণ: 192.168.1.1</li>
+              </ul>
+            </div>
+            <div class="content-box">
+              <h3><i class="bi bi-hash"></i> Hexadecimal</h3>
+              <p>নেটওয়ার্কিং ডিব্যাগিংয়ের জন্য অনেক সময় আইপি অ্যাড্রেসকে হেক্সাডেসিমেল বা Base-16 ফরম্যাটে প্রকাশ করা
+                হয়।</p>
+              <ul>
+                <li>কডিং এবং প্রোগ্রামিং এর ক্ষেত্রে এটি অনেক ব্যবহৃত হয়।</li>
+                <li>প্রতিটি অক্টেটের জন্য ৮টি বিট ব্যবহৃত হয়।</li>
+              </ul>
+            </div>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-patch-question"></i> কেন Classful Addressing ব্যবহৃত হতো?</h2>
+          <div class="content-box">
+            <ul>
+              <li><strong>সহজ বিন্যাস:</strong> বিভিন্ন ক্লাসে ভাগ করে আইপি ম্যানেজমেন্ট সহজ করা হয়েছিল।</li>
+              <li><strong>দ্রুত রাউটিং:</strong> রাউটারগুলো শুরুর বিট দেখলেই সহজে নেটওয়ার্ক আইডি চিনতে পারতো।</li>
+              <li><strong>স্কেলেবিলিটি:</strong> ছোট বা বড় নেটওয়ার্কের জন্য আলাদা আলাদা ক্লাস (A, B, C) নির্ধারণের
+                সুবিধা ছিল।</li>
+              <li><strong>স্ট্যান্ডার্ডাইজেশন:</strong> সব ডিভাইসের জন্য একটি সুশৃঙ্খল নেটওয়ার্ক কাঠামো তৈরির চেষ্টা
+                ছিল।</li>
+            </ul>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-diagram-3"></i> IP Address Management</h2>
+          <div class="content-box">
+            <p>আইপি অ্যাড্রেস বিতরণের কাজটি মূলত <strong>Internet Assigned Numbers Authority (IANA)</strong> এবং আঞ্চলিক
+              <strong>Regional Internet Registries (RIRs)</strong> দ্বারা নিয়ন্ত্রিত হয়। সঠিক নিয়ম মেনে আইপি বিতরণের
+              মাধ্যমে গ্লোবাল নেটওয়ার্কে প্রতিটি ডিভাইসকে ইউনিক বা অদ্বিতীয় রাখা নিশ্চিত করা যায়।</p>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-table"></i> Classful Addressing-এর কাঠামো (Structure)</h2>
+          <p>নিচের টেবিলে ও ডায়াগ্রামে প্রতিটি ক্লাসের বিট বরাদ্দ দেখানো হলো:</p>
+
+          <!-- Custom CSS Diagram for IP Classes -->
+          <div style="overflow-x: auto; margin: 25px 0;">
+            <h4 style="margin-top: 0; color: #666; margin-bottom: 25px; font-size: 1.2rem; text-align: center;">Bit
+              Allocation per IP Class (32 Bits Total)</h4>
+            <div
+              style="display: flex; flex-direction: column; gap: 15px; min-width: min(600px, 88vw); max-width: 800px; margin: 0 auto; font-family: 'Courier New', monospace; font-weight: bold; font-size: 0.95rem; text-align: center;">
+              <!-- Class A -->
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="width: 70px; color: #2196f3; font-size: 1.1rem;">Class A</span>
+                <div style="display: flex; gap: 3px; flex: 1;">
+                  <div
+                    style="background: rgba(255,87,34,0.2); border: 2px solid #ff5722; padding: 10px; color: #bf360c; flex: 0.1;">
+                    0</div>
+                  <div
+                    style="background: rgba(33,150,243,0.10); border: 2px solid #2196f3; padding: 10px; color: #0d47a1; flex: 0.9;">
+                    Network (7 bits)</div>
+                  <div
+                    style="background: rgba(255,152,0,0.10); border: 2px solid #ff9800; padding: 10px; color: #e65100; flex: 3;">
+                    Host (24 bits)</div>
+                </div>
+              </div>
+              <!-- Class B -->
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="width: 70px; color: #4caf50; font-size: 1.1rem;">Class B</span>
+                <div style="display: flex; gap: 3px; flex: 1;">
+                  <div
+                    style="background: rgba(255,87,34,0.2); border: 2px solid #ff5722; padding: 10px; color: #bf360c; flex: 0.2;">
+                    1 0</div>
+                  <div
+                    style="background: rgba(33,150,243,0.10); border: 2px solid #2196f3; padding: 10px; color: #0d47a1; flex: 1.8;">
+                    Network (14 bits)</div>
+                  <div
+                    style="background: rgba(255,152,0,0.10); border: 2px solid #ff9800; padding: 10px; color: #e65100; flex: 2;">
+                    Host (16 bits)</div>
+                </div>
+              </div>
+              <!-- Class C -->
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="width: 70px; color: #ffc107; font-size: 1.1rem;">Class C</span>
+                <div style="display: flex; gap: 3px; flex: 1;">
+                  <div
+                    style="background: rgba(255,87,34,0.2); border: 2px solid #ff5722; padding: 10px; color: #bf360c; flex: 0.3;">
+                    1 1 0</div>
+                  <div
+                    style="background: rgba(33,150,243,0.10); border: 2px solid #2196f3; padding: 10px; color: #0d47a1; flex: 2.7;">
+                    Network (21 bits)</div>
+                  <div
+                    style="background: rgba(255,152,0,0.10); border: 2px solid #ff9800; padding: 10px; color: #e65100; flex: 1;">
+                    Host (8 bits)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Leading Bits</th>
+                  <th>Net ID (Bit)</th>
+                  <th>Host ID (Bit)</th>
+                  <th>মোট নেটওয়ার্ক</th>
+                  <th>প্রতি নেটওয়ার্কে সম্ভাব্য হোস্ট</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Class A</td>
+                  <td>0</td>
+                  <td>8</td>
+                  <td>24</td>
+                  <td>১২৮ (২^৭)</td>
+                  <td>১,৬৭,৭৭,২১৪</td>
+                </tr>
+                <tr>
+                  <td>Class B</td>
+                  <td>10</td>
+                  <td>16</td>
+                  <td>16</td>
+                  <td>১৬,৩৮৪ (২^১৪)</td>
+                  <td>৬৫,৫৩৪</td>
+                </tr>
+                <tr>
+                  <td>Class C</td>
+                  <td>110</td>
+                  <td>24</td>
+                  <td>8</td>
+                  <td>২,০৯৭,১৫২ (২^২১)</td>
+                  <td>২৫৪</td>
+                </tr>
+                <tr>
+                  <td>Class D</td>
+                  <td>1110</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>মাল্টিকাস্ট</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>Class E</td>
+                  <td>1111</td>
+                  <td>-</td>
+                  <td>-</td>
+                  <td>গবেষণা</td>
+                  <td>-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="article-meta"><strong>বিঃদ্রঃ:</strong> Class A এর ক্ষেত্রে ১২৭ নেটওয়ার্কটি লুকব্যাক (Loopback)
+            কাজের জন্য সংরক্ষিত থাকে তাই এটি ব্যবহার করা যায় না।</p>
+
+          <hr>
+
+          <h2><i class="bi bi-grid-3x3-gap"></i> IP Address এর ক্লাসসমূহ (বিস্তারিত)</h2>
+          <p>৩২-বিট আইপি অ্যাড্রেসকে নিচে দেওয়া ৫টি ক্লাসে ভাগ করা হয়েছে:</p>
+
+          <div class="content-box">
+            <h3 style="color:#2196f3">Class A</h3>
+            <p>অনেক বিশাল নেটওয়ার্ক যেখানে প্রচুর হোস্ট আছে তাদের জন্য এটি ব্যবহৃত হয়।</p>
+            <ul>
+              <li><strong>প্রথম বিট:</strong> সব সময় '0' থাকে।</li>
+              <li><strong>অ্যাড্রেস রেঞ্জ:</strong> ০.০.০.০ থেকে ১২৭.২৫৫.২৫৫.২৫৫</li>
+              <li><strong>নেটওয়ার্ক বিট:</strong> ৮ বিট | <strong>হোস্ট বিট:</strong> ২৪ বিট</li>
+              <li><strong>সাবনেট মাস্ক:</strong> ২৫৫.০.০.০</li>
+            </ul>
+          </div>
+
+          <div class="content-box">
+            <h3 style="color:#4caf50">Class B</h3>
+            <p>মাঝারি আকারের নেটওয়ার্কের জন্য এটি ডিজাইন করা হয়েছে।</p>
+            <ul>
+              <li><strong>প্রথম ২ বিট:</strong> সব সময় '10' থাকে।</li>
+              <li><strong>অ্যাড্রেস রেঞ্জ:</strong> ১২৮.০.০.০ থেকে ১৯১.২৫৫.২৫৫.২৫৫</li>
+              <li><strong>নেটওয়ার্ক বিট:</strong> ১৬ বিট | <strong>হোস্ট বিট:</strong> ১৬ বিট</li>
+              <li><strong>সাবনেট মাস্ক:</strong> ২৫৫.২৫৫.০.০</li>
+            </ul>
+          </div>
+
+          <div class="content-box">
+            <h3 style="color:#ffc107">Class C</h3>
+            <p>ছোট আকারের নেটওয়ার্ক যেমন অফিস বা বাসাবাড়ির জন্য এটি সবচেয়ে উপযোগী।</p>
+            <ul>
+              <li><strong>প্রথম ৩ বিট:</strong> সব সময় '110' থাকে।</li>
+              <li><strong>অ্যাড্রেস রেঞ্জ:</strong> ১৯২.০.০.০ থেকে ২২৩.২৫৫.২৫৫.২৫৫</li>
+              <li><strong>নেটওয়ার্ক বিট:</strong> ২৪ বিট | <strong>হোস্ট বিট:</strong> ৮ বিট</li>
+              <li><strong>সাবনেট মাস্ক:</strong> ২৫৫.২৫৫.২৫৫.০</li>
+            </ul>
+          </div>
+
+          <div class="content-box">
+            <h3 style="color:#ff5722">Class D</h3>
+            <p>এটি <strong>মাল্টিকাস্টিং (Multicast)</strong> এর জন্য ব্যবহার করা হয়।</p>
+            <ul>
+              <li><strong>প্রথম ৪ বিট:</strong> সব সময় '1110' থাকে।</li>
+              <li><strong>অ্যাড্রেস রেঞ্জ:</strong> ২২৪.০.০.০ থেকে ২৩৯.২৫৫.২৫৫.২৫৫</li>
+            </ul>
+          </div>
+
+          <div class="content-box">
+            <h3 style="color:#607d8b">Class E</h3>
+            <p>গবেষণা ও পরীক্ষার কাজের জন্য এটি রিজার্ভ করা হয়েছে।</p>
+            <ul>
+              <li><strong>প্রথম ৪ বিট:</strong> সব সময় '1111' থাকে।</li>
+              <li><strong>অ্যাড্রেস রেঞ্জ:</strong> ২৪০.০.০.০ থেকে ২৫৫.২৫৫.২৫৫.২৫৫</li>
+            </ul>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-star"></i> বিশেষ আইপি রেঞ্জসমূহ</h2>
+          <div class="content-box">
+            <ul>
+              <li><strong>১২৭.০.০.০ - ১২৭.২৫৫.২৫৫.২৫৫:</strong> লুকব্যাক অ্যাড্রেস, যা নিজের কম্পিউটারের কানেক্টিভিটি
+                টেস্ট করতে ব্যবহৃত হয়।</li>
+              <li><strong>১৬৯.২৫৪.০.০ - ১৬৯.২৫৪.২৫৫.২৫৫:</strong> লিঙ্ক-লোকাল অ্যাড্রেস, যখন কোনো DHCP সার্ভার আইপি দিতে
+                পারে না তখন এটি ব্যবহৃত হয়।</li>
+              <li><strong>০.০.০.০:</strong> লোকাল নেটওয়ার্ক বা ডিফল্ট নেটওয়ার্ক বোঝাতে ব্যবহৃত হয়।</li>
+            </ul>
+          </div>
+
+          <hr>
+
+          <h2><i class="bi bi-exclamation-triangle"></i> Classful Addressing-এর সীমাবদ্ধতা</h2>
+          <div class="content-box">
+            <p>এই পদ্ধতির প্রধান সমস্যা হলো আইপি অ্যাড্রেসের অপব্যবহার। যেমন:</p>
+            <ul>
+              <li>Class A এবং B তে হাজার হাজার আইপি অব্যবহৃত থাকতো।</li>
+              <li>Class C অনেক ছোট হওয়ায় বড় অফিসের জন্য পর্যাপ্ত হতো না।</li>
+              <li>এটি ফ্লেক্সিবল না হওয়ায় সাবনেটিং করা জটিল ছিল।</li>
+            </ul>
+            <p>এই সমস্যাগুলোর সমাধানে ১৯৯৩ সালে <strong>CIDR</strong> প্রবর্তন করা হয়।</p>
+          </div>
+
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script type="module" src="../js/network-background.js"></script>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zero Trust is no longer a buzzword; it is a mandatory architectural response to the dissolution of the traditional network perimeter. This guide provides a technical roadmap for moving from a legacy "trust-but-verify" model to a modern "never-trust-always-verify" infrastructure.">
+  <title>Implementing Zero Trust in Enterprise Networks | enablement.info</title>
+
+
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Bootstrap Icons (Keep legacy support if needed, but prefer boxicons) -->
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/style.css">
+
+  
+  
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body, html { margin: 0; padding: 0; background: var(--bg-dark);  color: var(--text-main); }
+    .blog-content-wrapper { max-width: 100%; margin: 0 auto; }
+    .glass-panel { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 20px; }
+    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
+    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
+    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
+    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
+    .article-body p { margin-bottom: 20px; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
+    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
+    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
+    .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
+    .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
+  </style>
+
+</head>
+
+<body>
+  <header class="glass-header">
+    <div class="container">
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a href="../index.html">
+              <i class='bx bx-home-alt-2'></i>
+              <span class="nav-text">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="../blogs.html" class="active">
+              <i class='bx bx-book-content'></i>
+              <span class="nav-text">Blog</span>
+            </a>
+          </li>
+          <li>
+            <a href="../courses.html">
+              <i class='bx bx-play-circle'></i>
+              <span class="nav-text">Courses</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-content-wrapper">
+    <div class="container">
+      <a href="../../blogs.html" class="back-btn">
+          <i class='bx bx-arrow-back'></i>
+          <span>Back to Articles</span>
+        </a>
+
+        <article class="glass-panel">
+          <header class="article-header">
+            <h1>Implementing Zero Trust in Enterprise Networks</h1>
+            <div class="article-meta">
+              <span><i class='bx bx-calendar'></i> Jan 22, 2026</span>
+              
+              <span><i class='bx bx-category'></i> Networking</span>
+            
+              
+              <span><i class='bx bx-user'></i> Jobaer Hossain</span></div>
+          </header>
+
+          <div class="article-body">
+<p>Zero Trust is no longer a buzzword; it is a mandatory architectural response to the dissolution of the traditional network perimeter. This guide provides a technical roadmap for moving from a legacy "trust-but-verify" model to a modern "never-trust-always-verify" infrastructure.</p>
+
+                <h3>1. Defining the Protect Surface</h3>
+                <p>In traditional security, we focus on the Attack Surface (everything that can be breached). In Zero Trust, we flip the script and identify the <strong>Protect Surface</strong>. This consists of the most critical DAAS elements: Data, Applications, Assets, and Services.</p>
+                <p>Instead of trying to secure the entire network at once, a successful Zero Trust implementation starts by creating a <strong>Micro-Perimeter</strong> around a single Protect Surface. For instance, rather than "securing the HR network," you secure the "HR Payroll Database" specifically.</p>
+
+                <h3>2. The Identity-First Security Model</h3>
+                <p>In a Zero Trust environment, <strong>Identity is the new perimeter</strong>. This requires moving beyond simple Active Directory groups. Implementation involves:</p>
+                <ul>
+                  <li><strong>Adaptive MFA:</strong> Requiring stronger authentication based on the risk context (e.g., a login from a new device or an unusual location).</li>
+                  <li><strong>Conditional Access Policies:</strong> Setting rules like "Users can only access the Financial ERP if they are on a company-managed device with an active EDR agent."</li>
+                  <li><strong>Just-in-Time (JIT) Administration:</strong> Removing permanent admin rights and granting elevated privileges only when needed for a specific window of time.</li>
+                </ul>
+
+                <h3>3. Mapping Transaction Flows</h3>
+                <p>You cannot protect what you do not understand. One of the most intensive phases of Zero Trust implementation is <strong>Flow Mapping</strong>. This involves using packet sniffers, NetFlow analysis, and application logs to see exactly how data moves across your network.</p>
+                <blockquote>
+                  "Shadow IT and undocumented legacy protocols are the primary obstacles to mapping transaction flows. If a service account is talking to a database using an unencrypted port, Zero Trust will expose—and block—it."
+                </blockquote>
+
+                <h3>4. Architecting Micro-Segmentation</h3>
+                <p>Once flows are mapped, we implement <strong>Micro-segmentation</strong>. This is the process of using Next-Generation Firewalls (NGFW) or Software-Defined Networking (SDN) to isolate workloads from one another.</p>
+                <p>For enterprise networks, this often means moving away from large VLANs toward <strong>Host-to-Host isolation</strong>. Even if two servers sit in the same rack, they should not be able to communicate unless a specific policy allows it. This effectively stops lateral movement during a ransomware attack.</p>
+
+                <h3>5. Deployment of ZTNA (Zero Trust Network Access)</h3>
+                <p>The final practical step is replacing the traditional VPN with <strong>ZTNA</strong>. Unlike a VPN, which gives a user an IP address on your internal network (allowing them to see everything), ZTNA creates a 1-to-1 encrypted tunnel between the user and a specific application.</p>
+                <ul>
+                  <li>The application is "dark" to the public internet.</li>
+                  <li>The user never has a presence on the internal network.</li>
+                  <li>The session is terminated the moment the user stops interacting with that specific app.</li>
+                </ul>
+
+                <div class="tech-summary-box">
+                  <div class="stage-badge">Implementation Checklist</div>
+                  <ul class="mt-3">
+                    <li><strong>Inventory:</strong> Identify your DAAS (Data, Apps, Assets, Services).</li>
+                    <li><strong>Identity:</strong> Implement MFA and Single Sign-On (SSO) globally.</li>
+                    <li><strong>Visibility:</strong> Enable full logging on all internal traffic (East-West).</li>
+                    <li><strong>Policy:</strong> Write "Whitelisting" rules—deny all by default.</li>
+                  </ul>
+                  <hr>
+                  <p class="mb-0"><strong>Summary:</strong> Implementing Zero Trust is a journey, not a switch. By focusing on identifying the Protect Surface and enforcing identity-based access, you build a network that is inherently resilient against modern, persistent threats.</p>
+                </div>
+</div>
+          </div>
+        </article>
+      </div>
+    <footer class="glass-footer">
+      <div class="container">
+        <p>&copy; 2026 enablement.info. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </main>
+<script>
+    if (window.self !== window.top) {
+        document.addEventListener("DOMContentLoaded", function() {
+            var hd = document.querySelector('.glass-header'); if(hd) hd.style.display = 'none';
+            var ft = document.querySelector('.glass-footer'); if(ft) ft.style.display = 'none';
+            var bb = document.querySelector('.back-btn'); if(bb) bb.style.display = 'none';
+            var ov = document.querySelector('.overlay'); if(ov) ov.style.paddingTop = '0';
+            var mainWrapper = document.querySelector('main'); 
+            if(mainWrapper) {
+                mainWrapper.style.paddingLeft = '0';
+                mainWrapper.style.paddingRight = '0';
+                mainWrapper.style.paddingTop = '10px';
+                mainWrapper.style.margin = '0 auto';
+            }
+        });
+    }
+</script>
+  </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

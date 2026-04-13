@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="সহজে শিখুন Network Engineering. Physical Layer in OSI Model নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Physical Layer in OSI Model | enablement.info</title>
+
+
+  <!-- Icons -->
+  
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Physical Layer in OSI Model - Layer 1 Functions</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>Physical Layer হলো OSI Modelের সর্বনিম্ন Layer (lowest layer), যা Network Hardwareের মাধ্যমে র (raw)
+            ডাটা Bits ট্রান্সমিট করার জন্য দায়ী। এটি Networkিংয়ের ভৌত বা ভৌত স্তরের কাজগুলো সম্পাদন করে।</p>
+          <ul>
+            <li>এটি ডাটার ফিজিক্যাল এবং Electrical Transmission হ্যান্ডেল করে।</li>
+            <li>এর মধ্যে রয়েছে Cable (cables), Connector (connectors), Plug এবং রিসিভার।</li>
+            <li>Deviceের মধ্যে র Bits (raw bits) ট্রান্সফার করে।</li>
+            <li>এটি Hardware Standard এবং Signal টাইপ (signal types) নির্ধারণ করে।</li>
+          </ul>
+
+          <h2>Functions of Physical Layer</h2>
+          <p>ফিজিক্যাল Layerের প্রধান কাজগুলো নিচে বিস্তারিত আলোচনা করা হলো:</p>
+          <ul>
+            <li><strong>ডাটা Transmission:</strong> ফিজিক্যাল Layer একটি ফিজিক্যাল মিডিয়ার ওপর Bit হিসেবে র ডাটা পাঠানোর
+              জন্য দায়ী।</li>
+            <li><strong>Encoding and Decoding:</strong> এটি ডাটাকে Signalে রূপান্তরিত করে (encoding) যাতে তা তার
+              (wire), Fiber Optics বা Wireless Channelের মাধ্যমে ভ্রমণ করতে পারে এবং রিসিভারের কাছে সেই
+              Signalগুলোকে পুনরায় ডাটায় পরিণত করে (decoding)।</li>
+            <li><strong>Modulation and Demodulation:</strong> এটি নিশ্চিত করে যে Signalগুলো সঠিকভাবে ট্রান্সমিট হচ্ছে
+              এবং Transmissionের জন্য ডাটা প্রস্তুত করতে Modulation এবং অন্য প্রান্তে তা ফিরে পেতে Demodulation প্রযুক্তি
+              ব্যবহার করে।</li>
+            <li><strong>Data Flow Control:</strong> এই Layer Transmission মোডের মাধ্যমে ডাটা কীভাবে প্রবাহিত হবে (একমুখী,
+              পর্যায়ক্রমে উভমুখী, বা একসাথে উভমুখী) তা নির্ধারণ করে এবং ডাটা Transmissionের গতি ও সময় নিয়ন্ত্রণ করে।</li>
+          </ul>
+
+          <h2>Physical Topologies</h2>
+          <p>ফিজিক্যাল Topology একটি Networkে Device এবং Cableের ফিজিক্যাল বিন্যাস বা সাজানোর পদ্ধতি বর্ণনা করে।
+            Computer Networkে বিভিন্ন ধরণের Topology ব্যবহৃত হয়:</p>
+          <ul>
+            <li><strong>Point-to-Point configuration:</strong> এখানে দুটি Deviceের মধ্যে ডাটা বহনের জন্য একটি লাইন বা
+              Link (link) পুরোপুরি নিবেদিত থাকে।</li>
+            <li><strong>Multi-Point configuration:</strong> এখানে একটি লাইন বা Linkের মাধ্যমে একাধিক Device সংযুক্ত
+              থাকে।</li>
+          </ul>
+          <p>Topology সম্পর্কে আরও জানতে পড়ুন: <a href="tutorial-007-types-of-network-topology.html">Types of Network
+              Topology</a></p>
+
+          <h2>Protocols in Physical Layer</h2>
+          <p>সাধারণত Hardware এবং Software প্রোগ্রামিংয়ের সমন্বয়ে ফিজিক্যাল Layer গঠিত হয়। এটি বেশ কিছু Protocol
+            নিয়ে গঠিত যা Networkে ডাটা Transmission নিয়ন্ত্রণ করে। Layer ১ Protocolের কিছু উদাহরণ হলো:</p>
+          <ul>
+            <li><strong>Ethernet (IEEE 802.3):</strong> তারযুক্ত (wired) Networkের জন্য ব্যাপকভাবে ব্যবহৃত হয়।</li>
+            <li><strong>Wi-Fi (IEEE 802.11):</strong> Wireless যোগাযোগের জন্য ব্যবহৃত হয়।</li>
+            <li><strong>Bluetooth (IEEE 802.15.1):</strong> স্বল্পপাল্লার Wireless যোগাযোগের জন্য ব্যবহৃত হয়।</li>
+            <li><strong>USB (Universal Serial Bus):</strong> অল্প দূরত্বের মধ্যে Device কানেক্ট করার জন্য ব্যবহৃত হয়।
+            </li>
+          </ul>
+
+          <h2>Need of Physical Layer in Security</h2>
+          <p>Securityর ক্ষেত্রে ফিজিক্যাল Layer অত্যন্ত গুরুত্বপূর্ণ কারণ কোনো Software কাজ শুরু করার আগেই অনেক ধরণের
+            অ্যাটাক হতে পারে। এই স্তরের হুমকিগুলো মূলত প্রকৃত Hardware বা Transmission মিডিয়ামকে টার্গেট করে:</p>
+          <ul>
+            <li><strong>Cable Tapping:</strong> Hackerরা Network Cableের সাথে সরাসরি যুক্ত হয়ে ডাটা বিরতি বা চুরি
+              করতে পারে।</li>
+            <li><strong>Physical Access:</strong> যদি কেউ অনুমতি ছাড়াই Server রুম বা Hardware এলাকায় ঢুকে পড়ে, তবে
+              তারা Hardware/Equipment চুরি বা ক্ষতি করতে পারে।</li>
+            <li><strong>Wireless Signal Interception:</strong> বিশেষ টুল ব্যবহার করে বাইরে থেকে ওয়াইফাই Signal দখল
+              (capture) করা সম্ভব।</li>
+            <li><strong>Hardware Manipulation:</strong> কেউ Router বা USB Portের মতো ফিজিক্যাল Deviceে হস্তক্ষেপ করে
+              গোপনে ক্ষতিকারক Software ইনস্টল করতে পারে।</li>
+          </ul>
+
+          <h2>Applications</h2>
+          <ul>
+            <li>এটি নিশ্চিত করে যে Deviceগুলো ফিজিক্যাল মিডিয়ামের মাধ্যমে র ডাটা পাঠাতে এবং গ্রহণ করতে পারে।</li>
+            <li>এটি Cable, Connector এবং Signalিংয়ের জন্য সর্বজনীন Standard প্রদান করে সামঞ্জস্য (compatibility)
+              নিশ্চিত করে।</li>
+            <li>এটি তারযুক্ত (যেমন Ethernet) এবং Wireless (যেমন ওয়াইফাই) উভয় ধরণের প্রযুক্তিতে কাজ করে।</li>
+          </ul>
+
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script type="module" src="../js/network-background.js"></script>
+  </div>
+</body>
+
+</html>

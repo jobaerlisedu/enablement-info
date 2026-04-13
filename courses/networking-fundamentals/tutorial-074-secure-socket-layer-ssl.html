@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="সহজে শিখুন Network Engineering. Secure Socket লেয়ার (SSL) এবং TLS নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Secure Socket লেয়ার (SSL) | enablement.info</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Secure Socket লেয়ার (SSL)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> March 15, 2026</span>
+            <span><i class='bx bx-category'></i> Networking</span>
+
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p><strong>Secure Socket লেয়ার (SSL)</strong> হলো ইন্টারনেটে নিরাপদ ডাটা ট্রান্সমিশনের একটি স্ট্যান্ডার্ড
+            পদ্ধতি। এটি ওয়েব সার্ভার এবং ব্রাউজারের মধ্যে একটি এনক্রিপ্টেড (Encrypted) সংযোগ স্থাপন করে। এর ফলে ক্রেডিট
+            কার্ড নম্বর, পাসওয়ার্ড বা ব্যক্তিগত তথ্যের মতো সংবেদনশীল ডেটা হ্যাকারদের থেকে সুরক্ষিত থাকে। বর্তমানে SSL-এর
+            পরিবর্তে আরও উন্নত <strong>TLS (Transport Layer Security)</strong> ব্যবহৃত হয়।</p>
+
+          <div class="content-box">
+            <h3><i class="bi bi-info-circle"></i> SSL কেন প্রয়োজন?</h3>
+            <p>ইন্টারনেটে তথ্য আদান-প্রদান করার সময় হ্যাকার বা তৃতীয় কোনো পক্ষ সেই তথ্য চুরি করার চেষ্টা করতে পারে। SSL
+              এই তথ্যগুলোকে এনক্রিপ্ট করার মাধ্যমে গোপন করে ফেলে। এর ফলে হ্যাকাররা পথে ডেটা চুরি করলেও তা পড়তে পারে না
+              এবং ব্যবহারকারীর গোপনীয়তা বজায় থাকে। <strong>HTTPS</strong> প্রোটোকল মূলত SSL ব্যবহার করে এবং এটি
+              ডিফল্টভাবে <strong>Port 443</strong>-এ কাজ করে।</p>
+          </div>
+
+          <h2><i class="bi bi-gear-wide-connected"></i> SSL কীভাবে কাজ করে? (Working of SSL)</h2>
+          <p>SSL প্রধানত ৩টি মেকানিজমের মাধ্যমে কাজ করে যা সংক্ষেপে নিচে আলোচনা করা হলো:</p>
+
+          <ul>
+            <li><strong>Encryption (এনক্রিপশন):</strong> এটি ডেটাকে এমন একটি দুর্বোধ্য কোডে রূপান্তর করে যা ইন্টারসেপ্ট
+              করা হলেও পড়া অসম্ভব।</li>
+            <li><strong>Authentication (অথেন্টিকেশন):</strong> এটি হ্যান্ডশেক প্রক্রিয়ার মাধ্যমে নিশ্চিত করে যে আপনি
+              সঠিক সার্ভারের সাথেই যোগাযোগ করছেন।</li>
+            <li><strong>Data Integrity (ডেটা ইন্টিগ্রিটি):</strong> এটি ট্রান্সমিশনের সময় ডেটা পরিবর্তিত হয়েছে কি না তা
+              যাচাই করে।</li>
+          </ul>
+
+          <h2><i class="bi bi-diagram-3"></i> SSL হ্যান্ডশেক প্রক্রিয়া (Client > Process > Server)</h2>
+          <p>ক্লায়েন্ট এবং সার্ভারের মধ্যে নিরাপদ সংযোগ স্থাপনের পূর্ণাঙ্গ হ্যান্ডশেক প্রক্রিয়াটি নিচে দেখানো হলো:</p>
+
+          <div class="handshake-wrapper">
+            <div class="handshake-grid">
+              <!-- Client Actor -->
+              <div class="actor-column client">
+                <div class="actor-label"><i class="bi bi-laptop actor-icon"></i><br>Client</div>
+              </div>
+
+              <!-- Process Column -->
+              <div class="process-column">
+                <div class="step-phase"><span class="phase-pill">Phase 1: Hello Exchange</span></div>
+                <div class="handshake-msg c-to-s">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Client Hello (TLS Version, Cipher Suites)</div>
+                  <div class="arrow-head"></div>
+                </div>
+                <div class="handshake-msg s-to-c">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Server Hello (Selected Cipher, Session ID)</div>
+                  <div class="arrow-head"></div>
+                </div>
+
+                <div class="step-phase"><span class="phase-pill">Phase 2: Authentication</span></div>
+                <div class="handshake-msg s-to-c">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Server Certificate</div>
+                  <div class="arrow-head"></div>
+                </div>
+                <div class="handshake-msg s-to-c">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Server Key Exchange</div>
+                  <div class="arrow-head"></div>
+                </div>
+
+                <div class="step-phase"><span class="phase-pill">Phase 3: Key Swap</span></div>
+                <div class="handshake-msg c-to-s">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Client Certificate (if requested)</div>
+                  <div class="arrow-head"></div>
+                </div>
+                <div class="handshake-msg c-to-s">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Client Key Exchange</div>
+                  <div class="arrow-head"></div>
+                </div>
+
+                <div class="step-phase"><span class="phase-pill">Phase 4: Finalization</span></div>
+                <div class="handshake-msg c-to-s">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Change Cipher Spec</div>
+                  <div class="arrow-head"></div>
+                </div>
+                <div class="handshake-msg s-to-c">
+                  <div class="msg-line"></div>
+                  <div class="msg-text">Finished (Encrypted)</div>
+                  <div class="arrow-head"></div>
+                </div>
+              </div>
+
+              <!-- Server Actor -->
+              <div class="actor-column server">
+                <div class="actor-label"><i class="bi bi-server actor-icon"></i><br>Server</div>
+              </div>
+            </div>
+          </div>
+
+          <h2><i class="bi bi-layers"></i> SSL প্রোটোকলসমূহ (SSL Protocols)</h2>
+          <p>SSL আর্কিটেকচার প্রধানত ৪টি সাব-প্রোটোকল নিয়ে গঠিত যা বিভিন্ন ধাপে কাজ করে:</p>
+
+          <h3>১. SSL Record Protocol</h3>
+          <p>এটি অ্যাপ্লিকেশন লেয়ার ডেটাকে ফ্র্যাগমেন্টে ভাগ করে, ডেটা এনক্রিপশন এবং MAC (Message Authentication Code)
+            যুক্ত করার মাধ্যমে গোপনীয়তা এবং নির্ভরযোগ্যতা নিশ্চিত করে।</p>
+
+          <h3>২. Handshake Protocol</h3>
+          <p>এই প্রোটোকলটি সেশন প্যারামিটার যেমন সিফার সুইট নির্বাচন এবং কি (Key) এক্সচেঞ্জ পরিচালনা করে। ডেটা
+            ট্রান্সফার শুরু হওয়ার আগে এটি সম্পন্ন হয়।</p>
+
+          <h3>৩. Change-Cipher Spec Protocol</h3>
+          <p>এটি একটি ছোট ১-বাইট মেসেজ যা সিগন্যাল হিসেবে কাজ করে এবং জানায় যে পূর্বের হ্যান্ডশেক প্যারামিটারগুলো এখন
+            থেকে সক্রিয় হবে।</p>
+
+          <h3>৪. Alert Protocol</h3>
+          <p>এটি সংযোগ চলাকালীন কোনো সমস্যা হলে ওয়ার্নিং বা ইরর মেসেজ হ্যান্ডেল করে। এর ২টি লেভেল থাকে: Fatal (যা সাথে
+            সাথে সংযোগ বিচ্ছিন্ন করে) এবং Warning।</p>
+
+          <h2><i class="bi bi-patch-check"></i> SSL Certificates: বৈশিষ্ট্য এবং প্রকারভেদ</h2>
+          <p>SSL সার্টিফিকেটের মাধ্যমে ওয়েবসাইটের পরিচয় যাচাই করা হয়। এর প্রধান কার্যাবলী নিচে তুলে ধরা হলো:</p>
+
+          <div class="feature-grid">
+            <div class="feature-item"><i class="bi bi-lock"></i> <strong>Encryption</strong><br>তথ্য গোপন রাখা।</div>
+            <div class="feature-item"><i class="bi bi-person-check"></i> <strong>Authentication</strong><br>পরিচয়
+              নিশ্চিত করা।</div>
+            <div class="feature-item"><i class="bi bi-check-all"></i> <strong>Integrity</strong><br>তথ্যের সত্যতা যাচাই।
+            </div>
+            <div class="feature-item"><i class="bi bi-shield-check"></i> <strong>Non-repudiation</strong><br>তথ্য
+              অস্বীকার রোধ।</div>
+            <div class="feature-item"><i class="bi bi-key"></i> <strong>Key Exchange</strong><br>নিরাপদ কি আদান-প্রদান।
+            </div>
+            <div class="feature-item"><i class="bi bi-hourglass-split"></i> <strong>Session Management</strong><br>সেশন
+              পুনরায় চালু।</div>
+          </div>
+
+          <h3>ভ্যালিডেশন লেভেল অনুযায়ী প্রকারভেদ:</h3>
+          <ul>
+            <li><strong>Domain Validation (DV):</strong> সবচেয়ে সহজ লেভেল, যেখানে শুধু ডোমেইনের মালিকানা দেখা হয়।</li>
+            <li><strong>Organization Validation (OV):</strong> প্রতিষ্ঠানের আইনগত পরিচয় যাচাই করা হয়। মধ্যম স্তরের
+              ট্রাস্ট।</li>
+            <li><strong>Extended Validation (EV):</strong> কঠোরভাবে প্রতিষ্ঠানের বিস্তারিত যাচাই করা হয়। সবচেয়ে বেশি
+              নির্ভরযোগ্য।</li>
+          </ul>
+
+          <h3>ডোমেইন কভারেজ অনুযায়ী প্রকারভেদ:</h3>
+          <ul>
+            <li><strong>Single-Domain:</strong> একটি নির্দিষ্ট ডোমেইন (যেমন- example.com) কভার করে।</li>
+            <li><strong>Wildcard:</strong> একটি ডোমেইন এবং তার নিচের সব সাব-ডোমেইন কভার করে।</li>
+            <li><strong>Multi-Domain:</strong> একটি সার্টিফিকেটে অনেকগুলো আলাদা ডোমেইন রাখা যায়।</li>
+          </ul>
+
+          <h2><i class="bi bi-arrow-left-right"></i> SSL বনাম TLS (Comparison)</h2>
+          <p>যদিও আমরা একে SSL বলি, আধুনিক প্রযুক্তিতে TLS ব্যবহার করা হয়। তাদের পার্থক্য নিচে দেখানো হলো:</p>
+
+          <div class="table-responsive">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য</th>
+                  <th>SSL (Older)</th>
+                  <th>TLS (Modern)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>পূর্ণরূপ</strong></td>
+                  <td>Secure Socket Layer</td>
+                  <td>Transport Layer Security</td>
+                </tr>
+                <tr>
+                  <td><strong>নিরাপত্তা</strong></td>
+                  <td>তুলনামূলক কম, বর্তমানে দুর্বল।</td>
+                  <td>অনেক বেশি শক্তিশালী ও আধুনিক।</td>
+                </tr>
+                <tr>
+                  <td><strong>সফটওয়্যার সাপোর্ট</strong></td>
+                  <td>খুব পুরনো ডিভাইসে কাজ করতে পারে।</td>
+                  <td>সব আধুনিক সিস্টেমের স্ট্যান্ডার্ড।</td>
+                </tr>
+                <tr>
+                  <td><strong>হ্যান্ডশেক পদ্ধতি</strong></td>
+                  <td>অপেক্ষাকৃত ধীর এবং কম সুরক্ষিত।</td>
+                  <td>দ্রুত এবং উন্নত এনক্রিপশন পদ্ধতি।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2><i class="bi bi-hand-thumbs-up"></i> SSL-এর সুবিধা ও অসুবিধা</h2>
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-md-6 mb-4">
+              <div class="content-box" style="border-left-color: #4caf50; height: 100%;">
+                <h3 style="color: #4caf50; margin-top: 0;">সুবিধাসমূহ (Advantages)</h3>
+                <ul style="padding-left: 20px;">
+                  <li>ডেটা এনক্রিপশনের মাধ্যমে সর্বোচ্চ নিরাপত্তা।</li>
+                  <li>সার্ভার এবং ক্লায়েন্টের পরিচয় যাচাই করা যায়।</li>
+                  <li>গুগল সার্চ ইঞ্জিনে র র‍্যাকিং এ সাহায্য করে (SEO Benefit)।</li>
+                  <li>ব্যবহারকারীর ট্রাস্ট এবং বিশ্বাসযোগ্যতা বাড়ে।</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <div class="content-box" style="border-left-color: #f44336; height: 100%;">
+                <h3 style="color: #f44336; margin-top: 0;">অসুবিধাসমূহ (Disadvantages)</h3>
+                <ul style="padding-left: 20px;">
+                  <li>এনক্রিপশন প্রসেসিংয়ের জন্য সিপিইউ রিসোর্স বেশি প্রয়োজন।</li>
+                  <li>ডমিন ভেরিফিকেশন এবং সার্টিফিকেটের জন্য খরচ হতে পারে।</li>
+                  <li>পুরনো ব্রাউজার বা ডিভাইসে সামঞ্জস্যতার সমস্যা হতে পারে।</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script type="module" src="../js/network-background.js"></script>
+  </div>
+</body>
+
+</html>

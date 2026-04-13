@@ -1,0 +1,675 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="সহজে শিখুন Network Engineering. OSI Model, TCP/IP, Routing এবং Networking Protocols নিয়ে একটি পূর্ণাঙ্গ টেকনিক্যাল ব্লগ।">
+  <meta name="keywords" content="Networking, Computer Science, OSI Model, TCP/IP, IP Addressing, Subnetting, Routing, Bengali Technical Blog">
+  <meta name="author" content="Jobaer Hossain">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://enablement.info/blogs.html">
+  <meta property="og:title" content="All Blogs | enablement.info">
+  <meta property="og:description" content="নেটওয়ার্কিং প্রোটোকল এবং আর্কিটেকচার নিয়ে আমাদের সকল কন্টেন্ট একসাথে।">
+  <meta property="og:image" content="https://enablement.info/assets/images/og-main.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://enablement.info/blogs.html">
+  <meta name="twitter:title" content="All Blog Articles | enablement.info">
+  <meta name="twitter:description" content="সহজে শিখুন Network Engineering. আমাদের সকল টেকনিক্যাল ব্লগ।">
+  <meta name="twitter:image" content="https://enablement.info/assets/images/og-main.png">
+
+  <link rel="canonical" href="https://enablement.info/blogs.html">
+  <title>All Blogs | enablement.info</title>
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+
+<body>
+
+  <header class="glass-header">
+    <div class="container">
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a href="index.html">
+              <i class='bx bx-home-alt-2'></i>
+              <span class="nav-text">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="blogs.html" class="active">
+              <i class='bx bx-book-content'></i>
+              <span class="nav-text">Blog</span>
+            </a>
+          </li>
+          <li>
+            <a href="courses.html">
+              <i class='bx bx-play-circle'></i>
+              <span class="nav-text">Courses</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="recent-posts" style="padding-top: 30px;">
+      <div class="container">
+        <a href="index.html" class="back-btn">
+          <i class='bx bx-arrow-back'></i>
+          <span>Return to Home</span>
+        </a>
+        <div class="section-header">
+          <h2>All Articles</h2>
+        </div>
+
+        <div class="posts-grid posts-grid-wide">
+          <!-- All blog cards are dynamically added here -->
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-36-essential-networking-commands-for-windows-and-linux-administrators.html">Essential Networking Commands for Windows and Linux Administrators</a></h3>
+            <p>In the world of System Administration, the Command Line Interface (CLI) is your most powerful ally. While modern dashboards provide pretty graphs, ...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-36-essential-networking-commands-for-windows-and-linux-administrators.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-36-essential-networking-commands-for-windows-and-linux-administrators.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-36-essential-networking-commands-for-windows-and-linux-administrators.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-36-essential-networking-commands-for-windows-and-linux-administrators.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-35-how-network-security-really-works-a-clear-guide-for-it-students.html">How Network Security Really Works: A Clear Guide for IT Students</a></h3>
+            <p>For many students, "Network Security" feels like a collection of buzzwords: firewalls, encryption, VPNs, and hacking. But beneath the terminology l...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-35-how-network-security-really-works-a-clear-guide-for-it-students.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-35-how-network-security-really-works-a-clear-guide-for-it-students.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-35-how-network-security-really-works-a-clear-guide-for-it-students.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-35-how-network-security-really-works-a-clear-guide-for-it-students.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html">Windows vs Linux Servers: A Practical Comparison for Beginners</a></h3>
+            <p>Choosing the right server operating system (OS) is a foundational decision in IT. In 2026, the gap between Windows and Linux has narrowed in terms ...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-33-networking-fundamentals-every-system-administrator-must-understand.html">Networking Fundamentals Every System Administrator Must Understand</a></h3>
+            <p>As we navigate the complexities of 2026's hybrid-cloud infrastructures, the distinction between "Systems" and "Networks" has nearly vanished. Every...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-33-networking-fundamentals-every-system-administrator-must-understand.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-33-networking-fundamentals-every-system-administrator-must-understand.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-33-networking-fundamentals-every-system-administrator-must-understand.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-33-networking-fundamentals-every-system-administrator-must-understand.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html">From Data Center to Edge: Networking Challenges in Distributed Systems</a></h3>
+            <p>In 2026, the architectural boundary between "The Cloud" and "The Edge" has effectively dissolved. As we enter the era of Agentic AI and autonomous ...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">22 January, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-31-identity-driven-networking-how-authentication-shapes-modern-security.html">Identity-Driven Networking: How Authentication Shapes Modern Security</a></h3>
+            <p>In the perimeter-less world of 2026, the IP address is no longer the primary identifier for security. Identity is the new control plane. By merging...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-31-identity-driven-networking-how-authentication-shapes-modern-security.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-31-identity-driven-networking-how-authentication-shapes-modern-security.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-31-identity-driven-networking-how-authentication-shapes-modern-security.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-31-identity-driven-networking-how-authentication-shapes-modern-security.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-30-designing-enterprise-networks-for-performance-security-and-scale.html">Designing Enterprise Networks for Performance, Security, and Scale</a></h3>
+            <p>In 2026, the network is no longer a "plumbing" system. It is a programmable fabric that serves as the nervous system for AI-driven enterprise opera...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-30-designing-enterprise-networks-for-performance-security-and-scale.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-30-designing-enterprise-networks-for-performance-security-and-scale.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-30-designing-enterprise-networks-for-performance-security-and-scale.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-30-designing-enterprise-networks-for-performance-security-and-scale.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html">SASE Explained: Merging Networking and Security in the Cloud Era</a></h3>
+            <p>For decades, networking and security were treated as separate silos. One team built the pipes, and the other team guarded them. In 2026, the Secure...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html">Securing Hybrid Networks: On-Prem, Cloud, and Remote Users</a></h3>
+            <p>In 2026, the term "network" refers to a sprawling ecosystem of local data centers, multiple public clouds, and a highly mobile workforce. This hybr...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-27-ai-in-network-security-smarter-detection-and-faster-response.html">AI in Network Security: Smarter Detection and Faster Response</a></h3>
+            <p>As network complexity scales exponentially, human-led security operations centers (SOCs) are facing an impossible task. In 2026, Artificial Intelli...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-27-ai-in-network-security-smarter-detection-and-faster-response.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-27-ai-in-network-security-smarter-detection-and-faster-response.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-27-ai-in-network-security-smarter-detection-and-faster-response.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-27-ai-in-network-security-smarter-detection-and-faster-response.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html">Microsegmentation and Network Isolation: Limiting the Blast Radius</a></h3>
+            <p>In traditional network design, once an attacker breaches the perimeter, they often find a "flat" internal network where lateral movement is trivial...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-25-network-security-in-2026-threats-tools-and-best-practices.html">Network Security in 2026: Threats, Tools, and Best Practices</a></h3>
+            <p>In 2026, the concept of a static "secure perimeter" has been completely dismantled. The explosion of hybrid cloud environments and edge computing h...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-25-network-security-in-2026-threats-tools-and-best-practices.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-25-network-security-in-2026-threats-tools-and-best-practices.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-25-network-security-in-2026-threats-tools-and-best-practices.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-25-network-security-in-2026-threats-tools-and-best-practices.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html">Zero Trust Networking: Redefining Security in a Perimeter-Less World</a></h3>
+            <p>The traditional "castle-and-moat" security strategy is dead. In an era of remote work, cloud migration, and sophisticated cyber threats, the intern...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html">Why Linux Continues to Dominate Cloud and DevOps Infrastructure</a></h3>
+            <p>If you look at the architecture of the modern internet in 2026, it is painted in the colors of the Linux kernel. Over 90% of the world's top 1 mill...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html">Linux Networking Deep Dive: Bridges, Bonds, and Virtual Interfaces</a></h3>
+            <p>Underneath the hood of every Kubernetes cluster, virtual machine host, or cloud gateway lies the Linux Networking Stack. In 2026, understanding how...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html">Systemd, SELinux, and Firewalld: Mastering Linux Server Security</a></h3>
+            <p>For many administrators, SELinux is something to be "disabled" and Firewalld is a "nuisance." However, in a 2026 threat landscape, these three pill...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-20-building-secure-and-scalable-linux-servers-for-production.html">Building Secure and Scalable Linux Servers for Production</a></h3>
+            <p>Deploying a Linux server is easy; deploying a production-grade Linux server that can withstand an attack while scaling to meet user demand is an ar...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-20-building-secure-and-scalable-linux-servers-for-production.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-20-building-secure-and-scalable-linux-servers-for-production.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-20-building-secure-and-scalable-linux-servers-for-production.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-20-building-secure-and-scalable-linux-servers-for-production.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-19-linux-server-administration-essentials-for-modern-it-environments.html">Linux Server Administration Essentials for Modern IT Environments</a></h3>
+            <p>If Windows Server is the "desk" of the modern office, Linux is the "engine" under the hood of the global digital economy. From cloud-native microse...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-19-linux-server-administration-essentials-for-modern-it-environments.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-19-linux-server-administration-essentials-for-modern-it-environments.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-19-linux-server-administration-essentials-for-modern-it-environments.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-19-linux-server-administration-essentials-for-modern-it-environments.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html">Windows Server vs Linux Server: Choosing the Right Platform for Your Network</a></h3>
+            <p>In the modern enterprise, the choice between Windows and Linux isn't a battle of "which is better," but a calculation of "which fits the workload."...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-17-hardening-windows-server-security-baselines-and-real-world-techniques.html">Hardening Windows Server: Security Baselines and Real-World Techniques</a></h3>
+            <p>A "default" installation of Windows Server is a playground for attackers. Hardening is the process of reducing the attack surface by removing unnec...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-17-hardening-windows-server-security-baselines-and-real-world-techniques.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-17-hardening-windows-server-security-baselines-and-real-world-techniques.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-17-hardening-windows-server-security-baselines-and-real-world-techniques.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-17-hardening-windows-server-security-baselines-and-real-world-techniques.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-16-managing-windows-servers-at-scale-with-powershell-automation.html">Managing Windows Servers at Scale with PowerShell Automation</a></h3>
+            <p>In 2026, logging into a server via RDP to change a setting isn't just inefficient—it's an anti-pattern. As infrastructures grow into hundreds or th...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-16-managing-windows-servers-at-scale-with-powershell-automation.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-16-managing-windows-servers-at-scale-with-powershell-automation.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-16-managing-windows-servers-at-scale-with-powershell-automation.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-16-managing-windows-servers-at-scale-with-powershell-automation.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 23, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html">Active Directory in the Modern Enterprise: Best Practices and Security</a></h3>
+            <p>Active Directory (AD) has been the heart of enterprise identity for over two decades. However, the rise of cloud computing and remote work has forc...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html">Software-Defined Networking (SDN): The Backbone of Modern Infrastructure</a></h3>
+            <p>The days of managing networks "one box at a time" are long gone. In 2026, Software-Defined Networking (SDN) has matured into the standard operation...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-13-designing-high-availability-networks-for-enterprise-environments.html">Designing High-Availability Networks for Enterprise Environments</a></h3>
+            <p>In the enterprise world, "downtime" is the most expensive word in the dictionary. High Availability (HA) is no longer just about adding a second po...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-13-designing-high-availability-networks-for-enterprise-environments.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-13-designing-high-availability-networks-for-enterprise-environments.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-13-designing-high-availability-networks-for-enterprise-environments.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-13-designing-high-availability-networks-for-enterprise-environments.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html">Understanding TCP/IP in 2026: What Still Matters and What Changed</a></h3>
+            <p>The TCP/IP stack has been the bedrock of the internet for over 40 years. While the fundamental four-layer model remains, the way we handle congesti...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html">From LAN to Cloud: How Networking Has Evolved in the Hybrid Era</a></h3>
+            <p>Networking is no longer confined to the four walls of a data center. In 2026, the traditional Local Area Network (LAN) has morphed into a sprawling...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html">The Modern Network Engineer’s Guide to Building Resilient Infrastructure</a></h3>
+            <p>In 2026, resilience isn't just about "uptime"—it's about the network's ability to self-heal, resist attacks, and degrade gracefully. The shift from...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html">Cloud vs On-Prem: Choosing the Right Infrastructure</a></h3>
+            <p>The debate is no longer about which is "better," but which is "right" for your specific workload. In 2026, the rise of Cloud Repatriation and sophi...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-08-active-directory-security-hardening-checklist.html">Active Directory Security Hardening Checklist</a></h3>
+            <p>Active Directory (AD) is the primary target for 90% of enterprise ransomware attacks. If an attacker gains Domain Admin privileges, the game is ove...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-08-active-directory-security-hardening-checklist.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-08-active-directory-security-hardening-checklist.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-08-active-directory-security-hardening-checklist.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-08-active-directory-security-hardening-checklist.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-07-monitoring-network-performance-with-snmp-grafana.html">Monitoring Network Performance with SNMP & Grafana</a></h3>
+            <p>Raw data is useless without visualization. In modern network administration, the ability to see real-time bandwidth trends, CPU loads, and interfac...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-07-monitoring-network-performance-with-snmp-grafana.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-07-monitoring-network-performance-with-snmp-grafana.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-07-monitoring-network-performance-with-snmp-grafana.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-07-monitoring-network-performance-with-snmp-grafana.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-06-firewall-rules-optimization-for-high-traffic-networks.html">Firewall Rules Optimization for High Traffic Networks</a></h3>
+            <p>In high-traffic environments, firewall performance is measured in microseconds. As data volumes surge in 2026, a poorly ordered rulebase can become...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-06-firewall-rules-optimization-for-high-traffic-networks.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-06-firewall-rules-optimization-for-high-traffic-networks.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-06-firewall-rules-optimization-for-high-traffic-networks.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-06-firewall-rules-optimization-for-high-traffic-networks.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-05-linux-server-hardening-best-practices.html">Linux Server Hardening Best Practices</a></h3>
+            <p>In 2026, the Linux security landscape has evolved to face AI-driven brute force and complex kernel-level exploits. Relying on default configuration...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-05-linux-server-hardening-best-practices.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-05-linux-server-hardening-best-practices.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-05-linux-server-hardening-best-practices.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-05-linux-server-hardening-best-practices.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-04-implementing-zero-trust-in-enterprise-networks.html">Implementing Zero Trust in Enterprise Networks</a></h3>
+            <p>Zero Trust is no longer a buzzword; it is a mandatory architectural response to the dissolution of the traditional network perimeter. This guide pr...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-04-implementing-zero-trust-in-enterprise-networks.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-04-implementing-zero-trust-in-enterprise-networks.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-04-implementing-zero-trust-in-enterprise-networks.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-04-implementing-zero-trust-in-enterprise-networks.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-03-windows-server-2025-what-s-new-for-it-admins.html">Windows Server 2025: What's New for IT Admins</a></h3>
+            <p>Microsoft has officially positioned Windows Server 2025 as the bridge between on-premises stability and cloud-native agility. For IT professionals,...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-03-windows-server-2025-what-s-new-for-it-admins.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-03-windows-server-2025-what-s-new-for-it-admins.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-03-windows-server-2025-what-s-new-for-it-admins.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-03-windows-server-2025-what-s-new-for-it-admins.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-02-mikrotik-advanced-queue-traffic-shaping-guide.html">MikroTik Advanced Queue & Traffic Shaping Guide</a></h3>
+            <p>Bandwidth management is often the most misunderstood aspect of network administration. In a world where latency-sensitive applications like VoIP an...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-02-mikrotik-advanced-queue-traffic-shaping-guide.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-02-mikrotik-advanced-queue-traffic-shaping-guide.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-02-mikrotik-advanced-queue-traffic-shaping-guide.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-02-mikrotik-advanced-queue-traffic-shaping-guide.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+          <article class="post-card glass-panel" data-aos="fade-up">
+            <div class="post-meta">
+              <span class="category">Networking</span>
+              <span class="date">Jan 22, 2026</span>
+            </div>
+            <h3><a href="blogs/blog-01-understanding-modern-network-security-practices-in-2025.html">Understanding Modern Network Security Practices in 2025</a></h3>
+            <p>As we navigate the complexities of 2025, the digital landscape has transformed into a decentralized, AI-driven environment. Protecting corporate as...</p>
+            <div class="card-actions">
+              <a href="blogs/blog-01-understanding-modern-network-security-practices-in-2025.html" class="read-more">Read More <i class='bx bx-right-arrow-alt'></i></a>
+              <div class="share-group">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//enablement.info/blogs/blog-01-understanding-modern-network-security-practices-in-2025.html" target="_blank" class="share-btn fb"><i class='bx bxl-facebook'></i></a>
+                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A//enablement.info/blogs/blog-01-understanding-modern-network-security-practices-in-2025.html" target="_blank" class="share-btn li"><i class='bx bxl-linkedin'></i></a>
+                <a href="https://x.com/intent/tweet?url=https%3A//enablement.info/blogs/blog-01-understanding-modern-network-security-practices-in-2025.html" target="_blank" class="share-btn x"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.85 6.064-6.85zm-1.29 19.494h2.039L6.482 3.239H4.293l13.318 17.408z"/></svg></a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="glass-footer">
+    <div class="container">
+        <p>&copy; 2026 enablement.info. All Rights Reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

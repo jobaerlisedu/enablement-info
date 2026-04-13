@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Foundation of Networking - Complete Networking Course">
+  <title>Foundation of Networking | enablement.info</title>
+  
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <style>
+    :root {
+      --sidebar-width: 350px;
+      --bg-light: #f4f7f9;
+      --panel-bg: #ffffff;
+      --sidebar-bg: #ffffff;
+      --accent-blue: #0563bb;
+      --accent-light: #eef5ff;
+      --text-dark: #2c3e50;
+      --text-muted: #7f8c8d;
+      --border-color: #e6ecf1;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    body, html { 
+      margin: 0; 
+      padding: 0; 
+      height: 100vh; 
+      background: var(--bg-light); 
+      overflow: hidden;
+      color: var(--text-dark);
+    }
+
+    .app-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Course Sidebar */
+    .course-sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.02);
+    }
+
+    .sidebar-header {
+      padding: 30px 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+    .back-link:hover { color: var(--accent-blue); padding-left: 5px; }
+
+    .course-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent-blue);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .course-title i { font-size: 1.6rem; }
+
+    .course-nav {
+      padding: 20px 15px;
+      margin: 0;
+    }
+    
+    .course-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .course-nav li {
+      margin-bottom: 8px;
+    }
+
+    .course-nav a {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      color: var(--text-dark);
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.4;
+      transition: all 0.2s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .course-nav a i {
+      font-size: 1.25rem;
+      margin-top: 3px;
+      color: var(--accent-blue);
+      opacity: 0.8;
+    }
+
+    .course-nav a:hover {
+      background: var(--accent-light);
+      border-color: rgba(5, 99, 187, 0.1);
+    }
+
+    .course-nav a.active-link {
+      background: var(--accent-light);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(5, 99, 187, 0.05);
+    }
+    .course-nav a.active-link i { opacity: 1; }
+
+    /* Mobile Navigation Header - Hidden on Desktop */
+    .mobile-nav-header {
+      display: none;
+    }
+
+    /* Main Content Area */
+    .course-main {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .content-panel {
+      flex: 1;
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+
+    /* Mobile Toggle Button */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(5, 99, 187, 0.2);
+    }
+
+    .nav-toggle:hover {
+      background: #044d92;
+      transform: translateY(-2px);
+    }
+
+    .nav-toggle i {
+      transition: transform 0.3s ease;
+    }
+
+    .nav-active .nav-toggle i {
+      transform: rotate(90deg);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Scrollbar Styling */
+    .course-sidebar::-webkit-scrollbar { width: 6px; }
+    .course-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .course-sidebar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    .course-sidebar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .course-sidebar { width: 300px; }
+    }
+
+    @media (max-width: 850px) {
+      .app-container { flex-direction: column; overflow: hidden; }
+      
+      .course-sidebar { 
+        width: 100%; 
+        height: auto; 
+        border-right: none; 
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+      }
+      
+      .sidebar-header {
+        padding: 20px 20px;
+      }
+
+      .header-top {
+        margin-bottom: 15px;
+      }
+
+      .back-link {
+        margin-bottom: 0;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .sidebar-header h2 {
+        display: none;
+      }
+
+      .course-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%; /* Now covers 80% of screen */
+        max-width: 350px; /* Cap for tablets/larger phones */
+        height: 100vh;
+        background: white;
+        z-index: 1000; /* Higher z-index to stay above backdrop */
+        padding-top: 0; 
+        transform: translateX(-100%); /* Slide from the left */
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: block !important;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        box-shadow: none;
+      }
+
+      .nav-active .course-nav {
+        transform: translateX(0); /* Slide into view */
+        opacity: 1;
+        visibility: visible;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15); /* Depth for the sidebar */
+      }
+
+      /* Backdrop Overlay */
+      .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent dim */
+        z-index: 999; /* Just below the sidebar */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(2px);
+      }
+
+      .nav-active .nav-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .course-main { 
+        height: calc(100vh - 120px); 
+        padding: 0; 
+      }
+
+      /* Mobile Navigation Header Styling */
+      .mobile-nav-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 10px;
+        display: block; /* Show only when drawer is active on mobile */
+      }
+        
+      .mobile-nav-header .course-title {
+        font-size: 1.1rem;
+        margin-top: 10px;
+      }
+
+      .course-nav {
+        padding-top: 0; 
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar with lesson list -->
+    <aside class="course-sidebar">
+      <div class="sidebar-header">
+        <div class="header-top">
+          <a href="../courses.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Courses</a>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Navigation">
+            <i class='bx bx-menu'></i>
+          </button>
+        </div>
+        <h2 class="course-title"><i class='bx bxs-graduation'></i> Foundation of Networking</h2>
+      </div>
+      
+      <div class="course-nav" id="sidebar-nav-container">
+        <!-- Added Header for Mobile Side Nav -->
+        <div class="mobile-nav-header">
+          <h2 class="course-title"><i class='bx bxs-graduation'></i> Foundation of Networking</h2>
+        </div>
+        <ul id="sidebar-nav">
+        <li><a href="networking-fundamentals/tutorial-000-computer-network-tutorials.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Computer Network Tutorials</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-001-basics-of-computer-networks.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Basics of Computer Networks</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-002-network-devices.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Network Devices</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-003-types-of-networks.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Types of Networks</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-004-osi-model.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>OSI Model</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-005-tcp-ip-model.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>TCP/IP Model</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-006-physical-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Physical Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-007-types-of-network-topology.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Types of Network Topology</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-008-modes-of-transmission.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Modes of Transmission</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-009-transmission-media.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Transmission Media</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-010-data-link-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Data Link Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-011-switching-techniques.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Switching Techniques</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-012-virtual-lan.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Virtual LAN</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-013-link-aggregation.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Link Aggregation</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-014-framing.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Framing</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-015-error-detection.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Error Detection</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-016-error-correction.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Error Correction</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-017-error-control.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Error Control</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-018-flow-control.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Flow Control</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-019-stop-and-wait-arq.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Stop and wait ARQ</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-020-sliding-window-protocol-go-back-n.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Sliding Window Protocol- Go Back N</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-021-sliding-window-protocol-selective-repeat.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Sliding Window Protocol- Selective Repeat</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-022-piggybacking.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Piggybacking</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-023-network-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Network Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-024-classful-network-addressing.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Classful Network Addressing</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-025-classless-network-addressing.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Classless Network Addressing</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-026-ipv4-header-format.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>IPv4 Header Format</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-027-ipv4-vs-ipv6.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>IPv4 vs IPv6</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-028-private-vs-public-ip-addresses.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Private vs Public IP addresses</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-029-subnetting-basics.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Subnetting basics</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-030-subnet-masks.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Subnet masks</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-031-calculate-network-broadcast-and-host-addresses.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Calculate network, broadcast and host addresses</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-032-variable-length-subnet-masking-vlsm.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Variable Length Subnet Masking (VLSM)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-033-advanced-vlsm.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Advanced VLSM</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-034-supernetting.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Supernetting</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-035-what-is-routing.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>What is Routing?</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-036-static-vs-dynamic-routing.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Static vs Dynamic Routing</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-037-link-state-routing.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Link State Routing</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-038-distance-vector-routing.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Distance Vector Routing</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-039-network-address-translation-nat.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Network Address Translation(NAT)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-040-address-resolution-protocol-arp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Address Resolution Protocol(ARP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-041-reverse-address-resolution-protocol-rarp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Reverse Address Resolution Protocol(RARP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-042-dynamic-host-configuration-protocol-dhcp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Dynamic Host Configuration Protocol(DHCP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-043-internet-control-message-protocol-icmp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Internet Control Message Protocol(ICMP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-044-internet-group-management-protocol-igmp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Internet Group Management Protocol(IGMP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-045-routing-information-protocol-rip.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Routing Information Protocol(RIP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-046-open-shortest-path-first-ospf.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Open Shortest Path First(OSPF)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-047-intermediate-system-to-intermediate-system-is-is.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Intermediate System to Intermediate System(IS-IS)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-048-enhanced-interior-gateway-routing-protocol-eigrp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Enhanced Interior Gateway Routing Protocol(EIGRP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-049-border-gateway-protocol-bgp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Border Gateway Protocol(BGP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-050-multiprotocol-label-switching-mpls.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Multiprotocol Label Switching(MPLS)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-051-internet-protocol-ip.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Internet Protocol(IP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-052-generic-routing-encapsulation-gre.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Generic Routing Encapsulation(GRE)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-053-transport-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Transport Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-054-tcp-protocol.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>TCP Protocol</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-055-tcp-3-way-handshake-process.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>TCP 3-Way Handshake Process</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-056-services-and-segment-structure-in-tcp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Services and Segment structure in TCP</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-057-tcp-connection-establishment.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>TCP Connection Establishment</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-058-tcp-termination.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>TCP Termination</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-059-congestion-control-in-tcp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Congestion Control in TCP</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-060-udp-protocol.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>UDP Protocol</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-061-tcp-vs-udp-protocol.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>TCP vs UDP Protocol</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-062-stream-control-transmission-protocol-sctp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Stream Control Transmission Protocol(SCTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-063-datagram-congestion-control-protocol-dccp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Datagram Congestion Control Protocol(DCCP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-064-reliable-user-datagram-protocol-rudp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Reliable User Datagram Protocol(RUDP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-065-quick-udp-internet-connections-quic.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Quick UDP Internet Connections(QUIC)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-066-session-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Session Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-067-functions-of-session-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Functions of Session Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-068-remote-procedure-call-rpc.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Remote Procedure Call (RPC)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-069-point-to-point-tunneling-protocol.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Point-to-Point Tunneling Protocol</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-070-presentation-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Presentation Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-071-services-provided-by-presentation-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Services Provided by Presentation Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-072-application-filing-protocol-afp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Application Filing Protocol(AFP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-073-netware-core-protocol-ncp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>NetWare Core Protocol (NCP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-074-secure-socket-layer-ssl.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Secure Socket Layer (SSL)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-075-remote-procedure-call-rpc.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Remote Procedure Call(RPC)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-076-point-to-point-tunneling-protocol-pptp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Point-to-Point Tunneling Protocol(PPTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-077-multipurpose-internet-mail-extensions-mime.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Multipurpose Internet Mail Extensions(MIME)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-078-application-layer.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Application Layer</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-079-client-server-model.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Client-Server Model</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-080-world-wide-web-www.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>World Wide Web (WWW)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-081-e-mail.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>E-Mail</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-082-content-distribution-network-cdn.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Content Distribution Network(CDN)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-083-domain-name-system-dns.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Domain Name System (DNS)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-084-file-transfer-protocol-ftp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>File Transfer Protocol (FTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-085-simple-mail-transfer-protocol-smtp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Simple Mail Transfer Protocol (SMTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-086-simple-network-management-protocol-snmp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Simple Network Management Protocol (SNMP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-087-hypertext-transfer-protocol-http.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>HyperText Transfer Protocol(HTTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-088-hypertext-transfer-protocol-secure-https.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>HyperText Transfer Protocol Secure(HTTPS)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-089-post-office-protocol-v3-pop3.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Post Office Protocol v3(POP3)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-090-internet-message-access-protocol-imap.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Internet Message Access Protocol(IMAP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-091-lightweight-directory-access-protocol-ldap.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Lightweight Directory Access Protocol(LDAP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-092-network-time-protocol-ntp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Network Time Protocol(NTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-093-trivial-file-transfer-protocol-tftp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Trivial File Transfer Protocol(TFTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-094-network-news-transfer-protocol-nntp.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Network News Transfer Protocol(NNTP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-095-message-queuing-telemetry-transport-mqtt.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Message Queuing Telemetry Transport(MQTT)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-096-session-initiation-protocol-sip.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Session Initiation Protocol(SIP)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-097-server-message-block-smb.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Server Message Block(SMB)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-098-congestion-control.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Congestion Control</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-099-qos-and-multimedia.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>QoS and Multimedia</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-100-techniques-for-achieving-qos.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Techniques for achieving QoS</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-101-token-bucket.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Token Bucket</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-102-leaky-bucket.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Leaky Bucket</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-103-authentication.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Authentication</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-104-encryption.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Encryption</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-105-firewalls.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Firewalls</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-106-mac-address-filtering.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>MAC Address Filtering</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-107-intrusion-detection-system.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Intrusion Detection System</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-108-intrusion-prevention-system.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Intrusion Prevention System</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-109-vpn.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>VPN</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-110-wi-fi-standards.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Wi-Fi Standards</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-111-wireless-lan.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Wireless LAN</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-112-bluetooth.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Bluetooth</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-113-zigbee.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Zigbee</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-114-mobile-networks.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Mobile Networks</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-115-software-defined-networking-sdn.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Software Defined Networking (SDN)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-116-network-function-virtualization-nfv.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Network Function Virtualization (NFV)</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-117-types-of-cloud-services.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Types of Cloud Services</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-118-iot-networking.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>IoT Networking</span></a></li>
+        <li><a href="networking-fundamentals/tutorial-119-network-slicing-in-5g.html" target="course-frame"><i class='bx bx-file-blank'></i> <span>Network Slicing in 5G</span></a></li>
+        </ul>
+      </div>
+    </aside>
+    
+    <!-- Mobile Navigation Overlay (Backdrop) -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Main article display panel -->
+    <main class="course-main">
+      <div class="content-panel">
+        <iframe name="course-frame" src="networking-fundamentals/tutorial-000-computer-network-tutorials.html" allowfullscreen></iframe>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = document.querySelectorAll('#sidebar-nav a');
+        const navToggle = document.getElementById('nav-toggle');
+        const sidebar = document.querySelector('.course-sidebar');
+        const navOverlay = document.getElementById('nav-overlay');
+        
+        // Mark first link as active by default
+        if(links.length > 0) links[0].classList.add('active-link');
+        
+        function toggleNav() {
+            sidebar.classList.toggle('nav-active');
+            
+            // Change icon based on state
+            const icon = navToggle.querySelector('i');
+            if(sidebar.classList.contains('nav-active')) {
+              icon.className = 'bx bx-x';
+            } else {
+              icon.className = 'bx bx-menu';
+            }
+        }
+
+        // Toggle Navigation
+        if(navToggle) {
+          navToggle.addEventListener('click', toggleNav);
+        }
+
+        // Close on overlay click
+        if(navOverlay) {
+          navOverlay.addEventListener('click', toggleNav);
+        }
+
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                links.forEach(l => l.classList.remove('active-link'));
+                this.classList.add('active-link');
+                
+                // Close menu on link click (mobile)
+                if(sidebar.classList.contains('nav-active')) {
+                  toggleNav();
+                }
+            });
+        });
+
+        // Sync sidebar active link with iframe navigation
+        const courseFrame = document.querySelector('iframe[name="course-frame"]');
+        if(courseFrame) {
+            courseFrame.addEventListener('load', function() {
+                try {
+                    const frameUrl = courseFrame.contentWindow.location.href;
+                    // Find the matching link in the sidebar
+                    links.forEach(link => {
+                        const linkHref = link.getAttribute('href');
+                        // check if the end of the frame URL matches the link href
+                        if (frameUrl.includes(linkHref) || frameUrl.endsWith(linkHref.split('/').pop())) {
+                           links.forEach(l => l.classList.remove('active-link'));
+                           link.classList.add('active-link');
+                           // Auto-scroll the sidebar to the active link
+                           link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                    });
+                } catch(e) {
+                    // Cross-origin or other errors can be ignored
+                    console.log("Could not sync iframe URL:", e);
+                }
+            });
+        }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The TCP/IP stack has been the bedrock of the internet for over 40 years. While the fundamental four-layer model remains, the way we handle congestion, encryption, and address exhaustion has undergone a radical transformation in the 2020s.">
+  <title>Understanding TCP/IP in 2026: What Still Matters and What Changed | enablement.info</title>
+
+
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Bootstrap Icons (Keep legacy support if needed, but prefer boxicons) -->
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/style.css">
+
+  
+  
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body, html { margin: 0; padding: 0; background: var(--bg-dark);  color: var(--text-main); }
+    .blog-content-wrapper { max-width: 100%; margin: 0 auto; }
+    .glass-panel { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; backdrop-filter: blur(10px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); margin-top: 20px; }
+    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
+    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
+    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
+    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
+    .article-body p { margin-bottom: 20px; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
+    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
+    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
+    .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
+    .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
+  </style>
+
+</head>
+
+<body>
+  <header class="glass-header">
+    <div class="container">
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a href="../index.html">
+              <i class='bx bx-home-alt-2'></i>
+              <span class="nav-text">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="../blogs.html" class="active">
+              <i class='bx bx-book-content'></i>
+              <span class="nav-text">Blog</span>
+            </a>
+          </li>
+          <li>
+            <a href="../courses.html">
+              <i class='bx bx-play-circle'></i>
+              <span class="nav-text">Courses</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="blog-content-wrapper">
+    <div class="container">
+      <a href="../../blogs.html" class="back-btn">
+          <i class='bx bx-arrow-back'></i>
+          <span>Back to Articles</span>
+        </a>
+
+        <article class="glass-panel">
+          <header class="article-header">
+            <h1>Understanding TCP/IP in 2026: What Still Matters and What Changed</h1>
+            <div class="article-meta">
+              <span><i class='bx bx-calendar'></i> Jan 22, 2026</span>
+              
+              <span><i class='bx bx-category'></i> Networking</span>
+            
+              
+              <span><i class='bx bx-user'></i> Jobaer Hossain</span></div>
+          </header>
+
+          <div class="article-body">
+<p>The TCP/IP stack has been the bedrock of the internet for over 40 years. While the fundamental four-layer model remains, the way we handle congestion, encryption, and address exhaustion has undergone a radical transformation in the 2020s.</p>
+
+                <h3>1. The Evolution of the Transport Layer: TCP vs. QUIC</h3>
+                <p>For decades, TCP was the undisputed king of reliable transport. However, its "three-way handshake" creates latency that modern apps can't afford. Enter <strong>QUIC (HTTP/3)</strong>. In 2026, QUIC has largely replaced TCP for web traffic because it runs over UDP, reducing connection times and handling "Head-of-Line Blocking" more efficiently.</p>
+                <blockquote>
+                  "TCP is still for the data center; QUIC is for the edge."
+                </blockquote>
+
+                <h3>2. IPv6: The Forced Transition is Over</h3>
+                <p>IPv4 has officially entered its "legacy" phase. With the exhaustion of address blocks, the networking world has shifted to <strong>IPv6-only internal fabrics</strong>. Technologies like NAT64 and DNS64 allow these modern networks to communicate with the remaining IPv4 internet, but the performance benefits of native IPv6—no NAT, simpler headers, and better multicast—are now standard.</p>
+
+                <h3>3. BBR: A Smarter Congestion Control</h3>
+                <p>The old "Loss-based" congestion control (like TCP Reno or Cubic) is being replaced by <strong>BBR (Bottleneck Bandwidth and Round-trip propagation time)</strong>. Developed by Google and widely adopted by 2026, BBR looks at how fast the network <em>actually</em> is rather than waiting for packets to drop, leading to much higher throughput on high-latency satellite (Starlink) and 6G links.</p>
+
+                <h3>4. Security at the Network Layer: Encrypted DNS and Client Hello</h3>
+                <p>The privacy of the TCP/IP stack has significantly improved. We’ve moved from cleartext DNS to <strong>DoH (DNS over HTTPS)</strong> and <strong>DoT (DNS over TLS)</strong>. Furthermore, <strong>ECH (Encrypted Client Hello)</strong> now hides the server name you are connecting to, preventing ISPs or attackers from snooping on your browsing habits at the packet level.</p>
+                [Image showing the comparison between cleartext DNS/SNI vs Encrypted DNS/ECH]
+
+                <h3>5. Why the Fundamentals Still Matter</h3>
+                <p>Despite these changes, the <strong>Subnet Mask</strong>, <strong>Default Gateway</strong>, and <strong>Routing Table</strong> are still the "ABC" of networking. Whether you are configuring a virtual router in AWS or a physical switch in a server room, understanding how a packet is encapsulated from Layer 4 down to Layer 1 is still the most valuable skill a Network Engineer can possess.</p>
+
+                <div class="tech-summary-box">
+                  <div class="protocol-badge">2026 Protocol Snapshot</div>
+                  <ul class="mt-3">
+                    <li><strong>Transport:</strong> Shift toward UDP-based protocols (QUIC) for latency.</li>
+                    <li><strong>Network:</strong> IPv6-first architectures are now the enterprise standard.</li>
+                    <li><strong>Security:</strong> Everything is encrypted by default (TLS 1.3+).</li>
+                    <li><strong>Routing:</strong> Segment Routing (SRv6) is replacing complex MPLS setups.</li>
+                  </ul>
+                  <hr>
+                  <p class="mb-0"><strong>Summary:</strong> TCP/IP hasn't been replaced; it has been optimized. The modern engineer needs to balance the classic knowledge of packet headers with a deep understanding of the new, low-latency, encrypted-by-default world.</p>
+                </div>
+</div>
+          </div>
+        </article>
+      </div>
+    <footer class="glass-footer">
+      <div class="container">
+        <p>&copy; 2026 enablement.info. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </main>
+<script>
+    if (window.self !== window.top) {
+        document.addEventListener("DOMContentLoaded", function() {
+            var hd = document.querySelector('.glass-header'); if(hd) hd.style.display = 'none';
+            var ft = document.querySelector('.glass-footer'); if(ft) ft.style.display = 'none';
+            var bb = document.querySelector('.back-btn'); if(bb) bb.style.display = 'none';
+            var ov = document.querySelector('.overlay'); if(ov) ov.style.paddingTop = '0';
+            var mainWrapper = document.querySelector('main'); 
+            if(mainWrapper) {
+                mainWrapper.style.paddingLeft = '0';
+                mainWrapper.style.paddingRight = '0';
+                mainWrapper.style.paddingTop = '10px';
+                mainWrapper.style.margin = '0 auto';
+            }
+        });
+    }
+</script>
+  </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

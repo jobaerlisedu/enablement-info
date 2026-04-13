@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MIME Protocol কী এবং কীভাবে এটি ইমেইল ব্যবস্থাকে উন্নত করে? Multimedia attachments এবং Multipart messages সম্পর্কে বিস্তারিত জানুন।">
+  <title>MIME প্রোটোকল (Multipurpose Internet Mail Extension) | enablement.info</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Multipurpose Internet Mail Extension (MIME) Protocol</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> March 15, 2026</span>
+            <span><i class='bx bx-category'></i> Networking | Email</span>
+
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ইমেইল বা ইলেকট্রনিক মেইল যখন শুরুতে তৈরি হয়েছিল, তখন এটি শুধুমাত্র সাধারণ টেক্সট (7-bit
+            ASCII) আদান-প্রদান করতে পারতো। কিন্তু বর্তমান সময়ের মতো ছবি, ভিডিও, অডিও বা অন্যান্য ফাইল
+            পাঠানোর সক্ষমতা SMTP (Simple Mail Transfer Protocol)-এর ছিল না। আর এই সীমাবদ্ধতা দূর করতেই
+            তৈরি করা হয়েছে <strong>MIME (Multipurpose Internet Mail Extension)</strong> প্রোটোকল।</p>
+
+
+          <div class="content-box">
+            <p><strong>MIME কী?</strong> এটি মূলত SMTP-এর একটি এক্সটেনশন যা ইমেইল ব্যবস্থার ক্ষমতা
+              বাড়িয়ে দেয়। এটি ডেটাকে এমনভাবে এনকোড করে যেন তা 7-bit ASCII সিস্টেমে কোনো তথ্য না হারিয়ে
+              ইন্টারনেটে চলাচল করতে পারে।</p>
+          </div>
+
+          <h2><i class="bi bi-star"></i> MIME-এর প্রধান বৈশিষ্ট্যসমূহ</h2>
+          <div class="feature-grid">
+            <div class="feature-item">
+              <i class="bi bi-translate"></i>
+              <strong>Text Encoding</strong>
+              <p>এটি ASCII বাদেও UTF-8 এর মতো ক্যারেক্টার সেট সাপোর্ট করে, ফলে বাংলাসহ যেকোনো ভাষায়
+                ইমেইল পাঠানো যায়।</p>
+            </div>
+            <div class="feature-item">
+              <i class="bi bi-paperclip"></i>
+              <strong>Attachments</strong>
+              <p>ইমেইলের সাথে ছবি (JPEG, PNG), অডিও (MP3), ভিডিও এবং ডকুমেন্ট (PDF) অ্যাটাচমেন্ট
+                হিসেবে পাঠানো নিশ্চিত করে।</p>
+            </div>
+            <div class="feature-item">
+              <i class="bi bi-layers"></i>
+              <strong>Multipart Messages</strong>
+              <p>একই ইমেইলের ভেতরে বিভিন্ন অংশ (যেমন- প্লেইন টেক্সট এবং HTML ফরম্যাট) আলাদাভাবে থাকতে
+                পারে।</p>
+            </div>
+          </div>
+
+          <h2><i class="bi bi-file-earmark-code"></i> MIME মেসেজ স্ট্রাকচার (Headers)</h2>
+          <p>MIME প্রোটোকল ইমেইলের সাথে কিছু বিশেষ হেডার (Headers) যুক্ত করে দেয় যা দিয়ে রিসিভারের ইমেইল
+            ক্লায়েন্ট বুঝতে পারে ডেটাটি আসলে কী ধরনের।</p>
+
+          <div class="diagram-wrapper">
+            <div class="email-card">
+              <div class="email-header-area">
+                <div class="header-line"><span class="header-key">MIME-Version:</span> <span
+                    class="header-val">1.0</span></div>
+                <div class="header-line"><span class="header-key">Content-Type:</span> <span
+                    class="header-val">multipart/mixed; boundary="step_123"</span></div>
+                <div class="header-line"><span class="header-key">Subject:</span> <span class="header-val">Technical
+                    Documentation</span></div>
+              </div>
+              <div class="multipart-body">
+                <div class="boundary">--step_123 (Part Boundary)</div>
+                <div class="part-box">
+                  <div class="header-line"><span class="header-key">Content-Type:</span> <span
+                      class="header-val">text/html; charset=UTF-8</span></div>
+                  <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-muted);">
+
+                    <body class="tutorial-page">Hello users, this is an HTML email...
+                </div>
+</body>
+</p>
+</div>
+<div class="boundary">--step_123 (Part Boundary)</div>
+<div class="part-box media">
+  <div class="header-line"><span class="header-key">Content-Type:</span> <span class="header-val">image/jpeg</span>
+  </div>
+  <div class="header-line"><span class="header-key">Content-Transfer-Encoding:</span> <span
+      class="header-val">base64</span></div>
+  <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-muted);">
+    [Encoded Binary Data: /9j/4AAQSkZJRgABA...]</p>
+</div>
+<div class="boundary">--step_123-- (Final Boundary)</div>
+</div>
+</div>
+</div>
+
+<h3>গুরুত্বপূর্ণ হেডার ফিল্ডসমূহ:</h3>
+<ul class="custom-list">
+  <li><strong>MIME-Version:</strong> এটি MIME-এর ভার্সন নির্দেশ করে (বর্তমানে ১.০ সবচেয়ে
+    জনপ্রিয়)।</li>
+  <li><strong>Content-Type:</strong> ডেটার টাইপ বলে দেয় (যেমন- text/html, image/png,
+    application/pdf)।</li>
+  <li><strong>Content-Transfer-Encoding:</strong> বাইনারি ডেটাকে নিরাপদ টেক্সট ফরম্যাটে
+    রূপান্তরের পদ্ধতি। সাধারণত <strong>Base64</strong> (ছবির জন্য) অথবা
+    <strong>Quoted-Printable</strong> (টেক্সটের জন্য) ব্যবহৃত হয়।
+  </li>
+  <li><strong>Content-Disposition:</strong> ফাইলটি ইমেইলের ভেতরে (Inline) দেখাবে নাকি আলাদা
+    অ্যাটাচমেন্ট হিসেবে থাকবে তা নিশ্চিত করে।</li>
+  <li><strong>Content-ID:</strong> ইমেইলের এমবেডেড ফাইলগুলোকে অদ্বিতীয়ভাবে চিহ্নিত করতে
+    ব্যবহৃত হয়।</li>
+</ul>
+
+<h2><i class="bi bi-gear-wide"></i> MIME কীভাবে কাজ করে?</h2>
+<div class="process-flow">
+  <div class="step-item">
+    <div class="step-icon-circle"><i class="bi bi-file-earmark-image"></i></div>
+    <div class="step-label">Original Content</div>
+    <div class="step-subtext">Images/Audio/Video</div>
+  </div>
+  <div class="flow-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+  <div class="step-item">
+    <div class="step-icon-circle"><i class="bi bi-code-slash"></i></div>
+    <div class="step-label">Encoding</div>
+    <div class="step-subtext">Base64 / Q.Printable</div>
+  </div>
+  <div class="flow-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+  <div class="step-item">
+    <div class="step-icon-circle"><i class="bi bi-cloud-arrow-up"></i></div>
+    <div class="step-label">Transmission</div>
+    <div class="step-subtext">SMTP (ASCII Text)</div>
+  </div>
+  <div class="flow-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+  <div class="step-item">
+    <div class="step-icon-circle"><i class="bi bi-unlock"></i></div>
+    <div class="step-label">Decoding</div>
+    <div class="step-subtext">Reverse Process</div>
+  </div>
+  <div class="flow-arrow"><i class='bx bx-right-arrow-alt'></i></div>
+  <div class="step-item">
+    <div class="step-icon-circle"><i class="bi bi-eye"></i></div>
+    <div class="step-label">Original View</div>
+    <div class="step-subtext">Displayed for User</div>
+  </div>
+</div>
+<ol>
+  <li><strong>Encoding:</strong> যখন আপনি কোনো ছবি বা ভিডিও পাঠান, MIME সেটিকে 7-bit ASCII
+    টেক্সটে রূপান্তর (Encode) করে।</li>
+  <li><strong>Transmission:</strong> এই টেক্সট ডেটা SMTP প্রোটোকলের মাধ্যমে প্রাপকের ইমেইল
+    সার্ভারে পৌঁছায়।</li>
+  <li><strong>Decoding:</strong> প্রাপকের ডিভাইস MIME হেডার দেখে বুঝতে পারে এটি বাইনারি ডেটা
+    এবং সেটিকে পুনরায় আসল ফরম্যাটে (ডিকোডিং) ফিরিয়ে আনে।</li>
+  <li><strong>Interpretation:</strong> ইমেইল ক্লায়েন্ট ডিকোড করা ডেটাটি ব্যবহারকারীকে
+    সঠিকভাবে প্রদর্শন করে।</li>
+</ol>
+
+<h2><i class="bi bi-shield-check"></i> সুবিধা ও অসুবিধা (Pros & Cons)</h2>
+<table class="info-table">
+  <thead>
+    <tr>
+      <th>সুবিধা (Pros)</th>
+      <th>অসুবিধা (Cons)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>বিভিন্ন ধরনের মিডিয়া (Audio, Video, PDF) সাপোর্ট করে।</td>
+      <td>হেডার এবং এনকোডিংয়ের কারণে ইমেইলের সাইজ কিছুটা বেড়ে যায়।</td>
+    </tr>
+    <tr>
+      <td>মাল্টিলিঙ্গুয়াল ইমেইল (বাংলা, হিন্দি ইত্যাদি) পাঠানো যায়।</td>
+      <td>পুরনো ইমেইল সিস্টেমগুলো এটি সঠিকভাবে ইন্টারপ্রিট করতে পারে না।</td>
+    </tr>
+    <tr>
+      <td>HTML/CSS ব্যবহার করে ইমেইল ডিজাইন করা সম্ভব।</td>
+      <td>বেশি মিডিয়া ফাইল যুক্ত করলে ট্রান্সমিশনে সময় বেশি লাগে।</td>
+    </tr>
+    <tr>
+      <td>বড় সাইজের ডাটা কোনো সমস্যা ছাড়াই পাঠানো যায়।</td>
+      <td>অতিরিক্ত এনকোডিং লেয়ারের কারণে সিস্টেমের লোড বাড়ে।</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="comparison-grid">
+  <div class="content-box" style="border-left-color: #f44336; margin: 0;">
+    <h4 style="color: #f44336; margin-top: 0;">Standard SMTP সীমাবদ্ধতা</h4>
+    <ul style="font-size: 0.95rem; padding-left: 20px;">
+      <li>শুধুমাত্র 7-bit ASCII টেক্সট সাপোর্ট করে।</li>
+      <li>বাইনারি ফাইল (Image/Audio) পাঠানো যায় না।</li>
+      <li>মেসেজের সাইজ সীমিত।</li>
+      <li>অন্যান্য ভাষা (যেমন- বাংলা) সাপোর্ট করে না।</li>
+    </ul>
+  </div>
+  <div class="content-box" style="border-left-color: #4caf50; margin: 0;">
+    <h4 style="color: #4caf50; margin-top: 0;">Extended MIME সমাধান</h4>
+    <ul style="font-size: 0.95rem; padding-left: 20 Bengali;">
+      <li>সব ধরনের বাইনারি ও মাল্টিমিডিয়া সাপোর্ট।</li>
+      <li>UTF-8 এনকোডিংয়ের মাধ্যমে বাংলাসহ সব ভাষা।</li>
+      <li>Multipart বডির মাধ্যমে সমৃদ্ধ ইমেইল।</li>
+      <li>অফুরন্ত ডেটা টাইপ সাপোর্ট।</li>
+    </ul>
+  </div>
+</div>
+
+<div class="content-box">
+  <p><i class="bi bi-lightbulb"></i> <strong>উপসংহার:</strong> আজকের আধুনিক ইমেইল কমিউনিকেশন
+    ব্যবস্থায় MIME অপ্রতিদ্বন্দ্বী। এর সাহায্যেই আমরা প্রতিদিন টেক্সট ইমেইলের বাইরেও হাজারো
+    ছবি এবং ডকুমেন্ট আদান-প্রদান করতে পারছি।</p>
+</div>
+</div>
+</article>
+</div>
+</div>
+
+<script type="module" src="../js/network-background.js"></script>
+</div>
+</body>
+
+</html>

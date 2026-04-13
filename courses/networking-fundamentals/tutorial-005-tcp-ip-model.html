@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="সহজে শিখুন Network Engineering. TCP/IP Model: The Foundation of Internet নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>TCP/IP Model: The Foundation of Internet | enablement.info</title>
+
+
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+  <!-- CSS -->
+
+
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>TCP/IP Model - Layers of TCP/IP Model</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>TCP/IP (Transmission Control Protocol/Internet Protocol) Model হলো একটি Layerড Networkিং ফ্রেমওয়ার্ক যা ব্যাখ্যা করে কীভাবে একটি Networkের মাধ্যমে বিভিন্ন Deviceের মধ্যে ডাটা আদান-প্রদান (communication) হয়। এটি Standard Protocol ব্যবহার করে অত্যন্ত নির্ভরযোগ্য এবং দক্ষ Transmission নিশ্চিত করে।</p>
+          <ul>
+            <li>এটি মূলত ৪টি Layerের একটি Architecture: Application, Transport, Internet এবং Network Access।</li>
+            <li>RFC 1122 দ্বারা এটি Standardাইজ করা হয়েছে।</li>
+            <li>এটি ৭ Layerের OSI Model-এর চেয়ে অনেক সহজ এবং ব্যবহারিক।</li>
+            <li>আধুনিক Internet এবং Networkিং সিস্টেমের মূল ভিত্তি হলো এই TCP/IP Model।</li>
+          </ul>
+
+          <h2>1. Application Layer</h2>
+          <p>এটি TCP/IP Modelের সবচেয়ে ওপরের Layer, যা ইউজারের সবচেয়ে কাছাকাছি থাকে। এখানে ওয়েব ব্রাউজার, ইমেইল ক্লায়েন্ট এবং ফাইল-শেয়াRing টুলের মতো Applicationগুলো Networkের সাথে ইন্টারঅ্যাক্ট করে। এটি ইউজার Software এবং নিচের Layerগুলোর মধ্যে একটি ইন্টারফেস হিসেবে কাজ করে।</p>
+          <ul>
+            <li>ইউজার Application এবং নিচের Network Layerের মধ্যে ব্রিজ হিসেবে কাজ করে।</li>
+            <li>এটি HTTP, FTP, SMTP এবং DNS-এর মতো Protocolগুলো সাPort করে।</li>
+            <li>ডাটা ফরম্যাটিং হ্যান্ডেল করে যাতে প্রেরক এবং গ্রাহক উভয়েই তথ্য সঠিকভাবে বুঝতে পারে।</li>
+            <li>সিকিউর কমিউনিকেশনের জন্য এনক্রিপশন প্রদান করে।</li>
+            <li>চলমান কানেকশনগুলো ট্র্যাক করার জন্য সেশন ম্যানেজ করে।</li>
+          </ul>
+
+          <h2>2. Transport Layer</h2>
+          <p>এটি Deviceের মধ্যে ডাটার নির্ভরযোগ্য এবং দক্ষ Delivery নিশ্চিত করে। এটি সেগমেন্টেশন, অর্ডাRing এবং প্রয়োজনে রি-Transmission ম্যানেজ করে।</p>
+          <ul>
+            <li><strong>Segmentation and Reassembly:</strong> বড় মেসেজকে ছোট ছোট প্যাকেটে ভাগ করে এবং গন্তব্যে পৌঁছানোর পর সেগুলোকে পুনরায় একত্রিত করে।</li>
+            <li><strong>Reliable Delivery & Error Handling:</strong> TCP ত্Rootি চেক করে, হারিয়ে যাওয়া ডাটা পুনরায় পাঠায় এবং সঠিক ক্রম নিশ্চিত করে।</li>
+            <li><strong>Fast Communication:</strong> UDP খুব কম ল্যাটেন্সিতে সংযোগহীন (connectionless) Delivery প্রদান করে (ত্Rootি চেক ছাড়াই)।</li>
+            <li><strong>Flow Control:</strong> গ্রাহক যাতে অতিরিক্ত ডাটার চাপে না পড়ে, সেজন্য ডাটা ফ্লো নিয়ন্ত্রণ করে।</li>
+            <li><strong>Multiplexing:</strong> Port নম্বর ব্যবহারের মাধ্যমে একাধিক Applicationকে একই সাথে Network শেয়ার করার সুযোগ দেয়।</li>
+          </ul>
+
+          <p><strong>TCP (Transmission Control Protocol):</strong> এটি ব্যবহৃত হয় যখন Reliability এবং নির্ভুলতা গুরুত্বপূর্ণ। এটি নিশ্চিত করে যে ডাটা ঠিক যেভাবে পাঠানো হয়েছে সেভাবেই পৌঁছাবে।</p>
+          <ul>
+            <li><strong>Error Checking:</strong> চেকসাম ব্যবহারের মাধ্যমে ডাটার অখণ্ডতা নিশ্চিত করে।</li>
+            <li><strong>Retransmission:</strong> Transmissionের সময় কোনো ডাটা হারিয়ে গেলে বা নষ্ট হলে TCP স্বয়ংক্রিয়ভাবে তা পুনরায় পাঠায়।</li>
+            <li><strong>Ordered Delivery:</strong> ডাটাকে প্যাকেটে ভাগ করা হয় এবং TCP নিশ্চিত করে যে প্যাকেটগুলো সঠিক ক্রমে পৌঁছাবে।</li>
+            <li><strong>Connection-Oriented:</strong> ডাটা পাঠানোর আগে প্রেরক এবং গ্রাহকের মধ্যে একটি কানেকশন তৈরি করে এবং পুরো সেশন বজায় রাখে।</li>
+            <li><strong>Use Cases:</strong> ওয়েব পেজ লোড করা, ফাইল ডাউনলোড করা, ইমেইল পাঠানো ইত্যাদি।</li>
+          </ul>
+
+          <p><strong>UDP (User Datagram Protocol):</strong> এটি ব্যবহৃত হয় যখন নিখুঁত নির্ভুলতার চেয়ে গতি বেশি গুরুত্বপূর্ণ। এটি দ্রুত কিন্তু নির্ভরযোগ্য Deliveryর গ্যারান্টি দেয় না।</p>
+          <ul>
+            <li><strong>No Error Checking:</strong> UDP ডাটাতে কোনো ত্Rootি আছে কিনা তা যাচাই করে না।</li>
+            <li><strong>No Retransmission:</strong> হারিয়ে যাওয়া বা ক্ষতিগ্রস্ত ডাটা পুনরায় পাঠানো হয় না।</li>
+            <li><strong>No Ordered Delivery:</strong> প্যাকেটগুলো ভুল ক্রমে পৌঁছাতে পারে এবং Protocol তা ঠিক করে না।</li>
+            <li><strong>Lightweight:</strong> অতিরিক্ত চেক এবং কানেকশন না থাকায় UDP অনেক দ্রুত এবং কম রিসোর্স ব্যবহার করে।</li>
+            <li><strong>Use Cases:</strong> লাইভ ভিডিও স্Treeমিং, অনলাইন গেমিং, VoIP কল ইত্যাদি।</li>
+          </ul>
+
+          <h2>3. Internet Layer</h2>
+          <p>এটি ডাটা প্যাকেটের অ্যাড্রেসিং, প্যাকেজিং এবং রাউটিং-এর জন্য দায়ী যাতে ডাটা Network পেরিয়ে সঠিক গন্তব্য Deviceে পৌঁছাতে পারে। এটি নিশ্চিত করে যে ডাটা বিভিন্ন Networkের মধ্যে দক্ষতার সাথে মুভ করতে পারে।</p>
+          <ul>
+            <li><strong>Logical Addressing:</strong> সোর্স এবং ডেস্টিনেশন Device শনাক্ত করার জন্য IP address অ্যাসাইন করে।</li>
+            <li><strong>Packet Routing:</strong> Networkের মাধ্যমে ডাটা ভ্রমণের জন্য সেরা পথ নির্ধারণ করে।</li>
+            <li><strong>Fragmentation and Reassembly:</strong> বড় প্যাকেটগুলোকে ছোট প্যাকেটে ভাগ করে এবং গন্তব্যে পৌঁছানোর পর পুনরায় একত্রিত করে।</li>
+            <li><strong>Protocol Support:</strong> মূলত IP (Internet Protocol) ব্যবহার করে, সাথে ICMP (এরর রিPortিং-এর জন্য) এবং ARP (অ্যাড্রেস রেজোলিউশন-এর জন্য) সাPort করে।</li>
+          </ul>
+
+          <h2>4. Network Access (Link Layer)</h2>
+          <p>এটি Network Hardwareের (যেমন Cable, Switch, Wireless কানেকশন) মাধ্যমে ডাটা ফিজিক্যালি ট্রান্সমিট করার জন্য দায়ী। এটি নির্ধারণ করে কীভাবে ডাটা Network মিডিয়ামের জন্য ফরম্যাট করা হবে এবং পরবর্তী Deviceে পৌঁছাবে।</p>
+          <ul>
+            <li><strong>Physical Transmission:</strong> Ethernet Cable, Fiber Optics বা ওয়াইফাই-এর মতো ফিজিক্যাল মিডিয়ার মাধ্যমে র (raw) Bits পাঠায় এবং গ্রহণ করে।</li>
+            <li><strong>Framing:</strong> Deviceের মাধ্যমে প্রাপ্ত ডাটা সহজে শনাক্ত করার জন্য তাকে ফ্রেমে সাজায়।</li>
+            <li><strong>Error Detection:</strong> চেকসাম বা CRC ব্যবহার করে Transmission এরর শনাক্ত করে।</li>
+            <li><strong>MAC Addressing:</strong> একই Network সেগমেন্টের মধ্যে Device শনাক্ত করার জন্য Hardware অ্যাড্রেস (MAC address) ব্যবহার করে।</li>
+            <li><strong>Access Control:</strong> একাধিক Device কীভাবে একই ফিজিক্যাল মিডিয়া শেয়ার করবে তা নির্ধারণ করে (Collision এড়ানোর জন্য)।</li>
+          </ul>
+
+          <h2>Working of TCP/IP</h2>
+          <p>TCP/IP Modelের কাজের প্রক্রিয়া নিচে ধাপে ধাপে বর্ণনা করা হলো:</p>
+          
+          <h3>যখন ডাটা পাঠানো হয় (প্রেরক থেকে গ্রাহক):</h3>
+          <ul>
+            <li><strong>Application Layer:</strong> ইউজারের Software (যেমন ওয়েব ব্রাউজার) ডাটা তৈরি করে এবং পরবর্তী Layerে পাঠিয়ে দেয়।</li>
+            <li><strong>Transport Layer:</strong> ডাটা ছোট ছোট সেগমেন্টে বিভক্ত হয় এবং Reliability বা গতির জন্য TCP/UDP কন্ট্রোল তথ্য যোগ করা হয়।</li>
+            <li><strong>Internet Layer:</strong> প্রতিটি সেগমেন্টকে IP address সহ প্যাকেটে এনক্যাপসুলেট করা হয় যাতে সঠিক গন্তব্যে পৌঁছাতে পারে।</li>
+            <li><strong>Network Access Layer:</strong> প্যাকেটগুলো ফ্রেমে রূপান্তরিত হয় এবং ফিজিক্যাল Networkের (Ethernet বা ওয়াইফাই) মাধ্যমে ট্রান্সমিট হয়।</li>
+          </ul>
+
+          <h3>যখন ডাটা গ্রহণ করা হয় (গন্তব্যে):</h3>
+          <ul>
+            <li><strong>Network Access Layer:</strong> ফিজিক্যাল মিডিয়া থেকে ফ্রেম গ্রহণ করা হয় এবং কোনো ত্Rootি আছে কিনা তা পরীক্ষা করা হয়।</li>
+            <li><strong>Internet Layer:</strong> ফ্রেম থেকে প্যাকেট বের করা হয় এবং IP address দেখে নিশ্চিত করা হয় যে এটি সঠিক Deviceে পৌঁছেছে।</li>
+            <li><strong>Transport Layer:</strong> সেগমেন্টগুলো পুনরায় একত্রিত করে মূল মেসেজ তৈরি করা হয় (TCP হলে ত্Rootি সংশোধন করা হয়)।</li>
+            <li><strong>Application Layer:</strong> সম্পূর্ণ এবং সঠিক ডাটা ইউজার Applicationে (যেমন ব্রাউজার ডাটাতর প্রদর্শন) পাঠিয়ে দেওয়া হয়।</li>
+          </ul>
+
+          <h2>Advantages (সুবিধা)</h2>
+          <ul>
+            <li><strong>ব্যাপক ব্যবহার:</strong> এটি Internet এবং আধুনিক Networkের মূল ভিত্তি।</li>
+            <li><strong>প্ল্যাটফর্ম নিরপেক্ষ:</strong> এটি বিভিন্ন ধরণের Hardware এবং অপারেটিং সিস্টেমে নির্বিঘ্নে কাজ করে।</li>
+            <li><strong>নির্ভরযোগ্য যোগাযোগ:</strong> TCP Protocol এরর চেকিং, Delivery কনফার্Meshন এবং ডাটার অখণ্ডতা নিশ্চিত করে।</li>
+            <li><strong>Scalable:</strong> এটি ছোট হোম Network থেকে শুরু করে বিশাল গ্লোবাল Network পর্যন্ত সাPort করতে সক্ষম।</li>
+            <li><strong>ওপেন Standard:</strong> এটি ব্যবহারের জন্য সম্পূর্ণ ফ্রি এবং কোনো একক সংস্থা এটি নিয়ন্ত্রণ করে না।</li>
+          </ul>
+
+          <h2>Limitations (সীমাবদ্ধতা)</h2>
+          <ul>
+            <li><strong>নতুনদের জন্য জটিল:</strong> সব Protocol এবং তাদের কাজ পুরোপুরি বোঝা কিছুটা কঠিন হতে পারে।</li>
+            <li><strong>কঠোর Layer প্রয়োগ নেই:</strong> OSI-এর মতো এর Layerের সীমানা খুব একটা কঠোর নয়, যা Bus্তবায়নে কিছুটা ভিন্নতা আনতে পারে।</li>
+            <li><strong>ওভারহেড:</strong> TCP-এর এরর চেকিং এবং Reliability ফিচারের কারণে Networkে অতিরিক্ত ডাটা ওভারহেড তৈরি হতে পারে।</li>
+            <li><strong>সিকিউরিটি সীমাবদ্ধতা:</strong> মূল TCP/IP ডিজাইনে শক্তিশালী সিকিউরিটি ছিল না; ফলে সুরক্ষা নিশ্চিত করতে TLS/SSL-এর মতো আলাদা Protocol প্রয়োজন হয়।</li>
+            <li><strong>লিমিটেড মাল্টিমিডিয়া সাPort:</strong> মূল ডিজাইন ডাটা ট্রান্সফারের ওপর ফোকাস ছিল, যা রিয়েল-টাইম অডিও বা ভিডিওর জন্য সবসময় অপ্টিমাইজড নয়।</li>
+          </ul>
+
+          <h2>Why TCP/IP is Used Over the OSI Model</h2>
+          <p>TCP/IP Modelকে OSI Modelের চেয়ে বেশি পছন্দ করা হয় কারণ এটি অনেক সহজ, ব্যবহারিক এবং Bus্তব জগতের Network ও Internetে সরাসরি ব্যবহৃত হয়। OSI Model মূলত তাত্ত্বিক নীতির ওপর ভিত্তি করে তৈরি, যেখানে TCP/IP Bus্তব কমিউনিকেশন Protocolের ওপর ভিত্তি করে তৈরি।</p>
+          <ul>
+            <li><strong>সহজ Structure:</strong> OSI-এর ৭টি Layerের তুলনায় TCP/IP-এর মাত্র ৪টি Layer, যা Bus্তবায়ন এবং Maintenance করা অনেক সহজ।</li>
+            <li><strong>Protocol-চালিত ডিজাইন:</strong> TCP/IP ডিজাইন করা হয়েছে কার্যকরী Protocolগুলোর ওপর ভিত্তি করে।</li>
+            <li><strong>Flexibility এবং কার্যকারিতা:</strong> এটি বিভিন্ন Hardware এবং Networkের সাথে খুব দ্রুত মানিয়ে নিতে পারে এবং ডাটা নিয়ন্ত্রণে দক্ষ।</li>
+            <li><strong>ওপেন Standard:</strong> এটি সবার জন্য উন্মুক্ত, যা এর সর্বজনীন গ্রহণযোগ্যতা নিশ্চিত করেছে।</li>
+            <li><strong>Bus্তব ব্যবহার বনাম তাত্ত্বিক Model:</strong> OSI ডিজাইন প্রিন্সিপাল শেখার জন্য চমৎকার, কিন্তু Bus্তবে ডাটা আদান-প্রদানের জন্য TCP/IP-ই হলো মূল Model।</li>
+          </ul>
+
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script type="module" src="../js/network-background.js"></script>
+  </div>
+</body>
+
+</html>

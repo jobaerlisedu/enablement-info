@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="সহজে শিখুন Network Engineering. Network Devices Details নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Network Devices Details | enablement.info</title>
+
+
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+  <!-- CSS -->
+
+
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Network Devices - Hub, Repeater, Bridge, Switch, Router, Gateways and Firewall</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <h2><i class="bx bx-bulb"></i> Introduction</h2>
+          <p>Network Devices (বা networking hardware) হলো এমন physical appliances যা একটি computer network-এ সংযুক্ত devices-গুলোর মধ্যে communication এবং interaction-এর জন্য প্রয়োজন হয়।</p>
+          <p>এগুলো ইন্টারনেটের "plumbing"-এর মতো কাজ করে, যা data traffic redirect করে, signals amplify করে এবং connections secure করে। এগুলো কীভাবে কাজ করে তা বোঝার জন্য আমাদেরকে এগুলোকে OSI Model-এর layer অনুযায়ী ভাগ করতে হবে।</p>
+          <div class="content-box">
+            <strong>Note:</strong> এদের functionality-এর উপর ভিত্তি করে এই device-গুলো signal regeneration, frame forwarding, packet switching, routing, protocol conversion এবং access control-এর মতো কাজ করে, যাতে reliable, efficient এবং secure communication নিশ্চিত করা যায়।
+          </div>
+
+          <h2>Functions of Network Devices</h2>
+          <ul>
+            <li>Devices-গুলোর মধ্যে Data transmit এবং receive করার মাধ্যমে communication enable করে।</li>
+            <li>Devices-গুলোকে efficiently এবং securely network-এর সাথে connect হতে সাহায্য করে।</li>
+            <li>Congestion কমিয়ে এবং traffic manage করে network performance improve করে।</li>
+            <li>Access control করে এবং unauthorized activities prevent করে security প্রদান করে।</li>
+            <li>Network coverage extend করে এবং signal loss বা attenuation problem solve করে।</li>
+          </ul>
+
+          <h2>Layer 1 Devices: Physical Layer</h2>
+          <p>এই device-গুলো raw electrical বা optical signals (bits) নিয়ে কাজ করে। এগুলো "dumb" device, অর্থাৎ এরা IP Address বা MAC Address বুঝতে পারে না।</p>
+
+          <h3>1. Hub</h3>
+          <ul>
+            <li><strong>Function:</strong> একটি LAN-এ সংযুক্ত devices-গুলোর জন্য একটি central connection point।</li>
+            <li><strong>How it Works:</strong> এটি একটি port-এ আসা incoming signal-কে blindly অন্যান্য <strong>সমস্ত</strong> port-এ broadcast করে দেয়। এটি জানে না নির্দিষ্ট প্রাপক কে।</li>
+            <li><strong>Drawback:</strong> অত্যাধিক network traffic collisions এবং security risks (সবাই সবার data দেখতে পারে)।</li>
+            <li><strong>Status:</strong> Obsolete. বর্তমানে Switches দ্বারা replaced হয়ে গেছে।</li>
+          </ul>
+
+          <h3>2. Repeater</h3>
+          <ul>
+            <li><strong>Function:</strong> Network-এর range extend করার জন্য signals regenerate করে।</li>
+            <li><strong>How it Works:</strong> এটি একটি weak signal (long cables-এর কারণে হওয়া attenuation-এর জন্য) গ্রহণ করে, এটিকে amplify করে এবং পুনরায় retransmit করে।</li>
+            <li><strong>Use Case:</strong> WiFi range বা Ethernet cables-কে 100 meters-এর বাইরে extend করা।</li>
+          </ul>
+
+          <h3>3. Modem (Modulator-Demodulator)</h3>
+          <ul>
+            <li><strong>Function:</strong> আপনার home network-কে ISP (Internet Service Provider)-এর সাথে connect করে।</li>
+            <li><strong>How it Works:</strong> আপনার computer-এর digital signals-কে telephone/cable lines-এর জন্য analog signals-এ রূপান্তর করে (Modulation) এবং বিপরীত কাজটাও করে (Demodulation)।</li>
+          </ul>
+
+          <h2>Layer 2 Devices: Data Link Layer</h2>
+          <p>এই device-গুলো <strong>MAC Addresses</strong> (Physical Addresses) নিয়ে কাজ করে। এগুলো Hub-এর চেয়ে "smarter"।</p>
+
+          <h3>4. Switch</h3>
+          <ul>
+            <li><strong>Function:</strong> একটি LAN (Local Area Network)-এ devices connect করে।</li>
+            <li><strong>How it Works:</strong> Hub-এর মতো না হয়ে, একটি Switch প্রতিটি connected device-এর MAC address শিখে নেয়। এটি data <strong>শুধুমাত্র</strong> সেই specific port-এ পাঠায় যেখানে destination device সংযুক্ত থাকে।</li>
+            <li><strong>Benefit:</strong> Collisions reduce করে এবং security ও speed improve করে।</li>
+            <li><strong>Types:</strong>
+              <ul>
+                <li><strong>Unmanaged:</strong> Plug-and-play (Home/Small Office).</li>
+                <li><strong>Managed:</strong> Enterprise ব্যবহারের জন্য Configurable (VLANs, QoS)।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>5. Bridge</h3>
+          <ul>
+            <li><strong>Function:</strong> দুটি separate LAN segments-কে এমনভাবে connect করে যেন মনে হয় এটা একটাই network।</li>
+            <li><strong>How it Works:</strong> Local traffic-কে local রাখার জন্য MAC addresses-এর উপর ভিত্তি করে traffic filter করে, যা congestion কমায়। বর্তমানে এটি Switches দ্বারা ব্যাপকভাবে replaced হয়ে গেছে (কারণ switch মূলত multi-port bridge ছাড়া আর কিছুই না)।</li>
+          </ul>
+
+          <h3>6. Access Point (AP)</h3>
+          <ul>
+            <li><strong>Function:</strong> একটি Wireless Local Area Network (WLAN) তৈরি করে।</li>
+            <li><strong>How it Works:</strong> এটি wired Ethernet এবং wireless WiFi devices-এর মধ্যে একটি bridge হিসেবে কাজ করে।</li>
+            <li><strong>Difference from Router:</strong> একটি AP শুধুমাত্র WiFi signal প্রদান করে; এটি traffic route করে না বা IP addresses assign করে না (যদি না এটি একটি "Wireless Router" combo unit হয়)।</li>
+          </ul>
+
+          <h2>Layer 3 Devices: Network Layer</h2>
+          <p>এই device-গুলো <strong>IP Addresses</strong> (Logical Addresses) নিয়ে কাজ করে। এগুলো বিভিন্ন networks-কে একসাথে connect করে।</p>
+
+          <h3>7. Router</h3>
+          <ul>
+            <li><strong>Function:</strong> একাধিক networks connect করে (উদাঃ আপনার Home LAN-এর সাথে Internet WAN)।</li>
+            <li><strong>How it Works:</strong> Data packets travel করার জন্য best path নির্ধারণ করতে এটি <strong>IP Addresses</strong> ব্যবহার করে। এই decisions নেয়ার জন্য এটি একটি <strong>Routing Table</strong> maintain করে।</li>
+            <li><strong>Key Feature:</strong> Routers broadcast traffic বন্ধ করে, যা networks-গুলোকে একে অপরের থেকে আলাদা (isolate) রাখে।</li>
+          </ul>
+
+          <h3>8. Brouter (Bridging Router)</h3>
+          <ul>
+            <li><strong>Function:</strong> এটি একটি hybrid device যা Bridge এবং Router উভয়ের মতোই কাজ করে।</li>
+            <li><strong>How it Works:</strong> এটি একইসাথে known protocols (যেমন TCP/IP) route করতে পারে এবং unknown protocols (যেমন non-routable legacy traffic) bridge করতে পারে। এটি আজকাল খুব কমই ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h2>Layer 4-7 Devices: Upper Layers</h2>
+
+          <h3>9. Gateway</h3>
+          <ul>
+            <li><strong>Function:</strong> দুটি dissimilar networks-এর মধ্যে একটি translator হিসেবে কাজ করে।</li>
+            <li><strong>How it Works:</strong> এটি protocols, data formats বা architectures convert করতে পারে (উদাঃ একটি TCP/IP network-কে একটি legacy Mainframe network-এর সাথে connect করা)।</li>
+            <li><strong>Example:</strong> একটি "Internet Gateway" আপনার private LAN requests-গুলোকে public internet requests-এ translate করে।</li>
+          </ul>
+
+          <h3>10. Firewall</h3>
+          <ul>
+            <li><strong>Function:</strong> Security guard। Security rules-এর উপর ভিত্তি করে incoming এবং outgoing traffic control করে।</li>
+            <li><strong>Hardware:</strong> Network-এর প্রান্তে (edge) থাকা একটি physical appliance।</li>
+            <li><strong>Software:</strong> একটি specific server/PC-তে install করা থাকে।</li>
+            <li><strong>Packet Filtering:</strong> Headers (IP/Port) চেক করে।</li>
+            <li><strong>Stateful Inspection:</strong> Active connections track করে।</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script type="module" src="../js/network-background.js"></script>
+  </div>
+</body>
+
+</html>
