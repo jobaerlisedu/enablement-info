@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="MikroTik Certified Network Associate - Complete Networking Course">
+  <title>MikroTik Certified Network Associate | enablement.info</title>
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    :root {
+      --sidebar-width: 350px;
+      --bg-light: #f4f7f9;
+      --panel-bg: #ffffff;
+      --sidebar-bg: #ffffff;
+      --accent-blue: #0563bb;
+      --accent-light: #eef5ff;
+      --text-dark: #2c3e50;
+      --text-muted: #7f8c8d;
+      --border-color: #e6ecf1;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: var(--bg-light);
+      overflow: hidden;
+      color: var(--text-dark);
+    }
+
+    .app-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Course Sidebar */
+    .course-sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .sidebar-header {
+      padding: 30px 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      color: var(--accent-blue);
+      padding-left: 5px;
+    }
+
+    .course-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent-blue);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .course-title i {
+      font-size: 1.6rem;
+    }
+
+    .course-nav {
+      padding: 20px 15px;
+      margin: 0;
+    }
+
+    .course-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .course-nav li {
+      margin-bottom: 8px;
+    }
+
+    .course-nav a {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      color: var(--text-dark);
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.4;
+      transition: all 0.2s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .course-nav a i {
+      font-size: 1.25rem;
+      margin-top: 3px;
+      color: var(--accent-blue);
+      opacity: 0.8;
+    }
+
+    .course-nav a:hover {
+      background: var(--accent-light);
+      border-color: rgba(5, 99, 187, 0.1);
+    }
+
+    .course-nav a.active-link {
+      background: var(--accent-light);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(5, 99, 187, 0.05);
+    }
+
+    .course-nav a.active-link i {
+      opacity: 1;
+    }
+
+    /* Mobile Navigation Header - Hidden on Desktop */
+    .mobile-nav-header {
+      display: none;
+    }
+
+    /* Main Content Area */
+    .course-main {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .content-panel {
+      flex: 1;
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+
+    /* Mobile Toggle Button */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(5, 99, 187, 0.2);
+    }
+
+    .nav-toggle:hover {
+      background: #044d92;
+      transform: translateY(-2px);
+    }
+
+    .nav-toggle i {
+      transition: transform 0.3s ease;
+    }
+
+    .nav-active .nav-toggle i {
+      transform: rotate(90deg);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Scrollbar Styling */
+    .course-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e1;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .course-sidebar {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .app-container {
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .course-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+      }
+
+      .sidebar-header {
+        padding: 20px 20px;
+      }
+
+      .header-top {
+        margin-bottom: 15px;
+      }
+
+      .back-link {
+        margin-bottom: 0;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .sidebar-header h2 {
+        display: none;
+      }
+
+      .course-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        /* Now covers 80% of screen */
+        max-width: 350px;
+        /* Cap for tablets/larger phones */
+        height: 100vh;
+        background: white;
+        z-index: 1000;
+        /* Higher z-index to stay above backdrop */
+        padding-top: 0;
+        transform: translateX(-100%);
+        /* Slide from the left */
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: block !important;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        box-shadow: none;
+      }
+
+      .nav-active .course-nav {
+        transform: translateX(0);
+        /* Slide into view */
+        opacity: 1;
+        visibility: visible;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+        /* Depth for the sidebar */
+      }
+
+      /* Backdrop Overlay */
+      .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent dim */
+        z-index: 999;
+        /* Just below the sidebar */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(2px);
+      }
+
+      .nav-active .nav-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .course-main {
+        height: calc(100vh - 120px);
+        padding: 0;
+      }
+
+      /* Mobile Navigation Header Styling */
+      .mobile-nav-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 10px;
+        display: block;
+        /* Show only when drawer is active on mobile */
+      }
+
+      .mobile-nav-header .course-title {
+        font-size: 1.1rem;
+        margin-top: 10px;
+      }
+
+      .course-nav {
+        padding-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar with lesson list -->
+    <aside class="course-sidebar">
+      <div class="sidebar-header">
+        <div class="header-top">
+          <a href="../courses.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Courses</a>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Navigation">
+            <i class='bx bx-menu'></i>
+          </button>
+        </div>
+        <h2 class="course-title">MikroTik Certified Network Associate (MTCNA)</h2>
+      </div>
+
+      <div class="course-nav" id="sidebar-nav-container">
+        <!-- Added Header for Mobile Side Nav -->
+        <div class="mobile-nav-header">
+          <h2 class="course-title">MikroTik Certified Network Associate</h2>
+        </div>
+        <ul id="sidebar-nav">
+          <li><a href="networking-with-mikrotik/tutorial-001-what-is-mikrotik-and-what-are-its-products.html"
+              target="course-frame"><span>What is MikroTik and what are its products?</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-002-configure-the-mikrotik-router-using-quick-set-webfig.html"
+              target="course-frame"><span>Configure the MikroTik Router using Quick Set & WebFig</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-003-connecting-to-the-mikrotik-router-via-winbox-on-mac-and-ip-addresses.html"
+              target="course-frame"><span>Connecting to the MikroTik Router via Winbox on MAC and IP
+                addresses</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-004-connecting-to-the-mikrotik-router-via-telnet-and-ssh.html"
+              target="course-frame"><span>Connecting to the MikroTik Router via Telnet and SSH</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-005-basic-command-line-syntax-on-mikrotik-routeros.html"
+              target="course-frame"><span>Basic Command Line Syntax on MikroTik RouterOS</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-006-connecting-the-mikrotik-router-and-the-pc-to-the-internet.html"
+              target="course-frame"><span>Connecting the MikroTik Router and the PC to the internet</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-007-troubleshooting-internet-problems-on-the-mikrotik-router-and-the-lan-pc.html"
+              target="course-frame"><span>Troubleshooting internet problems on the MikroTik Router and the LAN
+                PC</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-008-routeros-package-channels-and-ways-of-upgrading-downgrading.html"
+              target="course-frame"><span>RouterOS package channels and ways of upgrading & downgrading</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-009-routeros-upgrade-from-the-lan-and-routerboot-firmware-upgrade.html"
+              target="course-frame"><span>RouterOS Upgrade from the LAN and RouterBOOT firmware upgrade</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-010-router-identity-on-mikrotik-routeros.html"
+              target="course-frame"><span>Router identity on MikroTik RouterOS</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-011-managing-routeros-login-users-groups.html"
+              target="course-frame"><span>Managing RouterOS Login â€“ Users & Groups</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-012-ssh-connection-to-the-mikrotik-router-via-private-and-public-keys.html"
+              target="course-frame"><span>SSH connection to the MikroTik Router via Private and Public Keys</span></a>
+          </li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-013-manage-routeros-services-www-www-ssl-ftp-telnet-ssh-api-api-ssl-winbox.html"
+              target="course-frame"><span>Manage RouterOS Services (www, www-ssl, FTP, Telnet, SSH, API, API-SSL,
+                Winbox)</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-014-mikrotik-backup-and-restore-binary-vs-configuration-backup.html"
+              target="course-frame"><span>MikroTik Backup and Restore (Binary vs Configuration backup)</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-015-resetting-the-mikrotik-routeros-using-different-ways.html"
+              target="course-frame"><span>Resetting the MikroTik RouterOS using different ways</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-016-reinstalling-the-routeros-on-a-mikrotik-device-using-netinstall.html"
+              target="course-frame"><span>Reinstalling the RouterOS on a MikroTik Device using Netinstall</span></a>
+          </li>
+          <li><a href="networking-with-mikrotik/tutorial-017-mikrotik-routeros-chr-license-levels.html"
+              target="course-frame"><span>MikroTik RouterOS & CHR license levels</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-018-configuring-dhcp-server-and-dhcp-client-on-mikrotik-routeros.html"
+              target="course-frame"><span>Configuring DHCP Server and DHCP Client on MikroTik RouterOS</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-019-manipulating-arp-on-mikrotik-routeros-enabled-disabled-reply-only.html"
+              target="course-frame"><span>Manipulating ARP on MikroTik RouterOS (Enabled, Disabled,
+                Reply-only)</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-020-understand-and-configure-bridging-on-mikrotik-routeros.html"
+              target="course-frame"><span>Understand and configure Bridging on MikroTik RouterOS</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-021-bridging-on-the-wireless-using-station-bridge-on-mikrotik-routeros.html"
+              target="course-frame"><span>Bridging on the wireless using Station Bridge on MikroTik RouterOS</span></a>
+          </li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-022-what-is-routing-igp-egp-as-static-route-dynamic-routes.html"
+              target="course-frame"><span>What is Routing (IGP, EGP, AS, Static Route, Dynamic Routes)</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-023-configuring-static-routing-ecmp-and-routing-failover-on-mikrotik.html"
+              target="course-frame"><span>Configuring Static Routing, ECMP and Routing Failover on MikroTik</span></a>
+          </li>
+          <li><a href="networking-with-mikrotik/tutorial-024-understand-wireless-terminology.html"
+              target="course-frame"><span>Understand Wireless terminology</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-025-wireless-setup-on-mikrotik-and-frequency-modes.html"
+              target="course-frame"><span>Wireless setup on MikroTik and frequency modes</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-026-wireless-station-default-authenticate-and-access-list.html"
+              target="course-frame"><span>Wireless station, Default Authenticate and Access list</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-027-wireless-access-list-bandwidth-password-and-time.html"
+              target="course-frame"><span>Wireless Access List: Bandwidth, Password and Time</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-028-firewall-overview-and-features-on-mikrotik-routeros.html"
+              target="course-frame"><span>Firewall overview and features on MikroTik RouterOS</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-029-connection-tracking-function-on-mikrotik-routeros.html"
+              target="course-frame"><span>Connection Tracking function on MikroTik RouterOS</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-030-firewall-connection-states-on-mikrotik-routeros.html"
+              target="course-frame"><span>Firewall connection states on MikroTik RouterOS</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-031-protect-mikrotik-router-using-firewall-connection-states.html"
+              target="course-frame"><span>Protect MikroTik router using Firewall connection states</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-032-make-mikrotik-router-a-dns-forwarder-and-redirect-dns-queries.html"
+              target="course-frame"><span>Make MikroTik router a DNS Forwarder and redirect DNS queries</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-033-changing-destination-address-using-dst-nat.html"
+              target="course-frame"><span>Changing destination address using DST-NAT</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-034-configure-fasttrack-on-mikrotik-routeros.html"
+              target="course-frame"><span>Configure FastTrack on MikroTik RouterOS</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-035-vpn-tunneling-concepts-and-importance.html"
+              target="course-frame"><span>VPN Tunneling concepts and importance</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-036-pptp-tunneling-protocol-explanation.html"
+              target="course-frame"><span>PPTP Tunneling Protocol â€“ Explanation</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-037-configuring-pptp-site-to-site-vpn-on-mikrotik.html"
+              target="course-frame"><span>Configuring PPTP Site-to-Site VPN on MikroTik</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-038-sstp-tunneling-protocol-explanation.html"
+              target="course-frame"><span>SSTP Tunneling Protocol â€“ Explanation</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-039-configuring-sstp-client-to-site-vpn-on-mikrotik-and-windows.html"
+              target="course-frame"><span>Configuring SSTP Client-to-Site VPN on MikroTik and Windows</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-040-understand-pppoe-and-its-features.html"
+              target="course-frame"><span>Understand PPPoE and its features</span></a></li>
+          <li><a
+              href="networking-with-mikrotik/tutorial-041-configure-pppoe-server-and-client-on-mikrotik-routeros.html"
+              target="course-frame"><span>Configure PPPoE Server and Client on MikroTik RouterOS</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-042-understand-simple-queueing-on-mikrotik-routeros.html"
+              target="course-frame"><span>Understand Simple Queueing on MikroTik RouterOS</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-043-configure-simple-queueing-on-mikrotik-routeros.html"
+              target="course-frame"><span>Configure Simple Queueing on MikroTik RouterOS</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-044-one-simple-queue-for-the-whole-network-pcq.html"
+              target="course-frame"><span>One Simple Queue for the whole network (PCQ)</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-045-ping-traceroute-and-profile-tools-on-mikrotik.html"
+              target="course-frame"><span>Ping, Traceroute and Profile tools on MikroTik</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-046-sending-emails-from-the-mikrotik-router.html"
+              target="course-frame"><span>Sending emails from the MikroTik router</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-047-netwatch-tool-on-mikrotik.html"
+              target="course-frame"><span>Netwatch tool on MikroTik</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-048-interface-monitor-torch-tool-and-graphing.html"
+              target="course-frame"><span>Interface Monitor, Torch tool and Graphing</span></a></li>
+          <li><a href="networking-with-mikrotik/tutorial-049-installing-and-configuring-the-dude-server-and-client.html"
+              target="course-frame"><span>Installing and Configuring The Dude Server and Client</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Mobile Navigation Overlay (Backdrop) -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Main article display panel -->
+    <main class="course-main">
+      <div class="content-panel">
+        <iframe name="course-frame"
+          src="networking-with-mikrotik/tutorial-001-what-is-mikrotik-and-what-are-its-products.html"
+          allowfullscreen></iframe>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('#sidebar-nav a');
+      const navToggle = document.getElementById('nav-toggle');
+      const sidebar = document.querySelector('.course-sidebar');
+      const navOverlay = document.getElementById('nav-overlay');
+
+      // Mark first link as active by default
+      if (links.length > 0) links[0].classList.add('active-link');
+
+      function toggleNav() {
+        sidebar.classList.toggle('nav-active');
+
+        // Change icon based on state
+        const icon = navToggle.querySelector('i');
+        if (sidebar.classList.contains('nav-active')) {
+          icon.className = 'bx bx-x';
+        } else {
+          icon.className = 'bx bx-menu';
+        }
+      }
+
+      // Toggle Navigation
+      if (navToggle) {
+        navToggle.addEventListener('click', toggleNav);
+      }
+
+      // Close on overlay click
+      if (navOverlay) {
+        navOverlay.addEventListener('click', toggleNav);
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', function () {
+          links.forEach(l => l.classList.remove('active-link'));
+          this.classList.add('active-link');
+
+          // Close menu on link click (mobile)
+          if (sidebar.classList.contains('nav-active')) {
+            toggleNav();
+          }
+        });
+      });
+
+      // Sync sidebar active link with iframe navigation
+      const courseFrame = document.querySelector('iframe[name="course-frame"]');
+      if (courseFrame) {
+        courseFrame.addEventListener('load', function () {
+          try {
+            const frameUrl = courseFrame.contentWindow.location.href;
+            // Find the matching link in the sidebar
+            links.forEach(link => {
+              const linkHref = link.getAttribute('href');
+              // check if the end of the frame URL matches the link href
+              if (frameUrl.includes(linkHref) || frameUrl.endsWith(linkHref.split('/').pop())) {
+                links.forEach(l => l.classList.remove('active-link'));
+                link.classList.add('active-link');
+                // Auto-scroll the sidebar to the active link
+                link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            });
+          } catch (e) {
+            // Cross-origin or other errors can be ignored
+            console.log("Could not sync iframe URL:", e);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

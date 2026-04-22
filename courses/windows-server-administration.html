@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Windows Server Administration - Complete Networking Course">
+  <title>Windows Server Administration | enablement.info</title>
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    :root {
+      --sidebar-width: 350px;
+      --bg-light: #f4f7f9;
+      --panel-bg: #ffffff;
+      --sidebar-bg: #ffffff;
+      --accent-blue: #0563bb;
+      --accent-light: #eef5ff;
+      --text-dark: #2c3e50;
+      --text-muted: #7f8c8d;
+      --border-color: #e6ecf1;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: var(--bg-light);
+      overflow: hidden;
+      color: var(--text-dark);
+    }
+
+    .app-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Course Sidebar */
+    .course-sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .sidebar-header {
+      padding: 30px 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      color: var(--accent-blue);
+      padding-left: 5px;
+    }
+
+    .course-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent-blue);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .course-title i {
+      font-size: 1.6rem;
+    }
+
+    .course-nav {
+      padding: 20px 15px;
+      margin: 0;
+    }
+
+    .course-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .course-nav li {
+      margin-bottom: 8px;
+    }
+
+    .course-nav a {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      color: var(--text-dark);
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.4;
+      transition: all 0.2s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .course-nav a i {
+      font-size: 1.25rem;
+      margin-top: 3px;
+      color: var(--accent-blue);
+      opacity: 0.8;
+    }
+
+    .course-nav a:hover {
+      background: var(--accent-light);
+      border-color: rgba(5, 99, 187, 0.1);
+    }
+
+    .course-nav a.active-link {
+      background: var(--accent-light);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(5, 99, 187, 0.05);
+    }
+
+    .course-nav a.active-link i {
+      opacity: 1;
+    }
+
+    /* Mobile Navigation Header - Hidden on Desktop */
+    .mobile-nav-header {
+      display: none;
+    }
+
+    /* Main Content Area */
+    .course-main {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .content-panel {
+      flex: 1;
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+
+    /* Mobile Toggle Button */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(5, 99, 187, 0.2);
+    }
+
+    .nav-toggle:hover {
+      background: #044d92;
+      transform: translateY(-2px);
+    }
+
+    .nav-toggle i {
+      transition: transform 0.3s ease;
+    }
+
+    .nav-active .nav-toggle i {
+      transform: rotate(90deg);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Scrollbar Styling */
+    .course-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e1;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .course-sidebar {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .app-container {
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .course-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+      }
+
+      .sidebar-header {
+        padding: 20px 20px;
+      }
+
+      .header-top {
+        margin-bottom: 15px;
+      }
+
+      .back-link {
+        margin-bottom: 0;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .sidebar-header h2 {
+        display: none;
+      }
+
+      .course-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        /* Now covers 80% of screen */
+        max-width: 350px;
+        /* Cap for tablets/larger phones */
+        height: 100vh;
+        background: white;
+        z-index: 1000;
+        /* Higher z-index to stay above backdrop */
+        padding-top: 0;
+        transform: translateX(-100%);
+        /* Slide from the left */
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: block !important;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        box-shadow: none;
+      }
+
+      .nav-active .course-nav {
+        transform: translateX(0);
+        /* Slide into view */
+        opacity: 1;
+        visibility: visible;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+        /* Depth for the sidebar */
+      }
+
+      /* Backdrop Overlay */
+      .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent dim */
+        z-index: 999;
+        /* Just below the sidebar */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(2px);
+      }
+
+      .nav-active .nav-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .course-main {
+        height: calc(100vh - 120px);
+        padding: 0;
+      }
+
+      /* Mobile Navigation Header Styling */
+      .mobile-nav-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 10px;
+        display: block;
+        /* Show only when drawer is active on mobile */
+      }
+
+      .mobile-nav-header .course-title {
+        font-size: 1.1rem;
+        margin-top: 10px;
+      }
+
+      .course-nav {
+        padding-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar with lesson list -->
+    <aside class="course-sidebar">
+      <div class="sidebar-header">
+        <div class="header-top">
+          <a href="../courses.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Courses</a>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Navigation">
+            <i class='bx bx-menu'></i>
+          </button>
+        </div>
+        <h2 class="course-title">Windows Server Administration</h2>
+      </div>
+
+      <div class="course-nav" id="sidebar-nav-container">
+        <!-- Added Header for Mobile Side Nav -->
+        <div class="mobile-nav-header">
+          <h2 class="course-title">Windows Server Administration</h2>
+        </div>
+        <ul id="sidebar-nav">
+          <li><a href="windows-server-administration/tutorial-001-introducing-windows-server-2022.html"
+              target="course-frame"><span>Introducing Windows Server 2022</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-002-windows-server-editions.html"
+              target="course-frame"><span>Windows Server Editions</span></a></li>
+          <li><a href="windows-server-administration/tutorial-003-windows-server-2022-azure-edition-features.html"
+              target="course-frame"><span>Windows Server 2022 Azure Edition
+                Features</span></a></li>
+          <li><a href="windows-server-administration/tutorial-004-course-note-about-azure-topics.html"
+              target="course-frame"><span>Course note about Azure topics</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-005-demo-windows-server-2022-azure-edition.html"
+              target="course-frame"><span>Demo: Windows Server 2022 Azure
+                Edition</span></a></li>
+          <li><a href="windows-server-administration/tutorial-006-hardware-requirements.html"
+              target="course-frame"><span>Hardware Requirements</span></a></li>
+          <li><a href="windows-server-administration/tutorial-007-demo-microsoft-lifecycle-website.html"
+              target="course-frame"><span>Demo: Microsoft Lifecycle Website</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-008-deployment-options.html"
+              target="course-frame"><span>Deployment Options</span></a></li>
+          <li><a href="windows-server-administration/tutorial-009-demo-creating-a-new-vm.html"
+              target="course-frame"><span>Demo: Creating a New VM</span></a></li>
+          <li><a href="windows-server-administration/tutorial-010-demo-installing-windows-server-2022.html"
+              target="course-frame"><span>Demo: Installing Windows Server
+                2022</span></a></li>
+          <li><a href="windows-server-administration/tutorial-011-course-ip-addressing-design.html"
+              target="course-frame"><span>Course IP addressing design</span></a></li>
+          <li><a href="windows-server-administration/tutorial-012-demo-post-installation-tasks.html"
+              target="course-frame"><span>Demo: Post-Installation Tasks</span></a></li>
+          <li><a href="windows-server-administration/tutorial-013-servicing-channels.html"
+              target="course-frame"><span>Servicing Channels</span></a></li>
+          <li><a href="windows-server-administration/tutorial-014-licensing.html"
+              target="course-frame"><span>Licensing</span></a></li>
+          <li><a href="windows-server-administration/tutorial-015-activation.html"
+              target="course-frame"><span>Activation</span></a></li>
+          <li><a href="windows-server-administration/tutorial-016-demo-volume-activation-services.html"
+              target="course-frame"><span>Demo: Volume Activation Services</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-017-demo-software-licensing-manager-slmgr-vbs.html"
+              target="course-frame"><span>Demo: Software Licensing Manager
+                (SLMGR.VBS)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-018-server-core.html" target="course-frame"><span>Server
+                Core</span></a></li>
+          <li><a href="windows-server-administration/tutorial-019-demo-server-core-installation.html"
+              target="course-frame"><span>Demo: Server Core Installation</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-020-demo-installing-rts-svr.html"
+              target="course-frame"><span>Demo: Installing RTS-SVR</span></a></li>
+          <li><a href="windows-server-administration/tutorial-021-what-is-copilot.html" target="course-frame"><span>What
+                is Copilot</span></a></li>
+          <li><a href="windows-server-administration/tutorial-022-demo-copilot.html" target="course-frame"><span>Demo:
+                Copilot</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-023-active-directory-domain-services-on-windows-server-2022.html"
+              target="course-frame"><span>Active Directory Domain Services on Windows
+                Server 2022</span></a></li>
+          <li><a href="windows-server-administration/tutorial-024-workgroup-vs-domain.html"
+              target="course-frame"><span>Workgroup vs Domain</span></a></li>
+          <li><a href="windows-server-administration/tutorial-025-workgroup-vs-domain-non-technical-concept.html"
+              target="course-frame"><span>Workgroup vs Domain (non-technical
+                concept)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-026-demo-verify-workgroup-or-domain-membership.html"
+              target="course-frame"><span>Demo: Verify Workgroup or Domain
+                membership</span></a></li>
+          <li><a href="windows-server-administration/tutorial-027-active-directory-domain-services-terms.html"
+              target="course-frame"><span>Active Directory Domain Services
+                Terms</span></a></li>
+          <li><a href="windows-server-administration/tutorial-028-active-directory-domain-services-objects.html"
+              target="course-frame"><span>Active Directory Domain Services
+                Objects</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-029-active-directory-domain-services-ip-configuration-example.html"
+              target="course-frame"><span>Active Directory Domain Services IP
+                configuration example</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-030-demo-active-directory-domain-services-installation.html"
+              target="course-frame"><span>Demo: Active Directory Domain Services
+                Installation</span></a></li>
+          <li><a href="windows-server-administration/tutorial-031-demo-users-and-groups.html"
+              target="course-frame"><span>Demo: Users and Groups</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-032-demo-joining-a-desktop-experience-server-to-the-domain.html"
+              target="course-frame"><span>Demo: Joining a Desktop Experience Server to
+                the Domain</span></a></li>
+          <li><a href="windows-server-administration/tutorial-033-demo-joining-a-core-server-to-the-domain.html"
+              target="course-frame"><span>Demo: Joining a Core Server to the
+                Domain</span></a></li>
+          <li><a href="windows-server-administration/tutorial-034-organizational-units-and-containers.html"
+              target="course-frame"><span>Organizational Units and
+                Containers</span></a></li>
+          <li><a href="windows-server-administration/tutorial-035-demo-organizational-units-and-containers.html"
+              target="course-frame"><span>Demo: Organizational Units and
+                Containers</span></a></li>
+          <li><a href="windows-server-administration/tutorial-036-domain-controllers.html"
+              target="course-frame"><span>Domain Controllers</span></a></li>
+          <li><a href="windows-server-administration/tutorial-037-demo-ntds-sysvol-and-logs.html"
+              target="course-frame"><span>Demo: NTDS, SYSVOL, and Logs</span></a></li>
+          <li><a href="windows-server-administration/tutorial-038-global-catalog-servers.html"
+              target="course-frame"><span>Global Catalog Servers</span></a></li>
+          <li><a href="windows-server-administration/tutorial-039-demo-global-catalog-servers.html"
+              target="course-frame"><span>Demo: Global Catalog Servers</span></a></li>
+          <li><a href="windows-server-administration/tutorial-040-group-policy-objects-gpo.html"
+              target="course-frame"><span>Group Policy Objects (GPO)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-041-demo-folder-redirection-using-group-policy.html"
+              target="course-frame"><span>Demo: Folder Redirection using Group
+                Policy</span></a></li>
+          <li><a href="windows-server-administration/tutorial-042-default-policies.html"
+              target="course-frame"><span>Default Policies</span></a></li>
+          <li><a href="windows-server-administration/tutorial-043-demo-default-policies.html"
+              target="course-frame"><span>Demo: Default Policies</span></a></li>
+          <li><a href="windows-server-administration/tutorial-044-group-policy-preferences.html"
+              target="course-frame"><span>Group Policy Preferences</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-045-demo-mapping-a-drive-using-group-policy-preferences.html"
+              target="course-frame"><span>Demo: Mapping a Drive using Group Policy
+                Preferences</span></a></li>
+          <li><a href="windows-server-administration/tutorial-046-group-policy-processing-order.html"
+              target="course-frame"><span>Group Policy Processing Order</span></a></li>
+          <li><a href="windows-server-administration/tutorial-047-demo-group-policy-processing-order.html"
+              target="course-frame"><span>Demo: Group Policy Processing
+                Order</span></a></li>
+          <li><a href="windows-server-administration/tutorial-048-altering-group-policy-processing-order.html"
+              target="course-frame"><span>Altering Group Policy Processing
+                Order</span></a></li>
+          <li><a href="windows-server-administration/tutorial-049-demo-group-policy-filtering.html"
+              target="course-frame"><span>Demo: Group Policy Filtering</span></a></li>
+          <li><a href="windows-server-administration/tutorial-050-gpupdate.html"
+              target="course-frame"><span>GPUPDATE</span></a></li>
+          <li><a href="windows-server-administration/tutorial-051-gpresult.html"
+              target="course-frame"><span>GPRESULT</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-052-understanding-active-directory-sites-and-group-policy-relationships.html"
+              target="course-frame"><span>Understanding Active Directory Sites and
+                Group Policy Relationships</span></a></li>
+          <li><a href="windows-server-administration/tutorial-053-least-privilege-administration.html"
+              target="course-frame"><span>Least Privilege Administration</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-054-demo-least-privilege-administration.html"
+              target="course-frame"><span>Demo: Least Privilege
+                Administration</span></a></li>
+          <li><a href="windows-server-administration/tutorial-055-delegated-privileges.html"
+              target="course-frame"><span>Delegated Privileges</span></a></li>
+          <li><a href="windows-server-administration/tutorial-056-demo-delegation.html"
+              target="course-frame"><span>Demo: Delegation</span></a></li>
+          <li><a href="windows-server-administration/tutorial-057-jump-server.html" target="course-frame"><span>Jump
+                Server</span></a></li>
+          <li><a href="windows-server-administration/tutorial-058-admin-center.html" target="course-frame"><span>Admin
+                Center</span></a></li>
+          <li><a href="windows-server-administration/tutorial-059-demo-admin-center.html"
+              target="course-frame"><span>Demo: Admin Center</span></a></li>
+          <li><a href="windows-server-administration/tutorial-060-server-manager.html"
+              target="course-frame"><span>Server Manager</span></a></li>
+          <li><a href="windows-server-administration/tutorial-061-demo-server-manager.html"
+              target="course-frame"><span>Demo: Server Manager</span></a></li>
+          <li><a href="windows-server-administration/tutorial-062-remote-server-administration-tools.html"
+              target="course-frame"><span>Remote Server Administration Tools</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-063-powershell-part-1.html"
+              target="course-frame"><span>Powershell (part 1)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-064-powershell-part-2.html"
+              target="course-frame"><span>Powershell (part 2)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-065-demo-active-directory-administrative-center-adac.html"
+              target="course-frame"><span>Demo: Active Directory Administrative Center
+                (ADAC)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-066-demo-chatgpt-to-create-powershell-scripts.html"
+              target="course-frame"><span>Demo: ChatGPT to create Powershell
+                scripts</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-067-managing-dhcp-dynamic-host-configuration-protocol.html"
+              target="course-frame"><span>Managing DHCP (Dynamic Host Configuration
+                Protocol)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-068-overview-of-dhcp.html"
+              target="course-frame"><span>Overview of DHCP</span></a></li>
+          <li><a href="windows-server-administration/tutorial-069-wireshark-capture.html"
+              target="course-frame"><span>Wireshark Capture</span></a></li>
+          <li><a href="windows-server-administration/tutorial-070-demo-set-virtual-switch-to-private.html"
+              target="course-frame"><span>Demo: Set Virtual Switch to
+                Private</span></a></li>
+          <li><a href="windows-server-administration/tutorial-071-install-and-configure-dhcp.html"
+              target="course-frame"><span>Install and Configure DHCP</span></a></li>
+          <li><a href="windows-server-administration/tutorial-072-scope-and-authorization.html"
+              target="course-frame"><span>Scope and Authorization</span></a></li>
+          <li><a href="windows-server-administration/tutorial-073-demo-installing-dhcp.html"
+              target="course-frame"><span>Demo: Installing DHCP</span></a></li>
+          <li><a href="windows-server-administration/tutorial-074-demo-scope-and-authorization.html"
+              target="course-frame"><span>Demo: Scope and Authorization</span></a></li>
+          <li><a href="windows-server-administration/tutorial-075-dhcp-high-availability.html"
+              target="course-frame"><span>DHCP High Availability</span></a></li>
+          <li><a href="windows-server-administration/tutorial-076-demo-dhcp-high-availability.html"
+              target="course-frame"><span>Demo: DHCP High Availability</span></a></li>
+          <li><a href="windows-server-administration/tutorial-077-managing-dns-domain-naming-service.html"
+              target="course-frame"><span>Managing DNS (Domain Naming
+                Service)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-078-dns-components.html" target="course-frame"><span>DNS
+                Components</span></a></li>
+          <li><a href="windows-server-administration/tutorial-079-dns-resolution-process.html"
+              target="course-frame"><span>DNS Resolution Process</span></a></li>
+          <li><a href="windows-server-administration/tutorial-080-dns-records.html" target="course-frame"><span>DNS
+                Records</span></a></li>
+          <li><a href="windows-server-administration/tutorial-081-demo-dns-records.html"
+              target="course-frame"><span>Demo: DNS Records</span></a></li>
+          <li><a href="windows-server-administration/tutorial-082-dns-zones.html" target="course-frame"><span>DNS
+                Zones</span></a></li>
+          <li><a href="windows-server-administration/tutorial-083-demo-dns-installation.html"
+              target="course-frame"><span>Demo: DNS Installation</span></a></li>
+          <li><a href="windows-server-administration/tutorial-084-dns-zones-diagram.html"
+              target="course-frame"><span>DNS Zones Diagram</span></a></li>
+          <li><a href="windows-server-administration/tutorial-085-demo-primary-and-secondary.html"
+              target="course-frame"><span>Demo: Primary and Secondary</span></a></li>
+          <li><a href="windows-server-administration/tutorial-086-demo-active-directory-integrated.html"
+              target="course-frame"><span>Demo: Active Directory Integrated</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-087-demo-reverse-lookup-zone.html"
+              target="course-frame"><span>Demo: Reverse Lookup Zone</span></a></li>
+          <li><a href="windows-server-administration/tutorial-088-dns-forwarding-and-root-hints.html"
+              target="course-frame"><span>DNS Forwarding and Root Hints</span></a></li>
+          <li><a href="windows-server-administration/tutorial-089-demo-dns-forwarding-and-root-hints.html"
+              target="course-frame"><span>Demo: DNS Forwarding and Root
+                Hints</span></a></li>
+          <li><a href="windows-server-administration/tutorial-090-managing-file-servers-and-storage.html"
+              target="course-frame"><span>Managing File Servers and Storage</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-091-file-system-overview.html"
+              target="course-frame"><span>File System Overview</span></a></li>
+          <li><a href="windows-server-administration/tutorial-092-ntfs-permission-overview.html"
+              target="course-frame"><span>NTFS Permission Overview</span></a></li>
+          <li><a href="windows-server-administration/tutorial-093-ntfs-permission-diagram.html"
+              target="course-frame"><span>NTFS Permission Diagram</span></a></li>
+          <li><a href="windows-server-administration/tutorial-094-share-permission.html"
+              target="course-frame"><span>Share Permission</span></a></li>
+          <li><a href="windows-server-administration/tutorial-095-demo-ntfs-and-share-permission.html"
+              target="course-frame"><span>Demo: NTFS and Share Permission</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-096-demo-ntfs-deny-permission.html"
+              target="course-frame"><span>Demo: NTFS Deny Permission</span></a></li>
+          <li><a href="windows-server-administration/tutorial-097-demo-advanced-permission.html"
+              target="course-frame"><span>Demo: Advanced Permission</span></a></li>
+          <li><a href="windows-server-administration/tutorial-098-demo-ntfs-inheritance.html"
+              target="course-frame"><span>Demo: NTFS Inheritance</span></a></li>
+          <li><a href="windows-server-administration/tutorial-099-file-server-resource-manager-fsrm.html"
+              target="course-frame"><span>File Server Resource Manager
+                (FSRM)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-100-demo-installing-fsrm.html"
+              target="course-frame"><span>Demo: Installing FSRM</span></a></li>
+          <li><a href="windows-server-administration/tutorial-101-demo-quota-template.html"
+              target="course-frame"><span>Demo: Quota Template</span></a></li>
+          <li><a href="windows-server-administration/tutorial-102-demo-file-screen.html"
+              target="course-frame"><span>Demo: File Screen</span></a></li>
+          <li><a href="windows-server-administration/tutorial-103-basic-and-dynamic-disks.html"
+              target="course-frame"><span>Basic and Dynamic Disks</span></a></li>
+          <li><a href="windows-server-administration/tutorial-104-demo-raid.html" target="course-frame"><span>Demo:
+                RAID</span></a></li>
+          <li><a href="windows-server-administration/tutorial-105-demo-virtual-hard-disk-vhdx.html"
+              target="course-frame"><span>Demo: Virtual Hard Disk (VHDX)</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-106-storage-pool.html" target="course-frame"><span>Storage
+                Pool</span></a></li>
+          <li><a href="windows-server-administration/tutorial-107-demo-storage-pool.html"
+              target="course-frame"><span>Demo: Storage Pool</span></a></li>
+          <li><a href="windows-server-administration/tutorial-108-data-deduplication-overview.html"
+              target="course-frame"><span>Data Deduplication Overview</span></a></li>
+          <li><a href="windows-server-administration/tutorial-109-deduplication-process.html"
+              target="course-frame"><span>Deduplication Process</span></a></li>
+          <li><a href="windows-server-administration/tutorial-110-plan-and-deploy-data-deduplication.html"
+              target="course-frame"><span>Plan and Deploy Data Deduplication</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-111-demo-data-deduplication.html"
+              target="course-frame"><span>Demo: Data Deduplication</span></a></li>
+          <li><a href="windows-server-administration/tutorial-112-data-deduplication-backup.html"
+              target="course-frame"><span>Data Deduplication Backup</span></a></li>
+          <li><a href="windows-server-administration/tutorial-113-dfs-namespace.html" target="course-frame"><span>DFS
+                Namespace</span></a></li>
+          <li><a href="windows-server-administration/tutorial-114-dfs-replication.html" target="course-frame"><span>DFS
+                Replication</span></a></li>
+          <li><a href="windows-server-administration/tutorial-115-demo-dfs-namespace.html"
+              target="course-frame"><span>Demo: DFS Namespace</span></a></li>
+          <li><a href="windows-server-administration/tutorial-116-demo-dfs-replication.html"
+              target="course-frame"><span>Demo: DFS Replication</span></a></li>
+          <li><a href="windows-server-administration/tutorial-117-implementing-hyper-v-virtualization.html"
+              target="course-frame"><span>Implementing Hyper-V
+                Virtualization</span></a></li>
+          <li><a href="windows-server-administration/tutorial-118-hyper-v-overview.html"
+              target="course-frame"><span>Hyper-V Overview</span></a></li>
+          <li><a href="windows-server-administration/tutorial-119-exploring-hyper-v-manager.html"
+              target="course-frame"><span>Exploring Hyper-V Manager</span></a></li>
+          <li><a href="windows-server-administration/tutorial-120-hyper-v-best-practices.html"
+              target="course-frame"><span>Hyper-V Best Practices</span></a></li>
+          <li><a href="windows-server-administration/tutorial-121-nested-virtualization.html"
+              target="course-frame"><span>Nested Virtualization</span></a></li>
+          <li><a href="windows-server-administration/tutorial-122-demo-hyper-v-install-and-nested-virtualization.html"
+              target="course-frame"><span>Demo: Hyper-V Install and Nested
+                Virtualization</span></a></li>
+          <li><a href="windows-server-administration/tutorial-123-demo-hyper-v-host-settings.html"
+              target="course-frame"><span>Demo: Hyper-V Host Settings</span></a></li>
+          <li><a href="windows-server-administration/tutorial-124-virtual-machine-generations.html"
+              target="course-frame"><span>Virtual Machine Generations</span></a></li>
+          <li><a href="windows-server-administration/tutorial-125-note-about-the-course-virtual-machines.html"
+              target="course-frame"><span>Note about the course Virtual
+                Machines</span></a></li>
+          <li><a href="windows-server-administration/tutorial-126-demo-creating-a-new-virtual-machine.html"
+              target="course-frame"><span>Demo: Creating a New Virtual
+                Machine</span></a></li>
+          <li><a href="windows-server-administration/tutorial-127-demo-virtual-machine-settings.html"
+              target="course-frame"><span>Demo: Virtual Machine Settings</span></a>
+          </li>
+          <li><a
+              href="windows-server-administration/tutorial-128-demo-virtual-machine-operating-system-installation.html"
+              target="course-frame"><span>Demo: Virtual Machine Operating System
+                Installation</span></a></li>
+          <li><a href="windows-server-administration/tutorial-129-storage-types-and-formats.html"
+              target="course-frame"><span>Storage Types and Formats</span></a></li>
+          <li><a href="windows-server-administration/tutorial-130-demo-managing-a-virtual-hard-disk-vhdx.html"
+              target="course-frame"><span>Demo: Managing a Virtual Hard Disk
+                (VHDX)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-131-demo-differencing-disks.html"
+              target="course-frame"><span>Demo: Differencing Disks</span></a></li>
+          <li><a href="windows-server-administration/tutorial-132-understanding-virtual-switch-types.html"
+              target="course-frame"><span>Understanding Virtual Switch Types</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-133-demo-virtual-switch-configurations.html"
+              target="course-frame"><span>Demo: Virtual Switch
+                Configurations</span></a></li>
+          <li><a href="windows-server-administration/tutorial-134-virtual-machine-state-and-checkpoints.html"
+              target="course-frame"><span>Virtual Machine State and
+                Checkpoints</span></a></li>
+          <li><a href="windows-server-administration/tutorial-135-demo-checkpoints.html"
+              target="course-frame"><span>Demo: Checkpoints</span></a></li>
+          <li><a href="windows-server-administration/tutorial-136-import-and-export-virtual-machines.html"
+              target="course-frame"><span>Import and Export Virtual Machines</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-137-implementing-windows-print-server.html"
+              target="course-frame"><span>Implementing Windows Print Server</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-138-exploring-windows-print-servers.html"
+              target="course-frame"><span>Exploring Windows Print Servers</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-139-how-a-print-server-works.html"
+              target="course-frame"><span>How a Print Server works</span></a></li>
+          <li><a href="windows-server-administration/tutorial-140-windows-print-server-best-practices.html"
+              target="course-frame"><span>Windows Print Server Best
+                Practices</span></a></li>
+          <li><a href="windows-server-administration/tutorial-141-type-3-vs-type-4-printers.html"
+              target="course-frame"><span>Type 3 vs Type 4 Printers</span></a></li>
+          <li><a href="windows-server-administration/tutorial-142-demo-adding-a-printer-feature.html"
+              target="course-frame"><span>Demo: Adding a Printer Feature</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-143-understanding-print-permissions.html"
+              target="course-frame"><span>Understanding Print Permissions</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-144-demo-printer-settings-and-permissions.html"
+              target="course-frame"><span>Demo: Printer Settings and
+                Permissions</span></a></li>
+          <li><a href="windows-server-administration/tutorial-145-understanding-printer-pooling.html"
+              target="course-frame"><span>Understanding Printer Pooling</span></a></li>
+          <li><a href="windows-server-administration/tutorial-146-demo-printer-pooling.html"
+              target="course-frame"><span>Demo: Printer Pooling</span></a></li>
+          <li><a href="windows-server-administration/tutorial-147-understanding-printer-priority.html"
+              target="course-frame"><span>Understanding Printer Priority</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-148-demo-printer-priority.html"
+              target="course-frame"><span>Demo: Printer Priority</span></a></li>
+          <li><a href="windows-server-administration/tutorial-149-demo-print-management-administrative-tool.html"
+              target="course-frame"><span>Demo: Print Management Administrative
+                Tool</span></a></li>
+          <li><a href="windows-server-administration/tutorial-150-demo-export-and-import-printers-and-settings.html"
+              target="course-frame"><span>Demo: Export and Import Printers and
+                Settings</span></a></li>
+          <li><a href="windows-server-administration/tutorial-151-disaster-recovery-on-windows-server-2022.html"
+              target="course-frame"><span>Disaster Recovery on Windows Server
+                2022</span></a></li>
+          <li><a href="windows-server-administration/tutorial-152-overview-of-windows-server-backup.html"
+              target="course-frame"><span>Overview of Windows Server Backup</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-153-overview-of-azure-backup.html"
+              target="course-frame"><span>Overview of Azure backup</span></a></li>
+          <li><a href="windows-server-administration/tutorial-154-backup-hyper-v-virtual-machines.html"
+              target="course-frame"><span>Backup Hyper-V Virtual Machines</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-155-demo-install-and-configure-windows-server-backup.html"
+              target="course-frame"><span>Demo: Install and Configure Windows Server
+                Backup</span></a></li>
+          <li><a href="windows-server-administration/tutorial-156-demo-recovery-of-data-and-virtual-machines.html"
+              target="course-frame"><span>Demo: Recovery of Data and Virtual
+                Machines</span></a></li>
+          <li><a href="windows-server-administration/tutorial-157-implementing-wsus-on-windows-server-2022.html"
+              target="course-frame"><span>Implementing WSUS on Windows Server
+                2022</span></a></li>
+          <li><a href="windows-server-administration/tutorial-158-understanding-wsus.html"
+              target="course-frame"><span>Understanding WSUS</span></a></li>
+          <li><a href="windows-server-administration/tutorial-159-wsus-requirements.html"
+              target="course-frame"><span>WSUS Requirements</span></a></li>
+          <li><a href="windows-server-administration/tutorial-160-wsus-deployment-options.html"
+              target="course-frame"><span>WSUS Deployment Options</span></a></li>
+          <li><a href="windows-server-administration/tutorial-161-demo-wsus-installation.html"
+              target="course-frame"><span>Demo WSUS Installation</span></a></li>
+          <li><a href="windows-server-administration/tutorial-162-demo-integrating-wsus-with-group-policy.html"
+              target="course-frame"><span>Demo: Integrating WSUS with Group
+                Policy</span></a></li>
+          <li><a href="windows-server-administration/tutorial-163-demo-wsus-configuration.html"
+              target="course-frame"><span>Demo: WSUS Configuration</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-164-implementing-remote-access-on-windows-server-2022.html"
+              target="course-frame"><span>Implementing Remote Access on Windows Server
+                2022</span></a></li>
+          <li><a href="windows-server-administration/tutorial-165-vpn-scenarios.html" target="course-frame"><span>VPN
+                Scenarios</span></a></li>
+          <li><a href="windows-server-administration/tutorial-166-understanding-tunneling-protocols.html"
+              target="course-frame"><span>Understanding Tunneling Protocols</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-167-understanding-authentication-protocols.html"
+              target="course-frame"><span>Understanding Authentication
+                Protocols</span></a></li>
+          <li><a href="windows-server-administration/tutorial-168-demo-installing-and-configuring-remote-access.html"
+              target="course-frame"><span>Demo: Installing and Configuring Remote
+                Access</span></a></li>
+          <li><a href="windows-server-administration/tutorial-169-demo-vpn-client.html"
+              target="course-frame"><span>Demo: VPN Client</span></a></li>
+          <li><a href="windows-server-administration/tutorial-170-managing-san-storage-and-failover-clustering.html"
+              target="course-frame"><span>Managing SAN Storage and Failover
+                Clustering</span></a></li>
+          <li><a href="windows-server-administration/tutorial-171-understanding-an-iscsi-storage-area-network-san.html"
+              target="course-frame"><span>Understanding an iSCSI Storage Area Network
+                (SAN)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-172-demo-iscsi-san.html" target="course-frame"><span>Demo:
+                iSCSI SAN</span></a></li>
+          <li><a href="windows-server-administration/tutorial-173-understanding-failover-clustering.html"
+              target="course-frame"><span>Understanding Failover Clustering</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-174-failover-cluster-components.html"
+              target="course-frame"><span>Failover Cluster Components</span></a></li>
+          <li><a href="windows-server-administration/tutorial-175-understanding-a-cluster-quorum.html"
+              target="course-frame"><span>Understanding a Cluster Quorum</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-176-create-a-failover-cluster.html"
+              target="course-frame"><span>Create a Failover Cluster</span></a></li>
+          <li><a href="windows-server-administration/tutorial-177-demo-create-a-failover-cluster.html"
+              target="course-frame"><span>Demo: Create a Failover Cluster</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-178-active-directory-certificate-services.html"
+              target="course-frame"><span>Active Directory Certificate
+                Services</span></a></li>
+          <li><a href="windows-server-administration/tutorial-179-overview-of-public-key-infrastructure.html"
+              target="course-frame"><span>Overview of Public Key
+                Infrastructure</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-180-understanding-active-directory-certificate-services-in-windows-server.html"
+              target="course-frame"><span>Understanding Active Directory Certificate
+                Services in Windows Server</span></a></li>
+          <li><a href="windows-server-administration/tutorial-181-understanding-certification-authority-components.html"
+              target="course-frame"><span>Understanding Certification Authority
+                Components</span></a></li>
+          <li><a href="windows-server-administration/tutorial-182-considerations-for-deployment.html"
+              target="course-frame"><span>Considerations for Deployment</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-183-public-certificate-servers-vs-private-certificate-servers.html"
+              target="course-frame"><span>Public Certificate Servers vs. Private
+                Certificate Servers</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-184-stand-alone-certificate-servers-vs-enterprise-certificate-servers.html"
+              target="course-frame"><span>Stand-alone Certificate Servers vs.
+                Enterprise Certificate Servers</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-185-demo-installing-active-directory-certificate-services.html"
+              target="course-frame"><span>Demo: Installing Active Directory Certificate
+                Services</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-186-demo-navigating-the-certification-authority-console.html"
+              target="course-frame"><span>Demo: Navigating the Certification Authority
+                console</span></a></li>
+          <li><a href="windows-server-administration/tutorial-187-demo-creating-powershell-scripts.html"
+              target="course-frame"><span>Demo: Creating PowerShell Scripts</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-188-demo-digitally-signing-powershell-scripts.html"
+              target="course-frame"><span>Demo: Digitally Signing PowerShell
+                Scripts</span></a></li>
+          <li><a href="windows-server-administration/tutorial-189-demo-configuring-trusted-publishers.html"
+              target="course-frame"><span>Demo: Configuring Trusted
+                Publishers</span></a></li>
+          <li><a href="windows-server-administration/tutorial-190-performance-monitoring-in-windows-server-2022.html"
+              target="course-frame"><span>Performance Monitoring in Windows Server
+                2022</span></a></li>
+          <li><a href="windows-server-administration/tutorial-191-task-manager.html" target="course-frame"><span>Task
+                Manager</span></a></li>
+          <li><a href="windows-server-administration/tutorial-192-demo-task-manager.html"
+              target="course-frame"><span>Demo: Task Manager</span></a></li>
+          <li><a href="windows-server-administration/tutorial-193-resource-monitor.html"
+              target="course-frame"><span>Resource Monitor</span></a></li>
+          <li><a href="windows-server-administration/tutorial-194-demo-resource-monitor.html"
+              target="course-frame"><span>Demo: Resource Monitor</span></a></li>
+          <li><a href="windows-server-administration/tutorial-195-performance-monitor.html"
+              target="course-frame"><span>Performance Monitor</span></a></li>
+          <li><a href="windows-server-administration/tutorial-196-demo-performance-monitor.html"
+              target="course-frame"><span>Demo: Performance Monitor</span></a></li>
+          <li><a href="windows-server-administration/tutorial-197-reliability-monitor.html"
+              target="course-frame"><span>Reliability Monitor</span></a></li>
+          <li><a href="windows-server-administration/tutorial-198-demo-reliability-monitor.html"
+              target="course-frame"><span>Demo: Reliability Monitor</span></a></li>
+          <li><a href="windows-server-administration/tutorial-199-event-viewer.html" target="course-frame"><span>Event
+                Viewer</span></a></li>
+          <li><a href="windows-server-administration/tutorial-200-demo-event-viewer.html"
+              target="course-frame"><span>Demo: Event Viewer</span></a></li>
+          <li><a href="windows-server-administration/tutorial-201-demo-creating-an-azure-trial-subscription.html"
+              target="course-frame"><span>Demo: Creating an Azure trial
+                subscription</span></a></li>
+          <li><a href="windows-server-administration/tutorial-202-azure-overview.html" target="course-frame"><span>Azure
+                Overview</span></a></li>
+          <li><a href="windows-server-administration/tutorial-203-what-is-azure.html" target="course-frame"><span>What
+                is Azure?</span></a></li>
+          <li><a href="windows-server-administration/tutorial-204-understanding-microsoft-entra-id.html"
+              target="course-frame"><span>Understanding Microsoft Entra ID</span></a>
+          </li>
+          <li><a
+              href="windows-server-administration/tutorial-205-microsoft-entra-id-versus-active-directory-domain-services-ad-ds.html"
+              target="course-frame"><span>Microsoft Entra ID versus Active Directory
+                Domain Services (AD DS)</span></a></li>
+          <li><a href="windows-server-administration/tutorial-206-demo-create-a-new-user-in-microsoft-entra-id.html"
+              target="course-frame"><span>Demo: Create a new user in Microsoft Entra
+                ID</span></a></li>
+          <li><a href="windows-server-administration/tutorial-207-demo-sign-in-with-new-user.html"
+              target="course-frame"><span>Demo: Sign-in with new user</span></a></li>
+          <li><a href="windows-server-administration/tutorial-208-demo-add-an-enterprise-app-in-azure.html"
+              target="course-frame"><span>Demo: Add an Enterprise app in
+                Azure</span></a></li>
+          <li><a href="windows-server-administration/tutorial-209-what-is-microsoft-entra-connect.html"
+              target="course-frame"><span>What is Microsoft Entra Connect?</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-210-demo-microsoft-entra-connect.html"
+              target="course-frame"><span>Demo: Microsoft Entra Connect</span></a></li>
+          <li><a href="windows-server-administration/tutorial-211-demo-azure-file-share.html"
+              target="course-frame"><span>Demo: Azure File Share</span></a></li>
+          <li><a href="windows-server-administration/tutorial-212-demo-azure-virtual-machine.html"
+              target="course-frame"><span>Demo: Azure Virtual Machine</span></a></li>
+          <li><a href="windows-server-administration/tutorial-213-planning-an-active-directory-migration.html"
+              target="course-frame"><span>Planning an Active Directory
+                migration</span></a></li>
+          <li><a href="windows-server-administration/tutorial-214-installing-windows-server-2019.html"
+              target="course-frame"><span>Installing Windows Server 2019</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-215-creating-a-forest-root-domain-controller.html"
+              target="course-frame"><span>Creating a forest root domain
+                controller</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-216-install-windows-server-2019-on-an-additional-server.html"
+              target="course-frame"><span>Install Windows Server 2019 on an additional
+                server</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-217-creating-an-additional-domain-controller-in-an-existing-domain.html"
+              target="course-frame"><span>Creating an additional domain controller in
+                an existing domain</span></a></li>
+          <li><a href="windows-server-administration/tutorial-218-examining-the-current-environment.html"
+              target="course-frame"><span>Examining the current environment</span></a>
+          </li>
+          <li><a href="windows-server-administration/tutorial-219-installing-windows-server-2025.html"
+              target="course-frame"><span>Installing Windows Server 2025</span></a>
+          </li>
+          <li><a
+              href="windows-server-administration/tutorial-220-creating-an-additional-domain-controller-in-an-existing-domain.html"
+              target="course-frame"><span>Creating an additional domain controller in
+                an existing domain</span></a></li>
+          <li><a href="windows-server-administration/tutorial-221-demoting-a-windows-server-2019-domain-controller.html"
+              target="course-frame"><span>Demoting a Windows Server 2019 domain
+                controller</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-222-installing-windows-server-2025-and-deploying-active-directory.html"
+              target="course-frame"><span>Installing Windows Server 2025 and deploying
+                Active Directory</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-223-fsmo-transfer-and-demotion-of-windows-server-2019.html"
+              target="course-frame"><span>FSMO transfer and demotion of Windows Server
+                2019</span></a></li>
+          <li><a
+              href="windows-server-administration/tutorial-224-demoting-the-last-windows-server-2019-domain-controller.html"
+              target="course-frame"><span>Demoting the last Windows Server 2019 domain
+                controller</span></a></li>
+          <li><a href="windows-server-administration/tutorial-225-raising-the-domain-and-forest-functional-levels.html"
+              target="course-frame"><span>Raising the Domain and Forest Functional
+                Levels</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Mobile Navigation Overlay (Backdrop) -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Main article display panel -->
+    <main class="course-main">
+      <div class="content-panel">
+        <iframe name="course-frame"
+          src="windows-server-administration/tutorial-001-introducing-windows-server-2022.html"
+          allowfullscreen></iframe>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('#sidebar-nav a');
+      const navToggle = document.getElementById('nav-toggle');
+      const sidebar = document.querySelector('.course-sidebar');
+      const navOverlay = document.getElementById('nav-overlay');
+
+      // Mark first link as active by default
+      if (links.length > 0) links[0].classList.add('active-link');
+
+      function toggleNav() {
+        sidebar.classList.toggle('nav-active');
+
+        // Change icon based on state
+        const icon = navToggle.querySelector('i');
+        if (sidebar.classList.contains('nav-active')) {
+          icon.className = 'bx bx-x';
+        } else {
+          icon.className = 'bx bx-menu';
+        }
+      }
+
+      // Toggle Navigation
+      if (navToggle) {
+        navToggle.addEventListener('click', toggleNav);
+      }
+
+      // Close on overlay click
+      if (navOverlay) {
+        navOverlay.addEventListener('click', toggleNav);
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', function () {
+          links.forEach(l => l.classList.remove('active-link'));
+          this.classList.add('active-link');
+
+          // Close menu on link click (mobile)
+          if (sidebar.classList.contains('nav-active')) {
+            toggleNav();
+          }
+        });
+      });
+
+      // Sync sidebar active link with iframe navigation
+      const courseFrame = document.querySelector('iframe[name="course-frame"]');
+      if (courseFrame) {
+        courseFrame.addEventListener('load', function () {
+          try {
+            const frameUrl = courseFrame.contentWindow.location.href;
+            // Find the matching link in the sidebar
+            links.forEach(link => {
+              const linkHref = link.getAttribute('href');
+              // check if the end of the frame URL matches the link href
+              if (frameUrl.includes(linkHref) || frameUrl.endsWith(linkHref.split('/').pop())) {
+                links.forEach(l => l.classList.remove('active-link'));
+                link.classList.add('active-link');
+                // Auto-scroll the sidebar to the active link
+                link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            });
+          } catch (e) {
+            // Cross-origin or other errors can be ignored
+            console.log("Could not sync iframe URL:", e);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

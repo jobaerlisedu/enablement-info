@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Linux Server Administration - Complete Networking Course">
+  <title>Linux Server Administration | enablement.info</title>
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    :root {
+      --sidebar-width: 350px;
+      --bg-light: #f4f7f9;
+      --panel-bg: #ffffff;
+      --sidebar-bg: #ffffff;
+      --accent-blue: #0563bb;
+      --accent-light: #eef5ff;
+      --text-dark: #2c3e50;
+      --text-muted: #7f8c8d;
+      --border-color: #e6ecf1;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: var(--bg-light);
+      overflow: hidden;
+      color: var(--text-dark);
+    }
+
+    .app-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Course Sidebar */
+    .course-sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .sidebar-header {
+      padding: 30px 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      color: var(--accent-blue);
+      padding-left: 5px;
+    }
+
+    .course-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent-blue);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .course-title i {
+      font-size: 1.6rem;
+    }
+
+    .course-nav {
+      padding: 20px 15px;
+      margin: 0;
+    }
+
+    .course-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .course-nav li {
+      margin-bottom: 8px;
+    }
+
+    .course-nav a {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      color: var(--text-dark);
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.4;
+      transition: all 0.2s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .course-nav a i {
+      font-size: 1.25rem;
+      margin-top: 3px;
+      color: var(--accent-blue);
+      opacity: 0.8;
+    }
+
+    .course-nav a:hover {
+      background: var(--accent-light);
+      border-color: rgba(5, 99, 187, 0.1);
+    }
+
+    .course-nav a.active-link {
+      background: var(--accent-light);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(5, 99, 187, 0.05);
+    }
+
+    .course-nav a.active-link i {
+      opacity: 1;
+    }
+
+    /* Mobile Navigation Header - Hidden on Desktop */
+    .mobile-nav-header {
+      display: none;
+    }
+
+    /* Main Content Area */
+    .course-main {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .content-panel {
+      flex: 1;
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+
+    /* Mobile Toggle Button */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(5, 99, 187, 0.2);
+    }
+
+    .nav-toggle:hover {
+      background: #044d92;
+      transform: translateY(-2px);
+    }
+
+    .nav-toggle i {
+      transition: transform 0.3s ease;
+    }
+
+    .nav-active .nav-toggle i {
+      transform: rotate(90deg);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Scrollbar Styling */
+    .course-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e1;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .course-sidebar {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .app-container {
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .course-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+      }
+
+      .sidebar-header {
+        padding: 20px 20px;
+      }
+
+      .header-top {
+        margin-bottom: 15px;
+      }
+
+      .back-link {
+        margin-bottom: 0;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .sidebar-header h2 {
+        display: none;
+      }
+
+      .course-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        /* Now covers 80% of screen */
+        max-width: 350px;
+        /* Cap for tablets/larger phones */
+        height: 100vh;
+        background: white;
+        z-index: 1000;
+        /* Higher z-index to stay above backdrop */
+        padding-top: 0;
+        transform: translateX(-100%);
+        /* Slide from the left */
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: block !important;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        box-shadow: none;
+      }
+
+      .nav-active .course-nav {
+        transform: translateX(0);
+        /* Slide into view */
+        opacity: 1;
+        visibility: visible;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+        /* Depth for the sidebar */
+      }
+
+      /* Backdrop Overlay */
+      .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent dim */
+        z-index: 999;
+        /* Just below the sidebar */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(2px);
+      }
+
+      .nav-active .nav-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .course-main {
+        height: calc(100vh - 120px);
+        padding: 0;
+      }
+
+      /* Mobile Navigation Header Styling */
+      .mobile-nav-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 10px;
+        display: block;
+        /* Show only when drawer is active on mobile */
+      }
+
+      .mobile-nav-header .course-title {
+        font-size: 1.1rem;
+        margin-top: 10px;
+      }
+
+      .course-nav {
+        padding-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar with lesson list -->
+    <aside class="course-sidebar">
+      <div class="sidebar-header">
+        <div class="header-top">
+          <a href="../courses.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Courses</a>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Navigation">
+            <i class='bx bx-menu'></i>
+          </button>
+        </div>
+        <h2 class="course-title"> Linux Server Administration</h2>
+      </div>
+
+      <div class="course-nav" id="sidebar-nav-container">
+        <!-- Added Header for Mobile Side Nav -->
+        <div class="mobile-nav-header">
+          <h2 class="course-title"><i class='bxl-tux'></i> Linux Server Administration</h2>
+        </div>
+        <ul id="sidebar-nav">
+          <li><a href="linux-server-administration/tutorial-001-linux-concepts.html" target="course-frame"><span>Linux Concepts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-002-boot-process.html" target="course-frame"><span>Boot Process</span></a></li>
+          <li><a href="linux-server-administration/tutorial-003-system-directories.html" target="course-frame"><span>System Directories</span></a></li>
+          <li><a href="linux-server-administration/tutorial-004-user-and-application-related-directories.html"
+              target="course-frame"><span>User and Application-related
+                Directories</span></a></li>
+          <li><a href="linux-server-administration/tutorial-005-server-architectures.html" target="course-frame"><span>Server Architectures</span></a></li>
+          <li><a href="linux-server-administration/tutorial-006-linux-distributions.html" target="course-frame"><span>Linux Distributions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-007-graphical-user-interface-gui.html"
+              target="course-frame"><span>Graphical User Interface (GUI)</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-008-software-licensing.html" target="course-frame"><span>Software Licensing</span></a></li>
+          <li><a href="linux-server-administration/tutorial-009-checkpoint-linux-concepts.html" target="course-frame"><span>Checkpoint: Linux Concepts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-010-shell-operations.html" target="course-frame"><span>Shell Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-011-user-and-session-environmental-variables.html"
+              target="course-frame"><span>User and Session Environmental
+                Variables</span></a></li>
+          <li><a href="linux-server-administration/tutorial-012-system-and-execution-environmental-variables.html"
+              target="course-frame"><span>System and Execution Environmental
+                Variables</span></a></li>
+          <li><a href="linux-server-administration/tutorial-013-paths.html" target="course-frame"><span>Paths</span></a></li>
+          <li><a href="linux-server-administration/tutorial-014-environment-configurations.html"
+              target="course-frame"><span>Environment Configurations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-015-input-redirection.html" target="course-frame"><span>Input Redirection</span></a></li>
+          <li><a href="linux-server-administration/tutorial-016-output-redirection.html" target="course-frame"><span>Output Redirection</span></a></li>
+          <li><a href="linux-server-administration/tutorial-017-history-and-shortcuts.html" target="course-frame"><span>History and Shortcuts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-018-regex.html" target="course-frame"><span>Regex</span></a></li>
+          <li><a href="linux-server-administration/tutorial-019-search-and-extract.html" target="course-frame"><span>Search and Extract</span></a></li>
+          <li><a href="linux-server-administration/tutorial-020-modify-and-replace.html" target="course-frame"><span>Modify and Replace</span></a></li>
+          <li><a href="linux-server-administration/tutorial-021-sort-and-count.html" target="course-frame"><span>Sort and Count</span></a></li>
+          <li><a href="linux-server-administration/tutorial-022-view-and-navigate.html" target="course-frame"><span>View and Navigate</span></a></li>
+          <li><a href="linux-server-administration/tutorial-023-output-and-redirect.html" target="course-frame"><span>Output and Redirect</span></a></li>
+          <li><a href="linux-server-administration/tutorial-024-math-and-format.html" target="course-frame"><span>Math and Format</span></a></li>
+          <li><a href="linux-server-administration/tutorial-025-system-and-scripts.html" target="course-frame"><span>System and Scripts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-026-text-editors.html" target="course-frame"><span>Text editors</span></a></li>
+          <li><a href="linux-server-administration/tutorial-027-checkpoint-shell-operations.html"
+              target="course-frame"><span>Checkpoint: Shell Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-028-device-management.html" target="course-frame"><span>Device Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-029-kernel-module-management.html" target="course-frame"><span>Kernel Module Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-030-module-information-and-dependency-handling.html"
+              target="course-frame"><span>Module Information and Dependency
+                Handling</span></a></li>
+          <li><a href="linux-server-administration/tutorial-031-hardware-information-commands.html"
+              target="course-frame"><span>Hardware Information Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-032-hardware-inventory-commands.html"
+              target="course-frame"><span>Hardware Inventory Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-033-system-monitoring-and-diagnostics-commands.html"
+              target="course-frame"><span>System Monitoring and Diagnostics
+                Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-034-initrd-management.html" target="course-frame"><span>Initrd Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-035-custom-hardware.html" target="course-frame"><span>Custom Hardware</span></a></li>
+          <li><a href="linux-server-administration/tutorial-036-checkpoint-device-management.html"
+              target="course-frame"><span>Checkpoint: Device Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-037-storage-management.html" target="course-frame"><span>Storage Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-038-partition-information-commands.html"
+              target="course-frame"><span>Partition Information Commands</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-039-partition-management-commands.html"
+              target="course-frame"><span>Partition Management Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-040-redundant-array-of-independent-disks-raid.html"
+              target="course-frame"><span>Redundant Array of Independent Disks
+                (RAID)</span></a></li>
+          <li><a href="linux-server-administration/tutorial-041-basic-physical-volume-management.html"
+              target="course-frame"><span>Basic Physical Volume Management</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-042-modifying-and-removing-physical-volumes.html"
+              target="course-frame"><span>Modifying and Removing Physical
+                Volumes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-043-basic-volume-group-management.html"
+              target="course-frame"><span>Basic Volume Group Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-044-modifying-and-removing-volume-groups.html"
+              target="course-frame"><span>Modifying and Removing Volume
+                Groups</span></a></li>
+          <li><a href="linux-server-administration/tutorial-045-basic-logical-volume-management.html"
+              target="course-frame"><span>Basic Logical Volume Management</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-046-modifying-and-removing-logical-volumes.html"
+              target="course-frame"><span>Modifying and Removing Logical
+                Volumes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-047-static-and-system-mount-information.html"
+              target="course-frame"><span>Static and System Mount
+                Information</span></a></li>
+          <li><a href="linux-server-administration/tutorial-048-dynamic-mounting-and-automounting.html"
+              target="course-frame"><span>Dynamic Mounting and Automounting</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-049-performance-accessibility-mount-options.html"
+              target="course-frame"><span>Performance & Accessibility Mount
+                Options</span></a></li>
+          <li><a href="linux-server-administration/tutorial-050-security-restriction-mount-options.html"
+              target="course-frame"><span>Security & Restriction Mount
+                Options</span></a></li>
+          <li><a href="linux-server-administration/tutorial-051-network-mounts.html" target="course-frame"><span>Network Mounts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-052-filesystems-formats.html" target="course-frame"><span>Filesystems Formats</span></a></li>
+          <li><a href="linux-server-administration/tutorial-053-inodes.html" target="course-frame"><span>Inodes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-054-filesystem-creation-and-modification-utilities.html"
+              target="course-frame"><span>Filesystem Creation and Modification
+                Utilities</span></a></li>
+          <li><a href="linux-server-administration/tutorial-055-checkpoint-storage-management.html"
+              target="course-frame"><span>Checkpoint: Storage Management</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-056-file-and-directory-management.html"
+              target="course-frame"><span>File and Directory Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-057-navigation-and-directory-management-commands.html"
+              target="course-frame"><span>Navigation and Directory Management
+                Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-058-file-operation-commands.html" target="course-frame"><span>File Operation Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-059-file-information-and-search-commands.html"
+              target="course-frame"><span>File Information and Search
+                Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-060-file-comparison-and-usage-commands.html"
+              target="course-frame"><span>File Comparison and Usage Commands</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-061-file-links.html" target="course-frame"><span>File Links</span></a></li>
+          <li><a href="linux-server-administration/tutorial-062-dev-device-types.html" target="course-frame"><span>/dev Device Types</span></a></li>
+          <li><a href="linux-server-administration/tutorial-063-checkpoint-file-and-directory-management.html"
+              target="course-frame"><span>Checkpoint: File and Directory
+                Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-064-local-account-management.html" target="course-frame"><span>Local Account Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-065-add.html" target="course-frame"><span>Add</span></a></li>
+          <li><a href="linux-server-administration/tutorial-066-delete.html" target="course-frame"><span>Delete</span></a></li>
+          <li><a href="linux-server-administration/tutorial-067-modify.html" target="course-frame"><span>Modify</span></a></li>
+          <li><a href="linux-server-administration/tutorial-068-lock.html" target="course-frame"><span>Lock</span></a></li>
+          <li><a href="linux-server-administration/tutorial-069-expiration.html" target="course-frame"><span>Expiration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-070-user-information.html" target="course-frame"><span>User Information</span></a></li>
+          <li><a href="linux-server-administration/tutorial-071-login-session-tracking.html" target="course-frame"><span>Login/Session Tracking</span></a></li>
+          <li><a href="linux-server-administration/tutorial-072-user-profile-templates.html" target="course-frame"><span>User Profile Templates</span></a></li>
+          <li><a href="linux-server-administration/tutorial-073-account-files.html" target="course-frame"><span>Account Files</span></a></li>
+          <li><a href="linux-server-administration/tutorial-074-attributes.html" target="course-frame"><span>Attributes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-075-account-comparisons.html" target="course-frame"><span>Account Comparisons</span></a></li>
+          <li><a href="linux-server-administration/tutorial-076-checkpoint-local-account-management.html"
+              target="course-frame"><span>Checkpoint: Local Account
+                Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-077-processes.html" target="course-frame"><span>Processes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-078-process-id.html" target="course-frame"><span>Process ID</span></a></li>
+          <li><a href="linux-server-administration/tutorial-079-process-states.html" target="course-frame"><span>Process States</span></a></li>
+          <li><a href="linux-server-administration/tutorial-080-process-priority.html" target="course-frame"><span>Process Priority</span></a></li>
+          <li><a href="linux-server-administration/tutorial-081-process-monitoring.html" target="course-frame"><span>Process Monitoring</span></a></li>
+          <li><a href="linux-server-administration/tutorial-082-performance-metrics.html" target="course-frame"><span>Performance Metrics</span></a></li>
+          <li><a href="linux-server-administration/tutorial-083-diagnostic-and-debugging-tools.html"
+              target="course-frame"><span>Diagnostic and Debugging Tools</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-084-process-limits.html" target="course-frame"><span>Process Limits</span></a></li>
+          <li><a href="linux-server-administration/tutorial-085-job-control-commands.html" target="course-frame"><span>Job Control Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-086-background-execution-commands.html"
+              target="course-frame"><span>Background Execution Commands</span></a></li>
+          <li><a href="linux-server-administration/tutorial-087-signals-and-process-termination.html"
+              target="course-frame"><span>Signals and Process Termination</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-088-shell-and-process-invocation.html"
+              target="course-frame"><span>Shell and Process Invocation</span></a></li>
+          <li><a href="linux-server-administration/tutorial-089-job-scheduling.html" target="course-frame"><span>Job Scheduling</span></a></li>
+          <li><a href="linux-server-administration/tutorial-090-checkpoint-processes.html" target="course-frame"><span>Checkpoint: Processes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-091-software-configuration-and-management.html"
+              target="course-frame"><span>Software Configuration and
+                Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-092-package-managers-by-distributions.html"
+              target="course-frame"><span>Package Managers by Distributions</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-093-system-level-package-management.html"
+              target="course-frame"><span>System-Level Package Management</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-094-manual-or-specialized-installations.html"
+              target="course-frame"><span>Manual or Specialized
+                Installations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-095-repository-management.html" target="course-frame"><span>Repository Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-096-debian-based-package-and-repository-exclusions.html"
+              target="course-frame"><span>Debian-based Package and Repository
+                Exclusions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-097-rhel-based-package-and-repository-exclusions.html"
+              target="course-frame"><span>RHEL-based Package and Repository
+                Exclusions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-098-opensuse-based-package-and-repository-exclusions.html"
+              target="course-frame"><span>openSUSE-based Package and Repository
+                Exclusions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-099-update-alternatives.html" target="course-frame"><span>Update Alternatives</span></a></li>
+          <li><a href="linux-server-administration/tutorial-100-software-configuration.html" target="course-frame"><span>Software Configuration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-101-sandboxed-applications.html" target="course-frame"><span>Sandboxed Applications</span></a></li>
+          <li><a href="linux-server-administration/tutorial-102-core-level-service-configuration.html"
+              target="course-frame"><span>Core-level Service Configuration</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-103-application-level-service-configuration.html"
+              target="course-frame"><span>Application-level Service
+                Configuration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-104-checkpoint-software-configuration-and-management.html"
+              target="course-frame"><span>Checkpoint: Software Configuration and
+                Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-105-systemd.html" target="course-frame"><span>Systemd</span></a></li>
+          <li><a href="linux-server-administration/tutorial-106-units.html" target="course-frame"><span>Units</span></a></li>
+          <li><a href="linux-server-administration/tutorial-107-management-utilities.html" target="course-frame"><span>Management Utilities</span></a></li>
+          <li><a href="linux-server-administration/tutorial-108-configuration-utilities.html" target="course-frame"><span>Configuration Utilities</span></a></li>
+          <li><a href="linux-server-administration/tutorial-109-analysis-and-diagnostic-utilities.html"
+              target="course-frame"><span>Analysis and Diagnostic Utilities</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-110-configuration-and-reloading-unit-states.html"
+              target="course-frame"><span>Configuration and Reloading Unit
+                States</span></a></li>
+          <li><a href="linux-server-administration/tutorial-111-boot-time-state-management.html"
+              target="course-frame"><span>Boot-Time State Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-112-service-control.html" target="course-frame"><span>Service Control</span></a></li>
+          <li><a href="linux-server-administration/tutorial-113-checkpoint-systemd.html" target="course-frame"><span>Checkpoint: Systemd</span></a></li>
+          <li><a href="linux-server-administration/tutorial-114-virtualization.html" target="course-frame"><span>Virtualization</span></a></li>
+          <li><a href="linux-server-administration/tutorial-115-bare-metal-vs-virtual-machines.html"
+              target="course-frame"><span>Bare metal vs virtual machines</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-116-hypervisors.html" target="course-frame"><span>Hypervisors</span></a></li>
+          <li><a href="linux-server-administration/tutorial-117-vm-architecture-and-performance.html"
+              target="course-frame"><span>VM Architecture and Performance</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-118-operations.html" target="course-frame"><span>Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-119-vm-resources.html" target="course-frame"><span>VM Resources</span></a></li>
+          <li><a href="linux-server-administration/tutorial-120-vm-management.html" target="course-frame"><span>VM Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-121-network-types.html" target="course-frame"><span>Network Types</span></a></li>
+          <li><a href="linux-server-administration/tutorial-122-vm-tools.html" target="course-frame"><span>VM Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-123-checkpoint-virtualization.html" target="course-frame"><span>Checkpoint: Virtualization</span></a></li>
+          <li><a href="linux-server-administration/tutorial-124-containers.html" target="course-frame"><span>Containers</span></a></li>
+          <li><a href="linux-server-administration/tutorial-125-runtimes.html" target="course-frame"><span>Runtimes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-126-building-an-image.html" target="course-frame"><span>Building an Image</span></a></li>
+          <li><a href="linux-server-administration/tutorial-127-image-retrieval-and-maintenance.html"
+              target="course-frame"><span>Image Retrieval and Maintenance</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-128-container-lifecycle-management.html"
+              target="course-frame"><span>Container Lifecycle Management</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-129-container-inspection-and-interaction.html"
+              target="course-frame"><span>Container Inspection and
+                Interaction</span></a></li>
+          <li><a href="linux-server-administration/tutorial-130-container-storage-and-tagging.html"
+              target="course-frame"><span>Container Storage and Tagging</span></a></li>
+          <li><a href="linux-server-administration/tutorial-131-volume-management-operations.html"
+              target="course-frame"><span>Volume Management Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-132-volume-security-and-filesystem-operations.html"
+              target="course-frame"><span>Volume Security and Filesystem
+                Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-133-network-management-operations.html"
+              target="course-frame"><span>Network Management Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-134-local-networks.html" target="course-frame"><span>Local Networks</span></a></li>
+          <li><a href="linux-server-administration/tutorial-135-advanced-and-overlay-networks.html"
+              target="course-frame"><span>Advanced and Overlay Networks</span></a></li>
+          <li><a href="linux-server-administration/tutorial-136-privileged-vs-unprivileged.html"
+              target="course-frame"><span>Privileged vs Unprivileged</span></a></li>
+          <li><a href="linux-server-administration/tutorial-137-checkpoint-containers.html" target="course-frame"><span>Checkpoint: Containers</span></a></li>
+          <li><a href="linux-server-administration/tutorial-138-network-services-and-configurations.html"
+              target="course-frame"><span>Network Services and
+                Configurations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-139-network-configuration.html" target="course-frame"><span>Network Configuration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-140-networkmanager.html" target="course-frame"><span>NetworkManager</span></a></li>
+          <li><a href="linux-server-administration/tutorial-141-netplan.html" target="course-frame"><span>Netplan</span></a></li>
+          <li><a href="linux-server-administration/tutorial-142-ip-network-management-tool.html"
+              target="course-frame"><span>IP Network Management Tool</span></a></li>
+          <li><a href="linux-server-administration/tutorial-143-network-configuration-tools.html"
+              target="course-frame"><span>Network Configuration Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-144-network-connectivity-tools.html"
+              target="course-frame"><span>Network Connectivity Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-145-scanning-and-traffic-analysis-tools.html"
+              target="course-frame"><span>Scanning and Traffic Analysis
+                Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-146-dns-tools.html" target="course-frame"><span>DNS Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-147-checkpoint-network-services-and-configurations.html"
+              target="course-frame"><span>Checkpoint: Network Services and
+                Configurations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-148-backup-and-restore-operations.html"
+              target="course-frame"><span>Backup and Restore Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-149-relative-paths.html" target="course-frame"><span>Relative Paths</span></a></li>
+          <li><a href="linux-server-administration/tutorial-150-archiving.html" target="course-frame"><span>Archiving</span></a></li>
+          <li><a href="linux-server-administration/tutorial-151-compression-tools.html" target="course-frame"><span>Compression Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-152-decompression-tools.html" target="course-frame"><span>Decompression Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-153-data-copy-and-recovery.html" target="course-frame"><span>Data Copy and Recovery</span></a></li>
+          <li><a href="linux-server-administration/tutorial-154-compressed-file-operations.html"
+              target="course-frame"><span>Compressed File Operations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-155-checkpoint-backup-and-restore-operations.html"
+              target="course-frame"><span>Checkpoint: Backup and Restore
+                Operations</span></a></li>
+          <li><a
+              href="linux-server-administration/tutorial-156-authorization-authentication-and-accounting-methods.html"
+              target="course-frame"><span>Authorization, Authentication, and Accounting
+                Methods</span></a></li>
+          <li><a href="linux-server-administration/tutorial-157-local-authentication.html" target="course-frame"><span>Local Authentication</span></a></li>
+          <li><a href="linux-server-administration/tutorial-158-directory-based-identity-management.html"
+              target="course-frame"><span>Directory-based Identity
+                Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-159-network-domain-integration.html"
+              target="course-frame"><span>Network / Domain Integration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-160-logging.html" target="course-frame"><span>Logging</span></a></li>
+          <li><a href="linux-server-administration/tutorial-161-system-audit.html" target="course-frame"><span>System Audit</span></a></li>
+          <li><a
+              href="linux-server-administration/tutorial-162-checkpoint-authorization-authentication-and-accounting-methods.html"
+              target="course-frame"><span>Checkpoint: Authorization, Authentication,
+                and Accounting Methods</span></a></li>
+          <li><a href="linux-server-administration/tutorial-163-firewall-implementation.html" target="course-frame"><span>Firewall Implementation</span></a></li>
+          <li><a href="linux-server-administration/tutorial-164-firewalld-configuration-and-management.html"
+              target="course-frame"><span>Firewalld Configuration and
+                Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-165-firewalld-rules-and-access-control.html"
+              target="course-frame"><span>Firewalld Rules and Access Control</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-166-uncomplicated-firewall.html" target="course-frame"><span>Uncomplicated Firewall</span></a></li>
+          <li><a href="linux-server-administration/tutorial-167-firewall-implementations.html" target="course-frame"><span>Firewall Implementations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-168-netfilter-module.html" target="course-frame"><span>Netfilter Module</span></a></li>
+          <li><a href="linux-server-administration/tutorial-169-types-of-address-translation.html"
+              target="course-frame"><span>Types of Address Translation</span></a></li>
+          <li><a href="linux-server-administration/tutorial-170-network-address-translation-variants.html"
+              target="course-frame"><span>Network Address Translation
+                Variants</span></a></li>
+          <li><a href="linux-server-administration/tutorial-171-stateful-vs-stateless.html" target="course-frame"><span>Stateful vs Stateless</span></a></li>
+          <li><a href="linux-server-administration/tutorial-172-ip-forwarding.html" target="course-frame"><span>IP forwarding</span></a></li>
+          <li><a href="linux-server-administration/tutorial-173-checkpoint-firewall-implementation.html"
+              target="course-frame"><span>Checkpoint: Firewall
+                Implementation</span></a></li>
+          <li><a href="linux-server-administration/tutorial-174-account-hardening-techniques.html"
+              target="course-frame"><span>Account Hardening Techniques</span></a></li>
+          <li><a href="linux-server-administration/tutorial-175-password-composition-controls.html"
+              target="course-frame"><span>Password Composition Controls</span></a></li>
+          <li><a href="linux-server-administration/tutorial-176-password-lifecycle-controls.html"
+              target="course-frame"><span>Password Lifecycle Controls</span></a></li>
+          <li><a href="linux-server-administration/tutorial-177-mfa.html" target="course-frame"><span>MFA</span></a></li>
+          <li><a href="linux-server-administration/tutorial-178-checking-existing-breach-lists.html"
+              target="course-frame"><span>Checking existing breach lists</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-179-restricted-shell-use.html" target="course-frame"><span>Restricted shell use</span></a></li>
+          <li><a href="linux-server-administration/tutorial-180-pam-tally2.html" target="course-frame"><span>pam_tally2</span></a></li>
+          <li><a href="linux-server-administration/tutorial-181-avoid-running-as-root.html" target="course-frame"><span>Avoid running as root</span></a></li>
+          <li><a href="linux-server-administration/tutorial-182-checkpoint-hardening-techniques.html"
+              target="course-frame"><span>Checkpoint: Hardening Techniques</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-183-cryptographic-concepts.html" target="course-frame"><span>Cryptographic Concepts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-184-data-at-rest-file-encryption.html"
+              target="course-frame"><span>Data at Rest - File Encryption</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-185-data-at-rest-filesystem-encryption.html"
+              target="course-frame"><span>Data at Rest - Filesystem
+                Encryption</span></a></li>
+          <li><a href="linux-server-administration/tutorial-186-data-in-transit-openssl.html" target="course-frame"><span>Data in Transit - OpenSSL</span></a></li>
+          <li><a href="linux-server-administration/tutorial-187-data-in-transit-protection-methods.html"
+              target="course-frame"><span>Data in Transit Protection Methods</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-188-hashing.html" target="course-frame"><span>Hashing</span></a></li>
+          <li><a href="linux-server-administration/tutorial-189-removal-of-weak-algorithms.html"
+              target="course-frame"><span>Removal of Weak Algorithms</span></a></li>
+          <li><a href="linux-server-administration/tutorial-190-certificate-management.html" target="course-frame"><span>Certificate Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-191-self-signed-certificates.html" target="course-frame"><span>Self-Signed Certificates</span></a></li>
+          <li><a href="linux-server-administration/tutorial-192-checkpoint-cryptographic-concepts.html"
+              target="course-frame"><span>Checkpoint: Cryptographic Concepts</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-193-compliance-and-audit-procedures.html"
+              target="course-frame"><span>Compliance and Audit Procedures</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-194-detection-and-response.html" target="course-frame"><span>Detection and Response</span></a></li>
+          <li><a href="linux-server-administration/tutorial-195-vulnerability-categorization.html"
+              target="course-frame"><span>Vulnerability Categorization</span></a></li>
+          <li><a href="linux-server-administration/tutorial-196-vulnerability-management.html" target="course-frame"><span>Vulnerability Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-197-vulnerability-detection.html" target="course-frame"><span>Vulnerability Detection</span></a></li>
+          <li><a href="linux-server-administration/tutorial-198-standards-and-audit.html" target="course-frame"><span>Standards and Audit</span></a></li>
+          <li><a href="linux-server-administration/tutorial-199-file-integrity-verification.html"
+              target="course-frame"><span>File Integrity Verification</span></a></li>
+          <li><a href="linux-server-administration/tutorial-200-file-integrity-tools.html" target="course-frame"><span>File Integrity Tools</span></a></li>
+          <li><a href="linux-server-administration/tutorial-201-data-destruction-overwriting-tools.html"
+              target="course-frame"><span>Data Destruction Overwriting Tools</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-202-cryptographic-data-destruction.html"
+              target="course-frame"><span>Cryptographic Data Destruction</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-203-software-supply-chain.html" target="course-frame"><span>Software Supply Chain</span></a></li>
+          <li><a href="linux-server-administration/tutorial-204-security-banners.html" target="course-frame"><span>Security Banners</span></a></li>
+          <li><a href="linux-server-administration/tutorial-205-checkpoint-compliance-and-audit-procedures.html"
+              target="course-frame"><span>Checkpoint: Compliance and Audit
+                Procedures</span></a></li>
+          <li><a href="linux-server-administration/tutorial-206-operating-system-hardening.html"
+              target="course-frame"><span>Operating System Hardening</span></a></li>
+          <li><a href="linux-server-administration/tutorial-207-sudo-configuration.html" target="course-frame"><span>sudo Configuration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-208-sudoers-directives.html" target="course-frame"><span>sudoers Directives</span></a></li>
+          <li><a href="linux-server-administration/tutorial-209-sudo-user-groups.html" target="course-frame"><span>sudo User Groups</span></a></li>
+          <li><a href="linux-server-administration/tutorial-210-root-shell.html" target="course-frame"><span>Root shell</span></a></li>
+          <li><a href="linux-server-administration/tutorial-211-file-attributes.html" target="course-frame"><span>File Attributes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-212-file-permissions.html" target="course-frame"><span>File Permissions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-213-file-modifications.html" target="course-frame"><span>File Modifications</span></a></li>
+          <li><a href="linux-server-administration/tutorial-214-file-special-permissions.html" target="course-frame"><span>File Special Permissions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-215-default-file-creation-mask.html"
+              target="course-frame"><span>Default File Creation Mask</span></a></li>
+          <li><a href="linux-server-administration/tutorial-216-acls.html" target="course-frame"><span>ACLs</span></a></li>
+          <li><a href="linux-server-administration/tutorial-217-selinux-states.html" target="course-frame"><span>SELinux States</span></a></li>
+          <li><a href="linux-server-administration/tutorial-218-selinux-mode-management.html" target="course-frame"><span>SELinux Mode Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-219-selinux-file-security-contexts.html"
+              target="course-frame"><span>SELinux File Security Contexts</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-220-selinux-system-wide-configuration.html"
+              target="course-frame"><span>SELinux System-wide Configuration</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-221-selinux-logging-and-troubleshooting.html"
+              target="course-frame"><span>SELinux Logging and
+                Troubleshooting</span></a></li>
+          <li><a href="linux-server-administration/tutorial-222-sshd-secure-authentication-and-access-control.html"
+              target="course-frame"><span>SSHD Secure Authentication and Access
+                Control</span></a></li>
+          <li><a href="linux-server-administration/tutorial-223-sshd-secure-configuration-and-usage.html"
+              target="course-frame"><span>SSHD Secure Configuration and
+                Usage</span></a></li>
+          <li><a href="linux-server-administration/tutorial-224-secure-remote-access.html" target="course-frame"><span>Secure Remote Access</span></a></li>
+          <li><a href="linux-server-administration/tutorial-225-fail2ban.html" target="course-frame"><span>fail2ban</span></a></li>
+          <li><a href="linux-server-administration/tutorial-226-avoid-unsecure-services.html" target="course-frame"><span>Avoid Unsecure Services</span></a></li>
+          <li><a href="linux-server-administration/tutorial-227-disable-unused-file-systems.html"
+              target="course-frame"><span>Disable Unused File Systems</span></a></li>
+          <li><a href="linux-server-administration/tutorial-228-unnecessary-suid-permissions.html"
+              target="course-frame"><span>Unnecessary SUID Permissions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-229-secure-boot.html" target="course-frame"><span>Secure Boot</span></a></li>
+          <li><a href="linux-server-administration/tutorial-230-checkpoint-operating-system-hardening.html"
+              target="course-frame"><span>Checkpoint: Operating System
+                Hardening</span></a></li>
+          <li><a href="linux-server-administration/tutorial-231-automation-and-orchestration.html"
+              target="course-frame"><span>Automation and Orchestration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-232-ansible-iac-core-concepts.html" target="course-frame"><span>Ansible IaC Core Concepts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-233-ansible-iac-advanced-usage.html"
+              target="course-frame"><span>Ansible IaC Advanced Usage</span></a></li>
+          <li><a href="linux-server-administration/tutorial-234-puppet-core-usage.html" target="course-frame"><span>Puppet Core Usage</span></a></li>
+          <li><a href="linux-server-administration/tutorial-235-puppet-advanced-usage.html" target="course-frame"><span>Puppet Advanced Usage</span></a></li>
+          <li><a href="linux-server-administration/tutorial-236-opentofu-core-usage.html" target="course-frame"><span>OpenTofu Core Usage</span></a></li>
+          <li><a href="linux-server-administration/tutorial-237-opentofu-advanced-usage.html" target="course-frame"><span>OpenTofu Advanced Usage</span></a></li>
+          <li><a href="linux-server-administration/tutorial-238-unattended-deployment.html" target="course-frame"><span>Unattended Deployment</span></a></li>
+          <li><a href="linux-server-administration/tutorial-239-foundational-ci-cd-concepts.html"
+              target="course-frame"><span>Foundational CI/CD Concepts</span></a></li>
+          <li><a href="linux-server-administration/tutorial-240-modern-ci-cd-approaches.html" target="course-frame"><span>Modern CI/CD Approaches</span></a></li>
+          <li><a
+              href="linux-server-administration/tutorial-241-kubernetes-core-workloads-for-deployment-orchestration.html"
+              target="course-frame"><span>Kubernetes Core Workloads for Deployment
+                Orchestration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-242-kubernetes-configuration.html" target="course-frame"><span>Kubernetes Configuration</span></a></li>
+          <li><a
+              href="linux-server-administration/tutorial-243-docker-swarm-core-workloads-for-deployment-orchestration.html"
+              target="course-frame"><span>Docker Swarm Core Workloads for Deployment
+                Orchestration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-244-docker-swarm-configuration.html"
+              target="course-frame"><span>Docker Swarm Configuration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-245-docker-podman-compose-for-deployment-orchestration.html"
+              target="course-frame"><span>Docker/Podman Compose for Deployment
+                Orchestration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-246-checkpoint-automation-and-orchestration.html"
+              target="course-frame"><span>Checkpoint: Automation and
+                Orchestration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-247-automated-tasks-with-shell-scripting.html"
+              target="course-frame"><span>Automated Tasks with Shell
+                Scripting</span></a></li>
+          <li><a href="linux-server-administration/tutorial-248-parameter-expansion.html" target="course-frame"><span>Parameter Expansion</span></a></li>
+          <li><a href="linux-server-administration/tutorial-249-command-substitution.html" target="course-frame"><span>Command Substitution</span></a></li>
+          <li><a href="linux-server-administration/tutorial-250-subshell-execution.html" target="course-frame"><span>Subshell Execution</span></a></li>
+          <li><a href="linux-server-administration/tutorial-251-functions.html" target="course-frame"><span>Functions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-252-internal-field-separator-output-field-separator.html"
+              target="course-frame"><span>Internal Field Separator / Output Field
+                Separator</span></a></li>
+          <li><a href="linux-server-administration/tutorial-253-conditional-statements.html" target="course-frame"><span>Conditional Statements</span></a></li>
+          <li><a href="linux-server-administration/tutorial-254-looping-statements.html" target="course-frame"><span>Looping Statements</span></a></li>
+          <li><a href="linux-server-administration/tutorial-255-interpreter-directive.html" target="course-frame"><span>Interpreter Directive</span></a></li>
+          <li><a href="linux-server-administration/tutorial-256-numerical-comparisons.html" target="course-frame"><span>Numerical Comparisons</span></a></li>
+          <li><a href="linux-server-administration/tutorial-257-redirection-string-operators.html"
+              target="course-frame"><span>Redirection String Operators</span></a></li>
+          <li><a href="linux-server-administration/tutorial-258-comparison-string-operators.html"
+              target="course-frame"><span>Comparison String Operators</span></a></li>
+          <li><a href="linux-server-administration/tutorial-259-regular-expressions.html" target="course-frame"><span>Regular Expressions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-260-test-operators.html" target="course-frame"><span>Test Operators</span></a></li>
+          <li><a href="linux-server-administration/tutorial-261-variables.html" target="course-frame"><span>Variables</span></a></li>
+          <li><a href="linux-server-administration/tutorial-262-alias-and-command-management.html"
+              target="course-frame"><span>Alias and Command Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-263-variable-management.html" target="course-frame"><span>Variable Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-264-return-codes.html" target="course-frame"><span>Return Codes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-265-checkpoint-automated-tasks-with-shell-scripting.html"
+              target="course-frame"><span>Checkpoint: Automated Tasks with Shell
+                Scripting</span></a></li>
+          <li><a href="linux-server-administration/tutorial-266-python-basics.html" target="course-frame"><span>Python Basics</span></a></li>
+          <li><a href="linux-server-administration/tutorial-267-setting-up-a-virtual-environment.html"
+              target="course-frame"><span>Setting up a virtual environment</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-268-built-in-modules.html" target="course-frame"><span>Built-in modules</span></a></li>
+          <li><a href="linux-server-administration/tutorial-269-installing-dependencies.html" target="course-frame"><span>Installing dependencies</span></a></li>
+          <li><a href="linux-server-administration/tutorial-270-python-fundamentals.html" target="course-frame"><span>Python Fundamentals</span></a></li>
+          <li><a href="linux-server-administration/tutorial-271-python-data-types.html" target="course-frame"><span>Python Data Types</span></a></li>
+          <li><a href="linux-server-administration/tutorial-272-python-structures.html" target="course-frame"><span>Python Structures</span></a></li>
+          <li><a href="linux-server-administration/tutorial-273-extensible-using-python-modules-and-packages.html"
+              target="course-frame"><span>Extensible using Python modules and
+                packages</span></a></li>
+          <li><a href="linux-server-administration/tutorial-274-pep-8-best-practices.html" target="course-frame"><span>PEP 8 Best Practices</span></a></li>
+          <li><a href="linux-server-administration/tutorial-275-checkpoint-python-basics.html" target="course-frame"><span>Checkpoint: Python Basics</span></a></li>
+          <li><a href="linux-server-administration/tutorial-276-implement-git.html" target="course-frame"><span>Implement Git</span></a></li>
+          <li><a href="linux-server-administration/tutorial-277-git-basics.html" target="course-frame"><span>Git Basics</span></a></li>
+          <li><a href="linux-server-administration/tutorial-278-git-changes.html" target="course-frame"><span>Git Changes</span></a></li>
+          <li><a href="linux-server-administration/tutorial-279-git-versions.html" target="course-frame"><span>Git Versions</span></a></li>
+          <li><a href="linux-server-administration/tutorial-280-git-repositories.html" target="course-frame"><span>Git Repositories</span></a></li>
+          <li><a href="linux-server-administration/tutorial-281-managing-git-workflows.html" target="course-frame"><span>Managing Git Workflows</span></a></li>
+          <li><a href="linux-server-administration/tutorial-282-checkpoint-implement-git.html" target="course-frame"><span>Checkpoint: Implement Git</span></a></li>
+          <li><a href="linux-server-administration/tutorial-283-use-of-artificial-intelligence.html"
+              target="course-frame"><span>Use of Artificial Intelligence</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-284-code-generation-use-cases.html" target="course-frame"><span>Code Generation Use Cases</span></a></li>
+          <li><a href="linux-server-administration/tutorial-285-code-quality-use-cases.html" target="course-frame"><span>Code Quality Use Cases</span></a></li>
+          <li><a href="linux-server-administration/tutorial-286-security-and-compliance-use-cases.html"
+              target="course-frame"><span>Security and Compliance Use Cases</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-287-ai-best-practices.html" target="course-frame"><span>AI Best Practices</span></a></li>
+          <li><a href="linux-server-administration/tutorial-288-ai-data-governance.html" target="course-frame"><span>AI Data Governance</span></a></li>
+          <li><a href="linux-server-administration/tutorial-289-ai-local-models.html" target="course-frame"><span>AI Local Models</span></a></li>
+          <li><a href="linux-server-administration/tutorial-290-prompt-engineering.html" target="course-frame"><span>Prompt Engineering</span></a></li>
+          <li><a href="linux-server-administration/tutorial-291-checkpoint-use-of-artificial-intelligence.html"
+              target="course-frame"><span>Checkpoint: Use of Artificial
+                Intelligence</span></a></li>
+          <li><a href="linux-server-administration/tutorial-292-monitoring-concepts-and-configurations.html"
+              target="course-frame"><span>Monitoring Concepts and
+                Configurations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-293-service-monitoring.html" target="course-frame"><span>Service Monitoring</span></a></li>
+          <li><a href="linux-server-administration/tutorial-294-networking-monitoring.html" target="course-frame"><span>Networking Monitoring</span></a></li>
+          <li><a href="linux-server-administration/tutorial-295-event-driven-data-collection.html"
+              target="course-frame"><span>Event-driven Data Collection</span></a></li>
+          <li><a href="linux-server-administration/tutorial-296-event-management.html" target="course-frame"><span>Event Management</span></a></li>
+          <li><a href="linux-server-administration/tutorial-297-alerting-and-notifications.html"
+              target="course-frame"><span>Alerting and Notifications</span></a></li>
+          <li><a href="linux-server-administration/tutorial-298-checkpoint-monitoring-concepts-and-configurations.html"
+              target="course-frame"><span>Checkpoint: Monitoring Concepts and
+                Configurations</span></a></li>
+          <li><a href="linux-server-administration/tutorial-299-troubleshooting-hardware-storage-and-linuxos.html"
+              target="course-frame"><span>Troubleshooting Hardware, Storage, and
+                LinuxOS</span></a></li>
+          <li><a href="linux-server-administration/tutorial-300-boot-issues.html" target="course-frame"><span>Boot Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-301-filesystem-issues.html" target="course-frame"><span>Filesystem Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-302-process-issues.html" target="course-frame"><span>Process Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-303-system-issues.html" target="course-frame"><span>System Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-304-dependency-issues.html" target="course-frame"><span>Dependency Issues</span></a></li>
+          <li><a
+              href="linux-server-administration/tutorial-305-checkpoint-troubleshooting-hardware-storage-and-linuxos.html"
+              target="course-frame"><span>Checkpoint: Troubleshooting Hardware,
+                Storage, and LinuxOS</span></a></li>
+          <li><a href="linux-server-administration/tutorial-306-troubleshooting-networking-issues.html"
+              target="course-frame"><span>Troubleshooting Networking Issues</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-307-firewall-issues.html" target="course-frame"><span>Firewall Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-308-addressing-issues.html" target="course-frame"><span>Addressing Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-309-routing-issues.html" target="course-frame"><span>Routing Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-310-interface-misconfiguration.html"
+              target="course-frame"><span>Interface Misconfiguration</span></a></li>
+          <li><a href="linux-server-administration/tutorial-311-link-issues.html" target="course-frame"><span>Link Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-312-checkpoint-troubleshooting-networking-issues.html"
+              target="course-frame"><span>Checkpoint: Troubleshooting Networking
+                Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-313-troubleshooting-security-issues.html"
+              target="course-frame"><span>Troubleshooting Security Issues</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-314-selinux-issues.html" target="course-frame"><span>SELinux Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-315-file-and-directory-permission-issues.html"
+              target="course-frame"><span>File and Directory Permission
+                Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-316-access-issues.html" target="course-frame"><span>Access Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-317-configuration-issues.html" target="course-frame"><span>Configuration Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-318-vulnerabilities.html" target="course-frame"><span>Vulnerabilities</span></a></li>
+          <li><a href="linux-server-administration/tutorial-319-checkpoint-troubleshooting-security-issues.html"
+              target="course-frame"><span>Checkpoint: Troubleshooting Security
+                Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-320-troubleshooting-performance-issues.html"
+              target="course-frame"><span>Troubleshooting Performance Issues</span></a>
+          </li>
+          <li><a href="linux-server-administration/tutorial-321-cpu-issues.html" target="course-frame"><span>CPU Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-322-memory-issues.html" target="course-frame"><span>Memory Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-323-disk-i-o-issues.html" target="course-frame"><span>Disk I/O Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-324-network-stability-issues.html" target="course-frame"><span>Network Stability Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-325-network-performance-issues.html"
+              target="course-frame"><span>Network Performance Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-326-system-responsiveness-issues.html"
+              target="course-frame"><span>System Responsiveness Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-327-process-management-issues.html" target="course-frame"><span>Process Management Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-328-security-related-performance-issues.html"
+              target="course-frame"><span>Security-related Performance
+                Issues</span></a></li>
+          <li><a href="linux-server-administration/tutorial-329-checkpoint-troubleshooting-performance-issues.html"
+              target="course-frame"><span>Checkpoint: Troubleshooting Performance
+                Issues</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Mobile Navigation Overlay (Backdrop) -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Main article display panel -->
+    <main class="course-main">
+      <div class="content-panel">
+        <iframe name="course-frame" src="linux-server-administration/tutorial-001-linux-concepts.html"
+          allowfullscreen></iframe>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('#sidebar-nav a');
+      const navToggle = document.getElementById('nav-toggle');
+      const sidebar = document.querySelector('.course-sidebar');
+      const navOverlay = document.getElementById('nav-overlay');
+
+      // Mark first link as active by default
+      if (links.length > 0) links[0].classList.add('active-link');
+
+      function toggleNav() {
+        sidebar.classList.toggle('nav-active');
+
+        // Change icon based on state
+        const icon = navToggle.querySelector('i');
+        if (sidebar.classList.contains('nav-active')) {
+          icon.className = 'bx bx-x';
+        } else {
+          icon.className = 'bx bx-menu';
+        }
+      }
+
+      // Toggle Navigation
+      if (navToggle) {
+        navToggle.addEventListener('click', toggleNav);
+      }
+
+      // Close on overlay click
+      if (navOverlay) {
+        navOverlay.addEventListener('click', toggleNav);
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', function () {
+          links.forEach(l => l.classList.remove('active-link'));
+          this.classList.add('active-link');
+
+          // Close menu on link click (mobile)
+          if (sidebar.classList.contains('nav-active')) {
+            toggleNav();
+          }
+        });
+      });
+
+      // Sync sidebar active link with iframe navigation
+      const courseFrame = document.querySelector('iframe[name="course-frame"]');
+      if (courseFrame) {
+        courseFrame.addEventListener('load', function () {
+          try {
+            const frameUrl = courseFrame.contentWindow.location.href;
+            // Find the matching link in the sidebar
+            links.forEach(link => {
+              const linkHref = link.getAttribute('href');
+              // check if the end of the frame URL matches the link href
+              if (frameUrl.includes(linkHref) || frameUrl.endsWith(linkHref.split('/').pop())) {
+                links.forEach(l => l.classList.remove('active-link'));
+                link.classList.add('active-link');
+                // Auto-scroll the sidebar to the active link
+                link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            });
+          } catch (e) {
+            // Cross-origin or other errors can be ignored
+            console.log("Could not sync iframe URL:", e);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

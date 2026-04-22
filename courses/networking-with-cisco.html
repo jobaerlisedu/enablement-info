@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cisco Certified Network Associate - Complete Networking Course">
+  <title>Cisco Certified Network Associate | enablement.info</title>
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    :root {
+      --sidebar-width: 350px;
+      --bg-light: #f4f7f9;
+      --panel-bg: #ffffff;
+      --sidebar-bg: #ffffff;
+      --accent-blue: #0563bb;
+      --accent-light: #eef5ff;
+      --text-dark: #2c3e50;
+      --text-muted: #7f8c8d;
+      --border-color: #e6ecf1;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: var(--bg-light);
+      overflow: hidden;
+      color: var(--text-dark);
+    }
+
+    .app-container {
+      display: flex;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* Course Sidebar */
+    .course-sidebar {
+      width: var(--sidebar-width);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .sidebar-header {
+      padding: 30px 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 25px;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      color: var(--accent-blue);
+      padding-left: 5px;
+    }
+
+    .course-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--accent-blue);
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .course-title i {
+      font-size: 1.6rem;
+    }
+
+    .course-nav {
+      padding: 20px 15px;
+      margin: 0;
+    }
+
+    .course-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .course-nav li {
+      margin-bottom: 8px;
+    }
+
+    .course-nav a {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      color: var(--text-dark);
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      line-height: 1.4;
+      transition: all 0.2s ease;
+      background: transparent;
+      border: 1px solid transparent;
+    }
+
+    .course-nav a i {
+      font-size: 1.25rem;
+      margin-top: 3px;
+      color: var(--accent-blue);
+      opacity: 0.8;
+    }
+
+    .course-nav a:hover {
+      background: var(--accent-light);
+      border-color: rgba(5, 99, 187, 0.1);
+    }
+
+    .course-nav a.active-link {
+      background: var(--accent-light);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(5, 99, 187, 0.05);
+    }
+
+    .course-nav a.active-link i {
+      opacity: 1;
+    }
+
+    /* Mobile Navigation Header - Hidden on Desktop */
+    .mobile-nav-header {
+      display: none;
+    }
+
+    /* Main Content Area */
+    .course-main {
+      flex: 1;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .content-panel {
+      flex: 1;
+      background: #ffffff;
+      overflow: hidden;
+      display: flex;
+      position: relative;
+    }
+
+    /* Mobile Toggle Button */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(5, 99, 187, 0.2);
+    }
+
+    .nav-toggle:hover {
+      background: #044d92;
+      transform: translateY(-2px);
+    }
+
+    .nav-toggle i {
+      transition: transform 0.3s ease;
+    }
+
+    .nav-active .nav-toggle i {
+      transform: rotate(90deg);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Scrollbar Styling */
+    .course-sidebar::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb {
+      background: #e2e8f0;
+      border-radius: 10px;
+    }
+
+    .course-sidebar::-webkit-scrollbar-thumb:hover {
+      background: #cbd5e1;
+    }
+
+    /* Responsive */
+    @media (max-width: 1100px) {
+      .course-sidebar {
+        width: 300px;
+      }
+    }
+
+    @media (max-width: 850px) {
+      .app-container {
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .course-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        z-index: 100;
+      }
+
+      .sidebar-header {
+        padding: 20px 20px;
+      }
+
+      .header-top {
+        margin-bottom: 15px;
+      }
+
+      .back-link {
+        margin-bottom: 0;
+      }
+
+      .nav-toggle {
+        display: flex;
+      }
+
+      .sidebar-header h2 {
+        display: none;
+      }
+
+      .course-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        /* Now covers 80% of screen */
+        max-width: 350px;
+        /* Cap for tablets/larger phones */
+        height: 100vh;
+        background: white;
+        z-index: 1000;
+        /* Higher z-index to stay above backdrop */
+        padding-top: 0;
+        transform: translateX(-100%);
+        /* Slide from the left */
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        display: block !important;
+        overflow-y: auto;
+        opacity: 0;
+        visibility: hidden;
+        box-shadow: none;
+      }
+
+      .nav-active .course-nav {
+        transform: translateX(0);
+        /* Slide into view */
+        opacity: 1;
+        visibility: visible;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.15);
+        /* Depth for the sidebar */
+      }
+
+      /* Backdrop Overlay */
+      .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Semi-transparent dim */
+        z-index: 999;
+        /* Just below the sidebar */
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        backdrop-filter: blur(2px);
+      }
+
+      .nav-active .nav-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .course-main {
+        height: calc(100vh - 120px);
+        padding: 0;
+      }
+
+      /* Mobile Navigation Header Styling */
+      .mobile-nav-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 10px;
+        display: block;
+        /* Show only when drawer is active on mobile */
+      }
+
+      .mobile-nav-header .course-title {
+        font-size: 1.1rem;
+        margin-top: 10px;
+      }
+
+      .course-nav {
+        padding-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar with lesson list -->
+    <aside class="course-sidebar">
+      <div class="sidebar-header">
+        <div class="header-top">
+          <a href="../courses.html" class="back-link"><i class='bx bx-arrow-back'></i> Back to Courses</a>
+          <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Navigation">
+            <i class='bx bx-menu'></i>
+          </button>
+        </div>
+        <h2 class="course-title">Cisco Certified Network Associate (CCNA 200-301)</h2>
+      </div>
+
+      <div class="course-nav" id="sidebar-nav-container">
+        <!-- Added Header for Mobile Side Nav -->
+        <div class="mobile-nav-header">
+          <h2 class="course-title">Cisco Certified Network Associate</h2>
+        </div>
+        <ul id="sidebar-nav">
+          <li><a href="networking-with-cisco/tutorial-001-introduction-to-gns3-and-eve-ng-simulator.html"
+              target="course-frame"><span>Introduction to GNS3 and EVE-NG Simulator</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-002-download-and-make-ready-software-for-eve-ng.html"
+              target="course-frame"><span>Download and make ready software for EVE-NG</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-003-configure-install-verify-eve-ng-simulator.html"
+              target="course-frame"><span>Configure, Install & Verify EVE-NG Simulator</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-004-introduction-to-ccna-network-and-networking.html"
+              target="course-frame"><span>Introduction to CCNA, Network and Networking</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-005-explain-function-of-network-component-router.html"
+              target="course-frame"><span>Explain Function of Network Component Router</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-006-explain-function-of-network-component-switch.html"
+              target="course-frame"><span>Explain Function of Network Component Switch</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-007-explain-function-of-network-component-firewalls.html"
+              target="course-frame"><span>Explain Function of Network Component Firewalls</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-008-explain-function-of-network-component-ips-ids.html"
+              target="course-frame"><span>Explain Function of Network Component IPS & IDS</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-009-explain-function-of-network-component-wireless-ap.html"
+              target="course-frame"><span>Explain Function of Network Component Wireless AP</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-010-explain-function-of-network-component-wireless-wlc.html"
+              target="course-frame"><span>Explain Function of Network Component Wireless WLC</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-011-explain-function-of-network-component-cisco-dna.html"
+              target="course-frame"><span>Explain Function of Network Component Cisco DNA</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-012-explain-function-of-network-component-endpoints.html"
+              target="course-frame"><span>Explain Function of Network Component Endpoints</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-013-explain-function-of-network-component-servers.html"
+              target="course-frame"><span>Explain Function of Network Component Servers</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-014-intro-concept-of-2-tier-and-3-tier-architectures.html"
+              target="course-frame"><span>Intro & Concept of 2 Tier and 3 Tier Architectures</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-015-introduction-and-concept-of-on-premises-and-cloud.html"
+              target="course-frame"><span>Introduction and Concept of On-Premises and Cloud</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-016-introduction-and-concept-of-spine-leaf-architecture.html"
+              target="course-frame"><span>Introduction and Concept of Spine-Leaf Architecture</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-017-introduction-and-concept-of-small-office-home-office.html"
+              target="course-frame"><span>Introduction and Concept of Small Office/Home Office</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-018-introduction-and-concept-of-wide-area-network-wan.html"
+              target="course-frame"><span>Introduction and Concept of Wide Area Network (WAN)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-019-compare-physical-interface-different-cabling-types.html"
+              target="course-frame"><span>Compare Physical Interface & Different Cabling Types</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-020-introduction-to-single-mode-fiber-multimode-fiber.html"
+              target="course-frame"><span>Introduction to Single-Mode Fiber & Multimode Fiber</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-021-connections-ethernet-shared-media-and-point-to-point.html"
+              target="course-frame"><span>Connections Ethernet Shared Media and Point-to-Point</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-022-introduction-and-concepts-of-poe-power-over-ethernet.html"
+              target="course-frame"><span>Introduction and Concepts of PoE (Power Over Ethernet)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-023-introduction-configure-and-verify-ipv4-addressing.html"
+              target="course-frame"><span>Introduction, Configure and Verify IPv4 Addressing</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-024-describe-the-need-for-private-ipv4-addressing.html"
+              target="course-frame"><span>Describe the Need for Private IPv4 Addressing</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-025-verify-ip-parameters-for-client-os-windows-linux.html"
+              target="course-frame"><span>Verify IP Parameters for Client OS (Windows, Linux)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-026-identify-interface-and-cable-issues-duplex-speed.html"
+              target="course-frame"><span>Identify Interface and Cable Issues Duplex & Speed</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-027-introduction-concepts-and-compare-tcp-to-udp.html"
+              target="course-frame"><span>Introduction, Concepts and Compare TCP to UDP</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-028-introduction-and-concepts-of-ipv4-subnetting-part-1.html"
+              target="course-frame"><span>Introduction and Concepts of IPv4 Subnetting Part-1</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-029-introduction-and-concepts-of-ipv4-subnetting-part-2.html"
+              target="course-frame"><span>Introduction and Concepts of IPv4 Subnetting Part-2</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-030-explain-virtualization-fundamentals-virtual-machines.html"
+              target="course-frame"><span>Explain Virtualization Fundamentals (Virtual Machines)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-031-introduction-theory-and-concept-of-cisco-switches.html"
+              target="course-frame"><span>Introduction, Theory and Concept of Cisco Switches</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-032-media-access-control-mac-learning-and-aging.html"
+              target="course-frame"><span>Media Access Control (MAC) Learning and Aging</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-033-media-access-control-mac-address-table.html"
+              target="course-frame"><span>Media Access Control (MAC) Address Table</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-034-configure-and-verify-virtual-local-area-network-vlans.html"
+              target="course-frame"><span>Configure and Verify Virtual Local Area Network (VLANs)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-035-introduction-and-concept-of-access-ports-data-and-voice.html"
+              target="course-frame"><span>Introduction and Concept of Access Ports Data and Voice</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-036-introduction-and-concept-of-default-vlan-in-cisco-switch.html"
+              target="course-frame"><span>Introduction and Concept of Default VLAN in Cisco Switch</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-037-configure-and-verify-interswitch-connectivity-802-1q.html"
+              target="course-frame"><span>Configure and Verify Interswitch Connectivity 802.1Q</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-038-configure-and-verify-interswitch-connectivity-trunk-ports.html"
+              target="course-frame"><span>Configure and Verify Interswitch Connectivity Trunk Ports</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-039-configure-and-verify-interswitch-connectivity-native-vlan.html"
+              target="course-frame"><span>Configure and Verify Interswitch Connectivity Native VLAN</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-040-introduction-and-concept-of-etherchannel-or-port-channel.html"
+              target="course-frame"><span>Introduction and Concept of EtherChannel or Port Channel</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-041-configure-verify-link-aggregation-control-protocol-switches.html"
+              target="course-frame"><span>Configure & Verify Link Aggregation Control Protocol Switches</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-042-configure-verify-lacp-between-cisco-switch-and-windows-server.html"
+              target="course-frame"><span>Configure & Verify LACP Between Cisco Switch and Windows Server</span></a>
+          </li>
+          <li><a href="networking-with-cisco/tutorial-043-configure-and-verify-port-aggregation-protocol-pagp.html"
+              target="course-frame"><span>Configure and Verify Port Aggregation Protocol (PAgP)</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-044-configure-and-verify-etherchannel-static-or-manual-on-mode.html"
+              target="course-frame"><span>Configure and Verify EtherChannel Static or Manual On Mode</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-045-configure-and-verify-layer-3-etherchannel-or-port-channel.html"
+              target="course-frame"><span>Configure and Verify Layer 3 EtherChannel or Port Channel</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-046-configure-and-verify-etherchannel-load-balancing-lab.html"
+              target="course-frame"><span>Configure and Verify EtherChannel Load-Balancing Lab</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-047-troubleshooting-etherchannel-bundles-or-port-channel-lab.html"
+              target="course-frame"><span>Troubleshooting EtherChannel Bundles or Port Channel Lab</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-048-introduction-to-etherchannel-misconfiguration-guard-command.html"
+              target="course-frame"><span>Introduction to EtherChannel Misconfiguration Guard Command</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-049-introduction-and-concept-of-spanning-tree-protocols-stp.html"
+              target="course-frame"><span>Introduction and Concept of Spanning Tree Protocols (STP)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-050-introduction-and-concept-of-spanning-tree-protocols-pvst.html"
+              target="course-frame"><span>Introduction and Concept of Spanning Tree Protocols PVST+</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-051-introduction-and-concept-of-spanning-tree-protocols-rpvst.html"
+              target="course-frame"><span>Introduction and Concept of Spanning Tree Protocols RPVST+</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-052-stp-operations-priority-root-bridge-root-port-port-states.html"
+              target="course-frame"><span>STP Operations Priority, Root Bridge, Root Port, Port States</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-053-difference-between-spanning-tree-protocols-stp-and-rstp.html"
+              target="course-frame"><span>Difference Between Spanning Tree Protocols (STP) and RSTP</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-054-introduction-and-concept-of-bridge-protocol-data-unit-bpdu.html"
+              target="course-frame"><span>Introduction and Concept of Bridge Protocol Data Unit (BPDU)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-055-stp-show-spanning-tree-vlan-command-output-explained.html"
+              target="course-frame"><span>STP Show Spanning-Tree VLAN Command Output Explained</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-056-introduction-to-spanning-tree-protocols-stp-port-role.html"
+              target="course-frame"><span>Introduction to Spanning Tree Protocols (STP) Port Role</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-057-introduction-to-spanning-tree-protocols-stp-port-states.html"
+              target="course-frame"><span>Introduction to Spanning Tree Protocols (STP) Port States</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-058-configure-and-verify-spanning-tree-protocols-stp-rstp.html"
+              target="course-frame"><span>Configure and Verify Spanning Tree Protocols (STP, RSTP)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-059-introduction-and-concept-of-routed-and-routing-protocols.html"
+              target="course-frame"><span>Introduction and Concept of Routed and Routing Protocols</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-060-introduction-configure-and-verify-ipv4-default-route.html"
+              target="course-frame"><span>Introduction, Configure and Verify IPv4 Default Route</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-061-introduction-configure-and-verify-ipv4-network-route.html"
+              target="course-frame"><span>Introduction, Configure and Verify IPv4 Network Route</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-062-introduction-configure-and-verify-ipv4-host-route.html"
+              target="course-frame"><span>Introduction, Configure and Verify IPv4 Host Route</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-063-introduction-configure-and-verify-ipv4-floating-static.html"
+              target="course-frame"><span>Introduction, Configure and Verify IPv4 Floating Static</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-064-introduction-and-concept-of-components-of-routing-table.html"
+              target="course-frame"><span>Introduction and Concept of Components of Routing Table</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-065-configure-and-verify-the-longest-match-routing-rule.html"
+              target="course-frame"><span>Configure and Verify the Longest Match Routing Rule</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-066-introduction-and-concept-of-administrative-distance-ad.html"
+              target="course-frame"><span>Introduction and Concept of Administrative Distance (AD)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-067-introduction-and-concept-of-routing-protocol-metric.html"
+              target="course-frame"><span>Introduction and Concept of Routing Protocol Metric</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-068-configure-and-verify-ip-routing-packet-flow-in-the-network.html"
+              target="course-frame"><span>Configure and Verify IP Routing Packet Flow in the Network</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-069-introduction-and-concept-of-open-shortest-path-first-ospf.html"
+              target="course-frame"><span>Introduction and Concept of Open Shortest Path First (OSPF)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-070-introduction-and-concept-of-ospf-protocol-terminologies.html"
+              target="course-frame"><span>Introduction and Concept of OSPF Protocol Terminologies</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-071-open-shortest-path-first-routing-protocol-basic-configuration.html"
+              target="course-frame"><span>Open Shortest Path First Routing Protocol Basic Configuration</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-072-open-shortest-path-first-routing-protocol-three-tables.html"
+              target="course-frame"><span>Open Shortest Path First Routing Protocol Three Tables</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-073-ospf-dynamic-routing-protocol-neighbor-adjacencies-states.html"
+              target="course-frame"><span>OSPF Dynamic Routing Protocol Neighbor Adjacencies States</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-074-open-shortest-path-first-ospf-routing-protocol-metric.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Routing Protocol Metric</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-075-open-shortest-path-first-ospf-routing-protocol-packet-types.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Routing Protocol Packet Types</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-076-open-shortest-path-first-ospf-routing-protocol-router-id.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Routing Protocol Router ID</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-077-open-shortest-path-first-ospf-routing-protocol-router-types.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Routing Protocol Router Types</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-078-open-shortest-path-first-ospf-routing-protocol-route-types.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Routing Protocol Route Types</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-079-open-shortest-path-first-designated-backup-designated-router.html"
+              target="course-frame"><span>Open Shortest Path First Designated & Backup Designated Router</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-080-open-shortest-path-first-ospf-equal-cost-load-balancing.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Equal-Cost Load Balancing</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-081-open-shortest-path-first-ospf-summarization-in-abr-asbr.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Summarization in ABR & ASBR</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-082-open-shortest-path-first-ospf-path-preference-or-selection.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Path Preference or Selection</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-083-open-shortest-path-first-ospf-hello-interval-dead-interval.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Hello Interval & Dead Interval</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-084-open-shortest-path-first-ospf-filtering-using-distribute-list.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Filtering Using Distribute List</span></a>
+          </li>
+          <li><a href="networking-with-cisco/tutorial-085-open-shortest-path-first-ospf-different-network-types.html"
+              target="course-frame"><span>Open Shortest Path First (OSPF) Different Network Types</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-086-describe-the-purpose-of-first-hop-redundancy-protocol-fhrp.html"
+              target="course-frame"><span>Describe the Purpose of First Hop Redundancy Protocol (FHRP)</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-087-introduction-and-concept-of-network-address-translation-nat.html"
+              target="course-frame"><span>Introduction and Concept of Network Address Translation (NAT)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-088-configure-and-verify-network-address-translation-nat-pat.html"
+              target="course-frame"><span>Configure and Verify Network Address Translation (NAT) & PAT</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-089-introduction-and-concept-of-network-time-protocol-ntp.html"
+              target="course-frame"><span>Introduction and Concept of Network Time Protocol (NTP)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-090-configure-and-verify-network-time-protocol-and-security.html"
+              target="course-frame"><span>Configure and Verify Network Time Protocol and Security</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-091-explain-the-role-of-dynamic-host-configuration-protocol-dhcp.html"
+              target="course-frame"><span>Explain the Role of Dynamic Host Configuration Protocol (DHCP)</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-092-configure-and-verify-dynamic-host-configuration-protocol-server.html"
+              target="course-frame"><span>Configure and Verify Dynamic Host Configuration Protocol Server</span></a>
+          </li>
+          <li><a
+              href="networking-with-cisco/tutorial-093-configure-and-verify-dynamic-host-configuration-protocol-relay.html"
+              target="course-frame"><span>Configure and Verify Dynamic Host Configuration Protocol Relay</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-094-explain-the-role-of-domain-name-system-dns-within-the-network.html"
+              target="course-frame"><span>Explain the Role of Domain Name System (DNS) Within the Network</span></a>
+          </li>
+          <li><a href="networking-with-cisco/tutorial-095-explain-the-function-of-snmp-in-network-operations.html"
+              target="course-frame"><span>Explain the Function of SNMP in Network Operations</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-096-describe-use-of-syslog-features-including-facilities-levels.html"
+              target="course-frame"><span>Describe Use of Syslog Features Including Facilities & Levels</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-097-introduction-theory-and-concept-of-quality-of-service-qos.html"
+              target="course-frame"><span>Introduction, Theory and Concept of Quality of Service (QoS)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-098-configure-network-devices-for-remote-access-using-ssh.html"
+              target="course-frame"><span>Configure Network Devices for Remote Access Using SSH</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-099-describe-capabilities-and-function-of-tftp-ftp-in-the-network.html"
+              target="course-frame"><span>Describe Capabilities and Function of TFTP/FTP in the Network</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-100-define-key-security-concepts-threats-vulnerabilities-etc.html"
+              target="course-frame"><span>Define Key Security Concepts Threats, Vulnerabilities, etc.</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-101-configure-device-access-control-using-local-passwords.html"
+              target="course-frame"><span>Configure Device Access Control Using Local Passwords</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-102-security-password-policies-element-multifactor-authentication.html"
+              target="course-frame"><span>Security Password Policies Element Multifactor Authentication</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-103-describe-and-concept-of-remote-access-and-site-to-site-vpns.html"
+              target="course-frame"><span>Describe and Concept of Remote Access and Site-to-Site VPNs</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-104-introduction-theory-and-concept-of-access-control-list-acl.html"
+              target="course-frame"><span>Introduction, Theory and Concept of Access Control List (ACL)</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-105-configure-and-verify-standard-access-control-list-acl-lab.html"
+              target="course-frame"><span>Configure and Verify Standard Access Control List (ACL) Lab</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-106-configure-and-verify-extended-access-control-list-acl-lab.html"
+              target="course-frame"><span>Configure and Verify Extended Access Control List (ACL) Lab</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-107-configure-and-verify-named-access-control-list-acl-lab.html"
+              target="course-frame"><span>Configure and Verify Named Access Control List (ACL) Lab</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-108-configure-verify-time-based-access-control-list-acl-lab.html"
+              target="course-frame"><span>Configure & Verify Time-Based Access Control List (ACL) Lab</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-109-configure-verify-infrastructure-access-control-list-lab.html"
+              target="course-frame"><span>Configure & Verify Infrastructure Access Control List Lab</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-110-configure-verify-layer-2-security-features-dhcp-snooping.html"
+              target="course-frame"><span>Configure & Verify Layer 2 Security Features DHCP Snooping</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-111-configure-verify-layer-2-security-features-arp-inspection.html"
+              target="course-frame"><span>Configure & Verify Layer 2 Security Features ARP Inspection</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-112-configure-verify-layer-2-security-features-port-security.html"
+              target="course-frame"><span>Configure & Verify Layer 2 Security Features Port Security</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-113-differentiate-authentication-authorization-and-accounting.html"
+              target="course-frame"><span>Differentiate Authentication, Authorization, and Accounting</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-114-describe-wireless-security-protocols-wpa-wpa2-and-wpa3.html"
+              target="course-frame"><span>Describe Wireless Security Protocols (WPA, WPA2, and WPA3)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-115-configure-and-verify-wlan-using-wpa2-psk-using-the-gui.html"
+              target="course-frame"><span>Configure and Verify WLAN Using WPA2 PSK Using the GUI</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-116-explain-how-automation-impacts-network-management.html"
+              target="course-frame"><span>Explain How Automation Impacts Network Management</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-117-introduction-and-concept-of-software-defined-networking-sdn.html"
+              target="course-frame"><span>Introduction and Concept of Software Defined Networking (SDN)</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-118-introduction-to-northbound-api-and-southbound-api.html"
+              target="course-frame"><span>Introduction to Northbound API and Southbound API</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-119-introduction-to-application-programming-interface-api.html"
+              target="course-frame"><span>Introduction to Application Programming Interface (API)</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-120-recognize-capabilities-of-configuration-management-mechanisms.html"
+              target="course-frame"><span>Recognize Capabilities of Configuration Management Mechanisms</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-121-interpret-json-javascript-object-notation-encoded-data.html"
+              target="course-frame"><span>Interpret JSON (JavaScript Object Notation) Encoded Data</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-122-introduction-to-layer-2-discovery-protocols-cdp-and-lldp.html"
+              target="course-frame"><span>Introduction to Layer 2 Discovery Protocols CDP and LLDP</span></a></li>
+          <li><a href="networking-with-cisco/tutorial-123-configure-and-verify-layer-2-discovery-protocols-cdp-lab.html"
+              target="course-frame"><span>Configure and Verify Layer 2 Discovery Protocols CDP Lab</span></a></li>
+          <li><a
+              href="networking-with-cisco/tutorial-124-configure-and-verify-layer-2-discovery-protocols-lldp-lab.html"
+              target="course-frame"><span>Configure and Verify Layer 2 Discovery Protocols LLDP Lab</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Mobile Navigation Overlay (Backdrop) -->
+    <div class="nav-overlay" id="nav-overlay"></div>
+
+    <!-- Main article display panel -->
+    <main class="course-main">
+      <div class="content-panel">
+        <iframe name="course-frame"
+          src="networking-with-cisco/tutorial-001-introduction-to-gns3-and-eve-ng-simulator.html"
+          allowfullscreen></iframe>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('#sidebar-nav a');
+      const navToggle = document.getElementById('nav-toggle');
+      const sidebar = document.querySelector('.course-sidebar');
+      const navOverlay = document.getElementById('nav-overlay');
+
+      // Mark first link as active by default
+      if (links.length > 0) links[0].classList.add('active-link');
+
+      function toggleNav() {
+        sidebar.classList.toggle('nav-active');
+
+        // Change icon based on state
+        const icon = navToggle.querySelector('i');
+        if (sidebar.classList.contains('nav-active')) {
+          icon.className = 'bx bx-x';
+        } else {
+          icon.className = 'bx bx-menu';
+        }
+      }
+
+      // Toggle Navigation
+      if (navToggle) {
+        navToggle.addEventListener('click', toggleNav);
+      }
+
+      // Close on overlay click
+      if (navOverlay) {
+        navOverlay.addEventListener('click', toggleNav);
+      }
+
+      links.forEach(link => {
+        link.addEventListener('click', function () {
+          links.forEach(l => l.classList.remove('active-link'));
+          this.classList.add('active-link');
+
+          // Close menu on link click (mobile)
+          if (sidebar.classList.contains('nav-active')) {
+            toggleNav();
+          }
+        });
+      });
+
+      // Sync sidebar active link with iframe navigation
+      const courseFrame = document.querySelector('iframe[name="course-frame"]');
+      if (courseFrame) {
+        courseFrame.addEventListener('load', function () {
+          try {
+            const frameUrl = courseFrame.contentWindow.location.href;
+            // Find the matching link in the sidebar
+            links.forEach(link => {
+              const linkHref = link.getAttribute('href');
+              // check if the end of the frame URL matches the link href
+              if (frameUrl.includes(linkHref) || frameUrl.endsWith(linkHref.split('/').pop())) {
+                links.forEach(l => l.classList.remove('active-link'));
+                link.classList.add('active-link');
+                // Auto-scroll the sidebar to the active link
+                link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            });
+          } catch (e) {
+            // Cross-origin or other errors can be ignored
+            console.log("Could not sync iframe URL:", e);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

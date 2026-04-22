@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="সহজে শিখুন Network Engineering. Basics of Computer Networking নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. Basics of Computer Networking à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
   <title>Basics of Computer Networking | enablement.info</title>
 
 
@@ -136,114 +136,7 @@
         </header>
 
         <div class="article-body">
-          <h2><i class="bi bi-lightbulb"></i> Introduction: What is a Computer Network?</h2>
-          <p>Computer Network হলো interconnected devices-এর একটি group, যারা Data এবং resources Share করার জন্য নিজেদের মধ্যে communicate করে। এটি efficient communication-এর সুবিধা দেয় এবং email, file sharing, এবং internet access-এর মতো services সাপোর্ট করে।</p>
-          <ul>
-            <li><strong>Nodes</strong> হলো সেইসব devices যেমন computers, mobiles, বা printers যারা data exchange করে।</li>
-            <li><strong>Routers এবং switches</strong> মূলত information flow কন্ট্রোল এবং direct করে।</li>
-            <li><strong>Transmission media</strong> devices-এর মধ্যে data বহন করে।</li>
-            <li><strong>Wired media</strong>-র মধ্যে রয়েছে Ethernet এবং optical fiber cables।</li>
-            <li><strong>Wireless media</strong>-র মধ্যে রয়েছে Wi-Fi, Bluetooth, এবং infrared।</li>
-          </ul>
-
-          <h2>1. How does a Computer Network work?</h2>
-          <p>একটি shared communication system ব্যবহার করে devices-গুলোর মধ্যে communication এবং data exchange-এর মাধ্যমে Computer Network কাজ করে। Network-এর প্রতিটি device কিছু predefined rules মেনে চলে যাতে accurately, efficiently, এবং securely data transmit হয়।</p>
-          <ul>
-            <li>একটি network-এ এমন কিছু nodes থাকে যেমন computers, servers, routers, এবং switches যারা data পাঠায় বা গ্রহণ করে।</li>
-            <li>এই nodes গুলো links-এর মাধ্যমে যুক্ত থাকে, যা wired (cables, optical fiber) বা wireless (Wi-Fi, radio signals) হতে পারে।</li>
-            <li>যখন data পাঠানো হয়, এটি ছোট ছোট packets-এ ভেঙ্গে network-এর মাধ্যমে transmit করা হয়।</li>
-            <li>Protocols বলে দেয় কীভাবে data packets format, transmit, receive, এবং acknowledge করা হবে।</li>
-            <li>প্রতিটি device একটি unique IP address দিয়ে identify করা হয়, যা নিশ্চিত করে data সঠিক গন্তব্যে পৌঁছাচ্ছে কিনা।</li>
-            <li>Switches এবং routers-এর মতো network devices-গুলো available best path দিয়ে data packets forward করে।</li>
-            <li>Firewalls-এর মতো security mechanisms, network traffic monitor করে এবং security rules মেনে data কে পারমিশন কিংবা block করে দেয়।</li>
-          </ul>
-
-          <h2>2. Types of Computer Network Architecture</h2>
-          <p>Computer Network মূলত নিচের broad categories গুলোতে পড়ে:</p>
-          <ul>
-            <li><strong>Client-Server Architecture:</strong> Client-Server Architecture হলো এমন এক ধরণের Computer Network Architecture যেখানে Nodes গুলো Servers বা Clients হতে পারে। এখানে, server node সাধারণত Client Node Behaviour ম্যানেজ করতে পারে। বিস্তারিত জানতে <a href="networking-fundamentals/tutorial-079-client-server-model.html" target="course-frame">Client-Server Model</a> পড়ুন।</li>
-            <li><strong>Peer-to-Peer Architecture:</strong> P2P (Peer-to-Peer) Architecture-এ Central Server বলে কিছু নেই। প্রতিটি device নিজের ইচ্ছেমতো হয় client বা server হিসেবে কাজ করার স্বাধীনতা রাখে।</li>
-          </ul>
-
-          <h2>3. Essential Network Devices</h2>
-
-
-
-          <h3>Router</h3>
-          <p>Router হলো এমন একটি networking device যা multiple networks-কে কানেক্ট করে এবং তাদের মধ্যে data direct করে।</p>
-          <ul>
-            <li>Local networks-কে internet-এর সাথে কানেক্ট করে।</li>
-            <li>Data packets-এর জন্য best path বের করে।</li>
-            <li>IP addresses ব্যবহার করে সঠিকভাবে data forward করে।</li>
-          </ul>
-
-          <h3>Switch</h3>
-          <p>Switch মূলত same network-এর মধ্যে থাকা devices গুলোকে কানেক্ট করে এবং internal data communication পরিচালনা করে।</p>
-          <ul>
-            <li>Computers, printers, এবং servers কানেক্ট করে।</li>
-            <li>যাকে data পাঠানোর কথা, শুধুমাত্র সেই device-কেই data পাঠায়।</li>
-            <li>Network efficiency এবং performance বাড়ায়।</li>
-          </ul>
-
-          <h3>Hub</h3>
-          <p>Hub একটি basic device যা একটি network-এ multiple devices কানেক্ট করে।</p>
-          <ul>
-            <li>কানেক্টেড সব devices-এর কাছেই data broadcast করে।</li>
-            <li>Traffic filter বা manage করে না।</li>
-            <li>Switch-এর তুলনায় কম secure এবং কম efficient।</li>
-          </ul>
-
-          <h3>Bridge</h3>
-          <p>Bridge দুটি network segments-কে কানেক্ট করে এবং তাদের মাঝখানের traffic filter করে।</p>
-          <ul>
-            <li>অপ্রয়োজনীয় data transmission কমায়।</li>
-            <li>Network performance ইমপ্রুভ করে।</li>
-            <li>MAC addresses ব্যবহার করে কাজ করে।</li>
-          </ul>
-
-          <h3>Gateway</h3>
-          <p>Gateway ভিন্ন ভিন্ন protocols ব্যবহার করে এমন দুটি আলাদা networks-কে সংযুক্ত করে।</p>
-          <ul>
-            <li>ভিন্ন systems-এর মধ্যে data translate করে।</li>
-            <li>Dissimilar networks-এর মধ্যে communication সম্ভব করে।</li>
-            <li>Private networks-কে external networks-এর সাথে যুক্ত করতে বেশি ব্যবহৃত হয়।</li>
-          </ul>
-
-          <h3>Access Point (AP)</h3>
-          <p>Access Point একটি network-এর devices-কে wireless connectivity প্রদান করে।</p>
-          <ul>
-            <li>Wired network-কে Wi-Fi-এ extend করে।</li>
-            <li>Mobile devices-কে wirelessly কানেক্ট হতে দেয়।</li>
-            <li>Network coverage area বৃদ্ধি করে।</li>
-          </ul>
-
-          <h3>Modem</h3>
-          <p>Modem ডিজিটাল data-কে transmission-এর উপযোগী signal-এ কনভার্ট করে, এবং ভাইস-ভার্সা।</p>
-          <ul>
-            <li>Home বা office network-কে ISP-এর সাথে কানেক্ট করে।</li>
-            <li>Digital signals-কে analog এবং analog-কে digital-এ কনভার্ট করে।</li>
-            <li>Internet access এনেবেল করে।</li>
-          </ul>
-
-          <h3>Firewall</h3>
-          <p>Firewall হলো একটি security device যা network traffic monitor এবং control করে।</p>
-          <ul>
-            <li>Unauthorized access ব্লক করে দেয়।</li>
-            <li>Incoming এবং outgoing data filter করে।</li>
-            <li>Cyber threats থেকে networks-কে সুরক্ষিত রাখে।</li>
-          </ul>
-
-          <h2>4. Goals and Uses of Computer Network</h2>
-          <ul>
-            <li><strong>Communication and Collaboration:</strong> Email, messaging, video conferencing, এবং collaborative platforms-এর মাধ্যমে communication সম্ভব করে।</li>
-            <li><strong>Resource Sharing:</strong> Multiple users-কে hardware, software, এবং data resources efficiently share করতে দেয়।</li>
-            <li><strong>Data Access and Sharing:</strong> Stored data-তে সহজে access দেয় এবং users ও systems-এর মধ্যে information exchange করার সুযোগ দেয়।</li>
-            <li><strong>Internet and Cloud Access:</strong> Internet, online services, এবং cloud-based applications-এ access সম্ভব করে তোলে।</li>
-            <li><strong>Cost Efficiency:</strong> Shared resources এবং centralized systems ব্যবহারের কারণে operational এবং infrastructure costs কমানো যায়।</li>
-            <li><strong>Reliability and Availability:</strong> Backup paths এবং fault-tolerant mechanisms ব্যবহার করে system reliability অনেক বাড়িয়ে তোলে।</li>
-            <li><strong>Scalability and Growth:</strong> চাহিদা বাড়ার সাথে সাথে নতুন devices এবং services সহজে যুক্ত করার সাপোর্ট দেয়।</li>
-            <li><strong>Security and Control:</strong> Authentication, access control, এবং monitoring ব্যবহার করে data ও network resources প্রটেক্ট করে।</li>
-          </ul>
+          <p>Welcome to the fundamental guide on <strong>Basics of Computer Networking</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
         </div>
       </article>
     </div>
