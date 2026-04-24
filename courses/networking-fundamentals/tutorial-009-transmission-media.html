@@ -5,61 +5,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. Transmission Media: Guided and Unguided Media à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
-  <title>Transmission Media: Guided and Unguided Media | enablement.info</title>
+    content="Transmission Media কী? Guided (Wired) এবং Unguided (Wireless) মিডিয়া, ফাইবার অপটিক, UTP ক্যাবল এবং Cisco ডিভাইসে মিডিয়া ট্রাবলশুটিং নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Transmission Media: Detailed Guide | enablement.info</title>
 
-  <!-- Icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <!-- CSS -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    :root {
-      --primary-color: #0563bb;
-      --secondary-color: #1a2a4a;
-      --glass-bg: rgba(255, 255, 255, 0.95);
-      --glass-border: rgba(226, 232, 240, 0.8);
-      --text-main: #334155;
-      --text-muted: #64748b;
-    }
-
     body,
     html {
       margin: 0;
       padding: 0;
-      background: #ffffff;
+      background: #fff;
       color: var(--text-main);
-      font-family: 'Inter', sans-serif;
     }
 
     .blog-content-wrapper {
-      padding: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
     }
 
     .glass-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
       padding: 40px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: none;
+      margin-top: 0;
     }
 
     .article-header {
-      border-bottom: 2px solid #edf2f7;
+      border-bottom: 1px solid var(--glass-border);
       margin-bottom: 30px;
       padding-bottom: 20px;
     }
 
     .article-header h1 {
-      font-size: 2.5rem;
-      color: var(--secondary-color);
+      font-size: 2.2rem;
+      color: var(--primary-color);
       margin-bottom: 15px;
       font-weight: 800;
-      line-height: 1.2;
     }
 
     .article-meta {
@@ -67,74 +54,75 @@
       font-size: 0.95rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 8px;
     }
 
     .article-body {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       line-height: 1.8;
       color: var(--text-main);
     }
 
     .article-body h2 {
       color: var(--primary-color);
-      margin-top: 45px;
-      border-left: 5px solid var(--primary-color);
-      padding-left: 20px;
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
       font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
     }
 
     .content-box {
       background: #f1f7fd;
-      border-radius: 12px;
-      padding: 25px;
-      margin: 30px 0;
-      border: 1px solid #e2e8f0;
-    }
-
-    .topology-diagram {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      margin: 20px auto;
-      display: block;
-      background: white;
-      border-radius: 12px;
+      border-left: 4px solid var(--primary-color);
       padding: 20px;
-    }
-
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
+      border-radius: 8px;
       margin: 25px 0;
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-      font-size: 0.95rem;
     }
 
-    .comparison-table th,
-    .comparison-table td {
-      padding: 12px 15px;
-      text-align: left;
-      border-bottom: 1px solid #edf2f7;
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
     }
 
-    .comparison-table th {
-      background: var(--secondary-color);
-      color: white;
-      font-weight: 600;
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
     }
 
-    .category-table tr:nth-child(even) {
-      background: #f8fafc;
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
     }
 
-    ul li {
-      margin-bottom: 10px;
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
     }
   </style>
+
 </head>
 
 <body class="tutorial-page">
@@ -145,14 +133,173 @@
         <header class="article-header">
           <h1>Transmission Media: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> Jan 02, 2026</span>
-            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-calendar'></i> 02 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Transmission Media: Detailed Guide</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>নেটওয়ার্কিংয়ের জগতে ডাটা এক ডিভাইস থেকে অন্য ডিভাইসে পৌঁছানোর জন্য একটি রাস্তা বা মাধ্যমের প্রয়োজন হয়।
+            সেন্ডার (Sender) এবং রিসিভার (Receiver) এর মধ্যে এই ফিজিক্যাল পথটিকেই <strong>Transmission Media</strong>
+            বলা হয়। এটি মূলত OSI মডেলের <strong>Physical Layer (Layer 1)</strong> এ কাজ করে।</p>
+          <p>আপনার বাসা থেকে ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) পর্যন্ত ডাটা কীভাবে যায়? কখনো ফাইবার অপটিক ক্যাবল দিয়ে,
+            কখনো আবার ওয়াইফাই বা রেডিও সিগন্যালের মাধ্যমে। আজকের এই ডিপ-ডাইভ আর্টিকেলে আমরা Transmission Media-এর
+            শ্রেণীবিভাগ, বিভিন্ন ক্যাবলের গঠন, রিয়েল-লাইফ ব্যবহার এবং ট্রাবলশুটিং নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>Transmission Media এর প্রকারভেদ</h3>
+            <p>সিগন্যাল ট্রান্সমিট করার ধরনের ওপর ভিত্তি করে Transmission Media কে প্রধানত দুটি ভাগে ভাগ করা যায়:</p>
+            <ol>
+              <li><strong>Guided Media (Wired/Bounded):</strong> যেখানে ডাটা ট্রান্সমিট করার জন্য ফিজিক্যাল তার বা
+                ক্যাবল ব্যবহার করা হয়।</li>
+              <li><strong>Unguided Media (Wireless/Unbounded):</strong> যেখানে ডাটা ট্রান্সমিট করার জন্য কোনো তার থাকে
+                না, ডাটা বাতাসের মধ্য দিয়ে রেডিও সিগন্যাল হিসেবে যাতায়াত করে।</li>
+            </ol>
+          </div>
+
+          <h2>১. Guided Media (Wired Media)</h2>
+          <p>বড় বড় ডেটা সেন্টার এবং কর্পোরেট নেটওয়ার্কে Guided Media হলো প্রধান ভরসা, কারণ এটি অনেক বেশি সিকিউর এবং
+            এখানে স্পিড বেশি পাওয়া যায়। এটি প্রধানত তিন ধরনের হয়ে থাকে:</p>
+
+          <h3>A. Twisted Pair Cable</h3>
+          <p>এটি নেটওয়ার্কিংয়ের সবচেয়ে সাধারণ এবং বেশি ব্যবহৃত ক্যাবল। এতে দুটি তামার তারকে (Copper Wire) একে অপরের সাথে
+            পেঁচিয়ে (Twist) রাখা হয়। পেঁচিয়ে রাখার মূল কারণ হলো <strong>Crosstalk</strong> (একটি তারের সিগন্যাল অন্য
+            তারে মিশে যাওয়া) এবং বাইরের <strong>EMI (Electromagnetic Interference)</strong> কমানো।</p>
+          <ul>
+            <li><strong>UTP (Unshielded Twisted Pair):</strong> এর ভেতরে কোনো এক্সট্রা মেটালিক শিল্ড থাকে না। এটি সস্তা
+              এবং ফ্লেক্সিবল। আমাদের বাসাবাড়িতে বা অফিসে ব্যবহৃত Cat5e, Cat6 ক্যাবলগুলো মূলত UTP ক্যাবল। এতে
+              <strong>RJ-45</strong> কানেক্টর ব্যবহার করা হয়।</li>
+            <li><strong>STP (Shielded Twisted Pair):</strong> এর ভেতরে প্রতিটি পেয়ারের ওপর একটি অ্যালুমিনিয়াম ফয়েল বা
+              শিল্ড থাকে, যা এক্সট্রা প্রটেকশন দেয়। ফ্যাক্টরি বা হাই-ভোল্টেজ এরিয়াতে এটি ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h3>B. Coaxial Cable</h3>
+          <p>এটিতে একটি সেন্ট্রাল কপার কোর (Copper Core) থাকে, যার চারপাশে প্লাস্টিকের ইনসুলেটর এবং তার ওপরে একটি
+            মেটালিক জালি (Braided Shield) থাকে।</p>
+          <ul>
+            <li><strong>ব্যবহার:</strong> একসময় লোকাল নেটওয়ার্কে (LAN) এটি প্রচুর ব্যবহৃত হতো, তবে বর্তমানে এটি মূলত
+              <strong>Cable TV Network</strong> এবং পুরনো সিসিটিভি (CCTV) ক্যামেরার কানেকশনে ব্যবহার করা হয়। এতে
+              <strong>BNC</strong> কানেক্টর ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h3>C. Fiber Optic Cable</h3>
+          <p>আধুনিক নেটওয়ার্কিংয়ের সবচেয়ে বড় বিপ্লব হলো Fiber Optic। এখানে ডাটা ইলেকট্রিক্যাল সিগন্যালের বদলে
+            <strong>Light (আলো)</strong> হিসেবে ট্রান্সমিট হয়। এটি "Total Internal Reflection" বা পূর্ণ অভ্যন্তরীণ
+            প্রতিফলনের নীতিতে কাজ করে।</p>
+          <ul>
+            <li><strong>গঠন:</strong> এর একেবারে কেন্দ্রে থাকে Core (যা গ্লাস বা প্লাস্টিকের তৈরি), এর চারপাশে থাকে
+              Cladding (যা আলোকে বাইরে যেতে বাধা দেয়) এবং সবচেয়ে বাইরে থাকে জ্যাকেট।</li>
+            <li><strong>SMF (Single-Mode Fiber):</strong> এর কোর অনেক চিকন হয়। এখানে আলোর উৎস হিসেবে লেজার (Laser)
+              ব্যবহৃত হয়। অনেক বেশি দূরত্বে (Long Distance) ডাটা পাঠানোর জন্য এটি ব্যবহৃত হয় (যেমন এক শহর থেকে অন্য
+              শহরে)।</li>
+            <li><strong>MMF (Multi-Mode Fiber):</strong> এর কোর কিছুটা মোটা হয় এবং আলোর উৎস হিসেবে LED ব্যবহৃত হয়। ডেটা
+              সেন্টারের ভেতরে এক র‍্যাক থেকে অন্য র‍্যাকে বা শর্ট ডিসটেন্সের জন্য এটি ব্যবহার করা হয়।</li>
+            <li><strong>সুবিধা:</strong> এতে কোনো EMI বা ইলেকট্রিক্যাল ইন্টারফারেন্সের প্রভাব নেই। এটি শত শত কিলোমিটার
+              পর্যন্ত অত্যন্ত হাই-ব্যান্ডউইথে (High Bandwidth) ডাটা পাঠাতে পারে।</li>
+          </ul>
+
+          <h2>২. Unguided Media (Wireless Media)</h2>
+          <p>যখন ফিজিক্যাল ক্যাবল টানা সম্ভব হয় না বা ডিভাইসগুলোর মোবিলিটি (Mobility) দরকার হয়, তখন আমরা Unguided Media
+            ব্যবহার করি। এটি মূলত ইলেক্ট্রোম্যাগনেটিক ওয়েভ (Electromagnetic waves) ব্যবহার করে কাজ করে।</p>
+
+          <h3>A. Radio Waves</h3>
+          <p>রেডিও ওয়েভ চারদিকে (Omnidirectional) ছড়িয়ে পড়ে। তাই সেন্ডার এবং রিসিভারের অ্যান্টেনা নির্দিষ্ট কোনো এক
+            লাইনে রাখার প্রয়োজন হয় না।</p>
+          <ul>
+            <li><strong>বৈশিষ্ট্য:</strong> এটি দেয়াল বা বিল্ডিং ভেদ করে যেতে পারে।</li>
+            <li><strong>রিয়েল-লাইফ উদাহরণ:</strong> আমাদের স্মার্টফোনের <strong>Wi-Fi</strong>, FM Radio, এবং সেলুলার
+              নেটওয়ার্ক (4G/5G) রেডিও ওয়েভের মাধ্যমে কাজ করে।</li>
+          </ul>
+
+          <h3>B. Microwaves</h3>
+          <p>মাইক্রোওয়েভ হলো একমুখী (Unidirectional) সিগন্যাল। এটি সরলরেখায় চলে, যাকে <strong>Line of Sight
+              (LoS)</strong> বলা হয়।</p>
+          <ul>
+            <li><strong>বৈশিষ্ট্য:</strong> সেন্ডার এবং রিসিভারের অ্যান্টেনা (যেমন প্যারাবোলিক ডিশ) একে অপরের দিকে
+              সরাসরি মুখ করে থাকতে হয়। মাঝখানে কোনো বড় বিল্ডিং বা পাহাড় থাকলে সিগন্যাল বাধাগ্রস্ত হয়।</li>
+            <li><strong>রিয়েল-লাইফ উদাহরণ:</strong> স্যাটেলাইট কমিউনিকেশন এবং আইএসপিগুলোর (ISP) পয়েন্ট-টু-পয়েন্ট
+              (Point-to-Point) লিংক।</li>
+          </ul>
+
+          <h3>C. Infrared</h3>
+          <p>ইনফ্রারেড ওয়েভ খুব শর্ট রেঞ্জের (Short Range) জন্য ব্যবহৃত হয়। এটি কোনো সলিড বস্তু বা দেয়াল ভেদ করতে পারে
+            না।</p>
+          <ul>
+            <li><strong>রিয়েল-লাইফ উদাহরণ:</strong> টেলিভিশন রিমোট কন্ট্রোল, ওয়্যারলেস কীবোর্ড বা মাউস। মাঝখানে কেউ
+              দাঁড়ালে টিভি রিমোট কাজ করে না, কারণ ইনফ্রারেড বাধা অতিক্রম করতে পারে না।</li>
+          </ul>
+
+          <h2>৩. Media Comparison (কোনটি বেছে নেবেন?)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Media Type</th>
+                  <th>Bandwidth / Speed</th>
+                  <th>Cost (খরচ)</th>
+                  <th>Security</th>
+                  <th>Best Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Twisted Pair (UTP)</td>
+                  <td>1 Gbps - 10 Gbps</td>
+                  <td>খুব কম</td>
+                  <td>মাঝারি</td>
+                  <td>Office LAN, PC Connection</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Fiber Optic</td>
+                  <td>10 Gbps - 100+ Gbps</td>
+                  <td>বেশি</td>
+                  <td>সর্বোচ্চ (ট্যাপ করা কঠিন)</td>
+                  <td>Data Center, ISP Backbone</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Wireless (Radio/Microwave)</td>
+                  <td>100 Mbps - 1 Gbps+</td>
+                  <td>মাঝারি থেকে বেশি</td>
+                  <td>কম (হ্যাক হওয়ার ঝুঁকি থাকে)</td>
+                  <td>Mobile devices, Remote areas</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Configuration & Troubleshooting (Cisco CLI)</h2>
+          <p>একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে সুইচে কানেক্টেড Transmission Media এর স্ট্যাটাস এবং হেলথ চেক করতে
+            হবে।</p>
+
+          <h3>মিডিয়ার ধরন এবং স্ট্যাটাস চেক করা:</h3>
+          <pre><code>Switch# show interfaces status</code></pre>
+          <p><strong>আউটপুট এনালাইসিস:</strong> এই কমান্ডটি দিলে আপনি <code>Type</code> কলামে দেখতে পাবেন পোর্টটি কোন
+            মিডিয়া ব্যবহার করছে। যেমন <code>10/100/1000BaseTX</code> মানে এটি কপার UTP ক্যাবল। আর
+            <code>1000BaseSX</code> বা <code>LX</code> থাকলে বুঝতে হবে এটি ফাইবার অপটিক লিংক।</p>
+
+          <h3>Fiber Optic Troubleshooting (Advanced Level):</h3>
+          <p>ফাইবারের ক্ষেত্রে সবচেয়ে বেশি সমস্যা হয় লাইট সিগন্যাল উইক (Weak) হয়ে গেলে। ফাইবারের ভেতর লেজার ঠিকমতো
+            পৌঁছাচ্ছে কি না তা দেখার জন্য নিচের কমান্ডটি অত্যন্ত কার্যকরী:</p>
+          <pre><code>Switch# show interfaces transceiver detail</code></pre>
+          <ul>
+            <li>এই কমান্ডের আউটপুটে আপনি <strong>Tx Power (Transmit)</strong> এবং <strong>Rx Power (Receive)</strong>
+              দেখতে পাবেন।</li>
+            <li>যদি দেখেন <strong>Rx Power</strong> অনেক কম (যেমন -30 dBm বা তার নিচে), তবে বুঝতে হবে ফাইবার ক্যাবলটি
+              মাঝপথে কোথাও খুব বেশি বাঁকানো (Bending) হয়েছে, অথবা ক্যাবলটি কাটা পড়েছে। তখন আপনাকে ফাইবার লেজার লাইট বা
+              OTDR মেশিন দিয়ে ফল্ট খুঁজে বের করতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>সঠিক <strong>Transmission Media</strong> নির্বাচন করা একটি স্থিতিশীল এবং ফাস্ট নেটওয়ার্ক ডিজাইনের সবচেয়ে
+              গুরুত্বপূর্ণ অংশ। লোকাল এরিয়ার ডিভাইসের জন্য UTP ক্যাবল সবচেয়ে সাশ্রয়ী এবং কার্যকরী, আর যেখানে ডাটার
+              পরিমাণ বিশাল এবং দূরত্ব বেশি, সেখানে Fiber Optic এর কোনো বিকল্প নেই। অন্যদিকে, ইউজারদের মোবিলিটি এবং রিমোট
+              লোকেশনে কানেক্টিভিটি দেওয়ার জন্য Wireless Media অপরিহার্য। প্রতিটি মিডিয়ার গঠন, ক্যাপাসিটি এবং ট্রাবলশুটিং
+              মেকানিজম বুঝতে পারলে আপনি যেকোনো নেটওয়ার্ক ইনফ্রাস্ট্রাকচার সফলভাবে ডিজাইন এবং মেইনটেইন করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
     </div>

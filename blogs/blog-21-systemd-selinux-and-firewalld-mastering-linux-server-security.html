@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="For many administrators, SELinux is something to be "disabled" and Firewalld is a "nuisance." However, in a 2026 threat landscape, these three pillars are what stand between a secure production environment and a total breach. Letâ€™s break down how they work together.">
+    <meta name="description" content="For many administrators, SELinux is something to be "disabled" and Firewalld is a "nuisance." However, in a 2026 threat landscape, these three pillars are what stand between a secure production environment and a total breach. Let’s break down how they work together.">
   <title>Systemd, SELinux, and Firewalld: Mastering Linux Server Security | enablement.info</title>
 
 
@@ -37,9 +37,6 @@
     .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
     .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
     .article-body p { margin-bottom: 20px; }
-    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
-    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
-    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
     .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
     .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
@@ -95,7 +92,7 @@
           </header>
 
           <div class="article-body">
-<p>For many administrators, SELinux is something to be "disabled" and Firewalld is a "nuisance." However, in a 2026 threat landscape, these three pillars are what stand between a secure production environment and a total breach. Letâ€™s break down how they work together.</p>
+<p>For many administrators, SELinux is something to be "disabled" and Firewalld is a "nuisance." However, in a 2026 threat landscape, these three pillars are what stand between a secure production environment and a total breach. Let’s break down how they work together.</p>
 
                 <h3>1. Systemd: More Than a Service Manager</h3>
                 <p>Systemd is often criticized for its complexity, but from a security standpoint, its <strong>Unit File Directives</strong> are revolutionary. You can sandbox services directly in their configuration files, preventing a compromised web server from accessing the rest of the system.</p>
@@ -108,7 +105,7 @@
                 </div>
 
                 <h3>2. SELinux: Mandatory Access Control (MAC)</h3>
-                <p>Standard Linux permissions (DAC) are easy to bypass if a user gains root. <strong>SELinux</strong> adds a label-based security layer. Even if an attacker gains root access to a process, SELinux ensures that process can only access files explicitly labeled for its use. Itâ€™s the ultimate "internal firewall" for your filesystem.</p>
+                <p>Standard Linux permissions (DAC) are easy to bypass if a user gains root. <strong>SELinux</strong> adds a label-based security layer. Even if an attacker gains root access to a process, SELinux ensures that process can only access files explicitly labeled for its use. It’s the ultimate "internal firewall" for your filesystem.</p>
 
                 
 

@@ -5,25 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="সহজে শিখুন Network Engineering. Data Link Layer: Second Layer of OSI Model নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
-  <title>Data Link Layer: Second Layer of OSI Model | enablement.info</title>
-
-  <!-- Icons -->
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <!-- CSS -->
-
-
-
-
+    content="OSI Model এর Data Link Layer (Layer 2) কীভাবে Transmission Media নিয়ন্ত্রণ করে তার বিস্তারিত গাইড। Framing, MAC Address, Switch এবং CSMA/CD সম্পর্কে জানুন।">
+  <title>Data Link Layer and Media Access Control | enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -83,11 +69,15 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
-
-
 
     .content-box {
       background: #f1f7fd;
@@ -112,6 +102,25 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
 
 </head>
@@ -122,25 +131,151 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Data Link Layer: Detailed Guide</h1>
+          <h1>Data Link Layer & Media Access Control: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> January 15, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 03 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Data Link Layer: Detailed Guide</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>OSI Model-এর প্রথম লেয়ার বা <strong>Physical Layer</strong> আমাদের ফিজিক্যাল ট্রান্সমিশন মিডিয়া (ক্যাবল,
+            রেডিও ওয়েভ) প্রদান করে। কিন্তু সেই মিডিয়ার ওপর দিয়ে ডাটা কখন যাবে, কার পর কে ডাটা পাঠাবে এবং মিডিয়াটি কীভাবে
+            নিয়ন্ত্রিত হবে—তার সম্পূর্ণ দায়িত্ব হলো <strong>Data Link Layer (Layer 2)</strong> এর।</p>
+          <p>আজকের এই ডিপ-ডাইভ আর্টিকেলে আমরা Data Link Layer কীভাবে ফিজিক্যাল মিডিয়াকে নিয়ন্ত্রণ করে, Framing কী, MAC
+            Address কীভাবে কাজ করে এবং Switch-এর বেসিক অপারেশন সম্পর্কে বিস্তারিত জানবো।</p>
+
+          <div class="content-box">
+            <h3>Data Link Layer কী?</h3>
+            <p><strong>Data Link Layer</strong> হলো OSI মডেলের দ্বিতীয় স্তর। এটি মূলত Network Layer (Layer 3) থেকে ডাটা
+              প্যাকেট গ্রহণ করে এবং সেগুলোকে ফিজিক্যাল মিডিয়ামের ওপর দিয়ে ট্রান্সমিট করার জন্য প্রস্তুত করে। এই লেয়ারে
+              ডাটাকে <strong>Frame</strong> বলা হয়। এটি নিশ্চিত করে যে একটি ল্যান (LAN) বা লোকাল নেটওয়ার্কের এক ডিভাইস
+              থেকে অন্য ডিভাইসে ডাটা যেন কোনো ভুল (Error) ছাড়া নিরাপদে পৌঁছায়।</p>
+          </div>
+
+          <h2>১. Data Link Layer এর সাব-লেয়ারসমূহ (Sub-layers)</h2>
+          <p>IEEE 802 স্ট্যান্ডার্ড অনুযায়ী, Data Link Layer কে তার কাজের সুবিধার্থে দুটি উপ-স্তরে (Sub-layers) ভাগ করা
+            হয়েছে:</p>
+
+          <ul>
+            <li><strong>Logical Link Control (LLC):</strong> এটি ওপরের লেয়ার অর্থাৎ Network Layer এর সাথে যোগাযোগ রক্ষা
+              করে। এটি ডাটা ফ্রেমে প্রোটোকল ইনফরমেশন যুক্ত করে, যাতে রিসিভার বুঝতে পারে এই ডাটাটি IPv4 নাকি IPv6 এর জন্য
+              এসেছে।</li>
+            <li><strong>Media Access Control (MAC):</strong> এটি নিচের লেয়ার অর্থাৎ Physical Layer এর সাথে সরাসরি যুক্ত।
+              ক্যাবল বা ওয়্যারলেস মিডিয়ার ওপর কে কখন ডাটা পাঠাবে এবং ফিজিক্যাল অ্যাড্রেসিং (MAC Address) কীভাবে হবে, তা
+              এই সাব-লেয়ার নিয়ন্ত্রণ করে।</li>
+          </ul>
+
+          <h2>২. Media Access Control (মিডিয়া কন্ট্রোল মেকানিজম)</h2>
+          <p>একই ক্যাবল বা নেটওয়ার্কে যদি একাধিক ডিভাইস একসাথে ডাটা পাঠায়, তবে ডাটার সংঘর্ষ বা
+            <strong>Collision</strong> হয়। এই সংঘর্ষ এড়ানোর জন্য Data Link Layer কিছু নিয়ম বা প্রোটোকল মেনে চলে।</p>
+
+          <h3>A. CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</h3>
+          <p>পুরনো Half-Duplex ইথারনেট নেটওয়ার্কে (যেমন Hub যুক্ত নেটওয়ার্ক) ডাটা সংঘর্ষ এড়ানোর জন্য এটি ব্যবহৃত হতো।
+          </p>
+          <ul>
+            <li><strong>Carrier Sense:</strong> ডিভাইস ডাটা পাঠানোর আগে প্রথমে মিডিয়া বা ক্যাবলটি চেক করে (শোনে) যে কেউ
+              কথা বলছে কি না। যদি ক্যাবল খালি থাকে, তবে সে ডাটা পাঠায়।</li>
+            <li><strong>Collision Detection:</strong> যদি ভুলে দুজন একসাথে ডাটা পাঠিয়ে দেয়, তবে তারা সংঘর্ষ ডিটেক্ট করে
+              এবং ডাটা পাঠানো বন্ধ করে দেয়। এরপর একটি র‍্যান্ডম সময় (Backoff timer) অপেক্ষা করে আবার পাঠানোর চেষ্টা করে।
+            </li>
+          </ul>
+
+          <h3>B. CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance)</h3>
+          <p>এটি <strong>Wireless (Wi-Fi)</strong> নেটওয়ার্কে ব্যবহৃত হয়। ওয়্যারলেসে Collision ডিটেক্ট করা খুব কঠিন, তাই
+            এখানে আগে থেকেই সতর্কতা অবলম্বন করা হয়, যাতে কলিশন না হয়। ডিভাইস ডাটা পাঠানোর আগে একটি <em>Request to Send
+              (RTS)</em> সিগন্যাল পাঠায়।</p>
+
+          <h2>৩. Data Framing এবং Error Detection</h2>
+          <p>Network Layer থেকে ডাটা আসার পর Data Link Layer তার সাথে একটি <strong>Header</strong> এবং একটি
+            <strong>Trailer</strong> যুক্ত করে। এই পুরো প্যাকেজটিকে <strong>Frame</strong> বলা হয়।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Frame অংশ</th>
+                  <th>বিস্তারিত (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Header</td>
+                  <td>এখানে সোর্স (Source) এবং ডেস্টিনেশনের (Destination) <strong>MAC Address</strong> থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Payload (Data)</td>
+                  <td>এটি হলো মূল ডাটা বা Packet যা Network Layer থেকে এসেছে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Trailer (FCS)</td>
+                  <td>এখানে <strong>Frame Check Sequence (FCS)</strong> বা <strong>CRC (Cyclic Redundancy
+                      Check)</strong> থাকে। এটি একটি গাণিতিক মান যা ডাটাতে কোনো Error বা ভুল আছে কি না তা যাচাই করে।
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <blockquote>
+            <strong>রিয়েল-লাইফ উদাহরণ:</strong> আপনি যখন কুরিয়ারে কোনো পার্সেল পাঠান, তখন পার্সেলের ওপর প্রেরক ও
+            প্রাপকের ঠিকানা লিখেন (Header) এবং প্যাকেটের মুখ শক্ত করে সিলগালা করেন (Trailer)। প্রাপক সিলগালা অক্ষত আছে
+            কি না তা দেখে বুঝতে পারে ভেতরে জিনিস ঠিক আছে কি না (Error Detection)। ফ্রেম এভাবেই কাজ করে।
+          </blockquote>
+
+          <h2>৪. MAC Address এবং Switch এর ভূমিকা</h2>
+          <p>Data Link Layer-এর সবচেয়ে জনপ্রিয় ডিভাইস হলো <strong>Switch</strong>। এটি একটি খাঁটি Layer 2 ডিভাইস, যা MAC
+            Address চিনে কাজ করে।</p>
+
+          <ul>
+            <li><strong>MAC Address Learning:</strong> যখন কোনো পিসি সুইচের পোর্টে ডাটা পাঠায়, সুইচ সাথে সাথে সেই
+              ফ্রেমের <em>Source MAC Address</em> টি পড়ে নেয় এবং তার <strong>MAC Address Table</strong> (যাকে CAM
+              Table-ও বলা হয়)-এ সেভ করে রাখে।</li>
+            <li><strong>Forwarding:</strong> সুইচ যখন জানতে পারে কোন পোর্টে কোন ডিভাইস আছে, তখন সে ব্রডকাস্ট করার বদলে
+              সরাসরি ওই নির্দিষ্ট পোর্টে ডাটা ফরোয়ার্ড করে দেয়। এর ফলে নেটওয়ার্কের <strong>Bandwidth</strong> বেঁচে যায়
+              এবং পারফরম্যান্স অনেক বাড়ে।</li>
+          </ul>
+
+          <h2>৫. Cisco CLI: MAC Address Table কনফিগারেশন এবং ট্রাবলশুটিং</h2>
+          <p>একজন নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর হিসেবে আপনাকে প্রায়ই সুইচের MAC Address Table চেক করতে হবে।</p>
+
+          <h3>সুইচের MAC Address Table দেখা:</h3>
+          <p>নেটওয়ার্কে কোন পোর্টে কোন ডিভাইস কানেক্টেড আছে তা দেখার জন্য এই কমান্ডটি ব্যবহার করা হয়:</p>
+          <pre><code>Switch# show mac address-table</code></pre>
+          <p><strong>আউটপুট এনালাইসিস:</strong> আপনি দেখতে পাবেন একটি নির্দিষ্ট <code>VLAN</code>, তার
+            <code>MAC Address</code>, এটি স্ট্যাটিক নাকি <code>DYNAMIC</code>, এবং সেটি কোন <code>Ports</code> (যেমন:
+            Fa0/1) এ কানেক্টেড আছে।</p>
+
+          <h3>একটি নির্দিষ্ট MAC Address খুঁজে বের করা:</h3>
+          <p>যদি আপনার নেটওয়ার্কে শত শত ডিভাইস থাকে এবং আপনি একটি নির্দিষ্ট MAC Address কোন পোর্টে আছে তা জানতে চান:</p>
+          <pre><code>Switch# show mac address-table address aaaa.bbbb.cccc</code></pre>
+
+          <h3>MAC Table ক্লিয়ার করা:</h3>
+          <p>কখনো কখনো নেটওয়ার্ক ট্রাবলশুট করার জন্য সুইচের ডাইনামিক এন্ট্রিগুলো মুছে ফেলার প্রয়োজন হয় (সুইচ আবার নতুন
+            করে লার্ন করে নেবে):</p>
+          <pre><code>Switch# clear mac address-table dynamic</code></pre>
+
+          <h3>ট্রাবলশুটিং টিপস: MAC Spoofing & Port Security</h3>
+          <p>হ্যাকাররা অনেক সময় ফেক MAC Address ব্যবহার করে নেটওয়ার্কে ঢোকার চেষ্টা করে। এটি ঠেকাতে Layer 2 তে
+            <strong>Port Security</strong> ব্যবহার করা হয়। এর মাধ্যমে আপনি নির্ধারণ করে দিতে পারেন একটি পোর্টে সর্বোচ্চ
+            কয়টি এবং কোন নির্দিষ্ট MAC Address কানেক্ট হতে পারবে। আনঅথরাইজড কেউ ক্যাবল লাগালে পোর্টটি সাথে সাথে
+            <code>err-disabled</code> স্টেটে চলে যাবে।</p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Data Link Layer</strong> ছাড়া শুধুমাত্র ফিজিক্যাল ক্যাবল দিয়ে কোনো সুশৃঙ্খল নেটওয়ার্ক তৈরি করা
+              অসম্ভব। মিডিয়া এক্সেস কন্ট্রোল (MAC), ডাটাকে ফ্রেমে রূপান্তর, Error Detection এবং সুইচের বুদ্ধিদীপ্ত ডাটা
+              ফরোয়ার্ডিং—এই সবই Layer 2 এর অবদান। নেটওয়ার্ক ট্রাবলশুটিংয়ের ক্ষেত্রে <strong>MAC Address Table</strong>
+              কীভাবে পড়তে হয় এবং কাজ করে তা বোঝা একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ারের অন্যতম মৌলিক স্কিল।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

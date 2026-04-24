@@ -1,10 +1,10 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="In 2026, logging into a server via RDP to change a setting isn't just inefficientâ€”it's an anti-pattern. As infrastructures grow into hundreds or thousands of nodes, PowerShell has evolved from a simple shell into a robust automation engine capable of orchestrating complex enterprise environments.">
+    <meta name="description" content="In 2026, logging into a server via RDP to change a setting isn't just inefficient—it's an anti-pattern. As infrastructures grow into hundreds or thousands of nodes, PowerShell has evolved from a simple shell into a robust automation engine capable of orchestrating complex enterprise environments.">
   <title>Managing Windows Servers at Scale with PowerShell Automation | enablement.info</title>
 
 
@@ -37,9 +37,6 @@
     .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
     .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
     .article-body p { margin-bottom: 20px; }
-    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
-    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
-    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
     .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
     .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
@@ -95,7 +92,7 @@
           </header>
 
           <div class="article-body">
-<p>In 2026, logging into a server via RDP to change a setting isn't just inefficientâ€”it's an anti-pattern. As infrastructures grow into hundreds or thousands of nodes, PowerShell has evolved from a simple shell into a robust automation engine capable of orchestrating complex enterprise environments.</p>
+<p>In 2026, logging into a server via RDP to change a setting isn't just inefficient—it's an anti-pattern. As infrastructures grow into hundreds or thousands of nodes, PowerShell has evolved from a simple shell into a robust automation engine capable of orchestrating complex enterprise environments.</p>
 
                 <h3>1. PowerShell Remoting: The Foundation</h3>
                 <p>The secret to managing servers at scale is <strong>WinRM (Windows Remote Management)</strong>. By using <code>Invoke-Command</code>, you can run a script block on 500 servers simultaneously. In modern environments, we leverage <strong>PowerShell 7.x</strong> for its cross-platform capabilities and the <code>-Parallel</code> switch in <code>ForEach-Object</code> to drastically reduce execution time.</p>
@@ -111,7 +108,7 @@
                 
 
                 <h3>3. Automating Active Directory Management</h3>
-                <p>User onboarding shouldn't be a manual task. A mature PowerShell automation pipeline connects your HR system to Active Directory. Scripts can automatically create users, assign them to the correct OUs based on department, generate secure random passwords, and send a welcome emailâ€”all without a single human click.</p>
+                <p>User onboarding shouldn't be a manual task. A mature PowerShell automation pipeline connects your HR system to Active Directory. Scripts can automatically create users, assign them to the correct OUs based on department, generate secure random passwords, and send a welcome email—all without a single human click.</p>
 
                 <h3>4. Security and "Just Enough Administration" (JEA)</h3>
                 <p>Automation actually increases security through <strong>JEA</strong>. Instead of giving a junior admin "Domain Admin" rights to reset passwords, you create a JEA endpoint that only allows them to run the <code>Reset-ComputerMachinePassword</code> cmdlet. This limits the attack surface while still empowering the team to perform their duties.</p>

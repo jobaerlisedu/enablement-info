@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 
 <head>
@@ -37,9 +37,6 @@
     .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
     .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
     .article-body p { margin-bottom: 20px; }
-    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
-    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
-    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
     .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
     .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
@@ -107,7 +104,7 @@
                 <ul>
                   <li><strong>Layer 1 (Physical):</strong> In data centers, this involves verifying link speeds (400G/800G) and fiber light levels (dBm). At the edge, it involves 5G signal-to-noise ratios.</li>
                   <li><strong>Layer 2 (Data Link):</strong> The domain of MAC addresses and ARP. Understanding <strong>ARP poisoning</strong> and <strong>VLAN tagging (802.1Q)</strong> is crucial for ensuring traffic is actually reaching the intended server interface.</li>
-                  <li><strong>Layer 3 (Network):</strong> This is where IP routing and <strong>ICMP</strong> live. You must understand how the <strong>Routing Table</strong> is builtâ€”whether through static routes or dynamic protocols like BGP and OSPF.</li>
+                  <li><strong>Layer 3 (Network):</strong> This is where IP routing and <strong>ICMP</strong> live. You must understand how the <strong>Routing Table</strong> is built—whether through static routes or dynamic protocols like BGP and OSPF.</li>
                   <li><strong>Layer 4 (Transport):</strong> The layer of <strong>TCP and UDP</strong>. Understanding port exhaustion (ephemeral ports) and stateful connection tracking in the Linux kernel is essential for scaling high-traffic web servers.</li>
                 </ul>
 
@@ -118,7 +115,7 @@
                   "TCP is inherently a 'chatty' protocol. In 2026, many of our high-speed services have migrated to <strong>QUIC (HTTP/3)</strong>, which uses UDP to eliminate the head-of-line blocking found in traditional TCP."
                 </div>
 
-                <h3>3. DNS: The Internetâ€™s Nervous System</h3>
+                <h3>3. DNS: The Internet’s Nervous System</h3>
                 <p>90% of "Network Outages" are actually DNS failures. You must understand the <strong>Recursive Resolution Path</strong>. When a client requests a domain, the query travels from the local stub resolver to the recursive resolver, then potentially to the root, TLD, and finally the authoritative server.</p>
                 
                 
@@ -169,7 +166,7 @@
                 <p>Traditional tools like `tcpdump` are still vital, but in 2026, we use <strong>eBPF (Extended Berkeley Packet Filter)</strong> for deep kernel-level observability. eBPF allows you to trace network packets as they pass through the kernel without the overhead of traditional context switching. Tools like <strong>Cilium</strong> and <strong>Hubble</strong> provide real-time maps of how your distributed services are communicating, making it easy to spot unauthorized traffic or performance bottlenecks.</p>
 
                 <div class="tech-summary-box">
-                  <h4 class="mb-3">The SysAdminâ€™s Networking "Bible" Checklist</h4>
+                  <h4 class="mb-3">The SysAdmin’s Networking "Bible" Checklist</h4>
                   <ul>
                     <li><strong>IP Subnetting:</strong> Can you calculate a /27 subnet in your head? Efficient IP management prevents IP exhaustion in large VPCs.</li>
                     <li><strong>MTU and Fragmentation:</strong> Do you understand why <strong>Jumbo Frames (9000 MTU)</strong> are used in storage networks but avoided on the public internet?</li>

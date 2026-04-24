@@ -5,26 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. OSI Model: 7 Layers of Computer Network à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
-  <title>OSI Model: 7 Layers of Computer Network | enablement.info</title>
+    content="OSI Model কী এবং এর ৭টি Layer কীভাবে কাজ করে তার বিস্তারিত বাংলা গাইড। Data Encapsulation এবং Network Troubleshooting-এ OSI মডেলের ব্যবহার শিখুন।">
+  <title>What is OSI Model? - Layers of OSI Model | enablement.info</title>
 
-
-
-  <!-- Icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <!-- CSS -->
-
-
-
-
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
-
-
-
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
@@ -89,8 +76,6 @@
       margin-bottom: 20px;
     }
 
-
-
     .content-box {
       background: #f1f7fd;
       border-left: 4px solid var(--primary-color);
@@ -114,6 +99,16 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
   </style>
 
 </head>
@@ -126,21 +121,190 @@
         <header class="article-header">
           <h1>What is OSI Model? - Layers of OSI Model</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
-            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-calendar'></i> 25 April, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>What is OSI Model? - Layers of OSI Model</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের দুনিয়ায় প্রবেশ করার পর সবচেয়ে প্রথম এবং সবচেয়ে গুরুত্বপূর্ণ যে কনসেপ্টটি আপনাকে
+            শিখতে হবে, সেটি হলো <strong>OSI Model</strong>। এক কম্পিউটার থেকে আরেক কম্পিউটারে ডাটা কীভাবে যায়, সেই
+            অদৃশ্য প্রক্রিয়াটিকে লজিক্যালি বোঝার জন্য এই মডেলটি তৈরি করা হয়েছে।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা OSI Model কী, কেন এটি প্রয়োজন এবং এর ৭টি Layer কীভাবে কাজ করে, তা
+            রিয়েল-লাইফ উদাহরণসহ একদম সহজ ভাষায় বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>OSI Model কী?</h3>
+            <p><strong>OSI (Open Systems Interconnection) Model</strong> হলো একটি থিওরেটিক্যাল বা লজিক্যাল ফ্রেমওয়ার্ক।
+              ১৯৮৪ সালে <strong>ISO (International Organization for Standardization)</strong> এটি তৈরি করে। ভিন্ন ভিন্ন
+              কোম্পানির তৈরি ডিভাইস (যেমন: Apple এর ল্যাপটপ এবং Cisco এর রাউটার) কীভাবে একই নেটওয়ার্কে একে অপরের সাথে
+              কথা বলবে, তার একটি গ্লোবাল স্ট্যান্ডার্ড হলো এই OSI Model।</p>
+            <p>এটি নেটওয়ার্ক কমিউনিকেশন প্রক্রিয়াটিকে ৭টি ছোট ছোট এবং সহজবোধ্য ধাপে বা <strong>Layer</strong>-এ ভাগ
+              করেছে।</p>
+          </div>
+
+          <h2>১. কেন আমাদের OSI Model প্রয়োজন? (Real-life Example)</h2>
+          <p>নেটওয়ার্কিংয়ে ডাটা ট্রান্সমিশন একটি বিশাল কাজ। এটিকে একটি পার্সেল ডেলিভারি সিস্টেমের সাথে তুলনা করা যায়:
+          </p>
+          <ul>
+            <li>আপনি একটি চিঠি লিখলেন (Layer 7)।</li>
+            <li>চিঠিটিকে একটি নির্দিষ্ট ভাষার খামে ভরলেন (Layer 6)।</li>
+            <li>পোস্ট অফিসে জমা দিলেন (Layer 5)।</li>
+            <li>পোস্ট অফিস এটিকে রেজিস্ট্রি করলো যাতে হারিয়ে না যায় (Layer 4)।</li>
+            <li>চিঠিতে সঠিক ঠিকানা এবং পিন কোড বসানো হলো (Layer 3)।</li>
+            <li>চিঠিটি ডেলিভারি ট্রাকে ওঠানো হলো (Layer 2)।</li>
+            <li>ট্রাকটি রাস্তা দিয়ে প্রাপকের শহরে পৌঁছালো (Layer 1)।</li>
+          </ul>
+          <p>OSI Model এই পুরো কাজটিকে ৭টি ভাগে ভাগ করে দেয়, যাতে কোনো সমস্যা হলে ইঞ্জিনিয়াররা সহজেই বুঝতে পারেন ঠিক কোন
+            ধাপে (বা Layer-এ) সমস্যাটি হয়েছে।</p>
+
+          <h2>২. OSI Model এর ৭টি Layer এর বিস্তারিত বর্ণনা</h2>
+          <p>OSI মডেলের ৭টি Layer কে নিচ থেকে উপরের দিকে (Bottom to Top) নাম্বারিং করা হয়। তবে ডাটা যখন সেন্ডার (Sender)
+            থেকে বের হয়, তখন তা <strong>Top to Bottom</strong> (Layer 7 থেকে Layer 1) ট্রাভেল করে। নিচে প্রতিটি Layer এর
+            কাজ বিস্তারিত দেওয়া হলো:</p>
+
+          <h3>Layer 7: Application Layer</h3>
+          <p>এটি ইউজারের সবচেয়ে কাছের লেয়ার। আমরা কম্পিউটারে যে সফটওয়্যার বা অ্যাপ্লিকেশনগুলো ব্যবহার করি (যেমন: Web
+            Browser, Email Client), সেগুলো এই লেয়ারের মাধ্যমে নেটওয়ার্কের সাথে যুক্ত হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> নেটওয়ার্ক সার্ভিসের সাথে ইন্টারঅ্যাক্ট করা।</li>
+            <li><strong>প্রোটোকল (Protocols):</strong> HTTP, HTTPS, FTP, SMTP, DNS ইত্যাদি।</li>
+            <li><strong>উদাহরণ:</strong> আপনি যখন ব্রাউজারে <code>facebook.com</code> লিখে এন্টার দেন, তখন এই লেয়ারটি
+              HTTP রিকোয়েস্ট তৈরি করে।</li>
+          </ul>
+
+          <h3>Layer 6: Presentation Layer</h3>
+          <p>এই লেয়ারটিকে নেটওয়ার্কের "Translator" বলা যায়। Application Layer থেকে আসা ডাটাকে এমন একটি ফরমেটে রূপান্তর
+            করা হয়, যা নেটওয়ার্ক বুঝতে পারে।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> Data Formatting, Encryption (এনক্রিপশন), এবং Compression (কমপ্রেশন)।</li>
+            <li><strong>প্রোটোকল/ফরম্যাট:</strong> SSL, TLS, JPEG, GIF, ASCII।</li>
+            <li><strong>উদাহরণ:</strong> আপনার পাঠানো পাসওয়ার্ডটিকে এনক্রিপ্ট করে সিকিউর করা বা একটি বড় সাইজের ছবিকে
+              কমপ্রেস করে ছোট করা এই লেয়ারের কাজ।</li>
+          </ul>
+
+          <h3>Layer 5: Session Layer</h3>
+          <p>দুটি ডিভাইসের মধ্যে যোগাযোগ শুরু করা, মেইনটেইন করা এবং শেষ করার দায়িত্ব এই লেয়ারের।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> Session তৈরি করা এবং Synchronization নিশ্চিত করা।</li>
+            <li><strong>প্রোটোকল:</strong> NetBIOS, PPTP।</li>
+            <li><strong>উদাহরণ:</strong> আপনি যখন কোনো সার্ভার থেকে একটি বড় ফাইল ডাউনলোড করেন, তখন মাঝপথে ইন্টারনেট চলে
+              গেলে আবার যেখান থেকে বন্ধ হয়েছিল সেখান থেকেই ডাউনলোড শুরু হয়—এটি Session Layer এর Synchronization এর কারণে
+              সম্ভব হয়।</li>
+          </ul>
+
+          <h3>Layer 4: Transport Layer</h3>
+          <p>এই লেয়ারটি এন্ড-টু-এন্ড (End-to-End) ডাটা ডেলিভারির দায়িত্ব নেয়। বড় ডাটাকে ছোট ছোট টুকরোতে ভাগ করা হয়, যাকে
+            <strong>Segment</strong> বলা হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> Segmentation, Error Control, এবং Flow Control।</li>
+            <li><strong>প্রোটোকল:</strong> TCP (Reliable কিন্তু ধীর) এবং UDP (Unreliable কিন্তু দ্রুত)।</li>
+            <li><strong>Port Number:</strong> ডাটা ঠিক কোন অ্যাপ্লিকেশনে যাবে (যেমন Port 80 ফর HTTP) তা এই লেয়ারে যুক্ত
+              হয়।</li>
+          </ul>
+
+          <h3>Layer 3: Network Layer</h3>
+          <p>এই লেয়ারের মূল কাজ হলো ডাটাকে তার গন্তব্যে পৌঁছানোর জন্য সবচেয়ে ভালো রাস্তা (Best Path) খুঁজে বের করা। এই
+            লেয়ারে ডাটার টুকরোগুলোকে <strong>Packet</strong> বলা হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> Logical Addressing (IP Address বসানো) এবং Routing।</li>
+            <li><strong>প্রোটোকল:</strong> IPv4, IPv6, ICMP (Ping), OSPF, BGP।</li>
+            <li><strong>ডিভাইস:</strong> <strong>Router</strong> এবং Layer 3 Switch এই লেয়ারে কাজ করে।</li>
+          </ul>
+
+          <h3>Layer 2: Data Link Layer</h3>
+          <p>Network Layer থেকে আসা প্যাকেটগুলোকে এই লেয়ারে রিসিভ করা হয় এবং ফিজিক্যাল অ্যাড্রেস যুক্ত করে
+            <strong>Frame</strong> তৈরি করা হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> Physical Addressing (MAC Address বসানো) এবং ফিজিক্যাল মিডিয়াতে কোনো Error
+              আছে কি না তা চেক করা।</li>
+            <li><strong>প্রোটোকল:</strong> Ethernet, PPP, Switch Protocol।</li>
+            <li><strong>ডিভাইস:</strong> <strong>Switch</strong> এবং <strong>Bridge</strong> এই লেয়ারে কাজ করে।</li>
+          </ul>
+
+          <h3>Layer 1: Physical Layer</h3>
+          <p>এটি একদম হার্ডওয়্যার লেভেলের লেয়ার। এখানে ফ্রেমগুলো <strong>Bits</strong> (0 এবং 1) এ রূপান্তরিত হয় এবং
+            ফিজিক্যাল মিডিয়ামের ওপর দিয়ে ট্রান্সমিট হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> ডিজিটাল ডাটাকে সিগন্যালে (ইলেকট্রিক্যাল, লাইট বা রেডিও ওয়েভ) রূপান্তর করা।
+            </li>
+            <li><strong>মিডিয়াম:</strong> Fiber Optic Cable, Copper Cable, Wi-Fi।</li>
+            <li><strong>ডিভাইস:</strong> Hub, Repeater, Cables।</li>
+          </ul>
+
+          <h2>৩. Data Encapsulation এবং Decapsulation</h2>
+          <p>OSI মডেলের অন্যতম গুরুত্বপূর্ণ কনসেপ্ট হলো Encapsulation। ডাটা যখন সেন্ডারের কম্পিউটার থেকে বের হয়, তখন
+            সেটি Application Layer থেকে Physical Layer এর দিকে নামতে থাকে। নামার সময় প্রতিটি লেয়ার ডাটার সাথে নিজের একটি
+            <strong>Header</strong> (এবং কখনো Trailer) যুক্ত করে। এই প্রক্রিয়াকে <strong>Encapsulation</strong> বলে।</p>
+          <p>আবার রিসিভারের কাছে পৌঁছানোর পর ডাটা যখন Physical Layer থেকে উপরের দিকে ওঠে, তখন প্রতিটি লেয়ার তার নিজের
+            Header গুলো খুলে ডাটা প্রসেস করে। একে <strong>Decapsulation</strong> বলে।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Layer Name</th>
+                  <th>Data Unit (PDU)</th>
+                  <th>Addressing (অ্যাড্রেসিং)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Application, Presentation, Session</td>
+                  <td>Data</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Transport Layer</td>
+                  <td>Segment</td>
+                  <td>Port Number</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Network Layer</td>
+                  <td>Packet</td>
+                  <td>Logical IP Address</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Data Link Layer</td>
+                  <td>Frame</td>
+                  <td>Physical MAC Address</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Physical Layer</td>
+                  <td>Bits</td>
+                  <td>Physical Signals</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Troubleshooting এ OSI Model এর ব্যবহার</h2>
+          <p>একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার যখন কোনো সমস্যা সমাধানের (Troubleshoot) চেষ্টা করেন, তখন তিনি OSI Model
+            ফলো করেন। সাধারণত দুটি অ্যাপ্রোচ ব্যবহার করা হয়:</p>
+
+          <ul>
+            <li><strong>Bottom-Up Approach:</strong> প্রথমে Layer 1 (ক্যাবল ঠিক আছে কি না) চেক করা হয়। এরপর Layer 2
+              (সুইচের পোর্ট আপ আছে কি না), তারপর Layer 3 (IP Address ঠিক আছে কি না, Ping কাজ করছে কি না)। এটি সবচেয়ে
+              জনপ্রিয় পদ্ধতি।</li>
+            <li><strong>Top-Down Approach:</strong> প্রথমে ব্রাউজার বা অ্যাপ্লিকেশন (Layer 7) চেক করা হয়, এরপর ফায়ারওয়াল
+              বা পোর্ট (Layer 4), এবং ধীরে ধীরে নিচে নামা হয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>Conclusion</h3>
+            <p><strong>OSI Model</strong> কোনো বাস্তব সফটওয়্যার বা ফিজিক্যাল ডিভাইস নয়; এটি একটি রেফারেন্স মডেল।
+              নেটওয়ার্কিং কীভাবে কাজ করে, ডাটা কীভাবে এক ডিভাইস থেকে অন্য ডিভাইসে যায় এবং নেটওয়ার্ক সমস্যাগুলো কীভাবে
+              লজিক্যালি খুঁজে বের করে সমাধান করতে হয়, তার ভিত্তিই হলো এই ৭টি লেয়ার। একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ার হতে
+              হলে OSI Model এর প্রতিটি লেয়ারের কাজ, ডিভাইস এবং প্রোটোকল সম্পর্কে একেবারে স্পষ্ট ধারণা থাকতে হবে।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

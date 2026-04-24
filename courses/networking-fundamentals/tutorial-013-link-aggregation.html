@@ -1,41 +1,293 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Link Aggregation | enablement.info</title>
+  <meta name="description"
+    content="Link Aggregation কী? EtherChannel, LACP, PAgP প্রোটোকল, Load Balancing এবং Cisco সুইচে কনফিগারেশন নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Link Aggregation: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--primary-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Link Aggregation</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Link Aggregation</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Link Aggregation: Detailed Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>বড় কর্পোরেট নেটওয়ার্ক এবং ডেটা সেন্টারে যখন হাজার হাজার ইউজার একসাথে কাজ করে, তখন দুটি Switch বা সার্ভারের
+            মধ্যে থাকা একটিমাত্র ফিজিক্যাল লিংকের Bandwidth অনেক সময় পর্যাপ্ত হয় না। এর ফলে নেটওয়ার্কে ট্রাফিক জ্যাম
+            (Bottleneck) তৈরি হয়। এই সমস্যার একটি অত্যন্ত স্মার্ট এবং সাশ্রয়ী সমাধান হলো <strong>Link
+              Aggregation</strong>।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Link Aggregation কী, এটি কেন প্রয়োজন, LACP এবং PAgP প্রোটোকলের
+            পার্থক্য এবং Cisco Switch-এ এটি কীভাবে কনফিগার ও ট্রাবলশুট করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>Link Aggregation কী?</h3>
+            <p>সহজ কথায়, দুটি নেটওয়ার্ক ডিভাইসের (যেমন Switch থেকে Switch, বা Switch থেকে Server) মধ্যে থাকা একাধিক
+              ফিজিক্যাল ক্যাবল বা পোর্টকে লজিক্যালি (Logically) একটিমাত্র পোর্ট হিসেবে তৈরি করার প্রযুক্তিকেই
+              <strong>Link Aggregation</strong> বলা হয়। সিসকো ডিভাইসে একে <strong>EtherChannel</strong> বা
+              <strong>Port-channel</strong> বলা হয়, আবার সার্ভারের ক্ষেত্রে একে অনেক সময় <strong>NIC Teaming</strong> বা
+              <strong>Bonding</strong> বলা হয়।</p>
+            <p><strong>রিয়েল-লাইফ উদাহরণ:</strong> মনে করুন একটি দুই লেনের হাইওয়েতে প্রচণ্ড জ্যাম হচ্ছে। আপনি যদি ওই
+              হাইওয়ের পাশে আরও দুটি লেন যুক্ত করে চার লেনের একটি রাস্তা তৈরি করেন, তবে গাড়ি চলাচলের স্পিড দ্বিগুণ হয়ে
+              যাবে। Link Aggregation ঠিক এভাবেই একাধিক 1 Gbps পোর্টকে যুক্ত করে 2 Gbps বা 4 Gbps এর একটি বিশাল লজিক্যাল
+              রাস্তা তৈরি করে।</p>
+          </div>
+
+          <h2>১. Link Aggregation এর প্রয়োজনীয়তা এবং সুবিধা</h2>
+          <p>নেটওয়ার্ক ডিজাইনে Link Aggregation ব্যবহার করার প্রধান তিনটি কারণ রয়েছে:</p>
+
+          <ul>
+            <li><strong>Increased Bandwidth (ব্যান্ডউইথ বৃদ্ধি):</strong> আপনি যদি ৪টি 1 Gbps পোর্টকে একসাথে যুক্ত করেন,
+              তবে লজিক্যালি সেটি 4 Gbps এর একটি সিগেল পোর্ট হিসেবে কাজ করবে। এর ফলে আপনাকে নতুন করে দামি 10 Gbps পোর্ট
+              বা ক্যাবল কিনতে হয় না।</li>
+            <li><strong>Redundancy & Fault Tolerance (ফল্ট টলারেন্স):</strong> যদি ৪টি ফিজিক্যাল ক্যাবলের মধ্যে কোনো
+              কারণে একটি ক্যাবল ছিঁড়ে যায় বা পোর্ট নষ্ট হয়ে যায়, তবুও নেটওয়ার্ক ডাউন হবে না। ট্রাফিক স্বয়ংক্রিয়ভাবে বাকি
+              ৩টি ক্যাবল দিয়ে চলতে থাকবে।</li>
+            <li><strong>Load Balancing (লোড ব্যালেন্সিং):</strong> নেটওয়ার্কের ডাটা ট্রাফিক একটি ক্যাবলের ওপর দিয়ে না
+              গিয়ে, বান্ডেলে থাকা সবগুলো ক্যাবলের ওপর দিয়ে সমানভাবে ভাগ হয়ে যায়।</li>
+            <li><strong>Spanning Tree Protocol (STP) Bypass:</strong> সাধারণত দুটি সুইচের মধ্যে একাধিক ক্যাবল লাগালে STP
+              লুপ এড়ানোর জন্য একটি ক্যাবলকে Block করে রাখে। কিন্তু Link Aggregation ব্যবহার করলে STP ওই ৪টি ক্যাবলকে
+              একটিমাত্র পোর্ট মনে করে, ফলে কোনো পোর্ট Block হয় না।</li>
+          </ul>
+
+          <h2>২. Link Aggregation প্রোটোকলসমূহ (LACP বনাম PAgP)</h2>
+          <p>একাধিক পোর্টকে একত্রিত করার জন্য সুইচগুলো নিজেদের মধ্যে কিছু বিশেষ প্রোটোকল ব্যবহার করে নেগোসিয়েশন
+            (Negotiation) করে। প্রধানত দুটি প্রোটোকল সবচেয়ে বেশি ব্যবহৃত হয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য</th>
+                  <th>LACP (Link Aggregation Control Protocol)</th>
+                  <th>PAgP (Port Aggregation Protocol)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">স্ট্যান্ডার্ড (Standard)</td>
+                  <td>IEEE 802.3ad (ইন্ডাস্ট্রি স্ট্যান্ডার্ড, ওপেন)</td>
+                  <td>Cisco Proprietary (শুধুমাত্র সিসকো ডিভাইসে কাজ করে)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">সাপোর্টেড ডিভাইস</td>
+                  <td>Cisco, Juniper, MikroTik, Windows Server—সবকিছুতে সাপোর্ট করে।</td>
+                  <td>শুধুমাত্র Cisco Switch এর মধ্যে কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">মোড (Modes)</td>
+                  <td><strong>Active:</strong> সে নিজে থেকে LACP রিকোয়েস্ট পাঠায়।<br><strong>Passive:</strong> সে
+                    রিকোয়েস্ট পাঠায় না, কিন্তু পেলে রেসপন্স করে।</td>
+                  <td><strong>Desirable:</strong> সে নিজে থেকে PAgP রিকোয়েস্ট পাঠায়।<br><strong>Auto:</strong> সে
+                    রিকোয়েস্ট পাঠায় না, কিন্তু পেলে রেসপন্স করে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><em>বিঃদ্রঃ আধুনিক নেটওয়ার্কে সবসময় LACP ব্যবহার করা রিকমেন্ডেড, কারণ এটি মাল্টি-ভেন্ডর এনভায়রনমেন্টে
+              সাপোর্ট করে।</em></p>
+
+          <h2>৩. Load Balancing মেকানিজম কীভাবে কাজ করে?</h2>
+          <p>Link Aggregation-এ ডাটা পাঠানোর সময় সুইচ সিদ্ধান্ত নেয় যে কোন ফ্রেমটি কোন ফিজিক্যাল ক্যাবল দিয়ে যাবে। এটি
+            করার জন্য সুইচ একটি হ্যাশ অ্যালগরিদম (Hash Algorithm) ব্যবহার করে। সাধারণত নিচের পদ্ধতিগুলোর যেকোনো একটির
+            ওপর ভিত্তি করে ডাটা ভাগ করা হয়:</p>
+          <ul>
+            <li><strong>Source MAC:</strong> ফ্রেমের সোর্স ম্যাক অ্যাড্রেসের ওপর ভিত্তি করে।</li>
+            <li><strong>Destination MAC:</strong> ফ্রেমের গন্তব্য ম্যাক অ্যাড্রেসের ওপর ভিত্তি করে।</li>
+            <li><strong>Source and Destination IP:</strong> সোর্স এবং ডেস্টিনেশন আইপি উভয়ের ওপর ভিত্তি করে (সবচেয়ে
+              ব্যালেন্সড এবং রিকমেন্ডেড পদ্ধতি)।</li>
+          </ul>
+
+          <h2>৪. Configuration: Cisco Switch এ LACP কনফিগার করা</h2>
+          <p>চলুন ধাপে ধাপে দেখি কীভাবে দুটি Cisco Switch-এর মধ্যে <code>GigabitEthernet 0/1</code> এবং <code>0/2</code>
+            পোর্ট ব্যবহার করে একটি LACP EtherChannel তৈরি করতে হয়।</p>
+
+          <h3>ধাপ ১: ফিজিক্যাল ইন্টারফেসগুলো নির্বাচন করা</h3>
+          <p>প্রথমে ফিজিক্যাল পোর্টগুলোতে প্রবেশ করুন এবং প্রোটোকল সিলেক্ট করুন। (নিরাপত্তার জন্য কনফিগার করার সময়
+            পোর্টগুলো সাময়িক ডাউন রাখা ভালো)।</p>
+          <pre><code>Switch-1> enable
+Switch-1# configure terminal
+Switch-1(config)# interface range gigabitEthernet 0/1 - 2
+Switch-1(config-if-range)# shutdown
+Switch-1(config-if-range)# channel-protocol lacp
+Switch-1(config-if-range)# channel-group 1 mode active</code></pre>
+          <p>এখানে <code>channel-group 1</code> দ্বারা বোঝানো হচ্ছে যে এটি <code>Port-channel 1</code> নামের একটি
+            লজিক্যাল পোর্ট তৈরি করবে। <code>mode active</code> মানে সে LACP নেগোসিয়েশন শুরু করবে।</p>
+
+          <h3>ধাপ ২: লজিক্যাল Port-channel কনফিগার করা</h3>
+          <p>ফিজিক্যাল পোর্টের কাজ শেষ। এখন আমাদের নতুন তৈরি হওয়া লজিক্যাল পোর্ট (Port-channel 1) এ কনফিগারেশন দিতে হবে।
+            আমরা এটি Trunk পোর্ট হিসেবে কনফিগার করবো:</p>
+          <pre><code>Switch-1(config)# interface port-channel 1
+Switch-1(config-if)# switchport mode trunk
+Switch-1(config-if)# exit</code></pre>
+
+          <h3>ধাপ ৩: পোর্টগুলো আপ (Up) করা</h3>
+          <p>এখন ফিজিক্যাল পোর্টগুলো পুনরায় চালু করে দিন:</p>
+          <pre><code>Switch-1(config)# interface range gigabitEthernet 0/1 - 2
+Switch-1(config-if-range)# no shutdown</code></pre>
+          <p>একই কনফিগারেশন Switch-2 তেও করতে হবে (তবে সেখানে মোড <code>active</code> বা <code>passive</code> যেকোনো
+            একটি হতে পারে)।</p>
+
+          <h2>৫. Troubleshooting Tips (ট্রাবলশুটিং কমান্ড)</h2>
+          <p>কনফিগারেশন সফল হয়েছে কি না বা কোনো পোর্ট ডাউন আছে কি না তা চেক করার জন্য নিচের কমান্ডগুলো অত্যন্ত কার্যকরী:
+          </p>
+
+          <h3>সামগ্রিক স্ট্যাটাস চেক করা:</h3>
+          <pre><code>Switch-1# show etherchannel summary</code></pre>
+          <p><strong>আউটপুট এনালাইসিস:</strong> এই কমান্ডের আউটপুটটি সবচেয়ে গুরুত্বপূর্ণ। এখানে লজিক্যাল পোর্টের পাশে
+            <strong>(SU)</strong> লেখা থাকতে হবে (S মানে Layer 2, U মানে In Use)। আর ফিজিক্যাল পোর্টগুলোর (Gi0/1, Gi0/2)
+            পাশে <strong>(P)</strong> লেখা থাকলে বুঝতে হবে পোর্টগুলো সফলভাবে বান্ডেলে যুক্ত হয়েছে। যদি
+            <strong>(D)</strong> বা <strong>(s)</strong> থাকে, তবে কনফিগারেশন মিসম্যাচ আছে।</p>
+
+          <h3>লোড ব্যালেন্সিং মেথড চেক করা:</h3>
+          <pre><code>Switch-1# show etherchannel load-balance</code></pre>
+
+          <h3>ফিজিক্যাল পোর্টের মিল (Consistency) যাচাই:</h3>
+          <p>Link Aggregation সফল হওয়ার পূর্বশর্ত হলো—বান্ডেলে থাকা প্রতিটি ফিজিক্যাল পোর্টের <strong>Speed</strong>,
+            <strong>Duplex Mode</strong> এবং <strong>VLAN (Trunking/Access)</strong> কনফিগারেশন হুবহু এক হতে হবে। এর
+            কোনো একটিতে অমিল থাকলে পোর্ট <code>Suspended</code> হয়ে যাবে।</p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Link Aggregation</strong> বা <strong>EtherChannel</strong> হলো একটি এন্টারপ্রাইজ নেটওয়ার্কের
+              মেরুদণ্ড। এটি কোনো অতিরিক্ত হার্ডওয়্যার খরচ ছাড়াই নেটওয়ার্কের <strong>Bandwidth</strong> কয়েকগুণ বাড়িয়ে
+              দেয় এবং ক্যাবল ফেইলিউরের হাত থেকে নেটওয়ার্ককে সচল রাখে। একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে LACP
+              প্রোটোকল কনফিগারেশন এবং এর <code>show etherchannel summary</code> আউটপুট পড়ার দক্ষতা থাকা বাঞ্ছনীয়।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

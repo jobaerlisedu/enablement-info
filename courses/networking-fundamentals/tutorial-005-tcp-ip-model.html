@@ -5,26 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. TCP/IP Model: The Foundation of Internet à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
-  <title>TCP/IP Model: The Foundation of Internet | enablement.info</title>
+    content="TCP/IP Model কী এবং এর ৪টি Layer কীভাবে কাজ করে তার বিস্তারিত বাংলা গাইড। Internet-এর মূল ভিত্তি TCP/IP প্রোটোকল স্যুট সম্পর্কে সহজ ভাষায় শিখুন।">
+  <title>What is TCP/IP Model? - Layers of TCP/IP Model | enablement.info</title>
 
-
-
-  <!-- Icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <!-- CSS -->
-
-
-
-
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
-
-
-
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
@@ -89,8 +76,6 @@
       margin-bottom: 20px;
     }
 
-
-
     .content-box {
       background: #f1f7fd;
       border-left: 4px solid var(--primary-color);
@@ -114,6 +99,24 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+    }
   </style>
 
 </head>
@@ -124,23 +127,183 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>TCP/IP Model - Layers of TCP/IP Model</h1>
+          <h1>What is TCP/IP Model? - Layers of TCP/IP Model</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
-            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-calendar'></i> 26 April, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>TCP/IP Model - Layers of TCP/IP Model</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>আমরা আগেই জেনেছি যে, <strong>OSI Model</strong> হলো নেটওয়ার্কিং বোঝার জন্য একটি থিওরেটিক্যাল বা লজিক্যাল
+            ফ্রেমওয়ার্ক। কিন্তু বাস্তবে, আমাদের বর্তমান ইন্টারনেট ব্যবস্থা সম্পূর্ণভাবে যে আর্কিটেকচারের ওপর দাঁড়িয়ে
+            আছে, তা হলো <strong>TCP/IP Model</strong>। আপনি যখন মোবাইল বা পিসি থেকে ইন্টারনেটে কোনো কিছু ব্রাউজ করেন,
+            তখন আপনার ডিভাইস ব্যাকগ্রাউন্ডে এই TCP/IP প্রোটোকলগুলোই ব্যবহার করে।</p>
+          <p>আজকের এই ডিপ-ডাইভ আর্টিকেলে আমরা শিখবো TCP/IP Model কী, এটি কীভাবে কাজ করে এবং এর ৪টি Layer-এর বিস্তারিত
+            কার্যাবলী।</p>
+
+          <div class="content-box">
+            <h3>TCP/IP Model কী?</h3>
+            <p><strong>TCP/IP (Transmission Control Protocol/Internet Protocol) Model</strong> হলো একটি প্র্যাকটিক্যাল
+              নেটওয়ার্কিং মডেল এবং প্রোটোকল স্যুট (Protocol Suite)। এটি ১৯৭০-এর দশকে আমেরিকার ডিপার্টমেন্ট অফ ডিফেন্স
+              (DoD) এর প্রজেক্ট <strong>ARPANET</strong> এর অংশ হিসেবে তৈরি করা হয়েছিল।</p>
+            <p>এই মডেলের প্রধান উদ্দেশ্য ছিল এমন একটি নেটওয়ার্ক তৈরি করা, যার কোনো একটি অংশ (যেমন একটি রাউটার বা ক্যাবল)
+              নষ্ট হয়ে গেলেও যেন পুরো নেটওয়ার্ক ডাউন না হয়ে যায় এবং বিকল্প রাস্তায় ডাটা পাঠানো সম্ভব হয়। এই
+              আর্কিটেকচারটিই আজকের আধুনিক ইন্টারনেটের ভিত্তি।</p>
+          </div>
+
+          <h2>১. OSI Model বনাম TCP/IP Model</h2>
+          <p>OSI মডেলের ৭টি লেয়ারকে একত্রিত করে TCP/IP মডেলে মাত্র ৪টি লেয়ারে (Layer) ভাগ করা হয়েছে। চলুন একটি তুলনামূলক
+            ছক দেখে নিই:</p>
+
+
+
+          [Image of TCP/IP model layers compared to OSI model]
+
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>OSI Model (7 Layers)</th>
+                  <th>TCP/IP Model (4 Layers)</th>
+                  <th>Function (কাজ)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Application, Presentation, Session</td>
+                  <td><strong>Application Layer</strong></td>
+                  <td>ইউজার ইন্টারফেস এবং ডাটা ফরম্যাটিংয়ের কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Transport Layer</td>
+                  <td><strong>Transport Layer</strong></td>
+                  <td>এন্ড-টু-এন্ড ডাটা ডেলিভারি এবং Error Connection নিশ্চিত করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Network Layer</td>
+                  <td><strong>Internet Layer</strong></td>
+                  <td>রাউটিং এবং IP Addressing নিয়ে কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Data Link, Physical Layer</td>
+                  <td><strong>Network Access Layer</strong></td>
+                  <td>হার্ডওয়্যার, ক্যাবল এবং MAC Address নিয়ে কাজ করে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. TCP/IP Model এর ৪টি Layer এর বিস্তারিত বর্ণনা</h2>
+          <p>এখন আমরা প্রতিটি Layer এর কাজ এবং এখানে ব্যবহৃত প্রোটোকলগুলো সম্পর্কে বিস্তারিত জানবো।</p>
+
+          <h3>Layer 4: Application Layer</h3>
+          <p>TCP/IP মডেলের সবচেয়ে উপরের লেয়ার হলো Application Layer। OSI মডেলের উপরের তিনটি লেয়ারের (Application,
+            Presentation, Session) কাজ এই একটি লেয়ারই করে দেয়। ইউজার সরাসরি এই লেয়ারের মাধ্যমেই নেটওয়ার্কের সাথে যুক্ত
+            হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> সফটওয়্যার অ্যাপ্লিকেশনগুলোকে নেটওয়ার্ক সার্ভিস প্রদান করা এবং ডাটাকে
+              এনকোড/ডিকোড করা।</li>
+            <li><strong>ব্যবহৃত প্রোটোকল (Protocols):</strong>
+              <ul>
+                <li>ওয়েব ব্রাউজিংয়ের জন্য: <strong>HTTP, HTTPS</strong></li>
+                <li>ফাইল ট্রান্সফারের জন্য: <strong>FTP, TFTP</strong></li>
+                <li>ইমেইলের জন্য: <strong>SMTP, POP3, IMAP</strong></li>
+                <li>নাম রেজল্যুশনের জন্য: <strong>DNS</strong></li>
+              </ul>
+            </li>
+            <li><strong>রিয়েল-লাইফ উদাহরণ:</strong> আপনি যখন ক্রোম ব্রাউজারে <code>youtube.com</code> লিখেন, তখন এই
+              লেয়ারের HTTP/HTTPS প্রোটোকল আপনার রিকোয়েস্টটি তৈরি করে।</li>
+          </ul>
+
+          <h3>Layer 3: Transport Layer</h3>
+          <p>Application Layer থেকে আসা ডাটাকে নির্ভরযোগ্যভাবে গন্তব্যে পৌঁছানোর দায়িত্ব এই লেয়ারের। ডাটা বড় হলে এটি
+            তাকে ছোট ছোট টুকরোতে (যাকে <strong>Segment</strong> বলা হয়) ভাগ করে।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> Segmentation, Connection Multiplexing এবং Error Checking। এই লেয়ারে ডাটার
+              সাথে একটি <strong>Port Number</strong> যুক্ত করা হয়, যাতে রিসিভার বুঝতে পারে ডাটাটি কোন অ্যাপ্লিকেশনে
+              পাঠাতে হবে।</li>
+            <li><strong>প্রধান দুটি প্রোটোকল:</strong>
+              <ul>
+                <li><strong>TCP (Transmission Control Protocol):</strong> এটি অত্যন্ত রিলায়েবল (Reliable)। ডাটা ঠিকমতো
+                  পৌঁছেছে কি না তার একটি প্রাপ্তিস্বীকার বা Acknowledgment (ACK) এটি রিসিভ করে। ওয়েব ব্রাউজিং বা ইমেইলে
+                  এটি ব্যবহৃত হয়।</li>
+                <li><strong>UDP (User Datagram Protocol):</strong> এটি আনরিলায়েবল কিন্তু অত্যন্ত দ্রুতগতির। ডাটা পৌঁছালো
+                  কি না, তা এটি চেক করে না। লাইভ ভিডিও স্ট্রিমিং (যেমন: Zoom Call, YouTube Live) বা গেমিংয়ে এটি ব্যবহৃত
+                  হয়।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Layer 2: Internet Layer</h3>
+          <p>এই লেয়ারটি OSI মডেলের Network Layer-এর সমতুল্য। এটি পুরো TCP/IP মডেলের প্রাণকেন্দ্র। Transport Layer থেকে
+            আসা Segment-গুলোকে এখানে <strong>Packet</strong>-এ রূপান্তর করা হয় এবং এদের গায়ে সোর্স ও ডেস্টিনেশনের IP
+            Address যুক্ত করা হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> লজিক্যাল অ্যাড্রেসিং (IP Addressing) এবং রাউটিং (Routing)। অর্থাৎ, ডাটা
+              প্যাকেটকে সবচেয়ে সেরা এবং দ্রুততম রাস্তা দিয়ে গন্তব্যে পৌঁছানো।</li>
+            <li><strong>ব্যবহৃত প্রোটোকল:</strong>
+              <ul>
+                <li><strong>IP (Internet Protocol):</strong> IPv4 এবং IPv6—যার মাধ্যমে প্রতিটি ডিভাইসকে চেনা যায়।</li>
+                <li><strong>ICMP (Internet Control Message Protocol):</strong> এটি এরর মেসেজ এবং ট্রাবলশুটিংয়ের জন্য কাজ
+                  করে (যেমন <code>ping</code> কমান্ড)।</li>
+              </ul>
+            </li>
+            <li><strong>ডিভাইস:</strong> রাউটার (Router) মূলত এই লেয়ারে কাজ করে।</li>
+          </ul>
+
+          <h3>Layer 1: Network Access Layer (বা Link Layer)</h3>
+          <p>এটি হলো TCP/IP মডেলের সবচেয়ে নিচের লেয়ার। OSI মডেলের Data Link এবং Physical Layer-এর কাজ এটি একাই করে।
+            Internet Layer থেকে আসা প্যাকেটগুলোকে এখানে <strong>Frame</strong>-এ রূপান্তর করে এর সাথে MAC Address যুক্ত
+            করা হয়। এরপর সেগুলোকে <strong>Bit</strong> (0 এবং 1) হিসেবে ফিজিক্যাল মিডিয়ামের ওপর দিয়ে পাঠানো হয়।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> হার্ডওয়্যার অ্যাড্রেসিং (MAC) এবং ফিজিক্যাল সিগন্যাল (যেমন ইলেকট্রিক্যাল
+              পালস, লাইট বা রেডিও ওয়েভ) ট্রান্সমিট করা।</li>
+            <li><strong>প্রোটোকল এবং প্রযুক্তি:</strong> Ethernet, Wi-Fi (802.11), ARP (Address Resolution Protocol)।
+            </li>
+            <li><strong>ডিভাইস:</strong> Switch, Hub, Network Interface Card (NIC) এবং ক্যাবল।</li>
+          </ul>
+
+          <h2>৩. TCP/IP নেটওয়ার্ক ট্রাবলশুটিং (CLI Commands)</h2>
+          <p>একজন নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর হিসেবে আপনাকে এই লেয়ারগুলোর বিভিন্ন সমস্যা Command Line Interface (CLI)
+            দিয়ে ট্রাবলশুট করতে হবে। নিচে বাস্তব জীবনের কিছু উদাহরণ দেওয়া হলো:</p>
+
+          <h3>Transport Layer চেক করা (Netstat):</h3>
+          <p>আপনার পিসিতে কোন কোন TCP বা UDP পোর্ট খোলা আছে এবং কোন আইপির সাথে কানেকশন তৈরি হয়েছে, তা দেখতে নিচের
+            কমান্ডটি ব্যবহার করা হয়:</p>
+          <pre><code>C:\> netstat -an</code></pre>
+          <p><em>ব্যাখ্যা:</em> আউটপুটে যদি <code>ESTABLISHED</code> লেখা দেখেন, তার মানে আপনার ডিভাইসটি সার্ভারের সাথে
+            সফলভাবে যুক্ত আছে।</p>
+
+          <h3>Internet Layer চেক করা (Ping):</h3>
+          <p>IP Address ঠিকমতো কাজ করছে কি না বা রাউটিংয়ে কোনো সমস্যা আছে কি না, তা ICMP প্রোটোকল ব্যবহার করে চেক করা
+            হয়:</p>
+          <pre><code>C:\> ping 8.8.8.8</code></pre>
+
+          <h3>Network Access Layer চেক করা (ARP):</h3>
+          <p>আপনার পিসি কোন IP Address-এর বিপরীতে কোন MAC Address স্টোর করে রেখেছে (যাকে ARP Cache বলা হয়), তা দেখার
+            জন্য:</p>
+          <pre><code>C:\> arp -a</code></pre>
+          <p><em>টিপস:</em> অনেক সময় IP কনফ্লিক্ট বা ডুপ্লিকেট আইপি সমস্যা সমাধানের জন্য এই কমান্ডটি ম্যাজিকের মতো কাজ
+            করে।</p>
+
+          <div class="content-box">
+            <h3>Conclusion (উপসংহার)</h3>
+            <p><strong>TCP/IP Model</strong> হলো আধুনিক ইন্টারনেটের ব্লুপ্রিন্ট (Blueprint)। OSI Model আমাদের
+              নেটওয়ার্কিং থিওরি বুঝতে সাহায্য করে, কিন্তু রিয়েল-ওয়ার্ল্ড নেটওয়ার্কিং, ফায়ারওয়াল কনফিগারেশন, রাউটিং এবং
+              ট্রাবলশুটিং সম্পূর্ণভাবে TCP/IP প্রোটোকল স্যুটের ওপর নির্ভরশীল। <strong>Application Layer</strong>-এর
+              প্রোটোকল থেকে শুরু করে <strong>Network Access Layer</strong>-এর হার্ডওয়্যার পর্যন্ত প্রতিটি ধাপের স্পষ্ট
+              ধারণা থাকা একজন প্রফেশনাল আইটি বা নেটওয়ার্ক ইঞ্জিনিয়ারের জন্য অত্যন্ত জরুরি।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

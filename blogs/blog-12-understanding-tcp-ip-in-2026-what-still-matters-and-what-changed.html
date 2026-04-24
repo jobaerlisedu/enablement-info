@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 
 <head>
@@ -37,9 +37,6 @@
     .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
     .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
     .article-body p { margin-bottom: 20px; }
-    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
-    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
-    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
     .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
     .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
@@ -104,13 +101,13 @@
                 </blockquote>
 
                 <h3>2. IPv6: The Forced Transition is Over</h3>
-                <p>IPv4 has officially entered its "legacy" phase. With the exhaustion of address blocks, the networking world has shifted to <strong>IPv6-only internal fabrics</strong>. Technologies like NAT64 and DNS64 allow these modern networks to communicate with the remaining IPv4 internet, but the performance benefits of native IPv6â€”no NAT, simpler headers, and better multicastâ€”are now standard.</p>
+                <p>IPv4 has officially entered its "legacy" phase. With the exhaustion of address blocks, the networking world has shifted to <strong>IPv6-only internal fabrics</strong>. Technologies like NAT64 and DNS64 allow these modern networks to communicate with the remaining IPv4 internet, but the performance benefits of native IPv6—no NAT, simpler headers, and better multicast—are now standard.</p>
 
                 <h3>3. BBR: A Smarter Congestion Control</h3>
                 <p>The old "Loss-based" congestion control (like TCP Reno or Cubic) is being replaced by <strong>BBR (Bottleneck Bandwidth and Round-trip propagation time)</strong>. Developed by Google and widely adopted by 2026, BBR looks at how fast the network <em>actually</em> is rather than waiting for packets to drop, leading to much higher throughput on high-latency satellite (Starlink) and 6G links.</p>
 
                 <h3>4. Security at the Network Layer: Encrypted DNS and Client Hello</h3>
-                <p>The privacy of the TCP/IP stack has significantly improved. Weâ€™ve moved from cleartext DNS to <strong>DoH (DNS over HTTPS)</strong> and <strong>DoT (DNS over TLS)</strong>. Furthermore, <strong>ECH (Encrypted Client Hello)</strong> now hides the server name you are connecting to, preventing ISPs or attackers from snooping on your browsing habits at the packet level.</p>
+                <p>The privacy of the TCP/IP stack has significantly improved. We’ve moved from cleartext DNS to <strong>DoH (DNS over HTTPS)</strong> and <strong>DoT (DNS over TLS)</strong>. Furthermore, <strong>ECH (Encrypted Client Hello)</strong> now hides the server name you are connecting to, preventing ISPs or attackers from snooping on your browsing habits at the packet level.</p>
                 [Image showing the comparison between cleartext DNS/SNI vs Encrypted DNS/ECH]
 
                 <h3>5. Why the Fundamentals Still Matter</h3>

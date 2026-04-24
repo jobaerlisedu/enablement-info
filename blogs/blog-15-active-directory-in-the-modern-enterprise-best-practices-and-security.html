@@ -1,4 +1,4 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 
 <head>
@@ -37,9 +37,6 @@
     .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
     .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
     .article-body p { margin-bottom: 20px; }
-    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
-    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
-    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
     .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
     .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
@@ -114,7 +111,7 @@
                 <ul>
                   <li><strong>NTLMv1:</strong> Highly susceptible to relay and cracking attacks. Force NTLMv2 or, better yet, Kerberos.</li>
                   <li><strong>SMBv1:</strong> The primary vector for many ransomware strains. It should be disabled domain-wide.</li>
-                  <li><strong>WDigest:</strong> This protocol stores passwords in cleartext memoryâ€”a goldmine for tools like Mimikatz.</li>
+                  <li><strong>WDigest:</strong> This protocol stores passwords in cleartext memory—a goldmine for tools like Mimikatz.</li>
                 </ul>
                 
 
@@ -122,7 +119,7 @@
                 <p>A disorganized AD structure leads to "Group Policy sprawl." Organize your Organizational Units (OUs) logically based on function (e.g., Workstations, Servers, Users) rather than geography. This allows you to apply security templates consistently and makes auditing significantly easier.</p>
 
                 <h3>5. Continuous Auditing and Recovery</h3>
-                <p>Security is not a one-time configuration; itâ€™s a constant state of monitoring. Use tools to track "BloodHound" style attack paths and monitor for "Golden Ticket" creation. Finally, ensure you have an <strong>Immutable Backup</strong> of your Active Directory database (NTDS.dit) that is stored offline to survive a catastrophic ransomware event.</p>
+                <p>Security is not a one-time configuration; it’s a constant state of monitoring. Use tools to track "BloodHound" style attack paths and monitor for "Golden Ticket" creation. Finally, ensure you have an <strong>Immutable Backup</strong> of your Active Directory database (NTDS.dit) that is stored offline to survive a catastrophic ransomware event.</p>
 
                 <div class="tech-summary-box">
                   <div class="ad-badge">AD Hardening Checklist</div>

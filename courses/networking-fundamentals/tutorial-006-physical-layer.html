@@ -5,13 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. Physical Layer in OSI Model à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
-  <title>Physical Layer in OSI Model | enablement.info</title>
+    content="OSI Model-এর Physical Layer (Layer 1) কীভাবে কাজ করে? এর কাজ, ট্রান্সমিশন মিডিয়া, ডিভাইস এবং ট্রাবলশুটিং কমান্ড সম্পর্কে বিস্তারিত বাংলা গাইড।">
+  <title>Physical Layer in OSI Model - Layer 1 Functions | Md. Jobaer Hossain</title>
 
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-  <!-- Icons -->
-  
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -75,8 +76,6 @@
       margin-bottom: 20px;
     }
 
-
-
     .content-box {
       background: #f1f7fd;
       border-left: 4px solid var(--primary-color);
@@ -100,6 +99,24 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+    }
   </style>
 
 </head>
@@ -112,21 +129,159 @@
         <header class="article-header">
           <h1>Physical Layer in OSI Model - Layer 1 Functions</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
-            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-calendar'></i> 28 April, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Physical Layer in OSI Model - Layer 1 Functions</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>OSI Model নিয়ে পড়াশোনা করার সময় আমরা জেনেছি যে এটি ৭টি লজিক্যাল লেয়ারের সমন্বয়ে গঠিত। এই মডেলের একদম নিচের
+            স্তর বা ভিত্তি হলো <strong>Physical Layer (Layer 1)</strong>। আপনি যখন নেটওয়ার্কিং নিয়ে কাজ শুরু করবেন, তখন
+            সবচেয়ে বেশি যেই লেয়ারটির ফিজিক্যাল উপস্থিতি আপনি দেখতে এবং স্পর্শ করতে পারবেন, সেটিই হলো এই লেয়ার।</p>
+
+          <p>আজকের এই ডিপ-ডাইভ আর্টিকেলে আমরা Physical Layer কী, এর কাজ, ব্যবহৃত ডিভাইস এবং প্র্যাকটিক্যাল ট্রাবলশুটিং
+            কমান্ডগুলো সম্পর্কে বিস্তারিত জানবো।</p>
+
+          <div class="content-box">
+            <h3>Physical Layer কী?</h3>
+            <p><strong>Physical Layer</strong> হলো OSI মডেলের প্রথম বা Layer 1। উপরের লেয়ারগুলো (যেমন Data Link,
+              Network) থেকে আসা ডাটা (যা Frame বা Packet হিসেবে থাকে) যখন এই লেয়ারে পৌঁছায়, তখন সেটি শুধুমাত্র
+              <strong>Bit (0 এবং 1)</strong> এর একটি স্রোতে পরিণত হয়।</p>
+            <p>এই লেয়ারের মূল কাজ হলো কম্পিউটারের ভেতরের ডিজিটাল ডাটাকে এমন একটি সিগন্যালে রূপান্তর করা, যা ফিজিক্যাল
+              মিডিয়ামের (যেমন: ক্যাবল বা ওয়্যারলেস সিগন্যাল) ওপর দিয়ে এক জায়গা থেকে অন্য জায়গায় ট্রাভেল করতে পারে।</p>
+          </div>
+
+          <h2>১. Physical Layer এর প্রধান কাজসমূহ (Functions of Layer 1)</h2>
+          <p>Physical Layer ডাটা প্রসেস করে না বা কোনো অ্যাড্রেসিং (যেমন MAC বা IP Address) নিয়ে কাজ করে না। এর প্রধান
+            কাজগুলো নিচে দেওয়া হলো:</p>
+
+          <ul>
+            <li><strong>Representation of Bits:</strong> ডাটা লিংক লেয়ার থেকে আসা 0 এবং 1 কে ইলেকট্রিক্যাল ভোল্টেজ, লাইট
+              পালস (Fiber) বা রেডিও ফ্রিকোয়েন্সিতে (Wireless) রূপান্তর করা (যাকে Encoding বা Signaling বলা হয়)।</li>
+            <li><strong>Data Rate (ডাটা রেট):</strong> এই লেয়ার নির্ধারণ করে দেয় প্রতি সেকেন্ডে কতগুলো বিট ট্রান্সমিট
+              হবে। এটিই মূলত আপনার নেটওয়ার্কের Transmission Rate বা Bandwidth।</li>
+            <li><strong>Synchronization of Bits:</strong> সেন্ডার এবং রিসিভারের মধ্যে বিটগুলোর ট্রান্সমিশন টাইম যাতে
+              হুবহু এক থাকে, তার জন্য একটি Clocking মেকানিজম মেইনটেইন করা হয়।</li>
+            <li><strong>Physical Topology:</strong> নেটওয়ার্কের ডিভাইসগুলো ফিজিক্যালি কীভাবে যুক্ত থাকবে (যেমন: Star,
+              Bus, Ring, Mesh টপোলজি) তা এই লেয়ারে সংজ্ঞায়িত করা হয়।</li>
+            <li><strong>Transmission Mode:</strong> দুটি ডিভাইসের মধ্যে ডাটা আদান-প্রদান কোন ডিরেকশনে হবে, তা নির্ধারণ
+              করা।</li>
+          </ul>
+
+          <h2>২. Transmission Modes (ট্রান্সমিশন মোড)</h2>
+          <p>ডাটা প্রবাহের দিকের ওপর ভিত্তি করে Physical Layer তিনটি ট্রান্সমিশন মোড সমর্থন করে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Transmission Mode</th>
+                  <th>Functionality (কীভাবে কাজ করে)</th>
+                  <th>Real-Life Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Simplex</td>
+                  <td>ডাটা শুধুমাত্র একদিকে (One-way) যেতে পারে। রিসিভার কখনোই রিপ্লাই দিতে পারে না।</td>
+                  <td>টেলিভিশন বা রেডিও ব্রডকাস্ট, কিবোর্ড থেকে পিসিতে ইনপুট।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Half-Duplex</td>
+                  <td>ডাটা দুই দিকেই যেতে পারে, তবে একই সময়ে নয়। একজন পাঠানো শেষ করলে অন্যজন পাঠাবে।</td>
+                  <td>ওয়াকি-টকি (Walkie-Talkie)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Full-Duplex</td>
+                  <td>ডাটা একই সময়ে দুই দিকেই (Two-way simultaneous) আদান-প্রদান করা যায়। আধুনিক নেটওয়ার্ক এভাবেই কাজ
+                    করে।</td>
+                  <td>মোবাইল ফোন কল বা কম্পিউটারের ইথারনেট কানেকশন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Transmission Media (মিডিয়া বা মাধ্যম)</h2>
+          <p>Physical Layer-এ ডাটা পাঠানোর জন্য প্রধানত দুই ধরনের মাধ্যম ব্যবহার করা হয়:</p>
+
+          <h3>Wired Media (গাইডেড মিডিয়া):</h3>
+          <ul>
+            <li><strong>Twisted Pair Cable:</strong> সাধারণত বাসাবাড়িতে বা অফিসে আমরা যেই ল্যান ক্যাবল (Cat5e, Cat6)
+              ব্যবহার করি। এতে ইলেকট্রিক্যাল সিগন্যাল ব্যবহৃত হয়। এর কানেক্টরকে <strong>RJ-45</strong> বলা হয়।</li>
+            <li><strong>Fiber Optic Cable:</strong> অনেক দূরের দূরত্বের জন্য এবং হাই-স্পিড ডাটা ট্রান্সফারের জন্য এটি
+              ব্যবহৃত হয়। এখানে ডাটা ইলেকট্রিসিটির বদলে <strong>Light (আলোর)</strong> সিগন্যাল হিসেবে যায়, তাই স্পিড
+              অনেক বেশি থাকে।</li>
+            <li><strong>Coaxial Cable:</strong> আগে ডিশের লাইনে এটি বেশি ব্যবহার হতো।</li>
+          </ul>
+
+          <h3>Wireless Media (আনগাইডেড মিডিয়া):</h3>
+          <p>এখানে কোনো ফিজিক্যাল তার থাকে না, ডাটা রেডিও ওয়েভ বা মাইক্রোওয়েভ ফ্রিকোয়েন্সির মাধ্যমে ট্রান্সমিট হয়।
+            (যেমন: Wi-Fi, Bluetooth, 4G/5G)।</p>
+
+          <h2>৪. Layer 1 Devices (নেটওয়ার্ক ডিভাইস)</h2>
+          <p>Physical Layer এ মূলত আনস্মার্ট হার্ডওয়্যার ডিভাইসগুলো কাজ করে। কারণ এদের ডাটা প্রসেস করার কোনো ক্ষমতা নেই।
+          </p>
+          <ul>
+            <li><strong>Hub (হাব):</strong> হাব একটি Layer 1 ডিভাইস। একটি পোর্টে কোনো সিগন্যাল আসলে হাব সেটিকে শুধু
+              ইলেকট্রিক্যালি বুস্ট করে বাকি সব পোর্টে ব্রডকাস্ট করে দেয়। সে MAC Address বুঝতে পারে না।</li>
+            <li><strong>Repeater (রিপিটার):</strong> ক্যাবল দিয়ে ডাটা বেশি দূর গেলে সিগন্যাল উইক (Weak) হয়ে যায় (যাকে
+              Attenuation বলে)। রিপিটার সেই দুর্বল সিগন্যাল রিসিভ করে আবার শক্তিশালী করে সামনের দিকে পাঠায়।</li>
+            <li><strong>Cables & Connectors:</strong> ফিজিক্যাল ক্যাবল, ফাইবার প্যাচকর্ড, এবং কানেক্টরগুলো এই লেয়ারের
+              অংশ।</li>
+          </ul>
+
+          <h2>৫. Configuration: Cisco CLI-তে Layer 1 সেটিংস</h2>
+          <p>একজন নেটওয়ার্ক প্রফেশনাল হিসেবে আপনাকে সুইচের ফিজিক্যাল ইন্টারফেসের স্পিড এবং ডুপ্লেক্স মোড ম্যানুয়ালি
+            কনফিগার করতে হতে পারে। নিচে Cisco Switch-এর একটি উদাহরণ দেওয়া হলো:</p>
+
+          <p>প্রথমে ইন্টারফেসে প্রবেশ করুন:</p>
+          <pre><code>Switch> enable
+Switch# configure terminal
+Switch(config)# interface gigabitEthernet 0/1</code></pre>
+
+          <p>পোর্টটি Full-Duplex মোডে এবং 100 Mbps স্পিডে ফিক্সড করার কমান্ড:</p>
+          <pre><code>Switch(config-if)# duplex full
+Switch(config-if)# speed 100
+Switch(config-if)# exit</code></pre>
+          <p><em>নোট:</em> সাধারণত এটি <code>auto</code> মোডে থাকে, যাতে দুই পাশের ডিভাইস নিজেরাই নেগোসিয়েট করে স্পিড
+            ঠিক করে নিতে পারে। তবে কোনো পুরনো ডিভাইসের সাথে কানেক্ট করার সময় স্পিড ফিক্সড করে দিতে হয়।</p>
+
+          <h2>৬. Network Troubleshooting (Layer 1)</h2>
+          <p>নেটওয়ার্ক ডাউনের প্রায় ৮০% সমস্যা এই Physical Layer-এই হয়ে থাকে। ট্রাবলশুট করার সময় সবার আগে Layer 1 চেক
+            করতে হয় (যাকে Bottom-Up অ্যাপ্রোচ বলে)।</p>
+
+          <h3>কমান্ড দিয়ে ফিজিক্যাল স্ট্যাটাস চেক করা:</h3>
+          <p>Cisco রাউটার বা সুইচে ইন্টারফেসের স্ট্যাটাস দেখার সবচেয়ে জনপ্রিয় কমান্ড হলো:</p>
+          <pre><code>Router# show ip interface brief</code></pre>
+          <p><strong>আউটপুট এনালাইসিস:</strong></p>
+          <ul>
+            <li><strong>Status: up, Protocol: up</strong> - সব ঠিক আছে। (Layer 1 এবং Layer 2 আপ)।</li>
+            <li><strong>Status: down, Protocol: down</strong> - এটি Layer 1 সমস্যা। এর মানে ক্যাবল লাগানো নেই, ক্যাবল
+              নষ্ট, বা অপর পাশের ডিভাইসটি বন্ধ আছে।</li>
+            <li><strong>Status: administratively down</strong> - এর মানে কোনো অ্যাডমিন পোর্টটিকে ম্যানুয়ালি
+              <code>shutdown</code> কমান্ড দিয়ে বন্ধ করে রেখেছেন। <code>no shutdown</code> দিলে এটি ঠিক হয়ে যাবে।</li>
+          </ul>
+
+          <h3>ডুপ্লেক্স মিসম্যাচ (Duplex Mismatch):</h3>
+          <p>অনেক সময় দেখা যায় লিংকের লাইট জ্বলছে, কিন্তু নেটওয়ার্ক ভীষণ স্লো বা ডাটা লস হচ্ছে। এটি সাধারণত
+            <strong>Duplex Mismatch</strong> এর কারণে হয়। (এক পাশে Full-Duplex, অন্য পাশে Half-Duplex থাকলে ডাটা কলিশন
+            বা সংঘর্ষ হয়)।</p>
+
+          <div class="content-box">
+            <h3>Conclusion</h3>
+            <p><strong>Physical Layer</strong> হলো সমগ্র নেটওয়ার্ক আর্কিটেকচারের ফাউন্ডেশন। যতই শক্তিশালী রাউটার বা
+              ফায়ারওয়াল থাকুক না কেন, ফিজিক্যাল লেয়ারে ক্যাবল কাটা থাকলে বা কানেক্টর লুজ থাকলে পুরো নেটওয়ার্ক অচল হয়ে
+              পড়বে। সিগন্যালিং, ক্যাবলিং, স্পিড, এবং ডুপ্লেক্স মোড সম্পর্কে পরিষ্কার ধারণা থাকলে একজন নেটওয়ার্ক
+              ইঞ্জিনিয়ার খুব সহজেই বড় বড় লজিক্যাল সমস্যাগুলোর সমাধান করতে পারেন।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

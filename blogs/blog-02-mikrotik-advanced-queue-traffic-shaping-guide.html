@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 
 <head>
@@ -37,9 +37,6 @@
     .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
     .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
     .article-body p { margin-bottom: 20px; }
-    .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; background: rgba(255, 255, 255, 0.03); border-radius: 12px; overflow: hidden; color: var(--text-main); }
-    .comparison-table th, .comparison-table td { padding: 15px; text-align: left; border: 1px solid var(--glass-border); }
-    .comparison-table th { background: rgba(5, 99, 187, 0.1); color: var(--primary-color); font-weight: 700; }
     .content-box { background: rgba(5, 99, 187, 0.05); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
     .back-btn { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); text-decoration: none; margin-bottom: 30px; font-weight: 500; transition: 0.3s; }
     .back-btn:hover { color: var(--primary-color); transform: translateX(-5px); }
@@ -123,7 +120,7 @@
                 <p>Setting <code>pcq-rate=0</code> means the bandwidth is divided dynamically. Setting a value, like <code>pcq-rate=5M</code>, ensures no single user can ever exceed 5Mbps, regardless of total availability.</p>
 
                 <h3>5. Bufferbloat and FQ-CoDel in RouterOS v7</h3>
-                <p>A common issue in modern networks is <strong>Bufferbloat</strong>—where large buffers in networking equipment cause high latency. With RouterOS v7, MikroTik introduced <strong>Cake</strong> and <strong>FQ-CoDel</strong> (Fair Queuing Controlled Delay). These algorithms are designed to keep latency low even when the link is saturated. For home routers and small office environments, switching your queue type to FQ-CoDel can drastically improve the "feel" of the internet responsiveness.</p>
+                <p>A common issue in modern networks is <strong>Bufferbloat</strong>�where large buffers in networking equipment cause high latency. With RouterOS v7, MikroTik introduced <strong>Cake</strong> and <strong>FQ-CoDel</strong> (Fair Queuing Controlled Delay). These algorithms are designed to keep latency low even when the link is saturated. For home routers and small office environments, switching your queue type to FQ-CoDel can drastically improve the "feel" of the internet responsiveness.</p>
 
                 <h3>6. Practical Configuration Steps</h3>
                 <p>To implement a robust shaping policy, follow these steps:</p>
@@ -135,7 +132,7 @@
                 </ul>
 
                 <div class="tech-summary-box">
-                  <h3>âš ï¸ Best Practices for Traffic Shaping</h3>
+                  <h3>⚠️ Best Practices for Traffic Shaping</h3>
                   <p>1. <strong>Don't Overcomplicate:</strong> Too many mangle rules will spike your CPU. Focus on the top 3-4 traffic types.</p>
                   <p>2. <strong>Set Realistic Max-Limits:</strong> Always set your Max-Limit slightly below your actual ISP speed (e.g., 95%) to ensure the router, not the ISP modem, controls the queue.</p>
                   <p>3. <strong>Monitor CPU:</strong> Advanced Queuing is CPU intensive. Check <code>/system resources</code> after applying changes.</p>

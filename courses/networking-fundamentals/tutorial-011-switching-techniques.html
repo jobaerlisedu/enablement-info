@@ -5,19 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="নিখুঁত নেটওয়ার্ক ইঞ্জিনিয়ারিং শিখুন। Switching কী এবং এর প্রধান প্রকারভেদগুলো যথা: Circuit, Message এবং Packet Switching-এর বিস্তারিত বর্ণনা।">
-  <title>Switching: Circuit, Message and Packet Switching | enablement.info</title>
-
-  <!-- Icons -->
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    content="কম্পিউটার নেটওয়ার্কিংয়ে Switching কী, কীভাবে কাজ করে, লেয়ার ২ এবং লেয়ার ৩ সুইচের পার্থক্য, Switching Methods এবং Cisco Switch কনফিগারেশন নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Switching: Detailed Guide | enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -77,11 +69,15 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
-
-
 
     .content-box {
       background: #f1f7fd;
@@ -106,6 +102,25 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
 
 </head>
@@ -118,23 +133,160 @@
         <header class="article-header">
           <h1>Switching: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> January 20, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 05 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Switching: Detailed Guide</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>নেটওয়ার্কিংয়ের দুনিয়ায় <strong>Switching</strong> হলো লোকাল এরিয়া নেটওয়ার্ক (LAN) এর মূল ভিত্তি। অনেকগুলো
+            কম্পিউটার, সার্ভার বা প্রিন্টারকে একসাথে যুক্ত করে একটি স্মার্ট এবং দ্রুত গতির নেটওয়ার্ক তৈরি করার জন্য আমরা
+            <strong>Switch</strong> ব্যবহার করি।</p>
+          <p>আগেকার দিনে Hub ব্যবহার করা হতো, কিন্তু সেটি ছিল আনস্মার্ট এবং এর কারণে নেটওয়ার্কে প্রচুর Data Collision বা
+            সংঘর্ষ হতো। এই সমস্যার আধুনিক এবং ইন্টেলিজেন্ট সমাধানই হলো Switching। আজকের এই বিস্তারিত গাইডে আমরা
+            Switching এর পেছনের মেকানিজম, এর বিভিন্ন পদ্ধতি এবং Cisco ডিভাইসে এর বেসিক কনফিগারেশন নিয়ে গভীরভাবে আলোচনা
+            করবো।</p>
+
+          <div class="content-box">
+            <h3>Switch কী?</h3>
+            <p><strong>Switch</strong> হলো OSI Model এর Data Link Layer (Layer 2) এর একটি ডিভাইস। এর প্রধান কাজ হলো
+              নেটওয়ার্কে যুক্ত ডিভাইসগুলোর মধ্যে ডাটা আদান-প্রদান করা। তবে এটি Hub এর মতো ডাটা ব্রডকাস্ট না করে,
+              <strong>MAC Address</strong> চিনে ডাটা ঠিক যার কাছে পাঠানো হয়েছে, শুধুমাত্র তার কাছেই ডেলিভারি দেয়। এর ফলে
+              নেটওয়ার্কের স্পিড এবং Bandwidth উভয়ই সুরক্ষিত থাকে।</p>
+          </div>
+
+          <h2>১. Switch কীভাবে কাজ করে? (MAC Address Table)</h2>
+          <p>একটি Switch তার <strong>MAC Address Table</strong> (যাকে CAM Table-ও বলা হয়) এর মাধ্যমে সিদ্ধান্ত নেয় যে
+            ডাটা কোন পোর্ট (Port) দিয়ে বের হবে। এর সম্পূর্ণ কার্যপ্রণালীকে ৪টি ধাপে ভাগ করা যায়:</p>
+
+          <ol>
+            <li><strong>Learning (শেখা):</strong> যখন কোনো পিসি (ধরি, PC-A) সুইচের পোর্টে একটি Frame পাঠায়, সুইচ সাথে
+              সাথে ফ্রেমের <em>Source MAC Address</em> টি পড়ে নেয় এবং নিজের টেবিলে এন্ট্রি করে রাখে। সে মনে রাখে যে,
+              "PC-A আমার ১ নম্বর পোর্টে যুক্ত আছে"।</li>
+            <li><strong>Flooding (ব্রডকাস্ট করা):</strong> যদি সুইচ ফ্রেমের <em>Destination MAC Address</em> (গন্তব্য)
+              আগে থেকে না চেনে, তবে সে ওই ফ্রেমটি রিসিভ করা পোর্ট ছাড়া বাকি সব পোর্টে পাঠিয়ে দেয়। একে <strong>Unknown
+                Unicast Flooding</strong> বলা হয়।</li>
+            <li><strong>Forwarding (ফরোয়ার্ড করা):</strong> Flooding এর পর যখন সঠিক পিসিটি রিপ্লাই দেয়, তখন সুইচ তার MAC
+              Address-ও শিখে নেয়। এরপর থেকে সুইচ আর ব্রডকাস্ট করে না, বরং সরাসরি নির্দিষ্ট পোর্টে ডাটা পাঠিয়ে দেয়। একে
+              ফরোয়ার্ডিং বলে।</li>
+            <li><strong>Aging (মুছে ফেলা):</strong> সুইচের MAC Address Table-এ এন্ট্রিগুলো আজীবনের জন্য থাকে না। সাধারণত
+              ৩০০ সেকেন্ড (৫ মিনিট) কোনো পোর্ট থেকে ডাটা না আসলে সুইচ ওই এন্ট্রিটি মুছে ফেলে, যাতে মেমোরি ফুল না হয়ে
+              যায়।</li>
+          </ol>
+
+          <blockquote>
+            <strong>রিয়েল-লাইফ উদাহরণ:</strong> একটি কর্পোরেট অফিসের মেইলরুমের কথা চিন্তা করুন। নতুন পোস্টম্যান যখন
+            প্রথমদিন কাজে আসেন, তিনি জানেন না কে কোন ডেস্কে বসে (খালি MAC Table)। তাই প্রথম চিঠিটি তিনি সবাইকে জিজ্ঞেস
+            করে ডেলিভারি দেন (Flooding)। কিন্তু ডেলিভারি দেওয়ার সময় তিনি লোকটির ডেস্ক নাম্বার ডায়েরিতে লিখে রাখেন
+            (Learning)। পরেরবার ওই লোকের চিঠি আসলে তিনি আর কাউকে জিজ্ঞেস না করে সরাসরি ওই ডেস্কে দিয়ে আসেন (Forwarding)।
+          </blockquote>
+
+          <h2>২. Switching Methods (ডাটা ফরোয়ার্ডিং পদ্ধতি)</h2>
+          <p>একটি সুইচ ডাটা (Frame) রিসিভ করার পর সেটি কীভাবে প্রসেস করে পাঠাবে, তার ওপর ভিত্তি করে Switching-কে ৩টি
+            মেথডে ভাগ করা যায়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Method Name</th>
+                  <th>কীভাবে কাজ করে?</th>
+                  <th>সুবিধা ও অসুবিধা</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Store-and-Forward</td>
+                  <td>সুইচ পুরো Frame টি রিসিভ করার পর এর Error চেক (FCS/CRC) করে। ফ্রেমে কোনো ভুল না থাকলে এরপর তা
+                    গন্তব্যে পাঠায়।</td>
+                  <td>এটি সবচেয়ে নিরাপদ পদ্ধতি এবং কোনো করাপ্ট ডাটা পাঠায় না। তবে এতে কিছুটা Delay বা লেটেন্সি তৈরি হয়।
+                    আধুনিক সিসকো সুইচগুলো এই মেথড ব্যবহার করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Cut-Through</td>
+                  <td>সুইচ পুরো ফ্রেম রিসিভ করার অপেক্ষা করে না। শুধুমাত্র Destination MAC Address (প্রথম ৬ বাইট) পড়েই
+                    ডাটা পাঠানো শুরু করে দেয়।</td>
+                  <td>এটি অত্যন্ত ফাস্ট বা দ্রুতগতির। কিন্তু এতে Error চেক হয় না, ফলে নষ্ট ফ্রেমও ফরোয়ার্ড হয়ে যেতে
+                    পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Fragment-Free</td>
+                  <td>এটি ওপরের দুটি মেথডের একটি মাঝামাঝি অবস্থা। সুইচ ফ্রেমের প্রথম ৬৪ বাইট রিসিভ করে এবং পড়ে। (কারণ
+                    বেশিরভাগ Error প্রথম ৬৪ বাইটের মধ্যেই হয়)।</td>
+                  <td>এটি Cut-Through এর চেয়ে নিরাপদ এবং Store-and-Forward এর চেয়ে দ্রুত।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Collision Domain এবং Broadcast Domain</h2>
+          <p>নেটওয়ার্ক ডিজাইনে এই দুটি কনসেপ্ট ক্লিয়ার থাকা খুবই জরুরি:</p>
+          <ul>
+            <li><strong>Collision Domain:</strong> এটি এমন একটি এরিয়া যেখানে দুজন একসাথে ডাটা পাঠালে সংঘর্ষ হতে পারে।
+              সুইচের প্রতিটি পোর্ট একেকটি আলাদা Collision Domain। অর্থাৎ, একটি ২৪ পোর্টের সুইচে ২৪টি Collision Domain
+              থাকে। তাই সুইচে ডাটা কলিশন হয় না।</li>
+            <li><strong>Broadcast Domain:</strong> একটি পিসি ব্রডকাস্ট মেসেজ পাঠালে তা যতদূর পর্যন্ত পৌঁছায়। ডিফল্টভাবে
+              একটি সুইচের সব পোর্ট মিলে একটিমাত্র Broadcast Domain তৈরি করে। এটিকে ছোট করার জন্য আমরা <strong>VLAN
+                (Virtual LAN)</strong> ব্যবহার করি।</li>
+          </ul>
+
+          <h2>৪. Layer 2 Switch বনাম Layer 3 Switch</h2>
+          <ul>
+            <li><strong>Layer 2 Switch:</strong> এটি শুধুমাত্র MAC Address চেনে। এটি এক নেটওয়ার্কের ডিভাইসকে যুক্ত করতে
+              পারে, কিন্তু ভিন্ন নেটওয়ার্কে (যেমন 192.168.1.0 থেকে 10.0.0.0) ডাটা পাঠাতে পারে না।</li>
+            <li><strong>Layer 3 Switch:</strong> একে Multilayer Switch-ও বলা হয়। এর ভেতরে রাউটারের ক্ষমতা থাকে। এটি MAC
+              Address এর পাশাপাশি <strong>IP Address</strong> চিনে Routing করতে পারে। বড় বড় কর্পোরেট অফিসের Core Layer-এ
+              এটি ব্যবহার করা হয়।</li>
+          </ul>
+
+          <h2>৫. Cisco Switch বেসিক কনফিগারেশন (CLI)</h2>
+          <p>আপনি যখন নতুন একটি Cisco Switch বক্স থেকে বের করবেন, তখন সিকিউরিটি এবং ম্যানেজমেন্টের জন্য কিছু বেসিক
+            কমান্ড দিতে হয়:</p>
+
+          <p>গ্লোবাল কনফিগারেশন মোডে প্রবেশ করুন এবং সুইচের নাম (Hostname) পরিবর্তন করুন:</p>
+          <pre><code>Switch> enable
+Switch# configure terminal
+Switch(config)# hostname SW-Office</code></pre>
+
+          <p>সুইচটিকে রিমোটলি ম্যানেজ (Telnet/SSH) করার জন্য একটি Management IP (সাধারণত VLAN 1 এ) বসান:</p>
+          <pre><code>SW-Office(config)# interface vlan 1
+SW-Office(config-if)# ip address 192.168.1.10 255.255.255.0
+SW-Office(config-if)# no shutdown
+SW-Office(config-if)# exit</code></pre>
+
+          <p>ডিফল্ট গেটওয়ে (রাউটারের আইপি) সেট করুন যাতে অন্য নেটওয়ার্ক থেকে সুইচে লগইন করা যায়:</p>
+          <pre><code>SW-Office(config)# ip default-gateway 192.168.1.1</code></pre>
+
+          <p>সবশেষে কনফিগারেশন সেভ করুন:</p>
+          <pre><code>SW-Office# write memory</code></pre>
+
+          <h2>৬. Switching ট্রাবলশুটিং টিপস</h2>
+          <p>নেটওয়ার্কে কোনো ইউজার ইন্টারনেট বা সার্ভার না পেলে নিচের কমান্ডগুলো দিয়ে ট্রাবলশুট করুন:</p>
+          <ol>
+            <li><strong>MAC Table চেক করা:</strong> প্রথমে চেক করুন ইউজারের পিসির MAC Address সুইচ লার্ন করেছে কি
+              না।<br><code>SW-Office# show mac address-table</code></li>
+            <li><strong>পোর্টের স্ট্যাটাস দেখা:</strong> ইউজারের পোর্টটি আপ (Up) আছে কি না এবং স্পিড ঠিক আছে কি না তা
+              চেক করুন।<br><code>SW-Office# show interfaces status</code></li>
+            <li><strong>Duplex Mismatch:</strong> যদি পোর্ট আপ থাকে কিন্তু স্পিড ভীষণ স্লো হয়, তবে চেক করুন পোর্টে
+              <code>Half-Duplex</code> হয়ে আছে কি না। আধুনিক নেটওয়ার্কে সব পোর্ট <code>Full-Duplex</code> হওয়া
+              বাধ্যতামূলক।</li>
+          </ol>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Switching</strong> হলো যেকোনো লোকাল এরিয়া নেটওয়ার্কের হার্ট বা প্রাণকেন্দ্র। Data Link Layer-এ
+              MAC Address ব্যবহার করে বুদ্ধিমত্তার সাথে ফ্রেম ফরোয়ার্ড করার কারণেই আমরা আজ হাই-স্পিড এবং রিলায়েবল
+              নেটওয়ার্ক পাচ্ছি। একটি সুইচের <strong>MAC Learning</strong> মেকানিজম, ফরোয়ার্ডিং মেথড এবং বেসিক কনফিগারেশন
+              বুঝতে পারা একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ারের জন্য প্রথম এবং সবচেয়ে গুরুত্বপূর্ণ স্কিল।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

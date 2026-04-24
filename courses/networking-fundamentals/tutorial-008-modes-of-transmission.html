@@ -5,61 +5,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. Transmission Mode: Simplex, Half-Duplex à¦à¦¬à¦‚ Full-Duplex à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
-  <title>Transmission Mode: Simplex, Half-Duplex à¦à¦¬à¦‚ Full-Duplex | enablement.info</title>
+    content="Transmission Mode কী? Simplex, Half-Duplex এবং Full-Duplex এর মধ্যে পার্থক্য, রিয়েল-লাইফ উদাহরণ এবং Cisco সুইচে Duplex Mismatch ট্রাবলশুটিং গাইড।">
+  <title>Transmission Mode: Simplex, Half-Duplex & Full-Duplex | enablement.info</title>
 
-  <!-- Icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <!-- CSS -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    :root {
-      --primary-color: #0563bb;
-      --secondary-color: #1a2a4a;
-      --glass-bg: rgba(255, 255, 255, 0.95);
-      --glass-border: rgba(226, 232, 240, 0.8);
-      --text-main: #334155;
-      --text-muted: #64748b;
-    }
-
     body,
     html {
       margin: 0;
       padding: 0;
-      background: #ffffff;
+      background: #fff;
       color: var(--text-main);
-      font-family: 'Inter', sans-serif;
     }
 
     .blog-content-wrapper {
-      padding: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
     }
 
     .glass-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
       padding: 40px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: none;
+      margin-top: 0;
     }
 
     .article-header {
-      border-bottom: 2px solid #edf2f7;
+      border-bottom: 1px solid var(--glass-border);
       margin-bottom: 30px;
       padding-bottom: 20px;
     }
 
     .article-header h1 {
-      font-size: 2.5rem;
-      color: var(--secondary-color);
+      font-size: 2.2rem;
+      color: var(--primary-color);
       margin-bottom: 15px;
       font-weight: 800;
-      line-height: 1.2;
     }
 
     .article-meta {
@@ -67,94 +56,69 @@
       font-size: 0.95rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 8px;
     }
 
     .article-body {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       line-height: 1.8;
       color: var(--text-main);
     }
 
     .article-body h2 {
       color: var(--primary-color);
-      margin-top: 45px;
-      border-left: 5px solid var(--primary-color);
-      padding-left: 20px;
-      font-weight: 700;
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
     }
 
     .content-box {
       background: #f1f7fd;
-      border-radius: 12px;
-      padding: 25px;
-      margin: 30px 0;
-      border: 1px solid #e2e8f0;
-    }
-
-    .topology-diagram {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      margin: 20px auto;
-      display: block;
-      background: white;
-      border-radius: 12px;
+      border-left: 4px solid var(--primary-color);
       padding: 20px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    .topology-node {
-      fill: var(--primary-color);
-      stroke: white;
-      stroke-width: 2;
-    }
-
-    .topology-link {
-      stroke: #cbd5e1;
-      stroke-width: 2;
-      stroke-linecap: round;
-    }
-
-    .formula-box {
-      background: #fff;
-      border: 1px dashed var(--primary-color);
-      padding: 10px 20px;
-      display: inline-block;
       border-radius: 8px;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: bold;
-      color: var(--primary-color);
-      margin: 10px 0;
-    }
-
-    .comparison-table {
-      width: 100%;
-      border-collapse: collapse;
       margin: 25px 0;
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
 
-    .comparison-table th,
-    .comparison-table td {
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
       padding: 15px;
-      text-align: left;
-      border-bottom: 1px solid #edf2f7;
-    }
-
-    .comparison-table th {
-      background: var(--secondary-color);
-      color: white;
-      font-weight: 600;
-    }
-
-    ul li {
-      margin-bottom: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
     }
   </style>
+
 </head>
 
 <body class="tutorial-page">
@@ -163,16 +127,184 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Transmission Mode: Simplex, Half-Duplex à¦à¦¬à¦‚ Full-Duplex</h1>
+          <h1>Transmission Mode: Simplex, Half-Duplex & Full-Duplex</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> Jan 02, 2026</span>
-            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-calendar'></i> 30 April, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Transmission Mode: Simplex, Half-Duplex à¦à¦¬à¦‚ Full-Duplex</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>নেটওয়ার্কিংয়ে যুক্ত থাকা দুটি ডিভাইস একে অপরের সাথে কীভাবে ডাটা আদান-প্রদান করবে এবং সেই ডাটা কোন দিকে ফ্লো
+            (Flow) করবে, তা নির্ধারণ করে <strong>Transmission Mode</strong>। এটি মূলত OSI মডেলের Physical Layer-এর একটি
+            অত্যন্ত গুরুত্বপূর্ণ কনসেপ্ট।</p>
+          <p>ডাটা সিগন্যাল কি শুধু একদিকে যাবে? নাকি দুই দিকেই যেতে পারবে? যদি দুই দিকে যায়, তবে কি একই সময়ে যাবে নাকি
+            একে একে যাবে? এই প্রশ্নগুলোর ওপর ভিত্তি করেই Transmission Mode-কে প্রধানত তিনটি ভাগে ভাগ করা হয়েছে:
+            <strong>Simplex</strong>, <strong>Half-Duplex</strong> এবং <strong>Full-Duplex</strong>। আজকের এই ডিপ-ডাইভ
+            গাইডে আমরা এই তিনটি মোডের কার্যপ্রণালী, রিয়েল-লাইফ উদাহরণ এবং নেটওয়ার্কিংয়ে এদের প্রভাব বিস্তারিতভাবে জানবো।
+          </p>
+
+          <div class="content-box">
+            <h3>১. Simplex Mode (সিমপ্লেক্স মোড)</h3>
+            <p><strong>Simplex Mode</strong>-এ ডাটা ট্রান্সমিশন সম্পূর্ণভাবে একমুখী (Unidirectional) হয়। একে একটি
+              ওয়ান-ওয়ে রাস্তার (One-way street) সাথে তুলনা করা যায়, যেখানে গাড়ি শুধু একদিকেই যেতে পারে।</p>
+            <ul>
+              <li><strong>কীভাবে কাজ করে:</strong> এই মোডে একটি ডিভাইস শুধুমাত্র ডাটা পাঠাতে পারে (Sender), কিন্তু রিসিভ
+                করতে পারে না। অপর ডিভাইসটি শুধুমাত্র ডাটা রিসিভ করতে পারে (Receiver), কিন্তু কোনো রিপ্লাই বা ফিডব্যাক
+                দিতে পারে না।</li>
+              <li><strong>ব্যান্ডউইথের ব্যবহার:</strong> যেহেতু ডাটা শুধু একদিকে যায়, তাই পুরো চ্যানেলের Bandwidth
+                শুধুমাত্র ট্রান্সমিট করার কাজেই ১০০% ব্যবহৃত হয়।</li>
+              <li><strong>রিয়েল-লাইফ উদাহরণ:</strong>
+                <ul>
+                  <li><strong>টেলিভিশন এবং রেডিও ব্রডকাস্ট:</strong> টিভি স্টেশন বা রেডিও স্টেশন থেকে সিগন্যাল আপনার
+                    টিভিতে আসে। কিন্তু আপনি টিভি থেকে রেডিও স্টেশনে কোনো সিগন্যাল ফেরত পাঠাতে পারেন না।</li>
+                  <li><strong>কিবোর্ড এবং মনিটর:</strong> কিবোর্ড থেকে ডাটা সিপিইউতে (CPU) যায়, আর সিপিইউ থেকে মনিটরে
+                    আউটপুট যায়। এটি একমুখী ট্রান্সমিশন।</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="content-box">
+            <h3>২. Half-Duplex Mode (হাফ-ডুপ্লেক্স মোড)</h3>
+            <p><strong>Half-Duplex Mode</strong>-এ ডাটা ট্রান্সমিশন দুই দিকেই (Bidirectional) হতে পারে, তবে <strong>একই
+                সময়ে নয়</strong>। একে একটি এক লেনের ব্রিজের সাথে তুলনা করা যায়, যেখানে দুই দিক থেকেই গাড়ি আসতে পারে,
+              কিন্তু এক দিকের গাড়ি পাস হওয়ার পর অন্য দিকের গাড়ি ব্রিজে উঠতে হয়।</p>
+            <ul>
+              <li><strong>কীভাবে কাজ করে:</strong> এই মোডে দুটি ডিভাইস ডাটা সেন্ড এবং রিসিভ দুটোই করতে পারে। কিন্তু যখন
+                ডিভাইস 'A' ডাটা পাঠায়, তখন ডিভাইস 'B' কে শুধুমাত্র রিসিভ মোডে থাকতে হয়। 'A'-এর পাঠানো শেষ হলে তবেই 'B'
+                ডাটা পাঠাতে পারে।</li>
+              <li><strong>Collision (সংঘর্ষ):</strong> যদি দুটি ডিভাইস ভুল করে একই সময়ে ডাটা পাঠিয়ে দেয়, তবে মাঝপথে
+                ডাটার সংঘর্ষ বা <strong>Collision</strong> হয় এবং ডাটা নষ্ট হয়ে যায়। এই সমস্যা সমাধানের জন্য এখানে
+                <strong>CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</strong> নামক প্রোটোকল ব্যবহার
+                করা হয়।</li>
+              <li><strong>রিয়েল-লাইফ উদাহরণ:</strong>
+                <ul>
+                  <li><strong>ওয়াকি-টকি (Walkie-Talkie):</strong> একজন কথা বলার পর 'Over' বলে বাটন ছাড়ে, তারপর অন্যজন
+                    কথা বলা শুরু করে। দুজন একসাথে কথা বললে কেউ কারো কথা শুনতে পায় না।</li>
+                  <li><strong>Hub (হাব):</strong> নেটওয়ার্কিংয়ের পুরোনো ডিভাইস Hub হাফ-ডুপ্লেক্স মোডে কাজ করে। তাই হাবে
+                    সংযুক্ত পিসিগুলোর স্পিড অনেক কম থাকে।</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="content-box">
+            <h3>৩. Full-Duplex Mode (ফুল-ডুপ্লেক্স মোড)</h3>
+            <p><strong>Full-Duplex Mode</strong>-এ ডাটা ট্রান্সমিশন দুই দিকেই এবং <strong>একই সময়ে</strong>
+              (Simultaneous) হতে পারে। এটি হলো আধুনিক নেটওয়ার্কিংয়ের স্ট্যান্ডার্ড। একে একটি মাল্টি-লেন হাইওয়ের সাথে
+              তুলনা করা যায়, যেখানে গাড়িগুলো একই সময়ে যাওয়া-আসা করতে পারে, কোনো সংঘর্ষের ভয় থাকে না।</p>
+            <ul>
+              <li><strong>কীভাবে কাজ করে:</strong> এই মোডে সেন্ড এবং রিসিভ করার জন্য আলাদা আলাদা চ্যানেল বা ক্যাবলের
+                পেয়ার (Pair) থাকে। তাই ডিভাইস 'A' এবং ডিভাইস 'B' কোনো অপেক্ষা ছাড়াই একই সময়ে ডাটা আদান-প্রদান করতে পারে।
+              </li>
+              <li><strong>পারফরম্যান্স:</strong> এখানে Collision হওয়ার কোনো সুযোগ নেই, তাই স্পিড এবং Bandwidth এর
+                সর্বোচ্চ ব্যবহার নিশ্চিত হয়।</li>
+              <li><strong>রিয়েল-লাইফ উদাহরণ:</strong>
+                <ul>
+                  <li><strong>টেলিফোন বা মোবাইল ফোন:</strong> আপনি এবং আপনার বন্ধু ফোনে একই সাথে কথা বলতে এবং শুনতে
+                    পারেন।</li>
+                  <li><strong>আধুনিক Switch:</strong> বর্তমানের সকল Switch এবং রাউটারের পোর্টগুলো Full-Duplex মোডে কাজ
+                    করে, যার ফলে আমরা 1 Gbps বা 10 Gbps স্পিড পেয়ে থাকি।</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <h2>৪. তিনটি মোডের তুলনামূলক পার্থক্য</h2>
+          <p>নিচের টেবিলটি থেকে তিনটি মোডের মূল পার্থক্যগুলো একনজরে দেখে নিন:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Simplex</th>
+                  <th>Half-Duplex</th>
+                  <th>Full-Duplex</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">ডাটার দিক (Direction)</td>
+                  <td>একমুখী (Unidirectional)</td>
+                  <td>উভয়মুখী (Bidirectional)</td>
+                  <td>উভয়মুখী (Bidirectional)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ট্রান্সমিশন সময় (Time)</td>
+                  <td>শুধু একদিকে যায়</td>
+                  <td>এক সময়ে শুধু একজন পাঠায়</td>
+                  <td>একই সময়ে দুজনই পাঠায়</td>
+                </tr>
+                <tr>
+                  <td class="type-column">পারফরম্যান্স (Speed)</td>
+                  <td>সবচেয়ে কম</td>
+                  <td>মাঝারি</td>
+                  <td>সর্বোচ্চ</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Collision এর ভয়</td>
+                  <td>নেই</td>
+                  <td>অনেক বেশি</td>
+                  <td>একেবারেই নেই</td>
+                </tr>
+                <tr>
+                  <td class="type-column">উদাহরণ (Example)</td>
+                  <td>রেডিও, টিভি, কিবোর্ড</td>
+                  <td>ওয়াকি-টকি, Hub</td>
+                  <td>মোবাইল ফোন, Switch</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. Cisco CLI কনফিগারেশন এবং ট্রাবলশুটিং</h2>
+          <p>একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে প্রায়ই ইন্টারফেসের Duplex Mode কনফিগার এবং ট্রাবলশুট করতে হবে।
+            আধুনিক ডিভাইসগুলো <strong>Auto-Negotiation</strong> এর মাধ্যমে নিজেরাই Full-Duplex সেট করে নেয়, তবে কখনো
+            কখনো ম্যানুয়ালি সেট করার প্রয়োজন হয়।</p>
+
+          <h3>ইন্টারফেসে Duplex Mode কনফিগার করা:</h3>
+          <p>Cisco সুইচের কোনো নির্দিষ্ট পোর্টে স্পিড এবং ডুপ্লেক্স ম্যানুয়ালি ফিক্স করতে নিচের কমান্ডগুলো ব্যবহার করুন:
+          </p>
+          <pre><code>Switch> enable
+Switch# configure terminal
+Switch(config)# interface gigabitEthernet 0/1
+Switch(config-if)# speed 1000
+Switch(config-if)# duplex full
+Switch(config-if)# exit</code></pre>
+
+          <h3>ইন্টারফেসের বর্তমান স্ট্যাটাস চেক করা:</h3>
+          <p>পোর্টটি হাফ নাকি ফুল ডুপ্লেক্সে চলছে তা দেখার জন্য:</p>
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1 status</code></pre>
+          <p>অথবা, বিস্তারিত দেখার জন্য:</p>
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1</code></pre>
+          <p><em>(আউটপুটে "Full-duplex, 1000Mb/s" এর মতো লেখা দেখতে পাবেন।)</em></p>
+
+          <h3>ট্রাবলশুটিং টিপস: Duplex Mismatch</h3>
+          <p>নেটওয়ার্কিংয়ের সবচেয়ে ভয়াবহ এবং লুকায়িত একটি সমস্যা হলো <strong>Duplex Mismatch</strong>। এটি তখন ঘটে, যখন
+            লিংকের একপাশে Full-Duplex এবং অপর পাশে Half-Duplex কনফিগার করা থাকে।</p>
+          <ul>
+            <li><strong>কী সমস্যা হয়?</strong> ফুল-ডুপ্লেক্স প্রান্তটি যেকোনো সময় ডাটা পাঠাতে থাকে, কিন্তু হাফ-ডুপ্লেক্স
+              প্রান্তটি একই সময়ে ডাটা রিসিভ এবং সেন্ড করতে গিয়ে Collision এর শিকার হয়।</li>
+            <li><strong>লক্ষণ (Symptoms):</strong> নেটওয়ার্কের কানেকশন (লিংক লাইট) ঠিক থাকবে এবং পিং (Ping) ও কাজ করবে।
+              কিন্তু বড় কোনো ফাইল ট্রান্সফার করতে গেলে স্পিড একদম ড্রপ করবে বা ডাটা লস হবে। <code>show interfaces</code>
+              কমান্ড দিলে প্রচুর <strong>Late Collisions</strong> এবং <strong>CRC Errors</strong> দেখতে পাবেন।</li>
+            <li><strong>সমাধান:</strong> দুই পাশেই <code>duplex auto</code> সেট করুন, অথবা দুই পাশেই ম্যানুয়ালি
+              <code>duplex full</code> ফিক্সড করে দিন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Transmission Mode</strong> মূলত আমাদের ডিভাইসগুলোর ডাটা কমিউনিকেশন করার ক্ষমতা এবং স্পিড নির্ধারণ
+              করে। যেখানে <strong>Simplex Mode</strong> ব্রডকাস্টিংয়ের জন্য উপযুক্ত, সেখানে <strong>Half-Duplex</strong>
+              কেবল পুরনো লেগ্যাসি নেটওয়ার্কেই সীমাবদ্ধ। আধুনিক হাই-স্পিড এবং নির্ভরযোগ্য ডাটা ট্রান্সফারের জন্য
+              <strong>Full-Duplex Mode</strong>-এর কোনো বিকল্প নেই। এই মোডগুলো কীভাবে কাজ করে এবং <strong>Duplex
+                Mismatch</strong> এর মতো ক্রিটিক্যাল সমস্যা কীভাবে সমাধান করতে হয়—তা জানা একজন দক্ষ নেটওয়ার্ক
+              প্রফেশনালের জন্য অপরিহার্য।</p>
+          </div>
+
         </div>
       </article>
     </div>

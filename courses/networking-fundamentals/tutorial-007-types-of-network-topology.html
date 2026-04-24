@@ -5,61 +5,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. Types of Network Topology à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
-  <title>Types of Network Topology | enablement.info</title>
+    content="Computer Network Topology সম্পর্কে বিস্তারিত বাংলা গাইড। Star, Mesh, Bus, Ring টপোলজি এবং Cisco ডিভাইসে টপোলজি ট্রাবলশুটিং শিখুন।">
+  <title>Computer Network Topology: Detailed Guide | enablement.info</title>
 
-  <!-- Icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    :root {
-      --primary-color: #0563bb;
-      --secondary-color: #1a2a4a;
-      --glass-bg: rgba(255, 255, 255, 0.95);
-      --glass-border: rgba(226, 232, 240, 0.8);
-      --text-main: #334155;
-      --text-muted: #64748b;
-    }
-
     body,
     html {
       margin: 0;
       padding: 0;
-      background: #ffffff;
+      background: #fff;
       color: var(--text-main);
-      font-family: 'Inter', sans-serif;
     }
 
     .blog-content-wrapper {
-      padding: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
     }
 
     .glass-panel {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 16px;
+      background: transparent;
+      border: none;
+      border-radius: 0;
       padding: 40px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      box-shadow: none;
+      margin-top: 0;
     }
 
     .article-header {
-      border-bottom: 2px solid #edf2f7;
+      border-bottom: 1px solid var(--glass-border);
       margin-bottom: 30px;
       padding-bottom: 20px;
     }
 
     .article-header h1 {
-      font-size: 2.5rem;
-      color: var(--secondary-color);
+      font-size: 2.2rem;
+      color: var(--primary-color);
       margin-bottom: 15px;
       font-weight: 800;
-      line-height: 1.2;
     }
 
     .article-meta {
@@ -67,95 +53,76 @@
       font-size: 0.95rem;
       display: flex;
       flex-wrap: wrap;
-      gap: 15px;
+      gap: 8px;
     }
 
     .article-body {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       line-height: 1.8;
       color: var(--text-main);
     }
 
     .article-body h2 {
       color: var(--primary-color);
-      margin-top: 45px;
-      border-left: 5px solid var(--primary-color);
-      padding-left: 20px;
-      font-weight: 700;
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
     }
 
     .article-body h3 {
-      color: var(--secondary-color);
-      margin-top: 30px;
-      font-size: 1.5rem;
-      font-weight: 600;
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
     }
 
     .content-box {
       background: #f1f7fd;
-      border-radius: 12px;
-      padding: 25px;
-      margin: 30px 0;
-      border: 1px solid #e2e8f0;
-    }
-
-    .topology-diagram {
-      width: 100%;
-      max-width: 500px;
-      height: auto;
-      margin: 20px auto;
-      display: block;
-      background: white;
-      border-radius: 12px;
+      border-left: 4px solid var(--primary-color);
       padding: 20px;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .topology-node {
-      fill: var(--primary-color);
-      stroke: white;
-      stroke-width: 2;
-      transition: all 0.3s ease;
-    }
-
-    .topology-link {
-      stroke: #cbd5e1;
-      stroke-width: 2;
-      stroke-linecap: round;
-    }
-
-    .topology-hub {
-      fill: var(--secondary-color);
-      stroke: white;
-      stroke-width: 2;
-    }
-
-    .topology-backbone {
-      stroke: var(--secondary-color);
-      stroke-width: 4;
-      stroke-linecap: round;
-    }
-
-    .formula-box {
-      background: #fff;
-      border: 1px dashed var(--primary-color);
-      padding: 10px 20px;
-      display: inline-block;
       border-radius: 8px;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: bold;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
       color: var(--primary-color);
-      margin: 10px 0;
+      transform: translateX(-5px);
     }
 
-    ul li {
-      margin-bottom: 10px;
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
     }
 
-    strong {
-      color: var(--secondary-color);
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--primary-color);
+      margin-bottom: 20px;
     }
   </style>
+
 </head>
 
 <body class="tutorial-page">
@@ -166,14 +133,174 @@
         <header class="article-header">
           <h1>Computer Network Topology: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> Jan 02, 2026</span>
-            <span><i class='bx bx-category'></i> Networking</span>
+            <span><i class='bx bx-calendar'></i> 29 April, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Computer Network Topology: Detailed Guide</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের জগতে ডাটা ট্রান্সমিশন সফল হওয়ার জন্য ডিভাইসগুলো কীভাবে একে অপরের সাথে যুক্ত আছে,
+            সেটি অত্যন্ত গুরুত্বপূর্ণ। একটি নেটওয়ার্কে থাকা কম্পিউটার, রাউটার, সুইচ এবং অন্যান্য ডিভাইসগুলোর (যাদেরকে
+            Node বলা হয়) জ্যামিতিক বা লজিক্যাল গঠনপ্রণালীকেই বলা হয় <strong>Network Topology</strong>।</p>
+          <p>আজকের এই ডিপ-ডাইভ গাইডে আমরা বিভিন্ন ধরনের Network Topology, তাদের সুবিধা-অসুবিধা, রিয়েল-লাইফ ব্যবহার এবং
+            Cisco ডিভাইসে কীভাবে টপোলজি খুঁজে বের করতে হয় (Troubleshooting), তা বিস্তারিতভাবে জানবো।</p>
+
+          <div class="content-box">
+            <h3>Physical vs Logical Topology</h3>
+            <p>টপোলজি নিয়ে আলোচনা করার আগে আমাদের দুটি বেসিক কনসেপ্ট ক্লিয়ার করতে হবে:</p>
+            <ul>
+              <li><strong>Physical Topology:</strong> এটি হলো নেটওয়ার্কের ফিজিক্যাল ম্যাপ। ক্যাবলগুলো ঠিক কীভাবে এক
+                ডিভাইস থেকে অন্য ডিভাইসে লাগানো আছে, তা Physical Topology নির্ধারণ করে।</li>
+              <li><strong>Logical Topology:</strong> ফিজিক্যাল ক্যাবল যেমনই থাকুক না কেন, নেটওয়ার্কের ভেতর দিয়ে ডাটা
+                (Data) ঠিক কোন নিয়মে বা কোন পথে ফ্লো (Flow) করছে, সেটি হলো Logical Topology।</li>
+            </ul>
+          </div>
+
+          <h2>১. Bus Topology (বাস টপোলজি)</h2>
+          <p>Bus Topology হলো সবচেয়ে পুরনো এবং সাধারণ একটি টপোলজি। এখানে একটি মাত্র প্রধান ক্যাবল থাকে, যাকে
+            <strong>Backbone Cable</strong> বলা হয়। নেটওয়ার্কের সবগুলো ডিভাইস এই একটি ক্যাবলের সাথেই যুক্ত থাকে।</p>
+
+          <ul>
+            <li><strong>কীভাবে কাজ করে:</strong> কোনো একটি পিসি ডাটা পাঠালে সেই ডাটা Backbone ক্যাবলের মধ্য দিয়ে দুই
+              দিকেই ট্রাভেল করে। প্রতিটি ডিভাইস ডাটাটি চেক করে। যদি ডাটা তার জন্য হয়, তবে সে রিসিভ করে; নাহলে ইগনোর করে।
+            </li>
+            <li><strong>Terminator:</strong> মেইন ক্যাবলের দুই প্রান্তে দুটি Terminator লাগানো থাকে, যাতে সিগন্যাল
+              ক্যাবলের শেষ মাথায় গিয়ে প্রতিফলিত (Reflect) হয়ে ফিরে না আসে।</li>
+          </ul>
+
+          <p><strong>সুবিধা ও অসুবিধা:</strong> এটি সেটআপ করা খুব সহজ এবং ক্যাবল কম লাগে। কিন্তু মেইন Backbone ক্যাবলটি
+            কোনো কারণে কাটা পড়লে পুরো নেটওয়ার্ক ডাউন হয়ে যায়। তাছাড়া, একাধিক পিসি একসাথে ডাটা পাঠালে <strong>Data
+              Collision</strong> (ডাটার সংঘর্ষ) হওয়ার সম্ভাবনা অনেক বেশি থাকে।</p>
+
+          <h2>২. Star Topology (স্টার টপোলজি)</h2>
+          <p>আধুনিক নেটওয়ার্কিংয়ে এটি <strong>সবচেয়ে বেশি ব্যবহৃত</strong> টপোলজি। Star Topology-তে প্রতিটি ডিভাইস একটি
+            সেন্ট্রাল বা কেন্দ্রীয় ডিভাইসের সাথে আলাদা আলাদা ক্যাবল দিয়ে যুক্ত থাকে। এই সেন্ট্রাল ডিভাইসটি সাধারণত একটি
+            <strong>Switch</strong> বা <strong>Hub</strong> হয়ে থাকে।</p>
+
+
+
+          <ul>
+            <li><strong>কীভাবে কাজ করে:</strong> কোনো পিসি সরাসরি অন্য কোনো পিসিকে ডাটা পাঠাতে পারে না। তাকে প্রথমে
+              সেন্ট্রাল Switch-এ ডাটা পাঠাতে হয়। Switch তার <strong>MAC Address Table</strong> চেক করে ডাটাটি সঠিক
+              গন্তব্যে পৌঁছে দেয়।</li>
+            <li><strong>রিয়েল-লাইফ উদাহরণ:</strong> আমাদের অফিস বা বাসাবাড়ির নেটওয়ার্ক। আপনার পিসি, ল্যাপটপ এবং
+              প্রিন্টার সবগুলোই রাউটার বা সুইচের সাথে যুক্ত থাকে।</li>
+          </ul>
+
+          <p><strong>সুবিধা ও অসুবিধা:</strong> এর সবচেয়ে বড় সুবিধা হলো, একটি ক্যাবল নষ্ট হলে শুধু ওই নির্দিষ্ট পিসিটির
+            কানেকশন বিচ্ছিন্ন হয়; বাকি নেটওয়ার্ক সচল থাকে। ফল্ট খুঁজে বের করা (Troubleshooting) খুব সহজ। তবে, মাঝখানের
+            Switch-টি নষ্ট হয়ে গেলে পুরো নেটওয়ার্ক অচল হয়ে যায় (যাকে Single Point of Failure বলা হয়)।</p>
+
+          <h2>৩. Ring Topology (রিং টপোলজি)</h2>
+          <p>Ring Topology-তে প্রতিটি ডিভাইস তার দুই পাশের দুটি ডিভাইসের সাথে যুক্ত হয়ে একটি গোলাকার রিং বা লুপ তৈরি
+            করে। এর কোনো শুরু বা শেষ প্রান্ত থাকে না।</p>
+
+          <ul>
+            <li><strong>Token Passing:</strong> এই টপোলজিতে ডাটা ট্রান্সফার করার জন্য একটি বিশেষ সিগন্যাল ব্যবহার করা
+              হয়, যাকে <strong>Token</strong> বলে। যেই পিসির কাছে টোকেন থাকে, শুধুমাত্র সেই পিসি ডাটা পাঠাতে পারে। এতে
+              <strong>Collision</strong> হওয়ার কোনো সুযোগ থাকে না।</li>
+          </ul>
+
+          <p><strong>সুবিধা ও অসুবিধা:</strong> ডাটা ফ্লো খুবই সুশৃঙ্খল। কিন্তু যেকোনো একটি ডিভাইস বা ক্যাবল নষ্ট হলে
+            পুরো রিং ভেঙে যায় এবং নেটওয়ার্ক ডাউন হয়ে যায়। রিকভার করার জন্য অনেক সময় <strong>Dual Ring</strong> (FDDI)
+            ব্যবহার করা হয়, যেখানে মেইন রিং ডাউন হলে ব্যাকআপ রিং কাজ শুরু করে।</p>
+
+          <h2>৪. Mesh Topology (মেশ টপোলজি)</h2>
+          <p>Mesh Topology হলো সবচেয়ে নির্ভরযোগ্য এবং ব্যয়বহুল টপোলজি। এখানে প্রতিটি ডিভাইস সরাসরি নেটওয়ার্কের অন্য সকল
+            ডিভাইসের সাথে আলাদা আলাদা ক্যাবল দিয়ে যুক্ত থাকে।</p>
+
+          <ul>
+            <li><strong>Full Mesh:</strong> প্রতিটি ডিভাইস বাকি সবার সাথে সরাসরি যুক্ত। ক্যাবল সংখ্যা হিসাব করার
+              ফর্মুলা: <code>N(N-1)/2</code> (যেখানে N হলো ডিভাইসের সংখ্যা)।</li>
+            <li><strong>Partial Mesh:</strong> কিছু ডিভাইস সবার সাথে যুক্ত থাকে, আর কিছু ডিভাইস শুধুমাত্র যাদের সাথে
+              বেশি ডাটা আদান-প্রদান হয়, তাদের সাথে যুক্ত থাকে।</li>
+            <li><strong>রিয়েল-লাইফ উদাহরণ:</strong> ইন্টারনেট বা বড় ডাটা সেন্টারের <strong>Core Routers</strong>। এখানে
+              <strong>High Redundancy</strong> (ব্যাকআপ) অত্যন্ত জরুরি।</li>
+          </ul>
+
+          <p><strong>সুবিধা ও অসুবিধা:</strong> এর প্রধান সুবিধা হলো <strong>Redundancy</strong>। একটি বা দুটি ক্যাবল
+            ছিঁড়ে গেলেও অন্য রাস্তা দিয়ে ডাটা পৌঁছাতে পারে। ট্রাফিক জ্যাম হয় না। তবে, এর ইন্সটলেশন অনেক জটিল এবং প্রচুর
+            পরিমাণ ক্যাবল ও পোর্ট প্রয়োজন হওয়ায় এটি অত্যন্ত ব্যয়বহুল।</p>
+
+          <h2>৫. Tree এবং Hybrid Topology</h2>
+          <ul>
+            <li><strong>Tree Topology:</strong> এটি মূলত Star এবং Bus টপোলজির সংমিশ্রণ। এখানে একাধিক Star নেটওয়ার্ককে
+              একটি মেইন Backbone ক্যাবল (Bus) এর মাধ্যমে যুক্ত করা হয়। বড় বড় কর্পোরেট অফিসে (যেখানে Distribution Layer
+              এবং Access Layer থাকে) এটি ব্যবহার করা হয়।</li>
+            <li><strong>Hybrid Topology:</strong> দুই বা ততোধিক ভিন্ন ধরনের টপোলজির মিশ্রণকে Hybrid Topology বলে। যেমন,
+              একটি কোম্পানির ঢাকা অফিসে Star Topology এবং চট্টগ্রাম অফিসে Ring Topology থাকতে পারে। এই দুটিকে একসাথে
+              যুক্ত করলে সেটি Hybrid Topology হয়ে যাবে।</li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Topology Name</th>
+                  <th>Cost (খরচ)</th>
+                  <th>Reliability (নির্ভরযোগ্যতা)</th>
+                  <th>Troubleshooting</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Bus Topology</td>
+                  <td>খুব কম</td>
+                  <td>খুব কম (Backbone ফেইল করলে সব ডাউন)</td>
+                  <td>কঠিন</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Star Topology</td>
+                  <td>মাঝারি</td>
+                  <td>উচ্চ (Switch ভালো থাকলে কোনো সমস্যা নেই)</td>
+                  <td>খুব সহজ</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Mesh Topology</td>
+                  <td>খুব বেশি</td>
+                  <td>সর্বোচ্চ (Full Redundancy)</td>
+                  <td>জটিল</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৬. Network Topology Discovery (CLI Troubleshooting)</h2>
+          <p>বাস্তব জীবনে কোনো কোম্পানির নেটওয়ার্কে জয়েন করার পর আপনাকে হয়তো তাদের টপোলজির কোনো ডায়াগ্রাম দেওয়া হবে না।
+            একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে কমান্ড দিয়ে দিয়ে খুঁজে বের করতে হবে কোন রাউটার বা সুইচের সাথে কে
+            যুক্ত আছে।</p>
+
+          <p>Cisco ডিভাইসে টপোলজি ম্যাপ করার জন্য সবচেয়ে শক্তিশালী দুটি প্রোটোকল হলো <strong>CDP (Cisco Discovery
+              Protocol)</strong> এবং <strong>LLDP (Link Layer Discovery Protocol)</strong>।</p>
+
+          <h3>কমান্ড ১: CDP দিয়ে নেইবার (Neighbor) খুঁজে বের করা</h3>
+          <p>এই কমান্ডটি আপনাকে দেখাবে আপনার ডিভাইসের সাথে সরাসরি কোন কোন Cisco ডিভাইস যুক্ত আছে।</p>
+          <pre><code>Router# show cdp neighbors</code></pre>
+          <p><strong>আউটপুটে আপনি যা দেখতে পাবেন:</strong></p>
+          <ul>
+            <li>Device ID: যুক্ত থাকা ডিভাইসের নাম (Hostname)।</li>
+            <li>Local Intrfce: আপনার ডিভাইসের কোন পোর্ট দিয়ে সে যুক্ত।</li>
+            <li>Platform: অপর ডিভাইসের মডেল (যেমন: Cisco 2960 Switch)।</li>
+            <li>Port ID: অপর ডিভাইসের কোন পোর্টে ক্যাবলটি লাগানো।</li>
+          </ul>
+
+          <h3>কমান্ড ২: LLDP ব্যবহার করা (Multi-Vendor Environment)</h3>
+          <p>আপনার নেটওয়ার্কে যদি Cisco ছাড়া অন্য কোনো ব্র্যান্ডের (যেমন: MikroTik, Juniper) সুইচ থাকে, তবে CDP কাজ করবে
+            না। তখন আপনাকে গ্লোবাল স্ট্যান্ডার্ড LLDP ব্যবহার করতে হবে:</p>
+          <pre><code>Router(config)# lldp run
+Router# show lldp neighbors</code></pre>
+
+          <div class="content-box">
+            <h3>Conclusion</h3>
+            <p>একটি সঠিক <strong>Network Topology</strong> নির্বাচন করা নেটওয়ার্ক ডিজাইনের সবচেয়ে গুরুত্বপূর্ণ ধাপ।
+              পারফরম্যান্স, বাজেট এবং রিলায়েবিলিটি—এই তিনটি বিষয়ের ওপর ভিত্তি করে টপোলজি নির্বাচন করতে হয়। লোকাল
+              নেটওয়ার্কের (LAN) জন্য <strong>Star Topology</strong> হলো ইন্ডাস্ট্রির ডিফল্ট স্ট্যান্ডার্ড, আর বড় আকারের
+              ওয়াইড এরিয়া নেটওয়ার্কের (WAN) ব্যাকআপ নিশ্চিত করতে <strong>Mesh Topology</strong> এর কোনো বিকল্প নেই।
+              টপোলজির এই পরিষ্কার ধারণা আপনাকে যেকোনো জটিল নেটওয়ার্ক আর্কিটেকচার খুব সহজেই ডিজাইন এবং ট্রাবলশুট করতে
+              সাহায্য করবে।</p>
+          </div>
+
         </div>
       </article>
     </div>

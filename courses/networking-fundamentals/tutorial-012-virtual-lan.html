@@ -5,24 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="à¦¸à¦¹à¦œà§‡ à¦¶à¦¿à¦–à§à¦¨ Network Engineering. Virtual LAN (VLAN): Detailed Guide à¦¨à¦¿à§Ÿà§‡ à¦à¦•à¦Ÿà¦¿ à¦¬à¦¿à¦¸à§à¦¤à¦¾à¦°à¦¿à¦¤ à¦Ÿà§‡à¦•à¦¨à¦¿à¦•à§à¦¯à¦¾à¦² à¦—à¦¾à¦‡à¦¡à¥¤">
-  <title>Virtual LAN (VLAN): Detailed Guide | enablement.info</title>
+    content="Virtual LAN (VLAN) কী, এর সুবিধা, Access ও Trunk Port-এর পার্থক্য, 802.1Q Tagging এবং Cisco Switch-এ VLAN কনফিগারেশন নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Virtual LAN (VLAN): Detailed Guide | Md. Jobaer Hossain</title>
 
-  <!-- Icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <!-- CSS -->
-
-
-
-
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
-
-
-
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
@@ -87,8 +76,6 @@
       margin-bottom: 20px;
     }
 
-
-
     .content-box {
       background: #f1f7fd;
       border-left: 4px solid var(--primary-color);
@@ -112,6 +99,24 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+    }
   </style>
 
 </head>
@@ -124,23 +129,165 @@
         <header class="article-header">
           <h1>Virtual LAN (VLAN): Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> January 25, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 05 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Virtual LAN (VLAN): Detailed Guide</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ের জগতে <strong>VLAN (Virtual Local Area Network)</strong> হলো সবচেয়ে বেশি ব্যবহৃত
+            এবং সবচেয়ে গুরুত্বপূর্ণ একটি কনসেপ্ট। আপনি যদি কোনো এন্টারপ্রাইজ বা কর্পোরেট নেটওয়ার্ক ডিজাইন করতে যান, তবে
+            সুইচিংয়ের এই প্রযুক্তি ছাড়া তা প্রায় অসম্ভব।</p>
+          <p>সাধারণত একটি Switch-এ যুক্ত থাকা সবগুলো ডিভাইস একটি মাত্র <strong>Broadcast Domain</strong> এর অন্তর্ভুক্ত
+            থাকে। নেটওয়ার্ক যখন বড় হয়, তখন এই ব্রডকাস্ট ট্রাফিকের কারণে নেটওয়ার্কের পারফরম্যান্স মারাত্মকভাবে কমে যায়।
+            এই সমস্যার জাদুকরী সমাধানই হলো VLAN। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো VLAN কী, এটি কীভাবে কাজ করে,
+            Access এবং Trunk পোর্টের পার্থক্য এবং Cisco Switch-এ এর প্র্যাকটিক্যাল কনফিগারেশন।</p>
+
+
+
+          <div class="content-box">
+            <h3>VLAN কী? (What is VLAN?)</h3>
+            <p><strong>VLAN</strong> হলো একটি ফিজিক্যাল নেটওয়ার্ক বা Switch-কে লজিক্যালি (Logically) একাধিক ছোট ছোট
+              স্বাধীন নেটওয়ার্কে ভাগ করার একটি প্রযুক্তি। ফিজিক্যালি ডিভাইসগুলো একই সুইচে কানেক্টেড থাকলেও, লজিক্যালি
+              তারা এমনভাবে আচরণ করে যেন তারা সম্পূর্ণ আলাদা আলাদা সুইচে যুক্ত আছে।</p>
+            <p>প্রতিটি VLAN একটি আলাদা Broadcast Domain তৈরি করে। অর্থাৎ, একটি VLAN-এর ইউজাররা চাইলেই সরাসরি অন্য
+              VLAN-এর ইউজারদের সাথে যোগাযোগ করতে পারে না (মাঝখানে Router বা Layer 3 Switch ছাড়া)।</p>
+          </div>
+
+          <h2>১. কেন আমরা VLAN ব্যবহার করবো? (Real-life Scenario)</h2>
+          <p>ধরুন, আপনার অফিসে তিনটি ডিপার্টমেন্ট আছে: <strong>HR, IT এবং Sales</strong>। সবাই একই ফ্লোরে বসে এবং একটি
+            ২৪-পোর্টের Switch-এ কানেক্টেড।</p>
+
+          <ul>
+            <li><strong>Broadcast Control:</strong> যদি IT ডিপার্টমেন্টের কোনো পিসি একটি ব্রডকাস্ট মেসেজ পাঠায়, তবে তা
+              HR এবং Sales এর পিসিতেও যাবে। এতে অপ্রয়োজনীয় ট্রাফিক বাড়ে। VLAN করলে IT-এর ব্রডকাস্ট শুধু IT-এর
+              পিসিগুলোতেই সীমাবদ্ধ থাকবে।</li>
+            <li><strong>Security (নিরাপত্তা):</strong> আপনি চান না Sales এর কোনো এমপ্লয়ি HR এর কোনো গোপনীয় সার্ভারে
+              এক্সেস পাক। VLAN এর মাধ্যমে এদেরকে আলাদা নেটওয়ার্কে রাখলে নিরাপত্তা নিশ্চিত হয়।</li>
+            <li><strong>Flexibility:</strong> ধরুন, HR এর একজন লোক দোতলা থেকে তিনতলায় শিফট হলো। আপনাকে নতুন করে তার
+              টানাটানি করতে হবে না। শুধু তিনতলার সুইচের যে পোর্টে তিনি বসবেন, লজিক্যালি সেই পোর্টটিকে HR VLAN-এ অ্যাসাইন
+              করে দিলেই কাজ শেষ!</li>
+            <li><strong>Cost Reduction:</strong> ডিপার্টমেন্টগুলোকে আলাদা করার জন্য আপনাকে ৩টি আলাদা ফিজিক্যাল Switch
+              কিনতে হলো না। একটি সুইচের ভেতরেই আপনি লজিক্যালি ৩টি সুইচ তৈরি করে ফেললেন।</li>
+          </ul>
+
+          <h2>২. VLAN Ports: Access Port বনাম Trunk Port</h2>
+          <p>সুইচে VLAN কনফিগার করার সময় পোর্টগুলোকে মূলত দুটি ক্যাটাগরিতে ভাগ করা হয়। এটি বোঝা অত্যন্ত জরুরি:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য</th>
+                  <th>Access Port</th>
+                  <th>Trunk Port</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">কাদের যুক্ত করে?</td>
+                  <td>এন্ড-ডিভাইস (End-device) যেমন: পিসি, ল্যাপটপ, প্রিন্টার বা সার্ভারকে সুইচের সাথে যুক্ত করে।</td>
+                  <td>একটি সুইচের সাথে অন্য একটি সুইচ, অথবা সুইচের সাথে রাউটারকে যুক্ত করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">কয়টি VLAN বহন করে?</td>
+                  <td>এটি শুধুমাত্র <strong>একটি নির্দিষ্ট VLAN</strong> এর ডাটা বহন করতে পারে (যেমন শুধু VLAN 10)।</td>
+                  <td>এটি একই সাথে <strong>একাধিক বা সবগুলো VLAN</strong> এর ডাটা বহন করতে পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Tagging</td>
+                  <td>এতে ডাটা বা ফ্রেমে কোনো ট্যাগ (Tag) লাগানো থাকে না। পিসি ট্যাগ চেনে না।</td>
+                  <td>ডাটা কোন VLAN এর, তা বোঝানোর জন্য ফ্রেমে 802.1Q ট্যাগ লাগানো হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Frame Tagging এবং IEEE 802.1Q প্রোটোকল</h2>
+          <p>যখন একটি সুইচের ডাটা Trunk Port দিয়ে অন্য সুইচে যায়, তখন অপর সুইচটি কীভাবে বুঝবে যে এই ডাটাটি VLAN 10 এর
+            নাকি VLAN 20 এর?</p>
+          <p>এর সমাধানের জন্য <strong>IEEE 802.1Q</strong> (যাকে সংক্ষেপে Dot1Q বলা হয়) প্রোটোকল ব্যবহার করা হয়। যখন
+            ডাটা Trunk পোর্টে প্রবেশ করে, তখন সুইচ সেই ফ্রেমে অতিরিক্ত <strong>৪-বাইট (4-byte)</strong> এর একটি ট্যাগ
+            (VLAN ID) ঢুকিয়ে দেয়। অপর সুইচ সেই ট্যাগ পড়ে বুঝতে পারে ডাটাটি কার এবং ট্যাগটি খুলে নির্দিষ্ট Access পোর্টে
+            ডাটা পাঠিয়ে দেয়।</p>
+
+          <h2>৪. Inter-VLAN Routing (সংক্ষিপ্ত ধারণা)</h2>
+          <p>আমরা আগেই জেনেছি, ভিন্ন ভিন্ন VLAN একে অপরের সাথে সরাসরি যোগাযোগ করতে পারে না। কিন্তু যদি প্রয়োজন হয় যে, IT
+            ডিপার্টমেন্টের পিসি HR ডিপার্টমেন্টের সার্ভারে ডাটা পাঠাবে, তবে কী হবে?</p>
+          <p>ভিন্ন VLAN-এর মধ্যে ডাটা পারাপার করার এই পদ্ধতিকে <strong>Inter-VLAN Routing</strong> বলা হয়। এটি করার জন্য
+            একটি Layer 3 ডিভাইস প্রয়োজন হয়। সাধারণত <strong>"Router on a Stick"</strong> মেথড অথবা একটি <strong>Layer 3
+              Switch</strong> (SVI - Switch Virtual Interface কনফিগার করে) ব্যবহার করা হয়।</p>
+
+          <h2>৫. Configuration: Cisco Switch এ VLAN তৈরি করা</h2>
+          <p>চলুন প্র্যাকটিক্যালি দেখি একটি সিসকো সুইচে কীভাবে VLAN কনফিগার করতে হয়। আমরা <strong>VLAN 10 (HR)</strong>
+            এবং <strong>VLAN 20 (IT)</strong> তৈরি করবো।</p>
+
+          <h3>ধাপ ১: VLAN তৈরি করা এবং নাম দেওয়া</h3>
+          <p>গ্লোবাল কনফিগারেশন মোডে প্রবেশ করে VLAN তৈরি করুন:</p>
+          <pre><code>Switch> enable
+Switch# configure terminal
+Switch(config)# vlan 10
+Switch(config-vlan)# name HR
+Switch(config-vlan)# exit
+Switch(config)# vlan 20
+Switch(config-vlan)# name IT
+Switch(config-vlan)# exit</code></pre>
+
+          <h3>ধাপ ২: Access Port কনফিগার করা</h3>
+          <p>এখন সুইচের ১ নম্বর পোর্টকে HR (VLAN 10) এবং ২ নম্বর পোর্টকে IT (VLAN 20) এর জন্য কনফিগার করবো:</p>
+          <pre><code>Switch(config)# interface gigabitEthernet 0/1
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10
+Switch(config-if)# exit
+
+Switch(config)# interface gigabitEthernet 0/2
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 20
+Switch(config-if)# exit</code></pre>
+
+          <h3>ধাপ ৩: Trunk Port কনফিগার করা</h3>
+          <p>ধরি, ২৪ নম্বর পোর্টটি অন্য একটি সুইচের সাথে যুক্ত। তাই একে Trunk Port বানাতে হবে:</p>
+          <pre><code>Switch(config)# interface gigabitEthernet 0/24
+Switch(config-if)# switchport mode trunk
+Switch(config-if)# switchport trunk allowed vlan 10,20
+Switch(config-if)# exit</code></pre>
+
+          <h2>৬. Troubleshooting Tips (ট্রাবলশুটিং কমান্ড)</h2>
+          <p>VLAN কনফিগার করার পর সব ঠিক আছে কি না তা চেক করার জন্য নিচের কমান্ডগুলো অত্যন্ত কার্যকরী:</p>
+
+          <ul>
+            <li><strong>VLAN স্ট্যাটাস চেক করা:</strong><br>
+              <code>Switch# show vlan brief</code><br>
+              <em>(এই কমান্ডটি আপনাকে দেখাবে কোন কোন VLAN তৈরি করা হয়েছে এবং কোন পোর্টগুলো কোন VLAN-এ অ্যাসাইন করা
+                আছে।)</em>
+            </li>
+            <li><strong>Trunk Port চেক করা:</strong><br>
+              <code>Switch# show interfaces trunk</code><br>
+              <em>(আপনার কনফিগার করা Trunk পোর্টগুলো কাজ করছে কি না এবং কোন কোন VLAN অ্যালাউ করা আছে তা এখানে দেখতে
+                পাবেন।)</em>
+            </li>
+            <li><strong>Connectivity Check:</strong><br>
+              একই VLAN এর একটি পিসি থেকে আরেকটি পিসিতে <code>ping</code> করে দেখুন। যদি পিং না পায়, তবে পোর্টের
+              কনফিগারেশন এবং IP Address/Subnet Mask আবার চেক করুন।
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Virtual LAN (VLAN)</strong> আধুনিক নেটওয়ার্ক ডিজাইনের একটি অবিচ্ছেদ্য অংশ। এটি ব্রডকাস্ট ট্রাফিক
+              কমিয়ে নেটওয়ার্ককে ফাস্ট করে, সিকিউরিটি বাড়ায় এবং নেটওয়ার্ক ম্যানেজমেন্টকে অনেক সহজ করে তোলে।
+              <strong>Access Port</strong> এবং <strong>Trunk Port</strong> এর সঠিক ব্যবহার এবং <strong>802.1Q
+                Tagging</strong> এর কনসেপ্ট ক্লিয়ার থাকলে আপনি যেকোনো এন্টারপ্রাইজ লেভেলের নেটওয়ার্ক খুব সহজেই ডিজাইন
+              এবং ট্রাবলশুট করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

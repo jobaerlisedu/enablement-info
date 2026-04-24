@@ -375,9 +375,8 @@ h2 {
     overflow-x: auto;
     margin: 30px 0;
     border-radius: 12px;
-    border: 1px solid var(--glass-border);
-    background: rgba(255, 255, 255, 0.02);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    background: transparent;
+    overflow: hidden;
 }
 
 .table-wrapper::-webkit-scrollbar, .comparison-table-container::-webkit-scrollbar {
@@ -1046,9 +1045,8 @@ code {
 /* Unified Table Design - Premium Light Theme */
 table[class$="-table"] {
     width: 100%;
-    margin: 30px 0;
-    border-collapse: separate;
-    border-spacing: 0;
+    margin: 10px 0;
+    border-collapse: collapse;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     overflow: hidden;
@@ -1060,15 +1058,11 @@ table[class$="-table"] th,
 table[class$="-table"] td {
     padding: 16px 20px;
     text-align: center;
-    border-bottom: 1px solid #e2e8f0;
-    border-right: 1px solid #e2e8f0;
+    border: 1px solid #e2e8f0;
     vertical-align: middle;
 }
 
-table[class$="-table"] th:last-child,
-table[class$="-table"] td:last-child {
-    border-right: none;
-}
+/* Removed last-child border overrides as collapse handles it */
 
 table[class$="-table"] th {
     background: #f1f7fd;
@@ -1084,9 +1078,7 @@ table[class$="-table"] tbody td:first-child {
     color: #272829;
 }
 
-table[class$="-table"] tr:last-child td {
-    border-bottom: none;
-}
+/* Removed last-row border overrides as collapse handles it */
 
 table[class$="-table"] tr:hover td {
     background: rgba(241, 247, 253, 0.5);
