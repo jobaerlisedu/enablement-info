@@ -1,41 +1,317 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stop and wait ARQ | enablement.info</title>
+  <meta name="description"
+    content="Data Link Layer-এ Stop and Wait ARQ প্রোটোকল কীভাবে কাজ করে? এর মেকানিজম, Lost Frame, Lost ACK সমস্যা এবং ট্রাবলশুটিং নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Stop and Wait ARQ: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Stop and wait ARQ</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Stop and wait ARQ</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Stop and Wait ARQ in Data Link Layer: Detailed Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>OSI Model-এর <strong>Data Link Layer (Layer 2)</strong> এর দুটি প্রধান দায়িত্ব হলো Flow Control এবং Error
+            Control। ডাটা ট্রান্সমিশনের সময় ডাটা যেন হারিয়ে না যায় বা নষ্ট না হয়, তা নিশ্চিত করার জন্য বেশ কিছু প্রোটোকল
+            ব্যবহার করা হয়। এর মধ্যে সবচেয়ে মৌলিক এবং ক্লাসিক প্রোটোকলটি হলো <strong>Stop and Wait ARQ (Automatic Repeat
+              Request)</strong>।</p>
+          <p>আজকের এই ডিপ-ডাইভ আর্টিকেলে আমরা Stop and Wait ARQ কী, এটি কীভাবে কাজ করে, Lost Frame এবং Lost ACK এর মতো
+            জটিল এরর সিনারিওগুলো এটি কীভাবে সামাল দেয়, তা নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>Stop and Wait ARQ কী?</h3>
+            <p><strong>Stop and Wait ARQ</strong> হলো এমন একটি Error Control প্রোটোকল, যেখানে সেন্ডার (Sender) একটি ডাটা
+              <strong>Frame</strong> পাঠিয়ে সাথে সাথে তার ট্রান্সমিশন বন্ধ (Stop) করে দেয় এবং রিসিভারের (Receiver) কাছ
+              থেকে একটি পজিটিভ Acknowledgement বা <strong>ACK</strong> আসার জন্য অপেক্ষা (Wait) করে। ACK আসলে তবেই সে
+              পরবর্তী Frame পাঠায়। যদি ডাটা বা ACK হারিয়ে যায়, তবে সে স্বয়ংক্রিয়ভাবে ডাটাটি আবার পাঠায় (Automatic Repeat
+              Request)।</p>
+            <p><strong>রিয়েল-লাইফ উদাহরণ:</strong> ওয়াকি-টকি (Walkie-Talkie) দিয়ে কথা বলার কথা চিন্তা করুন। আপনি একটি
+              কথা বলে "ওভার (Over)" বলেন এবং এরপর চুপ করে থাকেন (Stop and Wait)। অপর প্রান্তের ব্যক্তি আপনার কথা বুঝতে
+              পেরে যখন "কপি দ্যাট (Copy that)" বলে, তখন আপনি আবার পরবর্তী কথা বলা শুরু করেন।</p>
+          </div>
+
+          <h2>১. Stop and Wait ARQ এর বেসিক মেকানিজম</h2>
+          <p>এই প্রোটোকলটি সফলভাবে কাজ করার জন্য তিনটি জিনিসের ওপর নির্ভর করে:</p>
+          <ul>
+            <li><strong>ACK (Acknowledgement):</strong> রিসিভার ডাটা ঠিকমতো পেলে সেন্ডারকে এই সিগন্যালটি পাঠায়।</li>
+            <li><strong>Timer (টাইমার):</strong> সেন্ডার ডাটা পাঠানোর সাথে সাথে একটি কাউন্টডাউন টাইমার চালু করে।</li>
+            <li><strong>Sequence Number (সিকোয়েন্স নাম্বার):</strong> প্রতিটি Frame এবং ACK-এর গায়ে একটি নাম্বার (0 এবং
+              1) দেওয়া থাকে, যাতে ডুপ্লিকেট ডাটা তৈরি না হয়।</li>
+          </ul>
+
+          <h2>২. তিনটি ভিন্ন এরর সিনারিও (Error Scenarios) এবং সমাধান</h2>
+          <p>নেটওয়ার্কে ডাটা পাঠানোর সময় বিভিন্ন ধরনের সমস্যা হতে পারে। Stop and Wait ARQ কীভাবে এই সমস্যাগুলো হ্যান্ডেল
+            করে তা নিচে দেওয়া হলো:</p>
+
+          <h3>Scenario 1: Normal Operation (সবকিছু ঠিক থাকলে)</h3>
+          <ul>
+            <li>সেন্ডার <strong>Frame 0</strong> পাঠায় এবং একটি Timer চালু করে।</li>
+            <li>রিসিভার সেটি গ্রহণ করে, Error চেক করে এবং সেন্ডারকে <strong>ACK 1</strong> পাঠায়। (ACK 1 মানে হলো "আমি
+              ফ্রেম 0 পেয়েছি, এখন আমাকে ফ্রেম 1 দাও")।</li>
+            <li>সেন্ডার ACK 1 পাওয়ার পর টাইমার বন্ধ করে দেয় এবং <strong>Frame 1</strong> পাঠায়।</li>
+          </ul>
+
+          <h3>Scenario 2: Lost Frame (ডাটা ফ্রেম হারিয়ে গেলে বা নষ্ট হলে)</h3>
+          <p>কখনো কখনো লাইনে নয়েজ (Noise) থাকার কারণে ডাটা ফ্রেমটি রিসিভার পর্যন্ত পৌঁছানোর আগেই নষ্ট হয়ে যায় বা হারিয়ে
+            যায়।</p>
+          <ul>
+            <li>সেন্ডার Frame 0 পাঠায় এবং Timer চালু করে।</li>
+            <li>Frame 0 মাঝপথে হারিয়ে যায়। রিসিভার যেহেতু কিছুই পায়নি, তাই সে কোনো ACK পাঠায় না।</li>
+            <li>সেন্ডার চুপ করে বসে থাকে। একসময় তার <strong>Timer Expire (টাইমআউট)</strong> হয়ে যায়।</li>
+            <li>টাইমআউট হওয়ার সাথে সাথেই সেন্ডার বুঝতে পারে ডাটা পৌঁছায়নি, এবং সে নিজে থেকেই <strong>Frame 0 আবার পাঠায়
+                (Retransmit)</strong>।</li>
+          </ul>
+
+          <h3>Scenario 3: Lost ACK (রিসিভারের রিপ্লাই হারিয়ে গেলে)</h3>
+          <p>এখানে একটি জটিল সমস্যা তৈরি হয়, যাকে বলা হয় ডুপ্লিকেট ফ্রেম সমস্যা (Duplicate Frame Problem)।</p>
+          <ul>
+            <li>সেন্ডার Frame 0 পাঠায়। রিসিভার সেটি সফলভাবে পায় এবং সেন্ডারকে ACK 1 পাঠায়।</li>
+            <li>কিন্তু মাঝপথে <strong>ACK 1 হারিয়ে যায়</strong>। সেন্ডারের কাছে কোনো রিপ্লাই পৌঁছায় না।</li>
+            <li>সেন্ডারের Timer Expire হয়ে যায়। সেন্ডার ভাবে ডাটা পৌঁছায়নি, তাই সে <strong>আবার Frame 0 পাঠায়</strong>।
+            </li>
+            <li><strong>সমাধান (Sequence Number):</strong> রিসিভার যখন দ্বিতীয়বার Frame 0 পায়, সে এর গায়ের Sequence
+              Number (0) দেখে বুঝতে পারে যে "আরে! এই ফ্রেম তো আমি আগেই পেয়েছি, এটি একটি ডুপ্লিকেট ফ্রেম।" তখন রিসিভার
+              ফ্রেমটিকে ড্রপ করে দেয় এবং সেন্ডারকে আবারও একটি <strong>ACK 1</strong> পাঠায়, যাতে সেন্ডার শান্ত হয় এবং
+              পরবর্তী ফ্রেম পাঠায়।</li>
+          </ul>
+
+          <h2>৩. Stop and Wait ARQ এর সুবিধা ও অসুবিধা</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সুবিধা (Pros)</th>
+                  <th>অসুবিধা (Cons)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>এটি ডিজাইন এবং ইমপ্লিমেন্ট করা খুবই সহজ।</td>
+                  <td>এটি অত্যন্ত ধীরগতির (Slow Protocol)।</td>
+                </tr>
+                <tr>
+                  <td>রিসিভারের বাফার (Buffer) কখনোই ওভারফ্লো হয় না।</td>
+                  <td>লিংকের <strong>Bandwidth</strong> এর চরম অপচয় হয়, কারণ সেন্ডার বেশিরভাগ সময় চুপ করে বসে থাকে।</td>
+                </tr>
+                <tr>
+                  <td>Frame হারানো বা ACK হারানোর মতো এরর খুব নিখুঁতভাবে হ্যান্ডেল করতে পারে।</td>
+                  <td>স্যাটেলাইট লিংকের মতো লং-ডিসট্যান্স নেটওয়ার্কের জন্য এটি একদমই অনুপযুক্ত (High Propagation Delay)।
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Network Engineering এবং Troubleshooting (Wireshark)</h2>
+          <p>বাস্তব জীবনে আধুনিক লোকাল নেটওয়ার্কে (Ethernet LAN) আমরা সাধারণত Stop and Wait ব্যবহার করি না। তবে
+            ওয়্যারলেস নেটওয়ার্কে (যেমন 802.11 Wi-Fi) এর ব্যবহার দেখা যায়। একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে নেটওয়ার্কের
+            Retransmission বা ARQ সমস্যাগুলো ধরার জন্য আপনাকে <strong>Wireshark</strong> এর মতো প্যাকেট অ্যানালাইজার
+            ব্যবহার করতে হবে।</p>
+
+          <h3>Wireshark এ Retransmission চেক করা:</h3>
+          <p>নেটওয়ার্কে যদি প্রচুর Frame লস হয় এবং Stop and Wait ARQ বারবার ডাটা পাঠাতে থাকে, তবে নেটওয়ার্ক মারাত্মক
+            স্লো হয়ে যাবে। Wireshark ওপেন করে নিচের ফিল্টারটি অ্যাপ্লাই করুন:</p>
+          <pre><code>tcp.analysis.retransmission</code></pre>
+          <p><em>ব্যাখ্যা:</em> যদিও এটি Transport Layer (TCP) এর ফিল্টার, তবে Layer 2 তে সমস্যা হলেও ডাটা ড্রপ হয় এবং
+            TCP বাধ্য হয়ে ডাটা Retransmit করে। যদি দেখেন এই ফিল্টারে প্রচুর প্যাকেট শো করছে, তবে বুঝতে হবে আপনার
+            ফিজিক্যাল লিংক বা সুইচের পোর্টে সমস্যা আছে।</p>
+
+          <h3>Cisco Switch-এ পোর্ট স্ট্যাটাস দেখা:</h3>
+          <p>ডাটা লিংক লেয়ারে ফ্রেম ড্রপ হচ্ছে কি না তা দেখতে কমান্ড দিন:</p>
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1</code></pre>
+          <p>আউটপুটে <strong>CRC Errors</strong>, <strong>Collisions</strong>, এবং <strong>Input Errors</strong> খেয়াল
+            করুন। এই কাউন্টগুলো বাড়লে ARQ প্রোটোকলকে প্রচুর কাজ করতে হয়, যা পুরো সিস্টেমের পারফরম্যান্স কমিয়ে দেয়।</p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Stop and Wait ARQ</strong> হলো নেটওয়ার্কিংয়ের ফ্লো এবং এরর কন্ট্রোল বোঝার জন্য সবচেয়ে
+              গুরুত্বপূর্ণ ফাউন্ডেশন। যদিও এর পারফরম্যান্স অনেক কম এবং এটি Bandwidth এর সঠিক ব্যবহার করতে পারে না, তবে
+              এর <strong>Timer</strong>, <strong>ACK</strong> এবং <strong>Sequence Number</strong> কনসেপ্টগুলোই আধুনিক
+              এবং হাই-স্পিড প্রোটোকলগুলোর (যেমন TCP বা Sliding Window) মূল ভিত্তি তৈরি করেছে। একটি নেটওয়ার্কে ডাটা
+              ট্রান্সমিশনের রিলায়েবিলিটি (Reliability) কীভাবে নিশ্চিত হয়, তা বোঝার জন্য এই প্রোটোকলের কার্যপ্রণালী জানা
+              অপরিহার্য।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

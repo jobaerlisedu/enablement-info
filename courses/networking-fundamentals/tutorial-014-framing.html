@@ -5,25 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="সহজে শিখুন Network Engineering. Framing in Data Link Layer: Detailed Guide নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+    content="Data Link Layer-এ Framing কী, এর প্রকারভেদ (Bit এবং Byte Stuffing), Frame-এর গঠন এবং Cisco সুইচে Frame Error ট্রাবলশুটিং নিয়ে বিস্তারিত বাংলা গাইড।">
   <title>Framing in Data Link Layer: Detailed Guide | enablement.info</title>
 
-  <!-- Icons -->
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-
-  <!-- CSS -->
-
-
-
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
-
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -83,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -112,6 +111,60 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
 
 </head>
@@ -124,23 +177,168 @@
         <header class="article-header">
           <h1>Framing in Data Link Layer: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> February 01, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 08 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Framing in Data Link Layer: Detailed Guide</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের OSI Model-এ <strong>Data Link Layer (Layer 2)</strong> এর সবচেয়ে গুরুত্বপূর্ণ এবং
+            প্রাথমিক কাজ হলো <strong>Framing</strong>। যখন Network Layer থেকে ডাটা (Packet) নিচের দিকে নেমে আসে, তখন
+            Data Link Layer সেই ডাটাকে সরাসরি ফিজিক্যাল মিডিয়াতে (ক্যাবল বা ওয়্যারলেস) না পাঠিয়ে কিছু নিয়ম মেনে একটি
+            নির্দিষ্ট কাঠামোতে আবদ্ধ করে। এই প্রক্রিয়াটিকেই Framing বলা হয়।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Framing কী, কেন এটি নেটওয়ার্কের জন্য অপরিহার্য, Framing-এর বিভিন্ন
+            পদ্ধতি (যেমন Bit Stuffing ও Byte Stuffing) এবং প্র্যাকটিক্যাল ফিল্ডে Cisco Switch-এ Framing Error কীভাবে
+            ট্রাবলশুট করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>Framing কী? (What is Framing?)</h3>
+            <p><strong>Framing</strong> হলো Network Layer থেকে আসা একটি Raw Data Packet-কে ছোট ছোট ম্যানেজেবল ব্লকে
+              (Manageable Blocks) ভাগ করা এবং এর শুরুতে একটি <strong>Header</strong> ও শেষে একটি
+              <strong>Trailer</strong> যুক্ত করার প্রক্রিয়া। এই সম্পূর্ণ প্যাকেটটিকে তখন <strong>Frame</strong> বলা হয়。
+            </p>
+            <p><strong>রিয়েল-লাইফ উদাহরণ:</strong> মনে করুন, আপনি একটি গুরুত্বপূর্ণ চিঠি আপনার বন্ধুকে পাঠাতে চান। আপনি
+              শুধু কাগজটি পোস্টবক্সে ফেলে দিলে তা পৌঁছাবে না। আপনাকে চিঠিটিকে একটি <strong>খামের (Envelope)</strong>
+              ভেতরে ঢোকাতে হবে। খামের ওপরে প্রেরক ও প্রাপকের ঠিকানা লিখতে হবে (Header) এবং খামটিকে সিলগ্যালা করতে হবে
+              যাতে কেউ বুঝতে পারে এটি পথে খোলা হয়নি (Trailer)। নেটওয়ার্কিংয়ে Framing ঠিক এই খামের মতোই কাজ করে।</p>
+          </div>
+
+
+          <h2>১. একটি Frame-এর গঠন (Structure of a Frame)</h2>
+          <p>একটি স্ট্যান্ডার্ড ফ্রেম (যেমন Ethernet Frame) মূলত তিনটি অংশ নিয়ে গঠিত হয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>অংশ (Part)</th>
+                  <th>কাজ (Function)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Header (হেডার)</td>
+                  <td>এখানে <strong>Source MAC Address</strong> এবং <strong>Destination MAC Address</strong> যুক্ত থাকে।
+                    এছাড়া ফ্রেমের শুরু কোথায় তা বোঝানোর জন্য একটি স্টার্ট সিগন্যাল (Preamble) থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Payload (পে-লোড)</td>
+                  <td>এটি হলো মূল ডাটা বা <strong>Packet</strong>, যা Network Layer থেকে এসেছে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Trailer (ট্রেইলার)</td>
+                  <td>ফ্রেমের শেষে এটি যুক্ত হয়। এতে <strong>FCS (Frame Check Sequence)</strong> বা <strong>CRC (Cyclic
+                      Redundancy Check)</strong> থাকে, যা নিশ্চিত করে ডাটা ট্রান্সমিশনের সময় কোনো এরর (Error) বা করাপশন
+                    হয়নি।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. কেন Framing প্রয়োজন?</h2>
+          <p>ডাটাকে শুধু 0 এবং 1 এর স্রোত হিসেবে ফিজিক্যাল লেয়ার দিয়ে পাঠিয়ে দিলে রিসিভার বুঝতে পারবে না কোথা থেকে ডাটা
+            শুরু হলো এবং কোথায় শেষ হলো। Framing এর প্রধান প্রয়োজনীয়তাগুলো হলো:</p>
+          <ul>
+            <li><strong>Synchronization (সিনক্রোনাইজেশন):</strong> রিসিভারকে বোঝানো যে একটি নতুন ফ্রেম শুরু হচ্ছে এবং
+              কোথায় গিয়ে শেষ হচ্ছে।</li>
+            <li><strong>Error Control (ভুল ত্রুটি নিয়ন্ত্রণ):</strong> ফিজিক্যাল ক্যাবল দিয়ে ডাটা যাওয়ার সময়
+              ইলেকট্রিক্যাল নয়েজের (Noise) কারণে ডাটা বিট 0 থেকে 1 হয়ে যেতে পারে। Trailer-এ থাকা CRC এর মাধ্যমে Data
+              Link Layer এই ভুলটি ধরতে পারে এবং নষ্ট ফ্রেমটিকে ড্রপ (Drop) করে দেয়।</li>
+            <li><strong>Flow Control:</strong> রিসিভারের ডাটা প্রসেস করার স্পিড অনুযায়ী সেন্ডারকে ডাটা পাঠানোর স্পিড
+              নিয়ন্ত্রণ করতে সাহায্য করে।</li>
+          </ul>
+
+          <h2>৩. Framing এর প্রকারভেদ (Types of Framing)</h2>
+          <p>ফ্রেমের সাইজ বা আকার অনুযায়ী Framing-কে প্রধানত দুটি ভাগে ভাগ করা যায়:</p>
+
+          <ul>
+            <li><strong>A. Fixed-size Framing (নির্দিষ্ট সাইজের ফ্রেম):</strong>
+              <ul>
+                <li>এই পদ্ধতিতে প্রতিটি ফ্রেমের সাইজ আগে থেকেই ফিক্সড বা নির্দিষ্ট করা থাকে।</li>
+                <li>যেহেতু সাইজ নির্দিষ্ট, তাই ফ্রেমের শুরু এবং শেষ বোঝার জন্য আলাদা কোনো বাউন্ডারি মার্কারের প্রয়োজন হয়
+                  না।</li>
+                <li><strong>ATM (Asynchronous Transfer Mode)</strong> নেটওয়ার্কে এটি ব্যবহৃত হয়, যেখানে প্রতিটি ফ্রেম
+                  (যাকে Cell বলা হয়) ঠিক ৫৩ বাইটের হয়।</li>
+              </ul>
+            </li>
+
+            <li><strong>B. Variable-size Framing (পরিবর্তনশীল সাইজের ফ্রেম):</strong>
+              <ul>
+                <li>এখানে ফ্রেমের সাইজ নির্দিষ্ট থাকে না। ডাটার সাইজ অনুযায়ী ফ্রেম বড় বা ছোট হতে পারে।</li>
+                <li>আমাদের ব্যবহৃত <strong>Ethernet (LAN)</strong> নেটওয়ার্ক Variable-size Framing ব্যবহার করে।</li>
+                <li>যেহেতু ফ্রেমের সাইজ নির্দিষ্ট নয়, তাই রিসিভারকে বোঝাতে হয় ফ্রেম কোথায় শেষ। এর জন্য দুটি মেকানিজম
+                  ব্যবহার করা হয়:</li>
+              </ul>
+
+              <ul>
+                <li><strong>i. Byte Stuffing (বা Character Stuffing):</strong>
+                  <ul>
+                    <li>এই পদ্ধতিতে ডাটার শুরুতে এবং শেষে একটি স্পেশাল ক্যারেক্টার বা বাইট ব্যবহার করা হয়, যাকে
+                      <strong>FLAG</strong> বলা হয়।</li>
+                    <li><strong>সমস্যা:</strong> মূল ডাটার ভেতরেও যদি ভুল করে FLAG ক্যারেক্টারটি চলে আসে, তবে রিসিভার
+                      মনে করবে ফ্রেম শেষ হয়ে গেছে।</li>
+                    <li><strong>সমাধান:</strong> এই সমস্যা এড়ানোর জন্য Data Link Layer ডাটার ভেতরের ওই FLAG
+                      ক্যারেক্টারটির ঠিক আগে একটি <strong>ESC (Escape)</strong> ক্যারেক্টার যুক্ত করে দেয় (যাকে Stuffing
+                      বলা হয়)। রিসিভার যখন ESC ক্যারেক্টার দেখে, তখন সে বুঝতে পারে এর পরের FLAG টি ফ্রেমের শেষ নয়, বরং
+                      এটি মূল ডাটার অংশ।</li>
+                  </ul>
+                </li>
+
+                <li><strong>ii. Bit Stuffing:</strong>
+                  <ul>
+                    <li>নেটওয়ার্কিংয়ে এটি সবচেয়ে বেশি ব্যবহৃত পদ্ধতি। এখানে ফ্রেমের শুরু এবং শেষ বোঝানোর জন্য একটি
+                      স্পেশাল বিট প্যাটার্ন <code>01111110</code> (অর্থাৎ একটি 0, তারপর ছয়টি 1, তারপর একটি 0) ব্যবহার
+                      করা হয়।</li>
+                    <li><strong>কীভাবে কাজ করে?</strong> যদি সেন্ডার দেখে যে মূল ডাটার ভেতরেই পরপর পাঁচটি <code>1</code>
+                      (<code>11111</code>) চলে এসেছে, তবে সেন্ডার সাথে সাথে তার পরে একটি <code>0</code> যুক্ত (Stuff)
+                      করে দেয়। এর ফলে ডাটার ভেতরে কখনোই <code>01111110</code> প্যাটার্নটি তৈরি হতে পারে না।</li>
+                    <li>রিসিভার যখন ডাটা গ্রহণ করে, তখন সে পরপর পাঁচটি <code>1</code> এর পর কোনো <code>0</code> পেলে
+                      সেটি নিজে থেকে মুছে (Destuffing) ফেলে মূল ডাটা পুনরুদ্ধার করে।</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <h2>৪. Cisco CLI: Frame Error Troubleshooting</h2>
+          <p>একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে ফিজিক্যাল বা ডাটা লিংক লেয়ারের ফ্রেম এরর ট্রাবলশুট করতে
+            হবে। Cisco Switch-এ ফ্রেমের স্ট্যাটাস দেখার সবচেয়ে গুরুত্বপূর্ণ কমান্ড হলো:</p>
+
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1</code></pre>
+
+          <p>এই কমান্ডের আউটপুটে আপনি অনেকগুলো পরিসংখ্যান দেখতে পাবেন। ফ্রেম এরর চেক করার জন্য নিচের লাইনগুলোর দিকে লক্ষ
+            রাখুন:</p>
+
+          <ul>
+            <li><strong>CRC Errors:</strong> আউটপুটে যদি দেখেন <code>... CRC ...</code> এর কাউন্ট বাড়ছে, তার মানে
+              ফ্রেমগুলো ট্রান্সমিশনের সময় করাপ্ট বা নষ্ট হয়ে যাচ্ছে। এটি সাধারণত ক্যাবল নষ্ট হলে, কানেক্টর লুজ থাকলে বা
+              Duplex Mismatch থাকলে হয়।</li>
+            <li><strong>Runts:</strong> একটি স্ট্যান্ডার্ড ইথারনেট ফ্রেমের মিনিমাম সাইজ ৬৪ বাইট হতে হয়। যদি ফ্রেম ৬৪
+              বাইটের চেয়ে ছোট হয়, তবে তাকে Runt বলা হয়। সুইচ এগুলোকে ইনভ্যালিড ফ্রেম হিসেবে ড্রপ করে দেয়। এটি সাধারণত
+              Data Collision এর কারণে হয়।</li>
+            <li><strong>Giants:</strong> একটি ইথারনেট ফ্রেমের ম্যাক্সিমাম সাইজ ১৫১৮ বাইট (জাম্পো ফ্রেম ছাড়া)। ফ্রেম এর
+              চেয়ে বড় হয়ে গেলে তাকে Giant বলা হয়। নেটওয়ার্ক কার্ড বা ড্রাইভার সমস্যার কারণে এটি হতে পারে।</li>
+            <li><strong>Framing Errors:</strong> আউটপুটে <code>framing error</code> দেখালে বুঝতে হবে ফ্রেমের শেষের
+              বাউন্ডারি (Trailer) ঠিকমতো রিসিভ হয়নি।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Framing</strong> হলো সেই লজিক্যাল এনভেলপ বা খাম, যা ছাড়া নেটওয়ার্কের Raw ডাটা ট্রান্সমিশন
+              সম্পূর্ণ অসম্ভব। Data Link Layer-এর এই মেকানিজমের কারণেই ডাটা প্যাকেটগুলো ক্যাবলের বিশৃঙ্খল ইলেকট্রিক্যাল
+              সিগন্যালের মধ্য দিয়েও একটি স্ট্রাকচার বা কাঠামো বজায় রাখতে পারে। <strong>Bit Stuffing</strong>,
+              <strong>Header/Trailer</strong> এবং <strong>CRC Checking</strong> এর মতো কনসেপ্টগুলো পরিষ্কার থাকলে, একজন
+              নেটওয়ার্ক ইঞ্জিনিয়ার খুব সহজেই Layer 2 এর যেকোনো ডাটা করাপশন বা পারফরম্যান্স ইস্যু আইডেন্টিফাই এবং
+              ট্রাবলশুট করতে পারেন।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

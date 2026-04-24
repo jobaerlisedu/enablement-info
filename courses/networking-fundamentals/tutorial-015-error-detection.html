@@ -1,41 +1,324 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Error Detection | enablement.info</title>
+  <meta name="description"
+    content="Data Link Layer-এ Error Detection কী, এর প্রকারভেদ (Parity Check, Checksum, CRC) এবং Cisco ডিভাইসে CRC Error ট্রাবলশুটিং নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Error Detection in Computer Networks: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Error Detection</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Error Detection</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Error Detection in Computer Networks: Detailed Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ে ডাটা যখন এক ডিভাইস থেকে অন্য ডিভাইসে ট্রান্সমিট করা হয়, তখন সেটি ফিজিক্যাল মিডিয়া
+            (যেমন কপার ক্যাবল, ফাইবার অপটিক বা রেডিও ওয়েভ) দিয়ে যাতায়াত করে। এই যাত্রাপথে ইলেকট্রোম্যাগনেটিক
+            ইন্টারফারেন্স (EMI), সিগন্যাল অ্যাটেনুয়েশন বা নয়েজের (Noise) কারণে ডাটার বিটগুলো (0 এবং 1) পরিবর্তিত হয়ে
+            যেতে পারে।</p>
+          <p>OSI Model-এর <strong>Data Link Layer (Layer 2)</strong> এর অন্যতম প্রধান দায়িত্ব হলো রিসিভারকে এটি নিশ্চিত
+            করা যে, সেন্ডার যেই ডাটাটি পাঠিয়েছে তা হুবহু একই অবস্থায় পৌঁছেছে কি না। এই পুরো মেকানিজমটিকেই বলা হয়
+            <strong>Error Detection</strong>। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা Error Detection-এর প্রকারভেদ, কাজ করার
+            পদ্ধতি এবং Cisco ডিভাইসে এর ট্রাবলশুটিং নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>Error Detection কী? (What is Error Detection?)</h3>
+            <p><strong>Error Detection</strong> হলো এমন একটি প্রক্রিয়া, যার মাধ্যমে রিসিভার বুঝতে পারে ট্রান্সমিট হওয়া
+              ডাটায় কোনো ভুল বা করাপশন (Corruption) হয়েছে কি না। ডাটা পাঠানোর সময় সেন্ডার মূল ডাটার সাথে অতিরিক্ত কিছু
+              বিট (Redundant Bits) যুক্ত করে দেয়। রিসিভার ডাটা পাওয়ার পর একটি নির্দিষ্ট গাণিতিক ক্যালকুলেশন করে এবং চেক
+              করে দেখে ডাটাটি সঠিক আছে কি না। ভুল থাকলে সেই ডাটা <strong>Frame</strong> ড্রপ বা বাতিল করা হয়।</p>
+          </div>
+
+
+
+          <h2>১. Network Error এর প্রকারভেদ (Types of Errors)</h2>
+          <p>ডাটা ট্রান্সমিশনের সময় মূলত দুই ধরনের ভুল বা Error হতে পারে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Error এর নাম</th>
+                  <th>কীভাবে ঘটে?</th>
+                  <th>উদাহরণ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Single-bit Error</td>
+                  <td>পুরো ডাটা ফ্রেমের মধ্যে মাত্র একটি বিট (0 থেকে 1, অথবা 1 থেকে 0) পরিবর্তিত হয়ে যায়। এটি সাধারণত
+                    প্যারালাল ট্রান্সমিশনে বেশি দেখা যায়।</td>
+                  <td>সেন্ডার পাঠালো <code>1010001</code>, কিন্তু রিসিভার পেল <code>10100<strong>1</strong>1</code>।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Burst Error</td>
+                  <td>ডাটা ফ্রেমের মধ্যে একসাথে দুই বা ততোধিক বিট পরিবর্তিত হয়ে যায়। সিরিয়াল ট্রান্সমিশন বা
+                    নেটওয়ার্কিংয়ে এটি সবচেয়ে বেশি ঘটে। নয়েজ বা ইন্টারফারেন্সের কারণে এটি হয়।</td>
+                  <td>সেন্ডার পাঠালো <code>1010001</code>, কিন্তু রিসিভার পেল <code>10<strong>011</strong>01</code>।
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. Error Detection এর পদ্ধতিসমূহ (Techniques)</h2>
+          <p>নেটওয়ার্কিংয়ে ডাটার ভুল ধরার জন্য বেশ কয়েকটি গাণিতিক পদ্ধতি ব্যবহার করা হয়। এর মধ্যে সবচেয়ে জনপ্রিয় তিনটি
+            পদ্ধতি নিচে আলোচনা করা হলো:</p>
+
+          <h3>A. Parity Check (প্যারিটি চেক)</h3>
+          <p>এটি সবচেয়ে সহজ এবং পুরনো পদ্ধতি। এখানে মূল ডাটার সাথে অতিরিক্ত একটি <strong>Parity Bit</strong> যোগ করা হয়।
+            প্যারিটি চেক দুই ধরনের হতে পারে:</p>
+          <ul>
+            <li><strong>Even Parity:</strong> ডাটাতে থাকা 1 এর সংখ্যা জোড় (Even) করার জন্য প্যারিটি বিট সেট করা হয়।
+              উদাহরণস্বরূপ, আপনার ডাটা যদি হয় <code>1011001</code> (এখানে 1 আছে ৪টি, যা জোড় সংখ্যা), তাহলে Parity Bit
+              হবে <code>0</code>। যদি 1 এর সংখ্যা বেজোড় হতো, তবে Parity Bit <code>1</code> করে মোট 1 এর সংখ্যা জোড় করা
+              হতো।</li>
+            <li><strong>Odd Parity:</strong> ডাটাতে থাকা 1 এর সংখ্যা বেজোড় (Odd) করার জন্য প্যারিটি বিট সেট করা হয়।</li>
+          </ul>
+          <p><strong>অসুবিধা:</strong> Parity Check শুধুমাত্র Single-bit Error ধরতে পারে। যদি দুটি বিট একসাথে পরিবর্তিত
+            হয়ে যায় (Burst Error), তবে 1 এর সংখ্যা আবার আগের মতোই জোড় বা বেজোড় হয়ে যাবে, ফলে রিসিভার ভুলটি ধরতে পারবে
+            না।</p>
+
+          <h3>B. Checksum (চেকসাম)</h3>
+          <p>Checksum পদ্ধতিটি Data Link Layer এর চেয়ে <strong>Network Layer (IPv4 Header)</strong> এবং
+            <strong>Transport Layer (TCP/UDP Header)</strong> এ বেশি ব্যবহৃত হয়।</p>
+          <ul>
+            <li><strong>কীভাবে কাজ করে:</strong> সেন্ডার ডাটাগুলোকে নির্দিষ্ট ব্লকে (যেমন ১৬-বিট) ভাগ করে এবং সবগুলোর
+              যোগফল (Sum) বের করে। এরপর সেই যোগফলের 1's Complement (বিপরীত মান) বের করে ডাটার শেষে Checksum হিসেবে জুড়ে
+              দেয়। রিসিভার ডাটা পেয়ে আবার সবগুলোর যোগফল বের করে। যদি সব ডাটা ঠিক থাকে, তবে যোগফলের মান সব 1 (যেমন
+              <code>11111111</code>) আসবে। যদি কোনো 0 থাকে, তবে বুঝতে হবে ডাটা করাপ্ট হয়েছে।</li>
+          </ul>
+
+          <h3>C. Cyclic Redundancy Check (CRC)</h3>
+          <p><strong>CRC</strong> হলো Data Link Layer এর সবচেয়ে শক্তিশালী এবং বেশি ব্যবহৃত Error Detection পদ্ধতি।
+            Ethernet ফ্রেমে আমরা যে Trailer বা <strong>FCS (Frame Check Sequence)</strong> ব্যবহার করি, তা মূলত এই CRC
+            মেকানিজমের মাধ্যমেই কাজ করে। এটি Burst Error ধরার ক্ষেত্রে প্রায় ৯৯.৯৯% নির্ভুল।</p>
+          <ul>
+            <li><strong>কীভাবে কাজ করে:</strong> এটি Polynomial Division (বহুপদী ভাগ) এর ওপর ভিত্তি করে কাজ করে। সেন্ডার
+              এবং রিসিভার উভয়েই আগে থেকে একটি নির্দিষ্ট ভাজক বা Divisor (যাকে Generator Polynomial বলা হয়) জানে।</li>
+            <li>সেন্ডার মূল ডাটার শেষে কিছু অতিরিক্ত 0 (জিরো) যুক্ত করে এবং সেই Generator দিয়ে ডাটাকে Modulo-2 বাইনারি
+              ভাগ করে।</li>
+            <li>ভাগের শেষে যে ভাগশেষ (Remainder) পাওয়া যায়, তাকেই <strong>CRC</strong> বলা হয়। এরপর মূল ডাটার সাথে ওই 0
+              গুলোর বদলে CRC যুক্ত করে ফিজিক্যাল মিডিয়াতে পাঠানো হয়।</li>
+            <li>রিসিভার ডাটা পাওয়ার পর আবার সেই একই Generator দিয়ে ডাটাকে ভাগ করে। যদি ভাগশেষ <code>0</code> হয়, তবে
+              ডাটা একদম নিখুঁত। আর যদি ভাগশেষ 0 না হয়, তবে ফ্রেমে Error আছে বলে ধরে নেওয়া হয় এবং ফ্রেমটি ড্রপ করা হয়।
+            </li>
+          </ul>
+
+          <h2>৩. Cisco CLI: Frame Error Troubleshooting</h2>
+          <p>বাস্তব জীবনে একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে কমান্ড লাইনে (CLI) কাজ করে বের করতে হবে আপনার
+            নেটওয়ার্কে কোনো Error হচ্ছে কি না। Cisco Switch-এ এটি দেখার সবচেয়ে ভালো কমান্ড হলো:</p>
+
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1</code></pre>
+
+          <p>এই কমান্ডের আউটপুটে আপনি অনেকগুলো পরিসংখ্যান দেখতে পাবেন। Error Detection এর সাথে সম্পর্কিত লাইনগুলো নিচে
+            ব্যাখ্যা করা হলো:</p>
+
+          <ul>
+            <li><strong>CRC Errors:</strong> আউটপুটে আপনি <code>... CRC ...</code> দেখতে পাবেন। যদি দেখেন CRC এর কাউন্ট
+              বাড়ছে, তার মানে হলো Data Link Layer এর FCS চেক ফেইল করছে এবং ফ্রেমগুলো ট্রান্সমিশনের সময় নষ্ট হয়ে যাচ্ছে।
+              <ul>
+                <li><strong>কারণ:</strong> এটি সাধারণত ক্যাবল নষ্ট থাকলে, ফিজিক্যাল পোর্টে ধুলা জমলে বা হাই-ভোল্টেজ
+                  ক্যাবলের পাশ দিয়ে নেটওয়ার্ক ক্যাবল গেলে (EMI) হয়।</li>
+              </ul>
+            </li>
+            <li><strong>Input Errors:</strong> এটি সব ধরনের এরর (যেমন Runt, Giant, CRC) এর যোগফল। ইনপুট এরর বাড়লে বুঝতে
+              হবে লিংকে বড় ধরনের ফিজিক্যাল সমস্যা আছে।</li>
+            <li><strong>Duplex Mismatch:</strong> যদি আপনার পোর্টে <code>Half-Duplex</code> এবং অপর পোর্টে
+              <code>Full-Duplex</code> থাকে, তবে ডাটার সংঘর্ষ হবে এবং প্রচুর <strong>Late Collisions</strong> ও
+              <strong>CRC Errors</strong> জেনারেট হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি রিলায়েবল বা নির্ভরযোগ্য নেটওয়ার্ক তৈরি করার জন্য <strong>Error Detection</strong> অপরিহার্য। Data
+              Link Layer যদি <strong>CRC (Cyclic Redundancy Check)</strong> এর মতো শক্তিশালী মেকানিজম ব্যবহার করে নষ্ট
+              ফ্রেমগুলোকে ড্রপ না করতো, তবে আমাদের অ্যাপ্লিকেশনগুলো করাপ্ট ডাটা প্রসেস করতে গিয়ে ক্র্যাশ করতো।
+              <strong>Parity Check</strong>, <strong>Checksum</strong> এবং বিশেষ করে <strong>CRC</strong> কীভাবে কাজ
+              করে, তা বোঝা একজন দক্ষ নেটওয়ার্ক প্রফেশনালের জন্য অত্যন্ত জরুরি। পাশাপাশি Cisco সুইচে
+              <code>show interfaces</code> কমান্ডের আউটপুট পড়ে ফিজিক্যাল ক্যাবল বা ডুপ্লেক্স ইস্যু ট্রাবলশুট করার স্কিল
+              আপনাকে কর্মক্ষেত্রে অনেক এগিয়ে রাখবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

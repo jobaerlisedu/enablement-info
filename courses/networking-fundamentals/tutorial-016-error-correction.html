@@ -1,41 +1,326 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Error Correction | enablement.info</title>
+  <meta name="description"
+    content="কম্পিউটার নেটওয়ার্কিংয়ে Error Correction কী, ARQ (Automatic Repeat Request), Forward Error Correction (FEC) এবং Hamming Code কীভাবে কাজ করে তার বিস্তারিত বাংলা গাইড।">
+  <title>Error Correction in Computer Networks: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Error Correction</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Error Correction</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Error Correction in Computer Networks: Detailed Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 15 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>পূর্ববর্তী আর্টিকেলে আমরা জেনেছি কীভাবে <strong>Error Detection</strong> এর মাধ্যমে রিসিভার বুঝতে পারে যে
+            ডাটা ট্রান্সমিশনের সময় কোনো বিট (Bit) পরিবর্তিত বা নষ্ট (Corrupted) হয়েছে কি না। কিন্তু শুধু ভুল ধরলেই তো
+            হবে না, সেই ভুলটি তো ঠিকও করতে হবে! ডাটার ভুলটি খুঁজে বের করে সেটিকে আবার আগের সঠিক অবস্থায় ফিরিয়ে আনার এই
+            জাদুকরী প্রক্রিয়াটিকেই বলা হয় <strong>Error Correction</strong>।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Error Correction কী, এটি কীভাবে কাজ করে, ARQ এবং Forward Error
+            Correction (FEC) এর পার্থক্য এবং নেটওয়ার্ক ট্রাবলশুটিংয়ে এর প্রভাব।</p>
+
+          <div class="content-box">
+            <h3>Error Correction কী? (What is Error Correction?)</h3>
+            <p><strong>Error Correction</strong> হলো এমন একটি মেকানিজম, যার মাধ্যমে রিসিভার শুধু ডাটার ভুল ধরতেই পারে
+              না, বরং ঠিক কোন জায়গায় ভুল হয়েছে তা শনাক্ত করে সেটিকে নিজে নিজে অথবা সেন্ডারের সাহায্যে ঠিক করে নিতে পারে।
+              এটি মূলত OSI Model-এর <strong>Data Link Layer (Layer 2)</strong> এবং <strong>Transport Layer (Layer
+                4)</strong> এ কাজ করে।</p>
+            <p><strong>রিয়েল-লাইফ উদাহরণ:</strong> আপনি ফোনে আপনার বন্ধুর সাথে কথা বলছেন। লাইনে প্রচুর নয়েজ (Noise)
+              থাকার কারণে আপনি তার একটি কথা ঠিকমতো শুনতে পেলেন না। এখন আপনি দুটি কাজ করতে পারেন: ১. বন্ধুকে বলতে পারেন
+              কথাটি আবার রিপিট করতে (একে বলে <strong>Retransmission</strong>), অথবা ২. কথার প্রসঙ্গের ওপর ভিত্তি করে
+              আপনি নিজেই গেস (Guess) করে নিতে পারেন সে কী বলেছে (একে বলে <strong>Forward Error Correction</strong>)।</p>
+          </div>
+
+          <h2>১. Error Correction এর প্রধান দুটি পদ্ধতি</h2>
+          <p>নেটওয়ার্কিংয়ে ডাটা কারেকশন করার জন্য মূলত দুটি অ্যাপ্রোচ বা পদ্ধতি ব্যবহার করা হয়:</p>
+
+          <h3>A. Backward Error Correction (Retransmission বা ARQ)</h3>
+          <p>আমাদের সাধারণ ইন্টারনেট এবং লোকাল এরিয়া নেটওয়ার্কে (LAN) এটি সবচেয়ে বেশি ব্যবহৃত হয়। এই পদ্ধতিতে রিসিভার
+            যদি দেখে ডাটাতে কোনো Error আছে, তবে সে ওই নষ্ট ডাটাটি (Frame) ড্রপ করে দেয় এবং সেন্ডারকে বলে ডাটাটি আবার
+            পাঠাতে। এই প্রক্রিয়াটিকে <strong>ARQ (Automatic Repeat Request)</strong> বলা হয়।</p>
+
+          <p>ARQ মূলত তিনটি মেকানিজমে কাজ করে:</p>
+          <ul>
+            <li><strong>Stop-and-Wait ARQ:</strong> সেন্ডার একটি ডাটা ফ্রেম পাঠিয়ে অপেক্ষা করে। রিসিভার সেটি সফলভাবে
+              পেলে একটি Acknowledgment (ACK) পাঠায়। ACK পাওয়ার পরই সেন্ডার পরবর্তী ফ্রেম পাঠায়। এটি অত্যন্ত ধীরগতির।
+            </li>
+            <li><strong>Go-Back-N ARQ:</strong> সেন্ডার একসাথে অনেকগুলো ফ্রেম পাঠাতে থাকে (যাকে Sliding Window বলে)। যদি
+              মাঝখানের কোনো একটি ফ্রেম নষ্ট হয়, তবে রিসিভার সেই ফ্রেমের পর থেকে আর কোনো ফ্রেম গ্রহণ করে না। সেন্ডারকে
+              তখন ওই নষ্ট ফ্রেম থেকে শুরু করে পরবর্তী সব ফ্রেম আবার পাঠাতে হয়।</li>
+            <li><strong>Selective Repeat ARQ:</strong> এটি সবচেয়ে স্মার্ট। একসাথে অনেকগুলো ফ্রেম পাঠানো হয়, কিন্তু যদি
+              মাঝখানের কোনো একটি ফ্রেম নষ্ট হয়, তবে সেন্ডার শুধুমাত্র ওই নির্দিষ্ট নষ্ট ফ্রেমটিই আবার পাঠায়। বাকিগুলো
+              রিসিভার বাফার (Buffer) করে রাখে। <strong>TCP (Transmission Control Protocol)</strong> এই ধরনের মেকানিজম
+              ব্যবহার করে।</li>
+          </ul>
+
+          <h3>B. Forward Error Correction (FEC)</h3>
+          <p>এই পদ্ধতিতে রিসিভার সেন্ডারকে ডাটা পুনরায় পাঠাতে বলে না (No Retransmission)। সেন্ডার মূল ডাটার সাথে কিছু
+            অতিরিক্ত গাণিতিক বিট (Redundant Bits) এমনভাবে সাজিয়ে পাঠায়, যাতে রিসিভার ডাটা পাওয়ার পর নিজে নিজেই হিসাব করে
+            বের করতে পারে ঠিক কোন বিটে ভুল হয়েছে এবং সেটিকে 0 থেকে 1 বা 1 থেকে 0 তে বদলে ঠিক করে ফেলে।</p>
+
+          <ul>
+            <li><strong>কোথায় ব্যবহার করা হয়?</strong> যেখানে ডাটা আবার পাঠানোর সুযোগ নেই বা আবার পাঠালে অনেক সময় লাগবে।
+              যেমন: <strong>Satellite Communication</strong>, স্পেস এক্সপ্লোরেশন, লাইভ ভিডিও স্ট্রিমিং এবং অত্যন্ত নয়েজি
+              ওয়্যারলেস নেটওয়ার্কে।</li>
+          </ul>
+
+          <h2>২. Hamming Code (ফরোয়ার্ড এরর কারেকশনের জাদুকরী পদ্ধতি)</h2>
+          <p>Forward Error Correction-এর সবচেয়ে জনপ্রিয় পদ্ধতি হলো <strong>Hamming Code</strong>। এটি রিচার্ড হ্যামিং
+            ১৯৫০ সালে আবিষ্কার করেন। এটি মূলত Single-bit Error (একটি বিটের ভুল) খুঁজে বের করতে এবং ঠিক করতে পারে।</p>
+
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> সেন্ডার মূল ডাটা বিটের (Data Bits) নির্দিষ্ট কিছু পজিশনে (যেমন ১, ২, ৪,
+              ৮ নম্বর পজিশনে) প্যারিটি বিট (Parity Bits) যুক্ত করে।</li>
+            <li>রিসিভার ডাটা পাওয়ার পর প্রতিটি প্যারিটি বিটের হিসাব আবার মেলায়। যদি কোনো হিসাবে গড়মিল পাওয়া যায়, তবে
+              রিসিভার ওই প্যারিটি বিটগুলোর পজিশন নম্বর যোগ করে।</li>
+            <li>যোগফল যা হয়, ঠিক সেই নম্বর বিটটিতেই Error হয়েছে বলে ধরে নেওয়া হয়! রিসিভার তখন ওই বিটটিকে উল্টে দেয় (0
+              থাকলে 1, 1 থাকলে 0 করে দেয়)। ব্যাস, ডাটা কারেক্ট হয়ে গেল!</li>
+          </ul>
+
+          <h2>৩. ARQ বনাম FEC (কোনটি কোথায় ভালো?)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>ARQ (Retransmission)</th>
+                  <th>FEC (Forward Error Correction)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">কাজের ধরন</td>
+                  <td>ভুল পেলে ডাটা আবার পাঠাতে বলে।</td>
+                  <td>ভুল পেলে নিজেই গাণিতিক হিসাবে ঠিক করে নেয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ব্যান্ডউইথ ব্যবহার</td>
+                  <td>নরমাল অবস্থায় কম, কিন্তু ভুল হলে বারবার পাঠাতে গিয়ে Bandwidth নষ্ট হয়।</td>
+                  <td>প্রথম থেকেই মূল ডাটার সাথে অনেক এক্সট্রা বিট পাঠাতে হয়, তাই Bandwidth বেশি লাগে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">বিলম্ব (Latency/Delay)</td>
+                  <td>ডাটা আবার পাঠাতে হয় বলে Delay অনেক বেশি হয়।</td>
+                  <td>Delay একেবারেই কম, রিয়েল-টাইম ডাটা প্রসেস হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ব্যবহার ক্ষেত্র (Use Case)</td>
+                  <td>Ethernet LAN, Wi-Fi, File Download, TCP connections.</td>
+                  <td>Satellite links, Deep Space Comm, Live Video/Audio Broadcast.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Cisco CLI: Network Retransmission ও Error ট্রাবলশুটিং</h2>
+          <p>বাস্তব জীবনে নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে দেখতে হবে নেটওয়ার্কে অনেক বেশি Error বা Retransmission
+            হচ্ছে কি না। কারণ অতিরিক্ত Retransmission নেটওয়ার্কের স্পিড স্লো করে দেয়।</p>
+
+          <h3>ইন্টারফেস এরর চেক করা:</h3>
+          <p>Data Link Layer-এ ফ্রেম ড্রপ বা এরর হচ্ছে কি না তা দেখতে:</p>
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1</code></pre>
+          <p><strong>আউটপুট এনালাইসিস:</strong> এখানে <code>input errors</code>, <code>CRC</code>, এবং
+            <code>frame</code> এররগুলো খেয়াল করুন। যদি এগুলো বাড়তে থাকে, তবে বুঝতে হবে ফিজিক্যাল ক্যাবল বা ডুপ্লেক্স
+            মোডে সমস্যা আছে। সুইচ এই নষ্ট ফ্রেমগুলোকে ড্রপ করছে এবং Transport Layer (TCP) বাধ্য হচ্ছে ডাটাগুলোকে বারবার
+            Retransmit করতে।</p>
+
+          <h3>TCP Retransmission কনসেপ্ট:</h3>
+          <p>সুইচের পোর্টে কোনো কনফিগারেশন এরর বা যানজট (Congestion) থাকলে ডাটা প্যাকেট ড্রপ হয়। তখন ইউজারের পিসির TCP
+            প্রোটোকল <strong>Selective Repeat ARQ</strong> ব্যবহার করে ওই ড্রপ হওয়া প্যাকেটটি আবার পাঠায়। এটি চেক করার
+            জন্য সাধারণত <strong>Wireshark</strong> এর মতো প্যাকেট স্নিফিং টুল ব্যবহার করতে হয়। Wireshark-এ
+            <code>tcp.analysis.retransmission</code> ফিল্টার দিয়ে খুব সহজেই দেখা যায় নেটওয়ার্কে কী পরিমাণ প্যাকেট পুনরায়
+            পাঠানো হচ্ছে।</p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Error Correction</strong> প্রযুক্তি না থাকলে আমাদের প্রতিদিনের ইন্টারনেট ব্রাউজিং, ফাইল ডাউনলোড
+              বা ভয়েস কলিং এক বিরাট বিশৃঙ্খলায় পরিণত হতো। লোকাল নেটওয়ার্ক এবং ইন্টারনেটে আমরা <strong>ARQ
+                (Retransmission)</strong> এর ওপর নির্ভর করি, কারণ ফাইবার বা কপার ক্যাবলে Error হওয়ার হার অনেক কম।
+              অন্যদিকে স্যাটেলাইট বা মহাশূন্যের মতো দুর্গম এবং নয়েজি মিডিয়ায় <strong>Forward Error Correction
+                (FEC)</strong> বা <strong>Hamming Code</strong> এর কোনো বিকল্প নেই। এই দুটি মেকানিজম কীভাবে কাজ করে তা
+              পরিষ্কারভাবে বুঝলে একজন নেটওয়ার্ক ইঞ্জিনিয়ার নেটওয়ার্কের লেটেন্সি (Latency) এবং পারফরম্যান্স ইস্যুগুলো খুব
+              সহজেই সমাধান করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

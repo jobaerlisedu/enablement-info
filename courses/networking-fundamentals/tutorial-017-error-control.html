@@ -5,21 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="সহজে শিখুন Network Engineering. Error Control in Data Link Layer নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
-  <title>Error Control in Data Link Layer | enablement.info</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="Data Link Layer-এ Error Control কীভাবে কাজ করে? Stop-and-Wait ARQ, Go-Back-N, Selective Repeat এবং নেটওয়ার্ক ট্রাবলশুটিং নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Error Control in Data Link Layer: Detailed Guide | enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -108,6 +111,60 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
 
 </head>
@@ -118,25 +175,171 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Error Control in Data Link Layer</h1>
+          <h1>Error Control in Data Link Layer: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> February 05, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 18 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Error Control in Data Link Layer</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>OSI Model-এর <strong>Data Link Layer (Layer 2)</strong> এর অন্যতম প্রধান এবং জটিল একটি কাজ হলো
+            <strong>Error Control</strong>। আমরা ইতিমধ্যে Error Detection এবং Correction সম্পর্কে জেনেছি। কিন্তু
+            নেটওয়ার্কে ডাটা পাঠানোর সময় যদি কোনো Frame মাঝপথে হারিয়ে যায় (Lost), নষ্ট হয়ে যায় (Corrupted) বা ভুল করে
+            ডুপ্লিকেট (Duplicate) হয়ে যায়, তখন সেন্ডার (Sender) এবং রিসিভার (Receiver) কীভাবে সেই পরিস্থিতি সামাল দেয়?
+          </p>
+          <p>এই সমস্যাগুলোর সমাধান করার মেকানিজম বা প্রক্রিয়াটিকেই Error Control বলা হয়। আজকের এই ডিপ-ডাইভ গাইডে আমরা
+            Error Control-এর মূলনীতি, ARQ (Automatic Repeat Request) প্রোটোকলসমূহ এবং প্র্যাকটিক্যাল নেটওয়ার্কিংয়ে এদের
+            প্রভাব নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>Error Control কী? (What is Error Control?)</h3>
+            <p><strong>Error Control</strong> হলো Data Link Layer-এর এমন একটি মেকানিজম, যার মাধ্যমে সেন্ডার নিশ্চিত হয়
+              যে তার পাঠানো প্রতিটি <strong>Frame</strong> রিসিভারের কাছে কোনো ভুল ছাড়া এবং সঠিক সিরিয়ালে (Sequence)
+              পৌঁছেছে। যদি কোনো ফ্রেম নষ্ট বা হারিয়ে যায়, তবে এই মেকানিজম সেন্ডারকে বাধ্য করে ফ্রেমটি পুনরায় পাঠাতে
+              (Retransmission)।</p>
+          </div>
+
+
+
+          <h2>১. Error Control এর তিনটি মূল উপাদান</h2>
+          <p>যেকোনো Error Control প্রোটোকল সফলভাবে কাজ করার জন্য তিনটি বেসিক মেকানিজম ব্যবহার করে:</p>
+          <ul>
+            <li><strong>Acknowledgement (ACK):</strong> রিসিভার যখন কোনো ফ্রেম সফলভাবে এবং নিখুঁত অবস্থায় রিসিভ করে, তখন
+              সে সেন্ডারকে একটি পজিটিভ সিগন্যাল পাঠায়। একে ACK বলা হয়।</li>
+            <li><strong>Negative Acknowledgement (NAK):</strong> রিসিভার যদি দেখে যে কোনো ফ্রেম নষ্ট হয়ে গেছে (CRC
+              Error), তবে সে সেন্ডারকে একটি নেগেটিভ সিগন্যাল পাঠায়। এটি সেন্ডারকে জানিয়ে দেয় যে ওই নির্দিষ্ট ফ্রেমটি
+              আবার পাঠাতে হবে।</li>
+            <li><strong>Time-Out Timer:</strong> সেন্ডার কোনো ফ্রেম পাঠানোর পর একটি নির্দিষ্ট সময় পর্যন্ত ACK এর জন্য
+              অপেক্ষা করে (যাকে Timer বলে)। যদি টাইমার শেষ হওয়ার আগে ACK না আসে, তবে সেন্ডার ধরে নেয় ফ্রেমটি পথে হারিয়ে
+              গেছে এবং সে নিজে থেকেই ফ্রেমটি পুনরায় পাঠায়।</li>
+          </ul>
+
+          <h2>২. Error Control Protocols (ARQ মেকানিজম)</h2>
+          <p>Data Link Layer-এ Error Control করার জন্য মূলত <strong>ARQ (Automatic Repeat Request)</strong> পদ্ধতি
+            ব্যবহার করা হয়। এটি তিনটি প্রধান প্রোটোকলে বিভক্ত:</p>
+
+          <h3>A. Stop-and-Wait ARQ</h3>
+          <p>এটি সবচেয়ে সহজ এবং পুরোনো প্রোটোকল। এর নিয়ম হলো, "একটি ফ্রেম পাঠাও এবং উত্তরের জন্য অপেক্ষা করো।"</p>
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> সেন্ডার একটি Frame পাঠায় এবং সাথে সাথে একটি Timer চালু করে দেয়। এরপর সে
+              আর কোনো ফ্রেম পাঠায় না, যতক্ষণ না রিসিভারের কাছ থেকে ACK আসে। ACK আসলে সে পরবর্তী ফ্রেম পাঠায়। আর যদি
+              টাইমার শেষ হয়ে যায় (Timeout) এবং কোনো ACK না আসে, তবে সে ওই একই ফ্রেমটি আবার পাঠায়।</li>
+            <li><strong>সমস্যা:</strong> এটি অত্যন্ত ধীরগতির। কারণ ফিজিক্যাল লিংকের <strong>Bandwidth</strong> যত বেশিই
+              হোক না কেন, সেন্ডার একটির বেশি ফ্রেম একসাথে পাঠাতে পারে না। ফলে নেটওয়ার্কের রিসোর্স নষ্ট হয়।</li>
+          </ul>
+
+          <h3>B. Go-Back-N ARQ (Sliding Window Protocol)</h3>
+          <p>Stop-and-Wait এর ধীরগতির সমস্যা সমাধানের জন্য <strong>Sliding Window</strong> কনসেপ্ট ব্যবহার করা হয়। এখানে
+            সেন্ডারকে প্রতিটি ফ্রেমের পর অপেক্ষা করতে হয় না, সে একসাথে অনেকগুলো ফ্রেম (যেমন Window Size = 5 হলে একসাথে
+            ৫টি ফ্রেম) পাঠাতে পারে।</p>
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> সেন্ডার পরপর ফ্রেম 1, 2, 3, 4 পাঠাতে থাকে। যদি ফ্রেম 2 মাঝপথে নষ্ট হয়ে
+              যায়, তবে রিসিভার ফ্রেম 2 ড্রপ করে দেয় এবং তার পরে আসা ফ্রেম 3 এবং 4 ও ড্রপ করে দেয় (কারণ সিরিয়াল ব্রেক
+              হয়েছে)। এরপর রিসিভার সেন্ডারকে ফ্রেম 2 এর জন্য NAK পাঠায়।</li>
+            <li><strong>Go-Back-N:</strong> সেন্ডার বুঝতে পারে যে ফ্রেম 2 পৌঁছায়নি। তখন সেন্ডারকে "পেছনে ফিরে যেতে হয়"
+              (Go Back) এবং ফ্রেম 2 থেকে শুরু করে পরবর্তী সব ফ্রেম (অর্থাৎ 2, 3, 4) আবার নতুন করে পাঠাতে হয়।</li>
+            <li><strong>সমস্যা:</strong> ফ্রেম 3 এবং 4 ঠিকভাবে পৌঁছানোর পরও শুধু ফ্রেম 2 নষ্ট হওয়ার কারণে সেগুলোকেও আবার
+              পাঠাতে হচ্ছে। এতে ব্যান্ডউইথের অপচয় হয়।</li>
+          </ul>
+
+          <h3>C. Selective Repeat ARQ</h3>
+          <p>এটি Go-Back-N এর চেয়ে অনেক বেশি স্মার্ট এবং বর্তমান নেটওয়ার্কিংয়ে সবচেয়ে কার্যকরী প্রোটোকল।</p>
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> এখানে সেন্ডার একসাথে অনেকগুলো ফ্রেম পাঠায়। যদি মাঝখানের কোনো ফ্রেম
+              (যেমন ফ্রেম 2) নষ্ট হয়, তবে রিসিভার শুধুমাত্র ফ্রেম 2 ড্রপ করে, কিন্তু ফ্রেম 3 এবং 4 কে ড্রপ না করে নিজের
+              <strong>Buffer</strong> এ সেভ করে রাখে।</li>
+            <li><strong>Selective Retransmission:</strong> রিসিভার শুধুমাত্র নষ্ট হওয়া ফ্রেম 2 এর জন্য NAK পাঠায়।
+              সেন্ডার তখন <em>শুধুমাত্র ফ্রেম 2</em> (Selective) পুনরায় পাঠায়, অন্যগুলো নয়। রিসিভার ফ্রেম 2 পাওয়ার পর
+              সেটিকে বাফারে থাকা ফ্রেম 3 এবং 4 এর সাথে সঠিক সিরিয়ালে সাজিয়ে নেয়।</li>
+            <li><strong>সুবিধা:</strong> শুধুমাত্র নষ্ট ডাটাই পুনরায় পাঠানো হয়, ফলে Bandwidth এর সর্বোচ্চ সদ্ব্যবহার হয়।
+            </li>
+          </ul>
+
+          <h2>৩. প্রোটোকলগুলোর তুলনামূলক পার্থক্য</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Stop-and-Wait ARQ</th>
+                  <th>Go-Back-N ARQ</th>
+                  <th>Selective Repeat ARQ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Window Size (Sender)</td>
+                  <td>১ (One)</td>
+                  <td>একাধিক (N)</td>
+                  <td>একাধিক (N)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Window Size (Receiver)</td>
+                  <td>১ (One)</td>
+                  <td>১ (One) - সিরিয়াল মেইনটেইন করে</td>
+                  <td>একাধিক (N) - Buffer থাকে</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Retransmission</td>
+                  <td>শুধুমাত্র বর্তমান ফ্রেম</td>
+                  <td>নষ্ট ফ্রেম এবং তার পরের সব ফ্রেম</td>
+                  <td>শুধুমাত্র নির্দিষ্ট নষ্ট ফ্রেম</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Bandwidth ব্যবহার</td>
+                  <td>অত্যন্ত কম (Inefficient)</td>
+                  <td>মাঝারি</td>
+                  <td>সর্বোচ্চ (Highly Efficient)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Real-life Usage: Wi-Fi (802.11) এ Error Control</h2>
+          <p>আমাদের সাধারণ কপার বা ফাইবার অপটিক ক্যাবলে (Ethernet) ডাটা লস খুব কম হয়, তাই সেখানে Layer 2 তে ভারী Error
+            Control মেকানিজম ব্যবহার করা হয় না (Ethernet শুধু Error Detection করে ফ্রেম ড্রপ করে দেয়, বাকি দায়িত্ব
+            Transport Layer এর TCP এর ওপর ছেড়ে দেয়)।</p>
+
+          <p>কিন্তু <strong>Wireless Network (Wi-Fi)</strong> এর ক্ষেত্রে রেডিও সিগন্যালে প্রচুর নয়েজ এবং ইন্টারফারেন্স
+            থাকে, ফলে ফ্রেম প্রচুর ড্রপ হয়। তাই Wi-Fi এর Data Link Layer (MAC Sub-layer) এ খুব শক্ত
+            <strong>Stop-and-Wait ARQ</strong> এর মডিফাইড ভার্সন ব্যবহার করা হয়। Wi-Fi তে প্রতিটি ফ্রেম রিসিভ হওয়ার পর
+            রাউটার একটি <strong>MAC-level ACK</strong> পাঠায়। ACK না পেলে ডিভাইস সাথে সাথে ফ্রেমটি আবার পাঠায় (MAC
+            Retries)।</p>
+
+          <h2>৫. Cisco CLI: Interface Troubleshooting</h2>
+          <p>কমান্ড লাইনের মাধ্যমে ইন্টারফেসের Error Control এবং Retransmission এর স্ট্যাটাস দেখতে নিচের কমান্ডগুলো
+            ব্যবহার করুন:</p>
+
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1</code></pre>
+          <p>আউটপুটে যা খেয়াল করবেন:</p>
+          <ul>
+            <li><strong>Input Errors & CRC:</strong> এই ভ্যালুগুলো বাড়লে বুঝতে হবে ডাটা ফ্রেমগুলো ফিজিক্যালি নষ্ট হচ্ছে
+              এবং রিসিভার এগুলো ড্রপ করছে।</li>
+            <li><strong>Output Drops / Queue Drops:</strong> যদি দেখেন পোর্টের বাফার (Buffer) ফুল হয়ে ডাটা ড্রপ হচ্ছে,
+              তার মানে সেন্ডার অনেক বেশি ডাটা পাঠাচ্ছে যা রিসিভার প্রসেস করতে পারছে না। এক্ষেত্রে Flow Control এবং Error
+              Control মেকানিজমগুলো প্রচুর Retransmission রিকোয়েস্ট তৈরি করে, যা পুরো নেটওয়ার্ক স্লো করে দেয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Error Control</strong> মেকানিজম ছাড়া কোনো ডাটা নেটওয়ার্ক নির্ভরযোগ্য (Reliable) হতে পারে না।
+              <strong>ACK</strong>, <strong>NAK</strong> এবং <strong>Timer</strong> এর মতো সাধারণ কনসেপ্ট ব্যবহার করে
+              Data Link Layer নিশ্চিত করে যে, ফিজিক্যাল মিডিয়ার নয়েজ বা ত্রুটির কারণে কোনো ডাটা যেন চিরতরে হারিয়ে না
+              যায়। যদিও আধুনিক লোকাল নেটওয়ার্কে (LAN) এর বেশিরভাগ কাজ Transport Layer (TCP) করে থাকে, কিন্তু ওয়্যারলেস
+              নেটওয়ার্কে (WLAN) <strong>ARQ (Automatic Repeat Request)</strong> এর ব্যবহার এখনো অপরিহার্য। এই
+              প্রোটোকলগুলোর কাজ করার পদ্ধতি পরিষ্কার থাকলে নেটওয়ার্কের লেটেন্সি (Latency) এবং ব্যান্ডউইথ অপটিমাইজেশন
+              বোঝা অনেক সহজ হয়ে যায়।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

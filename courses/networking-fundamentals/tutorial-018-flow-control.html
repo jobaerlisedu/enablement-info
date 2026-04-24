@@ -5,21 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="সহজে শিখুন Network Engineering. Flow Control: Data Link Layer নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
-  <title>Flow Control: Data Link Layer | enablement.info</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="Data Link Layer-এ Flow Control কী, Stop-and-Wait, Sliding Window মেকানিজম এবং Cisco সুইচে Flow Control (802.3x) কনফিগারেশন নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Flow Control in Data Link Layer: Detailed Guide | enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -108,6 +111,60 @@
       color: var(--primary-color);
       transform: translateX(-5px);
     }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
 
 </head>
@@ -118,25 +175,137 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Flow Control: Data Link Layer</h1>
+          <h1>Flow Control in Data Link Layer: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> February 08, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 22 May, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Flow Control: Data Link Layer</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>OSI Model-এর <strong>Data Link Layer (Layer 2)</strong> এর অন্যতম গুরুত্বপূর্ণ একটি দায়িত্ব হলো সেন্ডার
+            (Sender) এবং রিসিভারের (Receiver) মধ্যে ডাটা পাঠানোর স্পিড বা গতি নিয়ন্ত্রণ করা। নেটওয়ার্কিংয়ের ভাষায় এই গতি
+            নিয়ন্ত্রণ মেকানিজমটিকেই বলা হয় <strong>Flow Control</strong>।</p>
+          <p>যদি সেন্ডার অনেক শক্তিশালী হয় এবং খুব দ্রুত গতিতে ডাটা পাঠাতে থাকে, আর রিসিভার যদি দুর্বল হয় বা তার
+            প্রসেসিং স্পিড কম থাকে, তবে ডাটা ফ্রেমগুলো হারিয়ে যেতে পারে। এই সমস্যার সমাধান কীভাবে করা হয়, কোন কোন
+            প্রোটোকল ব্যবহৃত হয় এবং Cisco সুইচে এটি কীভাবে কাজ করে—তা নিয়ে আজকের এই ডিপ-ডাইভ আর্টিকেলে আমরা বিস্তারিত
+            আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>Flow Control কী? (What is Flow Control?)</h3>
+            <p><strong>Flow Control</strong> হলো ডাটা ট্রান্সমিশনের এমন একটি প্রক্রিয়া, যা নিশ্চিত করে যে সেন্ডার এমন
+              স্পিডে ডাটা পাঠাবে না যা রিসিভারের প্রসেস করার ক্ষমতার বাইরে। এটি সেন্ডারকে ডাটা পাঠানোর পরিমাণ এবং গতি
+              সম্পর্কে ফিডব্যাক দেয়, যাতে রিসিভারের মেমোরি বা বাফার (Buffer) ওভারফ্লো হয়ে ডাটা লস না হয়।</p>
+            <p><strong>রিয়েল-লাইফ উদাহরণ:</strong> মনে করুন, আপনি একটি বোতলে জগ থেকে পানি ঢালছেন। জগের মুখ বড় হওয়ায় পানি
+              খুব দ্রুত পড়ে, কিন্তু বোতলের মুখ ছোট হওয়ায় সব পানি ভেতরে যেতে পারে না এবং কিছু পানি বাইরে পড়ে যায়। এটি
+              এড়ানোর জন্য আপনি জগের পানি একটু একটু করে ঢালেন এবং বোতলে জায়গা ফাঁকা হওয়ার জন্য অপেক্ষা করেন।
+              নেটওয়ার্কিংয়ে Flow Control ঠিক এই কাজটিই করে!</p>
+          </div>
+
+          <h2>১. Flow Control কেন প্রয়োজন? (Why is it Necessary?)</h2>
+          <p>নেটওয়ার্কে প্রতিটি ডিভাইসের একটি নির্দিষ্ট মেমোরি থাকে, যাকে <strong>Buffer</strong> বলা হয়। ইনকামিং ডাটা
+            ফ্রেমগুলো প্রসেস হওয়ার আগ পর্যন্ত এই বাফারে জমা থাকে।</p>
+          <ul>
+            <li><strong>Speed Mismatch:</strong> ধরি, একটি শক্তিশালী সার্ভার (Sender) 1 Gbps স্পিডে সুইচের মাধ্যমে ডাটা
+              পাঠাচ্ছে, কিন্তু গন্তব্যের পিসিটি (Receiver) পুরনো এবং তার ল্যান কার্ড 100 Mbps স্পিডের। সার্ভার যদি তার
+              ফুল স্পিডে ডাটা পাঠায়, তবে পিসির বাফার খুব দ্রুত ফুল হয়ে যাবে।</li>
+            <li><strong>Data Loss:</strong> বাফার ফুল হয়ে যাওয়ার পর নতুন যত ডাটা (Frame) আসবে, রিসিভার সেগুলো প্রসেস
+              করতে না পেরে ড্রপ (Drop) করে দেবে।</li>
+            <li><strong>Retransmission Overhead:</strong> ডাটা ড্রপ হলে Transport Layer (TCP) সেই ডাটাগুলো আবার পাঠাতে
+              বলবে। ফলে পুরো নেটওয়ার্কে অহেতুক ট্রাফিক জ্যাম (Congestion) তৈরি হবে। Flow Control এই সমস্যাগুলো প্রতিরোধ
+              করে।</li>
+          </ul>
+
+          <h2>২. Flow Control এর মেকানিজমসমূহ (Mechanisms)</h2>
+          <p>Data Link Layer-এ ফ্লো কন্ট্রোল করার জন্য মূলত দুটি পদ্ধতি ব্যবহার করা হয়:</p>
+
+          <h3>A. Stop-and-Wait Flow Control</h3>
+          <p>এটি সবচেয়ে সরল এবং বেসিক একটি পদ্ধতি।</p>
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> সেন্ডার একটি Frame পাঠায় এবং সাথে সাথে ডাটা পাঠানো বন্ধ করে দেয় (Stop)।
+              এরপর সে রিসিভারের কাছ থেকে একটি Acknowledgement (ACK) এর জন্য অপেক্ষা করে (Wait)। রিসিভার ফ্রেমটি রিসিভ
+              করে এবং বাফার খালি হলে একটি ACK পাঠায়। ACK পাওয়ার পরই সেন্ডার পরবর্তী ফ্রেম পাঠায়।</li>
+            <li><strong>সুবিধা:</strong> এটি ইমপ্লিমেন্ট করা খুব সহজ এবং বাফার ওভারফ্লো হওয়ার কোনো সুযোগ নেই।</li>
+            <li><strong>অসুবিধা:</strong> এই পদ্ধতিটি অত্যন্ত ধীরগতির। লিংকের Bandwidth যতই বেশি হোক না কেন, একবারে কেবল
+              একটি ফ্রেম পাঠানো যায়, ফলে নেটওয়ার্ক রিসোর্সের মারাত্মক অপচয় হয়।</li>
+          </ul>
+
+          <h3>B. Sliding Window Flow Control</h3>
+          <p>Stop-and-Wait এর ধীরগতির সমস্যা সমাধানের জন্য <strong>Sliding Window</strong> পদ্ধতি ব্যবহার করা হয়। আধুনিক
+            নেটওয়ার্কিংয়ে এটিই মূল ভিত্তি।</p>
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> এখানে সেন্ডারকে প্রতিটি ফ্রেম পাঠানোর পর ACK এর জন্য অপেক্ষা করতে হয়
+              না। সেন্ডার এবং রিসিভার আগে থেকেই একটি <strong>Window Size</strong> ঠিক করে নেয় (ধরি, Window Size = 5)। এর
+              মানে হলো, সেন্ডার কোনো ACK না পেয়েই একসাথে সর্বোচ্চ ৫টি ফ্রেম পাঠাতে পারবে।</li>
+            <li>রিসিভার ৫টি ফ্রেম পাওয়ার পর সেগুলো প্রসেস করে এবং একসাথে একটি ACK পাঠায় (যাকে Cumulative ACK বলে)। এই
+              ACK এর মাধ্যমে রিসিভার জানিয়ে দেয় যে সে পরের কতগুলো ফ্রেম রিসিভ করতে প্রস্তুত।</li>
+            <li><strong>সুবিধা:</strong> একসাথে অনেকগুলো ফ্রেম পাঠানো যায় বলে লিংকের <strong>Bandwidth</strong> এর
+              সর্বোচ্চ ব্যবহার নিশ্চিত হয় এবং ট্রান্সমিশন স্পিড অনেক বেশি থাকে।</li>
+          </ul>
+
+          <h2>৩. Ethernet Flow Control (IEEE 802.3x)</h2>
+          <p>প্র্যাকটিক্যাল লোকাল এরিয়া নেটওয়ার্কে (LAN), বিশেষ করে আধুনিক Switch-এ Flow Control এর জন্য <strong>IEEE
+              802.3x</strong> স্ট্যান্ডার্ড ব্যবহার করা হয়। এটি <strong>PAUSE Frame</strong> মেকানিজমের মাধ্যমে কাজ করে।
+          </p>
+
+          <ul>
+            <li><strong>PAUSE Frame কী?</strong> যদি একটি সুইচের পোর্ট (Receiver) বুঝতে পারে যে তার বাফার ফুল হয়ে যাচ্ছে
+              এবং সে আর ডাটা নিতে পারছে না, তখন সে সেন্ডারকে একটি স্পেশাল MAC Control Frame পাঠায়, যাকে <strong>PAUSE
+                Frame</strong> বলে।</li>
+            <li>এই ফ্রেমে একটি নির্দিষ্ট টাইম ভ্যালু (Quanta) দেওয়া থাকে। সেন্ডার এই PAUSE ফ্রেম পাওয়া মাত্রই ওই
+              নির্দিষ্ট সময়ের জন্য নতুন ডাটা পাঠানো বন্ধ করে দেয়।</li>
+            <li>সময় শেষ হলে বা রিসিভারের বাফার খালি হলে সে আরেকটি ফ্রেম পাঠায় (PAUSE Time = 0), যার অর্থ "এখন ডাটা
+              পাঠাতে পারো"। তখন সেন্ডার আবার ডাটা পাঠানো শুরু করে।</li>
+          </ul>
+
+          <h2>৪. Cisco CLI: Flow Control কনফিগারেশন এবং ট্রাবলশুটিং</h2>
+          <p>একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে সুইচের পোর্টে Flow Control এনাবল (Enable) বা ট্রাবলশুট
+            করতে হবে। Cisco সুইচে এটি কনফিগার করা খুব সহজ।</p>
+
+          <h3>Flow Control এনাবল করা:</h3>
+          <p>যেকোনো স্পেসিফিক পোর্টে প্রবেশ করে রিসিভ বা ট্রান্সমিট ফ্লো কন্ট্রোল চালু করা যায়:</p>
+          <pre><code>Switch> enable
+Switch# configure terminal
+Switch(config)# interface gigabitEthernet 0/1
+Switch(config-if)# flowcontrol receive on
+Switch(config-if)# flowcontrol send on
+Switch(config-if)# exit</code></pre>
+          <p><em>নোট: ডিফল্টভাবে আধুনিক সিসকো সুইচগুলোতে এটি <code>desired</code> বা <code>auto</code> মোডে থাকে, যাতে
+              দুই পাশের ডিভাইস নিজেরাই নেগোসিয়েট করতে পারে।</em></p>
+
+          <h3>ইন্টারফেস ট্রাবলশুটিং (Overruns এবং Drops):</h3>
+          <p>আপনার নেটওয়ার্কে ফ্লো কন্ট্রোল ঠিকমতো কাজ করছে কি না বা বাফার ওভারফ্লো হচ্ছে কি না, তা চেক করতে নিচের
+            কমান্ডটি দিন:</p>
+          <pre><code>Switch# show interfaces gigabitEthernet 0/1</code></pre>
+
+          <p><strong>আউটপুটে যা খেয়াল করবেন:</strong></p>
+          <ul>
+            <li><strong>input flow-control is on:</strong> এই লাইনটি দেখলে বুঝবেন পোর্টে 802.3x PAUSE ফ্রেম রিসিভ করার
+              ফিচারটি চালু আছে।</li>
+            <li><strong>Overruns:</strong> যদি দেখেন Overruns এর কাউন্ট বাড়ছে, তার মানে হলো রিসিভারের বাফার ফুল হয়ে গেছে
+              এবং নতুন আসা ফ্রেমগুলো ড্রপ হচ্ছে। এটি স্পষ্ট প্রমাণ যে সেন্ডার অতিরিক্ত স্পিডে ডাটা পাঠাচ্ছে এবং Flow
+              Control ঠিকমতো কাজ করছে না।</li>
+            <li><strong>Ignored:</strong> বাফার ওভারফ্লো বা মেমোরি স্বল্পতার কারণে সুইচ যদি ফ্রেম প্রসেস করতে না পেরে
+              ইগনোর করে, তবে এই কাউন্ট বাড়ে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Flow Control</strong> হলো নেটওয়ার্কের স্পিড ব্রেকার বা ট্রাফিক পুলিশের মতো, যা নিশ্চিত করে যে
+              ডাটার গতি যেন রিসিভারের হজম করার ক্ষমতার বাইরে না যায়। <strong>Stop-and-Wait</strong> মেকানিজম শেখার জন্য
+              ভালো হলেও, প্র্যাকটিক্যাল ফিল্ডে <strong>Sliding Window</strong> এবং ইথারনেটের <strong>PAUSE Frame
+                (802.3x)</strong> এর ব্যবহারই নেটওয়ার্কের পারফরম্যান্স স্থিতিশীল রাখে। Cisco সুইচে ইন্টারফেসের
+              <code>Overruns</code> চেক করে এবং Flow Control কনফিগার করার মাধ্যমে আপনি খুব সহজেই ডাটা ড্রপ এবং অহেতুক
+              নেটওয়ার্ক কনজেশন (Congestion) থেকে আপনার এন্টারপ্রাইজ নেটওয়ার্ককে সুরক্ষিত রাখতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>
