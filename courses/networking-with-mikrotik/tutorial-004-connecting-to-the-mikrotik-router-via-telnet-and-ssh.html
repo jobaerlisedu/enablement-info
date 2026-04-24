@@ -1,32 +1,348 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik Router-এ Telnet এবং SSH ব্যবহার করে কীভাবে রিমোটলি কানেক্ট করতে হয় তার বিস্তারিত গাইড। সার্ভিস ম্যানেজমেন্ট, সিকিউরিটি এবং ট্রাবলশুটিং শিখুন।">
   <title>Connecting to the MikroTik Router via Telnet and SSH | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Connecting to the MikroTik Router via Telnet and SSH</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Connecting to the MikroTik Router via Telnet and SSH</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Connecting to the MikroTik Router via Telnet and SSH</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 05 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik রাউটার কনফিগার করার জন্য গ্রাফিক্যাল টুল হিসেবে Winbox এবং WebFig চমৎকার কাজ করে। কিন্তু একজন
+            প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে সব সময় গ্রাফিক্যাল ইন্টারফেসের ওপর নির্ভর করলে চলবে না। রিমোট
+            সার্ভার ম্যানেজ করা, অটোমেশন স্ক্রিপ্ট রান করানো, অথবা খুব দ্রুত কনফিগারেশন চেক করার জন্য <strong>Command
+              Line Interface (CLI)</strong> এর কোনো বিকল্প নেই।</p>
+          <p>যেকোনো নেটওয়ার্ক ডিভাইসে রিমোটলি CLI-তে প্রবেশ করার জন্য সবচেয়ে জনপ্রিয় দুটি প্রোটোকল হলো
+            <strong>Telnet</strong> এবং <strong>SSH</strong>। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো এই দুটি প্রোটোকল
+            কী, এদের মধ্যে পার্থক্য কী এবং কীভাবে এগুলোর মাধ্যমে একটি MikroTik রাউটারের সম্পূর্ণ নিয়ন্ত্রণ নেওয়া যায়।
+          </p>
+
+          <div class="content-box">
+            <h3>১. Telnet এবং SSH কী?</h3>
+            <p><strong>Telnet (Telecommunication Network):</strong> এটি নেটওয়ার্কিংয়ের অত্যন্ত পুরনো একটি প্রোটোকল। এর
+              সাহায্যে আপনি আপনার পিসি থেকে দূরে থাকা কোনো রাউটার বা সুইচের কমান্ড লাইনে (CLI) প্রবেশ করতে পারবেন। এটি
+              লোকাল নেটওয়ার্কে (LAN) দ্রুত কাজ করার জন্য ভালো হলেও ইন্টারনেটের জন্য মোটেও নিরাপদ নয়।</p>
+            <p><strong>SSH (Secure Shell):</strong> এটি হলো Telnet এর আধুনিক এবং অত্যন্ত সিকিউর (Secure) ভার্সন। Telnet
+              এর মতোই এটি দিয়ে কমান্ড লাইনে প্রবেশ করা যায়, কিন্তু এর সবচেয়ে বড় সুবিধা হলো, এটি ডাটাকে এনক্রিপ্ট
+              (Encrypt) করে পাঠায়। ফলে মাঝপথে কোনো হ্যাকার ডাটা চুরি করলেও তা পড়তে পারে না।</p>
+          </div>
+
+          <h2>২. Telnet বনাম SSH: কোনটি ব্যবহার করবেন?</h2>
+          <p>আপনার প্রোডাকশন নেটওয়ার্কে (Production Network) কোনটি ব্যবহার করা উচিত, তা বুঝতে নিচের তুলনামূলক টেবিলটি
+            লক্ষ করুন:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Telnet</th>
+                  <th>SSH (Secure Shell)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">ডিফল্ট পোর্ট (Default Port)</td>
+                  <td>TCP Port 23</td>
+                  <td>TCP Port 22</td>
+                </tr>
+                <tr>
+                  <td class="type-column">সিকিউরিটি (Security)</td>
+                  <td>Insecure। ডাটা Plain Text হিসেবে যায়।</td>
+                  <td>Highly Secure। ডাটা Encrypted অবস্থায় যায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ডাটা চুরি হওয়ার ঝুঁকি</td>
+                  <td>হ্যাকার Wireshark দিয়ে প্যাকেট ক্যাপচার করে সহজেই আপনার Username এবং Password দেখে ফেলতে পারে।
+                  </td>
+                  <td>প্যাকেট ক্যাপচার করলেও হ্যাকার শুধু কিছু এলোমেলো (Garbage) এনক্রিপ্টেড টেক্সট দেখতে পাবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">রিকমেন্ডেশন (Recommendation)</td>
+                  <td>শুধুমাত্র লোকাল ল্যাবে (Local Lab) টেস্টিংয়ের জন্য ব্যবহার করা উচিত।</td>
+                  <td>যেকোনো লাইভ নেটওয়ার্ক বা ইন্টারনেটে সব সময় SSH ব্যবহার করা বাধ্যতামূলক।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Telnet এর মাধ্যমে কানেক্ট করার পদ্ধতি</h2>
+          <p>আপনার পিসি যদি উইন্ডোজ (Windows) হয়, তবে ডিফল্টভাবে Telnet ক্লায়েন্ট বন্ধ থাকতে পারে। এটি চালু করে বা
+            থার্ড-পার্টি সফটওয়্যার দিয়ে কানেক্ট করতে পারেন।</p>
+
+          <ul>
+            <li><strong>Command Prompt (CMD) ব্যবহার করে:</strong>
+              <ul>
+                <li>উইন্ডোজের <code>Start</code> মেনু থেকে <code>cmd</code> লিখে Command Prompt ওপেন করুন।</li>
+                <li>কমান্ড দিন: <code>telnet 192.168.88.1</code> (এখানে আপনার রাউটারের IP Address বসাবেন)।</li>
+                <li>রাউটার আপনার কাছে <code>Login:</code> চাইবে। ইউজারনেম (যেমন admin) দিয়ে এন্টার দিন।</li>
+                <li>এরপর <code>Password:</code> চাইলে পাসওয়ার্ড দিয়ে এন্টার দিন। ব্যাস, আপনি MikroTik এর CLI তে প্রবেশ
+                  করেছেন।</li>
+              </ul>
+            </li>
+            <li><strong>PuTTY ব্যবহার করে:</strong>
+              <ul>
+                <li>ইন্টারনেট থেকে <strong>PuTTY</strong> নামের ফ্রি সফটওয়্যারটি ডাউনলোড করে ওপেন করুন।</li>
+                <li><code>Host Name (or IP address)</code> এর ঘরে রাউটারের আইপি দিন।</li>
+                <li>Connection Type এ <strong>Telnet</strong> রেডিও বাটনটি সিলেক্ট করে <strong>Open</strong> এ ক্লিক
+                  করুন।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h2>৪. SSH এর মাধ্যমে কানেক্ট করার পদ্ধতি (Recommended)</h2>
+          <p>সবচেয়ে সিকিউর পদ্ধতি হলো SSH ব্যবহার করা। বর্তমানে Windows 10/11 এবং Linux/Mac সিস্টেমে ডিফল্টভাবেই SSH
+            ক্লায়েন্ট ইন্সটল করা থাকে।</p>
+
+          <ul>
+            <li><strong>Command Prompt (CMD) বা Terminal ব্যবহার করে:</strong>
+              <ul>
+                <li>টার্মিনাল ওপেন করুন এবং কমান্ড দিন: <code>ssh admin@192.168.88.1</code> (এখানে <code>admin</code>
+                  হলো আপনার ইউজারনেম এবং <code>192.168.88.1</code> হলো রাউটারের আইপি)।</li>
+                <li>প্রথমবার কানেক্ট করার সময় সিস্টেম একটি সিকিউরিটি ওয়ার্নিং দিয়ে জিজ্ঞেস করবে আপনি এই ডিভাইসকে ট্রাস্ট
+                  করেন কি না। সেখানে <code>yes</code> লিখে এন্টার দিন।</li>
+                <li>এরপর আপনার পাসওয়ার্ড চাইবে। পাসওয়ার্ড টাইপ করার সময় স্ক্রিনে কিছু দেখা যাবে না (সিকিউরিটির জন্য),
+                  টাইপ করা শেষ হলে এন্টার দিন।</li>
+              </ul>
+            </li>
+            <li><strong>PuTTY ব্যবহার করে:</strong>
+              <ul>
+                <li>PuTTY ওপেন করুন।</li>
+                <li><code>Host Name</code> এর ঘরে আইপি দিন এবং Connection Type এ <strong>SSH</strong> সিলেক্ট করুন (Port
+                  অটোমেটিক 22 হয়ে যাবে)।</li>
+                <li><strong>Open</strong> বাটনে ক্লিক করে ইউজারনেম ও পাসওয়ার্ড দিয়ে লগইন করুন।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h2>৫. MikroTik এ Service Management কনফিগারেশন</h2>
+          <p>নিরাপত্তার স্বার্থে রাউটারের অদরকারি সার্ভিসগুলো বন্ধ করে রাখা বা ডিফল্ট পোর্ট পরিবর্তন করা একজন ভালো
+            নেটওয়ার্ক অ্যাডমিনের প্রধান কাজ। চলুন দেখি MikroTik এ এটি কীভাবে করতে হয়:</p>
+
+          <h3>চলমান সার্ভিসগুলো চেক করা:</h3>
+          <p>Winbox এর <code>New Terminal</code> এ গিয়ে নিচের কমান্ডটি দিন:</p>
+          <pre><code>[admin@MikroTik] > /ip service print</code></pre>
+          <p>এখানে আপনি দেখতে পাবেন ftp, ssh, telnet, winbox, www (webfig) কোন কোন পোর্টে চলছে এবং সেগুলো এনাবল (Enable)
+            আছে কি না।</p>
+
+          <h3>Telnet সার্ভিস চিরতরে বন্ধ (Disable) করা:</h3>
+          <p>যেহেতু Telnet সিকিউর নয়, তাই প্রোডাকশন রাউটারে এটি সবসময় বন্ধ রাখা উচিত:</p>
+          <pre><code>[admin@MikroTik] > /ip service disable telnet</code></pre>
+
+          <h3>SSH এর ডিফল্ট পোর্ট পরিবর্তন করা:</h3>
+          <p>হ্যাকাররা সব সময় ডিফল্ট পোর্টে (যেমন 22) অ্যাটাক করে। তাই সিকিউরিটি বাড়ানোর জন্য SSH এর পোর্ট পরিবর্তন করে
+            দেওয়া উচিত (যেমন 2222 বা অন্য যেকোনো আনকমন পোর্ট):</p>
+          <pre><code>[admin@MikroTik] > /ip service set ssh port=2222</code></pre>
+          <p><em>নোট: পোর্ট পরিবর্তন করার পর, পরবর্তীতে SSH করার সময় আপনাকে পোর্ট উল্লেখ করে দিতে হবে। যেমন:
+              <code>ssh admin@192.168.88.1 -p 2222</code></em></p>
+
+          <h2>৬. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <p>রিমোটলি কানেক্ট করতে গিয়ে কিছু সাধারণ সমস্যার সম্মুখীন হতে পারেন:</p>
+          <ul>
+            <li><strong>"Connection Refused" এরর দেখানো:</strong> এর মানে হলো রাউটার পর্যন্ত রিকোয়েস্ট পৌঁছাচ্ছে, কিন্তু
+              রাউটারের ওই পোর্টটি বন্ধ আছে। <code>/ip service print</code> দিয়ে চেক করুন SSH বা Telnet সার্ভিসটি Disable
+              করা আছে কি না, অথবা এর পোর্ট পরিবর্তন করা হয়েছে কি না।</li>
+            <li><strong>"Connection Timed Out" এরর দেখানো:</strong> এর মানে হলো আপনার পিসি থেকে রাউটার পর্যন্ত কানেকশন
+              পৌঁছাচ্ছে না। এর প্রধান কারণ হতে পারে মাঝখানের কোনো <strong>Firewall Rule</strong> আপনার রিকোয়েস্ট ড্রপ
+              করে দিচ্ছে, অথবা রাউটারের আইপি অ্যাড্রেস ভুল। রাউটারকে Ping করে চেক করুন।</li>
+            <li><strong>SSH Key Error:</strong> যদি আপনি রাউটার রিসেট করেন বা নতুন রাউটারে একই আইপি বসান, তবে আগের সেভ
+              করা SSH Key এর সাথে মিলবে না। তখন <code>WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!</code> এরর দিতে
+              পারে। উইন্ডোজে <code>.ssh/known_hosts</code> ফাইল থেকে ওই আইপির এন্ট্রিটি মুছে ফেললেই সমাধান হয়ে যাবে।
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি <strong>MikroTik Router</strong> প্রফেশনাল লেভেলে মেইনটেইন করার জন্য <strong>CLI (Command Line
+                Interface)</strong> এ দক্ষতা অর্জন করা অত্যন্ত জরুরি। <strong>Telnet</strong> হয়তো শেখার জন্য সহজ,
+              কিন্তু প্রোডাকশন নেটওয়ার্কে ডাটা লিক হওয়ার মারাত্মক ঝুঁকি থাকায় এর ব্যবহার এখন প্রায় শূন্যের কোঠায়।
+              অন্যদিকে <strong>SSH</strong> আপনাকে দেয় সর্বোচ্চ সিকিউরিটির নিশ্চয়তা। সার্ভিসগুলোকে সঠিকভাবে ম্যানেজ করা
+              এবং ডিফল্ট পোর্টগুলো পরিবর্তন করে নেওয়ার মাধ্যমে আপনি আপনার নেটওয়ার্ককে ব্রুট-ফোর্স অ্যাটাক (Brute-force
+              attack) থেকে সহজেই রক্ষা করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,343 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ Bridging (ব্রিজিং) কীভাবে কাজ করে? Winbox ও CLI ব্যবহার করে Bridge তৈরি, পোর্ট যোগ করা এবং Hardware Offloading নিয়ে বিস্তারিত বাংলা গাইড।">
   <title>Understand and configure Bridging on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Understand and configure Bridging on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Understand and configure Bridging on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Understand and configure Bridging on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 September, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিংয়ের সাধারণ নিয়মানুযায়ী, একটি রাউটারের প্রধান কাজ হলো দুটি ভিন্ন আইপি ব্লকের (Subnet) মধ্যে ডাটা
+            আদান-প্রদান করা (Routing)। রাউটারের প্রতিটি পোর্ট একটি আলাদা নেটওয়ার্ক হিসেবে কাজ করে। কিন্তু অনেক সময়
+            আমাদের এমন একটি পরিবেশের দরকার হয়, যেখানে রাউটারের কয়েকটি পোর্ট মিলে একটি সাধারণ সুইচের (Switch) মতো আচরণ
+            করবে।</p>
+          <p>MikroTik RouterOS এ এই কাজটি করার প্রক্রিয়াটিকেই <strong>Bridging</strong> বলা হয়। আজকের এই ডিপ-ডাইভ
+            টিউটোরিয়ালে আমরা শিখবো Bridge কী, কেন এটি ব্যবহার করা হয়, Hardware Offloading এর মতো অ্যাডভান্সড কনসেপ্ট এবং
+            Winbox ও CLI ব্যবহার করে কীভাবে নিখুঁতভাবে Bridge কনফিগার করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>Bridging কী এবং কেন প্রয়োজন? (Real-life Scenario)</h3>
+            <p><strong>Bridging (Layer 2 Forwarding):</strong> সহজ কথায়, রাউটারের একাধিক ফিজিক্যাল পোর্টকে (Interface)
+              লজিক্যালি একসাথে যুক্ত করে একটি মাত্র ভার্চুয়াল পোর্টে পরিণত করাকেই Bridge বলে। এর ফলে যুক্ত হওয়া
+              পোর্টগুলো একটি Layer 2 Switch এর মতো আচরণ করে এবং সবগুলো পোর্টে একই আইপি ব্লক কাজ করে।</p>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> মনে করুন, আপনার কাছে একটি ৫-পোর্টের <code>MikroTik RB750Gr3</code>
+              রাউটার আছে। আপনি <code>ether1</code> পোর্টে ইন্টারনেটের (ISP) ক্যাবল লাগিয়েছেন। এখন আপনি চান আপনার অফিসের
+              ৩টি পিসি <code>ether2</code>, <code>ether3</code> এবং <code>ether4</code> পোর্টে লাগানো থাকুক এবং তারা
+              সবাই একই DHCP Server (যেমন 192.168.10.0/24) থেকে আইপি পাক। তারা যেন ল্যান (LAN) এর ভেতর নিজেদের মধ্যে ডাটা
+              শেয়ার করতে পারে। এই কাজটি করার জন্যই আপনাকে ether2, ether3 এবং ether4 কে একটি <strong>Bridge</strong> এর
+              আওতায় আনতে হবে।</p>
+          </div>
+
+          <h2>১. Bridge তৈরি করার বেসিক কনসেপ্ট</h2>
+          <p>MikroTik এ Bridging কনফিগারেশনের মূলত দুটি অংশ থাকে:</p>
+          <ol>
+            <li><strong>Bridge Interface তৈরি করা:</strong> প্রথমে একটি ভার্চুয়াল ইন্টারফেস তৈরি করতে হয় (যেমন আমরা একটি
+              খালি সুইচের বক্স কিনলাম)।</li>
+            <li><strong>Ports যুক্ত করা:</strong> এরপর রাউটারের যে পোর্টগুলোকে আমরা এক করতে চাই, সেগুলোকে ওই Bridge
+              ইন্টারফেসের মেম্বার (Member) হিসেবে যুক্ত করতে হয়।</li>
+          </ol>
+          <p><em>সবচেয়ে গুরুত্বপূর্ণ নিয়ম:</em> একবার কোনো ফিজিক্যাল পোর্ট Bridge এর অংশ হয়ে গেলে, সেই পোর্টের ওপর
+            সরাসরি কোনো IP Address, DHCP Server বা NAT রুল বসানো যাবে না। সব কনফিগারেশন বসাতে হবে ওই লজিক্যাল
+            <strong>Bridge Interface</strong> এর ওপর।</p>
+
+          <h2>২. Winbox এর মাধ্যমে Bridge কনফিগারেশন (Step-by-Step)</h2>
+          <p>চলুন উপরের সিনারিও অনুযায়ী ether2, ether3 এবং ether4 কে নিয়ে একটি Bridge তৈরি করি।</p>
+
+          <h3>Step 1: Bridge Interface তৈরি করা</h3>
+          <ul>
+            <li>Winbox এ লগইন করে বাম পাশের মেনু থেকে <strong>Bridge</strong> এ ক্লিক করুন।</li>
+            <li><strong>Bridge</strong> ট্যাবে থাকা অবস্থায় <strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Name:</strong> এর ঘরে আপনার পছন্দমতো একটি নাম দিন (যেমন: <code>bridge-LAN</code>)।</li>
+            <li>নিচে <strong>STP</strong> (Spanning Tree Protocol) ট্যাবে গিয়ে প্রোটোকল <code>RSTP</code> সিলেক্ট করা
+              আছে কি না তা নিশ্চিত করুন (এটি নেটওয়ার্কে লুপ ঠেকাতে সাহায্য করে)।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন। আপনার ভার্চুয়াল Bridge তৈরি হয়ে গেল।</li>
+          </ul>
+
+          <h3>Step 2: Bridge এ পোর্ট যুক্ত করা (Adding Ports)</h3>
+          <ul>
+            <li>একই Bridge মেনুর <strong>Ports</strong> ট্যাবে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Interface:</strong> ড্রপডাউন থেকে <code>ether2</code> সিলেক্ট করুন।</li>
+            <li><strong>Bridge:</strong> ড্রপডাউন থেকে একটু আগে তৈরি করা <code>bridge-LAN</code> সিলেক্ট করুন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+            <li>একইভাবে আবার + (Add) আইকনে ক্লিক করে <code>ether3</code> এবং <code>ether4</code> পোর্ট দুটিকেও
+              <code>bridge-LAN</code> এ যুক্ত করুন।</li>
+          </ul>
+
+          <h3>Step 3: Bridge এ IP Address বসানো</h3>
+          <ul>
+            <li>বাম দিকের মেনু থেকে <strong>IP > Addresses</strong> এ যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Address:</strong> এর ঘরে আপনার লোকাল নেটওয়ার্কের আইপি দিন (যেমন: <code>192.168.10.1/24</code>)।
+            </li>
+            <li><strong>Interface:</strong> ড্রপডাউন থেকে অবশ্যই <code>bridge-LAN</code> সিলেক্ট করবেন (কখনোই ether2 বা
+              অন্য ফিজিক্যাল পোর্ট নয়)।</li>
+            <li><strong>OK</strong> দিন। এবার আপনি এই <code>bridge-LAN</code> ইন্টারফেসের ওপর একটি <strong>DHCP
+                Server</strong> রান করতে পারবেন।</li>
+          </ul>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে Bridging</h2>
+          <p>টার্মিনাল ব্যবহার করে উপরের পুরো প্রক্রিয়াটি মাত্র ৩ লাইনের কমান্ড দিয়ে করা সম্ভব:</p>
+
+          <p><strong>১. Bridge তৈরি করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface bridge add name=bridge-LAN protocol-mode=rstp</code></pre>
+
+          <p><strong>২. পোর্ট যুক্ত করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface bridge port add bridge=bridge-LAN interface=ether2
+[admin@MikroTik] > /interface bridge port add bridge=bridge-LAN interface=ether3
+[admin@MikroTik] > /interface bridge port add bridge=bridge-LAN interface=ether4</code></pre>
+
+          <p><strong>৩. আইপি বসানো:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip address add address=192.168.10.1/24 interface=bridge-LAN</code></pre>
+
+          <h2>৪. Advanced Concept: Hardware Offloading (HW Offload)</h2>
+          <p>এটি Bridging এর সবচেয়ে গুরুত্বপূর্ণ এবং এডভান্সড অংশ। যখন আপনি একাধিক পোর্ট Bridge করেন, তখন পোর্টগুলোর
+            মধ্যে ডাটা আদান-প্রদান হয়। এই প্রসেসিং কে করবে?</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Software Bridge (CPU Processing)</th>
+                  <th>Hardware Offload (Switch Chip)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">কাজের ধরন</td>
+                  <td>ডাটা রাউটারের প্রধান প্রসেসরের (CPU) মাধ্যমে প্রসেস হয়ে এক পোর্ট থেকে অন্য পোর্টে যায়।</td>
+                  <td>ডাটা সরাসরি মাদারবোর্ডে থাকা <strong>Switch Chip</strong> এর মাধ্যমে ট্রান্সফার হয়, CPU তে যায় না।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">পারফরম্যান্স (Speed)</td>
+                  <td>CPU এর ওপর অনেক লোড পড়ে এবং স্পিড কমে যায়।</td>
+                  <td>Wire-speed বা ক্যাবলের সর্বোচ্চ স্পিড পাওয়া যায়। CPU লোড 0% থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">কনফিগারেশন</td>
+                  <td>HW Offload ডিজেবল থাকলে বা রাউটারে সুইচ চিপ না থাকলে এটি হয়।</td>
+                  <td>Port অ্যাড করার সময় <code>hw=yes</code> অপশনে টিক (Check) দেওয়া থাকলে এটি কাজ করে (ডিফল্টভাবে এটি
+                    অন থাকে)।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><em>নোট:</em> <strong>Ports</strong> ট্যাবে যুক্ত করা পোর্টের লাইনের শুরুতে যদি <strong>H (Hardware
+              Offload)</strong> লেখা থাকে, তবে বুঝবেন আপনার Bridge অত্যন্ত দক্ষতার সাথে Switch Chip ব্যবহার করে কাজ
+            করছে।</p>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ ভুল ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>Port Bridge করার পর Winbox ডিসকানেক্ট হওয়া:</strong> আপনি যে পোর্ট দিয়ে পিসির সাথে কানেক্ট হয়ে
+              রাউটার কনফিগার করছেন (যেমন ether2), সেই পোর্টটি Bridge এ অ্যাড করার সাথে সাথেই রাউটারের MAC/IP পরিবর্তন
+              হয়ে যায়, ফলে Winbox ডিসকানেক্ট হয়ে যায়। ভয় পাওয়ার কিছু নেই, পুনরায় Winbox ওপেন করে <strong>MAC
+                Address</strong> দিয়ে রি-কানেক্ট (Reconnect) করুন।</li>
+            <li><strong>CPU 100% হয়ে যাওয়া:</strong> Bridge এর ভেতরে যদি অনেক বেশি ট্রাফিক থাকে এবং <strong>HW
+                Offload</strong> কাজ না করে, তবে CPU লোড ১০০% এ পৌঁছে যেতে পারে। পোর্ট সেটিংসে গিয়ে চেক করুন Hardware
+              Offload অপশনে টিক দেওয়া আছে কি না।</li>
+            <li><strong>নেটওয়ার্ক লুপ (Network Loop):</strong> যদি আপনার নেটওয়ার্কে ক্যাবল ঘুরিয়ে আবার একই রাউটার বা
+              সুইচে লাগানো হয়, তবে ব্রডকাস্ট স্টর্ম (Broadcast Storm) তৈরি হয়ে নেটওয়ার্ক ক্র্যাশ করবে। এই সমস্যা ঠেকাতে
+              Bridge সেটিংসে <strong>STP (Spanning Tree Protocol)</strong> এর <code>RSTP</code> অপশনটি সবসময় চালু
+              রাখবেন।</li>
+            <li><strong>IP Conflict:</strong> মনে রাখবেন, Bridge এর মেম্বার পোর্টগুলোতে (যেমন ether2, ether3) আলাদা
+              আলাদা আইপি বসালে নেটওয়ার্ক কাজ করবে না। আইপি সবসময় মূল <strong>Bridge Interface</strong> এ বসাতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Bridging</strong> হলো MikroTik RouterOS এর অন্যতম প্রধান এবং শক্তিশালী একটি ফিচার, যা একটি
+              রাউটারকে মুহূর্তের মধ্যে একটি <strong>Layer 2 Switch</strong>-এ রূপান্তর করতে পারে। সঠিক পোর্টে ক্যাবল
+              কানেক্ট করা, <strong>Hardware Offloading (hw=yes)</strong> এর মাধ্যমে প্রসেসরের লোড কমানো এবং <strong>STP
+                (Spanning Tree)</strong> ব্যবহার করে লুপ ঠেকানো—এই তিনটি বিষয় নিশ্চিত করতে পারলে আপনার লোকাল নেটওয়ার্ক
+              (LAN) অত্যন্ত দ্রুত এবং স্থিতিশীলভাবে কাজ করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

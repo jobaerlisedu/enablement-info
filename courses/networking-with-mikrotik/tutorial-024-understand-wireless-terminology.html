@@ -1,32 +1,354 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Understand Wireless terminology | enablement.info</title>
+  <meta name="description"
+    content="Wireless Networking-এর বেসিক এবং অ্যাডভান্সড টার্মিনোলজি নিয়ে বিস্তারিত বাংলা গাইড। Frequency, Bandwidth, SSID, Channel এবং SNR সম্পর্কে পরিষ্কার ধারণা নিন।">
+  <title>Understand Wireless Terminology: The Fundamental Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Understand Wireless terminology</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Understand Wireless terminology</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Welcome to the fundamental guide on Understand Wireless terminology</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 05 October, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিংয়ের জগতে ফিজিক্যাল ক্যাবল (Physical Cable) দিয়ে ডিভাইস কানেক্ট করা তুলনামূলক সহজ। কিন্তু যখনই
+            আমরা <strong>Wireless Network</strong> বা ওয়াই-ফাই (Wi-Fi) নিয়ে কাজ শুরু করি, তখন এটি আর শুধুমাত্র ফিজিক্যাল
+            ক্যাবলের মধ্যে সীমাবদ্ধ থাকে না; বরং এটি রেডিও ফ্রিকোয়েন্সি (Radio Frequency) এবং বাতাসের মাধ্যমে ডাটা
+            আদান-প্রদান করে।</p>
+          <p>একটি <strong>MikroTik Router</strong> বা যেকোনো ব্র্যান্ডের <strong>Access Point (AP)</strong> সঠিকভাবে
+            কনফিগার করার আগে এর পেছনের পরিভাষা বা Terminology গুলো পরিষ্কারভাবে বোঝা অত্যন্ত জরুরি। আজকের এই ডিপ-ডাইভ
+            গাইডটিতে আমরা ওয়্যারলেস নেটওয়ার্কিংয়ের সবচেয়ে গুরুত্বপূর্ণ এবং বেসিক টার্মগুলো নিয়ে বিস্তারিত আলোচনা করবো,
+            যা আপনাকে একজন দক্ষ ওয়্যারলেস ইঞ্জিনিয়ার হতে সাহায্য করবে।</p>
+
+          <div class="content-box">
+            <h3>১. Frequency এবং Band (2.4GHz বনাম 5GHz)</h3>
+            <p>ওয়্যারলেস সিগন্যাল মূলত রেডিও ওয়েভ বা তরঙ্গের মাধ্যমে চলাচল করে। এই তরঙ্গের মাপকাঠিকে
+              <strong>Frequency</strong> বলা হয়, যা Hertz (Hz) এককে পরিমাপ করা হয়। বর্তমানে ওয়াই-ফাই নেটওয়ার্কে প্রধানত
+              দুটি <strong>Band</strong> বা ফ্রিকোয়েন্সি রেঞ্জ ব্যবহার করা হয়:</p>
+            <ul>
+              <li><strong>2.4 GHz Band:</strong> এটি অনেক পুরনো এবং সবচেয়ে বেশি ব্যবহৃত ব্যান্ড। এর স্পিড তুলনামূলক কম,
+                কিন্তু এর কভারেজ (Coverage) এরিয়া অনেক বেশি এবং এটি দেয়াল বা বাধা ভেদ করে বেশ দূরে যেতে পারে।</li>
+              <li><strong>5 GHz Band:</strong> এর স্পিড অত্যন্ত বেশি (Gigabit পর্যন্ত হতে পারে) এবং এতে Interference বা
+                বাধাবিপত্তি কম। কিন্তু এর সবচেয়ে বড় দুর্বলতা হলো, এর সিগন্যাল দেয়াল ভেদ করে বেশি দূর যেতে পারে না।</li>
+            </ul>
+          </div>
+
+          <h2>২. Wireless Standards (802.11 প্রোটোকল)</h2>
+          <p>বিশ্বজুড়ে ওয়্যারলেস ডিভাইসগুলো যাতে একে অপরের সাথে যোগাযোগ করতে পারে, তার জন্য <strong>IEEE (Institute of
+              Electrical and Electronics Engineers)</strong> কিছু স্ট্যান্ডার্ড বা নিয়ম তৈরি করেছে। এগুলোকে
+            <strong>802.11 Standards</strong> বলা হয়।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>স্ট্যান্ডার্ডের নাম (Standard)</th>
+                  <th>কমন নাম (Wi-Fi Name)</th>
+                  <th>ব্যান্ড (Band)</th>
+                  <th>কাজের বিবরণ এবং স্পিড</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">802.11b / 802.11g</td>
+                  <td>Legacy Wi-Fi</td>
+                  <td>2.4 GHz</td>
+                  <td>পুরনো প্রযুক্তি। স্পিড সর্বোচ্চ 11 Mbps থেকে 54 Mbps পর্যন্ত।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">802.11n</td>
+                  <td>Wi-Fi 4</td>
+                  <td>2.4 GHz / 5 GHz</td>
+                  <td>MIMO (Multiple Input Multiple Output) প্রযুক্তির সূচনা। স্পিড 150 Mbps থেকে 600 Mbps পর্যন্ত।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">802.11ac</td>
+                  <td>Wi-Fi 5</td>
+                  <td>5 GHz Only</td>
+                  <td>শুধুমাত্র ৫ গিগাহার্টজে কাজ করে। স্পিড 1 Gbps বা তার বেশি হতে পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">802.11ax</td>
+                  <td>Wi-Fi 6 / 6E</td>
+                  <td>2.4 GHz / 5 GHz / 6 GHz</td>
+                  <td>সর্বাধুনিক প্রযুক্তি। অনেক বেশি ইউজার একসাথে হাই-স্পিড ইন্টারনেট ব্যবহার করতে পারে (OFDMA
+                    প্রযুক্তি)।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Channel এবং Channel Width</h2>
+          <p><strong>Channel:</strong> ফ্রিকোয়েন্সি ব্যান্ডের ভেতরের ছোট ছোট নির্দিষ্ট রাস্তাকে চ্যানেল বলা হয়। যেমন 2.4
+            GHz ব্যান্ডের ভেতরে ১ থেকে ১৪ পর্যন্ত চ্যানেল থাকে। যদি পাশাপাশি দুটি রাউটার একই চ্যানেলে কাজ করে, তবে তাদের
+            মধ্যে সিগন্যালের ধাক্কাধাক্কি হয়, যাকে <strong>Co-channel Interference</strong> বলে। 2.4 GHz এ ১, ৬ এবং ১১
+            নম্বর চ্যানেলগুলো একে অপরের সাথে ওভারল্যাপ (Overlap) করে না, তাই এগুলো ব্যবহার করা সবচেয়ে নিরাপদ।</p>
+          <p><strong>Channel Width (20MHz/40MHz/80MHz):</strong> এটিকে আপনি হাইওয়ের (Highway) রাস্তার লেনের সাথে তুলনা
+            করতে পারেন।</p>
+          <ul>
+            <li><strong>20 MHz:</strong> এটি হলো এক লেনের রাস্তা। স্পিড কম, কিন্তু সিগন্যাল অনেক বেশি স্থিতিশীল (Stable)
+              থাকে এবং জ্যাম (Interference) কম হয়।</li>
+            <li><strong>40 MHz / 80 MHz:</strong> এটি হলো দুই লেন বা চার লেনের রাস্তা। এর স্পিড অনেক বেশি, কিন্তু
+              চারপাশে অনেক রাউটার থাকলে সিগন্যাল সহজে ড্রপ করতে পারে।</li>
+          </ul>
+
+          <h2>৪. SSID এবং BSSID</h2>
+          <ul>
+            <li><strong>SSID (Service Set Identifier):</strong> এটি হলো আপনার ওয়াই-ফাই নেটওয়ার্কের নাম। যখন আপনি মোবাইল
+              বা পিসিতে ওয়াই-ফাই সার্চ করেন, তখন যে নামগুলো (যেমন: <code>Office-WiFi</code>) দেখতে পান, সেটিই হলো SSID।
+            </li>
+            <li><strong>BSSID (Basic Service Set Identifier):</strong> এটি হলো ওই ওয়াই-ফাইয়ের আসল পরিচয় বা Access Point
+              (AP) এর <strong>MAC Address</strong>। একটি অফিসে যদি <code>Office-WiFi</code> নামে ৫টি রাউটার থাকে, তবে
+              তাদের সবার SSID এক হলেও BSSID আলাদা হবে। মোবাইল ফোন এই BSSID দেখেই বুঝতে পারে সে কোন রাউটারের সাথে যুক্ত
+              আছে।</li>
+          </ul>
+
+          <h2>৫. Tx Power এবং Antenna Gain (dBi)</h2>
+          <p>এই দুটি টার্ম রাউটারের সিগন্যাল কত দূর যাবে তা নির্ধারণ করে।</p>
+          <ul>
+            <li><strong>Tx Power (Transmit Power):</strong> এটি হলো রাউটারের নিজস্ব শক্তি বা ক্ষমতা, যা সাধারণত
+              <strong>dBm</strong> বা মিলিওয়াট (mW) এ মাপা হয়। এটি যত বেশি হবে, সিগন্যাল তত জোরে ধাক্কা দিয়ে দূরে যাবে।
+            </li>
+            <li><strong>Antenna Gain (dBi):</strong> এটি হলো অ্যান্টেনার ফোকাস করার ক্ষমতা। একটি ৫ dBi এর অ্যান্টেনা
+              সিগন্যালকে চারদিকে ছড়ানোর বদলে একটি নির্দিষ্ট দিকে বেশি ফোকাস করে পাঠাতে সাহায্য করে।</li>
+          </ul>
+
+          <h2>৬. Signal to Noise Ratio (SNR) এবং CCQ</h2>
+          <p>একটি ওয়্যারলেস লিংকের কোয়ালিটি বা স্বাস্থ্য কেমন, তা বুঝতে এই টার্মগুলো ব্যবহৃত হয় (বিশেষ করে
+            Point-to-Point লিংকের ক্ষেত্রে)।</p>
+          <ul>
+            <li><strong>Noise Floor:</strong> আমাদের চারপাশের পরিবেশে সবসময় বিভিন্ন ইলেকট্রনিক ডিভাইসের (যেমন
+              মাইক্রোওয়েভ, ব্লুটুথ) রেডিও সিগন্যাল থাকে, যা মেইন সিগন্যালকে বাধা দেয়। একেই Noise Floor বলে। এটি সাধারণত
+              -90 dBm থেকে -100 dBm এর মধ্যে থাকে (যত নেগেটিভ, তত ভালো)।</li>
+            <li><strong>SNR (Signal to Noise Ratio):</strong> আপনার রাউটারের সিগন্যাল ওই চারপাশের Noise বা নয়েজের চেয়ে
+              কতটা শক্তিশালী, তার পার্থক্যই হলো SNR। এটি ৩০ ডিবি (30 dB) এর বেশি হলে লিংকটি চমৎকার বলে ধরা হয়।</li>
+            <li><strong>CCQ (Client Connection Quality):</strong> এটি পার্সেন্টেজ (%) এ মাপা হয়। এটি ১০০% থাকার মানে হলো
+              আপনার রাউটার থেকে ক্লায়েন্টে ডাটা যাওয়ার সময় কোনো ডাটা প্যাকেট লস (Packet Loss) হচ্ছে না।</li>
+          </ul>
+
+          <h2>৭. MikroTik Wireless Modes</h2>
+          <p>MikroTik রাউটারে Wireless কনফিগার করার সময় আপনাকে Mode সিলেক্ট করতে হয়। সবচেয়ে বেশি ব্যবহৃত তিনটি মোড হলো:
+          </p>
+          <ul>
+            <li><strong>ap-bridge:</strong> এটি রাউটারকে একটি Access Point হিসেবে তৈরি করে, যাতে একাধিক ল্যাপটপ বা
+              মোবাইল ফোন কানেক্ট হতে পারে।</li>
+            <li><strong>station:</strong> এটি রাউটারকে একটি রিসিভার বা ক্লায়েন্ট হিসেবে তৈরি করে। এটি অন্য কোনো AP থেকে
+              সিগন্যাল রিসিভ করে।</li>
+            <li><strong>station-bridge:</strong> এটি MikroTik এর নিজস্ব একটি স্পেশাল ক্লায়েন্ট মোড, যা ওয়্যারলেস লিংকের
+              মাধ্যমে ট্রু Layer 2 ট্রান্সপারেন্ট ব্রিজ তৈরি করতে সাহায্য করে (Point-to-Point লিংকের জন্য)।</li>
+          </ul>
+
+          <h2>৮. Command Line (CLI) Examples</h2>
+          <p>MikroTik টার্মিনালে ওয়্যারলেস ইন্টারফেস চেক এবং কনফিগার করার কিছু বেসিক কমান্ড:</p>
+
+          <p><strong>Wireless Interface এর বিস্তারিত দেখা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface wireless info print</code></pre>
+
+          <p><strong>Frequency, Band এবং Channel Width সেট করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface wireless set wlan1 frequency=auto band=5ghz-a/n/ac channel-width=20/40mhz-Ce</code></pre>
+
+          <h2>৯. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>ইন্টারনেট বারবার ডিসকানেক্ট হচ্ছে:</strong> যদি 2.4 GHz ব্যান্ডে থাকেন, তবে আশেপাশে অনেক রাউটার
+              থাকতে পারে। রাউটারের সেটিংসে গিয়ে Channel টি 1, 6 বা 11 এ ফিক্সড করে দিন। Channel Width 40 MHz থাকলে তা
+              কমিয়ে 20 MHz করে দিন, এতে স্ট্যাবিলিটি বাড়বে।</li>
+            <li><strong>স্পিড কম পাওয়া:</strong> যদি রাউটারটি 802.11ac (Wi-Fi 5) সাপোর্ট করে, কিন্তু আপনি স্পিড কম
+              পাচ্ছেন, তবে চেক করুন আপনার ল্যাপটপ বা মোবাইল ফোন 5 GHz ব্যান্ডে কানেক্টেড কি না। 2.4 GHz এ 50-70 Mbps এর
+              বেশি স্পিড পাওয়া কঠিন।</li>
+            <li><strong>Tx Power ফুল (Full) করে দেওয়া:</strong> অনেকেই মনে করেন Tx Power সর্বোচ্চ (যেমন 30 dBm) করে দিলে
+              নেটওয়ার্ক ভালো চলবে। এটি সম্পূর্ণ ভুল ধারণা। অতিরিক্ত Tx Power দিলে সিগন্যাল ডিস্টরশন (Distortion) হয় এবং
+              ডিভাইসের আয়ু কমে যায়। এটি সবসময় ডিফল্ট (Default) রাখা উচিত।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি নিখুঁত <strong>Wireless Network</strong> ডিজাইন করাটা অনেকটা আর্ট (Art) এবং সাইন্স (Science) এর
+              সংমিশ্রণ। <strong>Frequency</strong> এবং <strong>Band</strong> এর পার্থক্য বোঝা, সঠিক <strong>Channel
+                Width</strong> নির্বাচন করা এবং <strong>SNR</strong> বা সিগন্যালের কোয়ালিটি মেনটেইন করা—এই টার্মগুলো
+              পরিষ্কারভাবে আয়ত্ত করতে পারলে আপনি যেকোনো জটিল ওয়্যারলেস কনফিগারেশন, তা হোক হোম নেটওয়ার্ক বা লং ডিসট্যান্স
+              PTP লিংক, অত্যন্ত আত্মবিশ্বাসের সাথে সম্পন্ন করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

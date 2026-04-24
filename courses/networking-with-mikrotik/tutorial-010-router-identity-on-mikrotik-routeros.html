@@ -1,32 +1,305 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Router identity on MikroTik RouterOS | enablement.info</title>
+  <meta name="description"
+    content="MikroTik RouterOS এ Router Identity কী, কেন এটি গুরুত্বপূর্ণ এবং Winbox ও CLI ব্যবহার করে কীভাবে Identity পরিবর্তন বা কনফিগার করতে হয় তার বিস্তারিত গাইড।">
+  <title>Router Identity on MikroTik RouterOS: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Router identity on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Router identity on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Router Identity on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 05 July, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>যেকোনো নেটওয়ার্ক ডিভাইসের কনফিগারেশন শুরু করার একদম প্রথম এবং বেসিক ধাপগুলোর মধ্যে একটি হলো ডিভাইসটির একটি
+            সুন্দর এবং অর্থবহ নাম দেওয়া। MikroTik RouterOS-এর ভাষায় এই ডিভাইস নেমিং (Naming) প্রক্রিয়াটিকেই
+            <strong>Router Identity</strong> বলা হয়।</p>
+          <p>খুবই সাধারণ একটি বিষয় মনে হলেও, বড় বা এন্টারপ্রাইজ লেভেলের নেটওয়ার্কে যেখানে ডজন ডজন রাউটার থাকে, সেখানে এই
+            Router Identity আপনার সবচেয়ে বড় রক্ষাকবচ হিসেবে কাজ করে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Router
+            Identity কী, কেন এটি গুরুত্বপূর্ণ, কীভাবে Winbox এবং CLI ব্যবহার করে এটি পরিবর্তন করতে হয় এবং এর সাথে
+            Neighbor Discovery এর সম্পর্ক কী।</p>
+
+          <div class="content-box">
+            <h3>Router Identity কী এবং কেন এটি প্রয়োজন?</h3>
+            <p>ডিফল্ট অবস্থায় আপনি যখন নতুন একটি MikroTik রাউটার কেনেন বা ফ্যাক্টরি রিসেট (Factory Reset) করেন, তখন তার
+              নাম বা Identity থাকে <strong>"MikroTik"</strong>।</p>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> মনে করুন, আপনি একটি ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) বা একটি বড়
+              কর্পোরেট অফিসে কাজ করেন। আপনার নেটওয়ার্কে ২০টি MikroTik রাউটার আছে। আপনি Winbox ওপেন করে Neighbors লিস্টে
+              দেখলেন ২০টি রাউটারের নামই "MikroTik" দেওয়া। এখন আপনি ঢাকা ব্রাঞ্চের রাউটারে লগইন করতে চাচ্ছেন, কিন্তু
+              বুঝতে পারছেন না কোনটি ঢাকার আর কোনটি চট্টগ্রামের! ভুলে যদি চট্টগ্রামের কোর (Core) রাউটারে লগইন করে কোনো
+              কনফিগারেশন রিমুভ করে ফেলেন, তবে পুরো নেটওয়ার্ক ডাউন হয়ে যাবে।</p>
+            <p>এই কনফিউশন এবং বড় ধরনের দুর্ঘটনা এড়ানোর জন্যই প্রতিটি রাউটারকে তার অবস্থান, কাজ বা ডিপার্টমেন্ট অনুযায়ী
+              একটি নির্দিষ্ট নাম (যেমন: <code>Core-Router-Dhaka</code> বা <code>Branch-01-Gateway</code>) দেওয়া হয়। এটিই
+              হলো Router Identity এর প্রধান কাজ।</p>
+          </div>
+
+          <h2>১. Winbox এর মাধ্যমে Router Identity পরিবর্তন করা (GUI Method)</h2>
+          <p>গ্রাফিক্যাল ইউজার ইন্টারফেস বা Winbox ব্যবহার করে খুব সহজেই রাউটারের নাম পরিবর্তন করা যায়। নিচের ধাপগুলো
+            অনুসরণ করুন:</p>
+
+          <ul>
+            <li>আপনার পিসি থেকে <strong>Winbox</strong> ওপেন করে রাউটারে লগইন করুন।</li>
+            <li>বাম পাশের মেইন মেনু থেকে <strong>System</strong> এ ক্লিক করুন।</li>
+            <li>এরপর সাব-মেনু থেকে <strong>Identity</strong> অপশনটিতে ক্লিক করুন।</li>
+            <li>একটি ছোট পপ-আপ উইন্ডো ওপেন হবে। সেখানে <code>Identity:</code> এর বক্সে ডিফল্টভাবে "MikroTik" লেখা থাকবে।
+            </li>
+            <li>ওই লেখাটি মুছে আপনার পছন্দমতো রাউটারের নাম (যেমন: <code>HQ-Main-Router</code>) টাইপ করুন।</li>
+            <li>অবশেষে <strong>Apply</strong> এবং <strong>OK</strong> বাটনে ক্লিক করুন।</li>
+          </ul>
+          <p><em>লক্ষ্য করুন:</em> নাম পরিবর্তন করার সাথে সাথেই Winbox এর একদম উপরের টাইটেল বারে এবং টার্মিনাল প্রম্পটে
+            নতুন নামটি শো করবে।</p>
+
+          <h2>২. Command Line (CLI) ব্যবহার করে Router Identity সেট করা</h2>
+          <p>যারা প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার বা যারা রিমোটলি SSH/Telnet করে রাউটারে কাজ করছেন, তাদের জন্য কমান্ড
+            লাইন ব্যবহার করা সবচেয়ে দ্রুত এবং কার্যকর পদ্ধতি।</p>
+
+          <p>New Terminal ওপেন করে নিচের কমান্ডটি দিন:</p>
+          <pre><code>[admin@MikroTik] > /system identity set name="Core-Router-Dhaka"</code></pre>
+
+          <p>কমান্ডটি দেওয়ার পর এন্টার চাপলেই আপনার কমান্ড প্রম্পট পরিবর্তন হয়ে যাবে ঠিক এভাবে:</p>
+          <pre><code>[admin@Core-Router-Dhaka] ></code></pre>
+
+          <p>বর্তমান Identity কী দেওয়া আছে তা কমান্ড লাইনে চেক করার জন্য নিচের কমান্ডটি ব্যবহার করুন:</p>
+          <pre><code>[admin@Core-Router-Dhaka] > /system identity print
+name: "Core-Router-Dhaka"</code></pre>
+
+          <h2>৩. Neighbor Discovery এবং Router Identity</h2>
+          <p>Router Identity এর সবচেয়ে বড় প্রভাব পড়ে <strong>Neighbor Discovery Protocol</strong> এর ওপর। MikroTik এর
+            নিজস্ব ডিসকভারি প্রোটোকলকে বলা হয় <strong>MNDP (MikroTik Neighbor Discovery Protocol)</strong>। এর পাশাপাশি
+            এটি <strong>CDP (Cisco Discovery Protocol)</strong> এবং <strong>LLDP (Link Layer Discovery
+              Protocol)</strong> ও সাপোর্ট করে।</p>
+
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> যখন আপনি একটি রাউটারের Identity পরিবর্তন করেন, তখন রাউটারটি তার
+              কানেক্টেড থাকা অন্যান্য ডিভাইসগুলোকে (যেমন অন্য রাউটার বা সুইচ) ব্রডকাস্ট মেসেজের মাধ্যমে জানিয়ে দেয় যে,
+              "আমার নাম Core-Router-Dhaka এবং আমি এই পোর্টে কানেক্টেড আছি।"</li>
+            <li>এর ফলে অন্য রাউটারে লগইন করে <code>/ip neighbor print</code> কমান্ড দিলে আপনি খুব সহজেই বুঝতে পারবেন
+              আপনার কোন পোর্টের সাথে কোন ডিভাইসটি যুক্ত আছে। এটি নেটওয়ার্ক ট্রাবলশুটিং এবং টপোলজি ম্যাপ করার জন্য
+              অত্যন্ত সহায়ক।</li>
+          </ul>
+
+          <h2>৪. Troubleshooting এবং Security Tips</h2>
+          <p>Router Identity এবং Neighbor Discovery নিয়ে কাজ করার সময় কিছু সিকিউরিটি এবং ট্রাবলশুটিং বিষয় মাথায় রাখা
+            জরুরি:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ইস্যু (Issue) / টিপস</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">নামকরণের নিয়ম (Naming Convention)</td>
+                  <td>রাউটারের নাম দেওয়ার সময় স্পেস (Space) ব্যবহার না করা ভালো। স্পেসের বদলে হাইফেন (<code>-</code>) বা
+                    আন্ডারস্কোর (<code>_</code>) ব্যবহার করুন। এটি স্ক্রিপ্টিং বা লগ পড়ার সময় সুবিধা দেয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">লগ ফাইলে ট্র্যাকিং (Syslog)</td>
+                  <td>যদি আপনি রাউটারের লগগুলো কোনো রিমোট Syslog সার্ভারে পাঠান, তবে এই Router Identity ব্যবহার করেই
+                    সার্ভার আইডেন্টিফাই করে যে লগগুলো কোন রাউটার থেকে আসছে। তাই নাম ইউনিক হওয়া বাধ্যততমূলক।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Security Alert: Neighbor Discovery বন্ধ করা</td>
+                  <td>ইন্টারনেট ফেসড পোর্ট বা <strong>WAN Interface</strong> এ Neighbor Discovery সবসময় বন্ধ রাখা উচিত।
+                    নাহলে ইন্টারনেটে থাকা হ্যাকাররা আপনার রাউটারের নাম, মডেল এবং MAC Address জেনে যেতে পারে। বন্ধ করতে:
+                    <code>/ip neighbor discovery-settings set discover-interface-list=LAN</code> কমান্ড ব্যবহার করুন।
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Router Identity</strong> পরিবর্তন করা MikroTik কনফিগারেশনের সবচেয়ে সহজ একটি কাজ হলেও,
+              এন্টারপ্রাইজ নেটওয়ার্ক ম্যানেজমেন্টে এর গুরুত্ব অপরিসীম। একটি অর্থবহ নাম শুধু ভুল রাউটারে লগইন করা থেকেই
+              বাঁচায় না, বরং <strong>Neighbor Discovery</strong>, রিমোট লগিং এবং নেটওয়ার্ক মনিটরিং টুলস (যেমন PRTG বা
+              Zabbix) এর সাথে রাউটারকে সিনক্রোনাইজ করতে সাহায্য করে। তাই বক্স থেকে নতুন রাউটার বের করার পর প্রথম কাজ
+              হিসেবে এর Identity বা নাম পরিবর্তন করাটাকে একটি বেস্ট প্র্যাকটিস (Best Practice) হিসেবে আয়ত্ত করে নিন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

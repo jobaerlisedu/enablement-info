@@ -1,32 +1,326 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VPN Tunneling concepts and importance | enablement.info</title>
+  <meta name="description"
+    content="VPN Tunneling কী, কীভাবে কাজ করে এবং নেটওয়ার্ক সিকিউরিটিতে এর গুরুত্ব নিয়ে বিস্তারিত বাংলা গাইড। Site-to-Site, Remote Access এবং MikroTik VPN কনফিগারেশনের বেসিক ধারণা।">
+  <title>VPN Tunneling concepts and importance: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>VPN Tunneling concepts and importance</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>VPN Tunneling concepts and importance</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>VPN Tunneling concepts and importance</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 05 December, 2026</span>
+            <span><i class='bx bx-category'></i> Cyber Security with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ইন্টারনেটকে যদি একটি বিশাল পাবলিক হাইওয়ে (Public Highway) হিসেবে চিন্তা করেন, তবে এই হাইওয়ে দিয়ে প্রতিদিন
+            কোটি কোটি ডাটা প্যাকেট (Data Packet) চলাচল করছে। আপনি যখন কাউকে কোনো গোপন মেইল পাঠান বা অফিসের সার্ভারে লগইন
+            করেন, তখন সেই ডাটাগুলো এই পাবলিক হাইওয়ে দিয়েই যায়। সমস্যা হলো, এই হাইওয়েতে থাকা যেকোনো হ্যাকার বা স্নাইফার
+            (Sniffer) সহজেই আপনার ডাটা পড়ে ফেলতে পারে।</p>
+          <p>এই নিরাপত্তাহীনতা দূর করার জন্যই নেটওয়ার্কিং জগতে আবিষ্কার হয়েছে <strong>VPN (Virtual Private
+              Network)</strong> এবং <strong>Tunneling</strong>। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো VPN Tunneling
+            কী, এটি কীভাবে কাজ করে, এর প্রকারভেদ, এবং প্রফেশনাল নেটওয়ার্কিংয়ে এটি কেন এতটা গুরুত্বপূর্ণ।</p>
+
+          <div class="content-box">
+            <h3>VPN Tunneling কী? (সহজ উদাহরণ)</h3>
+            <p><strong>Tunneling</strong> এর আক্ষরিক অর্থ হলো "সুড়ঙ্গ তৈরি করা"। ডাটা নেটওয়ার্কিংয়ে Tunneling বলতে এমন
+              একটি পদ্ধতিকে বোঝায়, যেখানে আপনার অরিজিনাল ডাটা প্যাকেটটিকে অন্য একটি প্রোটোকলের প্যাকেটের ভেতর লুকিয়ে বা
+              মুড়িয়ে পাঠানো হয়। এই মুড়িয়ে ফেলার প্রক্রিয়াকে <strong>Encapsulation</strong> বলা হয়।</p>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> ধরুন, আপনি একটি গুরুত্বপূর্ণ চিঠি ডাকযোগে পাঠাবেন। আপনি যদি চিঠিটি
+              একটি স্বচ্ছ খামে (Transparent Envelope) পাঠান, তবে পিয়ন বা রাস্তার যে কেউ সেটি পড়ে ফেলতে পারবে। কিন্তু
+              আপনি যদি চিঠিটিকে একটি লোহার বাক্সে ভরে তালা (Encryption) দিয়ে দেন এবং সেই বাক্সটিকে একটি সাধারণ কাগজের
+              বাক্সে (Encapsulation) ভরে কুরিয়ারে পাঠান, তবে কুরিয়ার বয় শুধু জানবে বাক্সটি কোথায় যাবে, কিন্তু ভেতরে কী
+              আছে তা সে দেখতে পারবে না। VPN Tunneling ঠিক এভাবেই আপনার লোকাল ডাটাকে এনক্রিপ্ট করে ইন্টারনেটের ওপর দিয়ে
+              একটি ভার্চুয়াল সুড়ঙ্গ বা টানেল তৈরি করে পাঠায়।</p>
+          </div>
+
+          <h2>১. VPN এর প্রধান দুটি ধরন (Types of VPN)</h2>
+          <p>কোম্পানির রিকোয়ারমেন্ট এবং ইউজারদের ওপর ভিত্তি করে VPN কে মূলত দুটি ক্যাটাগরিতে ভাগ করা হয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>VPN Type</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                  <th>ব্যবহারের ক্ষেত্র (Use Case)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Remote Access VPN</td>
+                  <td>এটি একজন ইউজার এবং একটি কর্পোরেট নেটওয়ার্কের মধ্যে কানেকশন তৈরি করে। ইউজারের পিসিতে একটি ক্লায়েন্ট
+                    সফটওয়্যার থাকে, যা দিয়ে সে অফিসের রাউটারে কানেক্ট হয়।</td>
+                  <td><strong>Work from Home:</strong> আপনি যদি কফি শপ বা বাসা থেকে অফিসের ইন্টারনাল সার্ভার বা ফাইল
+                    এক্সেস করতে চান, তবে এটি ব্যবহার করা হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Site-to-Site VPN</td>
+                  <td>এটি দুটি আলাদা ভৌগলিক স্থানে থাকা রাউটারের মধ্যে একটি স্থায়ী টানেল তৈরি করে। এর ফলে দুই অফিসের
+                    নেটওয়ার্ক মিলে একটি সিঙ্গেল লোকাল নেটওয়ার্কে (LAN) পরিণত হয়।</td>
+                  <td><strong>Branch Networking:</strong> ঢাকা হেড অফিসের সাথে চট্টগ্রাম বা সিলেট ব্রাঞ্চ অফিসের লোকাল
+                    নেটওয়ার্ককে নিরাপদে যুক্ত করার জন্য এটি ব্যবহৃত হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. জনপ্রিয় VPN Protocols এবং তাদের পার্থক্য</h2>
+          <p>টানেল তৈরি করার জন্য বিভিন্ন ধরনের প্রোটোকল ব্যবহার করা হয়। সময়ের সাথে সাথে প্রোটোকলগুলো উন্নত হয়েছে।</p>
+
+          <ul>
+            <li><strong>PPTP (Point-to-Point Tunneling Protocol):</strong> এটি সবচেয়ে পুরনো প্রোটোকল। কনফিগার করা খুবই
+              সহজ, কিন্তু এর এনক্রিপশন (Encryption) অত্যন্ত দুর্বল। বর্তমানে এটি ব্যবহার করা মোটেও নিরাপদ নয়।</li>
+            <li><strong>L2TP/IPsec (Layer 2 Tunneling Protocol):</strong> L2TP নিজে কোনো এনক্রিপশন দেয় না, তাই একে IPsec
+              (Internet Protocol Security) এর সাথে মিলিয়ে ব্যবহার করা হয়। এটি অত্যন্ত সুরক্ষিত এবং এন্টারপ্রাইজ লেভেলে
+              প্রচুর ব্যবহৃত হয়।</li>
+            <li><strong>SSTP (Secure Socket Tunneling Protocol):</strong> এটি মাইক্রোসফটের তৈরি একটি প্রোটোকল যা SSL/TLS
+              (HTTPS এর মতো) ব্যবহার করে। এটি ফায়ারওয়াল বাইপাস করতে খুব পারদর্শী, কারণ এটি পোর্ট 443 ব্যবহার করে।</li>
+            <li><strong>OpenVPN:</strong> এটি একটি ওপেন-সোর্স প্রোটোকল। এটি অত্যন্ত সিকিউর এবং কাস্টমাইজযোগ্য। এটি TCP
+              এবং UDP উভয় পোর্টে কাজ করতে পারে।</li>
+            <li><strong>WireGuard:</strong> এটি বর্তমান সময়ের সবচেয়ে আধুনিক, ফাস্ট এবং লাইটওয়েট ভিপিএন প্রোটোকল। এর
+              কোডবেস (Codebase) খুবই ছোট, তাই এর স্পিড অন্যান্য প্রোটোকলের চেয়ে কয়েকগুণ বেশি। MikroTik RouterOS v7 এ
+              এটি ডিফল্টভাবে যুক্ত করা হয়েছে।</li>
+          </ul>
+
+          <h2>৩. VPN Tunneling এর গুরুত্ব (Importance)</h2>
+          <p>নেটওয়ার্কিং এবং সাইবার সিকিউরিটিতে ভিপিএন টানেলিংয়ের গুরুত্ব অপরিসীম:</p>
+
+          <ul>
+            <li><strong>Data Confidentiality (গোপনীয়তা):</strong> আপনি যখন পাবলিক ওয়াই-ফাই (যেমন এয়ারপোর্ট বা
+              রেস্টুরেন্ট) ব্যবহার করেন, তখন হ্যাকাররা Man-in-the-Middle (MitM) অ্যাটাক করে আপনার পাসওয়ার্ড চুরি করতে
+              পারে। ভিপিএন আপনার ট্রাফিককে শক্তিশালী অ্যালগরিদম (যেমন AES-256) দিয়ে এনক্রিপ্ট করে, ফলে ডাটা চুরি হলেও
+              কেউ তা ডিক্রিপ্ট করতে পারে না।</li>
+            <li><strong>Data Integrity (অখণ্ডতা):</strong> প্যাকেট ইন্টারনেটে চলাকালীন কেউ যেন মাঝপথে তা পরিবর্তন
+              (Modify) করতে না পারে, ভিপিএন প্রোটোকলগুলো (যেমন IPsec) তা নিশ্চিত করে।</li>
+            <li><strong>Bypassing Geo-Restrictions (ভৌগলিক বাধা অতিক্রম):</strong> ভিপিএন টানেলের মাধ্যমে আপনি অন্য
+              দেশের সার্ভারে যুক্ত হয়ে সেই দেশের আইপি অ্যাড্রেস ব্যবহার করে ইন্টারনেট ব্রাউজ করতে পারেন, যা সেন্সরশিপ
+              বা জিও-ব্লকিং বাইপাস করতে সাহায্য করে।</li>
+            <li><strong>Cost-Effective Networking:</strong> আগে দুটি ব্রাঞ্চ অফিসের মধ্যে কানেকশন তৈরি করতে ডেডিকেটেড
+              লিজড লাইন (Leased Line) নিতে হতো, যা অনেক ব্যয়বহুল। ভিপিএন এর মাধ্যমে সাধারণ ব্রডব্যান্ড ইন্টারনেট
+              ব্যবহার করেই সুরক্ষিত প্রাইভেট নেটওয়ার্ক তৈরি করা যায়।</li>
+          </ul>
+
+          <h2>৪. MikroTik কনফিগারেশন: WireGuard VPN (Site-to-Site বেসিক)</h2>
+          <p>চলুন দেখি আধুনিক <strong>WireGuard</strong> প্রোটোকল ব্যবহার করে MikroTik এ কীভাবে একটি বেসিক ভিপিএন
+            ইন্টারফেস তৈরি করতে হয় (RouterOS v7)।</p>
+
+          <p><strong>Step 1: WireGuard Interface তৈরি করা (Head Office Router)</strong></p>
+          <pre><code>[admin@MikroTik-HQ] > /interface wireguard add listen-port=13231 name=wireguard1</code></pre>
+          <p><em>নোট: এই কমান্ডটি দেওয়ার সাথে সাথে রাউটার নিজে থেকেই একটি Private Key এবং Public Key জেনারেট করে
+              নেবে।</em></p>
+
+          <p><strong>Step 2: VPN ইন্টারফেসে IP Address বসানো</strong></p>
+          <pre><code>[admin@MikroTik-HQ] > /ip address add address=192.168.100.1/24 interface=wireguard1</code></pre>
+
+          <p><strong>Step 3: Peer (Branch Router) অ্যাড করা</strong></p>
+          <p>ব্রাঞ্চ রাউটারের জেনারেট হওয়া Public Key এখানে বসাতে হবে এবং ওই রাউটারের টানেল আইপিটি Allowed Address
+            হিসেবে দিতে হবে।</p>
+          <pre><code>[admin@MikroTik-HQ] > /interface wireguard peers add allowed-address=192.168.100.2/32 interface=wireguard1 public-key="Branch_Router_Public_Key_Here"</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>Firewall Block:</strong> ভিপিএন কনফিগার করার পর সবচেয়ে কমন সমস্যা হলো কানেকশন তৈরি না হওয়া। এর
+              প্রধান কারণ হলো ফায়ারওয়াল। আপনি যদি WireGuard ব্যবহার করেন (UDP Port 13231) বা L2TP/IPsec ব্যবহার করেন
+              (UDP 500, 1701, 4500), তবে আপনার রাউটারের <strong>Input Chain</strong> এ অবশ্যই এই পোর্টগুলোকে
+              <strong>Accept</strong> করতে হবে।</li>
+            <li><strong>MTU (Maximum Transmission Unit) Mismatch:</strong> ভিপিএন টানেলিংয়ে এনক্যাপসুলেশন হওয়ার কারণে
+              প্যাকেটের সাইজ বেড়ে যায় (Overhead)। তাই ভিপিএন ইন্টারফেসের MTU সাধারণ ইথারনেট (1500) এর চেয়ে কম রাখতে
+              হয় (WireGuard এর জন্য সাধারণত 1420)। MTU ঠিক না থাকলে পিং (Ping) পাবে, কিন্তু বড় ফাইল ট্রান্সফার বা
+              ওয়েবসাইট লোড হবে না।</li>
+            <li><strong>Routing Issue:</strong> টানেল আপ হওয়ার পরও যদি এক অফিসের পিসি অন্য অফিসের সার্ভার না পায়, তবে
+              রাউটিং টেবিল চেক করুন। এক নেটওয়ার্ক থেকে অন্য নেটওয়ার্কে যাওয়ার জন্য <strong>Static Route</strong>
+              (অথবা OSPF এর মতো ডাইনামিক রুট) কনফিগার করা আছে কি না তা নিশ্চিত করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>VPN Tunneling</strong> শুধুমাত্র আইপি হাইড করা বা ব্লক করা সাইট ভিজিট করার টুল নয়; এটি আধুনিক
+              এন্টারপ্রাইজ নেটওয়ার্কিংয়ের একটি অপরিহার্য ভিত্তি। <strong>Remote Access</strong> এর মাধ্যমে
+              ওয়ার্ক-ফ্রম-হোম সলিউশন দেওয়া থেকে শুরু করে <strong>Site-to-Site</strong> এর মাধ্যমে পুরো গ্লোবাল কর্পোরেট
+              নেটওয়ার্ককে এক ছাতার নিচে আনা—সবকিছুই সম্ভব হয় এই টানেলিংয়ের কারণে। <strong>IPsec</strong> এর শক্তিশালী
+              এনক্রিপশন এবং <strong>WireGuard</strong> এর দুর্দান্ত স্পিডের সঠিক ব্যবহার আপনাকে একটি সুরক্ষিত এবং
+              প্রফেশনাল নেটওয়ার্ক ডিজাইন করতে সাহায্য করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

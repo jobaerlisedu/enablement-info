@@ -1,32 +1,326 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Winbox ব্যবহার করে MikroTik Router-এ MAC Address এবং IP Address এর মাধ্যমে কীভাবে কানেক্ট করতে হয় তার বিস্তারিত গাইড, পার্থক্য এবং ট্রাবলশুটিং।">
   <title>Connecting to the MikroTik Router via Winbox on MAC and IP addresses | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Connecting to the MikroTik Router via Winbox on MAC and IP addresses</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Connecting to the MikroTik Router via Winbox on MAC and IP addresses</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Connecting to the MikroTik Router via Winbox on MAC and IP addresses</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 30 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik (মাইক্রোটিক) রাউটার কনফিগারেশনের কথা উঠলেই সবার আগে যে টুলটির নাম মাথায় আসে, তা হলো
+            <strong>Winbox</strong>। কমান্ড লাইন ইন্টারফেস (CLI) এর জটিলতা এড়িয়ে গ্রাফিক্যাল ইউজার ইন্টারফেসের (GUI)
+            মাধ্যমে রাউটারকে সহজেই নিয়ন্ত্রণ করার জন্য এটি তৈরি করা হয়েছে।</p>
+          <p>একটি MikroTik রাউটারে লগইন বা কানেক্ট করার দুটি প্রধান পদ্ধতি রয়েছে: <strong>MAC Address</strong> এবং
+            <strong>IP Address</strong>। নতুন একটি রাউটার বক্স থেকে বের করা থেকে শুরু করে একটি লাইভ ডেটা সেন্টারের
+            রাউটার ম্যানেজ করা পর্যন্ত—এই দুটি পদ্ধতির কনসেপ্ট ক্লিয়ার থাকা একজন নেটওয়ার্ক ইঞ্জিনিয়ারের জন্য অত্যন্ত
+            জরুরি। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা এই দুটি পদ্ধতি নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>Winbox কী? (What is Winbox?)</h3>
+            <p><strong>Winbox</strong> হলো MikroTik এর নিজস্ব একটি পোর্টেবল ইউটিলিটি সফটওয়্যার (যা ইন্সটল করার প্রয়োজন
+              হয় না)। এর সাহায্যে আপনি RouterOS এর সকল ফিচার খুব সহজেই উইন্ডোজ অপারেটিং সিস্টেমে মাউস ক্লিকে কনফিগার
+              করতে পারেন। এটি অত্যন্ত লাইটওয়েট এবং সিকিউর একটি সফটওয়্যার, যা MikroTik এর অফিসিয়াল ওয়েবসাইট থেকে ফ্রি
+              ডাউনলোড করা যায়।</p>
+          </div>
+
+          <h2>১. MAC Address দিয়ে কানেক্ট করার পদ্ধতি (Layer 2 Connection)</h2>
+          <p>যখন আপনি একটি নতুন MikroTik রাউটার বক্স থেকে বের করেন অথবা কোনো রাউটার ফ্যাক্টরি রিসেট (Factory Reset)
+            করেন, তখন তাতে কোনো কনফিগারেশন বা IP Address থাকে না। এমন পরিস্থিতিতে IP দিয়ে লগইন করা সম্ভব নয়। এখানেই
+            MikroTik এর সবচেয়ে জাদুকরী ফিচারটি কাজে আসে—<strong>MAC Address Login</strong>।</p>
+
+          <ul>
+            <li><strong>ফিজিক্যাল কানেকশন:</strong> রাউটারের যেকোনো একটি ল্যান (LAN) পোর্টের সাথে আপনার ল্যাপটপ বা পিসির
+              একটি নেটওয়ার্ক ক্যাবল (UTP) যুক্ত করুন।</li>
+            <li><strong>Winbox ওপেন করুন:</strong> আপনার পিসিতে ডাউনলোড করা Winbox.exe ফাইলটি ডাবল ক্লিক করে ওপেন করুন।
+            </li>
+            <li><strong>Neighbors ট্যাব:</strong> Winbox এর নিচের দিকে <strong>Neighbors</strong> নামক একটি ট্যাব পাবেন।
+              এখানে ক্লিক করলে Winbox ব্রডকাস্ট (Broadcast) করে খুঁজে বের করবে আপনার পিসির সাথে সরাসরি যুক্ত থাকা
+              MikroTik রাউটারগুলো।</li>
+            <li><strong>MAC Address সিলেক্ট করা:</strong> লিস্টে আপনার রাউটারটি দেখতে পেলে, তার <strong>MAC
+                Address</strong> এর ওপর ক্লিক করুন। লক্ষ করবেন, ওপরের <code>Connect To:</code> বক্সে MAC Address টি বসে
+              গেছে। (ভুল করে IP Address এর ওপর ক্লিক করবেন না)।</li>
+            <li><strong>লগইন:</strong> নতুন রাউটারের ডিফল্ট <code>Login: admin</code> এবং <code>Password:</code> (খালি
+              বা ব্ল্যাঙ্ক) রেখে <strong>Connect</strong> বাটনে ক্লিক করুন।</li>
+          </ul>
+
+          <p><strong>পেছনের মেকানিজম:</strong> MAC Address দিয়ে কানেকশনটি OSI Model এর <strong>Data Link Layer (Layer
+              2)</strong> এ কাজ করে। এটি রাউটার এবং পিসির মধ্যে একটি ব্রডকাস্ট চ্যানেল তৈরি করে ডাটা আদান-প্রদান করে।
+          </p>
+
+          <h2>২. IP Address দিয়ে কানেক্ট করার পদ্ধতি (Layer 3 Connection)</h2>
+          <p>MAC Address দিয়ে লগইন করা সুবিধাজনক হলেও এটি খুব একটা স্থিতিশীল (Stable) নয়। রাউটারে যখন প্রচুর ট্রাফিক
+            থাকে, তখন লেয়ার ২ ব্রডকাস্ট ড্রপ হতে পারে এবং Winbox সেশন ডিসকানেক্ট হয়ে যেতে পারে। তাই রাউটারে বেসিক
+            কনফিগারেশন করার পর সব সময় <strong>IP Address</strong> দিয়ে লগইন করাটা হলো প্রফেশনাল প্র্যাকটিস।</p>
+
+          <ul>
+            <li><strong>IP অ্যাসাইন করা:</strong> রাউটারে লগইন করার জন্য প্রথমেই রাউটারের কোনো একটি ইন্টারফেসে একটি IP
+              Address থাকতে হবে এবং আপনার পিসিকেও একই ব্লকের (Subnet) আইপি পেতে হবে। (যদি রাউটারে ডিফল্ট কনফিগারেশন
+              থাকে, তবে রাউটারের আইপি হবে <code>192.168.88.1</code>)।</li>
+            <li><strong>Winbox ওপেন করুন:</strong> পুনরায় Winbox ওপেন করে <strong>Neighbors</strong> ট্যাবে যান।</li>
+            <li><strong>IP Address সিলেক্ট করা:</strong> এবার লিস্টে রাউটারটি দেখতে পেলে, তার <strong>IP
+                Address</strong> এর ওপর ক্লিক করুন। ওপরের <code>Connect To:</code> বক্সে আইপিটি চলে আসবে। অথবা, আপনি
+              চাইলে সরাসরি <code>Connect To:</code> বক্সে রাউটারের আইপি টাইপ করতে পারেন (রিমোট লগইনের ক্ষেত্রে)।</li>
+            <li><strong>লগইন:</strong> সঠিক ইউজারনেম এবং পাসওয়ার্ড দিয়ে <strong>Connect</strong> বাটনে ক্লিক করুন।</li>
+          </ul>
+
+          <p><strong>পেছনের মেকানিজম:</strong> IP Address দিয়ে কানেকশনটি OSI Model এর <strong>Network Layer (Layer
+              3)</strong> এবং Transport Layer এর <strong>TCP Port 8291</strong> ব্যবহার করে কাজ করে। এটি অনেক বেশি
+            স্থিতিশীল এবং রাউটেবল (Routable), অর্থাৎ আপনি ইন্টারনেটের মাধ্যমে পৃথিবীর যেকোনো জায়গা থেকেও আইপি দিয়ে লগইন
+            করতে পারবেন।</p>
+
+          <h2>৩. MAC vs IP Connection: কোনটি কখন ব্যবহার করবেন?</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>MAC Address Connection</th>
+                  <th>IP Address Connection</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">OSI Layer</td>
+                  <td>Layer 2 (Data Link Layer)</td>
+                  <td>Layer 3 (Network Layer)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ব্যবহারের ক্ষেত্র</td>
+                  <td>নতুন রাউটার সেটআপ, আইপি ভুলে গেলে বা নেটওয়ার্ক কনফিগারেশন রিসেট হলে।</td>
+                  <td>রেগুলার অ্যাডমিনিস্ট্রেশন, রিমোট ম্যানেজমেন্ট এবং লাইভ ট্রাবলশুটিংয়ের জন্য।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">স্থিতিশীলতা (Stability)</td>
+                  <td>কম। ট্রাফিক লোড পড়লে কানেকশন ড্রপ করতে পারে।</td>
+                  <td>সর্বোচ্চ। কানেকশন অত্যন্ত স্থিতিশীল থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">রাউটিং (Routability)</td>
+                  <td>ল্যান (LAN) পার হয়ে অন্য নেটওয়ার্কে যেতে পারে না। সরাসরি যুক্ত থাকতে হবে।</td>
+                  <td>ইন্টারনেট বা রাউটারের মাধ্যমে রিমোটলি যুক্ত হওয়া যায়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Basic Configuration (CLI Command)</h2>
+          <p>আপনি যদি প্রথমবার MAC Address দিয়ে লগইন করেন, তবে পরবর্তী সময়ে IP দিয়ে লগইন করার জন্য আপনাকে ইন্টারফেসে
+            একটি আইপি বসাতে হবে। Winbox এর <strong>New Terminal</strong> ওপেন করে নিচের কমান্ডটি দিন:</p>
+
+          <pre><code>[admin@MikroTik] > ip address add address=192.168.1.1/24 interface=ether2</code></pre>
+
+          <p>এখন আপনার পিসিতে <code>192.168.1.2</code> আইপিটি বসিয়ে খুব সহজেই Winbox এ <code>192.168.1.1</code> টাইপ করে
+            লেয়ার ৩ কানেকশন তৈরি করতে পারবেন।</p>
+
+          <h2>৫. Troubleshooting Tips (সমস্যা ও সমাধান)</h2>
+          <p>Winbox দিয়ে কানেক্ট করতে গিয়ে কিছু কমন সমস্যা হতে পারে, যার সমাধান নিচে দেওয়া হলো:</p>
+
+          <ul>
+            <li><strong>Winbox এর Neighbors লিস্টে রাউটার শো করছে না:</strong> এটি সবচেয়ে বেশি হয় Windows Firewall বা
+              অ্যান্টিভাইরাসের কারণে। আপনার উইন্ডোজের ফায়ারওয়াল সাময়িকভাবে বন্ধ (Turn Off) করে Winbox রিস্টার্ট দিন।
+              এছাড়া পিসিতে একাধিক নেটওয়ার্ক এডাপ্টার (যেমন VirtualBox বা VMWare এর এডাপ্টার) চালু থাকলে সেগুলো ডিসেবল
+              করে দিন।</li>
+            <li><strong>MAC দিয়ে কানেক্ট করার কিছুক্ষণ পরই ডিসকানেক্ট হয়ে যাচ্ছে:</strong> এটি Layer 2 ব্রডকাস্ট
+              ট্রাফিকের কারণে হয়। দ্রুত <code>IP > Addresses</code> মেনুতে গিয়ে একটি আইপি বসিয়ে নিন এবং এরপর IP Address
+              দিয়ে লগইন করে কাজ করুন।</li>
+            <li><strong>Wrong Username or Password:</strong> যদি পাসওয়ার্ড কাজ না করে, তবে ফিজিক্যাল রাউটারের পাওয়ার অফ
+              করে <strong>Reset</strong> বাটন চেপে ধরে পাওয়ার অন করুন। আলো ফ্ল্যাশ (Blink) করলে ছেড়ে দিন। এরপর MAC দিয়ে
+              <code>admin</code> ইউজারনেম দিয়ে বিনা পাসওয়ার্ডে লগইন করতে পারবেন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Winbox</strong> হলো MikroTik সিস্টেমের মেরুদণ্ড এবং এর <strong>MAC Address</strong> লগইন ফিচারটি
+              নেটওয়ার্ক ইঞ্জিনিয়ারদের জন্য একটি বড় আশীর্বাদ। যেখানে অন্যান্য ব্যান্ডের রাউটারে আইপি কনফিগারেশন ভুল হলে
+              সরাসরি কনসোল ক্যাবলের (Console Cable) ওপর নির্ভর করতে হয়, সেখানে MikroTik এ আপনি ইথারনেট ক্যাবল দিয়েই
+              লেয়ার ২ তে লগইন করে সমস্যা সমাধান করতে পারেন। তবে প্রোডাকশন এনভায়রনমেন্টে সব সময় <strong>IP
+                Address</strong> ব্যবহার করে লগইন করাই সবচেয়ে নিরাপদ এবং স্থিতিশীল পদ্ধতি।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

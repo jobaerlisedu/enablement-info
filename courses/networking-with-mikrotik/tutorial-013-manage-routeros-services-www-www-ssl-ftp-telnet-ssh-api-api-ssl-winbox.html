@@ -1,32 +1,351 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manage RouterOS Services (www, www-ssl, FTP, Telnet, SSH, API, API-SSL, Winbox) | enablement.info</title>
+  <meta name="description"
+    content="MikroTik RouterOS এর Service সমূহ (www, FTP, SSH, Winbox, API) কীভাবে কাজ করে? পোর্ট পরিবর্তন, IP রেস্ট্রিকশন এবং সিকিউরিটি নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Manage RouterOS Services: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Manage RouterOS Services (www, www-ssl, FTP, Telnet, SSH, API, API-SSL, Winbox)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Manage RouterOS Services (www, www-ssl, FTP, Telnet, SSH, API, API-SSL, Winbox)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Manage RouterOS Services (www, www-ssl, FTP, Telnet, SSH, API, API-SSL, Winbox)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 05 August, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একটি নতুন MikroTik Router বক্স থেকে বের করার পর সেটি অনেকটা এমন একটি বাড়ির মতো, যার সবগুলো দরজা খোলা। আপনি
+            চাইলে Winbox দিয়ে ঢুকতে পারেন, ব্রাউজার (WebFig) দিয়ে ঢুকতে পারেন, আবার কমান্ড লাইন (SSH/Telnet) দিয়েও ঢুকতে
+            পারেন। এই এক্সেস পয়েন্টগুলোকেই <strong>RouterOS Services</strong> বলা হয়।</p>
+          <p>সমস্যা হলো, এই দরজাগুলো যদি সবসময় সবার জন্য খোলা থাকে, তবে ইন্টারনেটে থাকা হ্যাকাররাও আপনার রাউটারে প্রবেশ
+            করার চেষ্টা করবে। একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনার প্রথম কাজগুলোর একটি হলো অপ্রয়োজনীয়
+            সার্ভিসগুলো বন্ধ করে দেওয়া এবং প্রয়োজনীয় সার্ভিসগুলোকে সুরক্ষিত (Secure) করা। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে
+            আমরা RouterOS-এর প্রতিটি সার্ভিস সম্পর্কে বিস্তারিত জানবো এবং কীভাবে এগুলোকে কনফিগার ও ম্যানেজ করতে হয় তা
+            শিখবো।</p>
+
+          <div class="content-box">
+            <h3>Service Management কেন এত গুরুত্বপূর্ণ?</h3>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> আপনি একটি কর্পোরেট অফিসে MikroTik রাউটার বসিয়েছেন। রাউটারটি
+              ইন্টারনেটের (Public IP) সাথে যুক্ত। আপনি যদি ডিফল্ট <strong>SSH (Port 22)</strong> সার্ভিসটি খোলা রাখেন,
+              তবে দেখতে পাবেন প্রতিদিন হাজার হাজার বট (Bot) আপনার রাউটারে ব্রুট-ফোর্স (Brute-force) অ্যাটাক করছে
+              পাসওয়ার্ড ব্রেক করার জন্য। এতে রাউটারের CPU ইউজেস বেড়ে যাবে এবং নেটওয়ার্ক স্লো হয়ে যাবে। সার্ভিস
+              ম্যানেজমেন্টের মাধ্যমে নির্দিষ্ট পোর্টে নির্দিষ্ট আইপি (IP) থেকে এক্সেস সীমাবদ্ধ করে এই ধরনের আক্রমণ ১০০%
+              প্রতিরোধ করা সম্ভব।</p>
+          </div>
+
+          <h2>১. RouterOS এর Default Service সমূহের তালিকা</h2>
+          <p>MikroTik RouterOS-এ মূলত ৮টি বিল্ট-ইন সার্ভিস থাকে। নিচে এদের নাম, ডিফল্ট পোর্ট এবং কাজের বিবরণ দেওয়া হলো:
+          </p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সার্ভিসের নাম (Service)</th>
+                  <th>ডিফল্ট পোর্ট (Port)</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">winbox</td>
+                  <td>TCP 8291</td>
+                  <td>MikroTik এর নিজস্ব গ্রাফিক্যাল টুল <strong>Winbox</strong> দিয়ে লগইন করার জন্য। এটি সবচেয়ে বেশি
+                    ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">www (WebFig)</td>
+                  <td>TCP 80</td>
+                  <td>যেকোনো ওয়েব ব্রাউজার দিয়ে রাউটারে লগইন করার জন্য। এর ডাটা এনক্রিপ্টেড (Encrypted) থাকে না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">www-ssl</td>
+                  <td>TCP 443</td>
+                  <td>ব্রাউজার দিয়ে লগইন করার সিকিউরড মাধ্যম। এটি কাজ করার জন্য রাউটারে SSL Certificate থাকতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ssh</td>
+                  <td>TCP 22</td>
+                  <td>কমান্ড লাইন ইন্টারফেসে (CLI) লগইন করার সিকিউর মাধ্যম। এর ডাটা সম্পূর্ণ এনক্রিপ্টেড থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">telnet</td>
+                  <td>TCP 23</td>
+                  <td>CLI-তে লগইন করার আনসিকিউর মাধ্যম। এর ডাটা প্লেইন টেক্সট (Plain text) হিসেবে ট্রান্সফার হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">api</td>
+                  <td>TCP 8728</td>
+                  <td>অন্য কোনো থার্ড-পার্টি সফটওয়্যার (যেমন: ISP Billing Software বা Python স্ক্রিপ্ট) রাউটারের সাথে
+                    কমিউনিকেট করার জন্য এটি ব্যবহার করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">api-ssl</td>
+                  <td>TCP 8729</td>
+                  <td>API এর সিকিউরড বা এনক্রিপ্টেড ভার্সন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ftp</td>
+                  <td>TCP 21</td>
+                  <td>File Transfer Protocol। রাউটারে কোনো ফাইল (যেমন ব্যাকআপ ফাইল বা .npk আপডেট ফাইল) আপলোড বা ডাউনলোড
+                    করার জন্য ব্যবহৃত হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. Service Management এর বেস্ট প্র্যাকটিস (Security)</h2>
+          <p>রাউটারকে হ্যাকারদের হাত থেকে বাঁচাতে হলে আপনাকে তিনটি মূলনীতি মেনে চলতে হবে:</p>
+          <ol>
+            <li><strong>Disable (বন্ধ করুন):</strong> যে সার্ভিসগুলো আপনার একদমই প্রয়োজন নেই, সেগুলো চিরতরে বন্ধ
+              (Disable) করে দিন। যেমন: <code>telnet</code>, <code>ftp</code>, <code>www</code>।</li>
+            <li><strong>Change Port (পোর্ট পরিবর্তন করুন):</strong> যে সার্ভিসগুলো আপনার দরকার (যেমন Winbox বা SSH),
+              সেগুলোর ডিফল্ট পোর্ট পরিবর্তন করে আনকমন কোনো পোর্ট (যেমন 8291 এর বদলে 58291) সেট করুন। হ্যাকাররা সাধারণত
+              ডিফল্ট পোর্টে অ্যাটাক করে।</li>
+            <li><strong>Available From (আইপি রেস্ট্রিকশন):</strong> এটি সবচেয়ে শক্তিশালী সিকিউরিটি ফিচার। আপনি নির্দিষ্ট
+              করে দিতে পারেন যে শুধুমাত্র আপনার আইটি রুমের লোকাল আইপি ব্লক (যেমন 192.168.10.0/24) থেকেই Winbox এ লগইন
+              করা যাবে, অন্য কোনো আইপি থেকে নয়।</li>
+          </ol>
+
+          <h2>৩. Winbox ব্যবহার করে Service কনফিগারেশন</h2>
+          <p>গ্রাফিক্যাল ইন্টারফেস ব্যবহার করে সার্ভিস ম্যানেজ করা খুবই সহজ।</p>
+
+          <ul>
+            <li>Winbox দিয়ে রাউটারে লগইন করুন।</li>
+            <li>বাম পাশের মেনু থেকে <strong>IP</strong> এ ক্লিক করে <strong>Services</strong> এ যান।</li>
+            <li>একটি উইন্ডো ওপেন হবে যেখানে আটটি সার্ভিস লিস্ট করা থাকবে।</li>
+            <li><strong>Disable করতে:</strong> <code>telnet</code> বা <code>ftp</code> সিলেক্ট করে ওপরের <strong>X (লাল
+                ক্রস)</strong> আইকনে ক্লিক করুন। সার্ভিসটি ধূসর (Gray) হয়ে যাবে।</li>
+            <li><strong>Port পরিবর্তন করতে:</strong> <code>winbox</code> এ ডাবল ক্লিক করুন। <strong>Port:</strong> এর
+              ঘরে 8291 মুছে আপনার পছন্দের কোনো পোর্ট (যেমন 18291) বসিয়ে Apply দিন।</li>
+            <li><strong>Available From সেট করতে:</strong> একই উইন্ডোতে <strong>Available From:</strong> এর ঘরে আপনার
+              কাঙ্ক্ষিত IP Address বা Subnet (যেমন 192.168.10.0/24) লিখে OK দিন।</li>
+          </ul>
+
+          <h2>৪. CLI (Command Line Interface) ব্যবহার করে কনফিগারেশন</h2>
+          <p>নেটওয়ার্ক প্রফেশনালরা সাধারণত কমান্ড লাইনে কাজ করতে বেশি স্বাচ্ছন্দ্য বোধ করেন। টার্মিনাল ওপেন করে নিচের
+            কমান্ডগুলো প্র্যাকটিস করুন:</p>
+
+          <h3>A. বর্তমান সার্ভিসগুলোর স্ট্যাটাস দেখা:</h3>
+          <pre><code>[admin@MikroTik] > /ip service print</code></pre>
+          <p>এই কমান্ড দিলে কোন পোর্ট এনাবল আছে এবং কোনটিতে <code>Available From</code> সেট করা আছে তা দেখতে পাবেন।</p>
+
+          <h3>B. অপ্রয়োজনীয় সার্ভিস বন্ধ করা (Disable):</h3>
+          <p>Telnet, FTP এবং WWW (সাধারণ ওয়েব) সার্ভিস বন্ধ করতে:</p>
+          <pre><code>[admin@MikroTik] > /ip service disable telnet,ftp,www</code></pre>
+
+          <h3>C. পোর্টের নাম্বার পরিবর্তন করা:</h3>
+          <p>Winbox এর ডিফল্ট পোর্ট পরিবর্তন করতে:</p>
+          <pre><code>[admin@MikroTik] > /ip service set winbox port=18291</code></pre>
+          <p><em>(নোট: পোর্ট পরিবর্তন করার পর, পরবর্তীতে Winbox দিয়ে লগইন করার সময় আইপির সাথে পোর্ট উল্লেখ করতে হবে।
+              যেমন: <code>192.168.88.1:18291</code>)</em></p>
+
+          <h3>D. 특정 IP থেকে অ্যাক্সেস দেওয়া (Available From):</h3>
+          <p>SSH সার্ভিসকে শুধুমাত্র একটি নির্দিষ্ট লোকাল ব্লক থেকে অ্যাক্সেস করার অনুমতি দিতে:</p>
+          <pre><code>[admin@MikroTik] > /ip service set ssh available-from=192.168.10.0/24</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <p>সার্ভিস ম্যানেজ করতে গিয়ে ভুলবশত কিছু সমস্যা তৈরি হতে পারে:</p>
+
+          <ul>
+            <li><strong>নিজে লক আউট হয়ে যাওয়া (Locked Out):</strong> আপনি যদি <code>winbox</code> সার্ভিসের
+              <code>Available From</code> ফিল্ডে ভুল আইপি বসিয়ে সেভ করেন, তবে আপনি সাথে সাথে লগ আউট হয়ে যাবেন। এর সমাধান
+              হলো <strong>MAC Address</strong> দিয়ে Winbox এ লগইন করা (কারণ MAC কানেকশনে IP রেস্ট্রিকশন কাজ করে না) এবং
+              আইপিটি ঠিক করা।</li>
+            <li><strong>Billing Software কানেক্ট হচ্ছে না:</strong> আপনার আইএসপির বিলিং সফটওয়্যার যদি রাউটারের সাথে ডেটা
+              সিঙ্ক করতে না পারে, তবে চেক করুন <strong>API</strong> সার্ভিসটি চালু আছে কি না।
+              <code>/ip service print</code> দিয়ে দেখুন এটি Disable করা আছে কি না।</li>
+            <li><strong>পোর্ট কনফ্লিক্ট (Port Conflict):</strong> আপনি যদি SSH এর পোর্ট পরিবর্তন করে 80 (যা www এর
+              পোর্ট) করে দেন, তবে সার্ভিস কনফ্লিক্ট হবে। সব সময় ৫-ডিজিটের আনকমন পোর্ট (যেমন 10000 থেকে 65000 এর মধ্যে)
+              ব্যবহার করার চেষ্টা করবেন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>RouterOS Services</strong> গুলো হলো আপনার নেটওয়ার্ক ডিভাইসে প্রবেশ করার মূল দরজা। এই দরজাগুলোর
+              সঠিক ম্যানেজমেন্ট ছাড়া কোনো নেটওয়ার্কই সুরক্ষিত হতে পারে না। অপ্রয়োজনীয় <strong>Telnet</strong> এবং
+              <strong>FTP</strong> সার্ভিস বন্ধ রাখা, <strong>Winbox</strong> ও <strong>SSH</strong> এর ডিফল্ট পোর্ট
+              পরিবর্তন করা এবং <strong>Available From</strong> এর মাধ্যমে আইপি রেস্ট্রিকশন দেওয়া—এই বেসিক কনফিগারেশনগুলো
+              প্রতিটি রাউটার সেটআপ করার প্রথম দিনেই সম্পন্ন করা উচিত। এতে আপনার রাউটার ব্রুট-ফোর্স অ্যাটাক থেকে শতভাগ
+              নিরাপদ থাকবে এবং প্রসেসিং পাওয়ার সাশ্রয় হবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

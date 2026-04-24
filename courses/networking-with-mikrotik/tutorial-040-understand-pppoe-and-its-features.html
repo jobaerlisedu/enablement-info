@@ -1,32 +1,365 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="PPPoE (Point-to-Point Protocol over Ethernet) কী, কীভাবে কাজ করে, এর মূল ফিচারগুলো কী এবং MikroTik Router-এ PPPoE Server ও Client কনফিগার করার বিস্তারিত বাংলা গাইড।">
   <title>Understand PPPoE and its features | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Understand PPPoE and its features</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Understand PPPoE and its features</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Understand PPPoE and its features</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 15 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আপনি যদি বাসায় বা অফিসে ব্রডব্যান্ড ইন্টারনেট (Broadband Internet) ব্যবহার করে থাকেন, তবে লক্ষ্য করবেন
+            আপনার রাউটারে সাধারণত একটি <strong>Username</strong> এবং <strong>Password</strong> বসাতে হয়। এই ইউজারনেম এবং
+            পাসওয়ার্ড দিয়ে ইন্টারনেটে কানেক্ট করার যে প্রযুক্তি, তাকেই বলা হয় <strong>PPPoE (Point-to-Point Protocol
+              over Ethernet)</strong>।</p>
+          <p>বিশ্বব্যাপী ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) বা লোকাল ব্রডব্যান্ড ব্যবসায়ীদের কাছে PPPoE হলো সবচেয়ে
+            জনপ্রিয় এবং বহুল ব্যবহৃত প্রোটোকল। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো PPPoE কী, কেন এটি আইএসপিদের
+            প্রথম পছন্দ, এর ব্যাকএন্ড মেকানিজম কীভাবে কাজ করে এবং <strong>MikroTik RouterOS</strong>-এ একটি PPPoE Server
+            ও Client কীভাবে কনফিগার করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও: কেন PPPoE প্রয়োজন?</h3>
+            <p><strong>সমস্যা:</strong> ধরুন, আপনি একজন ISP। আপনার নেটওয়ার্কে ৫০০ জন কাস্টমার আছে। আপনি যদি সবাইকে
+              <strong>Static IP</strong> দেন, তবে আইপি ম্যানেজ করা কঠিন হবে এবং যে কেউ অন্যের আইপি চুরি (IP Spoofing)
+              করে ইন্টারনেট চালাতে পারবে। আবার আপনি যদি <strong>DHCP</strong> ব্যবহার করেন, তবে আইপি অটোমেটিক পাবে ঠিকই,
+              কিন্তু কে কোন আইপি পাচ্ছে তার কোনো সিকিউরিটি বা ইউজারনেম-পাসওয়ার্ড ভেরিফিকেশন থাকবে না।</p>
+            <p><strong>PPPoE এর ম্যাজিক:</strong> PPPoE এই সমস্যাগুলোর নিখুঁত সমাধান দেয়। এটি লোকাল এরিয়া নেটওয়ার্কের
+              (Ethernet) ওপর দিয়ে একটি সুরক্ষিত ডায়াল-আপ (Dial-up) টানেল তৈরি করে। কাস্টমারকে অবশ্যই একটি ইউজারনেম এবং
+              পাসওয়ার্ড দিতে হবে। পাসওয়ার্ড সঠিক হলে সে একটি ডাইনামিক আইপি পাবে, তার স্পিড (Bandwidth) লিমিট হয়ে যাবে
+              এবং তার ইন্টারনেট ব্যবহারের হিসাব (Accounting) রাখা যাবে।</p>
+          </div>
+
+          <h2>১. PPPoE কীভাবে কাজ করে? (Discovery and Session)</h2>
+          <p>PPPoE প্রোটোকলটি মূলত দুটি ধাপে কাজ করে: <strong>Discovery Stage</strong> এবং <strong>Session
+              Stage</strong>।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ধাপ (Stage)</th>
+                  <th>প্যাকেট / মেসেজের নাম</th>
+                  <th>কী ঘটে? (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="4" class="type-column">Discovery Stage (MAC লেভেলে কাজ করে)</td>
+                  <td>PADI (Initiation)</td>
+                  <td>ক্লায়েন্ট রাউটার ব্রডকাস্ট (Broadcast) করে জানতে চায়, "নেটওয়ার্কে কোনো PPPoE Server আছে কি?"</td>
+                </tr>
+                <tr>
+                  <td>PADO (Offer)</td>
+                  <td>PPPoE সার্ভার শুনতে পেয়ে রিপ্লাই দেয়, "হ্যাঁ, আমি আছি। আমি তোমার রিকোয়েস্ট এক্সেপ্ট করতে
+                    প্রস্তুত।"</td>
+                </tr>
+                <tr>
+                  <td>PADR (Request)</td>
+                  <td>ক্লায়েন্ট তখন ওই সার্ভারকে সিলেক্ট করে কানেকশনের জন্য ফর্মাল রিকোয়েস্ট পাঠায়।</td>
+                </tr>
+                <tr>
+                  <td>PADS (Session-confirmation)</td>
+                  <td>সার্ভার একটি ইউনিক <code>Session ID</code> তৈরি করে ক্লায়েন্টকে দেয়। এরপর ডিসকভারি স্টেজ শেষ হয়।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Session Stage (IP লেভেলে কাজ করে)</td>
+                  <td>LCP, CHAP/PAP, NCP</td>
+                  <td>ইউজারনেম ও পাসওয়ার্ড ভেরিফাই (Authentication) হয় এবং সবশেষে ক্লায়েন্টকে একটি IP Address দেওয়া হয়।
+                    এরপর ইন্টারনেট ডাটা পাস হওয়া শুরু হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. PPPoE এর মূল ফিচার বা সুবিধাসমূহ</h2>
+          <p>আইএসপিরা কেন অন্য প্রোটোকল বাদ দিয়ে PPPoE ব্যবহার করে, তার প্রধান কারণগুলো হলো:</p>
+          <ul>
+            <li><strong>Authentication (প্রমাণীকরণ):</strong> PAP, CHAP, MS-CHAPv2 এর মতো সিকিউর প্রোটোকল ব্যবহার করে
+              ইউজারনেম এবং পাসওয়ার্ড যাচাই করা যায়।</li>
+            <li><strong>Accounting & RADIUS Integration:</strong> ইউজার কত জিবি (GB) ডাটা ডাউনলোড বা আপলোড করেছে, কতক্ষণ
+              অনলাইনে ছিল, তা RADIUS সার্ভারের (যেমন: MikroTik User Manager বা DMA Softlab) মাধ্যমে নিখুঁতভাবে হিসাব
+              রাখা যায়।</li>
+            <li><strong>Dynamic Bandwidth Management:</strong> MikroTik এ PPPoE কনফিগার করলে কাস্টমার কানেক্ট হওয়ার সাথে
+              সাথে তার স্পিড লিমিট অনুযায়ী অটোমেটিক একটি <strong>Dynamic Queue</strong> তৈরি হয়ে যায়। অ্যাডমিনকে
+              ম্যানুয়ালি কিউ (Queue) বানাতে হয় না।</li>
+            <li><strong>Security (Isolation):</strong> PPPoE ব্রডকাস্ট ট্রাফিক ব্লক করে। প্রতিটি কাস্টমারের জন্য সার্ভার
+              পর্যন্ত একটি আলাদা প্রাইভেট টানেল তৈরি হয়, ফলে এক কাস্টমার অন্য কাস্টমারের পিসি বা রাউটারে এক্সেস নিতে
+              পারে না।</li>
+          </ul>
+
+          <h2>৩. MikroTik রাউটারে PPPoE Server কনফিগারেশন</h2>
+          <p>আপনার আইএসপি বা লোকাল নেটওয়ার্কের জন্য একটি PPPoE সার্ভার তৈরি করার বেসিক ধাপগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>Step 1: IP Pool তৈরি করা</h3>
+          <p>কাস্টমাররা কানেক্ট হলে কোন ব্লক থেকে আইপি পাবে তা নির্ধারণ করা।</p>
+          <pre><code>[admin@MikroTik] > /ip pool add name=pppoe-pool ranges=10.20.30.10-10.20.30.254</code></pre>
+
+          <h3>Step 2: PPP Profile তৈরি করা</h3>
+          <p>এখানে আমরা স্পিড লিমিট এবং আইপি পুল অ্যাসাইন করবো।</p>
+          <pre><code>[admin@MikroTik] > /ppp profile add name=10Mbps-Profile local-address=10.20.30.1 remote-address=pppoe-pool rate-limit=10M/10M</code></pre>
+          <p><em>ব্যাখ্যা:</em> <code>local-address</code> হলো সার্ভারের আইপি এবং <code>rate-limit</code> দিয়ে 10 Mbps
+            স্পিড লিমিট করে দেওয়া হলো।</p>
+
+          <h3>Step 3: PPPoE Server Service চালু করা</h3>
+          <p>রাউটারের কোন পোর্ট দিয়ে কাস্টমাররা কানেক্ট হবে (যেমন <code>ether2</code>) তা সিলেক্ট করা।</p>
+          <pre><code>[admin@MikroTik] > /interface pppoe-server server add service-name=MyISP interface=ether2 default-profile=10Mbps-Profile disabled=no</code></pre>
+
+          <h3>Step 4: PPPoE User (Secret) তৈরি করা</h3>
+          <p>কাস্টমারের জন্য ইউজারনেম এবং পাসওয়ার্ড তৈরি করা।</p>
+          <pre><code>[admin@MikroTik] > /ppp secret add name=customer1 password=internet123 service=pppoe profile=10Mbps-Profile</code></pre>
+          <p>আপনার PPPoE Server এখন সম্পূর্ণ রেডি!</p>
+
+          <h2>৪. MikroTik রাউটারে PPPoE Client কনফিগারেশন</h2>
+          <p>আপনি যদি কোনো কাস্টমার হন এবং আইএসপি আপনাকে PPPoE ইউজার-পাসওয়ার্ড দেয়, তবে আপনার রাউটারে সেটি যেভাবে
+            কনফিগার করবেন:</p>
+
+          <h3>Winbox এর মাধ্যমে:</h3>
+          <ul>
+            <li><strong>Interfaces</strong> মেনুতে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করে ড্রপডাউন থেকে <strong>PPPoE Client</strong> সিলেক্ট করুন।</li>
+            <li><strong>General Tab:</strong> <code>Interfaces</code> এর ঘরে সেই পোর্টটি সিলেক্ট করুন যেটিতে আইএসপির
+              ক্যাবল লাগানো আছে (যেমন <code>ether1</code>)।</li>
+            <li><strong>Dial Out Tab:</strong>
+              <ul>
+                <li><strong>User:</strong> আইএসপির দেওয়া ইউজারনেম দিন (যেমন <code>customer1</code>)।</li>
+                <li><strong>Password:</strong> পাসওয়ার্ড দিন (যেমন <code>internet123</code>)।</li>
+                <li><strong>Add Default Route:</strong> এই বক্সে অবশ্যই টিক (Check) দিন, যাতে ইন্টারনেট কাজ করে।</li>
+                <li><strong>Use Peer DNS:</strong> টিক দিন (আইএসপির ডিএনএস পাওয়ার জন্য)।</li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন। স্ট্যাটাস বারে <code>connected</code> লেখা উঠবে।
+            </li>
+          </ul>
+
+          <h3>CLI কমান্ড (Terminal):</h3>
+          <pre><code>[admin@MikroTik] > /interface pppoe-client add name=pppoe-out1 interface=ether1 user=customer1 password=internet123 add-default-route=yes use-peer-dns=yes disabled=no</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">কিছু ওয়েবসাইট লোড হচ্ছে না (যেমন Facebook বা Netflix)</td>
+                  <td>এটি PPPoE এর সবচেয়ে বিখ্যাত সমস্যা, যাকে <strong>MTU (Maximum Transmission Unit)</strong> ইস্যু
+                    বলা হয়। PPPoE এর হেডার (Header) সাইজের কারণে সাধারণ MTU 1500 সাপোর্ট করে না। PPP Profile এ গিয়ে
+                    MTU এবং MRU পরিবর্তন করে <code>1480</code> বা <code>1492</code> করে দিন। অথবা ফায়ারওয়ালে
+                    <code>Change MSS</code> রুল ব্যবহার করুন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Authentication Failed</td>
+                  <td>ইউজারনেম অথবা পাসওয়ার্ড ভুল। মনে রাখবেন, পাসওয়ার্ড কেস-সেনসিটিভ (Case-sensitive)। ছোট হাতের ও
+                    বড় হাতের অক্ষর এবং স্পেস (Space) আছে কি না তা সতর্কতার সাথে চেক করুন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Status: Dialing (Connecting এ আটকে থাকা)</td>
+                  <td>রাউটার PPPoE সার্ভার খুঁজে পাচ্ছে না। ক্যাবল ঠিকমতো লাগানো আছে কি না চেক করুন। যদি
+                    <strong>VLAN</strong> ব্যবহার করা হয়, তবে PPPoE Client টি সরাসরি ইথারনেট পোর্টের বদলে সঠিক VLAN
+                    ইন্টারফেসের ওপর তৈরি করতে হবে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>ব্রডব্যান্ড নেটওয়ার্কিংয়ের ভিত্তি হলো <strong>PPPoE</strong>। এটি আইএসপিদের একটি সিম্পল এবং সিকিউর
+              প্ল্যাটফর্ম দেয় ইউজার ম্যানেজমেন্টের জন্য। <strong>Bandwidth Limit</strong> থেকে শুরু করে
+              <strong>Authentication</strong> এবং <strong>Billing Software (RADIUS)</strong> এর সাথে ইন্টিগ্রেশন—সবকিছুই
+              PPPoE এর মাধ্যমে খুব সহজে এবং নিখুঁতভাবে করা সম্ভব। <strong>MikroTik RouterOS</strong> এর শক্তিশালী PPPoE
+              ফিচারগুলো ব্যবহার করে আপনি মাত্র কয়েকটি ক্লিকেই একটি প্রফেশনাল এবং এন্টারপ্রাইজ লেভেলের আইএসপি বা কর্পোরেট
+              নেটওয়ার্ক দাঁড় করাতে পারেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

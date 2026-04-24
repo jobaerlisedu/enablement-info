@@ -1,32 +1,333 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ Wireless Station মোড, Default Authenticate এবং Access List ব্যবহার করে ওয়্যারলেস নেটওয়ার্ক সুরক্ষিত করার বিস্তারিত বাংলা গাইড।">
   <title>Wireless station, Default Authenticate and Access list | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Wireless station, Default Authenticate and Access list</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Wireless station, Default Authenticate and Access list</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Wireless station, Default Authenticate and Access list</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 October, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ওয়্যারলেস নেটওয়ার্ক কনফিগার করার সময় আমরা সাধারণত একটি পাসওয়ার্ড (Security Profile) দিয়েই কাজ শেষ মনে
+            করি। কিন্তু প্রফেশনাল নেটওয়ার্ক বা WISP (Wireless ISP) এর ক্ষেত্রে শুধু পাসওয়ার্ড দিয়ে নেটওয়ার্ক
+            সুরক্ষিত রাখা সম্ভব নয়। পাসওয়ার্ড লিক হয়ে গেলে যে কেউ আপনার Access Point (AP) এর সাথে যুক্ত হয়ে
+            ব্যান্ডউইথ (Bandwidth) নষ্ট করতে পারে।</p>
+          <p>MikroTik RouterOS এ ওয়্যারলেস কানেকশনগুলোকে আরও কঠোরভাবে নিয়ন্ত্রণ করার জন্য <strong>Default
+              Authenticate</strong> এবং <strong>Access List</strong> নামের দুটি অত্যন্ত শক্তিশালী ফিচার রয়েছে। আজকের এই
+            ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Wireless Station কী, MAC Address এর ওপর ভিত্তি করে কীভাবে সিকিউরিটি পলিসি
+            তৈরি করতে হয় এবং সিগন্যাল স্ট্রেন্থ (Signal Strength) অনুযায়ী ক্লায়েন্ট ফিল্টারিং কীভাবে কাজ করে।</p>
+
+          <div class="content-box">
+            <h3>Real-life Scenario: সিগন্যাল ড্রপ এবং আনঅথরাইজড এক্সেস ঠেকানো</h3>
+            <p><strong>সমস্যা:</strong> ধরুন, আপনার একটি ওয়্যারলেস টাওয়ার আছে (Access Point)। আপনার ১০ জন ক্লায়েন্ট
+              (Station) সেই টাওয়ার থেকে ইন্টারনেট নেয়। হঠাৎ একজন ক্লায়েন্ট আপনার পাসওয়ার্ড জেনে গিয়ে অনেক দূর থেকে
+              একটি দুর্বল ডিভাইস দিয়ে কানেক্ট করার চেষ্টা করলো। তার সিগন্যাল খুবই দুর্বল (যেমন -85 dBm)। ওয়্যারলেস
+              নেটওয়ার্কের নিয়ম হলো, কোনো একজন ক্লায়েন্টের সিগন্যাল খারাপ হলে পুরো Access Point এর পারফরম্যান্স এবং
+              স্পিড কমে যায়।</p>
+            <p><strong>সমাধান:</strong> এই পরিস্থিতি এড়ানোর জন্য আমরা রাউটারের <strong>Default Authenticate</strong>
+              বন্ধ করে দেবো এবং <strong>Access List</strong> এ একটি রুল তৈরি করবো। রুলটি এমন হবে যে, শুধুমাত্র
+              রেজিস্টার্ড MAC Address গুলোই কানেক্ট হতে পারবে এবং তাদের সিগন্যাল যদি -75 dBm এর নিচে নেমে যায়, তবে
+              রাউটার অটোমেটিক্যালি তাকে কিক (Disconnect) করে দেবে।</p>
+          </div>
+
+          <h2>১. Wireless Station মোড কী?</h2>
+          <p>MikroTik এ ওয়্যারলেস ইন্টারফেসের বিভিন্ন মোড থাকে। <strong>Station</strong> মোড মানে হলো "ক্লায়েন্ট" বা
+            "রিসিভার"।</p>
+          <ul>
+            <li>যখন আপনি একটি MikroTik রাউটারকে অন্য কোনো Access Point (AP) এর সাথে যুক্ত করতে চান (যেমন মোবাইল ফোন
+              ওয়াই-ফাই এর সাথে যুক্ত হয়), তখন রাউটারের ওয়্যারলেস মোড <code>station</code> সিলেক্ট করতে হয়।</li>
+            <li>Point-to-Point (PTP) লিংকের ক্ষেত্রে এক প্রান্ত থাকে <code>ap bridge</code> মোডে এবং অপর প্রান্ত থাকে
+              <code>station</code> (বা <code>station bridge</code>) মোডে।</li>
+          </ul>
+
+          <h2>২. Default Authenticate এর কাজ কী?</h2>
+          <p>যেকোনো MikroTik ওয়্যারলেস ইন্টারফেসে ডাবল-ক্লিক করলে <strong>Wireless</strong> ট্যাবের নিচের দিকে
+            <strong>Default Authenticate</strong> নামের একটি চেকবক্স দেখতে পাবেন। এটি ডিফল্টভাবে টিক (Check) দেওয়া
+            থাকে।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>অবস্থা (State)</th>
+                  <th>AP Mode এ এর প্রভাব</th>
+                  <th>Station Mode এ এর প্রভাব</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Checked (টিক দেওয়া)</td>
+                  <td>পাসওয়ার্ড জানলে পৃথিবীর যেকোনো ক্লায়েন্ট এই AP এর সাথে কানেক্ট হতে পারবে।</td>
+                  <td>রাউটারটি আশেপাশের যেকোনো AP (যার SSID এবং পাসওয়ার্ড মিলবে) এর সাথে কানেক্ট হওয়ার চেষ্টা করবে।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Unchecked (টিক তুলে নেওয়া)</td>
+                  <td><strong>কাউকেই কানেক্ট হতে দেবে না</strong>, যদি না তার MAC Address রাউটারের <strong>Access
+                      List</strong> এ সেভ করা থাকে।</td>
+                  <td>কোনো AP এর সাথেই কানেক্ট হবে না, যদি না সেই AP এর MAC Address রাউটারের <strong>Connect
+                      List</strong> এ থাকে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Access List কনফিগারেশন (The Ultimate Gatekeeper)</h2>
+          <p><strong>Access List</strong> হলো আপনার রাউটারের ভিআইপি (VIP) লিস্ট। Default Authenticate বন্ধ করে দেওয়ার
+            পর, যাদেরকে আপনি এই লিস্টে অ্যাড করবেন, শুধুমাত্র তারাই আপনার নেটওয়ার্কে প্রবেশ করতে পারবে। এটি মূলত MAC
+            Address Filtering এর একটি অ্যাডভান্সড রূপ।</p>
+
+          <h3>Step 1: Default Authenticate বন্ধ করা</h3>
+          <ul>
+            <li>Winbox থেকে <strong>Wireless</strong> মেনুতে যান।</li>
+            <li><strong>WiFi Interfaces</strong> ট্যাবে আপনার ইন্টারফেসটির (যেমন: <code>wlan1</code>) ওপর ডাবল-ক্লিক
+              করুন।</li>
+            <li><strong>Wireless</strong> ট্যাবে গিয়ে <code>Default Authenticate</code> এর চেকবক্স থেকে টিক চিহ্নটি
+              তুলে দিন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন। এর ফলে আপনার বর্তমান সব ক্লায়েন্ট সাথে সাথে
+              ডিসকানেক্ট হয়ে যাবে।</li>
+          </ul>
+
+          <h3>Step 2: Access List এ ক্লায়েন্ট অ্যাড করা</h3>
+          <ul>
+            <li>একই <strong>Wireless</strong> উইন্ডো থেকে <strong>Access List</strong> ট্যাবে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>MAC Address:</strong> এর ঘরে আপনার বৈধ ক্লায়েন্টের MAC Address দিন (যেমন:
+              <code>00:11:22:33:44:55</code>)।</li>
+            <li><strong>Interface:</strong> আপনার ওয়্যারলেস ইন্টারফেস (<code>wlan1</code>) সিলেক্ট করুন।</li>
+            <li><strong>Signal Strength Range:</strong> এটি অত্যন্ত গুরুত্বপূর্ণ। এখানে ডিফল্ট <code>-120..120</code>
+              থাকে। আপনি এটি পরিবর্তন করে <code>-75..120</code> করে দিন। এর মানে হলো, ক্লায়েন্টের সিগন্যাল -75 dBm এর
+              চেয়ে খারাপ হলে (যেমন -80) তাকে কানেক্ট হতে দেওয়া হবে না।</li>
+            <li><strong>Authentication:</strong> এর চেকবক্সে টিক (Check) দিন। এর মানে আপনি তাকে কানেক্ট হওয়ার অনুমতি
+              দিচ্ছেন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h3>Step 3: Private Security Profile অ্যাসাইন করা (ঐচ্ছিক)</h3>
+          <p>Access List এর আরেকটি দারুণ ফিচার হলো, আপনি চাইলে একই AP তে ভিন্ন ভিন্ন ক্লায়েন্টকে ভিন্ন ভিন্ন পাসওয়ার্ড
+            দিতে পারেন। <strong>Access List</strong> এ MAC অ্যাড করার সময় <strong>Private Key</strong> বা
+            <strong>Security Profile</strong> অপশন থেকে ওই নির্দিষ্ট ক্লায়েন্টের জন্য আলাদা একটি পাসওয়ার্ড প্রোফাইল
+            সিলেক্ট করে দেওয়া যায়।</p>
+
+          <h2>৪. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়াররা সাধারণত টার্মিনাল দিয়ে এই কাজগুলো দ্রুত করে ফেলেন।</p>
+
+          <p><strong>Default Authenticate বন্ধ করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface wireless set wlan1 default-authentication=no</code></pre>
+
+          <p><strong>Access List এ নির্দিষ্ট সিগন্যাল রেঞ্জ সহ MAC অ্যাড করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface wireless access-list add mac-address=AA:BB:CC:DD:EE:FF interface=wlan1 signal-range=-75..120 authentication=yes forwarding=no</code></pre>
+          <p><em>নোট: <code>forwarding=no</code> মানে হলো এই ক্লায়েন্ট অন্য কোনো ওয়্যারলেস ক্লায়েন্টের সাথে সরাসরি
+              ল্যানে ডাটা আদান-প্রদান করতে পারবে না (Client Isolation), যা WISP এর জন্য ভালো একটি সিকিউরিটি
+              প্র্যাকটিস।</em></p>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>ক্লায়েন্ট বারবার কানেক্ট এবং ডিসকানেক্ট হচ্ছে:</strong> আপনি যদি Access List এ
+              <code>Signal Strength Range</code> সেট করে থাকেন (যেমন -75..120), এবং ক্লায়েন্টের সিগন্যাল যদি বারবার -74
+              এবং -76 এর মধ্যে ওঠানামা করে, তবে রাউটার তাকে বারবার কিক করবে। এই ক্ষেত্রে সিগন্যাল রেঞ্জটি একটু বাড়িয়ে
+              দিন (যেমন -80..120) অথবা ফিজিক্যাল এলাইনমেন্ট (Alignment) ঠিক করুন।</li>
+            <li><strong>"Authentication timeout" এরর মেসেজ:</strong> রাউটারের লগে (Log) যদি এই মেসেজ দেখেন, তবে এর দুটি
+              অর্থ হতে পারে। এক, ক্লায়েন্ট ভুল পাসওয়ার্ড দিচ্ছে। দুই, আপনি Default Authenticate বন্ধ করেছেন কিন্তু
+              ক্লায়েন্টের MAC Address টি Access List এ অ্যাড করতে ভুলে গেছেন অথবা টাইপিংয়ে ভুল করেছেন।</li>
+            <li><strong>Connect List বনাম Access List:</strong> মনে রাখবেন, <strong>Access List</strong> কাজ করে AP Mode
+              এ (যাতে ক্লায়েন্টরা কানেক্ট হতে পারে)। আর <strong>Connect List</strong> কাজ করে Station Mode এ (যাতে
+              আপনার রাউটারটি নির্দিষ্ট কোনো AP তেই শুধু কানেক্ট হয়)। দুটোর কাজ গুলিয়ে ফেলা যাবে না।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি প্রফেশনাল এবং স্টেবল <strong>Wireless Network</strong> তৈরি করতে শুধুমাত্র পাসওয়ার্ডের ওপর নির্ভর
+              করা বোকামি। <strong>Default Authenticate</strong> বন্ধ করে <strong>Access List</strong> এর মাধ্যমে
+              হার্ডওয়্যার লেভেলের (MAC Address) সিকিউরিটি নিশ্চিত করা একজন নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর-এর বেস্ট
+              প্র্যাকটিস। বিশেষ করে <strong>Signal Strength Range</strong> ফিল্টারিং ব্যবহার করে দুর্বল সিগন্যালের
+              ক্লায়েন্টদের নেটওয়ার্ক থেকে দূরে রাখলে আপনার পুরো Access Point এর ওভারঅল স্পিড এবং থ্রুপুট (Throughput)
+              অনেকগুণ বেড়ে যায়।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

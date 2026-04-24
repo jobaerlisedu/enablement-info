@@ -1,32 +1,329 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ নেটওয়ার্ক ট্রাবলশুটিংয়ের জন্য Ping, Traceroute এবং Profile টুলের বিস্তারিত ব্যবহার, রিয়েল-লাইফ সিনারিও এবং CLI কমান্ড নিয়ে সম্পূর্ণ বাংলা গাইড।">
   <title>Ping, Traceroute and Profile tools on MikroTik | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Ping, Traceroute and Profile tools on MikroTik</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Ping, Traceroute and Profile tools on MikroTik</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Ping, Traceroute and Profile tools on MikroTik</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিংয়ের জগতে একটি প্রবাদ আছে: "Where there is a network, there is a problem." একজন প্রফেশনাল
+            নেটওয়ার্ক ইঞ্জিনিয়ারের প্রতিদিনের কাজের একটা বড় অংশই হলো <strong>Troubleshooting</strong> বা সমস্যা খুঁজে
+            বের করা। নেটওয়ার্কে কখন কোথায় প্যাকেট ড্রপ হচ্ছে, ইন্টারনেট কেন স্লো, কিংবা রাউটার কেন হ্যাং করছে—এই
+            প্রশ্নের উত্তরগুলো খুঁজে বের করার জন্য আমাদের কিছু ডায়াগনস্টিক টুলস ব্যবহার করতে হয়।</p>
+          <p>MikroTik RouterOS এ অসংখ্য ট্রাবলশুটিং টুলস থাকলেও, সবচেয়ে বেসিক এবং শক্তিশালী তিনটি টুল হলো
+            <strong>Ping</strong>, <strong>Traceroute</strong> এবং <strong>Profile</strong>। আজকের এই ডিপ-ডাইভ
+            টিউটোরিয়ালে আমরা এই তিনটি টুলের কাজ, রিয়েল-লাইফ সিনারিও এবং অ্যাডভান্সড লেভেলের ব্যবহার শিখবো।</p>
+
+          <h2>১. Ping Tool (The Connectivity Checker)</h2>
+          <p><strong>Ping</strong> হলো নেটওয়ার্ক দুনিয়ার সবচেয়ে পরিচিত টুল। এটি মূলত <strong>ICMP (Internet Control
+              Message Protocol)</strong> ব্যবহার করে কাজ করে। এর কাজ হলো একটি নির্দিষ্ট গন্তব্যে (Destination IP) একটি
+            Echo Request প্যাকেট পাঠানো এবং সেখান থেকে Echo Reply আসার সময়টুকু (Latency) হিসাব করা।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (Ping)</h3>
+            <p><strong>সমস্যা:</strong> কাস্টমার কল করে বললো, "আমার ইন্টারনেট চলছে না।"</p>
+            <p><strong>ট্রাবলশুটিং:</strong> আপনি প্রথমে রাউটার থেকে <code>8.8.8.8</code> (Google DNS) এ পিং করবেন।</p>
+            <ul>
+              <li>যদি <strong>Timeout</strong> আসে, তার মানে আপনার আইএসপি (ISP) থেকে লাইন ডাউন।</li>
+              <li>যদি রিপ্লাই আসে, কিন্তু <strong>Time (Latency)</strong> অনেক বেশি (যেমন 300ms) হয়, তবে বুঝতে হবে লিংকে
+                প্রচুর জ্যাম (Congestion) আছে বা রাউটার ওভারলোডেড।</li>
+              <li>যদি রিপ্লাই ঠিক থাকে, তখন <strong>Advanced Ping</strong> ব্যবহার করে রাউটারের <code>src-address</code>
+                হিসেবে কাস্টমারের লোকাল আইপি দিয়ে পিং করতে হবে। এতে বোঝা যাবে কাস্টমারের ল্যান থেকে ডাটা ইন্টারনেটে যেতে
+                পারছে কি না (NAT বা Firewall ইস্যু আছে কি না)।</li>
+            </ul>
+          </div>
+
+          <h3>Advanced Ping প্যারামিটারসমূহ:</h3>
+          <ul>
+            <li><strong>Size:</strong> ডিফল্ট প্যাকেট সাইজ ৫৬ বাইট থাকে। <strong>MTU</strong> সমস্যা (যেমন পিপিইও
+              কানেকশনে ওয়েবসাইট লোড না হওয়া) চেক করার জন্য বড় সাইজের (যেমন <code>1400</code> বা <code>1500</code>)
+              প্যাকেট দিয়ে পিং করতে হয়।</li>
+            <li><strong>Src. Address:</strong> রাউটারে একাধিক আইএসপি (Dual WAN) থাকলে, নির্দিষ্ট কোনো আইএসপির লাইন চেক
+              করতে ওই পোর্টের আইপিটি সোর্স হিসেবে ব্যবহার করতে হয়।</li>
+          </ul>
+
+          <p><strong>CLI কমান্ড:</strong></p>
+          <pre><code>[admin@MikroTik] > /ping 8.8.8.8 count=5
+[admin@MikroTik] > /ping 8.8.8.8 src-address=192.168.10.1 size=1500</code></pre>
+
+          <h2>২. Traceroute Tool (The Path Finder)</h2>
+          <p>Ping শুধু বলে গন্তব্যে পৌঁছানো যাচ্ছে কি না। কিন্তু <strong>Traceroute</strong> বলে দেয় সেই গন্তব্যে
+            পৌঁছাতে রাস্তার মাঝে কতগুলো রাউটার (Hop) পার হতে হয়েছে এবং কোন রাউটারে গিয়ে প্যাকেট আটকে যাচ্ছে বা দেরি
+            হচ্ছে। এটি প্যাকেটের <strong>TTL (Time To Live)</strong> ভ্যালু পরিবর্তন করে করে এই ম্যাপটি তৈরি করে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (Traceroute)</h3>
+            <p><strong>সমস্যা:</strong> গেমিং ইউজাররা বলছে সিঙ্গাপুর সার্ভারে পিং অনেক বেশি (High Latency) বা প্যাকেট লস
+              হচ্ছে।</p>
+            <p><strong>ট্রাবলশুটিং:</strong> আপনি সিঙ্গাপুর গেম সার্ভারের আইপিতে Traceroute চালালেন। রেজাল্টে দেখলেন
+              আপনার রাউটার থেকে আইএসপি পর্যন্ত পিং (1ms) ঠিক আছে। আইএসপি থেকে আইআইজি (IIG) পর্যন্ত (5ms) ঠিক আছে। কিন্তু
+              আইআইজি থেকে যখন সাবমেরিন ক্যাবল (IIG to Upstream) হয়ে যাচ্ছে, তখন ৪ নম্বর হপ (Hop)-এ পিং 150ms হয়ে যাচ্ছে
+              বা প্যাকেট ড্রপ (Timeout) দেখাচ্ছে। এর মানে সমস্যা আপনার রাউটারে নয়, সমস্যা দেশের বাইরের লিংকে।</p>
+          </div>
+
+          <p><strong>CLI কমান্ড:</strong></p>
+          <pre><code>[admin@MikroTik] > /tool traceroute 8.8.8.8</code></pre>
+          <p><em>নোট: Winbox এ <strong>Tools > Traceroute</strong> মেনু থেকে এটি ব্যবহার করা আরও সহজ।</em></p>
+
+          <h2>৩. Profile Tool (The CPU Detective)</h2>
+          <p>নেটওয়ার্কের সমস্যা সব সময় তারের বা আইএসপির হয় না। অনেক সময় রাউটার নিজেই নিজের লোড নিতে পারে না। রাউটারের
+            <strong>CPU 100%</strong> হয়ে গেলে পুরো নেটওয়ার্ক হ্যাং করে। কিন্তু কোন প্রসেসের কারণে CPU 100% হলো তা বের
+            করার একমাত্র উপায় হলো <strong>Profile Tool</strong>।</p>
+          <p>এটি উইন্ডোজের <strong>Task Manager</strong> এর মতো কাজ করে। এটি রিয়েল-টাইমে দেখায় রাউটারের কোন ফিচারটি
+            (যেমন: Firewall, Routing, Management) কতটুকু CPU ব্যবহার করছে।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Profile Process Name</th>
+                  <th>কখন লোড বেশি হয়? (Reason for High Load)</th>
+                  <th>সমাধান (Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Firewall</td>
+                  <td>রাউটারে যদি প্রচুর Filter Rule, Mangle Rule বা Layer 7 Protocol থাকে। অথবা হ্যাকাররা যদি
+                    <strong>DDoS Attack</strong> করে।</td>
+                  <td>FastTrack এনাবল করুন। Connection Tracking এর Timeout কমান। RAW টেবিল ব্যবহার করে অ্যাটাকার আইপি
+                    ব্লক করুন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Networking / Ethernet</td>
+                  <td>ল্যানে যদি কোনো லুপ (Network Loop) তৈরি হয় বা প্রচুর ব্রডকাস্ট স্টর্ম (Broadcast Storm) হয়।</td>
+                  <td>ল্যানের সুইচে লুপ চেক করুন। Bridge সেটিংসে গিয়ে (R)STP (Rapid Spanning Tree Protocol) চালু করুন।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Queuing</td>
+                  <td>অনেক বেশি Simple Queue থাকলে বা পিসি কিউ (PCQ) মেমোরি ফুল হয়ে গেলে।</td>
+                  <td>অপ্রয়োজনীয় Queue মুছে ফেলুন। মাল্টিপল ইউজারের জন্য PCQ ব্যবহার করে Queue এর সংখ্যা কমিয়ে আনুন।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Management</td>
+                  <td>কেউ যদি Winbox, SSH বা API দিয়ে ক্রমাগত লগইন করার চেষ্টা করে (Brute-force Attack)।</td>
+                  <td>Firewall দিয়ে নির্দিষ্ট আইপি ছাড়া বাকি সবার জন্য Winbox/SSH পোর্ট ব্লক করে দিন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p><strong>CLI কমান্ড:</strong></p>
+          <pre><code>[admin@MikroTik] > /tool profile</code></pre>
+          <p><em>(এটি রান করার পর <code>q</code> চেপে বের হতে হবে)।</em></p>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সতর্কতা)</h2>
+
+          <ul>
+            <li><strong>Ping কাজ না করা (Request Timed Out):</strong> অনেক ওয়েবসাইট বা সার্ভার (এমনকি কিছু আইএসপি
+              রাউটার) নিরাপত্তার স্বার্থে তাদের ফায়ারওয়ালে ICMP (Ping) ব্লক করে রাখে। তাই কোনো সার্ভারে পিং না পাওয়ার
+              মানেই এই নয় যে সার্ভারটি ডাউন। এক্ষেত্রে <strong>TCP Traceroute</strong> বা নির্দিষ্ট পোর্টে টেলনেট
+              (Telnet) করে চেক করা ভালো।</li>
+            <li><strong>Traceroute এ * * * (Asterisks) দেখা:</strong> Traceroute করার সময় মাঝপথে কোনো হপ (Hop) যদি
+              <code>* * *</code> দেখায়, তার মানে হলো ওই রাউটারটি ICMP TTL Expired মেসেজটি ব্লক করে রেখেছে। এটি একটি
+              সাধারণ সিকিউরিটি প্র্যাকটিস, এতে ভয়ের কিছু নেই। যদি এর পরের হপগুলোতে রিপ্লাই আসে, তবে বুঝতে হবে ডাটা ঠিকই
+              পাস হচ্ছে।</li>
+            <li><strong>Profile টুলে Unclassified লোড:</strong> মাঝে মাঝে Profile টুলে <code>unclassified</code> প্রসেসে
+              অনেক লোড দেখা যায়। এটি সাধারণত রাউটারওএস এর কোনো বাগ (Bug) বা হার্ডওয়্যার ফল্টের কারণে হয়। রাউটার রিবুট
+              (Reboot) বা ফার্মওয়্যার আপগ্রেড (Upgrade) করলে এটি ঠিক হয়ে যায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একজন এন্ট্রি-লেভেল টেকনিশিয়ান এবং একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ারের মধ্যে প্রধান পার্থক্য হলো
+              <strong>Troubleshooting Skill</strong>। যখন নেটওয়ার্ক ডাউন হয়, তখন অনুমান করে কাজ না করে
+              <strong>Ping</strong> দিয়ে কানেক্টিভিটি চেক করা, <strong>Traceroute</strong> দিয়ে ফল্ট পয়েন্ট (Fault
+              Point) খুঁজে বের করা এবং <strong>Profile</strong> টুল দিয়ে রাউটারের ভেতরের স্বাস্থ্য (Health) পর্যবেক্ষণ
+              করাটাই হলো সঠিক পদ্ধতি। এই তিনটি টুলের সঠিক ব্যবহার আপনাকে যেকোনো জটিল নেটওয়ার্ক সমস্যা খুব দ্রুত এবং
+              নির্ভুলভাবে সমাধান করতে সাহায্য করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

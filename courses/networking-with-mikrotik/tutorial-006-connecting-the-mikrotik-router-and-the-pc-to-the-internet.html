@@ -1,32 +1,322 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik Router-এ ইন্টারনেট (WAN) কনফিগারেশন এবং পিসিতে (LAN) ইন্টারনেট দেওয়ার সম্পূর্ণ গাইড। DHCP, PPPoE, NAT এবং DNS সেটআপ বিস্তারিতভাবে শিখুন।">
   <title>Connecting the MikroTik Router and the PC to the internet | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Connecting the MikroTik Router and the PC to the internet</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Connecting the MikroTik Router and the PC to the internet</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Connecting the MikroTik Router and the PC to the internet</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 15 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আপনি একটি নতুন MikroTik Router কিনেছেন। এখন আপনার প্রধান কাজ হলো এটিকে ইন্টারনেটের সাথে যুক্ত করা এবং এরপর
+            আপনার ল্যাপটপ বা পিসিতে সেই ইন্টারনেট পৌঁছে দেওয়া। শুনতে খুব সহজ মনে হলেও, একটি প্রফেশনাল রাউটারে এই কাজটি
+            করতে বেশ কয়েকটি ধাপ (যেমন WAN সেটআপ, LAN আইপি বসানো, NAT এবং DNS কনফিগারেশন) পার হতে হয়।</p>
+          <p>আজকের এই ইন-ডেপথ টিউটোরিয়ালে আমরা একটি রিয়েল-লাইফ সিনারিও তৈরি করে দেখবো কীভাবে একদম শূন্য থেকে (From
+            Scratch) একটি MikroTik রাউটারকে ইন্টারনেটে কানেক্ট করতে হয় এবং পিসিতে ব্রাউজিং চালু করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>ফিজিক্যাল কানেকশন (Physical Setup)</h3>
+            <p>কনফিগারেশন শুরু করার আগে ক্যাবলগুলো ঠিক জায়গায় লাগানো অত্যন্ত জরুরি।</p>
+            <ul>
+              <li><strong>WAN Port (ইন্টারনেট):</strong> আপনার ISP (ইন্টারনেট সার্ভিস প্রোভাইডার) থেকে যে ক্যাবলটি
+                এসেছে, সেটি রাউটারের <strong>Ether1</strong> পোর্টে লাগান।</li>
+              <li><strong>LAN Port (লোকাল নেটওয়ার্ক):</strong> রাউটারের <strong>Ether2</strong> পোর্ট থেকে একটি ক্যাবল
+                নিয়ে আপনার ল্যাপটপ বা পিসির ল্যান পোর্টে লাগান।</li>
+            </ul>
+            <p>এবার <strong>Winbox</strong> ওপেন করে MAC Address এর মাধ্যমে রাউটারে লগইন করুন।</p>
+          </div>
+
+          <h2>১. রাউটারকে ইন্টারনেটে কানেক্ট করা (WAN Setup)</h2>
+          <p>আপনার আইএসপি আপনাকে তিন ধরনের ইন্টারনেট কানেকশন দিতে পারে। এর যেকোনো একটি কনফিগার করলেই রাউটার ইন্টারনেট
+            পেয়ে যাবে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>কানেকশন টাইপ</th>
+                  <th>কখন ব্যবহৃত হয়?</th>
+                  <th>কনফিগারেশন (CLI Command)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">DHCP Client (অটোমেটিক আইপি)</td>
+                  <td>আপনার আইএসপি যদি বলে ক্যাবল লাগালেই ইন্টারনেট পেয়ে যাবেন (যেমন ব্রডব্যান্ড মডেম থেকে লাইন নিলে)।
+                  </td>
+                  <td><code>/ip dhcp-client add interface=ether1 disabled=no</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column">PPPoE (ইউজার/পাসওয়ার্ড)</td>
+                  <td>আইএসপি যদি আপনাকে একটি Username এবং Password দিয়ে থাকে। এটি সবচেয়ে বেশি ব্যবহৃত হয়।</td>
+                  <td>
+                    <code>/interface pppoe-client add name=pppoe-out1 interface=ether1 user="your_user" password="your_password" disabled=no add-default-route=yes</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Static IP (ফিক্সড আইপি)</td>
+                  <td>আইএসপি যদি আপনাকে নির্দিষ্ট IP, Subnet Mask এবং Gateway লিখে দেয়।</td>
+                  <td>
+                    <code>/ip address add address=192.168.x.x/24 interface=ether1</code><br><code>/ip route add dst-address=0.0.0.0/0 gateway=192.168.x.1</code>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. লোকাল নেটওয়ার্ক তৈরি করা (LAN Setup)</h2>
+          <p>রাউটার তো ইন্টারনেট পেল, এবার পিসিকে ইন্টারনেট দেওয়ার জন্য একটি লোকাল নেটওয়ার্ক তৈরি করতে হবে। আমরা
+            <strong>Ether2</strong> পোর্টে একটি প্রাইভেট আইপি ব্লক (যেমন 192.168.10.0/24) কনফিগার করবো।</p>
+
+          <p>Ether2 ইন্টারফেসে আইপি বসানোর কমান্ড:</p>
+          <pre><code>[admin@MikroTik] > /ip address add address=192.168.10.1/24 interface=ether2</code></pre>
+
+          <h2>৩. DNS (Domain Name System) কনফিগারেশন</h2>
+          <p>আমরা যখন ব্রাউজারে <code>google.com</code> লিখি, তখন রাউটারকে জানতে হয় গুগলের আইপি কত। এই কাজটি করে DNS।
+            আমরা গুগলের পাবলিক ডিএনএস ব্যবহার করবো।</p>
+
+          <pre><code>[admin@MikroTik] > /ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes</code></pre>
+          <p><em>নোট: <code>allow-remote-requests=yes</code> দিলে আপনার রাউটারটি পিসির জন্য একটি লোকাল ডিএনএস সার্ভার
+              হিসেবে কাজ করবে।</em></p>
+
+          <h2>৪. পিসির জন্য DHCP Server তৈরি করা</h2>
+          <p>আপনি চাইলে আপনার পিসিতে ম্যানুয়ালি আইপি (যেমন 192.168.10.2) বসাতে পারেন। কিন্তু পিসি যাতে স্বয়ংক্রিয়ভাবে
+            আইপি পায়, তার জন্য রাউটারে একটি <strong>DHCP Server</strong> চালু করাটা সবচেয়ে ভালো। MikroTik এ এর জন্য একটি
+            দারুণ উইজার্ড (Wizard) আছে।</p>
+
+          <p>Winbox এর New Terminal এ নিচের কমান্ডটি দিন এবং এন্টার চাপতে থাকুন (সবকিছু অটোমেটিক নিয়ে নেবে):</p>
+          <pre><code>[admin@MikroTik] > /ip dhcp-server setup
+Select interface to run DHCP server on
+dhcp server interface: ether2
+Select network for DHCP addresses
+dhcp address space: 192.168.10.0/24
+Select gateway for given network
+gateway for dhcp network: 192.168.10.1
+Select pool of ip addresses given out by DHCP server
+addresses to give out: 192.168.10.2-192.168.10.254
+Select DNS servers
+dns servers: 192.168.10.1
+Select lease time
+lease time: 10m</code></pre>
+
+          <h2>৫. ইন্টারনেট শেয়ারিং (NAT / Masquerade)</h2>
+          <p>এখন আপনার পিসি আইপি পেয়েছে, রাউটারেও ইন্টারনেট আছে। কিন্তু পিসি থেকে ব্রাউজ করলে ইন্টারনেট চলবে না! কারণ
+            পিসির আইপিটি (192.168.10.2) একটি <strong>Private IP</strong>, যা ইন্টারনেটে রাউট (Route) হতে পারে না।</p>
+
+          <p>এই প্রাইভেট আইপিকে রাউটারের পাবলিক বা আইএসপির আইপিতে কনভার্ট করে ইন্টারনেটে পাঠানোর প্রক্রিয়াই হলো
+            <strong>NAT (Network Address Translation)</strong>। MikroTik এ একে <strong>Masquerade</strong> বলা হয়। এটি
+            ছাড়া লোকাল পিসি ইন্টারনেট পাবে না।</p>
+
+          <p>NAT রুল তৈরি করার কমান্ড (যদি আপনার WAN পোর্ট ether1 হয়):</p>
+          <pre><code>[admin@MikroTik] > /ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade</code></pre>
+          <p><em>নোট: যদি আপনি PPPoE ব্যবহার করেন, তবে <code>out-interface=pppoe-out1</code> দিতে হবে।</em></p>
+
+          <h2>৬. Troubleshooting Tips (ট্রাবলশুটিং)</h2>
+          <p>সব কনফিগারেশন করার পরও যদি ইন্টারনেট না চলে, তবে নিচের স্টেপগুলো ফলো করুন:</p>
+
+          <ul>
+            <li><strong>রাউটারে ইন্টারনেট আছে কি না চেক করুন:</strong> নিউ টার্মিনাল থেকে <code>ping 8.8.8.8</code> দিন।
+              রিপ্লাই আসলে বুঝবেন রাউটারে ইন্টারনেট আছে।</li>
+            <li><strong>ডিএনএস চেক করুন:</strong> রাউটার থেকে <code>ping google.com</code> দিন। যদি
+              <code>invalid value</code> বা <code>unknown host</code> দেখায়, তবে আপনার DNS কনফিগারেশন ভুল হয়েছে।</li>
+            <li><strong>পিসিতে ইন্টারনেট না পেলে:</strong> পিসির কমান্ড প্রম্পট (CMD) ওপেন করে
+              <code>ping 192.168.10.1</code> দিন (রাউটারকে পিং করুন)। যদি পিং পায়, কিন্তু <code>ping 8.8.8.8</code> না
+              পায়, তবে নিশ্চিত থাকুন আপনার <strong>NAT (Masquerade)</strong> রুলে কোনো ভুল হয়েছে। রুলটি চেক করুন।</li>
+            <li><strong>IP Conflict:</strong> পিসিতে যদি আগে থেকে কোনো স্ট্যাটিক আইপি বসানো থাকে, সেটি মুছে দিয়ে
+              <code>Obtain an IP address automatically</code> সিলেক্ট করে দিন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি <strong>MikroTik Router</strong>-কে ইন্টারনেটে কানেক্ট করা এবং লোকাল নেটওয়ার্কে সেই ইন্টারনেট
+              ডিস্ট্রিবিউট করা হলো যেকোনো নেটওয়ার্ক ইঞ্জিনিয়ারের প্রথম এবং সবচেয়ে গুরুত্বপূর্ণ কাজ। <strong>WAN
+                Configuration</strong> দিয়ে আইএসপির সাথে যুক্ত হওয়া, <strong>DHCP Server</strong> দিয়ে পিসিগুলোকে আইপি
+              দেওয়া এবং সবশেষে <strong>NAT (Masquerade)</strong> এর মাধ্যমে ইন্টারনেট শেয়ার করা—এই ফ্লো (Flow) বা
+              ধারাবাহিকতাটি মনে রাখলে আপনি পৃথিবীর যেকোনো ব্র্যান্ডের রাউটার খুব সহজেই কনফিগার করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

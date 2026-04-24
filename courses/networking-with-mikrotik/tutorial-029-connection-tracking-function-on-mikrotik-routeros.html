@@ -1,32 +1,332 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ Connection Tracking কীভাবে কাজ করে? Firewall-এর Connection State, CPU Load এবং Troubleshooting নিয়ে বিস্তারিত বাংলা গাইড।">
   <title>Connection Tracking function on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Connection Tracking function on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Connection Tracking function on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Connection Tracking function on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 20 October, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik RouterOS-এর <strong>Firewall</strong> কীভাবে কাজ করে তা নিয়ে কথা বললে সবার আগে যে বিষয়টি চলে আসে,
+            তা হলো <strong>Connection Tracking</strong>। এটি মূলত রাউটারের মস্তিষ্ক বা মেমোরি, যা নেটওয়ার্কের ভেতর দিয়ে
+            যাওয়া প্রতিটি ডাটা প্যাকেটের (Packet) হিসাব রাখে।</p>
+          <p>অনেকেই শুধু Firewall Rule তৈরি করতে জানেন, কিন্তু এর পেছনের ইঞ্জিন কীভাবে কাজ করে তা না জানার কারণে
+            রাউটারের CPU 100% হয়ে যাওয়া বা ইন্টারনেট স্লো হয়ে যাওয়ার মতো সমস্যার সম্মুখীন হন। আজকের এই ডিপ-ডাইভ
+            টিউটোরিয়ালে আমরা Connection Tracking কী, এটি কীভাবে কাজ করে, এর Connection State-গুলো কী কী এবং প্রোডাকশন
+            নেটওয়ার্কে এটিকে কীভাবে কনফিগার করতে হয়, তা নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Receptionist Analogy)</h3>
+            <p><strong>Connection Tracking</strong> কে একটি বড় কর্পোরেট অফিসের রিসিপশনিস্টের (Receptionist) সাথে তুলনা
+              করা যায়।</p>
+            <p>ধরুন, অফিসের ভেতর থেকে একজন কর্মী (আপনার পিসি) বাইরের একজন ক্লায়েন্টকে (যেমন Facebook Server) কল করলো।
+              রিসিপশনিস্ট তার খাতায় লিখে রাখলো, "কর্মী A ক্লায়েন্ট B কে কল করেছে।" এই প্রথম কলটিকে বলা হয়
+              <strong>New</strong> কানেকশন।</p>
+            <p>এখন ক্লায়েন্ট B (Facebook) যখন কর্মীর কলের রিপ্লাই দেবে, তখন রিসিপশনিস্ট খাতা চেক করে দেখবে যে, "হ্যাঁ,
+              আমাদের কর্মীই প্রথমে তাকে কল করেছিল, তাই তাকে ভেতরে ঢুকতে দেওয়া যায়।" এই অবস্থাকে বলা হয়
+              <strong>Established</strong> কানেকশন। রিসিপশনিস্টের এই খাতা মেইনটেইন করার পুরো প্রক্রিয়াটিই হলো
+              <strong>Connection Tracking</strong> বা <strong>Conntrack</strong>।</p>
+          </div>
+
+          <h2>১. Connection States (কানেকশনের ৫টি অবস্থা)</h2>
+          <p>MikroTik এর Firewall-এ Filter Rule তৈরি করার সময় আপনি <code>connection-state</code> নামে একটি অপশন দেখতে
+            পান। Connection Tracking মূলত প্রতিটি প্যাকেটকে ৫টি অবস্থার (State) যেকোনো একটিতে ট্যাগ করে দেয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Connection State</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                  <th>ফায়ারওয়াল রুল (Best Practice)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">New</td>
+                  <td>এটি হলো একদম প্রথম প্যাকেট (যেমন TCP SYN), যা নতুন কোনো কানেকশন তৈরি করতে চায়।</td>
+                  <td>ইন্টারনেট (WAN) থেকে আসা <code>New</code> কানেকশন সাধারণত ব্লক (Drop) করতে হয় হ্যাকিং ঠেকাতে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Established</td>
+                  <td>যে কানেকশনটি ইতিমধ্যে তৈরি হয়ে গেছে এবং উভয় পাশ থেকে ডাটা আদান-প্রদান হচ্ছে।</td>
+                  <td>ফায়ারওয়ালের একদম ওপরে <code>Accept</code> রুল দিয়ে একে অ্যালাউ করতে হয়, যাতে রাউটার দ্রুত ডাটা
+                    পাস করতে পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Related</td>
+                  <td>এটি নতুন কানেকশন, কিন্তু এটি আগে থেকে চলমান একটি <code>Established</code> কানেকশনের ওপর নির্ভরশীল
+                    (যেমন: FTP ডাটা চ্যানেল বা ICMP এরর মেসেজ)।</td>
+                  <td>এটিও <code>Established</code> এর সাথে <code>Accept</code> করে রাখতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Invalid</td>
+                  <td>যে প্যাকেটের কোনো অর্থ নেই, অথবা রাউটার বুঝতে পারছে না এটি কোথা থেকে এসেছে। এটি সাধারণত হ্যাকারদের
+                    স্পুফড (Spoofed) প্যাকেট হয়।</td>
+                  <td>সব সময় একটি রুল দিয়ে <code>Invalid</code> প্যাকেট <code>Drop</code> করতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Untracked</td>
+                  <td>যে প্যাকেটগুলোকে <strong>RAW Table</strong> ব্যবহার করে <code>notrack</code> করে দেওয়া হয়েছে।
+                    এগুলোর কোনো হিসাব Connection Tracking রাখে না।</td>
+                  <td>DDoS অ্যাটাকের সময় রাউটারের CPU বাঁচাতে এই স্টেট ব্যবহার করা হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. Connection Tracking কীভাবে রাউটারের পারফরম্যান্সকে প্রভাবিত করে?</h2>
+          <p>Connection Tracking টেবিল রাউটারের <strong>RAM (Memory)</strong> এবং <strong>CPU</strong> ব্যবহার করে কাজ
+            করে। একটি রাউটারের ভেতরে হাজার হাজার কানেকশন থাকতে পারে (যেমন: টরেন্ট ডাউনলোড, ব্রাউজিং, গেম)।</p>
+          <ul>
+            <li><strong>CPU Load:</strong> প্রতিটি প্যাকেট আসার পর রাউটারকে মেমোরি চেক করতে হয় যে এটি <code>New</code>
+              নাকি <code>Established</code>। ট্রাফিক অনেক বেশি হলে এটি CPU এর ওপর প্রচণ্ড চাপ ফেলে।</li>
+            <li><strong>FastTrack:</strong> এই লোড কমানোর জন্যই MikroTik <strong>FastTrack</strong> নামের একটি ফিচার
+              নিয়ে এসেছে। FastTrack চালু থাকলে, <code>Established</code> এবং <code>Related</code> প্যাকেটগুলো Connection
+              Tracking-এর কিছু জটিল প্রসেসিং বাইপাস (Bypass) করে সরাসরি চলে যায়, যা রাউটারের স্পিড বহুগুণ বাড়িয়ে দেয়।
+            </li>
+            <li><strong>NAT:</strong> মনে রাখবেন, Connection Tracking ছাড়া <strong>NAT (Network Address
+                Translation)</strong> কাজ করে না। তাই এটি পুরোপুরি বন্ধ করে দিলে আপনার লোকাল পিসি ইন্টারনেট পাবে না।
+            </li>
+          </ul>
+
+          <h2>৩. Winbox-এ Connection Tracking কনফিগার করা</h2>
+          <p>সাধারণত Connection Tracking ডিফল্টভাবেই চালু (Auto) থাকে। কিন্তু এর <strong>Timeout</strong> ভ্যালুগুলো
+            পরিবর্তন করে আপনি রাউটারের মেমোরি বাঁচাতে পারেন।</p>
+
+          <ul>
+            <li>Winbox ওপেন করে <strong>IP > Firewall</strong> এ যান।</li>
+            <li><strong>Connections</strong> ট্যাবে ক্লিক করুন। এখানে আপনি রিয়েল-টাইমে সব রানিং কানেকশন দেখতে পাবেন।
+            </li>
+            <li>উপরের দিকে <strong>Tracking</strong> নামের একটি বাটন আছে, সেটিতে ক্লিক করুন।</li>
+            <li>এখানে আপনি বিভিন্ন প্রোটোকলের <strong>Timeout</strong> দেখতে পাবেন (যেমন
+              <code>TCP Established Timeout</code> ডিফল্ট 1 দিন বা 24h থাকে)।</li>
+            <li><strong>Best Practice:</strong> একটি বড় নেটওয়ার্কে (যেমন ISP) 24 ঘণ্টা পর্যন্ত একটি ডেড কানেকশনের
+              হিসাব রাখার কোনো মানে নেই। এটি রাউটারের মেমোরি ফুল করে দেয়। আপনি <code>TCP Established Timeout</code>
+              পরিবর্তন করে <code>01:00:00</code> (১ ঘণ্টা) বা <code>00:30:00</code> (৩০ মিনিট) করে দিতে পারেন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>৪. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>টার্মিনাল থেকে কানেকশন ট্র্যাকিং দেখা এবং কনফিগার করা খুবই সহজ:</p>
+
+          <p><strong>বর্তমান কানেকশন লিস্ট চেক করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall connection print</code></pre>
+
+          <p><strong>Tracking Timeouts পরিবর্তন করা (TCP Established Timeout 1 ঘণ্টা করা):</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall connection tracking set tcp-established-timeout=1h</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>"Connection table is full" এরর:</strong> যদি রাউটারের লগে এই মেসেজ দেখেন, তার মানে আপনার
+              রাউটারের মেমোরিতে কানেকশনের হিসাব রাখার জায়গা শেষ। এটি সাধারণত <strong>DDoS Attack</strong> বা নেটওয়ার্কে
+              লুপ (Loop) হলে ঘটে। এর সমাধান হলো <strong>IP > Firewall > Connections > Tracking</strong> এ গিয়ে
+              <code>Max Entries</code> এর পরিমাণ বাড়িয়ে দেওয়া (যদি RAM খালি থাকে), অথবা <strong>RAW Table</strong>
+              ব্যবহার করে ফেইক প্যাকেটগুলো <code>drop</code> বা <code>notrack</code> করা।</li>
+            <li><strong>CPU 100% ব্যবহার হওয়া:</strong> Connection Tracking এর কারণে CPU ফুল হলে, অবশ্যই আপনার
+              <strong>Filter Rules</strong> চেক করুন। সবার ওপরে একটি রুল থাকা উচিত যা
+              <code>connection-state=established,related</code> প্যাকেটগুলোকে <code>accept</code> (বা
+              <code>fasttrack-connection</code>) করবে। এটি না থাকলে রাউটার প্রতিটি প্যাকেটকে নতুন ভেবে প্রসেস করতে গিয়ে
+              হ্যাং করে যাবে।</li>
+            <li><strong>UDP Timeout ইস্যু:</strong> গেমিং বা ভয়েস কল (VoIP/SIP) এর ক্ষেত্রে <strong>UDP
+                Timeout</strong> অনেক গুরুত্বপূর্ণ। ডিফল্টভাবে এটি ১০ সেকেন্ড থাকে। যদি ক্লায়েন্টদের ভয়েস কল বারবার
+              ড্রপ করে, তবে <code>UDP Timeout</code> বাড়িয়ে 30s বা 1m করে দেখতে পারেন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Connection Tracking</strong> হলো MikroTik RouterOS-এর ফায়ারওয়ালের সবচেয়ে কোর (Core) এবং
+              ইন্টেলিজেন্ট অংশ। এটি ছাড়া <strong>NAT</strong>, <strong>Mangle</strong>, বা <strong>Stateful Firewall
+                Rule</strong> এর কোনো অস্তিত্ব নেই। একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে বুঝতে হবে কোন কানেকশনটি
+              <strong>New</strong>, কোনটি <strong>Established</strong> আর কোনটি <strong>Invalid</strong>। প্রয়োজন
+              অনুযায়ী এর <strong>Timeouts</strong> অ্যাডজাস্ট করা এবং <strong>FastTrack</strong> ব্যবহার করার মাধ্যমে
+              আপনি একটি লো-এন্ড (Low-end) রাউটার থেকেও সর্বোচ্চ পারফরম্যান্স এবং সিকিউরিটি বের করে আনতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

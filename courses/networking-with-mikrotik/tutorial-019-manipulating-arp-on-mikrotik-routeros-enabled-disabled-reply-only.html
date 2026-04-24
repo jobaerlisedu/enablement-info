@@ -1,32 +1,335 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manipulating ARP on MikroTik RouterOS (Enabled, Disabled, Reply-only) | enablement.info</title>
+  <meta name="description"
+    content="MikroTik RouterOS-এ ARP (Address Resolution Protocol) কীভাবে কাজ করে? Enabled, Disabled এবং Reply-only মোড কনফিগারেশন ও সিকিউরিটি নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Manipulating ARP on MikroTik RouterOS: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Manipulating ARP on MikroTik RouterOS (Enabled, Disabled, Reply-only)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Manipulating ARP on MikroTik RouterOS (Enabled, Disabled, Reply-only)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Manipulating ARP on MikroTik RouterOS (Enabled, Disabled, Reply-only)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 05 September, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিং জগতে <strong>ARP (Address Resolution Protocol)</strong> কে বলা যায় লোকাল নেটওয়ার্কের ফোনবুক বা
+            ডিরেক্টরি। যখন নেটওয়ার্কের কোনো ডিভাইস অন্য ডিভাইসের সাথে যোগাযোগ করতে চায়, তখন তার IP Address (Layer 3)
+            জানা থাকলেও MAC Address (Layer 2) জানার প্রয়োজন হয়। ARP এই IP Address এর বিপরীতে সঠিক MAC Address খুঁজে বের
+            করার কাজটি করে।</p>
+          <p>সাধারণত রাউটারগুলো স্বয়ংক্রিয়ভাবে ARP ম্যানেজ করে। কিন্তু একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে,
+            নেটওয়ার্কের সিকিউরিটি নিশ্চিত করতে এবং আনঅথরাইজড (Unauthorized) ইন্টারনেট ব্যবহার ঠেকাতে আপনাকে
+            <strong>MikroTik RouterOS</strong>-এ ARP ম্যানিপুলেট বা নিয়ন্ত্রণ করতে হবে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে
+            আমরা শিখবো ARP এর বিভিন্ন মোড (Enabled, Disabled, Reply-only) কীভাবে কাজ করে এবং রিয়েল-লাইফ প্রোডাকশনে এগুলো
+            কীভাবে কনফিগার করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>কেন ARP ম্যানিপুলেট করা প্রয়োজন? (The Real-life Scenario)</h3>
+            <p><strong>আইপি চুরি বা IP Spoofing:</strong> মনে করুন, আপনি একটি অফিসে বা ছোট ISP তে নেটওয়ার্ক অ্যাডমিন।
+              আপনি একজন ইউজারকে <code>192.168.10.5</code> আইপিটি দিয়েছেন এবং তার স্পিড লিমিট করেছেন 2 Mbps। এখন সেই
+              ইউজার যদি চালাকি করে তার পিসির আইপি পরিবর্তন করে বসের পিসির আইপি (যেমন <code>192.168.10.2</code>) বসিয়ে
+              দেয়, তবে সে বসের আনলিমিটেড স্পিড ব্যবহার করতে পারবে। একে <strong>IP Spoofing</strong> বলে।</p>
+            <p>রাউটারের ডিফল্ট ARP সেটিংসে এই চুরি ঠেকানো সম্ভব নয়। কিন্তু আমরা যদি রাউটারের ইন্টারফেসে ARP ম্যানিপুলেট
+              করে <strong>Reply-only</strong> করে দিই, তবে এই ধরনের আইপি চুরি ১০০% ঠেকানো সম্ভব।</p>
+          </div>
+
+          <h2>১. MikroTik এ ARP এর বিভিন্ন Mode</h2>
+          <p>MikroTik রাউটারে প্রতিটি ইন্টারফেসের (যেমন ether1, ether2, bridge) নিজস্ব ARP সেটিংস থাকে। প্রধানত তিনটি
+            মোড সবচেয়ে বেশি ব্যবহৃত হয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ARP Mode</th>
+                  <th>কাজের ধরন (Behavior)</th>
+                  <th>ব্যবহারের ক্ষেত্র (Use Case)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Enabled (ডিফল্ট)</td>
+                  <td>রাউটার স্বয়ংক্রিয়ভাবে নেটওয়ার্কের সব ডিভাইসের IP এবং MAC Address শিখে নেয় (Dynamic Learning) এবং
+                    লিস্টে সেভ করে।</td>
+                  <td>সাধারণ হোম নেটওয়ার্ক বা ট্রাস্টেড (Trusted) অফিস নেটওয়ার্কের জন্য, যেখানে সিকিউরিটি নিয়ে বেশি
+                    ভাবতে হয় না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Disabled</td>
+                  <td>রাউটার কোনো নতুন MAC Address শিখবে না এবং কোনো ARP Request এর রিপ্লাইও দেবে না।</td>
+                  <td>অত্যন্ত হাই-সিকিউরিটি নেটওয়ার্কের জন্য। এই মোডে কাজ করতে হলে রাউটার এবং ক্লায়েন্ট পিসি—উভয়
+                    জায়গাতেই ম্যানুয়ালি Static ARP এন্ট্রি করতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Reply-only</td>
+                  <td>রাউটার কোনো নতুন এন্ট্রি ডাইনামিক্যালি শিখবে না। কিন্তু রাউটারের ARP লিস্টে যদি আগে থেকে কোনো
+                    IP-MAC সেভ করা (Static) থাকে, শুধু তাকেই রিপ্লাই দেবে।</td>
+                  <td><strong>Best Practice:</strong> লোকাল নেটওয়ার্কে IP Spoofing বা আইপি চুরি ঠেকাতে <strong>DHCP
+                      Server</strong> এর সাথে মিলিয়ে এটি সবচেয়ে বেশি ব্যবহৃত হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><em>নোট: এছাড়াও proxy-arp এবং local-proxy-arp নামে আরও দুটি মোড আছে, যা মূলত VPN বা স্পেশাল রাউটিংয়ের
+              ক্ষেত্রে ব্যবহৃত হয়।</em></p>
+
+          <h2>২. Real-life Configuration: Reply-only এর মাধ্যমে IP চুরি ঠেকানো</h2>
+          <p>চলুন ধাপে ধাপে দেখি কীভাবে আমরা একটি ল্যান (LAN) নেটওয়ার্ককে <strong>Reply-only</strong> মোড ব্যবহার করে
+            সম্পূর্ণ সুরক্ষিত করতে পারি।</p>
+
+          <h3>Step 1: DHCP Server এ "Add ARP for Leases" চালু করা</h3>
+          <p>আমরা চাই যে আমাদের DHCP Server যাকে আইপি দেবে, শুধুমাত্র সেই যেন ইন্টারনেট পায়। অন্য কেউ ম্যানুয়ালি আইপি
+            বসালে যেন ইন্টারনেট না পায়।</p>
+          <ul>
+            <li>Winbox থেকে <strong>IP > DHCP Server</strong> এ যান।</li>
+            <li>আপনার তৈরি করা DHCP Server টির ওপর ডাবল-ক্লিক করুন।</li>
+            <li>উইন্ডোর নিচের দিকে <strong>Add ARP for Leases</strong> নামের একটি চেকবক্স পাবেন। সেটিতে টিক (Check) দিন।
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+          <p><em>ব্যাখ্যা:</em> এর ফলে DHCP Server কোনো পিসিকে আইপি দেওয়ার সাথে সাথে অটোমেটিক রাউটারের ARP List-এ ওই
+            পিসির IP এবং MAC Address এর একটি ডাইনামিক এন্ট্রি করে দেবে।</p>
+
+          <h3>Step 2: Interface এর ARP Mode পরিবর্তন করা</h3>
+          <p>এখন আমরা রাউটারের ল্যান ইন্টারফেসকে বলবো, "তোমার লিস্টে যে আইপিগুলো আছে, শুধু তাদেরকেই চিনবে, নতুন কাউকে
+            নয়।"</p>
+          <ul>
+            <li>Winbox থেকে <strong>Interfaces</strong> মেনুতে যান।</li>
+            <li>আপনার লোকাল নেটওয়ার্কের ইন্টারফেসটির (যেমন: <code>ether2</code> বা <code>bridge1</code>) ওপর ডাবল-ক্লিক
+              করুন।</li>
+            <li><strong>General</strong> ট্যাবের নিচে <strong>ARP:</strong> নামে একটি ড্রপডাউন মেনু আছে।</li>
+            <li>সেখান থেকে ডিফল্ট <code>enabled</code> পরিবর্তন করে <strong>reply-only</strong> সিলেক্ট করুন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h3>Step 3: Static ARP Entry তৈরি করা (ঐচ্ছিক)</h3>
+          <p>যদি আপনার নেটওয়ার্কে এমন কোনো ডিভাইস থাকে (যেমন: Printer বা Server) যেগুলোতে ম্যানুয়ালি স্ট্যাটিক আইপি
+            বসানো আছে (DHCP ছাড়া), তবে তারা <code>reply-only</code> মোডের কারণে ইন্টারনেট বা ল্যান কানেকশন হারিয়ে ফেলবে।
+            তাদের জন্য আপনাকে ম্যানুয়ালি ARP এন্ট্রি করতে হবে:</p>
+          <ul>
+            <li><strong>IP > ARP</strong> মেনুতে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>IP Address:</strong> বক্সে প্রিন্টার বা সার্ভারের আইপি দিন (যেমন: <code>192.168.10.200</code>)।
+            </li>
+            <li><strong>MAC Address:</strong> বক্সে ওই ডিভাইসের সঠিক MAC Address দিন।</li>
+            <li><strong>Interface:</strong> আপনার ল্যান ইন্টারফেস (যেমন: <code>ether2</code>) সিলেক্ট করে
+              <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>প্রফেশনালরা টার্মিনাল ব্যবহার করে খুব দ্রুত এই কাজগুলো করতে পারেন:</p>
+
+          <p><strong>ইন্টারফেসকে Reply-only করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface ethernet set ether2 arp=reply-only</code></pre>
+
+          <p><strong>DHCP সার্ভারে Add ARP for Leases চালু করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip dhcp-server set dhcp1 add-arp-leases=yes</code></pre>
+
+          <p><strong>Static ARP যুক্ত করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip arp add address=192.168.10.200 mac-address=00:11:22:33:44:55 interface=ether2</code></pre>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>Reply-only করার পর সবাই ডিসকানেক্ট হয়ে গেছে:</strong> আপনি যদি DHCP সার্ভারে
+              <code>Add ARP for Leases</code> অপশনটি চালু করতে ভুলে যান এবং ইন্টারফেসকে <code>reply-only</code> করে দেন,
+              তবে নেটওয়ার্কের কেউ রাউটারের সাথে কমিউনিকেট করতে পারবে না। দ্রুত ইন্টারফেস সেটিংসে গিয়ে ARP আবার
+              <code>enabled</code> করে দিন এবং কনফিগারেশন পুনরায় চেক করুন।</li>
+            <li><strong>MAC Address স্পুফিং (Spoofing):</strong> <code>reply-only</code> মোড আইপি চুরি ঠেকাতে পারলেও,
+              যদি কোনো অ্যাডভান্সড ইউজার আপনার আইপির পাশাপাশি আপনার <strong>MAC Address</strong> ও কপি বা স্পুফ করে
+              ফেলে, তবে সে নেটওয়ার্ক এক্সেস পেয়ে যাবে। এর হাত থেকে বাঁচতে ম্যানেজেবল সুইচে (Layer 2 Switch) <strong>Port
+                Security</strong> বা <strong>DHCP Snooping</strong> কনফিগার করতে হয়।</li>
+            <li><strong>IP > ARP লিস্ট চেক করা:</strong> নেটওয়ার্কে কোনো সমস্যা হলে <code>/ip arp print</code> কমান্ড
+              দিয়ে চেক করুন রাউটার ক্লায়েন্টের সঠিক MAC শিখতে পারছে কি না। কোনো এন্ট্রি না থাকলে বা ভুল থাকলে বুঝতে হবে
+              ARP মোডে সমস্যা আছে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>নেটওয়ার্ক ম্যানেজমেন্টে <strong>ARP Manipulation</strong> একটি অত্যন্ত শক্তিশালী টুল। ডিফল্ট
+              <strong>Enabled</strong> মোড সাধারণ কাজের জন্য ভালো হলেও, অফিস, ক্যাম্পাস বা ISP নেটওয়ার্ককে সুরক্ষিত
+              রাখতে <strong>Reply-only</strong> মোডের কোনো বিকল্প নেই। <strong>DHCP Server</strong> এর সাথে মিলিয়ে এই
+              ফিচারটি ব্যবহার করলে আপনি খুব সহজেই আইপি চুরি (IP Spoofing) এবং আনঅথরাইজড ডিভাইসের অনুপ্রবেশ বন্ধ করতে
+              পারবেন, যা আপনার নেটওয়ার্কের পারফরম্যান্স এবং সিকিউরিটি—উভয়ই নিশ্চিত করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

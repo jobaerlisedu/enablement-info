@@ -1,32 +1,324 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ Static Routing, ECMP (Load Balancing) এবং Link Failover (Floating Route) কনফিগার করার বিস্তারিত বাংলা গাইড।">
   <title>Configuring Static Routing, ECMP and Routing Failover on MikroTik | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configuring Static Routing, ECMP and Routing Failover on MikroTik</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configuring Static Routing, ECMP and Routing Failover on MikroTik</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configuring Static Routing, ECMP and Routing Failover on MikroTik</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 September, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>যেকোনো নেটওয়ার্কের নিরবচ্ছিন্ন ইন্টারনেট সংযোগ নিশ্চিত করা একজন নেটওয়ার্ক ইঞ্জিনিয়ারের প্রধান দায়িত্ব। আপনি
+            যদি একটি কর্পোরেট অফিসে কাজ করেন, তবে সাধারণত সেখানে একাধিক আইএসপি (ISP) থেকে ইন্টারনেট সংযোগ নেওয়া থাকে,
+            যাতে একটি লাইন ডাউন হলে অন্যটি দিয়ে ইন্টারনেট চলতে পারে।</p>
+          <p>MikroTik RouterOS-এ একাধিক আইএসপি ম্যানেজ করার জন্য রাউটিং টেবিলে বেশ কিছু কনফিগারেশন করা যায়। আজকের এই
+            ডিপ-ডাইভ টিউটোরিয়ালে আমরা একটি রিয়েল-লাইফ সিনারিওর মাধ্যমে শিখবো <strong>Static Routing</strong> কী,
+            <strong>ECMP (Equal-Cost Multi-Path)</strong> দিয়ে কীভাবে লোড ব্যালেন্সিং করতে হয় এবং <strong>Routing
+              Failover</strong> এর মাধ্যমে কীভাবে অটোমেটিক ব্যাকআপ লিংক চালু করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>আমাদের রিয়েল-লাইফ সিনারিও (The Setup)</h3>
+            <p>ধরি, আপনার অফিসের রাউটারে দুটি ইন্টারনেট সংযোগ (WAN) আছে:</p>
+            <ul>
+              <li><strong>ISP-1 (প্রাইমারি লিংক):</strong> এটি একটি 100 Mbps কানেকশন। এর Gateway আইপি হলো
+                <code>10.10.10.1</code> (ether1 পোর্টে লাগানো)।</li>
+              <li><strong>ISP-2 (ব্যাকআপ লিংক):</strong> এটি একটি 50 Mbps কানেকশন। এর Gateway আইপি হলো
+                <code>20.20.20.1</code> (ether2 পোর্টে লাগানো)।</li>
+            </ul>
+            <p>আপনার লোকাল নেটওয়ার্ক বা LAN ব্লক হলো <code>192.168.1.0/24</code> (ether3 পোর্টে লাগানো)। আমরা এই
+              আইপিগুলোর ওপর ভিত্তি করেই সব কনফিগারেশন করবো।</p>
+          </div>
+
+          <h2>১. Static Routing (বেসিক ইন্টারনেট কনফিগারেশন)</h2>
+          <p>আপনার রাউটার এবং ল্যান পিসিতে ইন্টারনেট দেওয়ার জন্য প্রথমেই একটি ডিফল্ট স্ট্যাটিক রুট (Default Static
+            Route) তৈরি করতে হবে। রাউটারকে বলতে হবে, অচেনা যেকোনো গন্তব্যে যাওয়ার জন্য সে যেন ISP-1 এর রাস্তা ব্যবহার
+            করে।</p>
+
+          <h3>Winbox এর মাধ্যমে:</h3>
+          <ul>
+            <li><strong>IP > Routes</strong> মেনুতে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Dst. Address:</strong> এর ঘরে <code>0.0.0.0/0</code> লিখুন (এটি মানে হলো ইন্টারনেট)।</li>
+            <li><strong>Gateway:</strong> এর ঘরে ISP-1 এর গেটওয়ে <code>10.10.10.1</code> লিখুন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন। রুটটি <code>A S</code> (Active Static) দেখাবে।</li>
+          </ul>
+
+          <h3>CLI কমান্ড:</h3>
+          <pre><code>[admin@MikroTik] > /ip route add dst-address=0.0.0.0/0 gateway=10.10.10.1</code></pre>
+
+          <h2>২. ECMP (Equal-Cost Multi-Path) - সহজ Load Balancing</h2>
+          <p>আপনার যদি মনে হয় দুটি লিংকই সমান শক্তিশালী এবং আপনি চান ট্রাফিক দুটি আইএসপি দিয়ে সমানভাবে ভাগ হয়ে যাক (Load
+            Balancing), তবে আপনি <strong>ECMP</strong> ব্যবহার করতে পারেন। কোনো জটিল Mangle রুল বা PCC ছাড়াই এটি করা
+            সম্ভব।</p>
+
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> ECMP রাউটিং টেবিলে একই গন্তব্যের (0.0.0.0/0) জন্য একাধিক গেটওয়ে সাপোর্ট
+              করে। রাউটার তখন Round-robin পদ্ধতিতে কানেকশনগুলোকে দুটি লিংকে ভাগ করে দেয়।</li>
+          </ul>
+
+          <h3>ECMP কনফিগারেশন (CLI):</h3>
+          <p>শুধুমাত্র Gateway এর জায়গায় কমা (<code>,</code>) দিয়ে দুটি গেটওয়ে বসিয়ে দিলেই ECMP চালু হয়ে যায়:</p>
+          <pre><code>[admin@MikroTik] > /ip route add dst-address=0.0.0.0/0 gateway=10.10.10.1,20.20.20.1</code></pre>
+          <p><em>অ্যাডভান্সড টিপস:</em> যেহেতু ISP-1 এর স্পিড (100 Mbps) ISP-2 (50 Mbps) এর দ্বিগুণ, তাই ট্রাফিক রেশিও
+            ঠিক রাখার জন্য আপনি ISP-1 কে দুইবার লিখতে পারেন। যেমন:
+            <code>gateway=10.10.10.1,10.10.10.1,20.20.20.1</code>। এতে ISP-1 ডাবল ট্রাফিক পাবে।</p>
+
+          <h2>৩. Routing Failover (Active-Backup Link)</h2>
+          <p>ECMP এর একটি বড় সমস্যা হলো, এটি ব্যাংকিং সাইট বা কিছু সিকিউরড ওয়েবসাইটে লগইন ইস্যু তৈরি করতে পারে। তাই
+            এন্টারপ্রাইজ নেটওয়ার্কে সবচেয়ে বেশি ব্যবহৃত হয় <strong>Failover</strong> পদ্ধতি। এখানে ISP-1 সবসময় একটিভ
+            (Active) থাকবে। যদি কোনো কারণে ISP-1 এর লাইন কেটে যায় বা ইন্টারনেট বন্ধ হয়ে যায়, শুধুমাত্র তখনই
+            স্বয়ংক্রিয়ভাবে ISP-2 (Backup) চালু হবে।</p>
+
+          <h3>A. Distance (Administrative Distance) এর ব্যবহার</h3>
+          <p>Failover কনফিগার করার প্রধান মেকানিজম হলো <strong>Distance</strong>। রাউটারের কাছে যদি একই গন্তব্যে যাওয়ার
+            দুটি রুট থাকে, তবে রাউটার সব সময় ছোট Distance এর রুটটিকে প্রাইমারি হিসেবে বেছে নেয়।</p>
+
+          <h3>B. Check Gateway (পিং মেকানিজম)</h3>
+          <p>রাউটার কীভাবে বুঝবে যে ISP-1 ডাউন হয়ে গেছে? এর জন্য <code>check-gateway=ping</code> ফিচারটি ব্যবহার করা হয়।
+            এটি প্রতি ১০ সেকেন্ড পর পর গেটওয়েতে পিং (Ping) পাঠায়। যদি পরপর দুটি পিং (২০ সেকেন্ড) ফেইল করে, তবে রাউটার ওই
+            রুটটিকে ইনঅ্যাকটিভ (Inactive) করে দেয় এবং পরের Distance এর রুটটি চালু করে দেয়।</p>
+
+          <h3>Failover কনফিগারেশন (CLI):</h3>
+          <p>প্রথমে প্রাইমারি লিংক (ISP-1) অ্যাড করবো যার Distance হবে 1 এবং Check Gateway চালু থাকবে:</p>
+          <pre><code>[admin@MikroTik] > /ip route add dst-address=0.0.0.0/0 gateway=10.10.10.1 distance=1 check-gateway=ping</code></pre>
+
+          <p>এরপর ব্যাকআপ লিংক (ISP-2) অ্যাড করবো যার Distance হবে 2:</p>
+          <pre><code>[admin@MikroTik] > /ip route add dst-address=0.0.0.0/0 gateway=20.20.20.1 distance=2</code></pre>
+
+          <p><strong>কী ঘটবে?</strong> রাউটিং টেবিলে ISP-1 এর রুটটি <code>A S</code> (Active Static) দেখাবে এবং ISP-2 এর
+            রুটটি শুধু <code>S</code> (Static) দেখাবে। যখন 10.10.10.1 পিং পাওয়া বন্ধ করবে, তখন ISP-1 ইনঅ্যাকটিভ হয়ে যাবে
+            এবং ISP-2 মুহূর্তের মধ্যে <code>A S</code> হয়ে পুরো নেটওয়ার্ক সচল রাখবে।</p>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সীমাবদ্ধতা)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem) / সীমাবদ্ধতা</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">ECMP এ ব্যাংক বা cPanel লগ আউট হয়ে যায়</td>
+                  <td>ECMP কানেকশন-বেসড (Connection-based) রাউটিং করে। এক রিকোয়েস্ট ISP-1 দিয়ে গেলে পরেরটি ISP-2 দিয়ে
+                    যায়, ফলে আইপি পরিবর্তন হয় এবং সিকিউরড সাইটগুলো আপনাকে কিক (Kick) করে দেয়। এই সমস্যার চূড়ান্ত সমাধান
+                    হলো <strong>PCC (Per Connection Classifier) Load Balancing</strong>।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Failover কাজ করছে না (ইন্টারনেট নেই, কিন্তু লিংক আপ)</td>
+                  <td>এটি Check Gateway এর সবচেয়ে বড় সীমাবদ্ধতা। রাউটার শুধু <code>10.10.10.1</code> (আপনার লোকাল আইএসপি
+                    রাউটার) পর্যন্ত পিং চেক করে। যদি আইএসপির রাউটার ঠিক থাকে, কিন্তু তাদের পেছনের ফাইবার বা বিটিসিএল
+                    (BTCL) ডাউন থাকে, তবে পিং পাবে কিন্তু ইন্টারনেট থাকবে না। রাউটার তখন Failover করবে না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Recursive Routing (অ্যাডভান্সড সমাধান)</td>
+                  <td>উপরের সমস্যাটি সমাধানের জন্য <strong>Recursive Failover</strong> করতে হয়। এখানে আমরা আইএসপির
+                    গেটওয়ে চেক করার বদলে <code>8.8.8.8</code> বা অন্য কোনো গ্লোবাল আইপিকে টার্গেট করে চেক করি। এটি
+                    অ্যাডভান্সড নেটওয়ার্কিংয়ের একটি চমৎকার ফিচার।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Route Unreachable দেখাচ্ছে</td>
+                  <td>এর মানে হলো আপনি যে Gateway আইপি বসিয়েছেন, রাউটার সেই আইপি পর্যন্ত পৌঁছানোর ফিজিক্যাল পথ খুঁজে
+                    পাচ্ছে না। চেক করুন রাউটারের পোর্টে সঠিক IP এবং Subnet Mask বসানো আছে কি না।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি নিরবচ্ছিন্ন বা 100% আপটাইম (Uptime) নেটওয়ার্ক তৈরি করতে রাউটিং টেবিল ম্যানিপুলেশন জানাটা অত্যন্ত
+              জরুরি। <strong>Static Routing</strong> দিয়ে ইন্টারনেট চালু করা, <strong>ECMP</strong> দিয়ে সহজে ট্রাফিক
+              ভাগ করা এবং <strong>Distance</strong> ও <strong>Check Gateway</strong> ব্যবহার করে
+              <strong>Failover</strong> তৈরি করা—এই তিনটি কনসেপ্ট একজন নেটওয়ার্ক ইঞ্জিনিয়ারের বেসিক টুলকিট (Toolkit)।
+              আপনার নেটওয়ার্কের রিকোয়ারমেন্ট বুঝে সঠিক মেথডটি অ্যাপ্লাই করলে নেটওয়ার্ক ডাউনটাইম প্রায় শূন্যের কোঠায়
+              নামিয়ে আনা সম্ভব।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

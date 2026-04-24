@@ -1,32 +1,325 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS এর Command Line Interface (CLI) এর বেসিক সিনট্যাক্স, নেভিগেশন, শর্টকাট এবং প্রয়োজনীয় কমান্ড নিয়ে বিস্তারিত বাংলা গাইড।">
   <title>Basic Command Line Syntax on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Basic Command Line Syntax on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Basic Command Line Syntax on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Basic Command Line Syntax on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik কনফিগারেশনের ক্ষেত্রে <strong>Winbox</strong> এর গ্রাফিক্যাল ইউজার ইন্টারফেস (GUI) সবার কাছে
+            জনপ্রিয় হলেও, একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে অবশ্যই <strong>Command Line Interface
+              (CLI)</strong> এ দক্ষ হতে হবে। বড় কোনো ডেটা সেন্টারে রিমোটলি <strong>SSH</strong> করে কাজ করা, অটোমেশনের
+            জন্য <strong>Scripting</strong> করা, বা দ্রুত কোনো কনফিগারেশন চেক করার জন্য CLI এর বিকল্প নেই।</p>
+          <p>Cisco বা Juniper এর মতো MikroTik এরও নিজস্ব একটি কমান্ড লাইন সিনট্যাক্স (Syntax) বা কাঠামো রয়েছে। আজকের এই
+            ডিপ-ডাইভ টিউটোরিয়ালে আমরা MikroTik RouterOS এর কমান্ড লাইনের বেসিক স্ট্রাকচার, নেভিগেশন এবং সবচেয়ে বেশি
+            ব্যবহৃত কমান্ডগুলো সম্পর্কে বিস্তারিত জানবো।</p>
+
+          <div class="content-box">
+            <h3>RouterOS CLI এর হায়ারার্কি (Hierarchical Structure)</h3>
+            <p>MikroTik এর CLI অনেকটা একটি কম্পিউটারের ফাইল সিস্টেম বা ফোল্ডার স্ট্রাকচারের মতো কাজ করে। প্রতিটি মেইন
+              ফিচারের জন্য একটি রুট (Root) মেনু থাকে এবং তার ভেতরে সাব-মেনু (Sub-menu) থাকে। যেমন, আইপি সম্পর্কিত সব কাজ
+              <code>/ip</code> মেনুর ভেতরে থাকে। এর ভেতরে আবার <code>address</code>, <code>route</code>,
+              <code>firewall</code> ইত্যাদি সাব-মেনু থাকে।</p>
+          </div>
+
+          <h2>১. কমান্ড লাইনে নেভিগেশন (Navigation)</h2>
+          <p>লগইন করার পর আপনি ডিফল্টভাবে রুট বা মেইন ডিরেক্টরিতে (<code>[admin@MikroTik] ></code>) থাকেন। এখান থেকে
+            বিভিন্ন মেনুতে যাওয়ার জন্য নিচের নিয়মগুলো অনুসরণ করতে হয়:</p>
+
+          <ul>
+            <li><strong>কোনো নির্দিষ্ট মেনুতে প্রবেশ করতে:</strong> সরাসরি মেনুর নাম লিখুন। যেমন, IP Address মেনুতে যেতে
+              চাইলে লিখুন:<br>
+              <code>[admin@MikroTik] > ip address</code><br>
+              এন্টার দেওয়ার পর আপনার প্রম্পট পরিবর্তন হয়ে <code>[admin@MikroTik] /ip address></code> হয়ে যাবে।
+            </li>
+            <li><strong>এক ধাপ পেছনে (Up) যেতে:</strong> দুটি ডট <code>..</code> টাইপ করে এন্টার দিন।</li>
+            <li><strong>সরাসরি রুট (Root) মেনুতে ফিরে যেতে:</strong> একটি ফরোয়ার্ড স্ল্যাশ <code>/</code> টাইপ করে
+              এন্টার দিন।</li>
+          </ul>
+
+          <h2>২. কমান্ড লাইনের জাদুকরী শর্টকাট (Keyboard Shortcuts)</h2>
+          <p>কমান্ড লাইনে কাজ করার গতি বাড়ানোর জন্য RouterOS কিছু চমৎকার শর্টকাট প্রদান করে, যা আপনার ভুল করার সম্ভাবনাও
+            কমিয়ে দেয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>শর্টকাট (Key)</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Tab (ট্যাব কীবোর্ড)</td>
+                  <td><strong>Auto-complete:</strong> কোনো কমান্ডের প্রথম কয়েকটি অক্ষর লিখে <code>Tab</code> চাপলে
+                    RouterOS অটোমেটিকভাবে পুরো কমান্ডটি লিখে দেয়। যেমন <code>ip add</code> লিখে ট্যাব চাপলে
+                    <code>ip address</code> হয়ে যাবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">? (প্রশ্নবোধক চিহ্ন)</td>
+                  <td><strong>Help Menu:</strong> আপনি যদি ভুলে যান যে এরপর কী কমান্ড দিতে হবে, তবে <code>?</code>
+                    চাপুন। ওই নির্দিষ্ট জায়গায় আর কী কী কমান্ড দেওয়া সম্ভব, তার একটি লিস্ট স্ক্রিনে চলে আসবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Up / Down Arrow</td>
+                  <td><strong>Command History:</strong> আগে টাইপ করা কমান্ডগুলো পুনরায় ব্যবহার করতে উপরের বা নিচের
+                    অ্যারো কী (Arrow Key) চাপুন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. সবচেয়ে বেশি ব্যবহৃত বেসিক কমান্ডসমূহ</h2>
+          <p>যেকোনো মেনুর ভেতরে গিয়ে আপনি নির্দিষ্ট কিছু অ্যাকশন বা কাজ করতে পারেন। নিচে সবচেয়ে প্রয়োজনীয় অ্যাকশন
+            কমান্ডগুলো দেওয়া হলো:</p>
+
+          <ul>
+            <li><strong>print:</strong> বর্তমান মেনুর কনফিগারেশনগুলো স্ক্রিনে দেখার জন্য। যেমন:
+              <code>/ip address print</code></li>
+            <li><strong>add:</strong> নতুন কোনো রুল বা আইটেম যোগ করার জন্য। যেমন: <code>/ip address add...</code></li>
+            <li><strong>set:</strong> আগে থেকেই তৈরি করা কোনো কনফিগারেশন পরিবর্তন (Modify) বা আপডেট করার জন্য।</li>
+            <li><strong>remove:</strong> কোনো রুল বা কনফিগারেশন ডিলিট করার জন্য। এই কমান্ডের পর রুলের
+              <code>ID Number</code> দিতে হয়।</li>
+            <li><strong>enable / disable:</strong> কোনো রুলকে সাময়িকভাবে চালু বা বন্ধ করার জন্য।</li>
+            <li><strong>export:</strong> কনফিগারেশনের ব্যাকআপ (Script) তৈরি করার জন্য। এটি হুবহু কমান্ড ফরমেটে
+              কনফিগারেশন দেখায়, যা অন্য রাউটারে সরাসরি পেস্ট করা যায়।</li>
+          </ul>
+
+          <h2>৪. Real-life Scenario: CLI দিয়ে একটি IP Address কনফিগার করা</h2>
+          <p>ধরি, আপনি আপনার রাউটারের <code>ether2</code> ইন্টারফেসে একটি লোকাল আইপি (192.168.1.1/24) বসাতে চান। চলুন
+            দেখি এটি কমান্ড লাইনে কীভাবে করতে হয়:</p>
+
+          <p><strong>ধাপ ১: সরাসরি কমান্ড দেওয়া (Absolute Path)</strong></p>
+          <p>আপনি চাইলে রুট মেনু থেকে এক লাইনেই পুরো কমান্ডটি দিয়ে দিতে পারেন:</p>
+          <pre><code>[admin@MikroTik] > /ip address add address=192.168.1.1/24 interface=ether2</code></pre>
+
+          <p><strong>ধাপ ২: মেনুতে প্রবেশ করে কমান্ড দেওয়া (Relative Path)</strong></p>
+          <p>আপনি চাইলে ধাপে ধাপে মেনুর ভেতরে প্রবেশ করেও কাজটি করতে পারেন:</p>
+          <pre><code>[admin@MikroTik] > ip address
+[admin@MikroTik] /ip address> add address=192.168.1.1/24 interface=ether2</code></pre>
+
+          <p><strong>ধাপ ৩: কনফিগারেশন চেক করা (Print)</strong></p>
+          <p>আইপি ঠিকমতো বসেছে কি না, তা দেখার জন্য:</p>
+          <pre><code>[admin@MikroTik] /ip address> print
+Flags: X - disabled, I - invalid, D - dynamic 
+ #   ADDRESS            NETWORK         INTERFACE                                 
+ 0   192.168.1.1/24     192.168.1.0     ether2</code></pre>
+
+          <p><strong>ধাপ ৪: কনফিগারেশন রিমুভ করা</strong></p>
+          <p>যদি আইপিটি ভুল হয়ে থাকে এবং আপনি এটি মুছতে চান, তবে <code>print</code> কমান্ডের আউটপুটে থাকা <strong>ID
+              Number</strong> (এখানে 0) ব্যবহার করতে হবে:</p>
+          <pre><code>[admin@MikroTik] /ip address> remove 0</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ ভুল ও সমাধান)</h2>
+          <p>CLI তে কাজ করার সময় নতুনদের কিছু সাধারণ ভুল হয়ে থাকে:</p>
+
+          <ul>
+            <li><strong>Syntax Error বা Red Text:</strong> কমান্ড টাইপ করার সময় যদি দেখেন কোনো টেক্সটের কালার
+              <strong>লাল (Red)</strong> হয়ে গেছে, তার মানে কমান্ডটি ভুল বা ওই স্থানে ওই কমান্ডটি প্রযোজ্য নয়।
+              <code>Tab</code> বা <code>?</code> চেপে সঠিক কমান্ডটি খুঁজে নিন।</li>
+            <li><strong>ভুল মেনুতে কমান্ড দেওয়া:</strong> আপনি হয়তো <code>/ip route</code> মেনুতে আছেন, কিন্তু কমান্ড
+              দিচ্ছেন <code>add address...</code>। এটি কাজ করবে না। সবসময় খেয়াল রাখবেন আপনার প্রম্পট কোথায় আছে। অন্য
+              মেনুর কমান্ড দিতে হলে শুরুতে একটি <code>/</code> ব্যবহার করে অ্যাবসলিউট পাথ দিন (যেমন
+              <code>/ip address add...</code>)।</li>
+            <li><strong>Safe Mode এর ব্যবহার:</strong> রিমোটলি (SSH) কাজ করার সময় ভুল কমান্ড দিলে আপনার কানেকশন
+              বিচ্ছিন্ন হয়ে যেতে পারে। তাই কোনো ক্রিটিক্যাল কনফিগারেশনের আগে <code>[CTRL] + [X]</code> চেপে <strong>Safe
+                Mode</strong> অন করে নিন। যদি কানেকশন ড্রপ করে, তবে রাউটার সাথে সাথে আগের অবস্থায় ফিরে যাবে। কাজ শেষ হলে
+              আবার <code>[CTRL] + [X]</code> চেপে সেফ মোড অফ করে দিন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Command Line Interface (CLI)</strong> প্রথম দিকে কিছুটা কঠিন মনে হলেও, একবার এর সিনট্যাক্স এবং
+              <code>Tab</code> বাটনের ব্যবহার আয়ত্ত করতে পারলে <strong>Winbox</strong> এর চেয়ে অনেক দ্রুত কাজ করা সম্ভব।
+              প্রফেশনাল লেভেলে রাউটারের ব্যাকআপ নেওয়া (Export), বড় কোনো ফায়ারওয়াল রুল সেটআপ করা, অথবা স্ক্রিপ্টিং করে
+              অটোমেশন করার জন্য RouterOS এর CLI কমান্ড জানাটা একজন নেটওয়ার্ক ইঞ্জিনিয়ারের জন্য অপরিহার্য।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

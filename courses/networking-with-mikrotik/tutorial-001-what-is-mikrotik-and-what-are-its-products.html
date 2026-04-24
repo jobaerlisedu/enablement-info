@@ -1,32 +1,322 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik কী, RouterOS এবং RouterBOARD এর মধ্যে পার্থক্য এবং MikroTik এর বিভিন্ন নেটওয়ার্কিং প্রোডাক্ট নিয়ে একটি বিস্তারিত বাংলা গাইড।">
   <title>What is MikroTik and what are its products? | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>What is MikroTik and what are its products?</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>What is MikroTik and what are its products?</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>What is MikroTik and what are its products?</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 20 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ারিং জগতে আপনি যদি এন্টারপ্রাইজ বা ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) নিয়ে কাজ করতে চান,
+            তবে একটি নাম আপনার বারবার সামনে আসবে—আর তা হলো <strong>MikroTik</strong>। Cisco বা Juniper-এর মতো দামি
+            ডিভাইসের বিকল্প হিসেবে অত্যন্ত কম দামে হাই-এন্ড (High-end) রাউটিং সলিউশন দিয়ে বিশ্বজুড়ে আলোড়ন তৈরি করেছে এই
+            কোম্পানিটি।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা জানবো MikroTik কী, এর জন্ম কোথায়, RouterOS এবং RouterBOARD এর মধ্যে
+            পার্থক্য কী, এবং নেটওয়ার্কিং ইন্ডাস্ট্রিতে এর কোন কোন প্রোডাক্টগুলো সবচেয়ে বেশি ব্যবহৃত হয়।</p>
+
+          <div class="content-box">
+            <h3>MikroTik কী? (What is MikroTik?)</h3>
+            <p><strong>MikroTik (মাইক্রোটিক)</strong> হলো লাটভিয়া (Latvia) ভিত্তিক একটি নেটওয়ার্কিং হার্ডওয়্যার এবং
+              সফটওয়্যার প্রস্তুতকারক কোম্পানি। ১৯৯৬ সালে রাউটার এবং ওয়্যারলেস আইএসপি (ISP) সিস্টেম তৈরি করার উদ্দেশ্যে
+              এটি প্রতিষ্ঠিত হয়। বর্তমানে বিশ্বের প্রায় প্রতিটি দেশেই ইন্টারনেট ইনফ্রাস্ট্রাকচার তৈরি করতে MikroTik-এর
+              ডিভাইস ব্যাপকভাবে ব্যবহৃত হচ্ছে।</p>
+            <p><strong>রিয়েল-লাইফ উদাহরণ:</strong> একটি লোকাল ব্রডব্যান্ড কোম্পানির (ISP) কথা চিন্তা করুন। তাদের ১০০০ জন
+              কাস্টমার আছে। প্রত্যেক কাস্টমারকে আলাদা আলাদা স্পিড (Bandwidth) দেওয়া, কে বিল দিয়েছে বা দেয়নি তার ভিত্তিতে
+              কানেকশন বন্ধ বা চালু করা (PPPoE/Hotspot) — এই সমস্ত কাজগুলো একটি মাত্র MikroTik Router দিয়ে খুব সহজেই এবং
+              অটোমেটিকভাবে করা যায়।</p>
+          </div>
+
+          <h2>১. MikroTik এর প্রধান দুটি অংশ</h2>
+          <p>MikroTik-এর ইকোসিস্টেম মূলত দুটি প্রধান পিলারের ওপর দাঁড়িয়ে আছে। এই দুটি কনসেপ্ট ক্লিয়ার থাকা অত্যন্ত
+            জরুরি:</p>
+
+          <h3>A. RouterOS (সফটওয়্যার)</h3>
+          <p><strong>RouterOS</strong> হলো MikroTik-এর নিজস্ব একটি অপারেটিং সিস্টেম, যা Linux কার্নেলের ওপর ভিত্তি করে
+            তৈরি। এটি মূলত একটি সাধারণ কম্পিউটার (PC) বা হার্ডওয়্যারকে একটি শক্তিশালী নেটওয়ার্ক রাউটারে পরিণত করে।</p>
+          <ul>
+            <li><strong>ফিচারসমূহ:</strong> Routing (OSPF, BGP), Firewall, Bandwidth Management (Queues), Wireless
+              Access Point, Hotspot Gateway, VPN Server এবং আরও অনেক কিছু।</li>
+            <li><strong>সুবিধা:</strong> আপনি চাইলে একটি সাধারণ ডেক্সটপ পিসিতে RouterOS ইন্সটল করে সেটিকে রাউটার হিসেবে
+              ব্যবহার করতে পারেন (যাকে x86 Router বলা হয়)।</li>
+          </ul>
+
+          <h3>B. RouterBOARD (হার্ডওয়্যার)</h3>
+          <p><strong>RouterBOARD</strong> হলো MikroTik কোম্পানির তৈরি করা নিজস্ব হার্ডওয়্যার বা মাদারবোর্ড লাইনআপ। এই
+            হার্ডওয়্যারগুলোতে ফ্যাক্টরি থেকেই <strong>RouterOS</strong> ইন্সটল করা থাকে। এটি মূলত কমপ্লিট সলিউশন। ছোট
+            সাইজের হোম রাউটার থেকে শুরু করে ডেটা সেন্টারের বড় বড় কোর রাউটার—সবই RouterBOARD এর অংশ।</p>
+
+          <h2>২. MikroTik এর প্রধান প্রোডাক্ট লাইন (Product Categories)</h2>
+          <p>নেটওয়ার্কের চাহিদা এবং সাইজ অনুযায়ী MikroTik বিভিন্ন ধরনের প্রোডাক্ট বাজারে এনেছে। নিচে প্রধান প্রোডাক্ট
+            লাইনগুলো আলোচনা করা হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>প্রোডাক্ট লাইন</th>
+                  <th>বর্ণনা এবং ব্যবহার (Description & Use Case)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Ethernet Routers (RB Series)</td>
+                  <td>এগুলো সাধারণ এবং মিডিয়াম সাইজের অফিসের জন্য ব্যবহৃত হয়। যেমন: <strong>RB750Gr3 (hEX)</strong> বা
+                    <strong>RB3011</strong>। এর দাম সাশ্রয়ী এবং সাধারণ ISP বা কর্পোরেট রাউটিংয়ের জন্য অত্যন্ত পারফেক্ট।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Cloud Core Routers (CCR)</td>
+                  <td>এগুলো হলো হাই-এন্ড এন্টারপ্রাইজ এবং বিশাল ডেটা সেন্টারের জন্য তৈরি। এতে শক্তিশালী Tilera CPU থাকে,
+                    যার কোর (Core) সংখ্যা ৯ থেকে শুরু করে ৭২ পর্যন্ত হতে পারে। যেমন: <strong>CCR1036</strong> বা
+                    <strong>CCR2116</strong>।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Cloud Router Switches (CRS) & CSS</td>
+                  <td>এগুলো মূলত <strong>Layer 3 Switch</strong>। এর মাধ্যমে রাউটিং এবং সুইচিং উভয় কাজই করা যায়।
+                    <strong>CSS (Cloud Smart Switch)</strong> শুধু সুইচিংয়ের জন্য (SwOS দ্বারা চালিত), আর CRS-এ RouterOS
+                    এবং SwOS দুটোই ব্যবহার করা যায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Wireless Systems</td>
+                  <td>পয়েন্ট-টু-পয়েন্ট (P2P) বা পয়েন্ট-টু-মাল্টিপয়েন্ট (P2MP) ওয়্যারলেস লিংকের জন্য ব্যবহৃত হয়। যেমন:
+                    <strong>SXT</strong>, <strong>LHG</strong>, <strong>Disc Lite</strong> বা <strong>BaseBox</strong>।
+                    দুর্গম এলাকায় ইন্টারনেট পৌঁছে দিতে এগুলো জাদুকরী ভূমিকা রাখে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. MikroTik পরিচালনার প্রধান টুল: Winbox</h2>
+          <p>Cisco রাউটার সাধারণত CLI (Command Line Interface) দিয়ে কনফিগার করতে হয়, যা অনেকের জন্য কঠিন। কিন্তু
+            MikroTik এর সবচেয়ে বড় শক্তি হলো এর <strong>Winbox</strong> টুল।</p>
+          <ul>
+            <li><strong>Winbox কী?</strong> এটি উইন্ডোজের জন্য তৈরি একটি ছোট ইউটিলিটি সফটওয়্যার। এর সাহায্যে আপনি
+              গ্রাফিক্যাল ইউজার ইন্টারফেস (GUI) ব্যবহার করে রাউটারের সব কিছু মাউস দিয়ে ক্লিক করে কনফিগার করতে পারবেন।
+            </li>
+            <li><strong>MAC Access:</strong> কোনো পোর্টের IP Address না থাকলেও, Winbox এর মাধ্যমে আপনি সরাসরি ডিভাইসের
+              <strong>MAC Address</strong> দিয়ে লগইন করে কনফিগারেশন শুরু করতে পারবেন। এটি ট্রাবলশুটিংয়ের জন্য একটি
+              লাইফ-সেভার ফিচার।</li>
+          </ul>
+
+          <h2>৪. Basic Configuration: CLI এর মাধ্যমে আইপি বসানো</h2>
+          <p>যদিও Winbox দিয়ে সব করা যায়, একজন প্রফেশনাল হিসেবে আপনাকে <strong>Terminal</strong> বা CLI কমান্ডও জানতে
+            হবে। নিচে একটি পোর্টে IP Address বসানো এবং Default Gateway সেট করার বেসিক কমান্ড দেওয়া হলো:</p>
+
+          <h3>একটি ইন্টারফেসে (Ether1) আইপি বসানো:</h3>
+          <pre><code>[admin@MikroTik] > ip address add address=192.168.1.1/24 interface=ether1</code></pre>
+
+          <h3>ইন্টারনেটে যাওয়ার জন্য Default Route (Gateway) যুক্ত করা:</h3>
+          <pre><code>[admin@MikroTik] > ip route add dst-address=0.0.0.0/0 gateway=192.168.1.254</code></pre>
+
+          <h3>ডিএনএস (DNS) কনফিগার করা:</h3>
+          <pre><code>[admin@MikroTik] > ip dns set servers=8.8.8.8,8.8.4.4 allow-remote-requests=yes</code></pre>
+
+          <h2>৫. Troubleshooting Tips (ট্রাবলশুটিং)</h2>
+          <p>বাস্তব জীবনে কাজ করতে গিয়ে আপনি কিছু সাধারণ সমস্যার সম্মুখীন হতে পারেন। নিচে তার সমাধান দেওয়া হলো:</p>
+          <ul>
+            <li><strong>Winbox এ রাউটার শো করছে না:</strong> অনেক সময় পিসির Windows Firewall বা Antivirus এর কারণে
+              Winbox এর ডিসকভারি প্যাকেট ব্লক হয়ে যায়। ফায়ারওয়াল সাময়িকভাবে বন্ধ করে আবার চেষ্টা করুন।</li>
+            <li><strong>পাসওয়ার্ড ভুলে গেলে (Reset):</strong> যদি আপনি রাউটারের পাসওয়ার্ড ভুলে যান বা রাউটার লক হয়ে যায়,
+              তবে ফিজিক্যাল ডিভাইসে একটি <strong>Reset Button</strong> থাকে। রাউটারের পাওয়ার বন্ধ করে, রিসেট বাটন চেপে
+              ধরে পাওয়ার দিন। আলো ব্লিংক (Blink) করা শুরু করলে বাটন ছেড়ে দিন। ডিভাইসটি ফ্যাক্টরি রিসেট হয়ে যাবে।</li>
+            <li><strong>সেফ মোড (Safe Mode):</strong> রিমোটলি কোনো ক্রিটিক্যাল কনফিগারেশন করার সময় Winbox-এর
+              <strong>Safe Mode</strong> বাটনটি ক্লিক করে নিন। যদি ভুল কনফিগারেশনের কারণে আপনার কানেকশন বিচ্ছিন্ন হয়ে
+              যায়, তবে রাউটার সাথে সাথে আগের অবস্থায় (Rollback) ফিরে যাবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>নেটওয়ার্কিং জগতে <strong>MikroTik</strong> একটি বিপ্লবের নাম। স্বল্প বাজেটের মধ্যে
+              <strong>RouterOS</strong> এর মতো এত শক্তিশালী এবং ফিচার-সমৃদ্ধ অপারেটিং সিস্টেম খুব কমই আছে।
+              <strong>Bandwidth Management</strong>, <strong>Hotspot</strong>, <strong>VPN</strong> এবং <strong>BGP
+                Routing</strong>—সবকিছুই একটি মাত্র বক্সে পাওয়া যায়। আপনি যদি নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ে আপনার ক্যারিয়ার
+              গড়তে চান, তবে Cisco এর পাশাপাশি MikroTik এর <strong>RouterBOARD</strong> কনফিগারেশন, Winbox এবং এর
+              ট্রাবলশুটিং ভালোভাবে আয়ত্ত করাটা আপনাকে ইন্ডাস্ট্রিতে অনেকখানি এগিয়ে রাখবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

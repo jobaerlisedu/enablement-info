@@ -1,32 +1,342 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ Wireless Bridging কীভাবে কাজ করে? Station Bridge মোড ব্যবহার করে Layer 2 ট্রান্সপারেন্সি তৈরি, কনফিগারেশন এবং ট্রাবলশুটিং নিয়ে বিস্তারিত বাংলা গাইড।">
   <title>Bridging on the wireless using Station Bridge on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Bridging on the wireless using Station Bridge on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Bridging on the wireless using Station Bridge on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Bridging on the wireless using Station Bridge on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 15 September, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>সাধারণত ল্যান (LAN) পোর্টে Bridging করা খুবই সহজ। কিন্তু যখনই আপনি দুটি ওয়্যারলেস ডিভাইসের মধ্যে একটি
+            ট্রান্সপারেন্ট (Transparent) Layer 2 Bridge তৈরি করতে যান, তখন স্ট্যান্ডার্ড 802.11 প্রোটোকল একটি বড় বাধা
+            হয়ে দাঁড়ায়। ওয়্যারলেস ক্লায়েন্ট মোডে (Station) থাকা ডিভাইসগুলো তাদের পেছনের ডিভাইসের MAC Address সঠিকভাবে
+            পাঠাতে পারে না, ফলে DHCP বা PPPoE এর মতো সার্ভিসগুলো কাজ করা বন্ধ করে দেয়।</p>
+          <p>এই সমস্যার সমাধানের জন্য MikroTik তাদের নিজস্ব একটি প্রোটোকল তৈরি করেছে, যাকে বলা হয় <strong>Station
+              Bridge</strong>। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো ওয়্যারলেস ব্রিজিংয়ের পেছনের সমস্যা কী,
+            <code>station-bridge</code> কীভাবে সেই সমস্যা দূর করে এবং Point-to-Point (PTP) লিংকে এটি কীভাবে কনফিগার করতে
+            হয়।</p>
+
+          <div class="content-box">
+            <h3>স্ট্যান্ডার্ড 802.11 প্রোটোকলের সীমাবদ্ধতা এবং Station Bridge</h3>
+            <p><strong>সমস্যা (The Problem):</strong> স্ট্যান্ডার্ড ওয়্যারলেস প্রোটোকলে (802.11) ডাটা ফ্রেম ট্রান্সফার
+              করার জন্য ৩টি MAC Address ব্যবহৃত হয় (Source, Destination, এবং Access Point)। যদি আপনি একটি ক্লায়েন্ট
+              রাউটারকে <code>mode=station</code> এ রেখে তার ল্যান পোর্টের সাথে Bridge করেন, তবে ওই ল্যান পোর্টে লাগানো
+              পিসির MAC Address টি Access Point (AP) পর্যন্ত পৌঁছায় না। এর ফলে AP মনে করে সব ডাটা ক্লায়েন্ট রাউটার থেকেই
+              আসছে। এই MAC Translation এর কারণে Layer 2 Bridge পুরোপুরি ভেঙে যায়।</p>
+            <p><strong>সমাধান (The MikroTik Solution):</strong> MikroTik এই সীমাবদ্ধতা দূর করার জন্য <strong>4-address
+                frame</strong> বা MAC-level transparency এর একটি নিজস্ব ভার্সন তৈরি করেছে, যার নাম <strong>Station
+                Bridge</strong>। আপনি যখন ক্লায়েন্ট রাউটারকে <code>mode=station-bridge</code> এ সেট করেন, তখন এটি AP-কে
+              জানিয়ে দেয় যে সে একটি সাধারণ ক্লায়েন্ট নয়, বরং একটি Bridge। ফলে এর পেছনের সব ডিভাইসের অরিজিনাল MAC Address
+              কোনো বাধা ছাড়াই AP পর্যন্ত পৌঁছে যায়।</p>
+          </div>
+
+          <h2>১. Real-life Scenario: Point-to-Point (PTP) লিংক তৈরি</h2>
+          <p>মনে করুন, আপনার দুটি অফিস আছে: "Building A" (যেখানে মূল ইন্টারনেট ও DHCP Server আছে) এবং "Building B" (যা ১
+            কিলোমিটার দূরে)। আপনি দুটি MikroTik SXT বা LHG ডিভাইস ব্যবহার করে বিল্ডিং দুটিকে কানেক্ট করতে চান। শর্ত হলো,
+            Building B এর পিসিগুলো যেন মনে করে তারা Building A এর সুইচের সাথেই সরাসরি ক্যাবল দিয়ে যুক্ত আছে (Layer 2
+            Transparent Bridge)।</p>
+
+          <h2>২. Step-by-Step Configuration: Access Point (Building A)</h2>
+          <p>প্রথম রাউটারটিকে আমরা Access Point বা AP হিসেবে কনফিগার করবো।</p>
+
+          <h3>A. Bridge তৈরি করা:</h3>
+          <ul>
+            <li>Winbox থেকে <strong>Bridge</strong> মেনুতে গিয়ে <code>bridge1</code> নামে একটি নতুন Bridge তৈরি করুন।
+            </li>
+            <li><strong>Ports</strong> ট্যাবে গিয়ে আপনার LAN পোর্ট (যেমন <code>ether1</code>) এবং Wireless পোর্ট
+              (<code>wlan1</code>) দুটোকেই <code>bridge1</code> এর মেম্বার হিসেবে অ্যাড করুন।</li>
+          </ul>
+
+          <h3>B. Wireless কনফিগারেশন (AP Bridge):</h3>
+          <ul>
+            <li>বাম দিকের মেনু থেকে <strong>Wireless</strong> এ যান এবং <code>wlan1</code> ইন্টারফেসে ডাবল-ক্লিক করুন।
+            </li>
+            <li><strong>Wireless</strong> ট্যাবে গিয়ে নিচের সেটিংসগুলো দিন:
+              <ul>
+                <li><strong>Mode:</strong> <code>ap bridge</code> (অথবা bridge যদি লাইসেন্স Level 3 হয়)।</li>
+                <li><strong>SSID:</strong> <code>My_PTP_Link</code> (যেকোনো নাম)।</li>
+                <li><strong>Band / Frequency:</strong> 5GHz-A/N/AC এবং ক্লিয়ার একটি ফ্রিকোয়েন্সি নির্বাচন করুন।</li>
+                <li><strong>Wireless Protocol:</strong> <code>any</code> অথবা <code>nv2</code> (লং ডিস্ট্যান্সের জন্য
+                  MikroTik এর নিজস্ব প্রোটোকল nv2 সবচেয়ে ভালো)।</li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+          <p><em>নোট: সিকিউরিটির জন্য Security Profiles ট্যাবে গিয়ে একটি WPA2 পাসওয়ার্ড সেট করে নিতে ভুলবেন না।</em></p>
+
+          <h2>৩. Step-by-Step Configuration: Client/Station (Building B)</h2>
+          <p>দ্বিতীয় রাউটারটিকে আমরা ক্লায়েন্ট হিসেবে কনফিগার করবো এবং এখানেই <strong>Station Bridge</strong> এর ম্যাজিক
+            কাজ করবে।</p>
+
+          <h3>A. Bridge তৈরি করা:</h3>
+          <ul>
+            <li>এই রাউটারেও <strong>Bridge</strong> মেনুতে গিয়ে <code>bridge1</code> নামে একটি Bridge তৈরি করুন।</li>
+            <li><strong>Ports</strong> ট্যাবে গিয়ে <code>ether1</code> (ল্যান) এবং <code>wlan1</code> দুটোকেই এই Bridge
+              এ অ্যাড করুন।</li>
+          </ul>
+
+          <h3>B. Wireless কনফিগারেশন (Station Bridge):</h3>
+          <ul>
+            <li><strong>Wireless</strong> মেনুতে গিয়ে <code>wlan1</code> ইন্টারফেসে ডাবল-ক্লিক করুন।</li>
+            <li><strong>Wireless</strong> ট্যাবে গিয়ে নিচের সেটিংসগুলো দিন:
+              <ul>
+                <li><strong>Mode:</strong> <code>station bridge</code> <em>(কখনোই শুধু station দেবেন না)</em>।</li>
+                <li><strong>SSID:</strong> <code>My_PTP_Link</code> (AP এর দেওয়া সেম নাম)।</li>
+                <li><strong>Security Profile:</strong> AP তে যে পাসওয়ার্ড দিয়েছেন সেটি সিলেক্ট করুন।</li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> দিন। স্ট্যাটাস বারে <code>connected to ess</code> লেখা উঠলে বুঝবেন লিংক আপ (Link
+              Up) হয়েছে।</li>
+          </ul>
+          <p>এখন Building B এর পিসিতে ল্যান ক্যাবল লাগালেই সেটি সরাসরি Building A এর DHCP Server থেকে আইপি পাবে, ঠিক যেন
+            একটি লম্বা ফিজিক্যাল ক্যাবল দিয়ে যুক্ত করা হয়েছে!</p>
+
+          <h2>৪. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>টার্মিনাল ব্যবহার করে খুব দ্রুত এই কনফিগারেশন করা যায়:</p>
+
+          <p><strong>Access Point (Building A) এর কমান্ড:</strong></p>
+          <pre><code>/interface bridge add name=bridge1
+/interface bridge port add bridge=bridge1 interface=ether1
+/interface bridge port add bridge=bridge1 interface=wlan1
+/interface wireless set wlan1 mode=ap-bridge ssid=My_PTP_Link disabled=no</code></pre>
+
+          <p><strong>Station (Building B) এর কমান্ড:</strong></p>
+          <pre><code>/interface bridge add name=bridge1
+/interface bridge port add bridge=bridge1 interface=ether1
+/interface bridge port add bridge=bridge1 interface=wlan1
+/interface wireless set wlan1 mode=station-bridge ssid=My_PTP_Link disabled=no</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সীমাবদ্ধতা)</h2>
+          <p>ওয়্যারলেস ব্রিজিং করতে গিয়ে আপনি কিছু কমন সমস্যার সম্মুখীন হতে পারেন:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem) / সীমাবদ্ধতা</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">AP অন্য ব্যান্ডের (Non-MikroTik)</td>
+                  <td><strong>সবচেয়ে বড় সীমাবদ্ধতা:</strong> <code>station-bridge</code> মোডটি শুধুমাত্র তখনই কাজ করবে
+                    যখন Access Point (AP) টিও একটি MikroTik ডিভাইস হবে। AP যদি TP-Link, Cisco বা Ubiquiti হয়, তবে এটি
+                    কাজ করবে না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">অন্য ব্র্যান্ডের AP এর সাথে Bridge করা</td>
+                  <td>যদি AP MikroTik না হয়, তবে ক্লায়েন্টকে <code>mode=station-pseudobridge</code> মোডে কনফিগার করতে
+                    হবে। তবে এটি ট্রু Layer 2 নয়, এখানে MAC Translation হয়, যার কারণে মাঝে মাঝে ARP ইস্যু দেখা দিতে
+                    পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">WDS (Wireless Distribution System)</td>
+                  <td>আগে ট্রান্সপারেন্ট ব্রিজিংয়ের জন্য WDS ব্যবহার করা হতো, কিন্তু এটি কনফিগার করা বেশ জটিল।
+                    <code>station-bridge</code> আসার পর WDS এর প্রয়োজনীয়তা প্রায় শেষ হয়ে গেছে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">লিংক কানেক্ট হচ্ছে না (Registration Table)</td>
+                  <td>উভয় রাউটারের Wireless প্রোটোকল (802.11, Nstreme বা NV2) মিলতে হবে। যদি AP তে <code>NV2</code>
+                    দেওয়া থাকে, তবে Station এও <code>NV2</code> সাপোর্ট থাকতে হবে। <strong>Wireless >
+                      Registration</strong> ট্যাবে চেক করুন ডিভাইসটি কানেক্টেড কি না।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Station Bridge</strong> হলো MikroTik এর অন্যতম সেরা একটি আবিষ্কার, যা ওয়্যারলেস নেটওয়ার্কে
+              <strong>Layer 2 Transparent Bridging</strong> এর জটিলতা একদম সহজ করে দিয়েছে। আপনার Access Point এবং Client
+              উভয়ই যদি RouterOS দ্বারা চালিত হয়, তবে <strong>WDS</strong> বা <strong>EoIP Tunnel</strong> এর মতো জটিল
+              কনফিগারেশনে না গিয়ে সরাসরি <code>station-bridge</code> ব্যবহার করুন। এটি নেটওয়ার্কের প্রসেসিং ওভারহেড
+              (Overhead) কমায় এবং আপনার ওয়্যারলেস লিংককে একটি ফিজিক্যাল সুইচের ক্যাবলের মতোই আচরণ করতে বাধ্য করে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

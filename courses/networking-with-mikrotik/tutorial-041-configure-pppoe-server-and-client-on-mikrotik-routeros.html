@@ -1,32 +1,355 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ PPPoE Server এবং Client কনফিগার করার এ টু জেড গাইড। Winbox এবং CLI ব্যবহার করে ধাপে ধাপে রিয়েল-লাইফ সেটআপ শিখুন।">
   <title>Configure PPPoE Server and Client on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configure PPPoE Server and Client on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configure PPPoE Server and Client on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configure PPPoE Server and Client on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 20 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ব্রডব্যান্ড ইন্টারনেট ডিস্ট্রিবিউশনের ক্ষেত্রে <strong>PPPoE (Point-to-Point Protocol over
+              Ethernet)</strong> হলো সবচেয়ে বিশ্বস্ত এবং বহুল ব্যবহৃত একটি প্রযুক্তি। পূর্ববর্তী আর্টিকেলে আমরা PPPoE
+            এর থিওরি এবং এর পেছনের মেকানিজম নিয়ে আলোচনা করেছি। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা সম্পূর্ণ
+            প্র্যাকটিক্যাল সেটআপ দেখবো।</p>
+          <p>আমরা শিখবো কীভাবে একটি MikroTik রাউটারকে আইএসপি (ISP) এর মতো <strong>PPPoE Server</strong> হিসেবে তৈরি করতে
+            হয় এবং অপর একটি রাউটার বা ডিভাইসকে কাস্টমার হিসেবে <strong>PPPoE Client</strong> কনফিগার করে ইন্টারনেট
+            সংযোগ নিতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Setup)</h3>
+            <p>আমাদের সেটআপটিতে দুটি অংশ থাকবে:</p>
+            <ul>
+              <li><strong>ISP Router (Server):</strong> এই রাউটারে ইন্টারনেট কানেকশন আছে। এর <code>ether2</code> পোর্ট
+                দিয়ে আমরা কাস্টমারদের লাইন দেবো। আমরা কাস্টমারদের জন্য <code>10.10.10.0/24</code> ব্লকের আইপি ব্যবহার
+                করবো এবং তাদের স্পিড 10 Mbps এ লিমিট করে দেবো।</li>
+              <li><strong>Customer Router (Client):</strong> এটি কাস্টমারের বাসার রাউটার। এর <code>ether1</code> পোর্টে
+                আইএসপির ক্যাবল লাগানো থাকবে। এই রাউটারে আমরা ইউজারনেম এবং পাসওয়ার্ড বসিয়ে ইন্টারনেট চালু করবো।</li>
+            </ul>
+          </div>
+
+          <h2>পর্ব ১: ISP রাউটারে PPPoE Server কনফিগারেশন</h2>
+          <p>একটি প্রফেশনাল PPPoE Server তৈরি করার জন্য আমাদের প্রধান ৪টি ধাপ অনুসরণ করতে হবে।</p>
+
+          <h3>Step 1: IP Pool তৈরি করা</h3>
+          <p>কাস্টমাররা যখন কানেক্ট হবে, তখন তারা কোন আইপি পাবে, তা নির্ধারণ করার জন্য একটি IP Pool তৈরি করতে হবে।</p>
+          <ul>
+            <li>Winbox থেকে <strong>IP > Pool</strong> এ যান এবং <strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Name:</strong> <code>pppoe-pool</code> দিন।</li>
+            <li><strong>Addresses:</strong> <code>10.10.10.10-10.10.10.250</code> দিন। <strong>OK</strong> করুন।</li>
+          </ul>
+          <pre><code>[admin@ISP-Router] > /ip pool add name=pppoe-pool ranges=10.10.10.10-10.10.10.250</code></pre>
+
+          <h3>Step 2: PPP Profile তৈরি করা (Speed Limit সহ)</h3>
+          <p>Profile এর মাধ্যমে আমরা কাস্টমারের স্পিড লিমিট এবং আইপি পুল অ্যাসাইন করবো।</p>
+          <ul>
+            <li><strong>PPP</strong> মেনুতে গিয়ে <strong>Profiles</strong> ট্যাবে যান এবং <strong>+ (Add)</strong> এ
+              ক্লিক করুন।</li>
+            <li><strong>Name:</strong> <code>10Mbps-Package</code> দিন।</li>
+            <li><strong>Local Address:</strong> <code>10.10.10.1</code> দিন (এটি হবে সার্ভারের নিজস্ব আইপি বা Gateway)।
+            </li>
+            <li><strong>Remote Address:</strong> ড্রপডাউন থেকে আমাদের তৈরি করা <code>pppoe-pool</code> সিলেক্ট করুন।
+            </li>
+            <li><strong>Limits</strong> ট্যাবে গিয়ে <strong>Rate Limit (rx/tx):</strong> এর ঘরে <code>10M/10M</code>
+              দিন। <strong>OK</strong> করুন।</li>
+          </ul>
+          <pre><code>[admin@ISP-Router] > /ppp profile add name=10Mbps-Package local-address=10.10.10.1 remote-address=pppoe-pool rate-limit=10M/10M</code></pre>
+
+          <h3>Step 3: PPPoE Server চালু করা</h3>
+          <p>এখন আমরা নির্দিষ্ট ইন্টারফেসে সার্ভিসটি চালু করবো।</p>
+          <ul>
+            <li>একই <strong>PPP</strong> উইন্ডো থেকে <strong>PPPoE Servers</strong> ট্যাবে যান এবং <strong>+
+                (Add)</strong> ক্লিক করুন।</li>
+            <li><strong>Service Name:</strong> <code>My_ISP_Service</code> দিন।</li>
+            <li><strong>Interface:</strong> <code>ether2</code> সিলেক্ট করুন (যে পোর্ট দিয়ে কাস্টমার ক্যাবল যুক্ত হবে)।
+            </li>
+            <li><strong>Default Profile:</strong> <code>10Mbps-Package</code> সিলেক্ট করুন। <strong>OK</strong> দিন।
+            </li>
+          </ul>
+          <pre><code>[admin@ISP-Router] > /interface pppoe-server server add service-name=My_ISP_Service interface=ether2 default-profile=10Mbps-Package disabled=no</code></pre>
+
+          <h3>Step 4: Customer User (Secret) তৈরি করা</h3>
+          <p>কাস্টমারের লগইন ক্রেডেনশিয়াল তৈরি করতে হবে।</p>
+          <ul>
+            <li><strong>PPP</strong> মেনুর <strong>Secrets</strong> ট্যাবে যান এবং <strong>+ (Add)</strong> ক্লিক করুন।
+            </li>
+            <li><strong>Name:</strong> <code>user1</code> দিন।</li>
+            <li><strong>Password:</strong> <code>pass123</code> দিন।</li>
+            <li><strong>Service:</strong> <code>pppoe</code> সিলেক্ট করুন।</li>
+            <li><strong>Profile:</strong> <code>10Mbps-Package</code> সিলেক্ট করুন। <strong>OK</strong> দিন।</li>
+          </ul>
+          <pre><code>[admin@ISP-Router] > /ppp secret add name=user1 password=pass123 service=pppoe profile=10Mbps-Package</code></pre>
+
+          <h3>Step 5: NAT কনফিগারেশন (অত্যন্ত গুরুত্বপূর্ণ)</h3>
+          <p>কাস্টমার আইপি পেলেও ইন্টারনেট পাবে না যদি আপনি সার্ভার রাউটারে NAT (Masquerade) না করেন।</p>
+          <ul>
+            <li><strong>IP > Firewall > NAT</strong> এ গিয়ে <strong>+ (Add)</strong> করুন।</li>
+            <li><strong>Chain:</strong> <code>srcnat</code>, <strong>Src. Address:</strong> <code>10.10.10.0/24</code>
+              (কাস্টমার আইপি ব্লক)।</li>
+            <li><strong>Action:</strong> <code>masquerade</code> সিলেক্ট করে <strong>OK</strong> দিন।</li>
+          </ul>
+          <pre><code>[admin@ISP-Router] > /ip firewall nat add chain=srcnat src-address=10.10.10.0/24 action=masquerade</code></pre>
+
+          <h2>পর্ব ২: Customer রাউটারে PPPoE Client কনফিগারেশন</h2>
+          <p>এখন আমরা কাস্টমার রাউটারে লগইন করে ইন্টারনেট চালু করবো।</p>
+
+          <h3>Step 1: PPPoE Client ইন্টারফেস তৈরি করা</h3>
+          <ul>
+            <li>Winbox থেকে <strong>Interfaces</strong> মেনুতে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করে ড্রপডাউন থেকে <strong>PPPoE Client</strong> সিলেক্ট করুন।</li>
+            <li><strong>General</strong> ট্যাবে <strong>Interfaces:</strong> <code>ether1</code> সিলেক্ট করুন (যেখানে
+              আইএসপির লাইন লাগানো)।</li>
+            <li><strong>Dial Out</strong> ট্যাবে যান।</li>
+            <li><strong>User:</strong> <code>user1</code> দিন (যা আইএসপি থেকে দিয়েছে)।</li>
+            <li><strong>Password:</strong> <code>pass123</code> দিন।</li>
+            <li><strong>Use Peer DNS:</strong> টিক (Check) দিন (যাতে আইএসপির ডিএনএস অটোমেটিক পায়)।</li>
+            <li><strong>Add Default Route:</strong> টিক (Check) দিন (যাতে ইন্টারনেটের রুট অটোমেটিক সেট হয়)।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন। স্ট্যাটাস বারে <code>connected</code> লেখা উঠলেই
+              বুঝতে পারবেন কনফিগারেশন সফল।</li>
+          </ul>
+
+          <h3>Step 2: Customer LAN এর জন্য NAT কনফিগারেশন</h3>
+          <p>যেহেতু এটি কাস্টমারের রাউটার, তাই ভেতরের লোকাল ডিভাইসে (মোবাইল/ল্যাপটপ) ইন্টারনেট দেওয়ার জন্য ক্লায়েন্ট
+            রাউটারেও NAT করতে হবে।</p>
+          <ul>
+            <li><strong>IP > Firewall > NAT</strong> এ গিয়ে <strong>+ (Add)</strong> করুন।</li>
+            <li><strong>Chain:</strong> <code>srcnat</code> সিলেক্ট করুন।</li>
+            <li><strong>Out. Interface:</strong> <code>pppoe-out1</code> (আপনার তৈরি করা PPPoE ইন্টারফেস) সিলেক্ট করুন।
+            </li>
+            <li><strong>Action:</strong> <code>masquerade</code> সিলেক্ট করে <strong>OK</strong> দিন।</li>
+          </ul>
+          <pre><code>[admin@Customer-Router] > /ip firewall nat add chain=srcnat out-interface=pppoe-out1 action=masquerade</code></pre>
+
+          <h2>৩. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Status: Dialing এ আটকে থাকা</td>
+                  <td>রাউটার সার্ভার খুঁজে পাচ্ছে না। ক্যাবল ঠিকমতো লাগানো আছে কি না চেক করুন। যদি ISP
+                    <strong>VLAN</strong> ব্যবহার করে, তবে PPPoE Client টি ফিজিক্যাল পোর্টের বদলে (যেমন ether1)
+                    নির্দিষ্ট VLAN ইন্টারফেসের ওপর তৈরি করতে হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Authentication Failed মেসেজ</td>
+                  <td>ইউজারনেম অথবা পাসওয়ার্ড ভুল হয়েছে। অনেক সময় পাসওয়ার্ডের শেষে স্পেস (Space) পড়ে গেলে এই এরর
+                    আসে। পুনরায় টাইপ করে চেষ্টা করুন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">কিছু ওয়েবসাইট (যেমন Facebook, Netflix) লোড হচ্ছে না</td>
+                  <td>এটি PPPoE এর সবচেয়ে কমন <strong>MTU (Maximum Transmission Unit)</strong> ইস্যু। PPPoE হেডার
+                    সাইজের কারণে সাধারণ 1500 MTU কাজ করে না। ISP রাউটারের PPP Profile এ গিয়ে MTU পরিবর্তন করে
+                    <code>1480</code> বা <code>1492</code> করে দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">কানেক্ট হচ্ছে কিন্তু ইন্টারনেট চলছে না</td>
+                  <td>ক্লায়েন্ট রাউটারে <strong>IP > Routes</strong> চেক করুন <code>0.0.0.0/0</code> ডাইনামিক রুটটি
+                    এসেছে কি না। না আসলে PPPoE Client সেটিংসে <code>Add Default Route</code> অপশনটি চেক করা আছে কি না তা
+                    নিশ্চিত করুন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>PPPoE Server এবং Client</strong> সেটআপ করা ব্রডব্যান্ড নেটওয়ার্কিংয়ের একদম বেসিক কিন্তু সবচেয়ে
+              শক্তিশালী ধাপ। এই আর্টিকেলের মাধ্যমে আপনি একটি কমপ্লিট আইএসপি সলিউশনের ডেমো দেখতে পেলেন, যেখানে আমরা
+              <strong>IP Pool</strong>, <strong>Profile</strong>, <strong>Secret</strong> এবং <strong>NAT</strong>
+              কনফিগার করার মাধ্যমে কাস্টমারকে ইন্টারনেট দিলাম। এই বেসিক সেটআপটি বুঝতে পারলে, পরবর্তীতে <strong>RADIUS
+                Server (User Manager)</strong> এর সাথে PPPoE ইন্টিগ্রেট করে হাজার হাজার কাস্টমারকে অটোমেটিক্যালি বিলিং
+              এবং ম্যানেজ করা আপনার জন্য একদম সহজ হয়ে যাবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

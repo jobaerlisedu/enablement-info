@@ -1,32 +1,334 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Managing RouterOS Login â€“ Users & Groups | enablement.info</title>
+  <meta name="description"
+    content="MikroTik RouterOS এ User এবং Group কীভাবে কাজ করে? Winbox ও CLI ব্যবহার করে রাউটার লগইন ম্যানেজমেন্ট, পলিসি এবং সিকিউরিটি নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Managing RouterOS Login – Users & Groups | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Managing RouterOS Login â€“ Users & Groups</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Managing RouterOS Login â€“ Users & Groups</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Managing RouterOS Login – Users & Groups</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 July, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একটি নতুন MikroTik Router কিনে বক্স থেকে বের করার পর, আপনি যখন প্রথমবার <strong>Winbox</strong> বা ব্রাউজার
+            দিয়ে লগইন করেন, তখন ডিফল্ট <strong>Username</strong> থাকে <code>admin</code> এবং <strong>Password</strong>
+            এর ঘর থাকে সম্পূর্ণ ফাঁকা (Blank)। এটি কনফিগারেশন শুরু করার জন্য সুবিধাজনক হলেও, একটি লাইভ নেটওয়ার্কের জন্য
+            এটি এক ভয়াবহ সিকিউরিটি রিস্ক (Security Risk)।</p>
+          <p>আপনার রাউটারে কে লগইন করতে পারবে, কে কী পরিবর্তন করতে পারবে এবং কে শুধু দেখতে পারবে—এই পুরো অ্যাক্সেস
+            কন্ট্রোল সিস্টেমটি মেইনটেইন করা হয় <strong>Users</strong> এবং <strong>Groups</strong> এর মাধ্যমে। আজকের এই
+            ডিপ-ডাইভ গাইডে আমরা শিখবো কীভাবে RouterOS এ ইউজার ম্যানেজমেন্ট করতে হয়, গ্রুপের <strong>Policies</strong>
+            কীভাবে কাজ করে এবং সিকিউরিটি বেস্ট প্র্যাকটিসগুলো কী কী।</p>
+
+          <div class="content-box">
+            <h3>User এবং Group এর প্রয়োজনীয়তা</h3>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> আপনি একটি বড় কর্পোরেট অফিসের আইটি ম্যানেজার। আপনার আন্ডারে কয়েকজন
+              জুনিয়র সাপোর্ট ইঞ্জিনিয়ার কাজ করেন। আপনার রাউটারে যদি শুধুমাত্র একটি <code>admin</code> অ্যাকাউন্ট থাকে
+              এবং আপনি সবাইকে সেই পাসওয়ার্ড দিয়ে দেন, তবে কেউ ভুলে কোনো ফায়ারওয়াল রুল মুছে ফেললে আপনি ধরতে পারবেন না কে
+              এই কাজটি করেছে।</p>
+            <p><strong>সমাধান:</strong> এই সমস্যার সমাধান হলো Role-Based Access Control (RBAC)। আপনি সাপোর্ট টিমের জন্য
+              আলাদা <strong>User</strong> তৈরি করবেন এবং তাদের এমন একটি <strong>Group</strong> এ রাখবেন, যাদের শুধু
+              রাউটারের কনফিগারেশন দেখার (Read-only) বা বেসিক কাজ করার অনুমতি থাকবে। আর আপনার জন্য থাকবে সর্বোচ্চ ক্ষমতার
+              (Full access) অ্যাকাউন্ট।</p>
+          </div>
+
+          <h2>১. RouterOS এর Default Groups এবং Policies</h2>
+          <p>RouterOS এ ইউজার তৈরি করার আগে আমাদের বুঝতে হবে <strong>Group</strong> কীভাবে কাজ করে। প্রতিটি Group মূলত
+            কিছু <strong>Policy</strong> বা রুলের সমষ্টি। ডিফল্টভাবে MikroTik এ তিনটি গ্রুপ তৈরি করা থাকে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>গ্রুপের নাম (Group Name)</th>
+                  <th>অনুমতি বা পলিসি (Policies)</th>
+                  <th>ব্যবহারের ক্ষেত্র (Use Case)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Full</td>
+                  <td>রাউটারের সবকিছু করার ক্ষমতা রাখে (Read, Write, Policy change, Reboot, FTP, SSH ইত্যাদি)।</td>
+                  <td>শুধুমাত্র প্রধান নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর বা আইটি হেড-এর অ্যাকাউন্টের জন্য।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Write</td>
+                  <td>রাউটারে কনফিগারেশন পরিবর্তন করতে পারে (Read এবং Write)। কিন্তু নতুন ইউজার তৈরি করা বা পলিসি
+                    পরিবর্তন করার ক্ষমতা নেই।</td>
+                  <td>সিনিয়র সিস্টেম ইঞ্জিনিয়ার বা কনফিগারেশন টিমের জন্য।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Read</td>
+                  <td>রাউটারের কোনো কনফিগারেশন পরিবর্তন করতে পারে না। শুধুমাত্র দেখতে পারে এবং পিং (Ping) বা ট্রেস
+                    (Traceroute) করতে পারে।</td>
+                  <td>জুনিয়র সাপোর্ট টিম, অডিটর বা মনিটরিং সিস্টেমের (যেমন Zabbix/PRTG) জন্য।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. Winbox ব্যবহার করে User এবং Group কনফিগারেশন</h2>
+          <p>চলুন প্র্যাকটিক্যালি দেখি কীভাবে Winbox এর মাধ্যমে ইউজার ম্যানেজমেন্ট করতে হয়।</p>
+
+          <h3>Step 1: নতুন Group তৈরি করা (Custom Group)</h3>
+          <p>ডিফল্ট গ্রুপের বাইরে আপনি চাইলে আপনার প্রয়োজনমতো পলিসি সিলেক্ট করে নতুন গ্রুপ তৈরি করতে পারেন। ধরি, আমরা
+            "Support-Team" নামে একটি গ্রুপ বানাবো, যারা শুধু কনফিগারেশন দেখতে পারবে এবং রাউটার রিবুট (Reboot) করতে
+            পারবে।</p>
+          <ul>
+            <li>Winbox থেকে <strong>System > Users</strong> মেনুতে ক্লিক করুন।</li>
+            <li><strong>Groups</strong> ট্যাবে যান এবং <code>+</code> (Add) আইকনে ক্লিক করুন।</li>
+            <li><strong>Name:</strong> এর ঘরে লিখুন <code>Support-Team</code>।</li>
+            <li>নিচে অনেকগুলো চেকবক্স (Policies) দেখতে পাবেন। সেখান থেকে <code>read</code>, <code>winbox</code>,
+              <code>web</code>, <code>api</code>, এবং <code>reboot</code> চেক করুন। বাকিগুলোর আনচেক (Uncheck) রাখুন।
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h3>Step 2: নতুন User তৈরি করা</h3>
+          <p>এবার আমরা নতুন সাপোর্ট ইঞ্জিনিয়ারের জন্য একটি অ্যাকাউন্ট তৈরি করবো।</p>
+          <ul>
+            <li><strong>System > Users</strong> মেনুর <strong>Users</strong> ট্যাবে ফিরে যান এবং <code>+</code> আইকনে
+              ক্লিক করুন।</li>
+            <li><strong>Name:</strong> এর ঘরে ইউজারের নাম দিন (যেমন: <code>rafiq</code>)।</li>
+            <li><strong>Group:</strong> এর ড্রপডাউন থেকে আমাদের বানানো <code>Support-Team</code> সিলেক্ট করুন।</li>
+            <li><strong>Password</strong> এবং <strong>Confirm Password</strong> এর ঘরে একটি শক্তিশালী পাসওয়ার্ড দিন।
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> বাটনে ক্লিক করুন।</li>
+          </ul>
+
+          <h3>Step 3: Allowed Address সেট করা (অ্যাডভান্সড সিকিউরিটি)</h3>
+          <p>User তৈরি করার সময় একটি অত্যন্ত গুরুত্বপূর্ণ সিকিউরিটি ফিচার হলো <strong>Allowed Address</strong>। আপনি যদি
+            চান যে 'rafiq' নামের ইউজারটি শুধুমাত্র অফিসের একটি নির্দিষ্ট আইপি (যেমন: 192.168.10.50) বা ব্লক থেকে লগইন
+            করতে পারবে, তবে User প্রোপার্টিজ উইন্ডোর <code>Allowed Address</code> বক্সে ওই আইপিটি বসিয়ে দিন। ইন্টারনেটের
+            অন্য কোনো জায়গা থেকে সে সঠিক পাসওয়ার্ড দিলেও লগইন করতে পারবে না।</p>
+
+          <h3>Step 4: Default Admin অ্যাকাউন্ট ডিসেবল বা ডিলিট করা</h3>
+          <p>আপনার নিজের জন্য একটি ফুল অ্যাক্সেস (Full group) ইউজার তৈরি করার পর, সবচেয়ে গুরুত্বপূর্ণ কাজ হলো ডিফল্ট
+            <code>admin</code> অ্যাকাউন্টটি ডিসেবল (Disable) করে দেওয়া। কারণ হ্যাকাররা সব সময় <code>admin</code>
+            ইউজারনেম দিয়ে ব্রুট-ফোর্স (Brute-force) অ্যাটাক করার চেষ্টা করে। <code>admin</code> সিলেক্ট করে
+            <code>X</code> (Disable) আইকনে ক্লিক করুন।</p>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে ইউজার ম্যানেজমেন্ট</h2>
+          <p>প্রফেশনালরা সাধারণত CLI ব্যবহার করে দ্রুত এই কাজগুলো করেন। নিচে প্রয়োজনীয় কমান্ডগুলো দেওয়া হলো:</p>
+
+          <h3>নতুন Custom Group তৈরি করা:</h3>
+          <pre><code>[admin@MikroTik] > /user group add name=Support-Team policy=read,winbox,web,api,reboot,!write,!policy,!sensitive</code></pre>
+          <p><em>(নোট: পলিসির আগে <code>!</code> চিহ্ন থাকার মানে হলো ওই অনুমতিটি দেওয়া হয়নি।)</em></p>
+
+          <h3>নতুন User তৈরি এবং Group অ্যাসাইন করা:</h3>
+          <pre><code>[admin@MikroTik] > /user add name=rafiq group=Support-Team password="SecurePass123" allowed-address=192.168.10.0/24</code></pre>
+
+          <h3>বর্তমান ইউজারদের লিস্ট দেখা:</h3>
+          <pre><code>[admin@MikroTik] > /user print</code></pre>
+
+          <h3>ডিফল্ট Admin অ্যাকাউন্ট বন্ধ করা:</h3>
+          <pre><code>[admin@MikroTik] > /user disable admin</code></pre>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ ভুল ও সমাধান)</h2>
+          <p>ইউজার ম্যানেজমেন্ট করতে গিয়ে কিছু অনাকাঙ্ক্ষিত পরিস্থিতি তৈরি হতে পারে:</p>
+          <ul>
+            <li><strong>নিজে লক আউট হয়ে যাওয়া (Locked Out):</strong> আপনি যদি <code>Allowed Address</code> এ ভুল আইপি
+              বসিয়ে সেভ করেন, তবে আপনি সাথে সাথে লগ আউট হয়ে যাবেন এবং আর ঢুকতে পারবেন না। এর একমাত্র সমাধান হলো রাউটারের
+              <strong>Reset Button</strong> ব্যবহার করে ফ্যাক্টরি রিসেট করা, অথবা <strong>MAC Address</strong> দিয়ে লগইন
+              করার চেষ্টা করা (যদি MAC Server এ রেস্ট্রিকশন না থাকে)।</li>
+            <li><strong>লগইন ফেইল হওয়ার মেসেজ:</strong> আপনি যদি <code>/log print</code> কমান্ড দিয়ে দেখেন যে বারবার
+              "login failure for user admin from IP..." মেসেজ আসছে, তবে বুঝতে হবে বাইরে থেকে কেউ অ্যাটাক করছে। দ্রুত
+              <strong>System > Users</strong> এ গিয়ে ডিফল্ট admin অ্যাকাউন্টটি বন্ধ করুন এবং আপনার কাস্টম ইউজারের জন্য
+              একটি জটিল পাসওয়ার্ড সেট করুন।</li>
+            <li><strong>পাসওয়ার্ড রিকভারি:</strong> MikroTik এ একবার পাসওয়ার্ড সেট করলে তা এনক্রিপ্টেড থাকে এবং রিকভার
+              করার কোনো উপায় নেই। পাসওয়ার্ড ভুলে গেলে রাউটার ফিজিক্যালি রিসেট করা অথবা Netinstall করা ছাড়া কোনো বিকল্প
+              থাকে না।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>নেটওয়ার্ক ডিভাইসের সুরক্ষার প্রথম ধাপই হলো সঠিক <strong>User Management</strong>। একটি রাউটারে শুধু একটি
+              ডিফল্ট <code>admin</code> অ্যাকাউন্ট ব্যবহার করাটা প্রফেশনালিজমের অভাব এবং বিশাল সিকিউরিটি লুপহোল
+              (Loophole) হিসেবে গণ্য হয়। <strong>RouterOS</strong> এর শক্তিশালী <strong>Groups</strong> এবং
+              <strong>Policies</strong> ব্যবহার করে আপনি অত্যন্ত নিখুঁতভাবে নির্ধারণ করতে পারেন কে রাউটারের কোন অংশে কাজ
+              করবে। <strong>Allowed Address</strong> এর মতো ফিচার ব্যবহার করে আপনার রাউটারের ম্যানেজমেন্ট ইন্টারফেসকে
+              হ্যাকারদের ধরাছোঁয়ার বাইরে রাখুন এবং নিজের নেটওয়ার্কের নিরাপত্তা নিশ্চিত করুন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

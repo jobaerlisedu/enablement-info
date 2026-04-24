@@ -1,32 +1,305 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Netwatch tool on MikroTik | enablement.info</title>
+  <meta name="description"
+    content="MikroTik Netwatch টুল ব্যবহার করে স্বয়ংক্রিয় নেটওয়ার্ক মনিটরিং এবং অটোমেশন গাইড। হোস্ট ডাউন হলে ইমেইল বা স্ক্রিপ্ট রান করার বিস্তারিত টিউটোরিয়াল।">
+  <title>Netwatch tool on MikroTik: Automated Monitoring Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Netwatch tool on MikroTik</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Netwatch tool on MikroTik</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Netwatch tool on MikroTik: Automated Monitoring Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 24 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আপনার নেটওয়ার্কের কোনো সার্ভার বা আইএসপি (ISP) লিংক যদি হঠাৎ ডাউন হয়ে যায়, তবে আপনি কীভাবে তা জানতে পারেন?
+            সাধারণত ইউজাররা কমপ্লেন করার পর আমরা বিষয়টি বুঝতে পারি। কিন্তু একজন স্মার্ট নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে
+            আপনার উচিত এমন একটি সিস্টেম রাখা যা লিংক ডাউন হওয়ার সাথে সাথে আপনাকে জানাবে কিংবা স্বয়ংক্রিয়ভাবে কোনো
+            ব্যাকআপ লিংক চালু করে দেবে।</p>
+          <p>MikroTik RouterOS-এর অত্যন্ত শক্তিশালী একটি ডায়াগনস্টিক টুলের নাম হলো <strong>Netwatch</strong>। এটি মূলত
+            নির্দিষ্ট বিরতিতে কোনো একটি IP Address-কে <strong>ICMP Echo Request (Ping)</strong> পাঠায় এবং সেই পিং-এর
+            রেজাল্টের ওপর ভিত্তি করে আপনার লেখা স্ক্রিপ্ট রান করে। আজকের এই টিউটোরিয়ালে আমরা Netwatch-এর কাজ এবং
+            প্রাকটিক্যাল কনফিগারেশন নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <div class="content-box">
+            <h3>Netwatch কীভাবে কাজ করে?</h3>
+            <p>Netwatch টুলটি তিনটি প্রধান ইভেন্টের ওপর ভিত্তি করে কাজ করে:</p>
+            <ul>
+              <li><strong>Up Event:</strong> যখন রাউটার টার্গেট আইপি থেকে রিপ্লাই পায় (Host is Up)।</li>
+              <li><strong>Down Event:</strong> যখন টার্গেট আইপি থেকে পিং আসা বন্ধ হয়ে যায় (Host is Down)।</li>
+              <li><strong>Timeout:</strong> যখন একটি নির্দিষ্ট সময়ের মধ্যে পিং রিপ্লাই আসে না।</li>
+            </ul>
+            <p>আপনি <code>Up</code> এবং <code>Down</code> এই দুই অবস্থায় আলাদা আলাদা <strong>Script</strong> লিখে দিতে
+              পারেন। যেমন: লিংক ডাউন হলে ইমেইল পাঠাও, আর লিংক আপ হলে লগ ফাইল আপডেট করো।</p>
+          </div>
+
+          <h2>১. Netwatch কনফিগার করার ধাপসমূহ (Winbox)</h2>
+          <p>চলুন একটি সাধারণ উদাহরণ দেখি যেখানে আমরা Google DNS (8.8.8.8) মনিটর করবো। যদি এটি ডাউন হয়, রাউটার লগে (Log)
+            মেসেজ দেবে।</p>
+
+          <ul>
+            <li>Winbox-এর বাম পাশের মেনু থেকে <strong>Tools > Netwatch</strong> এ ক্লিক করুন।</li>
+            <li>নতুন উইন্ডো ওপেন হলে <strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Host:</strong> এর ঘরে আপনার কাঙ্ক্ষিত আইপি দিন (যেমন: <code>8.8.8.8</code>)।</li>
+            <li><strong>Interval:</strong> কতক্ষণ পর পর পিং করবে তা নির্ধারণ করুন (ডিফল্ট: 00:01:00 বা ১ মিনিট)।</li>
+            <li><strong>Timeout:</strong> কতক্ষণ রিপ্লাই না পেলে তাকে ডাউন ধরা হবে (যেমন: 1000ms)।</li>
+          </ul>
+
+          <h3>Down এবং Up স্ক্রিপ্ট যোগ করা:</h3>
+          <ul>
+            <li><strong>Down</strong> ট্যাবে গিয়ে লিখুন: <code>:log error "Google DNS is Down!"</code></li>
+            <li><strong>Up</strong> ট্যাবে গিয়ে লিখুন: <code>:log info "Google DNS is Up again."</code></li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>২. Command Line (CLI) ব্যবহার করে Netwatch সেটআপ</h2>
+          <p>টার্মিনাল থেকে খুব সহজেই আপনি এই টুলটি ব্যবহার করতে পারেন:</p>
+
+          <pre><code>/tool netwatch add host=8.8.8.8 interval=30s timeout=1000ms down-script=":log error \"ISP Link Down!\"" up-script=":log info \"ISP Link Up!\""</code></pre>
+
+          <h2>৩. অ্যাডভান্সড রিয়েল-লাইফ সিনারিও: অটোমেটিক ইমেইল অ্যালার্ট</h2>
+          <p>শুধুমাত্র লগ জেনারেট করে অনেক সময় লাভ হয় না। আমরা চাই রাউটার যেন সাথে সাথে আমাদের ইমেইল পাঠিয়ে দেয়। এর জন্য
+            আমাদের আগে রাউটারে ইমেইল টুল কনফিগার করা থাকতে হবে।</p>
+
+          <p><strong>Down Script:</strong></p>
+          <pre><code>/tool e-mail send to="admin@example.com" subject="ISP Alert" body="Primary ISP link is down at $[/system clock get time]"</code></pre>
+
+          <p><strong>Up Script:</strong></p>
+          <pre><code>/tool e-mail send to="admin@example.com" subject="ISP Restored" body="Primary ISP link is back online at $[/system clock get time]"</code></pre>
+
+          <h2>৪. Netwatch এবং Failover (ISP Redundancy)</h2>
+          <p>নেটওয়ার্ক অ্যাডমিনদের জন্য Netwatch-এর সবচেয়ে বড় ব্যবহার হলো <strong>Failover</strong>। আপনার যদি দুটি
+            ইন্টারনেট লাইন থাকে (ISP-1 এবং ISP-2), তবে আপনি Netwatch ব্যবহার করে ISP-1 ডাউন হলে অটোমেটিক ISP-2 এর দিকে
+            ট্রাফিক ঘুরিয়ে দিতে পারেন।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সেটিং (Setting)</th>
+                  <th>বিবরণ (Explanation)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Interval</td>
+                  <td>এটি নির্ধারণ করে কত দ্রুত রাউটার সমস্যার খোঁজ পাবে। খুব কম সময় (যেমন 1s) দিলে রাউটারের CPU-তে চাপ
+                    বাড়তে পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Packet Size</td>
+                  <td>ডিফল্ট পিং প্যাকেট ছোট হয়। আপনি চাইলে বড় প্যাকেট পাঠিয়ে লিংকের কোয়ালিটি আরও গভীরভাবে বুঝতে পারেন।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Status</td>
+                  <td>Netwatch উইন্ডোতে স্ট্যাটাস 'Up' থাকলে সবুজ এবং 'Down' থাকলে লাল রঙে দেখাবে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>ফলস অ্যালার্ট (False Alert):</strong> অনেক সময় নেটওয়ার্কে সামান্য জ্যাম থাকলে একটি পিং মিস হতে
+              পারে। তখন Netwatch মনে করবে হোস্ট ডাউন। এটি সমাধান করতে <strong>Timeout</strong> একটু বাড়িয়ে দিন অথবা
+              রাউটারওএস v7-এর নতুন <strong>Type: ICMP</strong> এবং <code>Threshhold</code> ব্যবহার করুন।</li>
+            <li><strong>Ping Blocked:</strong> অনেক সার্ভার নিরাপত্তার জন্য ICMP (Ping) ব্লক করে রাখে। সেক্ষেত্রে
+              Netwatch সবসময় <code>Down</code> দেখাবে। তাই এমন আইপি মনিটর করুন যা পিং রিপ্লাই দেয়।</li>
+            <li><strong>CPU Usage:</strong> আপনি যদি একসাথে ১০০টি আইপি Netwatch দিয়ে মনিটর করেন এবং Interval খুব কম দেন,
+              তবে রাউটারের CPU অনেক বেড়ে যেতে পারে। প্রয়োজনীয় আইপি ছাড়া অতিরিক্ত মনিটরিং এড়িয়ে চলুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>MikroTik Netwatch</strong> হলো একটি অত্যন্ত হালকা অথচ কার্যকরী অটোমেশন টুল। এটি আপনার নেটওয়ার্ককে
+              ২৪/৭ মনিটর করে এবং সমস্যা দেখা দিলে আপনার দেওয়া নির্দেশনা অনুযায়ী কাজ করে। প্রফেশনাল নেটওয়ার্ক
+              এনভায়রনমেন্টে <strong>Automatic Failover</strong> এবং <strong>Email Alerting</strong> নিশ্চিত করার জন্য
+              Netwatch-এর কোনো বিকল্প নেই। একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে এই টুলের সঠিক ব্যবহার জানা আপনার কাজের
+              দক্ষতাকে অনেকগুণ বাড়িয়ে দেবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,328 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ DHCP Server এবং DHCP Client কনফিগারেশনের সম্পূর্ণ গাইড। Winbox এবং CLI ব্যবহার করে আইপি ডিস্ট্রিবিউশন এবং স্ট্যাটিক লিজ সেটআপ বিস্তারিতভাবে শিখুন।">
   <title>Configuring DHCP Server and DHCP Client on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configuring DHCP Server and DHCP Client on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configuring DHCP Server and DHCP Client on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configuring DHCP Server and DHCP Client on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 01 September, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিং জগতে ডিভাইসগুলোকে একে অপরের সাথে যোগাযোগ করানোর জন্য IP Address হলো প্রধান শর্ত। কিন্তু যখন
+            একটি নেটওয়ার্কে ১০টি, ১০০টি বা হাজার খানেক ডিভাইস থাকে, তখন প্রতিটি ডিভাইসে ম্যানুয়ালি আইপি (Static IP)
+            বসানো প্রায় অসম্ভব এবং ভুল হওয়ার সম্ভাবনা থাকে প্রচুর। এই সমস্যার জাদুকরী সমাধান হলো <strong>DHCP (Dynamic
+              Host Configuration Protocol)</strong>।</p>
+          <p>একটি MikroTik রাউটার একই সাথে একটি <strong>DHCP Client</strong> (যে অন্য কারো কাছ থেকে আইপি নেয়) এবং একটি
+            <strong>DHCP Server</strong> (যে অন্যদের আইপি দেয়) হিসেবে কাজ করতে পারে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা
+            শিখবো কীভাবে RouterOS এ এই দুটি কনফিগার করতে হয়, DORA প্রসেস কী এবং স্ট্যাটিক লিজ (Static Lease) কীভাবে কাজ
+            করে।</p>
+
+          <div class="content-box">
+            <h3>DHCP এর মূলনীতি (The DORA Process)</h3>
+            <p>DHCP ব্যাকগ্রাউন্ডে চারটি ধাপে কাজ করে, যাকে সংক্ষেপে <strong>DORA</strong> বলা হয়:</p>
+            <ul>
+              <li><strong>Discover:</strong> ক্লায়েন্ট পিসি নেটওয়ার্কে ব্রডকাস্ট করে খোঁজে, "এখানে কি কোনো DHCP Server
+                আছে?"</li>
+              <li><strong>Offer:</strong> সার্ভার শুনতে পেয়ে বলে, "হ্যাঁ আমি আছি, তুমি এই আইপিটি নিতে পারো।"</li>
+              <li><strong>Request:</strong> ক্লায়েন্ট তখন ওই আইপিটি নেওয়ার জন্য সার্ভারকে রিকোয়েস্ট করে।</li>
+              <li><strong>Acknowledge (ACK):</strong> সার্ভার চূড়ান্ত অনুমতি দেয় এবং আইপিটি ক্লায়েন্টকে লিজ (Lease) দিয়ে
+                দেয়।</li>
+            </ul>
+          </div>
+
+          <h2>১. MikroTik রাউটারকে DHCP Client হিসেবে কনফিগার করা</h2>
+          <p><strong>রিয়েল-লাইফ সিনারিও:</strong> আপনার ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) আপনাকে একটি ইথারনেট ক্যাবল
+            দিয়েছে এবং বলেছে, "ক্যাবলটি লাগালেই অটোমেটিক আইপি এবং ইন্টারনেট পেয়ে যাবেন।" এক্ষেত্রে আপনার রাউটারকে ISP এর
+            সার্ভার থেকে আইপি গ্রহণ করতে হবে। অর্থাৎ, রাউটার এখানে <strong>Client</strong>।</p>
+
+          <h3>Winbox এর মাধ্যমে কনফিগারেশন:</h3>
+          <ul>
+            <li>ISP এর ক্যাবলটি রাউটারের <strong>Ether1</strong> পোর্টে লাগান।</li>
+            <li>Winbox দিয়ে লগইন করে বাম পাশের মেনু থেকে <strong>IP > DHCP Client</strong> এ যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Interface:</strong> ড্রপডাউন থেকে <code>ether1</code> সিলেক্ট করুন।</li>
+            <li><strong>Use Peer DNS</strong> এবং <strong>Use Peer NTP</strong> অপশনগুলোতে চেকমার্ক রাখুন (যাতে ISP এর
+              DNS অটোমেটিক পেয়ে যান)।</li>
+            <li><strong>Add Default Route:</strong> এটি <code>yes</code> রাখুন, যাতে রাউটার অটোমেটিক্যালি ইন্টারনেটের
+              রাস্তা (Gateway) চিনে নিতে পারে।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন। </li>
+            <li>স্ট্যাটাস বারে <code>bound</code> লেখা উঠলে বুঝবেন রাউটার সফলভাবে আইপি পেয়েছে।</li>
+          </ul>
+
+          <h3>CLI কমান্ড (Terminal):</h3>
+          <p>যারা কমান্ড লাইনে কাজ করতে পছন্দ করেন, তারা নিচের কমান্ডটি দিন:</p>
+          <pre><code>[admin@MikroTik] > /ip dhcp-client add interface=ether1 disabled=no add-default-route=yes use-peer-dns=yes</code></pre>
+
+          <h2>২. MikroTik রাউটারকে DHCP Server হিসেবে কনফিগার করা</h2>
+          <p><strong>রিয়েল-লাইফ সিনারিও:</strong> রাউটারে ইন্টারনেট চলে এসেছে। এবার আপনি চান আপনার অফিসের লোকাল
+            নেটওয়ার্কের (LAN) সব পিসি, ল্যাপটপ এবং মোবাইল ফোন যেন ক্যাবল বা ওয়াই-ফাই দিয়ে কানেক্ট হওয়ামাত্রই অটোমেটিক
+            আইপি পেয়ে যায়। এক্ষেত্রে আপনার রাউটার কাজ করবে একটি <strong>Server</strong> হিসেবে।</p>
+
+          <h3>পূর্বপ্রস্তুতি (Prerequisite):</h3>
+          <p>DHCP Server তৈরি করার আগে আপনার ল্যান ইন্টারফেসে (যেমন: Ether2) অবশ্যই একটি আইপি বসানো থাকতে হবে।</p>
+          <pre><code>[admin@MikroTik] > /ip address add address=192.168.10.1/24 interface=ether2</code></pre>
+
+          <h3>Winbox এর মাধ্যমে কনফিগারেশন (DHCP Setup Wizard):</h3>
+          <p>MikroTik এ সার্ভার কনফিগার করার জন্য একটি চমৎকার Wizard বা সেটআপ গাইড আছে।</p>
+          <ul>
+            <li>বাম দিকের মেনু থেকে <strong>IP > DHCP Server</strong> এ ক্লিক করুন।</li>
+            <li><strong>DHCP</strong> ট্যাবে থাকা অবস্থায় <strong>DHCP Setup</strong> বাটনে ক্লিক করুন।</li>
+            <li><strong>DHCP Server Interface:</strong> এখানে আপনার ল্যান পোর্ট <code>ether2</code> সিলেক্ট করে Next
+              দিন।</li>
+            <li><strong>DHCP Address Space:</strong> নেটওয়ার্ক ব্লকটি (যেমন: <code>192.168.10.0/24</code>) অটোমেটিক চলে
+              আসবে। Next দিন।</li>
+            <li><strong>Gateway for DHCP Network:</strong> পিসিগুলোর গেটওয়ে বা রাউটারের আইপি (<code>192.168.10.1</code>)
+              দেখাবে। Next দিন।</li>
+            <li><strong>Addresses to Give Out (Pool):</strong> এটি হলো আইপি রেঞ্জ। ডিফল্টভাবে
+              <code>192.168.10.2-192.168.10.254</code> থাকবে। আপনি চাইলে এটি এডিট করে
+              <code>192.168.10.100-192.168.10.200</code> করে দিতে পারেন। Next দিন।</li>
+            <li><strong>DNS Servers:</strong> রাউটারের ডিফল্ট ডিএনএস বা গুগলের ডিএনএস (<code>8.8.8.8</code>) দিন।</li>
+            <li><strong>Lease Time:</strong> আইপিটি কতক্ষণের জন্য লিজ দেওয়া হবে (ডিফল্ট 10m বা 10 মিনিট থাকে)। এটি
+              পরিবর্তন করে <code>1d</code> (1 দিন) করে দিতে পারেন। Next দিন।</li>
+          </ul>
+          <p>সেটআপ সাকসেসফুল মেসেজ আসবে। আপনার সার্ভার রেডি!</p>
+
+          <h3>CLI কমান্ড (Terminal):</h3>
+          <p>টার্মিনালে সেটআপ উইজার্ড রান করতে নিচের কমান্ডটি দিন এবং এন্টার চাপতে থাকুন:</p>
+          <pre><code>[admin@MikroTik] > /ip dhcp-server setup</code></pre>
+
+          <h2>৩. Advanced Concept: Static Lease (আইপি ফিক্সড করে দেওয়া)</h2>
+          <p>DHCP Server এর একটি প্রধান সমস্যা হলো, এটি পিসি রিস্টার্ট নিলে আইপি পরিবর্তন করে দিতে পারে। কিন্তু অফিসে
+            যদি কোনো <strong>Printer</strong> বা <strong>File Server</strong> থাকে, তবে তাদের আইপি ফিক্সড (Fixed) বা
+            অপরিবর্তনশীল হওয়া জরুরি। এটি <strong>Static Lease</strong> বা MAC Binding এর মাধ্যমে করা হয়।</p>
+
+          <ul>
+            <li>Winbox এর <strong>IP > DHCP Server</strong> এ গিয়ে <strong>Leases</strong> ট্যাবে যান।</li>
+            <li>এখানে আপনি আপনার নেটওয়ার্কে কানেক্টেড সব ডিভাইসের আইপি এবং MAC Address এর লিস্ট দেখতে পাবেন। লাইনের
+              শুরুতে <code>D</code> লেখা থাকবে (যার মানে Dynamic)।</li>
+            <li>যে ডিভাইসের (যেমন প্রিন্টার) আইপি আপনি ফিক্সড করতে চান, তার ওপর রাইট-ক্লিক করুন।</li>
+            <li><strong>Make Static</strong> অপশনে ক্লিক করুন।</li>
+            <li>এখন <code>D</code> লেখাটি চলে যাবে এবং ওই ডিভাইসটি আজীবন একই আইপি পাবে। আপনি চাইলে ডাবল-ক্লিক করে আইপি
+              অ্যাড্রেসটি ম্যানুয়ালি পরিবর্তনও করে দিতে পারেন।</li>
+          </ul>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">DHCP Client স্ট্যাটাস "Searching..." এ আটকে আছে</td>
+                  <td>রাউটার ISP থেকে কোনো ব্রডকাস্ট রেসপন্স পাচ্ছে না। ক্যাবল ঠিক আছে কি না চেক করুন। অনেক সময় ISP
+                    পোর্টের MAC Address ব্লক করে রাখে (MAC Binding)। ISP কে কল করে আপনার রাউটারের MAC Address দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">DHCP Server লিস্টে লাল (Red) রঙের হয়ে আছে</td>
+                  <td>যে ইন্টারফেসে (যেমন ether2) সার্ভারটি কনফিগার করা হয়েছে, সেখানে কোনো ক্যাবল লাগানো নেই (Interface
+                    Down), অথবা ওই ইন্টারফেসের আইপি মুছে ফেলা হয়েছে। ক্যাবল লাগালে এটি ঠিক হয়ে যাবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">পিসি আইপি পাচ্ছে না (169.254.x.x দেখাচ্ছে)</td>
+                  <td>রাউটারের <strong>IP > Pool</strong> এ গিয়ে চেক করুন আইপি শেষ (Exhausted) হয়ে গেছে কি না। যদি পুল
+                    শেষ হয়ে যায়, তবে সাবনেট মাস্ক (/24 থেকে /23) পরিবর্তন করে রেঞ্জ বাড়াতে হবে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>DHCP (Dynamic Host Configuration Protocol)</strong> হলো যেকোনো লোকাল নেটওয়ার্কের প্রাণ।
+              <strong>DHCP Client</strong> এর মাধ্যমে একটি MikroTik রাউটার নিজে ইন্টারনেট সোর্সের সাথে যুক্ত হয়, আর
+              <strong>DHCP Server</strong> এর মাধ্যমে সে সেই কানেক্টিভিটি অন্যান্য ডিভাইসে ডিস্ট্রিবিউট করে।
+              <strong>DHCP Setup Wizard</strong> এর ব্যবহার এবং <strong>Static Lease</strong> এর কনসেপ্ট ক্লিয়ার থাকলে
+              আপনি খুব সহজেই যেকোনো সাইজের এন্টারপ্রাইজ নেটওয়ার্কে আইপি ম্যানেজমেন্টের মতো জটিল কাজটিকে পুরোপুরি অটোমেট
+              (Automate) করে ফেলতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

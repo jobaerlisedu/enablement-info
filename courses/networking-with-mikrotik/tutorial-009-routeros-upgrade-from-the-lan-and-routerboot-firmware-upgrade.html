@@ -1,32 +1,336 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS লোকাল নেটওয়ার্ক (LAN) থেকে কীভাবে Manual Upgrade করতে হয় এবং RouterBOOT firmware আপগ্রেডের বিস্তারিত বাংলা গাইড।">
   <title>RouterOS Upgrade from the LAN and RouterBOOT firmware upgrade | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>RouterOS Upgrade from the LAN and RouterBOOT firmware upgrade</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>RouterOS Upgrade from the LAN and RouterBOOT firmware upgrade</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>RouterOS Upgrade from the LAN and RouterBOOT firmware upgrade</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 30 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik রাউটারকে সুরক্ষিত এবং স্থিতিশীল (Stable) রাখার সবচেয়ে ভালো উপায় হলো এটিকে নিয়মিত আপডেট বা
+            <strong>Upgrade</strong> করা। আমরা সাধারণত রাউটারকে সরাসরি ইন্টারনেটে কানেক্ট করে এক ক্লিকেই আপডেট করে ফেলি।
+            কিন্তু যদি আপনার রাউটারটি এমন কোনো সিকিউরড লোকাল নেটওয়ার্কে (LAN) থাকে যেখানে সরাসরি ইন্টারনেট অ্যাক্সেস
+            নেই, তখন কী করবেন?</p>
+          <p>এর পাশাপাশি আরেকটি অত্যন্ত গুরুত্বপূর্ণ কাজ হলো <strong>RouterBOOT Firmware</strong> আপগ্রেড করা, যা নতুন
+            ইঞ্জিনিয়াররা প্রায়শই ভুলে যান। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা অফলাইনে বা LAN থেকে কীভাবে RouterOS
+            আপগ্রেড করতে হয় এবং হার্ডওয়্যার ফার্মওয়্যার আপগ্রেডের বিস্তারিত পদ্ধতি শিখবো।</p>
+
+          <div class="content-box">
+            <h3>LAN থেকে Upgrade কেন প্রয়োজন?</h3>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> আপনি একটি ব্যাংকের ডেটা সেন্টারে কাজ করছেন। ডেটা সেন্টারের কোর
+              (Core) রাউটারগুলোতে নিরাপত্তার স্বার্থে সরাসরি ইন্টারনেট বা গ্লোবাল রাউটিং দেওয়া থাকে না। এই রাউটারগুলো
+              শুধু লোকাল ট্রাফিক হ্যান্ডেল করে। এমন পরিস্থিতিতে <code>Check for Updates</code> বাটনে ক্লিক করলে রাউটার
+              আপডেট সার্ভার খুঁজে পাবে না। তখন আপনাকে নিজের ল্যাপটপে ইন্টারনেট থেকে ফাইল ডাউনলোড করে লোকাল নেটওয়ার্ক
+              (LAN) এর মাধ্যমে রাউটারে পুশ (Push) করে আপগ্রেড করতে হবে। একে <strong>Manual Upgrade</strong>-ও বলা হয়।
+            </p>
+          </div>
+
+          <h2>১. RouterOS এবং RouterBOOT এর পার্থক্য</h2>
+          <p>আপগ্রেড করার আগে এই দুটি টার্মের মধ্যে পার্থক্য ক্লিয়ার থাকা জরুরি:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>RouterOS</th>
+                  <th>RouterBOOT (Firmware)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">সংজ্ঞা (Definition)</td>
+                  <td>এটি হলো সফটওয়্যার বা অপারেটিং সিস্টেম। উইন্ডোজ বা লিনাক্সের মতো।</td>
+                  <td>এটি হলো হার্ডওয়্যারের ফার্মওয়্যার। সাধারণ পিসির BIOS বা UEFI এর মতো।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">আপডেট না করলে কী হয়?</td>
+                  <td>নতুন ফিচার পাওয়া যায় না, সিকিউরিটি রিস্ক (Bug) থেকে যায়।</td>
+                  <td>সিস্টেম ঠিকমতো রিবুট নাও নিতে পারে, হার্ডওয়্যার কম্প্যাটিবিলিটি ইস্যু তৈরি হতে পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ডিপেন্ডেন্সি</td>
+                  <td>RouterBOOT এর ওপর নির্ভরশীল।</td>
+                  <td>এটি সবসময় RouterOS প্যাকেজের ভেতরেই বান্ডেল করা থাকে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. Step-by-Step: LAN থেকে RouterOS Upgrade</h2>
+          <p>লোকাল পিসি থেকে একটি রাউটারকে আপগ্রেড করার জন্য নিচের ধাপগুলো সতর্কতার সাথে অনুসরণ করুন:</p>
+
+          <h3>Step 1: Router Architecture চেক করা</h3>
+          <p>MikroTik এর বিভিন্ন ডিভাইসের প্রসেসরের আর্কিটেকচার ভিন্ন হয় (যেমন ARM, MIPSBE, TILE ইত্যাদি)। ভুল
+            আর্কিটেকচারের প্যাকেজ দিলে রাউটার আপডেট নেবে না।</p>
+          <ul>
+            <li>Winbox দিয়ে রাউটারে লগইন করুন।</li>
+            <li>Winbox এর একদম উপরের টাইটেল বারটি খেয়াল করুন। সেখানে মডেলের নামের পাশে আর্কিটেকচার লেখা থাকে (যেমন:
+              <code>MikroTik - RB750Gr3 (MMIPS)</code>)।</li>
+            <li>অথবা, <strong>System > Resources</strong> মেনুতে গিয়ে <strong>Architecture Name</strong> চেক করুন।</li>
+          </ul>
+
+          <h3>Step 2: Package Download করা (পিসিতে)</h3>
+          <ul>
+            <li>আপনার পিসির ব্রাউজার দিয়ে <code>https://mikrotik.com/download</code> ওয়েবসাইটে ভিজিট করুন।</li>
+            <li>সেখান থেকে আপনার রাউটারের <strong>Architecture</strong> অনুযায়ী সঠিক রিলিজ চ্যানেল থেকে (যেমন Stable বা
+              Long-term) <strong>Main package</strong> ফাইলটি ডাউনলোড করুন। ফাইলটির এক্সটেনশন হবে <code>.npk</code>
+              (যেমন <code>routeros-mmips-7.10.npk</code>)।</li>
+          </ul>
+
+          <h3>Step 3: .npk ফাইলটি রাউটারে আপলোড করা</h3>
+          <ul>
+            <li>Winbox এর বাম পাশের মেনু থেকে <strong>Files</strong> এ ক্লিক করুন।</li>
+            <li>আপনার পিসিতে ডাউনলোড করা <code>.npk</code> ফাইলটি ড্র্যাগ করে (Drag and Drop) Winbox এর Files মেনুর
+              লিস্টের ভেতর ছেড়ে দিন।</li>
+            <li>ফাইলটি আপলোড হওয়া শুরু হবে। ফাইল সাইজ বড় হলে একটু সময় লাগতে পারে। আপলোড শেষ হওয়া পর্যন্ত অপেক্ষা করুন।
+            </li>
+          </ul>
+
+          <h3>Step 4: Router Reboot করা</h3>
+          <p>RouterOS আপগ্রেড প্রসেস স্বয়ংক্রিয়ভাবে বুট টাইমে (Boot time) কাজ করে।</p>
+          <ul>
+            <li>Winbox থেকে <strong>System > Reboot</strong> এ ক্লিক করে <code>Yes</code> দিন।</li>
+            <li>কমান্ড লাইনে চাইলে <code>/system reboot</code> লিখে এন্টার দিন।</li>
+            <li>রাউটার রিস্টার্ট নেওয়ার সময় ফাইলটি এক্সট্র্যাক্ট করে ইন্সটল করে নেবে। রিবুট হওয়ার পর লগইন করে
+              <strong>System > Resources</strong> এ গিয়ে নতুন ভার্সনটি চেক করে নিন।</li>
+          </ul>
+
+          <h2>৩. Step-by-Step: RouterBOOT Firmware Upgrade</h2>
+          <p>RouterOS আপগ্রেড করার পর আরেকটি অত্যাবশ্যকীয় কাজ হলো এর ফার্মওয়্যার আপডেট করা। নতুন RouterOS এর সাথে নতুন
+            ফার্মওয়্যার অটোমেটিক্যালি রাউটারে ডাউনলোড হয়ে যায়, কিন্তু সেটি নিজে নিজে ইন্সটল হয় না। আপনাকে ম্যানুয়ালি
+            কমান্ড দিতে হবে।</p>
+
+          <h3>Winbox এর মাধ্যমে Firmware Upgrade:</h3>
+          <ul>
+            <li><strong>System > RouterBOARD</strong> মেনুতে ক্লিক করুন।</li>
+            <li>একটি নতুন উইন্ডো আসবে। সেখানে <code>Current Firmware</code> এবং <code>Upgrade Firmware</code> এর ভার্সন
+              দুটি মিলিয়ে দেখুন।</li>
+            <li>যদি দেখেন <code>Current Firmware</code> পুরনো (যেমন 7.1) এবং <code>Upgrade Firmware</code> নতুন (যেমন
+              7.10), তবে বুঝতে হবে ফার্মওয়্যার আপডেট করা প্রয়োজন।</li>
+            <li>উইন্ডোর ডানদিকে থাকা <strong>Upgrade</strong> বাটনে ক্লিক করুন। রাউটার একটি কনফার্মেশন চাইবে, 'Yes' দিন।
+            </li>
+            <li><strong>সতর্কতা:</strong> Upgrade বাটনে ক্লিক করলেই কাজ শেষ হয়ে যায় না। ফার্মওয়্যার মেমোরিতে লোড হয়
+              মাত্র। এটি পুরোপুরি কার্যকর হওয়ার জন্য রাউটারকে অবশ্যই একটি রিবুট (Reboot) দিতে হবে।</li>
+            <li><strong>System > Reboot</strong> এ গিয়ে রাউটার রিবুট করুন।</li>
+          </ul>
+
+          <h3>CLI এর মাধ্যমে Firmware Upgrade:</h3>
+          <p>যারা রিমোটলি বা কমান্ড লাইনে কাজ করতে পছন্দ করেন, তারা নিচের কমান্ডগুলো ব্যবহার করুন:</p>
+
+          <p>প্রথমে ফার্মওয়্যার স্ট্যাটাস চেক করুন:</p>
+          <pre><code>[admin@MikroTik] > /system routerboard print</code></pre>
+          <p>আউটপুট দেখে নিশ্চিত হোন আপডেট প্রয়োজন কি না। আপডেট প্রয়োজন হলে কমান্ড দিন:</p>
+          <pre><code>[admin@MikroTik] > /system routerboard upgrade</code></pre>
+          <p>কমান্ডটি প্রম্পট করলে <code>y</code> লিখে এন্টার দিন। এরপর রাউটার রিবুট করুন:</p>
+          <pre><code>[admin@MikroTik] > /system reboot</code></pre>
+
+          <h2>৪. Troubleshooting Tips (ট্রাবলশুটিং)</h2>
+          <p>আপগ্রেড করার সময় কিছু অনাকাঙ্ক্ষিত পরিস্থিতি তৈরি হতে পারে:</p>
+          <ul>
+            <li><strong>ফাইল আপলোড হচ্ছে না:</strong> Files মেনুতে যদি আগের পুরনো কোনো ব্যাকআপ ফাইল বা অন্য কোনো
+              <code>.npk</code> ফাইল থেকে থাকে, তবে স্টোরেজ ফুল (Disk Full) হয়ে যেতে পারে। আগে অপ্রয়োজনীয় ফাইল ডিলিট করে
+              তারপর নতুন ফাইল আপলোড করুন।</li>
+            <li><strong>Reboot এর পর ভার্সন পরিবর্তন হয়নি:</strong> এর দুটি কারণ হতে পারে। এক, আপনি ভুল Architecture-এর
+              প্যাকেজ আপলোড করেছেন, তাই সিস্টেম সেটি ইগনোর করে ডিলিট করে দিয়েছে। দুই, ফাইলটি আপলোড করার সময় পুরোপুরি
+              ট্রান্সফার হওয়ার আগেই আপনি রিবুট করে দিয়েছেন। সঠিক ফাইলটি পুরোপুরি আপলোড করে আবার রিবুট দিন।</li>
+            <li><strong>Firmware Upgrade ফেইল করেছে:</strong> যদি কোনো কারণে RouterBOOT ফার্মওয়্যার আপগ্রেড ফেইল করে বা
+              ডিভাইস বুট লুপে (Boot Loop) আটকে যায়, তবে ফিজিক্যাল ডিভাইসের পাওয়ার বন্ধ করে <strong>Reset Button</strong>
+              ব্যবহার করে ফ্যাক্টরি রিসেট বা <strong>Netinstall</strong> এর মাধ্যমে রিকভার করতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>যেকোনো এন্টারপ্রাইজ নেটওয়ার্কে <strong>RouterOS</strong> এবং <strong>RouterBOOT</strong> নিয়মিত আপগ্রেড
+              রাখা একটি বেস্ট প্র্যাকটিস। অফলাইনে বা <strong>LAN</strong> থেকে <code>.npk</code> ফাইল পুশ করে আপগ্রেড
+              করার এই মেকানিজম আপনাকে আইসোলেটেড (Isolated) ডেটা সেন্টারের রাউটারগুলো নিরাপদে ম্যানেজ করতে সাহায্য করবে।
+              আর মনে রাখবেন, অপারেটিং সিস্টেম (OS) আপডেট করার পর হার্ডওয়্যারকে স্ট্যাবল রাখতে <strong>Firmware
+                Upgrade</strong> করে একটি রিবুট দেওয়া কখনোই ভোলা যাবে না।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

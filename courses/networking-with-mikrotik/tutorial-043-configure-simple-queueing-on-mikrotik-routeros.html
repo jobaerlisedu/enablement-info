@@ -1,32 +1,346 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ Simple Queue কনফিগার করার সম্পূর্ণ প্রাকটিক্যাল গাইড। Winbox এবং CLI ব্যবহার করে ধাপে ধাপে Bandwidth Limit, Bursting এবং PCQ সেটআপ করা শিখুন।">
   <title>Configure Simple Queueing on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configure Simple Queueing on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configure Simple Queueing on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configure Simple Queueing on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 30 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>পূর্ববর্তী আর্টিকেলে আমরা <strong>Simple Queue</strong> এর বেসিক থিওরি নিয়ে আলোচনা করেছি। আজ আমরা সরাসরি
+            রাউটারে লগইন করে এর প্রাকটিক্যাল কনফিগারেশন দেখবো। একটি নেটওয়ার্কে ডাটা ট্রাফিক বা
+            <strong>Bandwidth</strong> সঠিকভাবে বণ্টন করতে না পারলে ইউজার এক্সপেরিয়েন্স ভয়াবহ রূপ নিতে পারে।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে Winbox এবং CLI ব্যবহার করে একটি নির্দিষ্ট IP, পুরো Subnet
+            এবং <strong>PCQ (Per Connection Queue)</strong> এর মাধ্যমে ডায়নামিকভাবে Bandwidth Control করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Network Plan)</h3>
+            <p>আপনার অফিসে মোট <strong>50 Mbps</strong> এর একটি ইন্টারনেট লাইন আছে। অফিসের আইপি ব্লক হলো
+              <code>192.168.10.0/24</code>। আমাদের লক্ষ্যগুলো হলো:</p>
+            <ul>
+              <li><strong>Manager:</strong> যার আইপি <code>192.168.10.5</code>, সে ফিক্সড <strong>10 Mbps</strong> স্পিড
+                পাবে।</li>
+              <li><strong>General Staff:</strong> বাকি পুরো নেটওয়ার্ক (Subnet) মিলে সর্বোচ্চ <strong>40 Mbps</strong>
+                স্পিড পাবে। কিন্তু আমরা এমন একটি মেকানিজম (PCQ) তৈরি করবো, যাতে ওই 40 Mbps স্পিড সব স্টাফের মধ্যে
+                সমানভাবে ভাগ হয়ে যায়। কেউ একা পুরো ব্যান্ডউইথ টানতে পারবে না।</li>
+            </ul>
+          </div>
+
+          <h2>১. Winbox ব্যবহার করে বেসিক Simple Queue কনফিগারেশন</h2>
+          <p>প্রথমেই আমরা ম্যানেজারের জন্য একটি ডেডিকেটেড স্পিড লিমিট তৈরি করবো।</p>
+
+          <h3>Step 1: ম্যানেজারের জন্য Queue তৈরি করা</h3>
+          <ul>
+            <li>Winbox এর বাম দিকের মেনু থেকে <strong>Queues</strong> এ ক্লিক করুন।</li>
+            <li><strong>Simple Queues</strong> ট্যাবে থাকা অবস্থায় নতুন রুল তৈরি করতে <strong>+ (Add)</strong> আইকনে
+              ক্লিক করুন।</li>
+            <li><strong>General</strong> ট্যাবে নিচের তথ্যগুলো পূরণ করুন:
+              <ul>
+                <li><strong>Name:</strong> <code>Manager-Queue</code></li>
+                <li><strong>Target:</strong> <code>192.168.10.5</code> (ম্যানেজারের আইপি)</li>
+                <li><strong>Max Limit (Target Upload):</strong> <code>10M</code></li>
+                <li><strong>Max Limit (Target Download):</strong> <code>10M</code></li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+          <p><em>ব্যাখ্যা:</em> এর ফলে ম্যানেজার আপলোড এবং ডাউনলোড—উভয় ক্ষেত্রেই সর্বোচ্চ 10 Mbps স্পিড পাবেন।</p>
+
+          <h2>২. Advanced Setup: PCQ (Per Connection Queue) কনফিগার করা</h2>
+          <p>বাকি 40 Mbps ব্যান্ডউইথ আমরা পুরো নেটওয়ার্কের জন্য অ্যাসাইন করবো। কিন্তু আমরা যদি সাধারণ Simple Queue
+            ব্যবহার করি, তবে প্রথম যে ব্যক্তি মুভি ডাউনলোড দেবে, সে একাই 40 Mbps নিয়ে নেবে। এই সমস্যা সমাধানের জন্য
+            <strong>PCQ</strong> ব্যবহার করতে হয়, যা ডায়নামিকভাবে সবাইকে সমান স্পিড দেয়।</p>
+
+          <h3>Step 1: PCQ Type তৈরি করা</h3>
+          <ul>
+            <li><strong>Queues</strong> মেনু থেকে <strong>Queue Types</strong> ট্যাবে যান এবং <strong>+ (Add)</strong>
+              ক্লিক করুন।</li>
+            <li><strong>Download PCQ তৈরি:</strong>
+              <ul>
+                <li><strong>Type Name:</strong> <code>PCQ-Download-5M</code> (ধরি আমরা প্রতি ইউজারকে সর্বোচ্চ 5 Mbps
+                  দিতে চাই)</li>
+                <li><strong>Kind:</strong> <code>pcq</code></li>
+                <li><strong>Rate:</strong> <code>5M</code> (যদি এটি 0 রাখেন, তবে রাউটার 40 Mbps কে ইউজার সংখ্যা দিয়ে
+                  সমানভাবে ভাগ করে দেবে। আমরা লিমিট 5M রাখলাম)।</li>
+                <li><strong>Classifier:</strong> <code>Dst. Address</code> এ টিক দিন (ডাউনলোডের জন্য)।
+                  <strong>OK</strong> করুন।</li>
+              </ul>
+            </li>
+            <li><strong>Upload PCQ তৈরি:</strong>
+              <ul>
+                <li><strong>Type Name:</strong> <code>PCQ-Upload-2M</code></li>
+                <li><strong>Kind:</strong> <code>pcq</code></li>
+                <li><strong>Rate:</strong> <code>2M</code></li>
+                <li><strong>Classifier:</strong> <code>Src. Address</code> এ টিক দিন (আপলোডের জন্য)। <strong>OK</strong>
+                  করুন।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Step 2: Simple Queue তে PCQ অ্যাপ্লাই করা</h3>
+          <ul>
+            <li>এবার আবার <strong>Simple Queues</strong> ট্যাবে ফিরে যান এবং <strong>+ (Add)</strong> করুন।</li>
+            <li><strong>General Tab:</strong>
+              <ul>
+                <li><strong>Name:</strong> <code>General-Staff-Queue</code></li>
+                <li><strong>Target:</strong> <code>192.168.10.0/24</code> (পুরো ল্যান ব্লক)</li>
+                <li><strong>Max Limit (Upload):</strong> <code>40M</code></li>
+                <li><strong>Max Limit (Download):</strong> <code>40M</code></li>
+              </ul>
+            </li>
+            <li><strong>Advanced Tab:</strong>
+              <ul>
+                <li><strong>Queue Type (Target Upload):</strong> ড্রপডাউন থেকে <code>PCQ-Upload-2M</code> সিলেক্ট করুন।
+                </li>
+                <li><strong>Queue Type (Target Download):</strong> ড্রপডাউন থেকে <code>PCQ-Download-5M</code> সিলেক্ট
+                  করুন।</li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+          <p><em>ম্যাজিক:</em> এখন পুরো ল্যানে যতো ইউজারই থাকুক না কেন, সবাই মিলে মোট 40 Mbps এর বেশি পাবে না। আবার
+            সিঙ্গেল কোনো ইউজার একা 5 Mbps এর বেশি ডাউনলোড করতে পারবে না। স্পিড সুন্দরভাবে ডিস্ট্রিবিউট হবে।</p>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>উপরের পুরো কনফিগারেশনটি টার্মিনাল ব্যবহার করে মাত্র কয়েকটি কমান্ডে করা সম্ভব:</p>
+
+          <p><strong>ম্যানেজারের Queue:</strong></p>
+          <pre><code>[admin@MikroTik] > /queue simple add name="Manager-Queue" target=192.168.10.5 max-limit=10M/10M</code></pre>
+
+          <p><strong>PCQ Types তৈরি করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /queue type add name="PCQ-Download-5M" kind=pcq pcq-rate=5M pcq-classifier=dst-address
+[admin@MikroTik] > /queue type add name="PCQ-Upload-2M" kind=pcq pcq-rate=2M pcq-classifier=src-address</code></pre>
+
+          <p><strong>স্টাফদের PCQ Queue তৈরি করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /queue simple add name="General-Staff-Queue" target=192.168.10.0/24 max-limit=40M/40M queue=PCQ-Upload-2M/PCQ-Download-5M</code></pre>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">ম্যানেজারের স্পিড লিমিট কাজ করছে না</td>
+                  <td><strong>Rule Ordering:</strong> Simple Queue সব সময় ওপর থেকে নিচে কাজ করে। আপনি যদি
+                    <code>192.168.10.0/24</code> (ল্যান) রুলটি একদম ওপরে রাখেন, তবে রাউটার ম্যানেজারের আইপিকে (10.5) ওই
+                    ল্যানের অংশ ধরে নেবে এবং নিচের রুলে আর যাবে না। <strong>সমাধান:</strong> ম্যানেজারের স্পেসিফিক
+                    রুলটিকে ড্র্যাগ করে লিস্টের একদম <strong>ওপরে (Top)</strong> নিয়ে যান।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">কারোরই স্পিড লিমিট হচ্ছে না (FastTrack ইস্যু)</td>
+                  <td>আপনার রাউটারের <strong>IP > Firewall > Filter Rules</strong> এ যদি <strong>FastTrack</strong>
+                    রুলটি এনাবল থাকে, তবে ট্রাফিকগুলো Queue এ আসার আগেই বাইপাস হয়ে সরাসরি চলে যায়। ব্যান্ডউইথ ম্যানেজ
+                    করতে হলে অবশ্যই <code>fasttrack-connection</code> রুলটি ডিজেবল বা রিমুভ করে দিতে হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">PCQ Rate এ 0 দিলে কী হয়?</td>
+                  <td>PCQ Rate এ যদি আপনি কোনো নির্দিষ্ট লিমিট (যেমন 5M) না দিয়ে <code>0</code> দেন, তবে রাউটার Max
+                    Limit (যেমন 40M) কে উপস্থিত ইউজার সংখ্যা দিয়ে ডায়নামিকভাবে ভাগ করবে। অর্থাৎ, ইউজার ১ জন থাকলে সে
+                    একাই 40M পাবে, ইউজার ৪ জন হলে সবাই 10M করে পাবে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Simple Queue</strong> এবং <strong>PCQ (Per Connection Queue)</strong> এর সঠিক ব্যবহার একটি
+              এন্টারপ্রাইজ নেটওয়ার্কের প্রাণ। প্রতিটি ইউজারের জন্য আলাদা আলাদা Queue তৈরি করা অত্যন্ত সময়সাপেক্ষ এবং
+              রাউটারের প্রসেসরের ওপর চাপ ফেলে। এর বদলে PCQ ব্যবহার করে ডায়নামিক স্পিড ডিস্ট্রিবিউশন করা হলে রাউটারের
+              <strong>CPU Load</strong> অনেক কম থাকে এবং ইউজাররাও চমৎকার ব্রাউজিং এক্সপেরিয়েন্স পায়। তবে রুলের
+              <strong>সিরিয়াল (Order)</strong> এবং <strong>FastTrack</strong> কনফ্লিক্টের বিষয়টি মাথায় রেখে কনফিগার করা
+              একজন প্রফেশনাল নেটওয়ার্ক অ্যাডমিনের বেস্ট প্র্যাকটিস।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

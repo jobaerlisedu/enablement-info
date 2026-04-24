@@ -1,32 +1,346 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS থেকে স্বয়ংক্রিয়ভাবে Email পাঠানোর বেসিক থেকে অ্যাডভান্সড কনফিগারেশন গাইড। Gmail SMTP ব্যবহার করে Backup এবং Alert পাঠানোর পদ্ধতি।">
   <title>Sending emails from the MikroTik router | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Sending emails from the MikroTik router</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Sending emails from the MikroTik router</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Sending emails from the MikroTik router</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 15 June, 2026</span>
+            <span><i class='bx bx-category'></i> Automation with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একজন নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর হিসেবে ২৪ ঘণ্টা রাউটারের দিকে তাকিয়ে বসে থাকা সম্ভব নয়। রাউটারের কোনো
+            নির্দিষ্ট লিংকে সমস্যা হলে, ইন্টারনেট ডিসকানেক্ট হলে, কিংবা কোনো হ্যাকিং প্রচেষ্টা (Brute-force Attack) হলে
+            আপনার কাছে যদি স্বয়ংক্রিয়ভাবে একটি অ্যালার্ট চলে আসে, তবে কেমন হয়? অথবা, প্রতিদিন রাত ১২টায় রাউটার নিজে
+            নিজেই তার ব্যাকআপ (Backup) ফাইলটি আপনার ইমেইলে পাঠিয়ে দেয়?</p>
+          <p>MikroTik RouterOS-এর বিল্ট-ইন <strong>Email Tool</strong> ব্যবহার করে এই কাজগুলো অত্যন্ত নিখুঁতভাবে করা
+            সম্ভব। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে Gmail-এর <strong>SMTP Server</strong> ব্যবহার করে
+            আপনার রাউটারকে স্বয়ংক্রিয় ইমেইল পাঠানোর উপযোগী করে তুলতে হয় এবং একটি রিয়েল-লাইফ ব্যাকআপ স্ক্রিপ্ট কনফিগার
+            করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Automated Backup)</h3>
+            <p><strong>সমস্যা:</strong> রাউটারের কনফিগারেশন অনেক জটিল। কোনো কারণে রাউটারের হার্ডওয়্যার নষ্ট হয়ে গেলে বা
+              রিসেট হয়ে গেলে পুরো কনফিগারেশন নতুন করে করা অত্যন্ত সময়সাপেক্ষ। ম্যানুয়ালি প্রতিদিন ব্যাকআপ নেওয়াটাও
+              বিরক্তির কারণ।</p>
+            <p><strong>সমাধান:</strong> আমরা রাউটারে Email Tool কনফিগার করবো এবং <strong>System > Scheduler</strong>
+              ব্যবহার করে একটি <strong>Script</strong> তৈরি করবো। স্ক্রিপ্টটি প্রতিদিন নির্দিষ্ট সময়ে রাউটারের একটি
+              <code>.backup</code> ফাইল তৈরি করবে এবং সেই ফাইলটি Attachment হিসেবে আপনার জিমেইল অ্যাকাউন্টে পাঠিয়ে দেবে।
+              ফলে আপনার রাউটারের কনফিগারেশন সবসময় ক্লাউডে সুরক্ষিত থাকবে।</p>
+          </div>
+
+          <h2>১. কনফিগারেশনের পূর্বশর্ত (Prerequisites)</h2>
+          <p>MikroTik রাউটার থেকে ইমেইল পাঠানোর জন্য আমাদের একটি <strong>SMTP (Simple Mail Transfer Protocol)</strong>
+            সার্ভার প্রয়োজন। আমরা যেহেতু <strong>Gmail</strong> ব্যবহার করবো, তাই আমাদের কিছু নির্দিষ্ট ডেটা লাগবে:</p>
+          <ul>
+            <li><strong>SMTP Server:</strong> <code>smtp.gmail.com</code></li>
+            <li><strong>Port:</strong> <code>587</code> (STARTTLS এর জন্য)</li>
+            <li><strong>TLS:</strong> <code>yes</code> (সিকিউরিটির জন্য এটি বাধ্যতামূলক)</li>
+            <li><strong>App Password:</strong> বর্তমানে জিমেইল তাদের রেগুলার পাসওয়ার্ড দিয়ে অন্য কোনো অ্যাপ থেকে লগইন
+              করতে দেয় না। আপনাকে আপনার Google অ্যাকাউন্টের সেটিংসে গিয়ে (Security > 2-Step Verification > App
+              passwords) <strong>"App Password"</strong> তৈরি করে নিতে হবে। এটি একটি ১৬-ডিজিটের বিশেষ পাসওয়ার্ড, যা শুধু
+              আপনার রাউটার ব্যবহার করবে।</li>
+          </ul>
+
+          <h2>২. Email Tool কনফিগারেশন (Winbox)</h2>
+          <p>এখন আমরা রাউটারে এই জিমেইলের তথ্যগুলো সেট করবো।</p>
+
+          <ul>
+            <li>Winbox-এর বাম দিকের মেনু থেকে <strong>Tools > Email</strong> এ ক্লিক করুন।</li>
+            <li>একটি নতুন উইন্ডো ওপেন হবে। এখানে নিচের তথ্যগুলো পূরণ করুন:
+              <ul>
+                <li><strong>Server:</strong> <code>smtp.gmail.com</code> (রাউটার নিজে থেকেই এটি আইপিতে কনভার্ট করে নেবে,
+                  যদি ডিএনএস ঠিক থাকে)।</li>
+                <li><strong>Port:</strong> <code>587</code></li>
+                <li><strong>Start TLS:</strong> <code>yes</code> ড্রপডাউন থেকে সিলেক্ট করুন।</li>
+                <li><strong>From:</strong> আপনার জিমেইল অ্যাড্রেসটি দিন (যেমন: <code>your_email@gmail.com</code>)। এটি
+                  ইমেইলের "Sender" হিসেবে দেখাবে।</li>
+                <li><strong>User:</strong> আপনার সম্পূর্ণ জিমেইল অ্যাড্রেসটি আবার দিন (যেমন:
+                  <code>your_email@gmail.com</code>)।</li>
+                <li><strong>Password:</strong> আপনার তৈরি করা <strong>App Password</strong> টি এখানে দিন (রেগুলার
+                  পাসওয়ার্ড দেবেন না)।</li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>টার্মিনাল থেকে এই কনফিগারেশনটি করা আরও দ্রুত এবং সহজ:</p>
+
+          <pre><code>[admin@MikroTik] > /tool e-mail set server=smtp.gmail.com port=587 start-tls=yes from=your_email@gmail.com user=your_email@gmail.com password="your_16_digit_app_password"</code></pre>
+
+          <h2>৪. টেস্ট ইমেইল পাঠানো (Sending a Test Email)</h2>
+          <p>কনফিগারেশন ঠিকমতো হয়েছে কি না, তা যাচাই করার জন্য আমরা একটি ম্যানুয়াল টেস্ট ইমেইল পাঠাবো।</p>
+
+          <p>Winbox থেকে আবার <strong>Tools > Email</strong> এ যান এবং ডান দিকের <strong>Send Email</strong> বাটনে ক্লিক
+            করুন।</p>
+          <ul>
+            <li><strong>To:</strong> যে ইমেইলে পাঠাতে চান (আপনার নিজের বা অন্য কোনো ইমেইল)।</li>
+            <li><strong>Subject:</strong> <code>Test Email from MikroTik</code></li>
+            <li><strong>Body:</strong> <code>Hello! This is a test email sent from RouterOS.</code></li>
+            <li>সবশেষে <strong>Send Email</strong> বাটনে ক্লিক করুন। ইনবক্স চেক করে দেখুন ইমেইলটি এসেছে কি না।</li>
+          </ul>
+
+          <p><strong>CLI কমান্ড দিয়ে টেস্ট ইমেইল:</strong></p>
+          <pre><code>[admin@MikroTik] > /tool e-mail send to="recipient@example.com" subject="Test Email from MikroTik" body="Hello! This is a test email sent from RouterOS."</code></pre>
+
+          <h2>৫. Advanced Scenario: Script দিয়ে অটোমেটিক ব্যাকআপ পাঠানো</h2>
+          <p>এখন আমরা সেই ম্যাজিক স্ক্রিপ্টটি তৈরি করবো, যা ব্যাকআপ ফাইল তৈরি করে ইমেইলে পাঠাবে।</p>
+
+          <ul>
+            <li>Winbox থেকে <strong>System > Scripts</strong> এ যান এবং <strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Name:</strong> <code>Auto-Backup-Email</code> দিন।</li>
+            <li>নিচের বক্সে এই স্ক্রিপ্টটি কপি করে পেস্ট করুন (আপনার ইমেইল অ্যাড্রেসটি ঠিক করে নেবেন):</li>
+          </ul>
+
+          <pre><code>:local routerName [/system identity get name];
+:local date [/system clock get date];
+:local time [/system clock get time];
+:local filename ($routerName . "-" . $date . ".backup");
+
+# Create Backup
+/system backup save name=$filename;
+
+# Delay for 5 seconds to let the backup file finish writing
+:delay 5s;
+
+# Send Email with Attachment
+/tool e-mail send to="your_email@gmail.com" subject="Backup: $routerName ($date)" body="Automated daily backup attached. Time: $time" file=$filename;</code></pre>
+
+          <p><em>ম্যাজিক:</em> এই স্ক্রিপ্টটি রান করলে রাউটার প্রথমে একটি ব্যাকআপ তৈরি করবে এবং ৫ সেকেন্ড পর সেই ব্যাকআপ
+            ফাইলটি আপনার ইমেইলে অ্যাটাচমেন্ট (Attachment) হিসেবে পাঠিয়ে দেবে। এটি অটোমেটিক করার জন্য <strong>System >
+              Scheduler</strong> এ গিয়ে এই স্ক্রিপ্টটির নাম দিয়ে প্রতিদিন রাত ২টায় রান করার শিডিউল তৈরি করে দিতে পারেন।
+          </p>
+
+          <h2>৬. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Error resolving server address</td>
+                  <td>আপনার রাউটার <code>smtp.gmail.com</code> কে আইপিতে (IP) রূপান্তর করতে পারছে না। রাউটারের
+                    <strong>IP > DNS</strong> সেটিংসে গিয়ে গুগলের ডিএনএস (<code>8.8.8.8</code>) বসানো আছে কি না চেক করুন
+                    এবং <code>Allow Remote Requests</code> এ টিক দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Authentication failed / Invalid Username or Password</td>
+                  <td>আপনি জিমেইলের রেগুলার পাসওয়ার্ড ব্যবহার করছেন। Google এখন থার্ড-পার্টি অ্যাপের জন্য রেগুলার
+                    পাসওয়ার্ড সাপোর্ট করে না। আপনাকে অবশ্যই Google অ্যাকাউন্টের সিকিউরিটি সেটিংসে গিয়ে <strong>App
+                      Password</strong> তৈরি করে সেটি ব্যবহার করতে হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Connection Timeout</td>
+                  <td>আপনার ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) হয়তো স্প্যামিং কমানোর জন্য পোর্ট <code>587</code> ব্লক
+                    করে রেখেছে। এর সমাধান হিসেবে পোর্ট <code>465</code> ব্যবহার করে দেখুন এবং <strong>TLS</strong> এর
+                    মান <code>yes</code> এর বদলে <code>tls-only</code> ব্যবহার করতে পারেন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">File attached but email not sending</td>
+                  <td>যদি ব্যাকআপ ফাইলের সাইজ অনেক বড় হয়, তবে সেটি তৈরি হতে সময় লাগে। স্ক্রিপ্টে ফাইল সেভ করার পর
+                    <code>:delay 10s</code> (১০ সেকেন্ড) বিরতি ব্যবহার করুন, যাতে ফাইলটি সম্পূর্ণ রাইট (Write) হওয়ার পর
+                    ইমেইল টুল সেটি অ্যাটাচ করার সুযোগ পায়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>MikroTik RouterOS</strong>-এর <strong>Email Tool</strong> শুধুমাত্র একটি সাধারণ ফিচার নয়, বরং
+              একটি শক্তিশালী মনিটরিং এবং অটোমেশন অস্ত্র। <strong>Netwatch</strong> বা <strong>Scripts</strong> এর সাথে
+              ইমেইল টুলকে যুক্ত করে আপনি আপনার নেটওয়ার্ককে পুরোপুরি প্রোঅ্যাকটিভ (Proactive) করে তুলতে পারেন। রাউটার
+              ডাউন হলে, ইউজার কানেক্ট হলে বা ব্যাকআপ তৈরি হলে—সবকিছুই এখন সরাসরি আপনার জিমেইল ইনবক্সে চলে আসবে, যা আপনার
+              সময় বাঁচানোর পাশাপাশি নেটওয়ার্ক ম্যানেজমেন্টকে অনেক বেশি প্রফেশনাল করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

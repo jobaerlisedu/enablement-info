@@ -1,32 +1,321 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik The Dude এনএমএস (NMS) সার্ভার এবং ক্লায়েন্ট ইনস্টলেশন ও কনফিগারেশন করার বিস্তারিত বাংলা গাইড। নেটওয়ার্ক মনিটরিং এবং অটোমেশন শিখুন।">
   <title>Installing and Configuring The Dude Server and Client | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Installing and Configuring The Dude Server and Client</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Installing and Configuring The Dude Server and Client</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Installing and Configuring The Dude Server and Client</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 24 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একটি ছোট নেটওয়ার্ক ম্যানেজ করা সহজ, কিন্তু যখন আপনার নেটওয়ার্কে ডজন ডজন Router, Switch, এবং Access Point
+            থাকে, তখন ম্যানুয়ালি সব চেক করা অসম্ভব হয়ে পড়ে। কোন ডিভাইসটি ডাউন হলো, কোন পোর্টে ট্রাফিক বেশি—এই সব
+            রিয়েল-টাইমে দেখার জন্য আমাদের প্রয়োজন একটি <strong>Network Management System (NMS)</strong>।</p>
+          <p>MikroTik-এর নিজস্ব ফ্রি মনিটরিং টুল হলো <strong>The Dude</strong>। এটি অত্যন্ত শক্তিশালী একটি অ্যাপ্লিকেশন
+            যা স্বয়ংক্রিয়ভাবে আপনার নেটওয়ার্কের ম্যাপ তৈরি করতে পারে এবং ডিভাইসের সমস্যা হলে আপনাকে অ্যালার্ট পাঠাতে
+            পারে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে The Dude Server এবং Client ইনস্টল ও কনফিগার করতে হয়।
+          </p>
+
+
+
+          <div class="content-box">
+            <h3>The Dude কী এবং কেন ব্যবহার করবেন?</h3>
+            <p>The Dude মূলত দুটি অংশে বিভক্ত: <strong>Server</strong> (যা ডিভাইসের ডাটা সংগ্রহ করে এবং রাউটারে চলে) এবং
+              <strong>Client</strong> (যা দিয়ে আপনি কম্পিউটার থেকে ম্যাপ এবং ডাটা দেখেন)।</p>
+            <ul>
+              <li><strong>Network Discovery:</strong> এটি স্বয়ংক্রিয়ভাবে নেটওয়ার্ক স্ক্যান করে নতুন ডিভাইস খুঁজে
+                পায়।</li>
+              <li><strong>Monitoring:</strong> ICMP, DNS, HTTP বা SNMP প্রোটোকল ব্যবহার করে ডিভাইসের সার্ভিস মনিটর করে।
+              </li>
+              <li><strong>Visual Mapping:</strong> পুরো নেটওয়ার্কের একটি গ্রাফিক্যাল ম্যাপ তৈরি করে দেয়।</li>
+              <li><strong>Alerting:</strong> কোনো ডিভাইস ডাউন হলে ইমেইল বা বিপ সাউন্ডের মাধ্যমে আপনাকে অবগত করে।</li>
+            </ul>
+          </div>
+
+          <h2>১. The Dude Server ইনস্টলেশন (MikroTik RouterOS)</h2>
+          <p>The Dude Server বর্তমানে শুধুমাত্র <strong>ARM, ARM64, MMIPS</strong> এবং <strong>x86</strong>
+            আর্কিটেকচারের রাউটারে চলে (যেমন: RB3011, RB4011, CCR সিরিজ)। এটি ইনস্টল করার জন্য আপনার রাউটারের নির্দিষ্ট
+            <code>.npk</code> ফাইল প্রয়োজন।</p>
+
+          <h3>ধাপ ১: সঠিক ফাইল ডাউনলোড করা</h3>
+          <ul>
+            <li>প্রথমে MikroTik-এর অফিশিয়াল <a href="https://mikrotik.com/download" target="_blank">Download Page</a>-এ
+              যান।</li>
+            <li>আপনার রাউটারের আর্কিটেকচার অনুযায়ী <strong>Extra packages</strong> জিপ ফাইলটি ডাউনলোড করুন।</li>
+            <li>জিপ ফাইলটি আনজিপ (Unzip) করলে আপনি <code>dude-x.x.npk</code> ফাইলটি পাবেন।</li>
+          </ul>
+
+          <h3>ধাপ ২: রাউটারে ফাইল আপলোড করা</h3>
+          <ul>
+            <li>Winbox দিয়ে রাউটারে লগইন করুন।</li>
+            <li>বাম পাশের মেনু থেকে <strong>Files</strong> ওপেন করুন।</li>
+            <li>আপনার পিসি থেকে ডাউনলোড করা <code>dude.npk</code> ফাইলটি ড্র্যাগ করে Winbox-এর <strong>File
+                List</strong>-এ ছেড়ে দিন।</li>
+          </ul>
+
+          <h3>ধাপ ৩: রাউটার রিবুট এবং অ্যাক্টিভেশন</h3>
+          <ul>
+            <li>ফাইল আপলোড হয়ে গেলে <strong>System > Reboot</strong>-এ গিয়ে রাউটারটি রিবুট দিন।</li>
+            <li>রিবুট হওয়ার পর Winbox মেনুতে <strong>Dude</strong> নামের একটি নতুন অপশন দেখতে পাবেন।</li>
+            <li>টার্মিনাল থেকে নিচের কমান্ডটি দিয়ে সার্ভারটি এনাবল করুন:</li>
+          </ul>
+          <pre><code>/dude set enabled=yes</code></pre>
+
+          <h2>২. The Dude Client ইনস্টলেশন (Windows PC)</h2>
+          <p>সার্ভার রেডি হয়ে গেলে এখন আমাদের কম্পিউটারে ক্লায়েন্ট সফটওয়্যারটি নামাতে হবে যাতে আমরা ম্যাপটি দেখতে
+            পারি।</p>
+
+          <h3>ইনস্টলেশন ধাপসমূহ:</h3>
+          <ul>
+            <li>MikroTik ডাউনলোড পেইজ থেকে <strong>The Dude Client</strong> এক্সিকিউটেবল (.exe) ফাইলটি ডাউনলোড করুন।
+            </li>
+            <li>সাধারণ সফটওয়্যারের মতোই এটি উইন্ডোজে ইনস্টল করুন।</li>
+            <li>ইনস্টল শেষে ওপেন করলে একটি লগইন উইন্ডো আসবে।</li>
+            <li><strong>Server:</strong> এর ঘরে আপনার রাউটারের IP দিন।</li>
+            <li><strong>Username</strong> এবং <strong>Password</strong> হিসেবে আপনার রাউটারের লগইন ডিটেইলস দিন।</li>
+            <li><strong>Connect</strong> বাটনে ক্লিক করুন।</li>
+          </ul>
+
+
+
+          <h2>৩. নেটওয়ার্ক ডিসকভারি এবং ম্যাপ তৈরি করা</h2>
+          <p>প্রথমবার কানেক্ট হওয়ার পর The Dude আপনাকে একটি ডিসকভারি রান করতে বলবে।</p>
+          <ul>
+            <li><strong>Discover</strong> বাটনে ক্লিক করুন।</li>
+            <li><strong>Subnet:</strong> এর ঘরে আপনার লোকাল নেটওয়ার্ক রেঞ্জ দিন (যেমন: <code>192.168.88.0/24</code>)।
+            </li>
+            <li>The Dude তখন নেটওয়ার্ক স্ক্যান শুরু করবে এবং আপনার রাউটার, পিসি ও সুইচগুলোকে ম্যাপে আইকন আকারে সাজাবে।
+            </li>
+            <li>ডিভাইসগুলো সবুজ হলে বুঝবেন সেগুলো <strong>Up</strong> আছে, লাল হলে <strong>Down</strong>।</li>
+          </ul>
+
+          <h2>৪. অ্যাডভান্সড কনফিগারেশন: SNMP মনিটরিং</h2>
+          <p>সাধারণ পিং ছাড়াও ডিভাইসের CPU লোড বা পোর্টের লাইভ স্পিড দেখার জন্য <strong>SNMP (Simple Network Management
+              Protocol)</strong> কনফিগার করা জরুরি।</p>
+
+          <p><strong>MikroTik রাউটারে SNMP এনাবল করার কমান্ড:</strong></p>
+          <pre><code>/snmp set enabled=yes contact="Jobaer Hossain" location="Main Office"
+/snmp community set [find name=public] addresses=0.0.0.0/0</code></pre>
+
+          <p>এরপর The Dude ক্লায়েন্টে ওই ডিভাইসের ওপর রাইট-ক্লিক করে <strong>Settings</strong>-এ যান এবং SNMP ট্যাব
+            থেকে <code>public</code> কমিউনিটি সিলেক্ট করে দিন। এখন আপনি ডিভাইসের ওপর মাউস রাখলেই লাইভ গ্রাফ দেখতে পাবেন।
+          </p>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>সমাধান (Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Connection Refused</td>
+                  <td>নিশ্চিত করুন যে রাউটারে Dude Server এনাবল করা আছে (<code>/dude set enabled=yes</code>)। রাউটারে
+                    কোনো ফায়ারওয়াল রুল Dude-এর পোর্ট (Port 8291 বা 2211) ব্লক করছে কি না চেক করুন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Data Storage issue</td>
+                  <td>The Dude অনেক ডাটা জেনারেট করে। আপনার রাউটারের ইন্টারনাল স্টোরেজ কম হলে <strong>System >
+                      Disk</strong>-এ গিয়ে একটি এক্সটারনাল SSD বা USB ড্রাইভ মাউন্ট করুন এবং Dude সেটিংসে ডাটাবেজ পাথ
+                    সেখানে সরিয়ে দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Version Mismatch</td>
+                  <td>আপনার RouterOS ভার্সন এবং The Dude Client ভার্সন অবশ্যই এক হতে হবে। রাউটার আপডেট করলে ক্লায়েন্ট
+                    সফটওয়্যারটিও আপডেট করুন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>প্রফেশনাল টিপস:</h3>
+          <ul>
+            <li><strong>Custom Icons:</strong> ম্যাপকে সুন্দর করতে রাউটার, রেডিও লিংকের জন্য কাস্টম ইমেজ আপলোড করুন।
+            </li>
+            <li><strong>Dependencies:</strong> ধরুন আপনার একটি কোর সুইচ ডাউন হয়েছে। তার পেছনে থাকা ১০টি রাউটারও ডাউন
+              দেখাবে। Dependency সেট করলে The Dude শুধু কোর সুইচটিকেই লাল দেখাবে, বাকিগুলোকে "Unreachable" মার্ক করবে।
+              এতে মূল সমস্যা খুঁজে পাওয়া সহজ হয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>The Dude</strong> হলো এমন একটি টুল যা একজন নেটওয়ার্ক অ্যাডমিনিস্ট্রেটরের জীবনকে সহজ করে তোলে।
+              শুধুমাত্র ডিভাইসের আইপি মনে রাখার বদলে একটি ভিজ্যুয়াল ম্যাপের মাধ্যমে পুরো নেটওয়ার্কের হেলথ মনিটর করা
+              অনেক বেশি প্রফেশনাল। সার্ভার এবং ক্লায়েন্টের সঠিক কনফিগারেশনের মাধ্যমে আপনি আপনার নেটওয়ার্ককে অনেক বেশি
+              স্টেবল এবং প্রডাক্টিভ করতে পারবেন। মনে রাখবেন, একটি মনিটর করা নেটওয়ার্ক সব সময় একটি আন-মনিটর করা
+              নেটওয়ার্কের চেয়ে দ্রুত রিকভার হয়।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

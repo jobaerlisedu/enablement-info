@@ -1,32 +1,327 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ Simple Queue ব্যবহার করে কীভাবে Bandwidth Control বা স্পিড লিমিট করতে হয় তার বিস্তারিত বাংলা গাইড। Bursting এবং FastTrack ইস্যু সহ সম্পূর্ণ টিউটোরিয়াল।">
   <title>Understand Simple Queueing on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Understand Simple Queueing on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Understand Simple Queueing on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Understand Simple Queueing on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্ক ম্যানেজমেন্টের সবচেয়ে গুরুত্বপূর্ণ এবং চ্যালেঞ্জিং একটি অংশ হলো <strong>Bandwidth
+              Management</strong>। একটি অফিসে বা আইএসপি (ISP) নেটওয়ার্কে যদি স্পিড লিমিট করা না থাকে, তবে একজন ইউজার
+            টরেন্ট বা বড় কোনো ফাইল ডাউনলোড শুরু করলে পুরো নেটওয়ার্কের স্পিড স্লো হয়ে যায়। বাকি ইউজাররা তখন ঠিকমতো
+            ব্রাউজিং পর্যন্ত করতে পারে না।</p>
+          <p>MikroTik RouterOS-এ ইউজারদের Bandwidth নিয়ন্ত্রণ করার সবচেয়ে সহজ এবং কার্যকর পদ্ধতি হলো <strong>Simple
+              Queue</strong>। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Simple Queue কী, এটি কীভাবে কাজ করে, এর
+            অ্যাডভান্সড ফিচারগুলো (যেমন Bursting) কী, এবং কীভাবে একটি নেটওয়ার্কে নিখুঁতভাবে স্পিড লিমিট প্রয়োগ করতে
+            হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Bandwidth Hog)</h3>
+            <p><strong>সমস্যা:</strong> ধরুন, আপনার অফিসের মোট ব্যান্ডউইথ হলো 50 Mbps। অফিসে ১০ জন ইউজার আছেন। হঠাৎ একজন
+              ইউজার 4K ভিডিও স্ট্রিমিং এবং বড় ফাইল ডাউনলোড শুরু করলো। সে একাই 45 Mbps ব্যান্ডউইথ টেনে নিচ্ছে। ফলে বাকি ৯
+              জন ইউজার মিলে মাত্র 5 Mbps স্পিড পাচ্ছে এবং তাদের ইমেইল সেন্ড হতেও অনেক সময় লাগছে।</p>
+            <p><strong>সমাধান:</strong> আমরা MikroTik রাউটারের <strong>Simple Queue</strong> ব্যবহার করে একটি রুল তৈরি
+              করবো। আমরা বলে দেবো, কোনো সিঙ্গেল ইউজার যেন সর্বোচ্চ 5 Mbps এর বেশি স্পিড না পায়। এতে সবাই সমানভাবে
+              ইন্টারনেট ব্যবহারের সুযোগ পাবে এবং পুরো নেটওয়ার্ক স্থিতিশীল থাকবে।</p>
+          </div>
+
+          <h2>১. Simple Queue এর বেসিক মেকানিজম</h2>
+          <p>Simple Queue মূলত তিনটি প্রধান অংশের ওপর ভিত্তি করে কাজ করে:</p>
+          <ul>
+            <li><strong>Target:</strong> যার ওপর স্পিড লিমিট প্রয়োগ করা হবে। এটি একটি সিঙ্গেল IP Address (যেমন
+              192.168.10.5), একটি পুরো Subnet (যেমন 192.168.10.0/24), অথবা একটি Interface (যেমন ether2) হতে পারে।</li>
+            <li><strong>Max Limit:</strong> টার্গেট সর্বোচ্চ কতটুকু Bandwidth ব্যবহার করতে পারবে। এটি Upload এবং
+              Download—উভয় ক্ষেত্রে আলাদাভাবে সেট করা যায়।</li>
+            <li><strong>Destination (ঐচ্ছিক):</strong> ট্রাফিক যদি নির্দিষ্ট কোনো গন্তব্যে যায়, তবেই স্পিড লিমিট হবে
+              (যেমন শুধু ইউটিউবের ট্রাফিকের জন্য স্পিড লিমিট করা)।</li>
+          </ul>
+
+          <h2>২. Step-by-Step Configuration (Winbox এর মাধ্যমে)</h2>
+          <p>চলুন একটি সিঙ্গেল ইউজারের (আইপি: 192.168.10.50) স্পিড 2 Mbps (Upload) এবং 5 Mbps (Download) এ লিমিট করি।
+          </p>
+
+          <h3>Step 1: Simple Queue তৈরি করা</h3>
+          <ul>
+            <li>Winbox এর বাম দিকের মেনু থেকে <strong>Queues</strong> এ ক্লিক করুন।</li>
+            <li><strong>Simple Queues</strong> ট্যাবে থাকা অবস্থায় নতুন রুল তৈরি করতে <strong>+ (Add)</strong> আইকনে
+              ক্লিক করুন।</li>
+            <li><strong>General</strong> ট্যাবে <strong>Name:</strong> এর ঘরে একটি নাম দিন (যেমন
+              <code>User-Manager</code>)।</li>
+          </ul>
+
+          <h3>Step 2: Target এবং Max Limit সেট করা</h3>
+          <ul>
+            <li><strong>Target:</strong> এর ঘরে ইউজারের আইপি দিন <code>192.168.10.50</code>।</li>
+            <li><strong>Target Upload:</strong> <code>Max Limit</code> এর ড্রপডাউন থেকে <code>2M</code> সিলেক্ট করুন
+              অথবা লিখে দিন।</li>
+            <li><strong>Target Download:</strong> <code>Max Limit</code> এর ড্রপডাউন থেকে <code>5M</code> সিলেক্ট করুন
+              অথবা লিখে দিন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+          <p>এখন এই ইউজার কোনোভাবেই 5 Mbps এর বেশি ডাউনলোড স্পিড পাবে না।</p>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে Simple Queue তৈরি করা</h2>
+          <p>প্রফেশনাল নেটওয়ার্ক অ্যাডমিনরা কমান্ড লাইন ব্যবহার করতে পছন্দ করেন। টার্মিনাল দিয়ে খুব দ্রুত Queue তৈরি
+            করা যায়।</p>
+
+          <p><strong>সিঙ্গেল আইপির জন্য স্পিড লিমিট:</strong></p>
+          <pre><code>[admin@MikroTik] > /queue simple add name="User-Manager" target=192.168.10.50 max-limit=2M/5M</code></pre>
+
+          <p><strong>পুরো সাবনেট বা ল্যানের জন্য স্পিড লিমিট:</strong> (পুরো ল্যান মিলে সর্বোচ্চ 20 Mbps পাবে)</p>
+          <pre><code>[admin@MikroTik] > /queue simple add name="Total-LAN-Limit" target=192.168.10.0/24 max-limit=20M/20M</code></pre>
+
+          <h2>৪. Advanced Concept: Bursting (বার্স্টিং)</h2>
+          <p>অনেক সময় আমরা চাই ইউজাররা ব্রাউজিং করার সময় খুব ফাস্ট স্পিড পাক, কিন্তু বড় ফাইল ডাউনলোড শুরু করলে স্পিড
+            যেন কমে যায়। এই স্মার্ট কনসেপ্টটির নামই হলো <strong>Bursting</strong>।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>প্যারামিটার (Parameter)</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Max Limit</td>
+                  <td>রেগুলার স্পিড (যেমন 5 Mbps)। ডাউনলোড দীর্ঘক্ষণ চললে ইউজার এই স্পিড পাবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Burst Limit</td>
+                  <td>সর্বোচ্চ স্পিড যা ইউজার কিছুক্ষণের জন্য পাবে (যেমন 10 Mbps)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Burst Threshold</td>
+                  <td>গড় স্পিডের সীমা (যেমন 4 Mbps)। ইউজারের গড় স্পিড যদি এর নিচে থাকে, তবে সে Burst Limit পাবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Burst Time</td>
+                  <td>কত সময়ের গড় হিসাব করা হবে (যেমন 16s)। এটি সরাসরি Bursting এর সময় নয়, এটি হিসাবের সময়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><strong>উদাহরণ:</strong> আপনি যদি একটি ওয়েবপেজ লোড করেন, তা ২-৩ সেকেন্ডে লোড হয়ে যায়। এই ছোট
+            রিকোয়েস্টের জন্য ইউজার 10 Mbps (Burst Limit) স্পিড পাবে, ফলে ব্রাউজিং হবে সুপার-ফাস্ট। কিন্তু যখন সে একটি 1
+            GB মুভি ডাউনলোড শুরু করবে, তখন কয়েক সেকেন্ড পর তার গড় স্পিড Threshold পার হয়ে যাবে এবং তার স্পিড নেমে 5
+            Mbps (Max Limit) এ চলে আসবে।</p>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>Queue কাজ করছে না (FastTrack ইস্যু):</strong> MikroTik রাউটারে যদি <strong>FastTrack</strong>
+              রুল এনাবল থাকে (IP > Firewall > Filter Rules এ), তবে Simple Queue কাজ করবে না। কারণ FastTrack
+              ট্রাফিকগুলোকে Queue এর আগেই বাইপাস করে দেয়। স্পিড লিমিট করতে চাইলে অবশ্যই FastTrack রুলটি ডিজেবল
+              (Disable) করতে হবে।</li>
+            <li><strong>Queue এর আইকনগুলোর রঙ (Colors):</strong>
+              <ul>
+                <li><strong>Green (সবুজ):</strong> ট্রাফিক স্বাভাবিক আছে, লিমিটের 0-50% ব্যবহার হচ্ছে।</li>
+                <li><strong>Yellow (হলুদ):</strong> ট্রাফিক লিমিটের 51-75% ব্যবহার হচ্ছে।</li>
+                <li><strong>Red (লাল):</strong> ট্রাফিক লিমিটের 76-100% ব্যবহার হচ্ছে (মানে স্পিড ফুল লিমিটে ঠেকে গেছে)।
+                </li>
+              </ul>
+            </li>
+            <li><strong>Queue এর সিরিয়াল (Order of Execution):</strong> Simple Queue সব সময় ওপর থেকে নিচে (Top to
+              Bottom) কাজ করে। আপনি যদি পুরো ল্যানের (192.168.10.0/24) জন্য একটি Queue একদম ওপরে রাখেন এবং তার নিচে
+              নির্দিষ্ট একটি আইপির (192.168.10.50) জন্য Queue রাখেন, তবে নিচের Queue টি কোনো কাজ করবে না। নির্দিষ্ট
+              (Specific) আইপির Queue সব সময় ওপরে রাখতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Simple Queue</strong> হলো MikroTik এর অন্যতম শক্তিশালী এবং ইউজার-ফ্রেন্ডলি একটি ফিচার। একটি ছোট
+              অফিস, ক্যাফে বা ওয়াই-ফাই জোনের ব্যান্ডউইথ নিয়ন্ত্রণ করার জন্য এটি সবচেয়ে আদর্শ সমাধান। <strong>Max
+                Limit</strong> ব্যবহার করে হার্ড লিমিট সেট করা এবং <strong>Bursting</strong> ব্যবহার করে ইউজার
+              এক্সপেরিয়েন্স উন্নত করার মাধ্যমে আপনি একটি অত্যন্ত ব্যালেন্সড (Balanced) এবং প্রফেশনাল নেটওয়ার্ক তৈরি
+              করতে পারবেন। তবে মনে রাখবেন, Queue এর সিরিয়াল এবং <strong>FastTrack</strong> রুলের কনফ্লিক্ট সম্পর্কে
+              সচেতন থাকা ট্রাবলশুটিংয়ের জন্য অত্যন্ত জরুরি।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

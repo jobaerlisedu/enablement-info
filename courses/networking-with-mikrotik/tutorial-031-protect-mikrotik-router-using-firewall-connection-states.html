@@ -1,32 +1,323 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik Router-কে হ্যাকারদের হাত থেকে রক্ষা করার জন্য Firewall Connection States ব্যবহার করে শক্তিশালী Stateful Firewall তৈরি করার বিস্তারিত বাংলা গাইড।">
   <title>Protect MikroTik router using Firewall connection states | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Protect MikroTik router using Firewall connection states</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Protect MikroTik router using Firewall connection states</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Protect MikroTik router using Firewall connection states</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 28 April, 2026</span>
+            <span><i class='bx bx-category'></i> Cyber Security with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik রাউটার কনফিগার করার পর নতুন নেটওয়ার্ক ইঞ্জিনিয়াররা সবচেয়ে বড় যে ভুলটি করেন, তা হলো রাউটারটিকে
+            ইন্টারনেটে (Public IP) কোনো সুরক্ষা ছাড়াই উন্মুক্ত রাখা। আপনি যদি একটি সদ্য কনফিগার করা রাউটার ইন্টারনেটে
+            কানেক্ট করেন, তবে মাত্র কয়েক মিনিটের মধ্যেই হ্যাকারদের <strong>Botnet</strong> আপনার রাউটারে SSH বা Winbox
+            পোর্টে ব্রুট-ফোর্স (Brute-force) অ্যাটাক শুরু করে দেবে।</p>
+          <p>এই অ্যাটাকগুলো শুধু আপনার রাউটারের সিকিউরিটির জন্যই হুমকিস্বরূপ নয়, বরং এগুলো রাউটারের প্রসেসরকে (CPU) 100%
+            এ নিয়ে গিয়ে পুরো নেটওয়ার্ক ডাউন করে দিতে পারে। এই সমস্যার সবচেয়ে প্রফেশনাল এবং কার্যকরী সমাধান হলো
+            <strong>Firewall Connection States</strong> ব্যবহার করে রাউটারের <strong>Input Chain</strong>-কে সুরক্ষিত
+            করা। আজকের ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে একটি স্মার্ট <strong>Stateful Firewall</strong> তৈরি করে
+            রাউটারকে হ্যাকারদের হাত থেকে রক্ষা করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Brute-Force Attack)</h3>
+            <p><strong>সিনারিও:</strong> আপনার অফিসের রাউটারের WAN পোর্টে একটি রিয়েল আইপি (Public IP) বসানো আছে।
+              ইন্টারনেটে থাকা হ্যাকারদের স্ক্যানিং টুলস এই আইপিটি খুঁজে পেল এবং দেখল যে রাউটারের
+              <code>SSH (Port 22)</code> এবং <code>Winbox (Port 8291)</code> ওপেন। এরপর হ্যাকার একটি স্ক্রিপ্ট রান করে
+              প্রতি সেকেন্ডে ১০০টি করে রেন্ডম পাসওয়ার্ড দিয়ে লগইন করার চেষ্টা শুরু করলো।</p>
+            <p><strong>সমাধান:</strong> আমরা ফায়ারওয়ালে এমন একটি রুল তৈরি করবো যা বলবে: "ইন্টারনেট (WAN) থেকে আসা
+              সমস্ত <strong>New</strong> কানেকশন সরাসরি ড্রপ (Drop) করে দাও। কিন্তু রাউটার নিজে থেকে যদি ইন্টারনেটে কোনো
+              রিকোয়েস্ট পাঠায় এবং তার রিপ্লাই হিসেবে <strong>Established</strong> কানেকশন আসে, তবে তাকে ঢুকতে দাও।"
+              এতে হ্যাকারের প্রথম রিকোয়েস্টটিই (New) ড্রপ হয়ে যাবে এবং CPU লোড হবে 0%।</p>
+          </div>
+
+          <h2>১. Connection States এর সংক্ষিপ্ত পরিচিতি</h2>
+          <p>ফায়ারওয়াল রুল তৈরি করার আগে আমাদের জানতে হবে কোন প্যাকেটগুলো বন্ধু আর কোনগুলো শত্রু। <strong>Connection
+              Tracking</strong> প্যাকেটগুলোকে মূলত এই ৪টি স্টেটে ভাগ করে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>State</th>
+                  <th>কাজের বিবরণ</th>
+                  <th>আমাদের ফায়ারওয়াল স্ট্র্যাটেজি (Input Chain)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Established / Related</td>
+                  <td>রাউটারের তৈরি করা বৈধ কানেকশনের রিপ্লাই ট্রাফিক। (যেমন: রাউটার নিজে ডিএনএস বা পিং রিকোয়েস্ট
+                    পাঠিয়েছে)।</td>
+                  <td>এটি সম্পূর্ণ নিরাপদ। একে সবার আগে <strong>Accept</strong> করতে হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Invalid</td>
+                  <td>প্যাকেটের সিকোয়েন্স ভুল বা স্পুফড (Spoofed) প্যাকেট। এটি কোনো বৈধ কানেকশনের অংশ নয়।</td>
+                  <td>এটি অত্যন্ত ক্ষতিকর। একে সরাসরি <strong>Drop</strong> করতে হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">New (Local LAN)</td>
+                  <td>আমাদের লোকাল নেটওয়ার্ক বা অ্যাডমিন পিসি থেকে রাউটার ম্যানেজ করার রিকোয়েস্ট।</td>
+                  <td>অ্যাডমিনদের জন্য ল্যান পোর্ট থেকে একে <strong>Accept</strong> করতে হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">New (WAN / Internet)</td>
+                  <td>ইন্টারনেট থেকে সরাসরি কেউ রাউটারে কানেক্ট করার চেষ্টা করছে (যেমন হ্যাকার)।</td>
+                  <td>এটি সবচেয়ে বড় হুমকি। একে শর্তহীনভাবে <strong>Drop</strong> করতে হবে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. রাউটার প্রটেক্ট করার "থ্রি-স্টেপ" স্ট্র্যাটেজি</h2>
+          <p>রাউটারকে নিজের প্রটেকশন দেওয়ার জন্য আমরা ফায়ারওয়ালের <strong>Input Chain</strong> নিয়ে কাজ করবো (কারণ
+            Input মানেই হলো সরাসরি রাউটারে আসা ট্রাফিক)।</p>
+
+          <h3>Step 1: ভালো ট্রাফিককে অ্যালাউ করা (Accept Established/Related)</h3>
+          <p>আমরা চাই রাউটার নিজে থেকে কোনো রিকোয়েস্ট করলে তার রিপ্লাই যেন ইন্টারনেটে আটকে না যায়। তাই রুলের একদম
+            প্রথমেই আমরা <code>Established</code>, <code>Related</code> এবং <code>Untracked</code> প্যাকেটগুলোকে
+            <strong>Accept</strong> করে নেবো।</p>
+
+          <h3>Step 2: খারাপ ট্রাফিককে ব্লক করা (Drop Invalid)</h3>
+          <p>এরপর আমরা <code>Invalid</code> প্যাকেটগুলোকে <strong>Drop</strong> করবো। এটি রাউটারকে বিভিন্ন ধরনের Port
+            Scanning এবং স্পুফিং অ্যাটাক থেকে রক্ষা করবে।</p>
+
+          <h3>Step 3: ইন্টারনেট থেকে সব "New" কানেকশন ড্রপ করা (The Ultimate Block)</h3>
+          <p>সবশেষে আমরা বলবো, "WAN ইন্টারফেস (যেমন: ether1 বা pppoe-out1) দিয়ে আসা বাকি সমস্ত প্যাকেট ড্রপ করে দাও।"
+            যেহেতু ওপরের দুটি রুলে আমরা ভালো ট্রাফিককে রিসিভ করে নিয়েছি, তাই এই রুলে শুধুমাত্র বাইরের হ্যাকারদের
+            <code>New</code> প্যাকেটগুলোই আটকে যাবে।</p>
+
+          <h2>৩. Command Line (CLI) কনফিগারেশন (The Action Plan)</h2>
+          <p>Winbox এর <strong>New Terminal</strong> ওপেন করুন। নিচের কমান্ডগুলো হুবহু কপি করে পেস্ট করতে পারেন (আপনার
+            ইন্টারনেট পোর্ট যদি <code>ether1</code> হয়):</p>
+
+          <p><strong>১. Accept Established, Related, Untracked:</strong></p>
+          <pre><code>/ip firewall filter
+add action=accept chain=input connection-state=established,related,untracked comment="1. Accept Trusted Traffic"</code></pre>
+
+          <p><strong>২. Drop Invalid Packets:</strong></p>
+          <pre><code>/ip firewall filter
+add action=drop chain=input connection-state=invalid comment="2. Drop Invalid Packets"</code></pre>
+
+          <p><strong>৩. Allow ICMP (Ping) (ঐচ্ছিক কিন্তু রিকমেন্ডেড):</strong></p>
+          <p>রাউটারকে বাইরে থেকে পিং করে চেক করার জন্য ICMP অ্যালাউ করে রাখা ভালো।</p>
+          <pre><code>/ip firewall filter
+add action=accept chain=input protocol=icmp comment="3. Allow ICMP (Ping)"</code></pre>
+
+          <p><strong>৪. Drop everything else from WAN (Drop All New Connections):</strong></p>
+          <p><em>সতর্কতা: নিচের কমান্ডে <code>in-interface</code> এর জায়গায় আপনার আইএসপির পোর্ট বা PPPoE ইন্টারফেসের
+              নাম দেবেন।</em></p>
+          <pre><code>/ip firewall filter
+add action=drop chain=input in-interface=ether1 comment="4. Drop Everything else from WAN"</code></pre>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সতর্কতা)</h2>
+
+          <ul>
+            <li><strong>Winbox থেকে ডিসকানেক্ট হওয়া (Safe Mode):</strong> ফায়ারওয়াল রুল নিয়ে কাজ করার সময় যদি আপনি
+              ভুল করে <code>in-interface=ether1</code> এর বদলে ল্যান ইন্টারফেস দিয়ে দেন, বা ইন্টারফেস উল্লেখ না করেন,
+              তবে আপনি নিজেই রাউটার থেকে লক-আউট হয়ে যাবেন। তাই রুল বসানোর আগে Winbox এর ওপরে <strong>Safe Mode</strong>
+              বাটনটি ক্লিক করে নেবেন। ভুল হলে রিস্টার্ট দিলে সব ঠিক হয়ে যাবে।</li>
+            <li><strong>Rule Order (রুলের সিরিয়াল):</strong> কমান্ড দেওয়ার পর <strong>IP > Firewall > Filter
+                Rules</strong> এ গিয়ে চেক করুন রুলগুলো সিরিয়াল অনুযায়ী আছে কি না। <code>Established/Related</code>
+              রুলটি অবশ্যই সবার ওপরে থাকতে হবে এবং <code>Drop from WAN</code> রুলটি সবার নিচে (Input চেইনের ক্ষেত্রে)
+              থাকতে হবে। ড্র্যাগ অ্যান্ড ড্রপ করে সিরিয়াল ঠিক করে নিন।</li>
+            <li><strong>Local Management Security:</strong> আপনি যদি আরও বেশি সিকিউরিটি চান, তবে ল্যান (LAN) থেকে আসা
+              ট্রাফিকগুলোকেও <strong>Address List</strong> এর মাধ্যমে নির্দিষ্ট আইপি (যেমন শুধু অ্যাডমিনের পিসির আইপি)
+              দিয়ে রেস্ট্রিক্ট করতে পারেন, যাতে অফিসের সাধারণ কর্মচারীরা রাউটারের লগইন পেইজ দেখতে না পায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি <strong>MikroTik Router</strong>-কে পাবলিক ইন্টারনেটে সিকিউর রাখার সবচেয়ে স্মার্ট এবং কার্যকর উপায়
+              হলো <strong>Connection States</strong> এর সঠিক ব্যবহার। শুধুমাত্র <strong>Input Chain</strong>-এ
+              <code>Established/Related</code> ট্রাফিককে অ্যালাউ করে এবং বাকি সব <strong>WAN</strong> ট্রাফিককে ড্রপ
+              করার মাধ্যমে আপনি রাউটারকে ৯৯% ব্রুট-ফোর্স এবং ডস (DoS) অ্যাটাকের হাত থেকে রক্ষা করতে পারবেন। এই সিম্পল
+              কিন্তু পাওয়ারফুল ফায়ারওয়াল সেটআপটি প্রতিটি নেটওয়ার্ক ইঞ্জিনিয়ারের "Day 1 Configuration" এর অংশ হওয়া
+              উচিত।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

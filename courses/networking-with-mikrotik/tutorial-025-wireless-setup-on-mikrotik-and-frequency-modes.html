@@ -1,32 +1,328 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS এ Wireless setup, Security profile, এবং Frequency modes (superchannel, regulatory-domain, manual-txpower) কনফিগার করার বিস্তারিত বাংলা গাইড।">
   <title>Wireless setup on MikroTik and frequency modes | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Wireless setup on MikroTik and frequency modes</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Wireless setup on MikroTik and frequency modes</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Wireless setup on MikroTik and frequency modes</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 October, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik রাউটার দিয়ে <strong>Wireless Network</strong> তৈরি করা অন্যান্য সাধারণ হোম রাউটারের (যেমন TP-Link
+            বা Tenda) মতো এক ক্লিকের কাজ নয়। এখানে আপনাকে সিকিউরিটি, ট্রান্সমিট পাওয়ার (Tx Power), এবং সবচেয়ে
+            গুরুত্বপূর্ণ <strong>Frequency Mode</strong> নিয়ে সূক্ষ্ম কনফিগারেশন করতে হয়। একটি ভুল কনফিগারেশনের কারণে
+            আপনার নেটওয়ার্কে প্রচুর নয়েজ (Noise) তৈরি হতে পারে, আবার আইনের দিক থেকেও আপনি বিপদে পড়তে পারেন।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে একটি MikroTik রাউটারকে Access Point হিসেবে কনফিগার করতে হয়,
+            <strong>Security Profile</strong> কীভাবে তৈরি করতে হয়, এবং এর <strong>Frequency Modes</strong> (যেমন:
+            regulatory-domain, manual-txpower, superchannel) এর পেছনের কনসেপ্টগুলো কী।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Setup)</h3>
+            <p>ধরি, আপনি আপনার অফিসে একটি MikroTik hAP ac2 রাউটার বসিয়েছেন। আপনি চান আপনার অফিসের এমপ্লয়িরা
+              <code>Office_WiFi</code> নামের একটি সিগন্যালে কানেক্ট করে ইন্টারনেট ব্যবহার করুক। এর জন্য আমাদের রাউটারের
+              Wireless ইন্টারফেসটি (wlan1) চালু করতে হবে এবং এটিকে <strong>AP Bridge</strong> মোডে কনফিগার করতে হবে।
+              কিন্তু তার আগে আমাদের পাসওয়ার্ডের একটি প্রোফাইল তৈরি করে নিতে হবে।</p>
+          </div>
+
+          <h2>১. Security Profile তৈরি করা (পাসওয়ার্ড সেটআপ)</h2>
+          <p>Wireless ইন্টারফেস চালু করার আগে একটি সিকিউরিটি প্রোফাইল তৈরি করা বেস্ট প্র্যাকটিস। এটি না করলে আপনার
+            ওয়াই-ফাই নেটওয়ার্কটি ওপেন (Open) বা পাসওয়ার্ড ছাড়া থেকে যাবে।</p>
+
+          <ul>
+            <li>Winbox থেকে বাম পাশের মেনু <strong>Wireless</strong> এ ক্লিক করুন।</li>
+            <li><strong>Security Profiles</strong> ট্যাবে যান এবং <strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Name:</strong> এর ঘরে একটি নাম দিন (যেমন: <code>office-secure</code>)।</li>
+            <li><strong>Mode:</strong> এর ঘরে <code>dynamic keys</code> সিলেক্ট করুন।</li>
+            <li><strong>Authentication Types:</strong> এর ঘরে <code>WPA2 PSK</code> চেক বক্সে টিক দিন (এটি বর্তমানে
+              সবচেয়ে স্ট্যান্ডার্ড)।</li>
+            <li><strong>WPA2 Pre-Shared Key:</strong> এর ঘরে আপনার কাঙ্ক্ষিত ওয়াই-ফাই পাসওয়ার্ডটি দিন (যেমন:
+              <code>SecretPass2026</code>)।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>২. Wireless Interface কনফিগারেশন (AP Setup)</h2>
+          <p>এখন আমরা মূল ওয়্যারলেস ইন্টারফেসটি কনফিগার করবো এবং সেটিতে সিকিউরিটি প্রোফাইলটি জুড়ে দেবো।</p>
+
+          <ul>
+            <li><strong>Wireless</strong> মেনুর <strong>WiFi Interfaces</strong> ট্যাবে যান।</li>
+            <li>ডিফল্টভাবে <code>wlan1</code> ইন্টারফেসটি ধূসর (Gray/Disabled) থাকে। সেটিতে ক্লিক করে উপরের <strong>✓
+                (Enable)</strong> আইকনে ক্লিক করে চালু করুন।</li>
+            <li>এবার <code>wlan1</code> এর ওপর ডাবল-ক্লিক করে <strong>Wireless</strong> ট্যাবে যান।</li>
+            <li><strong>Mode:</strong> <code>ap bridge</code> সিলেক্ট করুন (যাতে একাধিক ডিভাইস কানেক্ট হতে পারে)।</li>
+            <li><strong>Band:</strong> <code>2GHz-B/G/N</code> সিলেক্ট করুন (সাধারণ রাউটারের জন্য)।</li>
+            <li><strong>Channel Width:</strong> <code>20/40MHz Ce</code> দিন (ভালো স্পিডের জন্য)।</li>
+            <li><strong>SSID:</strong> <code>Office_WiFi</code> দিন (এটি আপনার ওয়াই-ফাইয়ের নাম)।</li>
+            <li><strong>Security Profile:</strong> ড্রপডাউন থেকে একটু আগে তৈরি করা <code>office-secure</code> সিলেক্ট
+              করুন।</li>
+          </ul>
+
+          <h2>৩. Frequency Modes: ডিপ-ডাইভ এক্সপ্ল্যানেশন</h2>
+          <p>MikroTik ওয়্যারলেস কনফিগারেশনের সবচেয়ে অ্যাডভান্সড এবং কনফিউজিং অংশ হলো <strong>Frequency Mode</strong>।
+            Wireless ট্যাবের <strong>Advanced Mode</strong> বাটনে ক্লিক করলে আপনি এই অপশনটি দেখতে পাবেন। এখানে প্রধানত
+            তিনটি মোড থাকে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Frequency Mode</th>
+                  <th>কাজের বিবরণ এবং প্রভাব (Behavior & Impact)</th>
+                  <th>ব্যবহারের ক্ষেত্র (Use Case)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">regulatory-domain</td>
+                  <td>এটি সবচেয়ে স্ট্যান্ডার্ড এবং লিগ্যাল (Legal) মোড। এটি সিলেক্ট করার পর আপনাকে Country (দেশ) সিলেক্ট
+                    করতে হয়। রাউটার তখন ওই দেশের টেলিযোগাযোগ আইন (যেমন BTRC) অনুযায়ী নির্দিষ্ট ফ্রিকোয়েন্সি এবং
+                    ম্যাক্সিমাম Tx Power এর লিমিট নিজে থেকেই সেট করে নেয়।</td>
+                  <td>হোম, অফিস বা যেকোনো রেগুলার <strong>Access Point</strong> সেটআপের জন্য এটি রিকমেন্ডেড। এটি আপনার
+                    ডিভাইসকে আইনি ঝামেলার বাইরে রাখে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">manual-txpower</td>
+                  <td>এই মোডে রাউটার আপনার সিলেক্ট করা দেশের ফ্রিকোয়েন্সি লিস্টই ফলো করে, কিন্তু <strong>Tx Power
+                      (অ্যান্টেনার শক্তি)</strong> এর ওপর দেশের আইন আর কাজ করে না। আপনি চাইলে ম্যানুয়ালি ট্রান্সমিট
+                    পাওয়ার বাড়াতে বা কমাতে পারবেন।</td>
+                  <td>যাদের নিজস্ব ল্যাবে টেস্টিং করার জন্য নির্দিষ্ট ফ্রিকোয়েন্সির ওপর বেশি শক্তি (Tx Power) প্রয়োগ
+                    করার প্রয়োজন হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">superchannel</td>
+                  <td>এটি হলো MikroTik এর একটি <strong>"হ্যাক" বা আনলকড মোড</strong>। এটি রাউটারের হার্ডওয়্যার যে কয়টি
+                    ফ্রিকোয়েন্সি সাপোর্ট করে, তার সব কটি আনলক করে দেয়—দেশের আইন যাই হোক না কেন। এতে অনেক কাস্টম বা
+                    লুকানো ফ্রিকোয়েন্সি পাওয়া যায়।</td>
+                  <td><strong>Point-to-Point (PTP)</strong> লিংকের ক্ষেত্রে যখন রেগুলার ফ্রিকোয়েন্সিগুলোতে প্রচুর নয়েজ
+                    (Noise) থাকে, তখন আইএসপিরা ফাঁকা এবং আনকমন ফ্রিকোয়েন্সি ব্যবহার করার জন্য এটি ব্যবহার করে। <em>(নোট:
+                      লাইসেন্স ছাড়া এটি ব্যবহার করা বেআইনি হতে পারে।)</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Country Code সেট করা (Regulatory Domain এর ক্ষেত্রে):</h3>
+          <p>যদি আপনি Frequency Mode হিসেবে <code>regulatory-domain</code> সিলেক্ট করেন, তবে <strong>Country:</strong>
+            ফিল্ডে <code>Bangladesh</code> (বা আপনার দেশ) সিলেক্ট করা বাধ্যতামূলক। এর ফলে রাউটার বুঝতে পারবে সে 2.4GHz এ
+            1 থেকে 13 চ্যানেল পর্যন্ত ব্যবহার করতে পারবে এবং DFS (Dynamic Frequency Selection) রুল মেনে চলবে।</p>
+
+          <h2>৪. Command Line (CLI) ব্যবহার করে Wireless Setup</h2>
+          <p>প্রফেশনালরা টার্মিনাল ব্যবহার করে খুব দ্রুত এই কনফিগারেশনগুলো করতে পারেন।</p>
+
+          <p><strong>Security Profile তৈরি করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface wireless security-profiles add name=office-secure mode=dynamic-keys authentication-types=wpa2-psk wpa2-pre-shared-key="SecretPass2026"</code></pre>
+
+          <p><strong>Wireless Interface (AP) এবং Frequency Mode কনফিগার করা:</strong></p>
+          <pre><code>[admin@MikroTik] > /interface wireless set wlan1 disabled=no mode=ap-bridge band=2ghz-b/g/n channel-width=20/40mhz-Ce ssid="Office_WiFi" security-profile=office-secure frequency-mode=regulatory-domain country=bangladesh</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>মোবাইল বা ল্যাপটপ কানেক্ট হচ্ছে না (Authentication Timeout):</strong> এটি সাধারণত ভুল পাসওয়ার্ড
+              দেওয়ার কারণে হয়। যদি আপনি নিশ্চিত থাকেন পাসওয়ার্ড ঠিক আছে, তবে Security Profile এ গিয়ে
+              <code>WPA (TKIP)</code> এর টিক তুলে শুধু <code>WPA2 (AES)</code> রাখুন। আধুনিক ডিভাইসগুলো TKIP সাপোর্ট করে
+              না।</li>
+            <li><strong>Country Code সিলেক্ট করার পর স্পিড কমে যাওয়া:</strong> <code>regulatory-domain</code> সেট করলে
+              অনেক দেশে Tx Power এর লিমিট 20 dBm (100mW) এ নেমে আসে। এর ফলে কভারেজ কমে যেতে পারে। যদি কভারেজ বাড়াতে হয়,
+              তবে Frequency Mode পরিবর্তন করে <code>manual-txpower</code> দিয়ে দেখতে পারেন (তবে এটি নিজ দায়িত্বে করতে
+              হবে)।</li>
+            <li><strong>Superchannel মোডে ক্লায়েন্ট কানেক্ট না হওয়া:</strong> আপনি যদি PTP লিংকে Access Point কে
+              <code>superchannel</code> করে কোনো আনকমন ফ্রিকোয়েন্সি (যেমন 2312 MHz) দেন, তবে অপর প্রান্তের (Station)
+              রাউটারকেও <code>superchannel</code> মোডে থাকতে হবে। নতুবা ক্লায়েন্ট রাউটার ওই ফ্রিকোয়েন্সি স্ক্যান করে
+              খুঁজে পাবে না।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>MikroTik Wireless Setup</strong> এর ক্ষেত্রে <strong>Security Profile</strong> এবং
+              <strong>Frequency Mode</strong> এর সঠিক কনফিগারেশন অত্যন্ত তাৎপর্যপূর্ণ। সাধারণ অফিস বা হোম সেটআপের জন্য
+              সব সময় <strong>regulatory-domain</strong> ব্যবহার করা বেস্ট প্র্যাকটিস। কিন্তু যদি আপনি লং ডিসট্যান্স
+              <strong>PTP Link</strong> বা ISP নেটওয়ার্কে কাজ করেন, তবে <strong>superchannel</strong> ব্যবহার করে
+              নয়েজ-ফ্রি ফ্রিকোয়েন্সি খুঁজে বের করাটা আপনার জন্য একটি "লাইফ সেভার" হিসেবে কাজ করতে পারে। প্রতিটি সেটিংয়ের
+              ইমপ্যাক্ট (Impact) বুঝে কনফিগারেশন করলে আপনার ওয়্যারলেস নেটওয়ার্ক হবে সুপার-ফাস্ট এবং স্টেবল।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

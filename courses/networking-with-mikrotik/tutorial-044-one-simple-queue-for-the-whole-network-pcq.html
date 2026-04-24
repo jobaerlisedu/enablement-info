@@ -1,32 +1,332 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ PCQ ব্যবহার করে কীভাবে একটিমাত্র Simple Queue দিয়ে পুরো নেটওয়ার্কের Bandwidth Control বা স্পিড সমানভাবে ভাগ করা যায় তার বিস্তারিত বাংলা গাইড।">
   <title>One Simple Queue for the whole network (PCQ) | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>One Simple Queue for the whole network (PCQ)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>One Simple Queue for the whole network (PCQ)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>One Simple Queue for the whole network (PCQ)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 05 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>যেকোনো নেটওয়ার্ক অ্যাডমিনিস্ট্রেটরের জন্য সবচেয়ে বিরক্তিকর কাজগুলোর একটি হলো ஒவ்வொரு ইউজারের জন্য আলাদা
+            আলাদা Bandwidth Control রুল তৈরি করা। আপনার নেটওয়ার্কে যদি ২০০ জন ইউজার থাকে, তবে ২০০টি <strong>Simple
+              Queue</strong> তৈরি করা শুধু সময়সাপেক্ষই নয়, এটি রাউটারের প্রসেসরের (CPU) ওপরও প্রচণ্ড চাপ ফেলে।</p>
+          <p>MikroTik RouterOS এই সমস্যার একটি চমৎকার এবং ডায়নামিক সমাধান নিয়ে এসেছে, যার নাম <strong>PCQ (Per
+              Connection Queue)</strong>। PCQ ব্যবহার করে আপনি মাত্র <strong>একটি Simple Queue</strong> তৈরি করেই পুরো
+            নেটওয়ার্কের শত শত ইউজারের মধ্যে সমানভাবে ব্যান্ডউইথ ভাগ করে দিতে পারবেন। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা
+            শিখবো PCQ এর আর্কিটেকচার এবং কীভাবে এটি কনফিগার করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Internet Download Manager Problem)</h3>
+            <p><strong>সমস্যা:</strong> আপনার অফিসের মোট ইন্টারনেট ব্যান্ডউইথ হলো <strong>50 Mbps</strong>। আপনি একটি
+              Simple Queue তৈরি করে <code>192.168.10.0/24</code> সাবনেটে 50 Mbps লিমিট করে দিলেন। এখন অফিসে থাকা ৫০ জন
+              ইউজারের মধ্যে একজন ইউজার যদি IDM (Internet Download Manager) দিয়ে কোনো মুভি ডাউনলোড শুরু করে, তবে IDM তার
+              মাল্টিপল কানেকশন ব্যবহার করে একাই 48 Mbps স্পিড টেনে নেবে। বাকি ৪৯ জন ইউজার মিলে পাবে মাত্র 2 Mbps। পুরো
+              অফিস ব্রাউজিং করতে গিয়ে চরম ভোগান্তিতে পড়বে।</p>
+            <p><strong>PCQ এর সমাধান:</strong> আমরা যদি ওই Queue টিতে PCQ মেকানিজম যুক্ত করে দিই, তবে রাউটার দেখবে কয়জন
+              ইউজার (IP) বর্তমানে ডাটা টানছে। যদি ২ জন ইউজার ডাটা টানে, রাউটার 50 Mbps কে ২ ভাগ করে দুজনকে 25 Mbps করে
+              দেবে। যদি ৫০ জন ইউজার একসাথে ডাটা টানে, তবে সবাইকে সমানভাবে 1 Mbps করে স্পিড ডিস্ট্রিবিউট করে দেবে। কেউ
+              চাইলেও অন্য ইউজারের ভাগের স্পিড দখল করতে পারবে না।</p>
+          </div>
+
+          <h2>১. PCQ (Per Connection Queue) কীভাবে কাজ করে?</h2>
+          <p>PCQ মূলত দুটি প্যারামিটারের ওপর ভিত্তি করে ডাটা ট্রাফিককে ডায়নামিকভাবে ভাগ করে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>প্যারামিটার (Parameter)</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Rate (স্পিড লিমিট)</td>
+                  <td>এখানে দুটি অপশন থাকে। আপনি যদি <code>Rate = 0</code> দেন, তবে মোট ব্যান্ডউইথ উপস্থিত ইউজারদের
+                    মধ্যে <strong>সমানভাবে ভাগ</strong> হবে (Dynamic Division)। আর যদি <code>Rate = 5M</code> দেন, তবে
+                    প্রতি ইউজার সর্বোচ্চ 5 Mbps স্পিড পাবে, কিন্তু সব ইউজার মিলে মূল Simple Queue এর Max Limit (যেমন 50
+                    Mbps) অতিক্রম করতে পারবে না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Classifier (শনাক্তকরণ)</td>
+                  <td>রাউটার কীভাবে বুঝবে কে আলাদা ইউজার? এর জন্য Classifier ব্যবহার করা হয়। <strong>Upload</strong> ভাগ
+                    করার জন্য <code>Src. Address</code> (ইউজারের নিজস্ব আইপি) এবং <strong>Download</strong> ভাগ করার
+                    জন্য <code>Dst. Address</code> (ডাটা যার কাছে যাচ্ছে) সিলেক্ট করতে হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. Step-by-Step Configuration (Winbox এর মাধ্যমে)</h2>
+          <p>চলুন আমাদের 50 Mbps এর নেটওয়ার্কের জন্য PCQ সেটআপ করি, যেখানে প্রতিটি ইউজার সর্বোচ্চ 5 Mbps করে পাবে।</p>
+
+          <h3>Step 1: PCQ Queue Type তৈরি করা</h3>
+          <p>আমাদের প্রথমে আপলোড এবং ডাউনলোডের জন্য দুটি আলাদা ডাইনামিক টেমপ্লেট (Queue Type) বানাতে হবে।</p>
+          <ul>
+            <li>Winbox এর <strong>Queues</strong> মেনুতে গিয়ে <strong>Queue Types</strong> ট্যাবে ক্লিক করুন।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করে ডাউনলোডের টেমপ্লেট তৈরি করুন:
+              <ul>
+                <li><strong>Type Name:</strong> <code>PCQ-Download-5M</code></li>
+                <li><strong>Kind:</strong> <code>pcq</code></li>
+                <li><strong>Rate:</strong> <code>5M</code> (প্রতি ইউজার ম্যাক্সিমাম 5 Mbps পাবে)।</li>
+                <li><strong>Classifier:</strong> <code>Dst. Address</code> বক্সে টিক (Check) দিন। অন্যগুলো আনচেক থাকবে।
+                  <strong>OK</strong> করুন।</li>
+              </ul>
+            </li>
+            <li>আবার <strong>+ (Add)</strong> আইকনে ক্লিক করে আপলোডের টেমপ্লেট তৈরি করুন:
+              <ul>
+                <li><strong>Type Name:</strong> <code>PCQ-Upload-5M</code></li>
+                <li><strong>Kind:</strong> <code>pcq</code></li>
+                <li><strong>Rate:</strong> <code>5M</code></li>
+                <li><strong>Classifier:</strong> <code>Src. Address</code> বক্সে টিক (Check) দিন। <strong>OK</strong>
+                  করুন।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Step 2: একটিমাত্র Simple Queue তৈরি করা</h3>
+          <p>এবার আমরা পুরো নেটওয়ার্কের জন্য একটি মাস্টার Queue তৈরি করবো এবং তাতে আমাদের পিসি কিউ (PCQ) টেমপ্লেটগুলো
+            যুক্ত করে দেবো।</p>
+          <ul>
+            <li>একই উইন্ডো থেকে <strong>Simple Queues</strong> ট্যাবে যান এবং <strong>+ (Add)</strong> ক্লিক করুন।</li>
+            <li><strong>General Tab:</strong>
+              <ul>
+                <li><strong>Name:</strong> <code>Total-LAN-Queue</code></li>
+                <li><strong>Target:</strong> আপনার অফিসের ল্যান ব্লকটি দিন, যেমন <code>192.168.10.0/24</code>।</li>
+                <li><strong>Max Limit (Target Upload):</strong> <code>50M</code> (আইএসপি থেকে পাওয়া মোট আপলোড)।</li>
+                <li><strong>Max Limit (Target Download):</strong> <code>50M</code> (আইএসপি থেকে পাওয়া মোট ডাউনলোড)।</li>
+              </ul>
+            </li>
+            <li><strong>Advanced Tab (The Magic Happens Here):</strong>
+              <ul>
+                <li><strong>Queue Type (Target Upload):</strong> ড্রপডাউন থেকে একটু আগে তৈরি করা
+                  <code>PCQ-Upload-5M</code> সিলেক্ট করুন।</li>
+                <li><strong>Queue Type (Target Download):</strong> ড্রপডাউন থেকে <code>PCQ-Download-5M</code> সিলেক্ট
+                  করুন।</li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>যারা টার্মিনাল ভালোবাসেন, তাদের জন্য পুরো প্রসেসটি মাত্র ৩ লাইনের কমান্ড:</p>
+
+          <pre><code># Create PCQ Type for Download
+/queue type add name="PCQ-Download-5M" kind=pcq pcq-rate=5M pcq-classifier=dst-address
+
+# Create PCQ Type for Upload
+/queue type add name="PCQ-Upload-5M" kind=pcq pcq-rate=5M pcq-classifier=src-address
+
+# Create the Single Simple Queue for the whole subnet
+/queue simple add name="Total-LAN-Queue" target=192.168.10.0/24 max-limit=50M/50M queue=PCQ-Upload-5M/PCQ-Download-5M</code></pre>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সতর্কতা)</h2>
+
+          <ul>
+            <li><strong>FastTrack কনফ্লিক্ট:</strong> MikroTik রাউটারে যদি <strong>FastTrack</strong> (IP > Firewall >
+              Filter Rules) এনাবল থাকে, তবে কোনো Queue-ই কাজ করবে না। প্যাকেটগুলো স্পিড লিমিট চেকিং বাইপাস করে চলে যাবে।
+              PCQ ব্যবহার করতে হলে অবশ্যই ফায়ারওয়াল থেকে FastTrack রুলটি ডিজেবল বা রিমুভ করে নিতে হবে।</li>
+            <li><strong>PCQ Rate 0 (Zero) এর ব্যবহার:</strong> আপনি যদি চান কোনো নির্দিষ্ট লিমিট (যেমন 5M) না দিয়ে
+              আইএসপির দেওয়া 50M স্পিডটিই উপস্থিত ইউজারদের মাঝে সমানভাবে ভাগ হোক, তবে PCQ Type তৈরি করার সময়
+              <code>Rate = 0</code> দিয়ে রাখবেন। এটি ডায়নামিকভাবে ক্যালকুলেট হবে।</li>
+            <li><strong>Memory / RAM Issue:</strong> অনেক বড় নেটওয়ার্কে (যেমন ৫০০০+ ইউজার) PCQ ব্যবহার করলে রাউটারের
+              র‍্যামের (RAM) ওপর কিছুটা চাপ পড়ে, কারণ রাউটারকে প্রতিটি কানেকশনের হিসাব আলাদাভাবে মেমোরিতে রাখতে হয়। এর
+              জন্য <code>pcq-limit</code> এবং <code>pcq-total-limit</code> প্যারামিটারগুলো অ্যাডজাস্ট করার প্রয়োজন হতে
+              পারে। তবে সাধারণ অফিস বা ছোট আইএসপি নেটওয়ার্কের জন্য ডিফল্ট সেটিং-ই যথেষ্ট।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>PCQ (Per Connection Queue)</strong> হলো MikroTik RouterOS এর এমন একটি মাস্টারপিস ফিচার, যা
+              নেটওয়ার্ক অ্যাডমিনিস্ট্রেশনের সময় এবং শ্রম দুটিই বাঁচিয়ে দেয়। শ'য়ে শ'য়ে <strong>Simple Queue</strong> তৈরি
+              করে রাউটারের কনফিগারেশন ভারী করার কোনো মানেই হয় না, যখন একটিমাত্র রুল দিয়ে পুরো <strong>Subnet</strong> এর
+              ট্রাফিক সমানভাবে এবং সুশৃঙ্খলভাবে বণ্টন করা যায়। স্পিড হগিং (Speed Hogging) রোধ করতে এবং প্রতিটি ইউজারকে
+              একটি স্মুথ ব্রাউজিং এক্সপেরিয়েন্স দিতে PCQ এর বিকল্প নেই।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

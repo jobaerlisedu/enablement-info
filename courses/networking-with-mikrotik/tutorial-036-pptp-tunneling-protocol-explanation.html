@@ -1,32 +1,356 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PPTP Tunneling Protocol â€“ Explanation | enablement.info</title>
+  <meta name="description"
+    content="PPTP Tunneling Protocol কী, কীভাবে কাজ করে, এর সুবিধা-অসুবিধা এবং MikroTik RouterOS-এ PPTP Server ও Client কনফিগার করার বিস্তারিত বাংলা গাইড।">
+  <title>PPTP Tunneling Protocol Explanation | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>PPTP Tunneling Protocol â€“ Explanation</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>PPTP Tunneling Protocol â€“ Explanation</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>PPTP Tunneling Protocol Explanation</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 24 April, 2026</span>
+            <span><i class='bx bx-category'></i> VPN & Cyber Security</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিং এবং ভিপিএন (VPN) এর দুনিয়ায় <strong>PPTP (Point-to-Point Tunneling Protocol)</strong> হলো
+            অন্যতম প্রাচীন এবং সর্বাধিক পরিচিত একটি প্রোটোকল। নব্বইয়ের দশকে মাইক্রোসফট (Microsoft) এবং আরও কয়েকটি
+            কোম্পানি মিলে ডাটা আদান-প্রদানের জন্য এই প্রোটোকলটি তৈরি করেছিল। যদিও বর্তমানে এটি সিকিউরিটির দিক থেকে
+            কিছুটা দুর্বল হিসেবে বিবেচিত হয়, তবুও কনফিগারেশনের সহজলভ্যতা এবং প্রায় সব ডিভাইসে ডিফল্ট সাপোর্ট থাকার কারণে
+            এটি আজও প্রচুর ব্যবহৃত হয়।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা জানবো PPTP কীভাবে কাজ করে, এর এনক্রিপশন মেকানিজম কী এবং একটি
+            <strong>MikroTik Router</strong>-এ কীভাবে ধাপে ধাপে PPTP Server কনফিগার করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (Remote Access VPN)</h3>
+            <p><strong>সিনারিও:</strong> আপনি হয়তো দেশের বাইরে বা কোনো কফি শপে বসে আছেন। হুট করে আপনার অফিসের লোকাল
+              সার্ভারে (যাতে কোনো পাবলিক আইপি নেই) ঢুকে একটি গুরুত্বপূর্ণ ফাইল আপডেট করতে হবে।</p>
+            <p><strong>সমাধান:</strong> আপনার অফিসের রাউটারে যদি একটি <strong>PPTP Server</strong> কনফিগার করা থাকে, তবে
+              আপনি আপনার ল্যাপটপের বিল্ট-ইন ভিপিএন অপশন থেকে একটি ইউজারনেম ও পাসওয়ার্ড দিয়ে সরাসরি অফিসের রাউটারে
+              কানেক্ট হতে পারবেন। কানেক্ট হওয়ার পর আপনি অফিসের লোকাল নেটওয়ার্কের (LAN) একটি IP Address পাবেন এবং দূর
+              থেকে বসেই এমনভাবে কাজ করতে পারবেন যেন আপনি অফিসেই বসে আছেন।</p>
+          </div>
+
+          <h2>১. PPTP কীভাবে কাজ করে? (Technical Architecture)</h2>
+          <p>PPTP প্রোটোকলটি কাজ করার জন্য মূলত দুটি আলাদা নেটওয়ার্ক সেশন বা চ্যানেল ব্যবহার করে। এটি বোঝা
+            ট্রাবলশুটিংয়ের জন্য অত্যন্ত জরুরি:</p>
+
+          <ul>
+            <li><strong>Control Channel (TCP Port 1723):</strong> ক্লায়েন্ট যখন সার্ভারের সাথে কানেক্ট হতে চায়, তখন
+              প্রথমে <strong>TCP Port 1723</strong> ব্যবহার করে একটি কন্ট্রোল কানেকশন তৈরি হয়। এই চ্যানেল দিয়ে ইউজারনেম,
+              পাসওয়ার্ড এবং ভিপিএন ম্যানেজমেন্টের তথ্য আদান-প্রদান হয়।</li>
+            <li><strong>Data Channel (GRE - Protocol 47):</strong> কন্ট্রোল চ্যানেল সফলভাবে তৈরি হওয়ার পর, আসল ডাটা
+              (যেমন ফাইল ট্রান্সফার বা ব্রাউজিং) পাঠানোর জন্য <strong>GRE (Generic Routing Encapsulation)</strong>
+              প্রোটোকল ব্যবহার করা হয়। GRE হলো <code>Protocol 47</code> (এটি কোনো পোর্ট নয়, এটি TCP বা UDP এর মতোই একটি
+              প্রোটোকল)।</li>
+          </ul>
+
+          <h2>২. Security এবং Encryption (নিরাপত্তা ব্যবস্থা)</h2>
+          <p>ভিপিএন টানেলের ভেতর দিয়ে যাওয়া ডাটাগুলো যেন কেউ মাঝপথ থেকে পড়ে ফেলতে না পারে, তার জন্য PPTP কিছু স্পেসিফিক
+            মেকানিজম ব্যবহার করে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>মেকানিজম (Mechanism)</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Authentication (প্রমাণীকরণ)</td>
+                  <td>ইউজারনেম এবং পাসওয়ার্ড চেক করার জন্য PPTP সাধারণত <strong>MS-CHAPv2</strong> (Microsoft Challenge
+                    Handshake Authentication Protocol) ব্যবহার করে। এটি প্লেইন টেক্সটের বদলে হ্যাশ (Hash) করে পাসওয়ার্ড
+                    পাঠায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Encryption (এনক্রিপশন)</td>
+                  <td>ডাটা লুকিয়ে ফেলার জন্য এটি <strong>MPPE</strong> (Microsoft Point-to-Point Encryption) ব্যবহার
+                    করে, যা সাধারণত 128-bit এনক্রিপশন সাপোর্ট করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">দুর্বলতা (Vulnerability)</td>
+                  <td>PPTP এর MS-CHAPv2 অথেন্টিকেশন প্রসেসটি আধুনিক হ্যাকিং টুলের (যেমন: Dictionary Attack) মাধ্যমে
+                    ক্র্যাক করা সম্ভব। তাই এন্টারপ্রাইজ লেভেলে হাই-সিকিউরিটি ডাটার জন্য PPTP ব্যবহার করা রিকমেন্ডেড নয়।
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. MikroTik রাউটারে PPTP Server কনফিগারেশন</h2>
+          <p>চলুন একটি রিয়েল-লাইফ এক্সাম্পল দেখি। আমরা রাউটারে PPTP Server চালু করবো এবং ভিপিএন ইউজারদের জন্য
+            <code>10.10.10.0/24</code> ব্লকের আইপি দেবো।</p>
+
+          <h3>Step 1: IP Pool তৈরি করা</h3>
+          <p>ভিপিএন ক্লায়েন্টরা কানেক্ট হওয়ার পর যে আইপিগুলো পাবে, তার একটি পুল (Pool) তৈরি করতে হবে।</p>
+          <ul>
+            <li><strong>IP > Pool</strong> এ যান এবং <strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>Name:</strong> <code>vpn-pool</code> দিন।</li>
+            <li><strong>Addresses:</strong> <code>10.10.10.10-10.10.10.50</code> দিন। <strong>OK</strong> করুন।</li>
+          </ul>
+
+          <h3>Step 2: PPP Profile তৈরি করা</h3>
+          <p>এখানে আমরা নির্ধারণ করবো ক্লায়েন্টরা কোন আইপি পাবে এবং কোন এনক্রিপশন ব্যবহার করবে।</p>
+          <ul>
+            <li><strong>PPP</strong> মেনুতে গিয়ে <strong>Profiles</strong> ট্যাবে যান এবং <strong>+ (Add)</strong> এ
+              ক্লিক করুন।</li>
+            <li><strong>Name:</strong> <code>pptp-profile</code> দিন।</li>
+            <li><strong>Local Address:</strong> রাউটারের লোকাল আইপি (যেমন <code>10.10.10.1</code>) দিন।</li>
+            <li><strong>Remote Address:</strong> ড্রপডাউন থেকে <code>vpn-pool</code> সিলেক্ট করুন।</li>
+            <li><strong>Protocols</strong> ট্যাবে গিয়ে <code>Use Encryption</code> অপশনটি <strong>yes</strong> করে দিন।
+              <strong>OK</strong> করুন।</li>
+          </ul>
+
+          <h3>Step 3: VPN User (Secret) তৈরি করা</h3>
+          <ul>
+            <li><strong>PPP</strong> মেনুর <strong>Secrets</strong> ট্যাবে যান এবং <strong>+ (Add)</strong> এ ক্লিক
+              করুন।</li>
+            <li><strong>Name:</strong> ইউজারের নাম দিন (যেমন <code>jobaer</code>)।</li>
+            <li><strong>Password:</strong> একটি শক্তিশালী পাসওয়ার্ড দিন (যেমন <code>P@ssw0rd123</code>)।</li>
+            <li><strong>Service:</strong> <code>pptp</code> সিলেক্ট করুন।</li>
+            <li><strong>Profile:</strong> <code>pptp-profile</code> সিলেক্ট করুন। <strong>OK</strong> করুন।</li>
+          </ul>
+
+          <h3>Step 4: PPTP Server চালু করা</h3>
+          <ul>
+            <li><strong>PPP</strong> মেনুর <strong>Interface</strong> ট্যাবে যান।</li>
+            <li>উপরের <strong>PPTP Server</strong> বাটনে ক্লিক করুন।</li>
+            <li><strong>Enabled</strong> চেকবক্সে টিক দিন।</li>
+            <li><strong>Default Profile:</strong> <code>pptp-profile</code> সিলেক্ট করুন এবং <strong>Apply / OK</strong>
+              দিন।</li>
+          </ul>
+
+          <h2>৪. Command Line (CLI) কনফিগারেশন</h2>
+          <p>টার্মিনাল ব্যবহার করে উপরের ধাপগুলো খুব দ্রুত করা যায়:</p>
+
+          <pre><code># Create IP Pool
+/ip pool add name=vpn-pool ranges=10.10.10.10-10.10.10.50
+
+# Create PPP Profile
+/ppp profile add name=pptp-profile local-address=10.10.10.1 remote-address=vpn-pool use-encryption=yes
+
+# Create VPN User
+/ppp secret add name=jobaer password=P@ssw0rd123 service=pptp profile=pptp-profile
+
+# Enable PPTP Server
+/interface pptp-server server set enabled=yes default-profile=pptp-profile</code></pre>
+
+          <h2>৫. Firewall কনফিগারেশন (অত্যন্ত গুরুত্বপূর্ণ)</h2>
+          <p>রাউটারের ফায়ারওয়ালে যদি PPTP এর পোর্ট এবং প্রোটোকল অ্যালাউ করা না থাকে, তবে ক্লায়েন্ট কানেক্ট হতে পারবে না।
+          </p>
+
+          <pre><code># Allow TCP Port 1723 (Control Channel)
+/ip firewall filter add action=accept chain=input protocol=tcp dst-port=1723 comment="Allow PPTP"
+
+# Allow GRE Protocol 47 (Data Channel)
+/ip firewall filter add action=accept chain=input protocol=gre comment="Allow GRE for PPTP"</code></pre>
+          <p><em>নোট: এই রুল দুটিকে ফায়ারওয়ালের ওপরের দিকে (Drop রুলগুলোর ওপরে) নিয়ে যেতে হবে।</em></p>
+
+          <h2>৬. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>Error 800 বা Timeout:</strong> যদি উইন্ডোজ পিসি থেকে কানেক্ট করার সময় কানেকশন টাইমআউট হয়, তবে
+              বুঝতে হবে আপনার রাউটারের পাবলিক আইপিতে <code>TCP 1723</code> পোর্ট ব্লক আছে। ফায়ারওয়াল রুল চেক করুন অথবা
+              আইএসপি (ISP) পোর্ট ব্লক করেছে কি না তা নিশ্চিত করুন।</li>
+            <li><strong>Error 619 বা "Verifying Username and Password" এ আটকে থাকা:</strong> এটি PPTP এর সবচেয়ে কমন
+              সমস্যা। এর মানে হলো Control Channel (TCP 1723) কাজ করছে, কিন্তু Data Channel (GRE Protocol 47) ব্লক হয়ে
+              আছে। ফায়ারওয়ালে GRE প্রোটোকল এক্সেপ্ট করা আছে কি না তা যাচাই করুন। অনেক সময় মধ্যবর্তী রাউটারগুলো GRE
+              প্রোটোকল পাস করতে দেয় না (যাকে GRE Pass-through সমস্যা বলে)।</li>
+            <li><strong>কানেক্ট হচ্ছে কিন্তু ইন্টারনেট বা লোকাল পিসি পিং পাচ্ছে না:</strong> ভিপিএন ইন্টারফেসে
+              <strong>NAT (Masquerade)</strong> করা না থাকলে এই সমস্যা হয়। <code>IP > Firewall > NAT</code> এ গিয়ে
+              <code>srcnat</code> চেইনে Out. Interface হিসেবে আপনার ইন্টারনেট পোর্ট সিলেক্ট করে Masquerade করে দিন অথবা
+              ভিপিএন ব্লকের জন্য রাউটিং কনফিগার করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>PPTP Tunneling Protocol</strong> সেটআপ করা অত্যন্ত সহজ এবং এর স্পিডও অনেক ভালো, কারণ এর এনক্রিপশন
+              ওভারহেড (Overhead) তুলনামূলক কম। যদি আপনার লক্ষ্য হয় শুধুমাত্র জিও-রেস্ট্রিকশন (Geo-restriction) বাইপাস
+              করা বা খুব বেসিক লেভেলের রিমোট এক্সেস নেওয়া, তবে PPTP এখনো একটি কার্যকরী প্রোটোকল। কিন্তু কর্পোরেট
+              নেটওয়ার্ক, ব্যাংকিং সেক্টর বা হাইলি কনফিডেন্সিয়াল ডাটা আদান-প্রদানের ক্ষেত্রে PPTP এড়িয়ে
+              <strong>L2TP/IPsec</strong>, <strong>OpenVPN</strong> বা আধুনিক <strong>WireGuard</strong> প্রোটোকল
+              ব্যবহার করা একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ারের বেস্ট প্র্যাকটিস।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

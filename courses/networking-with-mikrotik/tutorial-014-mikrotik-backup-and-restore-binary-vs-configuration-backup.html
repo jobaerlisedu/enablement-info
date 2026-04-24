@@ -1,32 +1,331 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik Router-এর Backup এবং Restore পদ্ধতি। Binary (.backup) এবং Configuration (.rsc) ব্যাকআপের পার্থক্য, ব্যবহার এবং ট্রাবলশুটিং নিয়ে বিস্তারিত গাইড।">
   <title>MikroTik Backup and Restore (Binary vs Configuration backup) | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>MikroTik Backup and Restore (Binary vs Configuration backup)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>MikroTik Backup and Restore (Binary vs Configuration backup)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>MikroTik Backup and Restore (Binary vs Configuration backup)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 August, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ে একটি প্রবাদ আছে, "যে ডাটার কোনো ব্যাকআপ নেই, সেই ডাটার অস্তিত্বই নেই।" একটি
+            কর্পোরেট অফিস বা ডেটা সেন্টারের মূল <strong>MikroTik Router</strong> যদি কোনো কারণে পুড়ে যায় বা কনফিগারেশন
+            ক্র্যাশ করে, তবে পুরো নেটওয়ার্ক রিস্টোর করতে কয়েক দিন সময় লেগে যেতে পারে—যদি আপনার কাছে সঠিক ব্যাকআপ না
+            থাকে।</p>
+          <p>MikroTik RouterOS-এ কনফিগারেশন সেভ করে রাখার জন্য মূলত দুটি পদ্ধতি রয়েছে: <strong>Binary Backup
+              (.backup)</strong> এবং <strong>Configuration Export (.rsc)</strong>। এই দুটি পদ্ধতি সম্পূর্ণ ভিন্নভাবে কাজ
+            করে এবং এদের ব্যবহারের ক্ষেত্রও আলাদা। আজকের এই ডিপ-ডাইভ গাইডে আমরা শিখবো এই দুটি পদ্ধতির পার্থক্য, কীভাবে
+            এগুলো তৈরি করতে হয় এবং কোন পরিস্থিতিতে কোনটি ব্যবহার করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>Binary Backup বনাম Configuration Export: মূল পার্থক্য</h3>
+            <p><strong>Binary Backup:</strong> এটি হলো রাউটারের একটি কমপ্লিট স্ন্যাপশট (Snapshot)। এর মধ্যে রাউটারের
+              পাসওয়ার্ড, ইউজারনেম এবং ফিজিক্যাল পোর্টের <strong>MAC Address</strong> সহ সবকিছু এনক্রিপ্টেড (Encrypted)
+              অবস্থায় সেভ হয়। এটি শুধু একই মডেলের রাউটারে রিস্টোর করার জন্য ডিজাইন করা।</p>
+            <p><strong>Configuration Export:</strong> এটি একটি হিউম্যান-রিডেবল টেক্সট ফাইল (Text file)। এটিতে শুধু আপনার
+              দেওয়া কমান্ডগুলো (যেমন আইপি বসানো, রুল তৈরি করা) স্ক্রিপ্ট বা কোড আকারে সেভ থাকে। এটি যেকোনো টেক্সট এডিটর
+              (যেমন Notepad) দিয়ে পড়া যায় এবং অন্য যেকোনো মডেলের MikroTik রাউটারে ইম্পোর্ট করা যায়।</p>
+          </div>
+
+          <h2>১. Binary Backup (.backup) তৈরি এবং রিস্টোর করা</h2>
+          <p>যখন আপনি নিশ্চিত যে রাউটার নষ্ট হলে আপনি ঠিক <strong>একই মডেলের (Same hardware)</strong> আরেকটি রাউটার
+            কিনবেন, তখন Binary Backup সবচেয়ে কার্যকর।</p>
+
+          <h3>Backup তৈরি করার পদ্ধতি (Winbox ও CLI):</h3>
+          <ul>
+            <li><strong>Winbox দিয়ে:</strong> বাম পাশের মেনু থেকে <strong>Files</strong> এ ক্লিক করুন। উপরের
+              <strong>Backup</strong> বাটনে ক্লিক করুন। <code>Name</code> এর ঘরে একটি নাম দিন এবং প্রয়োজনে একটি
+              <code>Password</code> দিন (ফাইলটি এনক্রিপ্ট করার জন্য)। সবশেষে <strong>Backup</strong> এ ক্লিক করুন।
+              ফাইলটি লিস্টে <code>.backup</code> এক্সটেনশন নিয়ে সেভ হবে। এরপর ফাইলটি ড্র্যাগ করে (Drag and Drop) আপনার
+              পিসিতে সেভ করে রাখুন।</li>
+            <li><strong>CLI দিয়ে:</strong> টার্মিনালে নিচের কমান্ডটি দিন:
+              <pre><code>[admin@MikroTik] > /system backup save name="Office_Backup_10Aug" password="securepass"</code></pre>
+            </li>
+          </ul>
+
+          <h3>Restore করার পদ্ধতি:</h3>
+          <ul>
+            <li>Winbox এর <strong>Files</strong> মেনুতে গিয়ে আপনার পিসি থেকে ব্যাকআপ ফাইলটি ড্র্যাগ করে আপলোড করুন।</li>
+            <li>ফাইলটি সিলেক্ট করে উপরের <strong>Restore</strong> বাটনে ক্লিক করুন। পাসওয়ার্ড দেওয়া থাকলে সেটি দিন এবং
+              <strong>Restore</strong> এ ক্লিক করুন।</li>
+            <li>রাউটার অটোমেটিক রিবুট (Reboot) নেবে এবং আগের অবস্থায় ফিরে আসবে।</li>
+            <li><strong>CLI কমান্ড:</strong>
+              <code>/system backup load name="Office_Backup_10Aug.backup" password="securepass"</code></li>
+          </ul>
+
+          <h2>২. Configuration Export (.rsc) তৈরি এবং রিস্টোর করা</h2>
+          <p>আপনি যদি একটি পুরনো ছোট রাউটার (যেমন RB750Gr3) থেকে আপনার নেটওয়ার্কটিকে একটি বড় শক্তিশালী রাউটারে (যেমন
+            CCR2004) শিফট বা আপগ্রেড করতে চান, তবে আপনাকে অবশ্যই Export বা <code>.rsc</code> ফাইল ব্যবহার করতে হবে।</p>
+
+          <h3>Export তৈরি করার পদ্ধতি:</h3>
+          <p>Export সাধারণত টার্মিনাল থেকেই করতে হয়। Winbox এর <strong>New Terminal</strong> ওপেন করুন।</p>
+          <ul>
+            <li><strong>পুরো রাউটারের কনফিগারেশন এক্সপোর্ট করতে:</strong>
+              <pre><code>[admin@MikroTik] > /export file="Full_Config_10Aug"</code></pre>
+            </li>
+            <li><strong>নির্দিষ্ট কোনো অংশের কনফিগারেশন এক্সপোর্ট করতে:</strong> (ধরুন আপনি শুধু ফায়ারওয়াল রুলগুলো নিতে
+              চাচ্ছেন)
+              <pre><code>[admin@MikroTik] > /ip firewall export file="Firewall_Rules"</code></pre>
+            </li>
+          </ul>
+          <p>কমান্ড দেওয়ার পর <strong>Files</strong> মেনুতে গিয়ে দেখবেন <code>Full_Config_10Aug.rsc</code> নামে একটি
+            ফাইল তৈরি হয়েছে। ফাইলটি আপনার পিসিতে কপি করে নিন। এটি Notepad দিয়ে ওপেন করলে সব কোড দেখতে পাবেন।</p>
+
+          <h3>Import বা রিস্টোর করার পদ্ধতি:</h3>
+          <ul>
+            <li>নতুন রাউটারের <strong>Files</strong> মেনুতে <code>.rsc</code> ফাইলটি আপলোড করুন।</li>
+            <li>New Terminal ওপেন করে নিচের কমান্ডটি দিন:
+              <pre><code>[admin@MikroTik] > /import file="Full_Config_10Aug.rsc"</code></pre>
+            </li>
+            <li>স্ক্রিনে <code>Script file loaded and executed successfully</code> দেখালে বুঝবেন কনফিগারেশন সফলভাবে
+              রিস্টোর হয়েছে।</li>
+          </ul>
+
+          <h2>৩. Binary vs Export: তুলনামূলক পার্থক্য</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Binary Backup (.backup)</th>
+                  <th>Configuration Export (.rsc)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">ফাইলের ধরন</td>
+                  <td>এনক্রিপ্টেড বাইনারি ফাইল (যা মানুষ পড়তে পারে না)।</td>
+                  <td>প্লেইন টেক্সট স্ক্রিপ্ট (যা Notepad দিয়ে পড়া ও এডিট করা যায়)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">MAC Address</td>
+                  <td>আগের রাউটারের MAC Address সহ সেভ হয়।</td>
+                  <td>MAC Address সেভ হয় না (যা অন্য রাউটারে নেওয়ার জন্য ভালো)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Passwords & Users</td>
+                  <td>সমস্ত ইউজারের পাসওয়ার্ড সেভ করে।</td>
+                  <td>ইউজার একাউন্টের পাসওয়ার্ড সেভ করে না (নিরাপত্তার স্বার্থে)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">হার্ডওয়্যার ডিপেন্ডেন্সি</td>
+                  <td>শুধুমাত্র একই মডেলের রাউটারে রিস্টোর করা উচিত।</td>
+                  <td>যেকোনো মডেলের MikroTik রাউটারে ইম্পোর্ট করা যায়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <p>ব্যাকআপ ও রিস্টোর করার সময় কিছু পরিচিত এরর আসতে পারে:</p>
+
+          <ul>
+            <li><strong>ভিন্ন মডেলে Binary Restore করা (MAC Conflict):</strong> আপনি যদি একটি RB3011 এর
+              <code>.backup</code> ফাইল একটি RB4011 এ রিস্টোর করেন, তবে নতুন রাউটারের পোর্টগুলো আগের রাউটারের MAC
+              Address ধারণ করবে। ফলে নেটওয়ার্কে <strong>MAC Conflict</strong> বা লুপ তৈরি হবে। তাই ভিন্ন মডেলে কখনোই
+              Binary Restore করবেন না।</li>
+            <li><strong>.rsc ফাইল Import এ ফেইল করা:</strong> অনেক সময় <code>/import</code> করার সময় স্ক্রিপ্ট মাঝপথে
+              আটকে যায় (যেমন লাইন নাম্বার ৩৫ এ এরর)। এটি হয় যদি ওই কমান্ডের সাথে সম্পর্কিত কোনো ইন্টারফেস (যেমন
+              pppoe-out1) নতুন রাউটারে না থাকে। <strong>সমাধান:</strong> পিসির Notepad দিয়ে <code>.rsc</code> ফাইলটি
+              ওপেন করুন, এরর হওয়া লাইনটি খুঁজে এডিট করুন এবং তারপর টার্মিনালে কোডগুলো কপি-পেস্ট করুন।</li>
+            <li><strong>Passwords Missing in Export:</strong> <code>.rsc</code> ফাইলে নিরাপত্তার কারণে রাউটারের ইউজার
+              পাসওয়ার্ড এক্সপোর্ট হয় না। তাই নতুন রাউটারে স্ক্রিপ্ট ইম্পোর্ট করার পর আপনাকে নিজে থেকে নতুন করে অ্যাডমিন
+              পাসওয়ার্ড এবং ইউজার গ্রুপ তৈরি করে নিতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>আপনার নেটওয়ার্কের সাইজ যেমনই হোক না কেন, <strong>Backup</strong> একটি আবশ্যিক রুটিন হওয়া উচিত। একই
+              ডিভাইসের রেগুলার ব্যাকআপ বা হার্ডওয়্যার রিপ্লেসমেন্টের জন্য <strong>Binary Backup (.backup)</strong>
+              ব্যবহার করুন। অন্যদিকে, আপনি যদি রাউটার আপগ্রেড করেন, অন্য মডেলে শিফট করেন, অথবা কনফিগারেশন টেমপ্লেট
+              হিসেবে অন্য ব্রাঞ্চে ব্যবহার করতে চান, তবে আপনার একমাত্র ভরসা হলো <strong>Configuration Export
+                (.rsc)</strong>। এই দুটি মেকানিজমের সঠিক ব্যবহার আপনাকে যেকোনো হার্ডওয়্যার ফেইলিওর বা নেটওয়ার্ক ক্র্যাশ
+              থেকে দ্রুততম সময়ে রিকভার করতে সাহায্য করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

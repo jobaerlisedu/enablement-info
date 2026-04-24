@@ -1,32 +1,334 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik Router-এ DNS Forwarder কনফিগারেশন এবং Force DNS Redirection (NAT) এর মাধ্যমে ইউজারদের লোকাল ডিএনএস ব্যবহারে বাধ্য করার বিস্তারিত বাংলা গাইড।">
   <title>Make MikroTik router a DNS Forwarder and redirect DNS queries | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Make MikroTik router a DNS Forwarder and redirect DNS queries</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Make MikroTik router a DNS Forwarder and redirect DNS queries</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Make MikroTik router a DNS Forwarder and redirect DNS queries</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 15 November, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>যেকোনো নেটওয়ার্কে যখন আমরা কোনো ওয়েবসাইট ব্রাউজ করি, তখন ব্রাউজার সেই সাইটের নামকে (Domain Name) আইপি
+            অ্যাড্রেসে (IP Address) কনভার্ট করার জন্য <strong>DNS (Domain Name System)</strong> সার্ভারের সাহায্য নেয়।
+            আপনি যদি একটি অফিস বা আইএসপি (ISP) নেটওয়ার্ক চালান, তবে ইউজারদের ইন্টারনেট ব্রাউজিং এক্সপেরিয়েন্স দ্রুত করার
+            জন্য লোকাল ডিএনএস সার্ভারের ভূমিকা অপরিসীম।</p>
+          <p>MikroTik RouterOS দিয়ে আপনি খুব সহজেই আপনার রাউটারকে একটি <strong>DNS Forwarder</strong> বা ক্যাশ (Cache)
+            সার্ভার হিসেবে তৈরি করতে পারেন। শুধু তাই নয়, ইউজাররা যাতে চালাকি করে আপনার নেটওয়ার্কের ডিএনএস বাইপাস না করতে
+            পারে, তার জন্য <strong>DNS Query Redirect</strong> বা <strong>Force DNS</strong> করাটাও শিখতে হবে। আজকের এই
+            ডিপ-ডাইভ টিউটোরিয়ালে আমরা এই দুটি কাজ প্র্যাকটিক্যালি করে দেখবো।</p>
+
+          <div class="content-box">
+            <h3>১. DNS Forwarder কী এবং এর সুবিধা কী?</h3>
+            <p><strong>DNS Forwarder</strong> হলো এমন একটি মেকানিজম যেখানে আপনার রাউটার নিজেই ইউজারদের জন্য লোকাল ডিএনএস
+              সার্ভার হিসেবে কাজ করে।</p>
+            <ul>
+              <li><strong>কীভাবে কাজ করে?</strong> যখন কোনো ইউজার <code>facebook.com</code> লিখে এন্টার দেয়, রিকোয়েস্টটি
+                প্রথমে আপনার MikroTik রাউটারের কাছে আসে। রাউটার তখন মেইন ডিএনএস সার্ভার (যেমন Google বা Cloudflare) থেকে
+                আইপিটি জেনে এনে ইউজারকে দেয় এবং নিজের মেমোরিতে তা <strong>Cache</strong> (জমা) করে রাখে।</li>
+              <li><strong>সুবিধা:</strong> পরবর্তীতে অন্য কোনো ইউজার যখন আবার <code>facebook.com</code> এ যেতে চাইবে,
+                রাউটার তখন ইন্টারনেট থেকে আইপি না খুঁজে নিজের ক্যাশ থেকেই সাথে সাথে রিপ্লাই দিয়ে দেবে। এতে ব্রাউজিং
+                স্পিড বাড়ে এবং ব্যান্ডউইথ (Bandwidth) সাশ্রয় হয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. MikroTik রাউটারকে DNS Forwarder হিসেবে কনফিগার করা</h2>
+          <p>রাউটারকে ফরোয়ার্ডার বানানোর জন্য আমাদের শুধু <code>Allow Remote Requests</code> অপশনটি চালু করতে হবে।</p>
+
+          <h3>Winbox এর মাধ্যমে কনফিগারেশন:</h3>
+          <ul>
+            <li>বাম দিকের মেনু থেকে <strong>IP > DNS</strong> এ ক্লিক করুন।</li>
+            <li><strong>Servers:</strong> এর ঘরে আপনার আপস্ট্রিম আইএসপির ডিএনএস অথবা গুগলের ডিএনএস (<code>8.8.8.8</code>
+              এবং <code>1.1.1.1</code>) বসিয়ে দিন।</li>
+            <li>সবচেয়ে গুরুত্বপূর্ণ ধাপ হলো <strong>Allow Remote Requests</strong> চেকবক্সে টিক (Check) দেওয়া। এটি
+              রাউটারকে লোকাল ডিএনএস সার্ভার হিসেবে কাজ করার অনুমতি দেয়।</li>
+            <li><strong>Cache Size:</strong> এর ঘরে ডিফল্ট <code>2048 KiB</code> থাকে। বড় নেটওয়ার্কের জন্য আপনি এটি
+              বাড়িয়ে <code>4096 KiB</code> বা <code>8192 KiB</code> করে দিতে পারেন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h3>CLI কমান্ড (Terminal):</h3>
+          <pre><code>[admin@MikroTik] > /ip dns set servers=8.8.8.8,1.1.1.1 allow-remote-requests=yes cache-size=4096</code></pre>
+          <p>এখন আপনার লোকাল নেটওয়ার্কের (LAN) ইউজারদের DHCP সার্ভারের মাধ্যমে ডিএনএস আইপি হিসেবে <strong>আপনার রাউটারের
+              লোকাল আইপি</strong> (যেমন: 192.168.10.1) দিতে হবে।</p>
+
+          <div class="content-box">
+            <h3>৩. রিয়েল-লাইফ সিনারিও: DNS Query Redirect কেন প্রয়োজন?</h3>
+            <p><strong>সমস্যা:</strong> আপনি হয়তো আপনার অফিসে একটি ফিল্টার্ড ডিএনএস (যেমন: OpenDNS) ব্যবহার করছেন, যাতে
+              পর্নোগ্রাফি বা ম্যালওয়্যার সাইট ব্লক থাকে। কিন্তু আপনার অফিসের কিছু চতুর ইউজার তাদের পিসি বা মোবাইল ফোনের
+              সেটিংসে গিয়ে ম্যানুয়ালি <code>8.8.8.8</code> বসিয়ে দিলো। এর ফলে তারা আপনার রাউটারের ডিএনএস বাইপাস করে
+              সরাসরি ইন্টারনেটে চলে যাবে এবং সমস্ত ব্লক করা সাইট ভিজিট করতে পারবে।</p>
+            <p><strong>সমাধান:</strong> এই বাইপাস ঠেকানোর জন্য আমরা ফায়ারওয়ালে <strong>NAT Redirect (Force
+                DNS)</strong> ব্যবহার করবো। আমরা রাউটারকে বলবো, "নেটওয়ার্কের ভেতর থেকে যদি কেউ পোর্ট 53 (DNS Port)
+              ব্যবহার করে বাইরের কোনো সার্ভারের কাছে যেতে চায়, তবে তাকে জোর করে ঘুরিয়ে রাউটারের নিজের কাছে (Local DNS)
+              নিয়ে আসো।"</p>
+          </div>
+
+          <h2>৪. DNS Query Redirect (Force DNS) কনফিগার করার পদ্ধতি</h2>
+          <p>DNS ট্রাফিক সাধারণত <strong>UDP Port 53</strong> এবং ক্ষেত্রবিশেষে <strong>TCP Port 53</strong> ব্যবহার
+            করে। আমাদের ফায়ারওয়ালের <strong>Destination NAT (dstnat)</strong> চেইন ব্যবহার করে এই দুই ধরনের ট্রাফিককেই
+            রিডাইরেক্ট করতে হবে।</p>
+
+          <h3>Winbox এর মাধ্যমে কনফিগারেশন:</h3>
+          <ul>
+            <li><strong>IP > Firewall > NAT</strong> ট্যাবে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করে নতুন রুল তৈরি করুন।</li>
+            <li><strong>General Tab:</strong>
+              <ul>
+                <li><strong>Chain:</strong> <code>dstnat</code> সিলেক্ট করুন।</li>
+                <li><strong>Protocol:</strong> <code>17 (udp)</code> সিলেক্ট করুন।</li>
+                <li><strong>Dst. Port:</strong> <code>53</code> লিখুন।</li>
+                <li><strong>In. Interface:</strong> আপনার ল্যান ইন্টারফেস (যেমন: <code>ether2</code> বা
+                  <code>bridge-lan</code>) সিলেক্ট করুন।
+                </li>
+              </ul>
+            </li>
+            <li><strong>Action Tab:</strong>
+              <ul>
+                <li><strong>Action:</strong> ড্রপডাউন থেকে <code>redirect</code> সিলেক্ট করুন।</li>
+                <li><strong>To Ports:</strong> <code>53</code> লিখুন।</li>
+              </ul>
+            </li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+          <p><em>ঠিক একই নিয়মে Protocol এর জায়গায় <code>6 (tcp)</code> সিলেক্ট করে আরেকটি রুল তৈরি করুন।</em></p>
+
+          <h3>CLI কমান্ড (Terminal):</h3>
+          <p>টার্মিনাল ব্যবহার করে খুব দ্রুত রুল দুটি অ্যাড করার জন্য নিচের কমান্ডগুলো ব্যবহার করুন:</p>
+
+          <p><strong>UDP Port 53 Redirect:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall nat add chain=dstnat action=redirect to-ports=53 protocol=udp dst-port=53 in-interface=bridge-lan comment="Force DNS UDP"</code></pre>
+
+          <p><strong>TCP Port 53 Redirect:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall nat add chain=dstnat action=redirect to-ports=53 protocol=tcp dst-port=53 in-interface=bridge-lan comment="Force DNS TCP"</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সিকিউরিটি সতর্কতা)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem) / সতর্কতা</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Security Alert: DNS Amplification Attack</td>
+                  <td><strong>অত্যন্ত গুরুত্বপূর্ণ:</strong> <code>Allow Remote Requests</code> চালু করলে ইন্টারনেট
+                    (WAN) থেকেও হ্যাকাররা আপনার রাউটারকে ডিএনএস সার্ভার হিসেবে ব্যবহার করে স্প্যাম রিকোয়েস্ট পাঠাতে
+                    পারে। রাউটারের <strong>CPU 100%</strong> হয়ে যাবে। এর সমাধান হলো Firewall > Filter Rules এ গিয়ে
+                    WAN পোর্ট থেকে আসা পোর্ট 53 এর ট্রাফিক ড্রপ (Drop) করে দেওয়া। কমান্ড:
+                    <code>/ip firewall filter add action=drop chain=input in-interface=ether1 dst-port=53 protocol=udp</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">নতুন আইপি আপডেট হচ্ছে না</td>
+                  <td>মাঝে মাঝে কোনো সাইটের আইপি পরিবর্তন হলে ক্যাশের কারণে পুরনো আইপি লোড হয়। এই সমস্যা সমাধানের জন্য
+                    রাউটারের ডিএনএস ক্যাশ ফ্লাশ (Flush) করতে হয়। কমান্ড: <code>/ip dns cache flush</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column">Redirection কাজ করছে কি না চেক করা</td>
+                  <td>এটি কাজ করছে কি না তা বোঝার জন্য উইন্ডোজ পিসির CMD ওপেন করে
+                    <code>nslookup facebook.com 8.8.8.8</code> লিখে এন্টার দিন। যদি রেজাল্টে আপনার রাউটারের লোকাল আইপি
+                    (যেমন 192.168.10.1) থেকে নন-অথরিটেটিভ আনসার আসে, তবে বুঝবেন আপনার Force DNS রুল ঠিকমতো কাজ করছে।
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>আপনার লোকাল নেটওয়ার্কে <strong>DNS Forwarder</strong> কনফিগার করা ব্রাউজিং স্পিড বাড়ানোর জন্য একটি
+              চমৎকার উপায়। কিন্তু নেটওয়ার্কের ওপর আপনার সম্পূর্ণ নিয়ন্ত্রণ বা পলিসি ধরে রাখার জন্য <strong>DNS Query
+                Redirect (NAT)</strong> করাটা অত্যাবশ্যক। এই দুটি ফিচারের সমন্বয় আপনার <strong>MikroTik
+                Router</strong>-কে শুধু একটি প্যাকেট ফরোয়ার্ডার থেকে একটি স্মার্ট এবং সিকিউরড লোকাল গেটওয়েতে পরিণত
+              করে। তবে মনে রাখবেন, ডিএনএস সার্ভিস চালু করার সাথে সাথে <strong>WAN পোর্ট থেকে আসা ট্রাফিক ড্রপ</strong>
+              করার সিকিউরিটি রুলটি কখনোই ভুলে যাওয়া যাবে না।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

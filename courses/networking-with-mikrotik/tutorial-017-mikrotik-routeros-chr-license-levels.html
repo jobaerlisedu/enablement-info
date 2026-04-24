@@ -1,32 +1,358 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MikroTik RouterOS & CHR license levels | enablement.info</title>
+  <meta name="description"
+    content="MikroTik RouterOS এবং CHR (Cloud Hosted Router) এর বিভিন্ন License Levels (L3, L4, L5, L6 এবং P1, P10, P-Unlimited) নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>MikroTik RouterOS & CHR license levels: Detailed Guide | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>MikroTik RouterOS & CHR license levels</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>MikroTik RouterOS & CHR license levels</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>MikroTik RouterOS & CHR license levels: Detailed Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 August, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik রাউটার সেটআপ করার সময় আপনি হার্ডওয়্যার (Hardware) কিনছেন, নাকি সফটওয়্যার (Software) ব্যবহার
+            করছেন—তার ওপর ভিত্তি করে লাইসেন্সিং সিস্টেমটি ভিন্ন হয়। অনেকেই জানেন না যে একটি ৳৩,০০০ টাকার রাউটার আর
+            ৳৩০,০০০ টাকার রাউটারের মধ্যে শুধু প্রসেসর বা র‍্যামের পার্থক্য থাকে না, বরং তাদের <strong>License
+              Level</strong>-এও বিশাল পার্থক্য থাকে।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো MikroTik এর ট্র্যাডিশনাল <strong>RouterOS License</strong> এবং
+            ক্লাউড-ভিত্তিক <strong>CHR (Cloud Hosted Router) License</strong> কীভাবে কাজ করে, কোন লেভেলের কী লিমিটেশন
+            আছে এবং আপনার নেটওয়ার্কের জন্য কোনটি সবচেয়ে উপযুক্ত।</p>
+
+          <div class="content-box">
+            <h3>RouterOS বনাম CHR: পার্থক্য কী?</h3>
+            <p><strong>RouterOS (x86 বা RouterBOARD):</strong> এটি মূলত ফিজিক্যাল হার্ডওয়্যারের জন্য তৈরি। আপনি যখন
+              বাজার থেকে একটি MikroTik রাউটার (যেমন RB750Gr3 বা CCR2004) কেনেন, তখন এর ভেতরে ডিফল্টভাবে RouterOS ইন্সটল
+              করা থাকে এবং লাইসেন্স দেওয়া থাকে। এই লাইসেন্সটি হার্ডওয়্যারের স্টোরেজের (SoftID) সাথে যুক্ত থাকে।</p>
+            <p><strong>CHR (Cloud Hosted Router):</strong> এটি হলো ভার্চুয়াল মেশিনের (VM) জন্য তৈরি করা RouterOS এর একটি
+              বিশেষ ভার্সন। আপনি যদি VMware, VirtualBox, Hyper-V, অথবা AWS/DigitalOcean-এর মতো ক্লাউড সার্ভারে MikroTik
+              চালাতে চান, তবে আপনাকে CHR ব্যবহার করতে হবে। CHR এর লাইসেন্সিং সিস্টেম ফিজিক্যাল রাউটারের চেয়ে একদমই
+              আলাদা।</p>
+          </div>
+
+          <h2>১. RouterOS License Levels (ফিজিক্যাল হার্ডওয়্যার এবং x86 পিসি)</h2>
+          <p>MikroTik RouterOS এর লাইসেন্স মূলত Level 0 থেকে Level 6 পর্যন্ত হয়ে থাকে। আপনি কতগুলো ইউজার কানেক্ট করতে
+            পারবেন (PPPoE, Hotspot), তার লিমিট এই লাইসেন্স লেভেল নির্ধারণ করে দেয়।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>License Level</th>
+                  <th>ব্যবহারের ক্ষেত্র (Use Case)</th>
+                  <th>Active Users (PPPoE/Hotspot/VPN)</th>
+                  <th>BGP / OSPF সাপোর্ট</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Level 0 (Trial)</td>
+                  <td>এটি শুধুমাত্র টেস্ট করার জন্য। ইন্সটল করার পর ২৪ ঘণ্টা কাজ করবে।</td>
+                  <td>লিমিটেড</td>
+                  <td>না</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Level 1 (Free)</td>
+                  <td>অফিসিয়াল ফ্রি ভার্সন, কিন্তু খুবই লিমিটেড।</td>
+                  <td>সর্বোচ্চ ১ জন ইউজার</td>
+                  <td>না</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Level 3 (WISP CPE)</td>
+                  <td>Wireless ক্লায়েন্ট বা রিসিভার (CPE) ডিভাইসগুলোতে থাকে (যেমন SXT Lite)।</td>
+                  <td>সর্বোচ্চ ২০০ জন</td>
+                  <td>না (Wireless Client Mode শুধু)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Level 4 (WISP)</td>
+                  <td>হোম বা ছোট অফিসের রাউটারে থাকে (যেমন RB750Gr3, hAP ac2)।</td>
+                  <td>সর্বোচ্চ ২০০ জন (PPPoE/Hotspot)</td>
+                  <td>হ্যাঁ</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Level 5 (WISP)</td>
+                  <td>মিডিয়াম সাইজ ISP বা বড় কর্পোরেট অফিসের রাউটারে থাকে (যেমন RB3011, RB4011)।</td>
+                  <td>সর্বোচ্চ ৫০০ জন (PPPoE/Hotspot)</td>
+                  <td>হ্যাঁ</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Level 6 (Controller)</td>
+                  <td>ডেটা সেন্টার, Core Router বা বড় ISP এর জন্য (যেমন CCR সিরিজের সব রাউটার)।</td>
+                  <td><strong>Unlimited (কোনো লিমিট নেই)</strong></td>
+                  <td>হ্যাঁ</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p><em>নোট: Level 4 রাউটার দিয়ে আপনি একটি ছোট ISP শুরু করতে পারেন, তবে আপনার কাস্টমার যদি ২০০ জনের বেশি হয়ে
+              যায়, তবে ২০1 নম্বর কাস্টমার কোনোভাবেই কানেক্ট হতে পারবে না। তখন আপনাকে Level 5 বা 6 এ আপগ্রেড করতে
+              হবে।</em></p>
+
+          <h2>২. CHR License Levels (ভার্চুয়াল মেশিন বা ক্লাউড)</h2>
+          <p>ভার্চুয়াল মেশিনে (Virtual Machine) যখন আপনি CHR ইন্সটল করেন, তখন এর কোনো হার্ডওয়্যার লিমিটেশন থাকে না। তাই
+            CHR এর লাইসেন্সগুলো <strong>User Limit এর ওপর ভিত্তি করে নয়, বরং Speed Limit (Bandwidth) এর ওপর ভিত্তি
+              করে</strong> তৈরি করা হয়েছে। CHR এর চারটি লাইসেন্স লেভেল রয়েছে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>CHR License</th>
+                  <th>Speed Limit (প্রতিটি ইন্টারফেসে)</th>
+                  <th>বিস্তারিত (Description & Use Case)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Free</td>
+                  <td>1 Mbps</td>
+                  <td>এটি ফ্রি। ইন্সটল করার পর ডিফল্টভাবে এই লাইসেন্সটি থাকে। রাউটিং বা ল্যাবে টেস্ট করার জন্য এটি
+                    ব্যবহার করা হয়। এর স্পিড মাত্র 1 Mbps বলে প্রোডাকশনে ব্যবহার করা যায় না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">P1 (Perpetual-1)</td>
+                  <td>1 Gbps</td>
+                  <td>প্রতিটি ইন্টারফেসে সর্বোচ্চ 1 Gigabit (1000 Mbps) পর্যন্ত স্পিড সাপোর্ট করবে। ছোট ISP বা ক্লাউড
+                    ভিপিএন সার্ভারের জন্য এটি দারুণ।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">P10 (Perpetual-10)</td>
+                  <td>10 Gbps</td>
+                  <td>প্রতিটি পোর্টে সর্বোচ্চ 10 Gbps স্পিড পাওয়া যাবে। মিডিয়াম থেকে বড় সাইজের নেটওয়ার্কের জন্য এটি
+                    ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">P-Unlimited</td>
+                  <td>Unlimited (কোনো লিমিট নেই)</td>
+                  <td>এর কোনো স্পিড লিমিট নেই। আপনার ক্লাউড সার্ভারের হার্ডওয়্যার (CPU/NIC) যতটুকু ব্যান্ডউইথ প্রসেস
+                    করতে পারবে, ঠিক ততটুকুই স্পিড আপনি পাবেন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. License চেক করা এবং কনফিগার করা</h2>
+          <p>আপনার রাউটারে বর্তমানে কোন লাইসেন্স চলছে, তা চেক করা খুবই সহজ।</p>
+
+          <h3>Winbox এর মাধ্যমে:</h3>
+          <ul>
+            <li>Winbox ওপেন করে রাউটারে লগইন করুন।</li>
+            <li>বাম পাশের মেনু থেকে <strong>System</strong> এ ক্লিক করে <strong>License</strong> এ যান।</li>
+            <li>সেখানে আপনি দেখতে পাবেন আপনার <strong>Software ID</strong> এবং বর্তমান <strong>Level</strong> (যেমন
+              Level 4 বা P1)।</li>
+          </ul>
+
+          <h3>CLI (Command Line) এর মাধ্যমে:</h3>
+          <p>New Terminal ওপেন করে নিচের কমান্ডটি দিন:</p>
+          <pre><code>[admin@MikroTik] > /system license print</code></pre>
+          <p>আউটপুটে আপনার লাইসেন্স লেভেল এবং আপগ্রেডেবল ইনফরমেশন শো করবে।</p>
+
+          <h2>৪. Troubleshooting এবং License সংক্রান্ত গুরুত্বপূর্ণ টিপস</h2>
+          <p>লাইসেন্স নিয়ে কাজ করার সময় ইঞ্জিনিয়ারদের কিছু সাধারণ ভুল হয়ে থাকে:</p>
+
+          <ul>
+            <li><strong>RouterOS হার্ডওয়্যার লাইসেন্স (SoftID):</strong> ফিজিক্যাল রাউটার বা x86 পিসির লাইসেন্স তার
+              স্টোরেজ ড্রাইভের (Hard Disk/NAND) <strong>SoftID</strong> এর সাথে যুক্ত থাকে। আপনি যদি হার্ডডিস্ক ফরম্যাট
+              করেন বা ড্রাইভটি নষ্ট হয়ে যায়, তবে আপনার কেনা লাইসেন্সটি বাতিল হয়ে যাবে! তাই স্টোরেজের বিষয়ে সতর্ক থাকতে
+              হবে।</li>
+            <li><strong>CHR লাইসেন্স ট্রান্সফার করা যায়:</strong> RouterOS লাইসেন্সের সবচেয়ে বড় দুর্বলতা হলো এটি এক পিসি
+              থেকে অন্য পিসিতে নেওয়া যায় না। কিন্তু <strong>CHR License</strong> আপনার MikroTik অ্যাকাউন্টের সাথে যুক্ত
+              থাকে। আপনি চাইলে একটি ক্লাউড সার্ভার ডিলিট করে দিয়ে, সেই একই লাইসেন্স অন্য একটি নতুন ক্লাউড সার্ভারে সহজেই
+              ট্রান্সফার করতে পারবেন।</li>
+            <li><strong>লাইসেন্স আপগ্রেড করা:</strong> আপনি যদি একটি ফিজিক্যাল রাউটারে Level 4 লাইসেন্স নিয়ে থাকেন, তবে
+              চাইলে MikroTik এর ওয়েবসাইট থেকে Key কিনে সেটিকে Level 5 বা 6 এ আপগ্রেড করতে পারবেন। <strong>System >
+                License > Update License Key</strong> অপশন থেকে এটি করা যায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>MikroTik License Level</strong> বোঝাটা যেকোনো নেটওয়ার্ক প্ল্যানিংয়ের প্রথম ধাপ। আপনি যদি ২০০ জনের
+              বেশি ইউজার নিয়ে একটি হটস্পট (Hotspot) বা PPPoE সার্ভার বানাতে চান, তবে একটি Level 4 রাউটার কিনলে আপনার
+              প্রজেক্ট আটকে যাবে। অন্যদিকে, ক্লাউড বা ভার্চুয়াল মেশিনে <strong>CHR</strong> এর স্পিড-ভিত্তিক লাইসেন্সিং
+              সিস্টেম নেটওয়ার্ক ইঞ্জিনিয়ারদের দিয়েছে অসীম ফ্লেক্সিবিলিটি। আপনার নেটওয়ার্কের সাইজ এবং ফিউচার
+              স্কেলেবিলিটির (Future Scalability) কথা মাথায় রেখে সঠিক হার্ডওয়্যার এবং লাইসেন্স লেভেল নির্বাচন করাটাই হলো
+              একজন দক্ষ ইঞ্জিনিয়ারের পরিচয়।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

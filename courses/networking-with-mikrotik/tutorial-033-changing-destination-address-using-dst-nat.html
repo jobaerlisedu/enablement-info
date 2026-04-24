@@ -1,32 +1,316 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ DST-NAT ব্যবহার করে কীভাবে Destination Address পরিবর্তন বা Port Forwarding করতে হয় তার বিস্তারিত বাংলা গাইড।">
   <title>Changing destination address using DST-NAT | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Changing destination address using DST-NAT</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Changing destination address using DST-NAT</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Changing destination address using DST-NAT</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 20 November, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিং জগতে NAT (Network Address Translation) একটি যুগান্তকারী প্রযুক্তি, যা মূলত দুটি ভাগে কাজ করে:
+            Source NAT এবং Destination NAT। আমরা সবাই জানি যে লোকাল নেটওয়ার্ক থেকে ইন্টারনেটে যাওয়ার জন্য Source NAT বা
+            Masquerade ব্যবহার করতে হয়। কিন্তু যখন ইন্টারনেট থেকে কেউ আপনার লোকাল নেটওয়ার্কে প্রবেশ করতে চায়, তখন কী
+            হবে?</p>
+          <p>লোকাল বা Private IP ইন্টারনেটে রাউট (Route) হতে পারে না। তাই বাইরে থেকে লোকাল নেটওয়ার্কের কোনো সার্ভারকে
+            এক্সেস করার জন্য আমাদের <strong>DST-NAT (Destination NAT)</strong> ব্যবহার করে প্যাকেটের গন্তব্য বা
+            Destination Address পরিবর্তন করতে হয়। সাধারণ ভাষায় একে <strong>Port Forwarding</strong> বলা হয়। আজকের এই
+            ডিপ-ডাইভ টিউটোরিয়ালে আমরা একটি রিয়েল-লাইফ উদাহরণের মাধ্যমে শিখবো কীভাবে MikroTik RouterOS-এ DST-NAT কনফিগার
+            করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Web Server Scenario)</h3>
+            <p>ধরুন, আপনার অফিসে একটি <strong>Web Server</strong> আছে, যার লোকাল বা Private IP হলো
+              <code>192.168.10.50</code>। এই সার্ভারটি পোর্ট <code>80</code> (HTTP) এ কাজ করে। আপনার আইএসপি (ISP) আপনার
+              রাউটারের WAN পোর্টে একটি Public IP দিয়েছে, যা হলো <code>203.0.113.10</code>।</p>
+            <p><strong>লক্ষ্য:</strong> আপনি চান পৃথিবীর যেকোনো প্রান্ত থেকে কেউ ব্রাউজারে আপনার Public IP
+              (<code>203.0.113.10</code>) লিখে এন্টার দিলে, রাউটার যেন সেই ট্রাফিকটিকে রিসিভ করে লোকাল নেটওয়ার্কের ওয়েব
+              সার্ভারের (<code>192.168.10.50</code>) কাছে পাঠিয়ে দেয়।</p>
+          </div>
+
+          <h2>১. DST-NAT কীভাবে কাজ করে?</h2>
+          <p>যখন কোনো ইউজার আপনার পাবলিক আইপিতে রিকোয়েস্ট পাঠায়, তখন সেই ডাটা প্যাকেটের (Packet) গায়ে দুটি জিনিস লেখা
+            থাকে:</p>
+          <ul>
+            <li><strong>Source IP:</strong> ইউজারের নিজের আইপি (যেখান থেকে রিকোয়েস্ট এসেছে)।</li>
+            <li><strong>Destination IP:</strong> আপনার রাউটারের পাবলিক আইপি (<code>203.0.113.10</code>)।</li>
+          </ul>
+          <p>ডাটা প্যাকেটটি রাউটারের কাছে আসার পর, ফায়ারওয়ালের <strong>dstnat</strong> চেইন সেই প্যাকেটের গন্তব্য
+            (Destination IP) পরিবর্তন করে লোকাল সার্ভারের আইপি (<code>192.168.10.50</code>) বসিয়ে দেয়। এরপর রাউটিং টেবিল
+            অনুযায়ী প্যাকেটটি লোকাল সার্ভারের কাছে পৌঁছে যায়।</p>
+
+          <h2>২. Winbox ব্যবহার করে DST-NAT কনফিগারেশন</h2>
+          <p>আমাদের Web Server সিনারিওটি এখন Winbox এর মাধ্যমে কনফিগার করবো।</p>
+
+          <h3>Step 1: General Tab কনফিগারেশন</h3>
+          <ul>
+            <li>Winbox ওপেন করে <strong>IP > Firewall</strong> এ যান।</li>
+            <li><strong>NAT</strong> ট্যাবে ক্লিক করে নতুন একটি রুল তৈরি করতে <strong>+ (Add)</strong> আইকনে ক্লিক করুন।
+            </li>
+            <li><strong>Chain:</strong> ড্রপডাউন থেকে <code>dstnat</code> সিলেক্ট করুন।</li>
+            <li><strong>Dst. Address:</strong> এর ঘরে আপনার রাউটারের পাবলিক আইপি <code>203.0.113.10</code> দিন। (এটি
+              দেওয়া জরুরি, নাহলে রাউটার অন্য সব ট্রাফিককেও ভুল দিকে পাঠিয়ে দিতে পারে)।</li>
+            <li><strong>Protocol:</strong> <code>6 (tcp)</code> সিলেক্ট করুন (যেহেতু ওয়েব সার্ভার TCP তে কাজ করে)।</li>
+            <li><strong>Dst. Port:</strong> <code>80</code> লিখুন।</li>
+          </ul>
+
+          <h3>Step 2: Action Tab কনফিগারেশন</h3>
+          <ul>
+            <li>উপরের মেনু থেকে <strong>Action</strong> ট্যাবে যান।</li>
+            <li><strong>Action:</strong> ড্রপডাউন থেকে <code>dst-nat</code> সিলেক্ট করুন।</li>
+            <li><strong>To Addresses:</strong> এর ঘরে আপনার লোকাল ওয়েব সার্ভারের আইপি <code>192.168.10.50</code> দিন।
+            </li>
+            <li><strong>To Ports:</strong> এর ঘরে <code>80</code> দিন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন। কনফিগারেশন সম্পন্ন!</li>
+          </ul>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>টার্মিনাল থেকে মাত্র এক লাইনের কমান্ড দিয়ে এই পুরো কাজটি করা সম্ভব:</p>
+
+          <pre><code>[admin@MikroTik] > /ip firewall nat add chain=dstnat dst-address=203.0.113.10 protocol=tcp dst-port=80 action=dst-nat to-addresses=192.168.10.50 to-ports=80 comment="Web Server Port Forward"</code></pre>
+
+          <h2>৪. Advanced Scenario: Port Translation (পোর্ট পরিবর্তন)</h2>
+          <p>সিকিউরিটির কারণে অনেক সময় আমরা বাইরের পোর্ট এবং ভেতরের পোর্ট এক রাখতে চাই না। একে <strong>Port
+              Translation</strong> বলে।</p>
+          <p><strong>উদাহরণ:</strong> আপনার লোকাল নেটওয়ার্কে একটি পিসি আছে (<code>192.168.10.100</code>) যার Remote
+            Desktop (RDP) পোর্ট হলো <code>3389</code>। আপনি ইন্টারনেটে সরাসরি 3389 পোর্ট ওপেন করতে চান না (হ্যাকিংয়ের
+            ভয়ে)। আপনি চান বাইরে থেকে কেউ <code>33899</code> পোর্টে হিট করলে সেটি লোকাল পিসির <code>3389</code> পোর্টে
+            ফরওয়ার্ড হবে।</p>
+
+          <p><strong>CLI কমান্ড:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall nat add chain=dstnat dst-address=203.0.113.10 protocol=tcp dst-port=33899 action=dst-nat to-addresses=192.168.10.100 to-ports=3389 comment="RDP Port Translation"</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">বাইরে থেকে এক্সেস করা যাচ্ছে না (পোর্ট বন্ধ দেখাচ্ছে)</td>
+                  <td>প্রথমে চেক করুন আপনার লোকাল সার্ভারে রাউটারের আইপিটি <strong>Default Gateway</strong> হিসেবে বসানো
+                    আছে কি না। গন্তব্যে যাওয়ার রাস্তা (Route) ঠিক না থাকলে সার্ভার রিপ্লাই দিতে পারে না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Firewall Filter রুল ব্লক করছে</td>
+                  <td>MikroTik এর <strong>Forward Chain</strong> এ যদি সব ট্রাফিক ড্রপ করা থাকে, তবে পোর্ট ফরওয়ার্ডিং
+                    কাজ করবে না। আপনাকে Filter Rules এ গিয়ে <code>connection-nat-state=dstnat</code> রুলটি Accept করতে
+                    হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">লোকাল ইউজার পাবলিক আইপি দিয়ে সার্ভার এক্সেস করতে পারছে না</td>
+                  <td>এটি একটি বিখ্যাত সমস্যা, যাকে <strong>Hairpin NAT (NAT Loopback)</strong> বলা হয়। বাইরে থেকে
+                    পাবলিক আইপি দিয়ে সাইট লোড হলেও, ল্যানের ভেতর থেকে পাবলিক আইপি দিয়ে সাইট লোড হয় না। এটি সমাধানের জন্য
+                    একটি বিশেষ Source NAT (srcnat) রুল তৈরি করতে হয় যা ল্যানের ট্রাফিককে মাস্ক্যুরেড (Masquerade) করে
+                    আবার ল্যানেই পাঠায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ISP পোর্ট ব্লক করে রেখেছে</td>
+                  <td>অনেক সময় আইএসপি (ISP) ভাইরাস ছড়ানো রোধ করতে পোর্ট 80, 443 বা 25 ব্লক করে রাখে। আপনার রাউটারে
+                    প্যাকেট হিট করছে কি না তা দেখার জন্য NAT রুলের <strong>Packet Counter</strong> চেক করুন। প্যাকেট না
+                    আসলে আইএসপির সাথে যোগাযোগ করুন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>DST-NAT</strong> বা গন্তব্য পরিবর্তন করার এই ফিচারটি নেটওয়ার্ক সিকিউরিটি এবং সার্ভার
+              ম্যানেজমেন্টের জন্য একটি অত্যন্ত শক্তিশালী টুল। এর মাধ্যমে আপনি একটিমাত্র Public IP ব্যবহার করে লোকাল
+              নেটওয়ার্কের ডজন ডজন সার্ভার (যেমন: Web Server, CCTV, Mail Server) ইন্টারনেটে নিরাপদে উন্মুক্ত করতে পারেন।
+              তবে <strong>Port Forwarding</strong> করার সময় সিকিউরিটির বিষয়টি মাথায় রেখে <strong>Port
+                Translation</strong> ব্যবহার করা এবং অপ্রয়োজনীয় পোর্টগুলো সবসময় বন্ধ রাখা একজন প্রফেশনাল নেটওয়ার্ক
+              ইঞ্জিনিয়ারের বেস্ট প্র্যাকটিস।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

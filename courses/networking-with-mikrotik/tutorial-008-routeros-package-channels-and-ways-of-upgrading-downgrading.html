@@ -1,32 +1,342 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS এর Package Channel (Long-term, Stable, Testing) কী? কীভাবে RouterOS Upgrade এবং Downgrade করতে হয় তার বিস্তারিত বাংলা গাইড।">
   <title>RouterOS package channels and ways of upgrading & downgrading | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>RouterOS package channels and ways of upgrading & downgrading</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>RouterOS package channels and ways of upgrading & downgrading</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>RouterOS package channels and ways of upgrading & downgrading</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আপনার মোবাইল ফোন বা পিসির অপারেটিং সিস্টেমের মতো MikroTik রাউটারেরও একটি অপারেটিং সিস্টেম আছে, যাকে
+            <strong>RouterOS</strong> বলা হয়। প্রযুক্তি প্রতিনিয়ত আপডেট হচ্ছে, নতুন নতুন সিকিউরিটি থ্রেট (Security
+            Threat) তৈরি হচ্ছে এবং সেই সাথে নেটওয়ার্কিং প্রোটোকলেও আসছে নতুন ফিচার। আপনার রাউটারকে এই সমস্ত সাইবার
+            অ্যাটাক থেকে সুরক্ষিত রাখতে এবং নতুন ফিচারগুলো ব্যবহার করার জন্য RouterOS নিয়মিত আপডেট (Upgrade) রাখা
+            অত্যন্ত জরুরি।</p>
+          <p>তবে যেকোনো আপডেটই যে আপনার নেটওয়ার্কের জন্য ভালো হবে, এমনটা নয়। অনেক সময় নতুন ভার্সনে Bug থাকতে পারে, যার
+            ফলে রাউটার ডাউন হয়ে যেতে পারে। তখন আপনাকে আগের ভার্সনে ফিরে যেতে হয় (Downgrade)। আজকের এই ডিপ-ডাইভ গাইডে
+            আমরা শিখবো RouterOS এর Package Channel গুলো কী এবং কীভাবে নিরাপদে রাউটার Upgrade ও Downgrade করা যায়।</p>
+
+          <div class="content-box">
+            <h3>RouterOS Package Channels কী?</h3>
+            <p>MikroTik তাদের RouterOS এর আপডেটগুলো সরাসরি একটি চ্যানেলে রিলিজ করে না। ইউজারদের প্রয়োজন এবং স্ট্যাবিলিটি
+              (Stability) বা স্থিতিশীলতার ওপর ভিত্তি করে তারা আপডেটগুলোকে ৪টি ভিন্ন <strong>Release Channel</strong> এ
+              ভাগ করেছে। আপনার রাউটারের কাজ অনুযায়ী আপনাকে সঠিক চ্যানেলটি বেছে নিতে হবে।</p>
+          </div>
+
+          <h2>১. RouterOS এর ৪টি Release Channels</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>চ্যানেলের নাম (Channel)</th>
+                  <th>বিস্তারিত (Description)</th>
+                  <th>কখন ব্যবহার করবেন?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Long-term (আগে Bugfix বলা হতো)</td>
+                  <td>এটি সবচেয়ে বেশি স্থিতিশীল (Stable) এবং পরীক্ষিত ভার্সন। এতে কোনো নতুন ফিচার যুক্ত করা হয় না,
+                    শুধুমাত্র গুরুত্বপূর্ণ বাগ (Bug) এবং সিকিউরিটি প্যাচ দেওয়া হয়।</td>
+                  <td><strong>Production Network:</strong> ব্যাংক, বড় কর্পোরেট অফিস বা আইএসপি (ISP)-এর কোর রাউটারে এটি
+                    ব্যবহার করা উচিত, যেখানে কোনো মতেই ডাউনটাইম মেনে নেওয়া যায় না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Stable (বা Current)</td>
+                  <td>এটি সাধারণ ইউজারদের জন্য রিকমেন্ডেড। এতে নতুন ফিচার এবং আপডেটেড প্রোটোকলগুলো থাকে এবং এটি মোটামুটি
+                    বাগ-ফ্রি (Bug-free)।</td>
+                  <td><strong>General Use:</strong> হোম রাউটার, ছোট অফিস বা নতুন ফিচার যেমন WireGuard VPN ব্যবহার করার
+                    জন্য এটি বেস্ট।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Testing</td>
+                  <td>এটি মূলত বেটা (Beta) ভার্সন। ডেভেলপাররা নতুন ফিচার রিলিজ করার পর এই চ্যানেলে দেয় ইউজারদের ফিডব্যাক
+                    পাওয়ার জন্য। এতে প্রচুর Bug থাকতে পারে।</td>
+                  <td><strong>Lab Environment:</strong> শুধুমাত্র ল্যাবে টেস্টিং করার জন্য। ভুলেও লাইভ নেটওয়ার্কে এটি
+                    ব্যবহার করবেন না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Development</td>
+                  <td>এটি আলফা (Alpha) ভার্সন বা একদম প্রাথমিক লেভেলের রিলিজ। এটি অত্যন্ত অস্থিতিশীল (Unstable)।</td>
+                  <td>সাধারণ ইউজার বা নেটওয়ার্ক ইঞ্জিনিয়ারদের জন্য এটি কোনোভাবেই রিকমেন্ডেড নয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. RouterOS Upgrade করার পদ্ধতিসমূহ</h2>
+          <p>MikroTik রাউটার আপডেট করার জন্য প্রধানত তিনটি পদ্ধতি ব্যবহার করা হয়। আপগ্রেড করার আগে অবশ্যই আপনার রাউটারের
+            একটি <strong>Backup</strong> নিয়ে রাখা উচিত।</p>
+
+          <h3>পদ্ধতি ১: Winbox এর মাধ্যমে Auto Upgrade (Recommended)</h3>
+          <p>এটি সবচেয়ে সহজ এবং নিরাপদ পদ্ধতি। এর জন্য রাউটারে ইন্টারনেট কানেকশন থাকা বাধ্যতামূলক।</p>
+          <ul>
+            <li>Winbox ওপেন করে রাউটারে লগইন করুন।</li>
+            <li>বাম পাশের মেনু থেকে <strong>System > Packages</strong> এ ক্লিক করুন।</li>
+            <li>উপরে থাকা <strong>Check for Updates</strong> বাটনে ক্লিক করুন।</li>
+            <li>একটি নতুন উইন্ডো আসবে। সেখানে <strong>Channel</strong> ড্রপডাউন থেকে আপনার পছন্দমতো চ্যানেল (যেমন
+              <code>stable</code>) সিলেক্ট করুন।</li>
+            <li>রাউটার স্বয়ংক্রিয়ভাবে দেখাবে আপনার বর্তমান ভার্সন কত এবং লেটেস্ট ভার্সন কত।</li>
+            <li>এরপর <strong>Download & Install</strong> বাটনে ক্লিক করুন। রাউটার ফাইলটি ডাউনলোড করে নিজে নিজেই রিবুট
+              (Reboot) নেবে এবং আপডেট হয়ে যাবে।</li>
+          </ul>
+
+          <h3>পদ্ধতি ২: Manual Upgrade (.npk ফাইল দিয়ে)</h3>
+          <p>যদি আপনার রাউটারে সরাসরি ইন্টারনেট কানেকশন না থাকে, তবে আপনি অফলাইনে এই পদ্ধতিতে আপডেট করতে পারেন।</p>
+          <ul>
+            <li>প্রথমে পিসির ব্রাউজার দিয়ে MikroTik এর অফিসিয়াল ওয়েবসাইটে (mikrotik.com/download) যান।</li>
+            <li>আপনার রাউটারের <strong>Architecture</strong> (যেমন: MIPSBE, ARM, TILE, MMIPS) অনুযায়ী সঠিক <strong>Main
+                package (.npk)</strong> ফাইলটি ডাউনলোড করুন। <em>(নোট: Winbox এর একদম উপরে টাইটেল বারে আপনার রাউটারের
+                Architecture লেখা থাকে)।</em></li>
+            <li>Winbox ওপেন করে বাম পাশের মেনু থেকে <strong>Files</strong> এ ক্লিক করুন।</li>
+            <li>ডাউনলোড করা <code>.npk</code> ফাইলটি ড্র্যাগ অ্যান্ড ড্রপ (Drag and Drop) করে Files মেনুর ভেতরে ছেড়ে
+              দিন।</li>
+            <li>ফাইলটি আপলোড হয়ে গেলে <strong>System > Reboot</strong> এ গিয়ে রাউটার রিবুট করুন। রিবুট হওয়ার সময় এটি
+              আপডেট হয়ে যাবে।</li>
+          </ul>
+
+          <h3>পদ্ধতি ৩: CLI ব্যবহার করে Upgrade</h3>
+          <p>টার্মিনাল বা SSH দিয়ে রিমোটলি আপডেট করার জন্য নিচের কমান্ডগুলো ব্যবহার করুন:</p>
+
+          <p>প্রথমে আপডেট চেক করুন:</p>
+          <pre><code>[admin@MikroTik] > /system package update check-for-updates</code></pre>
+
+          <p>সব ঠিক থাকলে ডাউনলোড এবং ইন্সটলের কমান্ড দিন:</p>
+          <pre><code>[admin@MikroTik] > /system package update install</code></pre>
+          <p><em>নোট: এই কমান্ড দেওয়ার পর রাউটার অটোমেটিক রিবুট নেবে।</em></p>
+
+          <h2>৩. RouterOS Downgrade করার পদ্ধতি</h2>
+          <p>মাঝে মাঝে নতুন ভার্সনে আপডেট করার পর নেটওয়ার্কে বিভিন্ন সমস্যা দেখা দেয় (যেমন CPU Usage 100% হয়ে যাওয়া বা
+            কোনো রুল কাজ না করা)। তখন আগের ভার্সনে ফিরে যাওয়াকে <strong>Downgrade</strong> বলে।</p>
+
+          <h3>Winbox ব্যবহার করে Downgrade করা:</h3>
+          <ul>
+            <li>প্রথমে <code>mikrotik.com/download/archive</code> থেকে আপনার প্রয়োজনীয় পুরনো ভার্সনের <code>.npk</code>
+              ফাইলটি ডাউনলোড করে নিন।</li>
+            <li>আগের ম্যানুয়াল আপগ্রেড পদ্ধতির মতো ফাইলটি Winbox এর <strong>Files</strong> মেনুতে ড্র্যাগ করে আপলোড
+              করুন।</li>
+            <li>এরপর <strong>System > Packages</strong> এ যান।</li>
+            <li>মেনুর উপরের দিকে থাকা <strong>Downgrade</strong> বাটনে ক্লিক করুন। রাউটার আপনার কনফার্মেশন চাইবে, 'Yes'
+              দিলে রাউটার রিবুট নেবে এবং আগের ভার্সনে ফিরে যাবে।</li>
+          </ul>
+
+          <h3>CLI ব্যবহার করে Downgrade করা:</h3>
+          <p>ফাইল আপলোড করার পর টার্মিনালে নিচের কমান্ডটি দিন:</p>
+          <pre><code>[admin@MikroTik] > /system package downgrade</code></pre>
+
+          <h2>৪. Advanced Recovery: Netinstall</h2>
+          <p>অনেক সময় ভুল প্যাকেজ দেওয়ার কারণে বা বিদ্যুৎ চলে যাওয়ার ফলে রাউটারের অপারেটিং সিস্টেম পুরোপুরি করাপ্ট
+            (Corrupt) হয়ে যেতে পারে। তখন রাউটার বারবার রিস্টার্ট নেয় বা Winbox এ শো করে না। এই ডেড (Dead) রাউটারকে আবার
+            জীবিত করার একমাত্র উপায় হলো <strong>Netinstall</strong>। এটি মূলত একটি রিকভারি টুল, যা নেটওয়ার্ক ক্যাবলের
+            মাধ্যমে রাউটারে নতুন করে ফ্রেশ RouterOS ইন্সটল করে দেয় (অনেকটা পিসিতে নতুন করে উইন্ডোজ দেওয়ার মতো)।</p>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <ul>
+            <li><strong>Not Enough Space:</strong> আপডেট করার সময় অনেক পুরনো রাউটারে স্টোরেজ ফুল হয়ে যায়। তখন
+              <strong>Files</strong> মেনু থেকে অপ্রয়োজনীয় লগ (Log) বা পুরানো ব্যাকআপ ফাইল ডিলিট করে জায়গা ফাঁকা করে নিন।
+            </li>
+            <li><strong>Wrong Architecture:</strong> আপনি যদি MIPSBE রাউটারের জন্য ARM এর <code>.npk</code> ফাইল ডাউনলোড
+              করে আপলোড করেন, তবে রাউটার সেটি ইন্সটল করবে না এবং <code>Log</code> এ এরর দেখাবে। সব সময় সঠিক ফাইল ডাউনলোড
+              করেছেন কি না তা নিশ্চিত করুন।</li>
+            <li><strong>Firmware Upgrade:</strong> RouterOS আপডেট করার পর রাউটারের হার্ডওয়্যার ফার্মওয়্যারও (RouterBOARD
+              Firmware) আপডেট করা উচিত। এর জন্য <strong>System > Routerboard</strong> এ গিয়ে <strong>Upgrade</strong>
+              বাটনে ক্লিক করে রাউটার রিবুট দিন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি সিকিউর এবং স্টেবল নেটওয়ার্ক মেইনটেইন করার জন্য <strong>RouterOS</strong> নিয়মিত আপডেট করা একজন
+              নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর-এর রুটিন ওয়ার্ক। আপনার প্রোডাকশন নেটওয়ার্কের জন্য সব সময়
+              <strong>Long-term</strong> বা <strong>Stable</strong> চ্যানেল ব্যবহার করবেন। <strong>Auto Upgrade</strong>
+              পদ্ধতিটি সবচেয়ে সহজ হলেও, <strong>Manual Upgrade</strong> এবং <strong>Downgrade</strong> এর মেকানিজম জানা
+              থাকলে আপনি যেকোনো ক্রিটিক্যাল পরিস্থিতিতে রাউটারকে অচল হওয়ার হাত থেকে রক্ষা করতে পারবেন। তবে মনে রাখবেন,
+              যেকোনো আপডেটের আগে কনফিগারেশন ব্যাকআপ (Backup/Export) নেওয়াটা কখনোই ভোলা যাবে না!</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,292 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interface Monitor, Torch tool and Graphing | enablement.info</title>
+  <meta name="description"
+    content="MikroTik RouterOS-এ Interface Monitor, Torch tool এবং Graphing ব্যবহার করে রিয়েল-টাইম ট্রাফিক মনিটরিং এবং ট্রাবলশুটিং করার বিস্তারিত বাংলা গাইড।">
+  <title>Interface Monitor, Torch tool and Graphing on MikroTik | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Interface Monitor, Torch tool and Graphing</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Interface Monitor, Torch tool and Graphing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Interface Monitor, Torch tool and Graphing on MikroTik</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 24 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আপনার নেটওয়ার্কের স্পিড স্লো হয়ে গেলে প্রথম প্রশ্নটি কী আসে? নিশ্চয়ই—"ব্যান্ডউইথ কে খাচ্ছে?" অথবা "কোন
+            পোর্ট দিয়ে কতটুকু ট্রাফিক যাচ্ছে?"। MikroTik RouterOS এই প্রশ্নের উত্তর দেওয়ার জন্য অত্যন্ত শক্তিশালী তিনটি
+            মনিটরিং ফিচার দিয়ে রেখেছে: <strong>Interface Monitor</strong>, <strong>Torch Tool</strong> এবং
+            <strong>Graphing</strong>।</p>
+          <p>এই টুলগুলো ব্যবহার করে আপনি শুধুমাত্র রিয়েল-টাইম ট্রাফিকই দেখতে পাবেন না, বরং দীর্ঘমেয়াদী ট্রাফিক হিস্ট্রি
+            পর্যবেক্ষণ করে নেটওয়ার্কের ভবিষ্যতের পরিকল্পনাও করতে পারবেন। আজকের এই বিস্তারিত গাইডে আমরা শিখবো কীভাবে এই
+            টুলগুলো প্রফেশনালি ব্যবহার করতে হয়।</p>
+
+          <h2>১. Interface Monitor (Real-time Speed Tracker)</h2>
+          <p><strong>Interface Monitor</strong> হলো রাউটারের সবচেয়ে বেসিক মনিটরিং সিস্টেম। এটি আপনাকে রিয়েল-টাইমে দেখায়
+            যে আপনার রাউটারের ফিজিক্যাল পোর্ট (যেমন <code>ether1</code>) বা ভার্চুয়াল ইন্টারফেস (যেমন <code>VLAN</code>
+            বা <code>PPPoE</code>) দিয়ে ঠিক এই মুহূর্তে কত <strong>Mbps</strong> ডাটা আপলোড এবং ডাউনলোড হচ্ছে।</p>
+
+
+
+          <h3>কিভাবে ব্যবহার করবেন (Winbox):</h3>
+          <ul>
+            <li>Winbox-এর বাম দিকের মেনু থেকে <strong>Interfaces</strong> এ ক্লিক করুন।</li>
+            <li>ইন্টারফেস লিস্ট থেকে আপনার কাঙ্ক্ষিত ইন্টারফেসে ডাবল-ক্লিক করুন।</li>
+            <li><strong>General</strong> ট্যাবে থাকা অবস্থায় আপনি নিচে <strong>Tx (Transmit/Upload)</strong> এবং
+              <strong>Rx (Receive/Download)</strong> রেট দেখতে পাবেন।</li>
+            <li>আরও বিস্তারিত দেখতে <strong>Status</strong> ট্যাবে ক্লিক করুন। এখানে আপনি রানিং স্পিড ছাড়াও মোট কত ডাটা
+              (Bytes) আদান-প্রদান হয়েছে তা দেখতে পাবেন।</li>
+          </ul>
+
+          <p><strong>CLI কমান্ড:</strong></p>
+          <pre><code>/interface monitor-traffic ether1</code></pre>
+          <p><em>ব্যাখ্যা: এটি টার্মিনালে ইন্টারফেসের ট্রাফিক আপডেট রিয়েল-টাইমে দেখাতে থাকবে।</em></p>
+
+          <h2>২. Torch Tool (The Packet Investigator)</h2>
+          <p>Interface Monitor শুধু বলে কতটুকু স্পিড যাচ্ছে, কিন্তু <strong>Torch Tool</strong> বলে দেয় সেই স্পিডটি ঠিক
+            <strong>কারা</strong> ব্যবহার করছে। এটি মূলত একটি রিয়েল-টাইম প্যাকেট অ্যানালাইজার। এর মাধ্যমে আপনি দেখতে
+            পাবেন কোন <strong>Source IP</strong> থেকে কোন <strong>Destination IP</strong>-তে ট্রাফিক যাচ্ছে এবং তারা কোন
+            <strong>Protocol</strong> বা <strong>Port</strong> ব্যবহার করছে।</p>
+
+
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Bandwidth Hog)</h3>
+            <p><strong>সমস্যা:</strong> আপনার ইন্টারনেটে 50 Mbps লাইন আছে। ইন্টারফেস মনিটরে দেখছেন 49 Mbps ট্রাফিক
+              ব্যবহার হচ্ছে। আপনি জানতে চান কে এই ব্যান্ডউইথ টেনে নিচ্ছে।</p>
+            <p><strong>সমাধান:</strong> আপনি ল্যান পোর্টের ওপর <strong>Torch</strong> চালালেন। রেজাল্টে দেখলেন
+              <code>192.168.10.55</code> আইপিটি ইউটিউব (Port 443) থেকে একা 40 Mbps ডাটা নিচ্ছে। এখন আপনি চাইলে তাকে ব্লক
+              বা লিমিট করতে পারেন।</p>
+          </div>
+
+          <h3>Torch-এর প্রধান ফিল্টারসমূহ:</h3>
+          <ul>
+            <li><strong>Entry Timeout:</strong> কতক্ষণ নিষ্ক্রিয় থাকলে একটি এন্ট্রি লিস্ট থেকে মুছে যাবে।</li>
+            <li><strong>Src. Address:</strong> নির্দিষ্ট কোনো ইউজারের ট্রাফিক ট্র্যাক করার জন্য।</li>
+            <li><strong>Protocol:</strong> শুধু TCP, UDP বা ICMP ট্রাফিক ফিল্টার করার জন্য।</li>
+            <li><strong>Port:</strong> নির্দিষ্ট কোনো সার্ভিস (যেমন DNS বা HTTP) মনিটর করার জন্য।</li>
+          </ul>
+
+          <p><strong>CLI কমান্ড:</strong></p>
+          <pre><code>/tool torch interface=ether1 port=80,443 src-address=192.168.88.0/24</code></pre>
+
+          <h2>৩. Graphing Tool (The History Keeper)</h2>
+          <p>Interface Monitor এবং Torch হলো রিয়েল-টাইম। অর্থাৎ আপনি স্ক্রিন থেকে সরে গেলে আপনি জানবেন না ২ ঘণ্টা আগে কী
+            ঘটেছিল। <strong>Graphing Tool</strong> হলো রাউটারের সিসিটিভি ক্যামেরার মতো। এটি নির্দিষ্ট সময় পর পর ট্রাফিক
+            এবং রিসোর্স (CPU/RAM) ডেটা রেকর্ড করে গ্রাফ আকারে সাজিয়ে রাখে, যা আপনি ওয়েব ব্রাউজার দিয়ে দেখতে পারেন।</p>
+
+          <h3>কিভাবে কনফিগার করবেন:</h3>
+          <ol>
+            <li>Winbox থেকে <strong>Tools > Graphing</strong> এ যান।</li>
+            <li><strong>Interface Rules</strong> ট্যাবে গিয়ে <strong>+ (Add)</strong> ক্লিক করুন।</li>
+            <li><strong>Interface:</strong> <code>all</code> বা নির্দিষ্ট ইন্টারফেস সিলেক্ট করুন। <strong>Store on
+                Disk</strong> এ টিক দিন (যাতে রাউটার রিবুট হলেও ডেটা না হারায়)। <strong>OK</strong> দিন।</li>
+            <li><strong>Resource Rules</strong> ট্যাবে গিয়ে একইভাবে <code>CPU</code> এবং <code>RAM</code> মনিটরিং অ্যাড
+              করুন।</li>
+          </ol>
+
+          <h3>কিভাবে গ্রাফ দেখবেন:</h3>
+          <p>আপনার ব্রাউজারে গিয়ে রাউটারের আইপি লিখুন এবং শেষে <code>/graphs</code> যোগ করুন। উদাহরণ:
+            <code>http://192.168.88.1/graphs</code>। এখানে আপনি ৫ মিনিট, দিন, সপ্তাহ এবং মাসের ট্রাফিক চার্ট দেখতে
+            পাবেন।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>টুল (Tool)</th>
+                  <th>কখন ব্যবহার করবেন (Best Usage)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Interface Monitor</td>
+                  <td>যখন শুধু ইন্টারনেটের মোট স্পিড চেক করা প্রয়োজন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Torch</td>
+                  <td>যখন নির্দিষ্ট আইপি বা অ্যাপ্লিকেশন ট্রাবলশুট করা প্রয়োজন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Graphing</td>
+                  <td>যখন মাসিক ব্যান্ডউইথ রিপোর্ট বা হিস্ট্রি দেখা প্রয়োজন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>Torch-এ কোনো ডেটা দেখাচ্ছে না:</strong> আপনি যদি ভুল ইন্টারফেসে Torch চালান (যেমন ল্যান পোর্টে
+              না চালিয়ে ওয়ান পোর্টে চালানো), তবে লোকাল আইপিগুলো সহজে দেখা যায় না। সবসময় যেখান থেকে ট্রাফিক জেনারেট হচ্ছে
+              সেই ইন্টারফেসে Torch চালান।</li>
+            <li><strong>Graphing চালু করলে CPU বেড়ে যাওয়া:</strong> আপনার রাউটার যদি খুব পুরনো বা লো-এন্ড মডেলের হয়, তবে
+              সব ইন্টারফেসের জন্য গ্রাফিং চালু করলে CPU লোড বেড়ে যেতে পারে। শুধু গুরুত্বপূর্ণ ওয়ান (WAN) পোর্টের জন্য
+              গ্রাফিং অন রাখুন।</li>
+            <li><strong>Graphing-এ পুরনো ডেটা নেই:</strong> যদি আপনি <strong>Store on Disk</strong> এনাবল না করেন, তবে
+              রাউটার রিবুট হলে সব পুরনো গ্রাফ ডেটা মুছে যাবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ারের চোখ সব সময় ডেটার ওপর থাকে। <strong>Interface Monitor</strong> আপনাকে
+              বর্তমান অবস্থা জানায়, <strong>Torch</strong> আপনাকে সমস্যার মূলে নিয়ে যায় এবং <strong>Graphing</strong>
+              আপনাকে ভবিষ্যতের পরিকল্পনা করতে সাহায্য করে। এই তিনটি টুলের সঠিক ব্যবহার আপনার <strong>MikroTik</strong>
+              ম্যানেজমেন্টকে অনেক বেশি প্রফেশনাল এবং সহজ করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

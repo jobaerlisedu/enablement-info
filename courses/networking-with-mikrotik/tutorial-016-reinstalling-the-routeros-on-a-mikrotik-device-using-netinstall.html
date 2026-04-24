@@ -1,32 +1,335 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik রাউটার ডেড বা পাসওয়ার্ড ভুলে গেলে Netinstall এর মাধ্যমে RouterOS পুনরায় ইন্সটল করার সম্পূর্ণ ও বিস্তারিত বাংলা গাইড।">
   <title>Reinstalling the RouterOS on a MikroTik Device using Netinstall | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Reinstalling the RouterOS on a MikroTik Device using Netinstall</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Reinstalling the RouterOS on a MikroTik Device using Netinstall</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Reinstalling the RouterOS on a MikroTik Device using Netinstall</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 August, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ে কাজ করার সময় এমন কিছু হতাশাজনক মুহূর্ত আসে যখন আপনার প্রিয় MikroTik রাউটারটি আর
+            রেসপন্স করে না। হয়তো আপনি RouterOS আপগ্রেড করছিলেন এবং ঠিক তখনই বিদ্যুৎ চলে গেল, অথবা রাউটারের ফাইল সিস্টেম
+            করাপ্ট (Corrupt) হয়ে এটি বারবার রিস্টার্ট (Boot Loop) নিচ্ছে। এমনকি এমনও হতে পারে যে আপনি রাউটারের পাসওয়ার্ড
+            ভুলে গেছেন এবং ফিজিক্যাল হার্ড রিসেট বাটন কাজ করছে না।</p>
+          <p>এই সমস্ত "ডেড" (Dead) বা অকেজো রাউটারকে আবার জীবিত করার জন্য MikroTik এর তৈরি করা চরম এবং চূড়ান্ত অস্ত্রের
+            নাম হলো <strong>Netinstall</strong>। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Netinstall কী, এটি কীভাবে কাজ
+            করে এবং ধাপে ধাপে কীভাবে একটি ডেড রাউটারে নতুন করে RouterOS ইন্সটল করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>Netinstall কী এবং এটি কীভাবে কাজ করে?</h3>
+            <p><strong>Netinstall</strong> হলো উইন্ডোজ অপারেটিং সিস্টেমের জন্য তৈরি করা একটি সফটওয়্যার, যা নেটওয়ার্ক
+              ক্যাবলের (Ethernet) মাধ্যমে একটি MikroTik রাউটারে সরাসরি RouterOS ইন্সটল করতে পারে।</p>
+            <p>সাধারণত একটি রাউটার তার নিজস্ব মেমোরি (NAND/Flash) থেকে বুট বা চালু হয়। কিন্তু Netinstall করার সময় আমরা
+              রাউটারকে জোরপূর্বক <strong>PXE (Preboot Execution Environment)</strong> বা নেটওয়ার্ক বুট মোডে নিয়ে যাই।
+              তখন রাউটারটি তার স্টোরেজ থেকে চালু না হয়ে, ল্যান ক্যাবল দিয়ে আপনার পিসির সাথে যুক্ত হয় এবং পিসি থেকে নতুন
+              অপারেটিং সিস্টেম (RouterOS) গ্রহণ করে নিজের মেমোরিকে ফরম্যাট করে ফেলে। এটি অনেকটা কম্পিউটারে পেনড্রাইভ
+              দিয়ে নতুন উইন্ডোজ (Windows) দেওয়ার মতো একটি প্রক্রিয়া।</p>
+          </div>
+
+          <h2>১. Netinstall করার পূর্বপ্রস্তুতি (Prerequisites)</h2>
+          <p>Netinstall প্রক্রিয়াটি অত্যন্ত সেনসিটিভ, তাই কাজ শুরু করার আগে আপনার কাছে নিচের জিনিসগুলো থাকতে হবে:</p>
+          <ul>
+            <li>একটি উইন্ডোজ (Windows) পিসি বা ল্যাপটপ।</li>
+            <li>একটি ভালো মানের <strong>Ethernet Cable</strong> (UTP Cable)।</li>
+            <li><strong>Netinstall Software:</strong> <code>mikrotik.com/download</code> থেকে সফটওয়্যারটি ডাউনলোড করে
+              আনজিপ (Unzip) করে নিন।</li>
+            <li><strong>RouterOS Main Package:</strong> একই ওয়েবসাইট থেকে আপনার রাউটারের <strong>Architecture</strong>
+              (যেমন: ARM, MIPSBE) অনুযায়ী সঠিক <code>.npk</code> ফাইলটি ডাউনলোড করুন।</li>
+          </ul>
+
+          <h2>২. পিসি (PC) প্রস্তুত করার নিয়ম (সবচেয়ে গুরুত্বপূর্ণ ধাপ)</h2>
+          <p>Netinstall ফেইল করার ৯৯% কারণ হলো পিসি ঠিকমতো কনফিগার না করা। নিচের ধাপগুলো হুবহু মেনে চলুন:</p>
+
+          <ol>
+            <li><strong>Disable All Other Adapters:</strong> আপনার পিসির <code>Network Connections</code> (ncpa.cpl) এ
+              যান। সেখানে আপনার মূল <strong>Ethernet</strong> এডাপ্টারটি বাদে বাকি সব এডাপ্টার (যেমন: Wi-Fi, VMware,
+              VirtualBox) রাইট-ক্লিক করে <strong>Disable</strong> করে দিন। Netinstall একাধিক নেটওয়ার্ক ইন্টারফেস থাকলে
+              কনফিউজড হয়ে যায়।</li>
+            <li><strong>Set Static IP:</strong> আপনার Ethernet এডাপ্টারের Properties এ গিয়ে IPv4 এ একটি স্ট্যাটিক আইপি
+              বসান।
+              <ul>
+                <li>IP Address: <code>192.168.88.2</code></li>
+                <li>Subnet Mask: <code>255.255.255.0</code></li>
+                <li>Gateway: (খালি রাখুন, প্রয়োজন নেই)</li>
+              </ul>
+            </li>
+            <li><strong>Disable Windows Firewall & Antivirus:</strong> উইন্ডোজ ফায়ারওয়াল এবং যেকোনো থার্ড-পার্টি
+              অ্যান্টিভাইরাস (বিশেষ করে রিয়েল-টাইম প্রোটেকশন) সাময়িকভাবে পুরোপুরি বন্ধ করে দিন। কারণ এগুলো Netinstall এর
+              BOOTP/TFTP ব্রডকাস্ট প্যাকেটগুলোকে ব্লক করে দেয়।</li>
+          </ol>
+
+          <h2>৩. Netinstall সফটওয়্যার কনফিগারেশন</h2>
+          <p>আপনার পিসি এখন প্রস্তুত। এবার সফটওয়্যারটি কনফিগার করবো:</p>
+          <ul>
+            <li>ডাউনলোড করা <code>netinstall.exe</code> ফাইলটিতে রাইট-ক্লিক করে <strong>Run as Administrator</strong>
+              দিয়ে ওপেন করুন।</li>
+            <li>সফটওয়্যারটির উপরে <strong>Net booting</strong> নামের একটি বাটন আছে, সেখানে ক্লিক করুন।</li>
+            <li>একটি ছোট উইন্ডো আসবে। সেখানে <strong>Boot Server enabled</strong> বক্সে টিক (Check) দিন।</li>
+            <li><strong>Client IP address:</strong> এর ঘরে আপনার পিসির আইপির সাথে মিল রেখে একটি আইপি দিন (যেমন:
+              <code>192.168.88.3</code>)। এরপর <strong>OK</strong> বাটনে ক্লিক করুন।</li>
+          </ul>
+
+          <h2>৪. রাউটারকে Netinstall মোডে (PXE Boot) নেওয়া</h2>
+          <p>এটি এই প্রক্রিয়ার সবচেয়ে ট্রিকি (Tricky) অংশ। এখানে আপনাকে ধৈর্য ধরতে হবে।</p>
+
+          <ul>
+            <li>ল্যান ক্যাবলের এক প্রান্ত আপনার পিসিতে এবং অন্য প্রান্ত রাউটারের <strong>Ether1</strong> পোর্টে লাগান।
+              (বেশিরভাগ রাউটারের Ether1 পোর্টটি নেটওয়ার্ক বুট সাপোর্ট করে)।</li>
+            <li>রাউটারের পাওয়ার ক্যাবলটি খুলে ফেলুন (Unplug)।</li>
+            <li>একটি পেপারক্লিপ বা কলম দিয়ে রাউটারের <strong>Reset Button</strong> টি চেপে ধরে রাখুন (ছাড়বেন না)।</li>
+            <li>বাটনটি চেপে ধরা অবস্থাতেই রাউটারে <strong>পাওয়ার দিন (Plug in)</strong>।</li>
+            <li>পাওয়ার দেওয়ার পর কিছুক্ষণের মধ্যে ইউজার লাইট (USR LED) ফ্ল্যাশ বা ব্লিংক করতে শুরু করবে। <strong>তবুও
+                বাটন ছাড়বেন না!</strong> বাটনটি একটানা ১৫ থেকে ২০ সেকেন্ড চেপে ধরে রাখুন।</li>
+            <li>যখন রাউটারটি আপনার পিসির <strong>Netinstall সফটওয়্যারের Routers/Drives লিস্টে শো করবে</strong>, ঠিক তখনই
+              Reset Button টি ছেড়ে দিন। (রাউটারটি লিস্টে না আসা পর্যন্ত কোনোভাবেই বাটনটি ছাড়া যাবে না)।</li>
+          </ul>
+
+          <h2>৫. RouterOS ইন্সটল করার পদ্ধতি</h2>
+          <p>রাউটারটি লিস্টে চলে আসলে ইন্সটলেশন খুবই সহজ:</p>
+
+          <ul>
+            <li>লিস্ট থেকে আপনার <strong>রাউটারটির নামের ওপর ক্লিক করে সিলেক্ট করুন</strong>।</li>
+            <li>নিচে <strong>Browse...</strong> বাটনে ক্লিক করে আপনি যে ফোল্ডারে <code>.npk</code> ফাইলটি ডাউনলোড
+              করেছিলেন, সেটি চিনিয়ে দিন।</li>
+            <li>ফোল্ডার সিলেক্ট করার পর নিচে প্যাকেজ লিস্টে আপনার RouterOS ফাইলটি শো করবে। তার পাশে থাকা চেকবক্সে
+              <strong>টিক দিন</strong>।</li>
+            <li><em>ঐচ্ছিক:</em> আপনি চাইলে <strong>Keep old configuration</strong> এ টিক দিয়ে আগের কনফিগারেশন ধরে রাখতে
+              পারেন। কিন্তু একটি ফ্রেশ এবং ক্লিন সিস্টেমের জন্য এই টিকটি <strong>তুলে দেওয়াই ভালো</strong>।</li>
+            <li>সবশেষে <strong>Install</strong> বাটনে ক্লিক করুন। </li>
+            <li>সফটওয়্যারটি রাউটারের মেমোরি ফরম্যাট করবে এবং ফাইল ট্রান্সফার শুরু করবে। স্ট্যাটাস বারে "Formatting..."
+              থেকে "Transferring..." এবং শেষে <strong>"Installation finished successfully"</strong> লেখা উঠলে
+              <strong>Reboot</strong> বাটনে ক্লিক করুন।</li>
+          </ul>
+          <p>আপনার রাউটারটি ফ্যাক্টরি রিসেট হয়ে একেবারে নতুন অবস্থায় চালু হবে!</p>
+
+          <h2>৬. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <p>Netinstall করতে গিয়ে অনেক নেটওয়ার্ক ইঞ্জিনিয়ারই আটকে যান। নিচের টেবিল থেকে সমস্যাগুলোর সমাধান জেনে নিন:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ ও সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">রাউটার Netinstall লিস্টে শো করছে না</td>
+                  <td>এটি ৯৯% ক্ষেত্রে ফায়ারওয়াল বা অন্য এডাপ্টার অন থাকার কারণে হয়। উইন্ডোজ ডিফেন্ডার পুরোপুরি বন্ধ
+                    করুন এবং Wi-Fi ডিজেবল করুন। এরপরও না হলে, ল্যান ক্যাবলটি পরিবর্তন করুন বা পিসি রিস্টার্ট দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">"Formatting..." লেখায় আটকে আছে</td>
+                  <td>রাউটার এবং পিসির মধ্যে কমিউনিকেশন ড্রপ হচ্ছে। <code>Run as Administrator</code> দিয়ে Netinstall
+                    ওপেন করেছেন কি না তা নিশ্চিত করুন। প্রয়োজনে পিসির অ্যান্টিভাইরাস আনইন্সটল করে দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">প্যাকেজ লিস্ট (Packages) খালি দেখাচ্ছে</td>
+                  <td>আপনি যে ফোল্ডারটি Browse করেছেন, সেখানে সঠিক Architecture-এর <code>.npk</code> ফাইল নেই বা ফাইলটি
+                    করাপ্ট। সঠিক <code>Main package</code> ফাইল ডাউনলোড করুন (Zip ফাইল নয়)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">CCR রাউটারে Ether1 দিয়ে বুট হচ্ছে না</td>
+                  <td>কিছু হাই-এন্ড (High-end) ডিভাইসে, যেমন Cloud Core Router (CCR)-এ Ether1 এর বদলে একেবারে শেষের
+                    পোর্ট (যেমন Ether8 বা Ether12) অথবা নির্দিষ্ট Management Port দিয়ে Netinstall করতে হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Netinstall</strong> হলো MikroTik রাউটারের "সঞ্জীবনী সুধা"। একটি রাউটার সফটওয়্যারজনিত কারণে যতই
+              ডেড (Dead) বা পাসওয়ার্ড প্রটেক্টেড হোক না কেন, হার্ডওয়্যার ঠিক থাকলে Netinstall তাকে জীবিত করতে পারে। এই
+              প্রসেসটি প্রথমবার করার সময় পিসির ফায়ারওয়াল এবং নেটওয়ার্ক এডাপ্টারগুলো কনফিগার করতে গিয়ে একটু জটিল মনে হতে
+              পারে, কিন্তু একবার এর মেকানিজম বুঝতে পারলে আপনি যেকোনো <strong>RouterOS</strong> ডিভাইসকে মাত্র কয়েক
+              মিনিটেই ফ্যাক্টরি ফ্রেশ অবস্থায় ফিরিয়ে আনতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

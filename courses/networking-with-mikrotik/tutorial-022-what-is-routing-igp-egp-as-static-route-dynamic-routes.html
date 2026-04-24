@@ -1,32 +1,334 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="নেটওয়ার্কিংয়ে Routing কী? Autonomous System (AS), IGP বনাম EGP এবং Static ও Dynamic Routing এর বিস্তারিত বাংলা গাইড।">
   <title>What is Routing (IGP, EGP, AS, Static Route, Dynamic Routes) | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>What is Routing (IGP, EGP, AS, Static Route, Dynamic Routes)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>What is Routing (IGP, EGP, AS, Static Route, Dynamic Routes)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>What is Routing (IGP, EGP, AS, Static Route, Dynamic Routes)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 20 September, 2026</span>
+            <span><i class='bx bx-category'></i> Network Engineering</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ইন্টারনেট বা যেকোনো বড় কম্পিউটার নেটওয়ার্কের মেরুদণ্ড হলো <strong>Routing</strong>। আপনার ল্যাপটপ থেকে যখন
+            আপনি ব্রাউজারে <code>google.com</code> লিখে এন্টার চাপেন, তখন আপনার রিকোয়েস্ট (Packet) হাজার হাজার মাইল
+            দূরের গুগলের সার্ভার পর্যন্ত কীভাবে পৌঁছায়? এর পেছনের জাদুকরী প্রক্রিয়াটিই হলো রাউটিং।</p>
+          <p>আজকের এই ইন-ডেপথ টিউটোরিয়ালে আমরা রাউটিংয়ের আদ্যোপান্ত জানবো। আমরা শিখবো Autonomous System (AS) কী, IGP এবং
+            EGP এর মধ্যে পার্থক্য কী, এবং Static ও Dynamic Routing কীভাবে কাজ করে।</p>
+
+          <div class="content-box">
+            <h3>Routing কী? (What is Routing?)</h3>
+            <p><strong>Routing</strong> হলো একটি নেটওয়ার্ক থেকে অন্য একটি নেটওয়ার্কে ডাটা প্যাকেট (Data Packet) পাঠানোর
+              জন্য সবচেয়ে সেরা এবং সংক্ষিপ্ত পথ (Best Path) খুঁজে বের করার প্রক্রিয়া। OSI Model এর <strong>Network Layer
+                (Layer 3)</strong> এ এই কাজটি সম্পন্ন হয় এবং যে ডিভাইস এই কাজটি করে তাকে <strong>Router</strong> বলা হয়।
+            </p>
+            <p><strong>রিয়েল-লাইফ উদাহরণ:</strong> মনে করুন, আপনি ঢাকা থেকে কক্সবাজার যেতে চান। আপনার হাতে অনেকগুলো পথ
+              আছে—আপনি কুমিল্লা হয়ে যেতে পারেন, আবার চাঁদপুর হয়েও যেতে পারেন। আপনি গুগল ম্যাপ (Google Maps) চেক করে
+              দেখলেন কোন রাস্তায় জ্যাম কম এবং দূরত্ব কম। এরপর আপনি সেরা রাস্তাটি বেছে নিলেন। নেটওয়ার্কিংয়ের দুনিয়ায়
+              <strong>Router</strong> ঠিক এই গুগল ম্যাপের মতোই কাজ করে। সে তার <strong>Routing Table</strong> চেক করে
+              সিদ্ধান্ত নেয় প্যাকেটটি কোন ইন্টারফেস দিয়ে পাঠালে সবচেয়ে দ্রুত গন্তব্যে পৌঁছাবে।</p>
+          </div>
+
+          <h2>১. Autonomous System (AS) কী?</h2>
+          <p>রাউটিংয়ের গভীরে যাওয়ার আগে <strong>Autonomous System (AS)</strong> কনসেপ্টটি পরিষ্কার হওয়া অত্যন্ত জরুরি।
+          </p>
+          <p><strong>AS</strong> হলো এমন একটি বড় নেটওয়ার্ক বা নেটওয়ার্কের সমষ্টি, যা একটি মাত্র প্রতিষ্ঠান বা
+            অ্যাডমিনিস্ট্রেশনের সম্পূর্ণ নিয়ন্ত্রণে থাকে এবং যাদের রাউটিং পলিসি একই। প্রতিটি AS এর একটি ইউনিক নাম্বার
+            থাকে, যাকে <strong>ASN (Autonomous System Number)</strong> বলা হয়। এটি অনেকটা একটি দেশের পিন কোডের মতো।</p>
+          <ul>
+            <li><strong>উদাহরণ:</strong> বাংলাদেশে গ্রামীণফোন (Grameenphone) এর নিজস্ব একটি বিশাল নেটওয়ার্ক আছে। এটি
+              একটি AS। আবার বাংলালিংক (Banglalink) এর নিজস্ব নেটওয়ার্ক আছে, এটি আরেকটি AS। যখন এই দুটি ভিন্ন AS একে
+              অপরের সাথে ডাটা আদান-প্রদান করতে চায়, তখন তাদের বিশেষ রাউটিং প্রোটোকল ব্যবহার করতে হয়। গ্লোবাল ইন্টারনেট
+              মূলত হাজার হাজার AS এর একটি বিশাল সংযোগস্থল।</li>
+          </ul>
+
+          <h2>২. Routing Protocol এর প্রকারভেদ (IGP বনাম EGP)</h2>
+          <p>এই AS এর কনসেপ্টের ওপর ভিত্তি করেই রাউটিং প্রোটোকলগুলোকে প্রধানত দুটি ভাগে ভাগ করা হয়েছে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>IGP (Interior Gateway Protocol)</th>
+                  <th>EGP (Exterior Gateway Protocol)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">সংজ্ঞা ও কাজের ক্ষেত্র</td>
+                  <td>যে প্রোটোকলগুলো একটি <strong>একক AS (Autonomous System) এর ভেতরে</strong> রাউটিংয়ের কাজ করে।</td>
+                  <td>যে প্রোটোকল দুটি <strong>ভিন্ন AS এর মধ্যে</strong> রাউটিং বা ডাটা আদান-প্রদানের কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">প্রধান কাজ</td>
+                  <td>লোকাল নেটওয়ার্কের ভেতরে সবচেয়ে দ্রুত (Best Path) পথ খুঁজে বের করা।</td>
+                  <td>সারা বিশ্বের ইন্টারনেটে এক নেটওয়ার্ক থেকে অন্য নেটওয়ার্কে ডাটা পাঠানো।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">উদাহরণ (Protocols)</td>
+                  <td><strong>OSPF</strong> (Open Shortest Path First), <strong>RIP</strong>, <strong>IS-IS</strong>,
+                    <strong>EIGRP</strong>।</td>
+                  <td><strong>BGP</strong> (Border Gateway Protocol)। বর্তমান ইন্টারনেট পুরোপুরি BGP এর ওপর চলে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">রিয়েল-লাইফ সিনারিও</td>
+                  <td>গ্রামীণফোনের ভেতরে ঢাকা অফিসের রাউটার থেকে চট্টগ্রাম অফিসের রাউটারে ডাটা পাঠানোর জন্য।</td>
+                  <td>গ্রামীণফোনের নেটওয়ার্ক থেকে গুগলের বা ফেসবুকের নেটওয়ার্কে ডাটা পাঠানোর জন্য।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Static Route বনাম Dynamic Route</h2>
+          <p>রাউটার কীভাবে পথ চিনবে, তার ওপর ভিত্তি করে রাউটিংকে আবার দুটি পদ্ধতিতে ভাগ করা যায়: <strong>Static</strong>
+            এবং <strong>Dynamic</strong>।</p>
+
+          <h3>A. Static Routing (স্ট্যাটিক রাউটিং)</h3>
+          <p>স্ট্যাটিক রাউটিং হলো এমন একটি পদ্ধতি, যেখানে নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর নিজে ম্যানুয়ালি রাউটারে কমান্ড
+            দিয়ে বলে দেন যে, "কোন আইপি ব্লকে যেতে হলে কোন রাস্তা (Gateway) ব্যবহার করতে হবে।"</p>
+          <ul>
+            <li><strong>সুবিধা:</strong> এটি অত্যন্ত সুরক্ষিত (Secure), কারণ রাউটার নিজে থেকে কোনো রুট আপডেট নেয় না। এতে
+              রাউটারের প্রসেসর (CPU) এবং মেমোরির ওপর কোনো বাড়তি চাপ পড়ে না।</li>
+            <li><strong>অসুবিধা:</strong> যদি মাঝখানের কোনো ক্যাবল বা লিংক ডাউন হয়ে যায়, তবে রাউটার নিজে নিজে অন্য কোনো
+              বিকল্প পথ খুঁজে নিতে পারে না। অ্যাডমিনকে ম্যানুয়ালি এসে আবার নতুন রুট বসাতে হয়। বড় নেটওয়ার্কে এটি মেইনটেইন
+              করা অসম্ভব।</li>
+            <li><strong>ব্যবহার:</strong> ছোট অফিস নেটওয়ার্কে (যেখানে শুধু আইএসপির একটি সংযোগ আছে), যাকে <strong>Stub
+                Network</strong> বলা হয়। সেখানে আমরা সাধারণত <strong>Default Static Route (0.0.0.0/0)</strong> ব্যবহার
+              করি।</li>
+          </ul>
+
+          <h3>B. Dynamic Routing (ডাইনামিক রাউটিং)</h3>
+          <p>ডাইনামিক রাউটিংয়ে অ্যাডমিনকে ম্যানুয়ালি সব রুট বসাতে হয় না। রাউটারগুলো একে অপরের সাথে কথা বলে (প্রোটোকল
+            ব্যবহার করে) নিজে নিজেই নেটওয়ার্কের একটি ম্যাপ তৈরি করে নেয়।</p>
+          <ul>
+            <li><strong>সুবিধা:</strong> যদি কোনো ক্যাবল কাটা পড়ে বা লিংক ডাউন হয়, তবে ডাইনামিক রাউটিং প্রোটোকল (যেমন
+              OSPF) মুহূর্তের মধ্যে ক্যালকুলেশন করে বিকল্প পথ (Backup path) খুঁজে বের করে এবং ট্রাফিক ঘুরিয়ে দেয়। এটি বড়
+              এবং জটিল নেটওয়ার্কের জন্য অপরিহার্য।</li>
+            <li><strong>অসুবিধা:</strong> এটি কনফিগার করা বেশ জটিল। রাউটারগুলোকে সবসময় একে অপরের সাথে আপডেট আদান-প্রদান
+              করতে হয়, তাই প্রচুর <strong>Bandwidth</strong>, <strong>CPU</strong> এবং মেমোরি খরচ হয়।</li>
+          </ul>
+
+          <h2>৪. MikroTik CLI: Static Route কনফিগারেশন</h2>
+          <p>চলুন দেখি একটি MikroTik রাউটারে কীভাবে Static Route বসাতে হয়। মনে করুন আপনার আইএসপি (ISP) আপনাকে
+            <code>10.10.10.1</code> গেটওয়ে দিয়েছে এবং আপনি চান আপনার লোকাল ইউজাররা ইন্টারনেটে যাক।</p>
+
+          <p><strong>Default Static Route বসানোর কমান্ড:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip route add dst-address=0.0.0.0/0 gateway=10.10.10.1</code></pre>
+          <p><em>ব্যাখ্যা:</em> <code>0.0.0.0/0</code> মানে হলো পৃথিবীর যেকোনো আইপি (ইন্টারনেট)। অর্থাৎ, রাউটারকে বলা
+            হচ্ছে, "তোমার কাছে অচেনা যেকোনো আইপির রিকোয়েস্ট আসলে তুমি তা 10.10.10.1 গেটওয়েতে পাঠিয়ে দেবে।"</p>
+
+          <h2>৫. Troubleshooting Tips (রাউটিং ট্রাবলশুটিং)</h2>
+          <p>নেটওয়ার্কে ডাটা পাস না হলে একজন প্রফেশনাল হিসেবে আপনাকে নিচের ধাপগুলো ফলো করতে হবে:</p>
+
+          <ul>
+            <li><strong>Routing Table চেক করা:</strong> রাউটারটি গন্তব্যের পথ চেনে কি না তা দেখতে টার্মিনালে কমান্ড দিন:
+              <pre><code>[admin@MikroTik] > /ip route print</code></pre>
+              লিস্টে যদি দেখেন <code>A S</code> (Active, Static) বা <code>A O</code> (Active, OSPF) লেখা আছে, তার মানে
+              রুটটি ঠিক আছে। যদি <code>unreachable</code> লেখা থাকে, তবে বুঝবেন ওই গন্তব্যে যাওয়ার ক্যাবল বা গেটওয়ে ডাউন
+              আছে।
+            </li>
+            <li><strong>Traceroute (ট্রেসরাউট) ব্যবহার করা:</strong> প্যাকেটটি কোন রাউটার পর্যন্ত গিয়ে আটকে যাচ্ছে তা
+              দেখার জন্য ট্রেসরাউট অত্যন্ত কার্যকরী:
+              <pre><code>[admin@MikroTik] > /tool traceroute 8.8.8.8</code></pre>
+            </li>
+            <li><strong>Distance (Administrative Distance) চেক করা:</strong> যদি একই গন্তব্যে যাওয়ার দুটি পথ (Link 1 এবং
+              Link 2) থাকে, তবে আপনি প্রাইমারি লিংকের Distance <code>1</code> এবং ব্যাকআপ লিংকের Distance <code>2</code>
+              দিয়ে খুব সহজেই <strong>Failover</strong> কনফিগার করতে পারবেন। রাউটার সবসময় কম Distance এর পথটি বেছে নেয়।
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Routing</strong> হলো নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ের সবচেয়ে রোমাঞ্চকর এবং গুরুত্বপূর্ণ অধ্যায়। একটি ছোট
+              অফিস থেকে ইন্টারনেটে যাওয়ার জন্য <strong>Static Route</strong> যেমন অপরিহার্য, তেমনি একটি বিশাল
+              <strong>Autonomous System (AS)</strong> এর ভেতরের রাউটারগুলোকে ম্যানেজ করার জন্য <strong>IGP (যেমন
+                OSPF)</strong> এবং পুরো বিশ্বকে যুক্ত করার জন্য <strong>EGP (যেমন BGP)</strong> এর কোনো বিকল্প নেই।
+              রাউটিং টেবিল কীভাবে কাজ করে এবং ডাইনামিক প্রোটোকলগুলো কীভাবে বেস্ট পাথ (Best Path) নির্বাচন করে—তা
+              পরিষ্কারভাবে বুঝতে পারলে আপনি যেকোনো এন্টারপ্রাইজ নেটওয়ার্ক আত্মবিশ্বাসের সাথে ডিজাইন ও ট্রাবলশুট করতে
+              পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

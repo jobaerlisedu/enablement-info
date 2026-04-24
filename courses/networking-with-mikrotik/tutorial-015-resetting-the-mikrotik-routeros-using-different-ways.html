@@ -1,32 +1,321 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS কীভাবে Reset করতে হয়? Soft Reset (Winbox/CLI), Hard Reset (Physical Button) এবং Netinstall এর মাধ্যমে রাউটার ফ্যাক্টরি রিসেট করার বিস্তারিত বাংলা গাইড।">
   <title>Resetting the MikroTik RouterOS using different ways | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Resetting the MikroTik RouterOS using different ways</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Resetting the MikroTik RouterOS using different ways</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Resetting the MikroTik RouterOS using different ways</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 20 August, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে কাজ করতে গিয়ে এমন অনেক পরিস্থিতির সম্মুখীন হতে হয়, যখন একটি সাজানো গোছানো
+            রাউটারকে মুহূর্তের মধ্যে পুরোপুরি মুছে ফেলে নতুন করে শুরু করার প্রয়োজন হয়। হয়তো আপনি কোনো ভুল কনফিগারেশন
+            করেছেন যার কারণে নেটওয়ার্ক কাজ করছে না, অথবা আপনি রাউটারের অ্যাডমিন পাসওয়ার্ড ভুলে গেছেন।</p>
+          <p>এমন পরিস্থিতিতে আপনার একমাত্র সমাধান হলো <strong>Factory Reset</strong>। MikroTik RouterOS-এ রাউটার রিসেট
+            করার বেশ কয়েকটি পদ্ধতি রয়েছে—কিছু পদ্ধতি আপনি রাউটারের ভেতরে ঢুকে (Soft Reset) করতে পারেন, আবার কিছু পদ্ধতি
+            রাউটারের ফিজিক্যাল বাটন চেপে (Hard Reset) করতে হয়। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা এই সমস্ত পদ্ধতি নিয়ে
+            বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>কখন রাউটার Reset করা প্রয়োজন?</h3>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> আপনি হয়তো ফায়ারওয়ালে (Firewall) এমন একটি ড্রপ (Drop) রুল তৈরি
+              করেছেন, যার কারণে আপনি নিজেই Winbox থেকে ডিসকানেক্ট হয়ে গেছেন (Locked Out)। এখন আর কোনোভাবেই রাউটারে ঢুকতে
+              পারছেন না। অথবা আপনি একটি পুরনো রাউটার অন্য কোনো অফিস থেকে এনে নতুন অফিসে সেটআপ করতে চাচ্ছেন, তাই আগের সব
+              কনফিগারেশন মুছে ফেলতে চান। এই কাজগুলোর জন্যই ফ্যাক্টরি রিসেট অপরিহার্য।</p>
+          </div>
+
+          <h2>১. Winbox এর মাধ্যমে Reset করা (Soft Reset)</h2>
+          <p>আপনি যদি রাউটারে লগইন করতে পারেন এবং ভেতর থেকে কনফিগারেশন মুছে ফেলতে চান, তবে এটি সবচেয়ে সহজ এবং নিরাপদ
+            পদ্ধতি।</p>
+
+          <ul>
+            <li><strong>Winbox</strong> ওপেন করে রাউটারে লগইন করুন।</li>
+            <li>বাম পাশের মেনু থেকে <strong>System</strong> এ ক্লিক করে <strong>Reset Configuration</strong> অপশনটি বেছে
+              নিন।</li>
+            <li>একটি নতুন উইন্ডো আসবে, যেখানে কিছু চেকবক্স (Checkbox) থাকবে। এগুলো কনফিগারেশন রিসেট করার ধরন নির্ধারণ
+              করে:</li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>চেকবক্স অপশন (Checkbox Option)</th>
+                  <th>কাজের বিবরণ এবং ব্যবহার (Description & Use Case)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Keep User Configuration</td>
+                  <td>এটি চেক করলে রাউটারের আইপি, রুল সবকিছু মুছে যাবে ঠিকই, কিন্তু <strong>User</strong> এবং
+                    <strong>Password</strong> আগেরটাই থেকে যাবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">No Default Configuration</td>
+                  <td><strong>প্রফেশনালদের পছন্দ:</strong> এটি চেক করলে রাউটার একদম ব্ল্যাংক (Blank) বা শূন্য হয়ে
+                    রিস্টার্ট নেবে। এতে কোনো ডিফল্ট আইপি (192.168.88.1) বা ফায়ারওয়াল রুল থাকবে না। একদম স্ক্র্যাচ
+                    (Scratch) থেকে কাজ শুরু করার জন্য এটি সবচেয়ে ভালো।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Do Not Backup</td>
+                  <td>সাধারণত রাউটার রিসেট করার আগে অটোমেটিক একটি ব্যাকআপ সেভ করে নেয়। এটি চেক করলে কোনো অটো-ব্যাকআপ
+                    তৈরি হবে না।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul>
+            <li>আপনার প্রয়োজন অনুযায়ী বক্সগুলোতে টিক চিহ্ন দিয়ে <strong>Reset Configuration</strong> বাটনে ক্লিক করুন
+              এবং <code>Yes</code> দিন। রাউটার রিবুট (Reboot) নেবে এবং রিসেট হয়ে যাবে।</li>
+          </ul>
+
+          <h2>২. Command Line (CLI) এর মাধ্যমে Reset করা</h2>
+          <p>যারা SSH বা Terminal ব্যবহার করে কাজ করেন, তারা মাত্র একটি কমান্ড দিয়ে রাউটার রিসেট করতে পারেন।</p>
+
+          <p>টার্মিনাল ওপেন করে নিচের কমান্ডটি দিন (এটি কোনো ডিফল্ট কনফিগারেশন এবং ব্যাকআপ ছাড়াই রাউটার রিসেট করবে):</p>
+          <pre><code>[admin@MikroTik] > /system reset-configuration no-defaults=yes skip-backup=yes</code></pre>
+          <p>কমান্ড দেওয়ার পর কনফার্ম করার জন্য <code>y</code> চাপুন। রাউটার স্বয়ংক্রিয়ভাবে রিবুট হবে।</p>
+
+          <h2>৩. Physical Button এর মাধ্যমে Reset করা (Hard Reset)</h2>
+          <p>যদি আপনি রাউটারের <strong>পাসওয়ার্ড ভুলে যান</strong> বা রাউটারটি কোনোভাবেই নেটওয়ার্কে রেসপন্স না করে, তখন
+            Winbox বা CLI দিয়ে কাজ হবে না। তখন আপনাকে ফিজিক্যাল হার্ড রিসেট করতে হবে।</p>
+
+          <p>প্রতিটি MikroTik রাউটারের পেছনে বা সামনে একটি ছোট <strong>RES</strong> বা <strong>Reset</strong> বাটন থাকে।
+            (এটি চাপার জন্য একটি কলম বা পেপারক্লিপের প্রয়োজন হতে পারে)।</p>
+
+          <h3>হার্ড রিসেট করার সঠিক নিয়ম:</h3>
+          <ol>
+            <li>প্রথমে রাউটারের পাওয়ার ক্যাবলটি খুলে ফেলুন (Unplug Power)।</li>
+            <li>এবার একটি পেপারক্লিপ দিয়ে <strong>Reset Button</strong> টি চেপে ধরে রাখুন (ছাড়বেন না)।</li>
+            <li>বাটনটি চেপে ধরা অবস্থাতেই রাউটারের পাওয়ার ক্যাবলটি আবার লাগান (Plug Power)।</li>
+            <li>রাউটারের প্যানেলে থাকা <strong>ACT (Activity)</strong> বা <strong>USR (User)</strong> নামের এলইডি (LED)
+              লাইটটির দিকে নজর রাখুন।</li>
+            <li>পাওয়ার দেওয়ার ৫ সেকেন্ড পর এই লাইটটি ফ্ল্যাশ বা ব্লিংক (Blink) করা শুরু করবে।</li>
+            <li>লাইটটি ব্লিংক করা শুরু করলেই সাথে সাথে <strong>Reset Button টি ছেড়ে দিন</strong>।</li>
+            <li>রাউটারটি ফ্যাক্টরি রিসেট হয়ে আবার চালু হবে। এবার আপনি ডিফল্ট ইউজারনেম <code>admin</code> এবং ব্ল্যাংক
+              পাসওয়ার্ড দিয়ে Winbox (MAC Address) এর মাধ্যমে লগইন করতে পারবেন।</li>
+          </ol>
+
+          <h2>৪. Advanced Recovery: Netinstall (The Ultimate Reset)</h2>
+          <p>অনেক সময় হার্ড রিসেট বাটন কাজ করে না, অথবা আপডেট করার সময় বিদ্যুৎ চলে যাওয়ার কারণে RouterOS পুরোপুরি করাপ্ট
+            (Corrupt) হয়ে যায় (যাকে আমরা Boot Loop বলি)। এই অবস্থায় রাউটারকে জীবিত করার শেষ অস্ত্র হলো
+            <strong>Netinstall</strong>।</p>
+
+          <ul>
+            <li><strong>কীভাবে কাজ করে?</strong> Netinstall হলো উইন্ডোজের জন্য একটি সফটওয়্যার, যা নেটওয়ার্ক ক্যাবলের
+              (Ether1 পোর্ট) মাধ্যমে সরাসরি রাউটারের মেমোরিকে ফরম্যাট করে নতুন করে <strong>RouterOS</strong> ইন্সটল করে
+              দেয়।</li>
+            <li><strong>প্রক্রিয়া:</strong> এর জন্য পিসিতে একটি স্ট্যাটিক আইপি (যেমন 192.168.88.2) বসাতে হয়, Netinstall
+              সফটওয়্যারটি রান করতে হয় এবং রাউটারের Reset বাটনটি একটানা <strong>১৫ সেকেন্ড</strong> (যতক্ষণ না Netinstall
+              এর স্ক্রিনে রাউটার শো করে) চেপে ধরে রাখতে হয়। এটি রাউটারকে PXE বুট মোডে নিয়ে যায় এবং নতুন করে ওএস ইন্সটল
+              করে।</li>
+          </ul>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <p>রাউটার রিসেট করার সময় কিছু সাধারণ সমস্যা হতে পারে:</p>
+
+          <ul>
+            <li><strong>রিসেট বাটন চেপে রাখার পরও রিসেট হচ্ছে না:</strong> আপনি যদি
+              <code>/system routerboard settings set protected-routerboot=enabled</code> কমান্ডটি কখনো চালিয়ে থাকেন, তবে
+              ফিজিক্যাল রিসেট বাটনটি ডিজেবল (Disable) হয়ে যায়। সিকিউরিটির জন্য এটি করা হয়। এই অবস্থায় রাউটার খুললে
+              বোর্ডের ভেতরে একটি <strong>Jumper Hole</strong> থাকে, সেটি স্ক্রু-ড্রাইভার দিয়ে শর্ট করে পাওয়ার দিলে হার্ড
+              রিসেট হয়।</li>
+            <li><strong>লগইন করার পর আবার আগের কনফিগারেশন চলে আসছে:</strong> Soft Reset করার সময় যদি আপনি
+              <code>No Default Configuration</code> এ টিক না দেন, তবে রাউটার তার নিজস্ব ডিফল্ট রুলস (192.168.88.1, DHCP,
+              NAT) আবার সেট করে নেয়। প্রোডাকশন নেটওয়ার্কে কাজ করার সময় অবশ্যই এটি চেক করে রিসেট করবেন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি <strong>MikroTik RouterOS</strong> ডিভাইসের ট্রাবলশুটিং এবং কনফিগারেশন ম্যানেজমেন্টের সবচেয়ে
+              শক্তিশালী টুল হলো এই <strong>Reset Configuration</strong> মেকানিজমগুলো। <strong>Winbox</strong> বা
+              <strong>CLI</strong> এর মাধ্যমে সফট রিসেট করাটা নিয়মিত কাজের একটি অংশ, বিশেষ করে যখন ল্যাবে টেস্টিং করা
+              হয়। আর যখন সব দরজা বন্ধ হয়ে যায়—যেমন পাসওয়ার্ড ভুলে যাওয়া বা সিস্টেম ক্র্যাশ করা—তখন <strong>Physical Hard
+                Reset</strong> বা <strong>Netinstall</strong> আপনার রাউটারকে জঞ্জালমুক্ত করে নতুন জীবন দান করে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

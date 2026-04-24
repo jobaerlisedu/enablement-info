@@ -1,32 +1,342 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ SSTP Client-to-Site VPN কনফিগার করে Windows পিসি থেকে ফায়ারওয়াল বাইপাস করে সুরক্ষিতভাবে লোকাল নেটওয়ার্কে যুক্ত হওয়ার বিস্তারিত বাংলা গাইড।">
   <title>Configuring SSTP Client-to-Site VPN on MikroTik and Windows | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configuring SSTP Client-to-Site VPN on MikroTik and Windows</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configuring SSTP Client-to-Site VPN on MikroTik and Windows</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configuring SSTP Client-to-Site VPN on MikroTik and Windows</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 May, 2026</span>
+            <span><i class='bx bx-category'></i> VPN & Cyber Security</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>যেকোনো প্রতিষ্ঠানের এমপ্লয়িদের রিমোটলি (যেমন বাসা বা হোটেল থেকে) অফিসের নেটওয়ার্কে যুক্ত করার জন্য
+            <strong>Client-to-Site VPN</strong> বা Remote Access VPN ব্যবহার করা হয়। কিন্তু সাধারণ ভিপিএন (যেমন PPTP বা
+            L2TP) অনেক সময় আইএসপি (ISP) বা কর্পোরেট ফায়ারওয়াল দ্বারা ব্লক হয়ে যায়। এই ফায়ারওয়াল বাইপাস করার সবচেয়ে
+            মোক্ষম হাতিয়ার হলো <strong>SSTP (Secure Socket Tunneling Protocol)</strong>, কারণ এটি সাধারণ ওয়েব ট্রাফিকের
+            মতো <strong>TCP Port 443 (HTTPS)</strong> ব্যবহার করে কাজ করে।</p>
+          <p>মাইক্রোসফট (Microsoft) দ্বারা তৈরি হওয়ায় উইন্ডোজ অপারেটিং সিস্টেমে কোনো থার্ড-পার্টি অ্যাপ ছাড়াই SSTP
+            কানেক্ট করা যায়। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে <strong>MikroTik RouterOS</strong>-এ একটি
+            SSTP সার্ভার তৈরি করতে হয় এবং একটি <strong>Windows PC</strong> থেকে সার্টিফিকেট ইমপোর্ট করে সেই সার্ভারে
+            নিরাপদে যুক্ত হতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Remote Worker)</h3>
+            <p><strong>লক্ষ্য:</strong> আপনার অফিসের রাউটারের রিয়েল আইপি (Public IP) হলো <code>203.0.113.10</code>।
+              আপনার একজন কর্মী দেশের বাইরে থেকে তার Windows 11 ল্যাপটপ দিয়ে অফিসের লোকাল ফাইল সার্ভারটি এক্সেস করতে চায়।
+              আমরা রাউটারে SSTP Server তৈরি করবো এবং কর্মীকে <code>172.16.10.x</code> ব্লকের একটি ভিপিএন আইপি দেবো।</p>
+            <p><strong>প্রধান চ্যালেঞ্জ:</strong> SSTP কাজ করার জন্য <strong>Certificate (SSL)</strong> বাধ্যতামূলক।
+              আমরা রাউটারেই একটি Self-Signed Certificate তৈরি করবো এবং সেটি এক্সপোর্ট করে ওই কর্মীর ল্যাপটপে ইন্সটল
+              করবো, যাতে উইন্ডোজ পিসি আমাদের রাউটারকে বিশ্বাস (Trust) করতে পারে।</p>
+          </div>
+
+          <h2>১. MikroTik রাউটার কনফিগারেশন (SSTP Server)</h2>
+          <p>রাউটারের কনফিগারেশনটি আমরা কয়েকটি ধাপে ভাগ করবো। কাজের সুবিধার জন্য টার্মিনাল বা কমান্ড লাইন ব্যবহার করা
+            সবচেয়ে ভালো।</p>
+
+          <h3>Step 1: Certificate তৈরি এবং সাইন (Sign) করা</h3>
+          <p>প্রথমে আমাদের একটি Certificate Authority (CA) এবং একটি Server Certificate তৈরি করতে হবে।</p>
+          <pre><code># CA (Certificate Authority) তৈরি করা
+/certificate add name=ca-template common-name=myOfficeCA key-usage=key-cert-sign,crl-sign
+/certificate sign ca-template name=OfficeCA
+
+# Server Certificate তৈরি করা (common-name এ অবশ্যই Public IP বা Domain Name দিতে হবে)
+/certificate add name=server-template common-name=203.0.113.10
+/certificate sign server-template ca=OfficeCA name=SSTP-ServerCert</code></pre>
+          <p><em>ব্যাখ্যা:</em> এখানে <code>common-name=203.0.113.10</code> অত্যন্ত গুরুত্বপূর্ণ। ক্লায়েন্ট পিসি যখন
+            ভিপিএন কানেক্ট করবে, তখন সে হুবহু এই আইপি বা ডোমেইন অ্যাড্রেসটিতেই হিট করতে হবে, নাহলে উইন্ডোজ এরর দেবে।</p>
+
+          <h3>Step 2: CA Certificate এক্সপোর্ট করা</h3>
+          <p>উইন্ডোজ পিসিতে ইন্সটল করার জন্য আমাদের মূল <code>OfficeCA</code> সার্টিফিকেটটি রাউটার থেকে বের করে নিতে
+            হবে।</p>
+          <pre><code>/certificate export-certificate OfficeCA export-passphrase=""</code></pre>
+          <p>কমান্ড দেওয়ার পর Winbox এর <strong>Files</strong> মেনুতে যান। সেখানে <code>cert_export_OfficeCA.crt</code>
+            নামের একটি ফাইল তৈরি হবে। ফাইলটি ড্র্যাগ করে (Drag and drop) আপনার পিসিতে কপি করে নিন। এই ফাইলটিই রিমোট
+            কর্মীর ল্যাপটপে পাঠাতে হবে।</p>
+
+          <h3>Step 3: IP Pool, Profile এবং User তৈরি করা</h3>
+          <pre><code># IP Pool তৈরি
+/ip pool add name=sstp-pool ranges=172.16.10.10-172.16.10.50
+
+# PPP Profile তৈরি
+/ppp profile add name=sstp-profile local-address=172.16.10.1 remote-address=sstp-pool use-encryption=yes
+
+# VPN User (Secret) তৈরি
+/ppp secret add name=remote_user password=SecretPass!23 service=sstp profile=sstp-profile</code></pre>
+
+          <h3>Step 4: SSTP Server চালু করা এবং Firewall রুল অ্যাড করা</h3>
+          <pre><code># Enable SSTP Server and Attach Certificate
+/interface sstp-server server set enabled=yes default-profile=sstp-profile certificate=SSTP-ServerCert force-aes=yes
+
+# Allow Port 443 in Firewall (অবশ্যই Drop রুলের ওপরে রাখতে হবে)
+/ip firewall filter add action=accept chain=input protocol=tcp dst-port=443 comment="Allow SSTP VPN"</code></pre>
+
+          <h2>২. Windows PC কনফিগারেশন (SSTP Client)</h2>
+          <p>রাউটারের কাজ শেষ। এখন রিমোট কর্মীর ল্যাপটপে কনফিগার করতে হবে। এই অংশটি দুটি প্রধান ধাপে বিভক্ত।</p>
+
+          <h3>Step 1: Certificate ইন্সটল করা (Trusted Root Authority)</h3>
+          <p>যেহেতু আমাদের সার্টিফিকেটটি Self-Signed, তাই উইন্ডোজ ডিফল্টভাবে এটিকে ট্রাস্ট করবে না। আমাদের ম্যানুয়ালি
+            এটিকে ট্রাস্ট করাতে হবে।</p>
+          <ol>
+            <li>রাউটার থেকে যে <code>cert_export_OfficeCA.crt</code> ফাইলটি এনেছিলেন, তার ওপর ডাবল-ক্লিক করুন।</li>
+            <li><strong>Install Certificate...</strong> বাটনে ক্লিক করুন।</li>
+            <li>Store Location হিসেবে <strong>Local Machine</strong> সিলেক্ট করে Next দিন।</li>
+            <li><strong>"Place all certificates in the following store"</strong> অপশনটি বেছে নিন এবং
+              <strong>Browse</strong> এ ক্লিক করুন।</li>
+            <li>লিস্ট থেকে <strong>Trusted Root Certification Authorities</strong> ফোল্ডারটি সিলেক্ট করে OK দিন এবং
+              ফিনিশ (Finish) করুন। একটি সাকসেস মেসেজ আসবে।</li>
+          </ol>
+
+          <h3>Step 2: Windows VPN Connection তৈরি করা</h3>
+          <ol>
+            <li>উইন্ডোজের <strong>Settings > Network & internet > VPN</strong> এ যান।</li>
+            <li><strong>Add VPN</strong> বাটনে ক্লিক করুন।</li>
+            <li>নিচের তথ্যগুলো পূরণ করুন:
+              <ul>
+                <li><strong>VPN provider:</strong> Windows (built-in)</li>
+                <li><strong>Connection name:</strong> Office SSTP VPN (যেকোনো নাম)</li>
+                <li><strong>Server name or address:</strong> <code>203.0.113.10</code> (এখানে হুবহু সেই আইপি বা ডোমেইন
+                  দেবেন, যা সার্টিফিকেটের <code>common-name</code> এ দিয়েছিলেন)।</li>
+                <li><strong>VPN type:</strong> Secure Socket Tunneling Protocol (SSTP)</li>
+                <li><strong>Type of sign-in info:</strong> User name and password</li>
+                <li><strong>User name:</strong> <code>remote_user</code></li>
+                <li><strong>Password:</strong> <code>SecretPass!23</code></li>
+              </ul>
+            </li>
+            <li><strong>Save</strong> বাটনে ক্লিক করুন।</li>
+            <li>তৈরি হওয়া ভিপিএন প্রোফাইলের পাশে <strong>Connect</strong> বাটনে ক্লিক করুন। কয়েক সেকেন্ডের মধ্যেই আপনি
+              নিরাপদে অফিসের নেটওয়ার্কের সাথে যুক্ত হয়ে যাবেন।</li>
+          </ol>
+
+          <h2>৩. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Error / Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Error 0x80092013 (Revocation Check Failed)</td>
+                  <td>উইন্ডোজ বাই-ডিফল্ট চেক করে সার্টিফিকেটটি বাতিল (Revoke) করা হয়েছে কি না। যেহেতু আমাদের Self-Signed
+                    সার্টিফিকেটের কোনো CRL লিস্ট নেই, তাই এটি ফেইল করে। সমাধান: উইন্ডোজের <strong>Registry Editor
+                      (regedit)</strong> এ গিয়ে
+                    <code>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\SstpSvc\Parameters</code> পাথে
+                    <code>NoCertRevocationCheck</code> নামে একটি <strong>DWORD</strong> তৈরি করে এর ভ্যালু
+                    <code>1</code> করে দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Certificate Common Name Mismatch</td>
+                  <td>আপনি রাউটারে সার্টিফিকেটের <code>common-name</code> দিয়েছেন আইপি অ্যাড্রেস, কিন্তু উইন্ডোজে Server
+                    Address এর ঘরে দিয়েছেন ডোমেইন নেম (বা উল্টো)। এই দুটি নাম হুবহু এক হতে হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Port 443 Conflict (Webfig)</td>
+                  <td>আপনার রাউটারে যদি <strong>WWW-SSL (Webfig HTTPS)</strong> সার্ভিস পোর্ট 443 এ চালু থাকে, তবে SSTP
+                    কাজ করবে না। Winbox থেকে <code>IP > Services</code> এ গিয়ে <code>www-ssl</code> এর পোর্টটি পরিবর্তন
+                    করে (যেমন 4433) দিন, অথবা সার্ভিসটি ডিজেবল করে দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Clock Sync Issue (Date and Time)</td>
+                  <td>রাউটারের বা পিসির তারিখ এবং সময় যদি সঠিক না থাকে, তবে সার্টিফিকেট "Expired" বা "Not Valid Yet"
+                    দেখাবে এবং ভিপিএন কানেক্ট হবে না। উভয় ডিভাইসের সময় সিঙ্ক (Sync) করে নিন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>SSTP (Secure Socket Tunneling Protocol)</strong> হলো রিমোট ওয়ার্কারদের জন্য অন্যতম সেরা একটি
+              সমাধান, বিশেষ করে যখন তারা কোনো রেস্ট্রিক্টেড (Restricted) নেটওয়ার্ক বা পাবলিক ওয়াই-ফাইয়ের পেছনে থাকে।
+              <strong>MikroTik</strong> এ সার্টিফিকেট জেনারেট করে <strong>Windows</strong> পিসিতে ট্রাস্ট করানোর এই
+              পদ্ধতিটি একবার আয়ত্ত করতে পারলে, ফায়ারওয়াল বাইপাস করে অত্যন্ত সিকিউরড (AES-256) একটি
+              <strong>Client-to-Site VPN</strong> নেটওয়ার্ক তৈরি করা আপনার জন্য একদম সহজ হয়ে যাবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

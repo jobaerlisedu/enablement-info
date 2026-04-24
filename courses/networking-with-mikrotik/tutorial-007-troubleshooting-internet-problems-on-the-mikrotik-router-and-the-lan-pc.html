@@ -1,32 +1,313 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik রাউটার এবং লোকাল পিসিতে (LAN) ইন্টারনেট কানেকশন সমস্যা সমাধানের স্টেপ-বাই-স্টেপ গাইড। পিং (Ping), ডিএনএস (DNS), ন্যাট (NAT) এবং রাউটিং ট্রাবলশুটিং শিখুন।">
   <title>Troubleshooting internet problems on the MikroTik Router and the LAN PC | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Troubleshooting internet problems on the MikroTik Router and the LAN PC</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Troubleshooting internet problems on the MikroTik Router and the LAN PC</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Troubleshooting internet problems on the MikroTik Router and the LAN PC</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 20 June, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একজন নেটওয়ার্ক ইঞ্জিনিয়ার বা আইটি প্রফেশনাল হিসেবে আপনার দৈনন্দিন জীবনে সবচেয়ে বেশি যে অভিযোগটি শুনতে হবে
+            তা হলো—"ভাই, ইন্টারনেট চলছে না!"। সমস্যাটি খুব সাধারণ মনে হলেও এর পেছনে ফিজিক্যাল ক্যাবল থেকে শুরু করে
+            রাউটিং, ডিএনএস (DNS) বা ন্যাট (NAT) এর মতো অনেক জটিল কারণ থাকতে পারে।</p>
+          <p>MikroTik রাউটারে এই ধরনের সমস্যা সমাধানের জন্য একটি নির্দিষ্ট ফ্রেমওয়ার্ক বা "Divide and Conquer" অ্যাপ্রোচ
+            ফলো করতে হয়। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে ধাপে ধাপে একটি MikroTik Router এবং তার সাথে
+            যুক্ত Local Area Network (LAN) পিসির ইন্টারনেট সমস্যার সমাধান বা Troubleshooting করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>Troubleshooting এর মূলনীতি (The Bottom-Up Approach)</h3>
+            <p>ইন্টারনেট সমস্যা সমাধানের সেরা উপায় হলো সমস্যাটিকে দুটি ভাগে ভাগ করা: ১. রাউটার নিজে ইন্টারনেট পাচ্ছে কি
+              না এবং ২. লোকাল পিসি রাউটারের সাথে ঠিকমতো যুক্ত আছে কি না। আমরা OSI Model এর ফিজিক্যাল লেয়ার থেকে শুরু করে
+              অ্যাপ্লিকেশন লেয়ার পর্যন্ত ধাপে ধাপে চেক করবো।</p>
+          </div>
+
+          <h2>ধাপ ১: MikroTik Router-এ ইন্টারনেট চেক করা</h2>
+          <p>প্রথমে আমাদের নিশ্চিত হতে হবে যে রাউটার নিজে ইন্টারনেট অ্যাক্সেস করতে পারছে কি না। Winbox দিয়ে রাউটারে লগইন
+            করে New Terminal ওপেন করুন।</p>
+
+          <h3>A. গ্লোবাল আইপি (IP) পিং করা:</h3>
+          <p>টার্মিনালে কমান্ড দিন:</p>
+          <pre><code>[admin@MikroTik] > ping 8.8.8.8</code></pre>
+          <p>যদি <code>timeout</code> দেখায়, তার মানে রাউটারে কোনো ইন্টারনেট নেই। এক্ষেত্রে নিচের বিষয়গুলো চেক করুন:</p>
+          <ul>
+            <li><strong>WAN Interface:</strong> আপনার আইএসপির (ISP) ক্যাবলটি রাউটারের সঠিক পোর্টে (যেমন ether1) লাগানো
+              আছে কি না এবং লিংকের লাইট জ্বলছে কি না।</li>
+            <li><strong>IP Address:</strong> <code>/ip address print</code> কমান্ড দিয়ে দেখুন WAN পোর্টে সঠিক আইপি বসানো
+              আছে কি না। PPPoE হলে <code>/interface pppoe-client print</code> দিয়ে চেক করুন স্ট্যাটাস
+              <code>connected</code> দেখাচ্ছে কি না।</li>
+            <li><strong>Default Route (Gateway):</strong> ইন্টারনেট পাওয়ার প্রধান শর্ত হলো Default Route।
+              <code>/ip route print</code> কমান্ড দিন। লিস্টে <code>0.0.0.0/0</code> ডেসটিনেশন যুক্ত একটি রুল থাকতে হবে
+              এবং তার পাশে <code>AS (Active, Static)</code> লেখা থাকতে হবে। না থাকলে নতুন করে আইএসপির Gateway আইপিটি
+              অ্যাড করুন।</li>
+          </ul>
+
+          <h3>B. ডোমেইন নেম (DNS) পিং করা:</h3>
+          <p>যদি <code>ping 8.8.8.8</code> কাজ করে, কিন্তু <code>ping google.com</code> দিলে <code>invalid value</code>
+            বা <code>could not resolve</code> দেখায়, তবে বুঝতে হবে আপনার রাউটারে <strong>DNS (Domain Name
+              System)</strong> কাজ করছে না।</p>
+          <p><strong>সমাধান:</strong> ডিএনএস সেট আপ করার জন্য নিচের কমান্ডটি দিন:</p>
+          <pre><code>[admin@MikroTik] > /ip dns set servers=8.8.8.8,1.1.1.1 allow-remote-requests=yes</code></pre>
+
+          <h2>ধাপ ২: লোকাল পিসিতে (LAN) কানেক্টিভিটি চেক করা</h2>
+          <p>রাউটারে যদি ইন্টারনেট থাকে (পিং গুগল কাজ করে), কিন্তু আপনার পিসিতে ইন্টারনেট না থাকে, তবে সমস্যাটি আপনার
+            লোকাল নেটওয়ার্কে বা পিসিতে।</p>
+
+          <h3>A. ফিজিক্যাল এবং IP চেক (পিসির দিক থেকে):</h3>
+          <ul>
+            <li>ল্যাপটপ বা পিসিতে ল্যান ক্যাবল ঠিকমতো লাগানো আছে কি না চেক করুন।</li>
+            <li>পিসির Command Prompt (CMD) ওপেন করে <code>ipconfig</code> কমান্ড দিন। চেক করুন আপনার পিসি রাউটারের
+              ব্লকের (যেমন 192.168.10.x) আইপি পেয়েছে কি না। যদি <code>169.254.x.x (APIPA)</code> আইপি দেখায়, তবে বুঝতে
+              হবে পিসি রাউটার থেকে কোনো আইপি পাচ্ছে না।</li>
+            <li><strong>সমাধান:</strong> রাউটারে <code>/ip dhcp-server print</code> দিয়ে চেক করুন DHCP সার্ভার চালু আছে
+              কি না এবং লাল রঙয়ের (Invalid) হয়ে আছে কি না।</li>
+          </ul>
+
+          <h3>B. পিসি থেকে রাউটারকে পিং করা:</h3>
+          <p>পিসির CMD থেকে রাউটারের লোকাল আইপিকে (Gateway) পিং করুন:</p>
+          <pre><code>C:\> ping 192.168.10.1</code></pre>
+          <p>যদি পিং না পায় (Request timed out), তবে ফিজিক্যাল ক্যাবল, পিসির ফায়ারওয়াল বা সুইচে কোনো সমস্যা আছে।</p>
+
+          <h2>ধাপ ৩: NAT (Network Address Translation) ট্রাবলশুটিং</h2>
+          <p>এটি হলো সবচেয়ে সাধারণ সমস্যা! রাউটারে ইন্টারনেট আছে, পিসি রাউটারকে পিং করতে পারছে, কিন্তু পিসি থেকে
+            <code>ping 8.8.8.8</code> দিলে <code>Request timed out</code> দেখাচ্ছে। এর মানে হলো আপনার পিসির প্রাইভেট
+            আইপিকে রাউটার পাবলিক আইপিতে ট্রান্সলেট করে ইন্টারনেটে পাঠাচ্ছে না।</p>
+
+          <p><strong>সমাধান (Masquerade Rule):</strong> আপনার রাউটারে NAT রুল মিসিং আছে অথবা ভুল কনফিগার করা আছে। Winbox
+            এর টার্মিনালে নিচের কমান্ডটি দিয়ে রুলটি তৈরি করুন:</p>
+          <pre><code>[admin@MikroTik] > /ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade</code></pre>
+          <p><em>(নোট: আপনার ইন্টারনেট যদি ether1 পোর্টের বদলে PPPoE দিয়ে আসে, তবে <code>out-interface</code> এর জায়গায়
+              <code>pppoe-out1</code> দিতে হবে)।</em></p>
+
+          <h2>৪. রিয়েল-লাইফ অ্যাডভান্সড ট্রাবলশুটিং সিনারিও</h2>
+          <p>বেসিক চেকিংয়ের পরও অনেক সময় কিছু অদ্ভুত সমস্যা দেখা যায়। নিচের টেবিল থেকে সেগুলোর সমাধান জেনে নিন:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ (Cause)</th>
+                  <th>সমাধান (Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">ইন্টারনেট বারবার ডিসকানেক্ট হচ্ছে</td>
+                  <td>PPPoE কানেকশনে বারবার অথেন্টিকেশন ফেইল হওয়া বা লিংকে হাই পিন (Ping latency) থাকা।</td>
+                  <td>আইএসপিকে লিংক চেক করতে বলুন। রাউটারে <code>/log print</code> দিয়ে লগ (Log) চেক করুন কেন ড্রপ
+                    হচ্ছে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ফেসবুক বা কিছু নির্দিষ্ট ওয়েবসাইট লোড হচ্ছে না, কিন্তু ইউটিউব চলছে</td>
+                  <td>এটি সাধারণত <strong>MTU (Maximum Transmission Unit)</strong> এর সমস্যা। প্যাকেট সাইজ বেশি বড় হলে
+                    ড্রপ হয়।</td>
+                  <td>Mangle রুল তৈরি করে MSS (Maximum Segment Size) পরিবর্তন করুন:
+                    <code>/ip firewall mangle add action=change-mss chain=forward new-mss=1360 protocol=tcp tcp-flags=syn</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">পিসিতে "IP Address Conflict" মেসেজ দিচ্ছে</td>
+                  <td>নেটওয়ার্কে অন্য কোনো পিসি বা রাউটার আপনার পিসির সেম (Same) আইপি ব্যবহার করছে।</td>
+                  <td>পিসির আইপি পরিবর্তন করে দিন, অথবা রাউটারের <strong>ARP Table</strong> চেক করে ওই আইপিটি কে ব্যবহার
+                    করছে তার MAC Address বের করুন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>যেকোনো নেটওয়ার্কে ইন্টারনেট সমস্যা ট্রাবলশুট করার মূল মন্ত্র হলো—ধৈর্য এবং সঠিক ধাপ অনুসরণ করা। সরাসরি
+              পিসিতে হাত না দিয়ে আগে চেক করতে হবে <strong>MikroTik Router</strong> এ <strong>Ping</strong>,
+              <strong>Route</strong>, এবং <strong>DNS</strong> ঠিক আছে কি না। রাউটার ঠিক থাকলে এরপর ল্যান (LAN) অংশে
+              <strong>DHCP</strong> এবং <strong>NAT (Masquerade)</strong> চেক করতে হবে। কমান্ড লাইনে কাজ করার অভ্যাস এবং
+              <code>ping</code> ও <code>log print</code> এর মতো কমান্ডগুলো নিয়মিত ব্যবহার করার মাধ্যমে আপনি খুব দ্রুততম
+              সময়ে নেটওয়ার্কের যেকোনো জটিল সমস্যা আইডেন্টিফাই এবং সমাধান করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

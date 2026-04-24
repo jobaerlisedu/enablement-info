@@ -1,32 +1,331 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এর Firewall কীভাবে কাজ করে? Filter Rules, NAT, Mangle, RAW এবং Address List এর বিস্তারিত ব্যবহার ও কনফিগারেশন গাইড।">
   <title>Firewall overview and features on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Firewall overview and features on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Firewall overview and features on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Firewall overview and features on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 November, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>যেকোনো নেটওয়ার্কের প্রধান নিরাপত্তা রক্ষী বা সিকিউরিটি গার্ড হলো <strong>Firewall</strong>। এটি এমন একটি
+            সিস্টেম যা ইন্টারনেট থেকে আসা এবং ইন্টারনেট বা লোকাল নেটওয়ার্কে যাওয়া সমস্ত ডাটা প্যাকেট (Packet) মনিটর করে
+            এবং পূর্বনির্ধারিত কিছু রুলের ওপর ভিত্তি করে সেই প্যাকেটগুলোকে অনুমতি দেয় (Accept) অথবা আটকে দেয় (Drop)।</p>
+          <p>MikroTik RouterOS এর <strong>Firewall</strong> অত্যন্ত শক্তিশালী, কারণ এটি লিনাক্সের <code>iptables</code>
+            আর্কিটেকচারের ওপর ভিত্তি করে তৈরি। এটি শুধুমাত্র হ্যাকারদের আক্রমণই ঠেকায় না, বরং <strong>Bandwidth
+              Management</strong>, <strong>Port Forwarding</strong> এবং <strong>Routing</strong> এর ক্ষেত্রেও
+            গুরুত্বপূর্ণ ভূমিকা পালন করে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা MikroTik Firewall এর বিভিন্ন ফিচার এবং
+            সেগুলোর কাজ নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+          <div class="content-box">
+            <h3>MikroTik Firewall এর প্রধান ৫টি সেকশন</h3>
+            <p>Winbox এর <strong>IP > Firewall</strong> মেনুতে গেলে আপনি উপরের দিকে অনেকগুলো ট্যাব দেখতে পাবেন।
+              প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ে এর প্রতিটি ট্যাবের আলাদা আলাদা কাজ রয়েছে। প্রধান ৫টি ফিচার হলো:</p>
+            <ol>
+              <li><strong>Filter Rules:</strong> প্যাকেট ব্লক (Drop) বা অ্যালাউ (Accept) করার মূল জায়গা।</li>
+              <li><strong>NAT:</strong> আইপি ট্রান্সলেশন (Masquerade এবং Port Forwarding) করা।</li>
+              <li><strong>Mangle:</strong> প্যাকেটের গায়ে মার্ক (Mark) বা সিল মারা, যাতে পরে সেগুলোকে চেনা যায়।</li>
+              <li><strong>RAW:</strong> Connection Tracking এর আগে ফাস্ট প্যাকেট ড্রপ করা (DoS অ্যাটাক ঠেকাতে)।</li>
+              <li><strong>Address Lists:</strong> অনেকগুলো আইপিকে একসাথে একটি গ্রুপে রাখা।</li>
+            </ol>
+          </div>
+
+          <h2>১. Filter Rules এবং Chains (চেইন)</h2>
+          <p><strong>Filter Rules</strong> হলো ফায়ারওয়ালের মস্তিষ্ক। এখানে আপনি রুল তৈরি করেন যে কে নেটওয়ার্কে প্রবেশ
+            করতে পারবে আর কে পারবে না। এই রুলগুলো মূলত তিনটি <strong>Chain</strong> (চেইন) বা রাস্তার ওপর ভিত্তি করে কাজ
+            করে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Chain (চেইন)</th>
+                  <th>কাজের ধরন (Behavior)</th>
+                  <th>রিয়েল-লাইফ উদাহরণ (Real-life Example)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Input</td>
+                  <td>ইন্টারনেট বা লোকাল নেটওয়ার্ক থেকে যে ট্রাফিক সরাসরি <strong>রাউটারের নিজের কাছে</strong> আসে।</td>
+                  <td>কেউ যদি আপনার রাউটারে Winbox, SSH বা Webfig দিয়ে লগইন করার চেষ্টা করে বা রাউটারকে Ping করে, তখন
+                    সেটি <code>input</code> চেইনে কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Forward</td>
+                  <td>যে ট্রাফিক রাউটারের এক পোর্ট দিয়ে ঢুকে <strong>রাউটার পার হয়ে</strong> অন্য পোর্ট দিয়ে বেরিয়ে যায়।
+                  </td>
+                  <td>আপনার ল্যান পিসি থেকে যখন আপনি ইউটিউব (YouTube) ব্রাউজ করেন, তখন ডাটা রাউটার পার হয়ে ইন্টারনেটে
+                    যায়। এটি <code>forward</code> চেইনের অন্তর্ভুক্ত।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Output</td>
+                  <td>যে ট্রাফিক সরাসরি <strong>রাউটারের ভেতর থেকে তৈরি হয়ে</strong> বাইরের দিকে যায়।</td>
+                  <td>রাউটার যদি নিজে কোনো NTP সার্ভার বা DNS সার্ভারকে রিকোয়েস্ট পাঠায়, তবে তা <code>output</code>
+                    চেইনে পড়ে। এটি সাধারণত খুব কম ব্যবহৃত হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. NAT (Network Address Translation)</h2>
+          <p>IPv4 এর স্বল্পতার কারণে <strong>NAT</strong> অত্যন্ত গুরুত্বপূর্ণ একটি ফিচার। এর দুটি প্রধান অংশ রয়েছে:</p>
+
+          <ul>
+            <li><strong>Source NAT (srcnat / Masquerade):</strong> এটি আপনার লোকাল (Private) আইপিগুলোকে রাউটারের পাবলিক
+              আইপিতে রূপান্তর করে ইন্টারনেটে পাঠায়। এটি ছাড়া লোকাল পিসিতে ইন্টারনেট চলবে না।</li>
+            <li><strong>Destination NAT (dstnat / Port Forwarding):</strong> ইন্টারনেটের কোনো ইউজার যদি আপনার পাবলিক
+              আইপিতে হিট করে, তবে রাউটার সেই ট্রাফিককে আপনার লোকাল নেটওয়ার্কের নির্দিষ্ট কোনো সার্ভারের (যেমন: Web
+              Server বা CCTV NVR) কাছে পাঠিয়ে দেয়। একেই পোর্ট ফরোয়ার্ডিং বলে।</li>
+          </ul>
+
+          <h2>৩. Mangle (প্যাকেট মার্কিং)</h2>
+          <p><strong>Mangle</strong> সরাসরি কোনো ট্রাফিক ড্রপ বা অ্যালাউ করে না। এর কাজ হলো প্যাকেটের গায়ে একটি সিল
+            (Mark) মেরে দেওয়া।</p>
+          <p><strong>রিয়েল-লাইফ সিনারিও:</strong> আপনার রাউটারে দুটি আইএসপি (ISP) আছে। আপনি চান ফেসবুকের ট্রাফিক ISP-1
+            দিয়ে যাক এবং ইউটিউবের ট্রাফিক ISP-2 দিয়ে যাক। এই কাজটি করার জন্য প্রথমে <strong>Mangle</strong> এ গিয়ে
+            ফেসবুক এবং ইউটিউবের প্যাকেটে আলাদা আলাদা মার্কিং (Mark Routing) করতে হয়। এরপর রাউটিং টেবিল সেই মার্ক দেখে
+            প্যাকেটগুলোকে আলাদা রাস্তায় পাঠিয়ে দেয়। <strong>Load Balancing (PCC)</strong> করার জন্য Mangle অপরিহার্য।
+          </p>
+
+          <h2>৪. RAW (অ্যান্টি-DDoS সুরক্ষা)</h2>
+          <p>MikroTik এ <strong>Connection Tracking</strong> নামের একটি সিস্টেম আছে, যা প্রতিটি কানেকশনের হিসাব রাখে।
+            কিন্তু যখন কোনো হ্যাকার লক্ষ লক্ষ ডামি প্যাকেট পাঠিয়ে <strong>DDoS (Distributed Denial of Service)</strong>
+            অ্যাটাক করে, তখন Connection Tracking এর মেমোরি ফুল হয়ে রাউটারের CPU 100% হয়ে যায় এবং রাউটার হ্যাং করে।</p>
+          <p>এই সমস্যা সমাধানের জন্য <strong>RAW</strong> টেবিল ব্যবহার করা হয়। RAW টেবিল Connection Tracking এর আগেই
+            কাজ করে। ফলে এটি প্রসেসরের ওপর কোনো চাপ না ফেলেই মুহূর্তের মধ্যে লক্ষ লক্ষ অ্যাটাকার প্যাকেট ড্রপ করে দিতে
+            পারে।</p>
+
+          <h2>৫. Address List (আইপি গ্রুপিং)</h2>
+          <p>ধরুন, আপনার অফিসে ৫০ জন ইউজার আছে। আপনি চান ২০ জন ইউজার ফেসবুক চালাতে পারবে না। এখন আপনি যদি Filter Rule এ
+            ২০টি আলাদা রুল তৈরি করেন, তবে রাউটারের প্রসেসরে চাপ পড়বে। এর বদলে আপনি <strong>Address List</strong> এ গিয়ে
+            ওই ২০টি আইপিকে <code>Block-Facebook</code> নামে একটি গ্রুপে অ্যাড করতে পারেন এবং Filter Rule এ একটিমাত্র রুল
+            তৈরি করে ওই পুরো গ্রুপটিকে ব্লক করে দিতে পারেন।</p>
+
+          <h2>৬. প্র্যাকটিক্যাল কনফিগারেশন: বেসিক সিকিউরিটি রুলস (CLI)</h2>
+          <p>চলুন টার্মিনাল ব্যবহার করে রাউটারের জন্য অত্যন্ত গুরুত্বপূর্ণ কিছু বেসিক ফায়ারওয়াল রুল তৈরি করি।</p>
+
+          <p><strong>Step 1: Invalid প্যাকেট ড্রপ করা (Input এবং Forward চেইন)</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add action=drop chain=input connection-state=invalid comment="Drop Invalid Input"
+[admin@MikroTik] > /ip firewall filter add action=drop chain=forward connection-state=invalid comment="Drop Invalid Forward"</code></pre>
+
+          <p><strong>Step 2: Established এবং Related কানেকশন অ্যালাউ করা</strong></p>
+          <p>যে কানেকশনগুলো অলরেডি ভেরিফাইড, সেগুলোকে ফাস্ট পাস করার জন্য এই রুল দিতে হয়। এটি রাউটারের পারফরম্যান্স
+            বাড়ায়।</p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add action=accept chain=input connection-state=established,related comment="Accept Est/Rel Input"
+[admin@MikroTik] > /ip firewall filter add action=accept chain=forward connection-state=established,related comment="Accept Est/Rel Forward"</code></pre>
+
+          <p><strong>Step 3: Port Forwarding (dst-nat) উদাহরণ</strong></p>
+          <p>ইন্টারনেট থেকে কেউ পোর্ট 80 (HTTP) এ হিট করলে তা লোকাল সার্ভার 192.168.10.50 এ পাঠিয়ে দেওয়া হবে।</p>
+          <pre><code>[admin@MikroTik] > /ip firewall nat add action=dst-nat chain=dstnat dst-port=80 protocol=tcp to-addresses=192.168.10.50 to-ports=80 comment="Web Server Port Forward"</code></pre>
+
+          <h2>৭. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>Rule Order (রুলের ক্রম):</strong> ফায়ারওয়াল রুল সবসময় ওপর থেকে নিচে (Top to Bottom) কাজ করে।
+              আপনি যদি একটি আইপিকে প্রথমে "Drop" করেন এবং পরে তাকে "Accept" করেন, তবে সে ড্রপই হবে, এক্সেপ্ট রুল পর্যন্ত
+              রাউটার পৌঁছাবেই না। তাই সবসময় নির্দিষ্ট (Specific) রুল ওপরে এবং সাধারণ (General) রুল নিচে রাখতে হয়।
+              ড্র্যাগ অ্যান্ড ড্রপ করে রুলের সিরিয়াল ঠিক করে নিন।</li>
+            <li><strong>Safe Mode এর ব্যবহার:</strong> ফায়ারওয়াল কনফিগার করার সময় <code>Input</code> চেইনে ভুল রুল
+              বসালে আপনি নিজেই Winbox থেকে ডিসকানেক্ট (Locked out) হয়ে যেতে পারেন। তাই ফায়ারওয়ালে হাত দেওয়ার আগে
+              সবসময় Winbox এর ওপরের দিকে থাকা <strong>Safe Mode</strong> বাটনটি অন করে নেবেন। ভুল হলে রিকভার করা সহজ
+              হবে।</li>
+            <li><strong>Logging (লগ চেক করা):</strong> আপনার কোনো রুল কাজ করছে কি না তা বুঝতে পারছেন না? রুলের ভেতরে
+              গিয়ে <strong>Action</strong> ট্যাবে <code>Log</code> অপশনটি টিক দিন। এরপর <strong>Log</strong> মেনুতে
+              গিয়ে রিয়েল-টাইমে দেখুন ওই রুলটিতে ট্রাফিক হিট করছে কি না।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>MikroTik Firewall</strong> হলো নেটওয়ার্ক সিকিউরিটি এবং ট্রাফিক ম্যানেজমেন্টের একটি সুইস-আর্মি
+              নাইফ (Swiss Army Knife)। <strong>Filter Rules</strong> দিয়ে অনাকাঙ্ক্ষিত ট্রাফিক ব্লক করা,
+              <strong>NAT</strong> দিয়ে আইপি ডিস্ট্রিবিউশন করা এবং <strong>Mangle</strong> দিয়ে অ্যাডভান্সড রাউটিং
+              কনফিগার করা—এই ফিচারগুলো সঠিকভাবে বুঝতে পারলে আপনি আপনার নেটওয়ার্ককে যেকোনো সাইবার অ্যাটাক থেকে সুরক্ষিত
+              রাখার পাশাপাশি ব্যান্ডউইথ এর সর্বোচ্চ ব্যবহার নিশ্চিত করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

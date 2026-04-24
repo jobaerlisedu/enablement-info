@@ -1,32 +1,350 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ PPTP Site-to-Site VPN কনফিগার করে দুটি ভিন্ন অফিসের লোকাল নেটওয়ার্ক (LAN) যুক্ত করার বিস্তারিত বাংলা গাইড।">
   <title>Configuring PPTP Site-to-Site VPN on MikroTik | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configuring PPTP Site-to-Site VPN on MikroTik</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configuring PPTP Site-to-Site VPN on MikroTik</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configuring PPTP Site-to-Site VPN on MikroTik</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 10 December, 2026</span>
+            <span><i class='bx bx-category'></i> VPN & Cyber Security</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>যখন কোনো কোম্পানির একাধিক শাখা বা অফিস থাকে, তখন এক অফিসের ইউজারদের অন্য অফিসের ফাইল সার্ভার, প্রিন্টার বা
+            ইআরপি (ERP) সফটওয়্যারে এক্সেস করার প্রয়োজন হয়। ইন্টারনেট ব্যবহার করে দুটি ভিন্ন ভৌগলিক অবস্থানে থাকা
+            লোকাল নেটওয়ার্ককে (LAN) একটি সিঙ্গেল প্রাইভেট নেটওয়ার্কে পরিণত করার পদ্ধতিকেই <strong>Site-to-Site
+              VPN</strong> বলা হয়।</p>
+          <p>MikroTik RouterOS ব্যবহার করে খুব সহজেই <strong>PPTP (Point-to-Point Tunneling Protocol)</strong> এর
+            মাধ্যমে Site-to-Site VPN তৈরি করা যায়। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা একটি রিয়েল-লাইফ সিনারিও ধরে হেড
+            অফিস (Head Office) এবং ব্রাঞ্চ অফিসের (Branch Office) মধ্যে PPTP টানেল এবং রাউটিং কনফিগার করা শিখবো।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও এবং আইপি প্ল্যানিং</h3>
+            <p>আমাদের নেটওয়ার্কের আর্কিটেকচারটি হবে নিচের মতো:</p>
+            <ul>
+              <li><strong>Head Office (HQ):</strong>
+                <ul>
+                  <li>Public IP (WAN): <code>203.0.113.1</code> (অবশ্যই একটি স্ট্যাটিক রিয়েল আইপি থাকতে হবে)।</li>
+                  <li>Local Network (LAN): <code>192.168.10.0/24</code></li>
+                  <li>PPTP Tunnel IP: <code>10.10.10.1</code></li>
+                </ul>
+              </li>
+              <li><strong>Branch Office:</strong>
+                <ul>
+                  <li>Public IP (WAN): রিয়েল আইপি থাকার প্রয়োজন নেই (যেকোনো শেয়ার্ড ইন্টারনেট হলেই হবে)।</li>
+                  <li>Local Network (LAN): <code>192.168.20.0/24</code></li>
+                  <li>PPTP Tunnel IP: <code>10.10.10.2</code></li>
+                </ul>
+              </li>
+            </ul>
+            <p><strong>আমাদের লক্ষ্য:</strong> ব্রাঞ্চ অফিসের 192.168.20.x ব্লকের পিসিগুলো যেন সরাসরি হেড অফিসের
+              192.168.10.x ব্লকের সার্ভারকে পিং (Ping) করতে পারে।</p>
+          </div>
+
+          <h2>১. Head Office রাউটার কনফিগারেশন (PPTP Server)</h2>
+          <p>প্রথমে আমাদের হেড অফিসের রাউটারটিকে একটি <strong>PPTP Server</strong> হিসেবে তৈরি করতে হবে, যাতে ব্রাঞ্চ
+            অফিস তার সাথে কানেক্ট হতে পারে।</p>
+
+          <h3>Step 1: PPTP Server চালু করা</h3>
+          <ul>
+            <li>Winbox থেকে <strong>PPP</strong> মেনুতে যান।</li>
+            <li><strong>Interface</strong> ট্যাবে থাকা অবস্থায় উপরের <strong>PPTP Server</strong> বাটনে ক্লিক করুন।
+            </li>
+            <li><strong>Enabled</strong> চেকবক্সে টিক দিন এবং <strong>OK</strong> করুন।</li>
+          </ul>
+
+          <h3>Step 2: PPP Secret (ইউজার) তৈরি করা</h3>
+          <ul>
+            <li>একই <strong>PPP</strong> উইন্ডো থেকে <strong>Secrets</strong> ট্যাবে যান এবং <strong>+ (Add)</strong>
+              আইকনে ক্লিক করুন।</li>
+            <li><strong>Name:</strong> <code>branch1</code> দিন (এটি ব্রাঞ্চ অফিসের ইউজারনেম)।</li>
+            <li><strong>Password:</strong> একটি শক্তিশালী পাসওয়ার্ড দিন (যেমন: <code>Secret@Branch!</code>)।</li>
+            <li><strong>Service:</strong> <code>pptp</code> সিলেক্ট করুন।</li>
+            <li><strong>Local Address:</strong> <code>10.10.10.1</code> দিন (হেড অফিসের টানেল আইপি)।</li>
+            <li><strong>Remote Address:</strong> <code>10.10.10.2</code> দিন (ব্রাঞ্চ অফিসের টানেল আইপি)।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h3>Step 3: Branch LAN এর জন্য Static Route তৈরি করা</h3>
+          <p>হেড অফিসকে চিনিয়ে দিতে হবে যে, ব্রাঞ্চের লোকাল নেটওয়ার্কে যাওয়ার রাস্তা হলো এই PPTP টানেলটি।</p>
+          <ul>
+            <li><strong>IP > Routes</strong> এ যান এবং <strong>+ (Add)</strong> ক্লিক করুন।</li>
+            <li><strong>Dst. Address:</strong> <code>192.168.20.0/24</code> (ব্রাঞ্চের ল্যান ব্লক) দিন।</li>
+            <li><strong>Gateway:</strong> <code>10.10.10.2</code> (ব্রাঞ্চের টানেল আইপি) দিন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>২. Branch Office রাউটার কনফিগারেশন (PPTP Client)</h2>
+          <p>এবার আমরা ব্রাঞ্চ অফিসের রাউটারে লগইন করবো এবং হেড অফিসের সাথে কানেক্ট হবো।</p>
+
+          <h3>Step 1: PPTP Client তৈরি করা</h3>
+          <ul>
+            <li>Winbox থেকে <strong>PPP</strong> মেনুতে যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করে ড্রপডাউন থেকে <strong>PPTP Client</strong> সিলেক্ট করুন।</li>
+            <li><strong>General</strong> ট্যাবে <strong>Name:</strong> <code>pptp-to-hq</code> দিন।</li>
+            <li><strong>Dial Out</strong> ট্যাবে যান।</li>
+            <li><strong>Connect To:</strong> <code>203.0.113.1</code> (হেড অফিসের পাবলিক আইপি) দিন।</li>
+            <li><strong>User:</strong> <code>branch1</code> দিন (যা হেড অফিসে তৈরি করেছেন)।</li>
+            <li><strong>Password:</strong> <code>Secret@Branch!</code> দিন।</li>
+            <li><strong>Apply</strong> দিন। স্ট্যাটাস বারে <code>connected</code> লেখা উঠলে বুঝবেন টানেল সফলভাবে তৈরি
+              হয়েছে।</li>
+          </ul>
+
+          <h3>Step 2: Head Office LAN এর জন্য Static Route তৈরি করা</h3>
+          <p>ব্রাঞ্চ রাউটারকেও চিনিয়ে দিতে হবে যে হেড অফিসে যাওয়ার রাস্তা কোনটি।</p>
+          <ul>
+            <li><strong>IP > Routes</strong> এ যান এবং <strong>+ (Add)</strong> ক্লিক করুন।</li>
+            <li><strong>Dst. Address:</strong> <code>192.168.10.0/24</code> (হেড অফিসের ল্যান ব্লক) দিন।</li>
+            <li><strong>Gateway:</strong> <code>10.10.10.1</code> (অথবা <code>pptp-to-hq</code> ইন্টারফেস) দিন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h2>৩. Firewall কনফিগারেশন (অত্যন্ত গুরুত্বপূর্ণ)</h2>
+          <p>হেড অফিসের রাউটারে যদি ফায়ারওয়াল কনফিগার করা থাকে, তবে বাই-ডিফল্ট PPTP কানেকশন ব্লক হয়ে যাবে। হেড অফিসের
+            <strong>IP > Firewall > Filter Rules</strong> এ গিয়ে নিচের রুলগুলো সবার ওপরে অ্যাড করতে হবে:</p>
+
+          <pre><code>[admin@HQ-Router] > /ip firewall filter add chain=input action=accept protocol=tcp dst-port=1723 comment="Allow PPTP Control Channel"
+[admin@HQ-Router] > /ip firewall filter add chain=input action=accept protocol=gre comment="Allow GRE (Protocol 47) for PPTP"</code></pre>
+
+          <h2>৪. Command Line (CLI) সামারি</h2>
+          <p>পুরো কনফিগারেশনটি টার্মিনাল দিয়ে খুব দ্রুত করা যায়:</p>
+
+          <p><strong>Head Office (HQ) Commands:</strong></p>
+          <pre><code>/interface pptp-server server set enabled=yes
+/ppp secret add name=branch1 password=Secret@Branch! service=pptp local-address=10.10.10.1 remote-address=10.10.10.2
+/ip route add dst-address=192.168.20.0/24 gateway=10.10.10.2</code></pre>
+
+          <p><strong>Branch Office Commands:</strong></p>
+          <pre><code>/interface pptp-client add name=pptp-to-hq connect-to=203.0.113.1 user=branch1 password=Secret@Branch! disabled=no
+/ip route add dst-address=192.168.10.0/24 gateway=10.10.10.1</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা (Problem)</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">টানেল Connected, কিন্তু ল্যান পিসি পিং পাচ্ছে না</td>
+                  <td>প্রথমত, দুই রাউটারের <strong>Static Route</strong> চেক করুন। দ্বিতীয়ত, পিসির <strong>Windows
+                      Firewall</strong> ডিফল্টভাবে অন্য সাবনেটের (Subnet) পিং ব্লক করে রাখে। উইন্ডোজ ফায়ারওয়াল
+                    সাময়িকভাবে বন্ধ করে চেক করুন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Branch থেকে Head Office এ কানেক্ট হচ্ছে না (Timeout)</td>
+                  <td>হেড অফিসের আইএসপি (ISP) হয়তো পোর্ট <code>1723</code> অথবা <code>GRE</code> প্রোটোকল ব্লক করে
+                    রেখেছে। আইএসপির সাথে কথা বলে পোর্ট ওপেন করে নিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">NAT (Masquerade) কনফ্লিক্ট</td>
+                  <td>যদি আপনার রাউটারে <code>srcnat</code> চেইনে Out. Interface নির্দিষ্ট করা না থাকে, তবে ভিপিএন
+                    ট্রাফিকও মাস্ক্যুরেড হয়ে যায়। IP > Firewall > NAT এ গিয়ে আপনার ইন্টারনেট মাস্ক্যুরেড রুলে
+                    <code>Out. Interface = ether1 (WAN)</code> নির্দিষ্ট করে দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">টানেল বারবার ড্রপ করছে</td>
+                  <td>এটি সাধারণত দুটি রাউটারের মধ্যে ইন্টারনেটের প্যাকেট লস (Packet Loss) বা MTU (Maximum Transmission
+                    Unit) সমস্যার কারণে হয়। PPP Profile এ গিয়ে MTU 1400 করে দেখতে পারেন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Site-to-Site PPTP VPN</strong> কনফিগারেশন করা অত্যন্ত সহজ এবং এটি ছোট বা মাঝারি সাইজের কর্পোরেট
+              নেটওয়ার্কের জন্য একটি চমৎকার সমাধান। <strong>PPTP Server</strong>, <strong>PPP Secret</strong> এবং
+              <strong>Static Routing</strong> এর সঠিক সমন্বয় ঘটিয়ে আপনি মুহূর্তের মধ্যেই দুটি আলাদা অফিসকে এক সুতায়
+              বাঁধতে পারেন। তবে মনে রাখবেন, PPTP এর এনক্রিপশন আধুনিক হ্যাকিং স্ট্যান্ডার্ডে কিছুটা দুর্বল। যদি আপনার
+              কোম্পানির ডাটা অত্যন্ত কনফিডেন্সিয়াল হয়, তবে PPTP এর বদলে <strong>IPsec</strong> বা
+              <strong>WireGuard</strong> ব্যবহার করা একটি প্রফেশনাল বেস্ট প্র্যাকটিস।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

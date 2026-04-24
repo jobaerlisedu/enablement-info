@@ -1,32 +1,340 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS ফায়ারওয়ালের Connection States (New, Established, Related, Invalid, Untracked) কী এবং কীভাবে এগুলোর সাহায্যে Stateful Firewall তৈরি করতে হয় তার বিস্তারিত গাইড।">
   <title>Firewall connection states on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Firewall connection states on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Firewall connection states on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Firewall connection states on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 01 November, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিংয়ের দুনিয়ায় Firewall মূলত দুই ধরনের হয়: Stateless এবং Stateful। একটি <strong>Stateless
+              Firewall</strong> নেটওয়ার্ক দিয়ে যাওয়া প্রতিটি প্যাকেটকে (Packet) আলাদাভাবে যাচাই করে, যা রাউটারের
+            প্রসেসরের (CPU) ওপর প্রচুর চাপ ফেলে। অন্যদিকে, <strong>MikroTik RouterOS</strong> একটি অত্যন্ত শক্তিশালী
+            <strong>Stateful Firewall</strong> ব্যবহার করে।</p>
+          <p>Stateful ফায়ারওয়াল প্যাকেটগুলোর অতীত ইতিহাস বা কানেকশনের অবস্থা (Connection State) মনে রাখতে পারে। একবার
+            একটি কানেকশন নিরাপদ বলে প্রমাণিত হলে, সেই কানেকশনের পরের প্যাকেটগুলোকে আর নতুন করে যাচাই করতে হয় না। আজকের
+            এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো MikroTik ফায়ারওয়ালের ৫টি Connection State কী, এরা কীভাবে কাজ করে এবং
+            এদের ব্যবহার করে কীভাবে একটি প্রফেশনাল সিকিউরিটি রুল তৈরি করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The VIP Event Analogy)</h3>
+            <p><strong>Connection State</strong> এর কনসেপ্টটি একটি ভিআইপি (VIP) ইভেন্টের সিকিউরিটি চেকিংয়ের সাথে তুলনা
+              করা যেতে পারে।</p>
+            <ul>
+              <li><strong>New:</strong> একজন অতিথি প্রথমবারের মতো গেটে আসলেন। সিকিউরিটি গার্ড তার আইডি কার্ড, ইনভাইটেশন
+                লেটার সবকিছু ভালোভাবে চেক করলেন। এটি হলো <code>New</code> স্টেট (কানেকশনের প্রথম প্যাকেট)। এখানে চেকিং
+                সবচেয়ে কড়াকড়ি হয়।</li>
+              <li><strong>Established:</strong> অতিথি একবার ভেতরে প্রবেশ করার পর, তিনি যখন হলরুম থেকে ডাইনিং রুমে যাবেন,
+                তখন গার্ড তার মুখ চেনে। তাই নতুন করে আর আইডি কার্ড চেক করার প্রয়োজন নেই। এটি হলো
+                <code>Established</code> স্টেট (যে কানেকশন ইতিমধ্যে অনুমোদিত)।</li>
+              <li><strong>Invalid:</strong> কেউ যদি টিকিট ছাড়া বা পেছনের দেয়াল টপকে ঢোকার চেষ্টা করে, তবে গার্ড তাকে
+                সাথে সাথে বের করে দেয়। এটি হলো <code>Invalid</code> স্টেট।</li>
+            </ul>
+          </div>
+
+          <h2>১. MikroTik এ ৫টি Connection State এর পরিচিতি</h2>
+          <p>Winbox এর <strong>IP > Firewall > Filter Rules</strong> এ নতুন রুল তৈরি করার সময় <strong>Advanced</strong>
+            ট্যাবে গেলে আপনি <code>Connection State</code> নামের একটি অপশন দেখতে পাবেন। এখানে প্রধানত ৫টি স্টেট থাকে:
+          </p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Connection State</th>
+                  <th>কাজের ধরন (Technical Description)</th>
+                  <th>ফায়ারওয়ালে এর ব্যবহার (Usage)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">New (নতুন)</td>
+                  <td>এটি কোনো কানেকশনের একদম প্রথম প্যাকেট (যেমন TCP এর ক্ষেত্রে SYN প্যাকেট)। রাউটারের Connection
+                    Tracking টেবিলে এই প্যাকেটের কোনো আগের রেকর্ড থাকে না।</td>
+                  <td>হ্যাকাররা সাধারণত <code>New</code> কানেকশন তৈরি করে ইন্টারনেটের (WAN) দিক থেকে রাউটারে ঢোকার
+                    চেষ্টা করে। তাই লোকাল ল্যান (LAN) থেকে <code>New</code> প্যাকেট Allow করতে হয়, কিন্তু WAN থেকে Drop
+                    করতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Established (প্রতিষ্ঠিত)</td>
+                  <td>যখন <code>New</code> প্যাকেটের বিপরীতে অপর পাশ থেকে রিপ্লাই আসে এবং টু-ওয়ে (Two-way) ডাটা
+                    আদান-প্রদান শুরু হয়, তখন সেই কানেকশনকে <code>Established</code> বলা হয়।</td>
+                  <td>এটি সম্পূর্ণ নিরাপদ ট্রাফিক। ফায়ারওয়াল রুলের একদম শুরুতে <code>Established</code> প্যাকেটগুলোকে
+                    <strong>Accept</strong> করতে হয়, যাতে রাউটার দ্রুত ডাটা পাস করতে পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Related (সম্পর্কিত)</td>
+                  <td>এটি একটি নতুন কানেকশন তৈরি করে, কিন্তু এটি আগে থেকে চলমান একটি <code>Established</code> কানেকশনের
+                    ওপর নির্ভরশীল। যেমন, FTP প্রোটোকলে কন্ট্রোল পোর্টের পাশাপাশি ডাটা ট্রান্সফারের জন্য আরেকটি নতুন
+                    পোর্ট ওপেন হয়।</td>
+                  <td><code>Established</code> এর মতোই এটিকেও ফায়ারওয়ালের শুরুতে <strong>Accept</strong> করে রাখতে
+                    হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Invalid (অকার্যকর)</td>
+                  <td>যে প্যাকেটের সিকোয়েন্স নম্বর ভুল, অথবা রাউটার বুঝতে পারছে না এটি কোন কানেকশনের অংশ। এটি সাধারণত
+                    নেটওয়ার্কে লুপ তৈরি হলে বা স্পুফড (Spoofed/Hacked) প্যাকেট হলে ঘটে।</td>
+                  <td>নিরাপত্তার স্বার্থে সব সময় একটি রুল দিয়ে <code>Invalid</code> প্যাকেট সরাসরি
+                    <strong>Drop</strong> করে দিতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Untracked (অনিরীক্ষিত)</td>
+                  <td>যে প্যাকেটগুলোকে <strong>RAW Firewall Table</strong> ব্যবহার করে <code>notrack</code> মার্ক করে
+                    দেওয়া হয়েছে। এদের কোনো হিসাব রাউটার রাখে না।</td>
+                  <td>DDoS অ্যাটাকের সময় রাউটারের CPU লোড কমাতে এই স্টেট ব্যবহার করে প্যাকেটগুলো দ্রুত Drop বা Accept
+                    করা হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>২. Best Practice: Stateful Firewall রুল তৈরি করা</h2>
+          <p>একটি প্রফেশনাল MikroTik রাউটার সেটআপের সময় আমাদের মূল লক্ষ্য থাকে—রাউটারের প্রসেসরের (CPU) ওপর সবচেয়ে কম
+            চাপ ফেলে সর্বোচ্চ নিরাপত্তা দেওয়া। এই কাজটি Connection State ব্যবহার করে খুব সহজেই করা যায়।</p>
+
+          <p>আমরা সাধারণত তিনটি ধাপে <strong>Forward Chain</strong> (ল্যান থেকে ইন্টারনেটে যাওয়া ট্রাফিক) এবং
+            <strong>Input Chain</strong> (সরাসরি রাউটারে আসা ট্রাফিক) এর জন্য রুল তৈরি করি:</p>
+          <ol>
+            <li>প্রথমে <strong>Established, Related এবং Untracked</strong> প্যাকেটগুলোকে Accept করতে হবে।</li>
+            <li>এরপর <strong>Invalid</strong> প্যাকেটগুলোকে Drop করতে হবে।</li>
+            <li>সবশেষে, বাইরে (WAN) থেকে আসা অনাকাঙ্ক্ষিত <strong>New</strong> প্যাকেটগুলোকে Drop করতে হবে।</li>
+          </ol>
+
+          <h2>৩. Command Line (CLI) দিয়ে ফায়ারওয়াল কনফিগারেশন</h2>
+          <p>নিচে একটি স্ট্যান্ডার্ড Stateful Firewall তৈরি করার প্রয়োজনীয় কমান্ডগুলো দেওয়া হলো:</p>
+
+          <h3>A. Input Chain (রাউটারের নিজস্ব নিরাপত্তা)</h3>
+          <p><strong>Step 1: Accept Established, Related, Untracked</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=input action=accept connection-state=established,related,untracked comment="Accept Trusted Traffic"</code></pre>
+
+          <p><strong>Step 2: Drop Invalid Packets</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=input action=drop connection-state=invalid comment="Drop Invalid Packets"</code></pre>
+
+          <p><strong>Step 3: Drop all other New connections from WAN (ইন্টারনেট থেকে সরাসরি রাউটারে লগইন বন্ধ
+              করা)</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=input action=drop in-interface=ether1 comment="Drop everything else from WAN"</code></pre>
+          <p><em>নোট: এখানে <code>ether1</code> হলো আপনার ইন্টারনেট বা WAN পোর্ট।</em></p>
+
+          <h3>B. Forward Chain (ল্যান এবং ইউজারদের নিরাপত্তা)</h3>
+          <p><strong>Step 1: Accept Established, Related, Untracked</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=forward action=accept connection-state=established,related,untracked comment="Accept Trusted Forward Traffic"</code></pre>
+
+          <p><strong>Step 2: FastTrack (রাউটারের স্পিড বাড়ানোর ম্যাজিক)</strong></p>
+          <p>MikroTik এ <code>Established</code> এবং <code>Related</code> ট্রাফিককে আরও দ্রুত প্রসেস করার জন্য
+            <strong>FastTrack</strong> ব্যবহার করা হয়। এটি CPU লোড প্রায় অর্ধেক কমিয়ে দেয়।</p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=forward action=fasttrack-connection connection-state=established,related comment="FastTrack Established/Related"</code></pre>
+
+          <p><strong>Step 3: Drop Invalid Packets</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=forward action=drop connection-state=invalid comment="Drop Invalid Forward Packets"</code></pre>
+
+          <h2>৪. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>রুলের সিরিয়াল বা Order:</strong> ফায়ারওয়াল রুল সব সময় ওপর থেকে নিচে (Top to Bottom) কাজ করে।
+              আপনি যদি <code>Established</code> একসেপ্ট করার রুলটি একদম নিচে রাখেন, তবে রাউটার প্রতিটি প্যাকেটকে ওপরের
+              সবগুলো রুল দিয়ে চেক করতে গিয়ে <strong>CPU 100%</strong> করে ফেলবে। তাই <code>Established/Related</code>
+              রুলটি সব সময় 0 বা 1 নম্বর পজিশনে (সবার ওপরে) রাখতে হবে।</li>
+            <li><strong>FastTrack এবং Queue (ব্যান্ডউইথ কন্ট্রোল):</strong> আপনি যদি আপনার নেটওয়ার্কে <strong>Simple
+                Queue</strong> দিয়ে স্পিড লিমিট করেন, তবে <code>FastTrack</code> রুলটি এনাবল থাকলে স্পিড লিমিট ঠিকমতো
+              কাজ করবে না। কারণ FastTrack ফায়ারওয়ালের অনেকগুলো ধাপ বাইপাস (Bypass) করে চলে যায়। স্পিড লিমিট করতে হলে
+              FastTrack রুলটি ডিজেবল (Disable) করে রাখতে হবে।</li>
+            <li><strong>Connection State কাজ না করা:</strong> Connection State শুধুমাত্র তখনই কাজ করবে যখন রাউটারের
+              <strong>Connection Tracking</strong> চালু থাকবে (IP > Firewall > Connections > Tracking)। এটি বন্ধ করে
+              দিলে রাউটার স্টেটলেস (Stateless) ফায়ারওয়াল হয়ে যাবে এবং এই রুলগুলো কোনো কাজ করবে না।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>MikroTik RouterOS এর ফায়ারওয়ালকে একটি ইন্টেলিজেন্ট বা বুদ্ধিমান সিস্টেমে পরিণত করে এই
+              <strong>Connection States</strong>। প্রতিটি আইপি বা পোর্ট ধরে ধরে রুল তৈরি করার বদলে, শুধু কানেকশনের
+              অবস্থার (New, Established, Invalid) ওপর ভিত্তি করে রুল তৈরি করলে ফায়ারওয়াল অনেক বেশি ডাইনামিক এবং
+              লাইটওয়েট (Lightweight) হয়। <strong>FastTrack</strong> এবং সঠিক রুল অর্ডারিং এর মাধ্যমে আপনি আপনার
+              রাউটারের পারফরম্যান্স এবং সিকিউরিটিকে এন্টারপ্রাইজ লেভেলে নিয়ে যেতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

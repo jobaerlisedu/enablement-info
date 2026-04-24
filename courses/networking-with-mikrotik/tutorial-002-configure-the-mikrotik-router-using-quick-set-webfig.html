@@ -1,32 +1,353 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik Router-এ Quick Set এবং WebFig ব্যবহার করে বেসিক কনফিগারেশন করার বিস্তারিত বাংলা গাইড। IP, DHCP, NAT এবং Wi-Fi সেটআপ শিখুন।">
   <title>Configure the MikroTik Router using Quick Set & WebFig | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configure the MikroTik Router using Quick Set & WebFig</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configure the MikroTik Router using Quick Set & WebFig</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configure the MikroTik Router using Quick Set & WebFig</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 28 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>MikroTik রাউটার কনফিগার করার কথা ভাবলেই সবার প্রথমে <strong>Winbox</strong> এর নাম মাথায় আসে। কিন্তু আপনি
+            কি জানেন, কোনো এক্সট্রা সফটওয়্যার ডাউনলোড না করেও শুধু ওয়েব ব্রাউজার ব্যবহার করে একটি MikroTik রাউটার
+            সম্পূর্ণ কনফিগার করা সম্ভব? এর জন্য RouterOS আমাদের দুটি চমৎকার টুল প্রদান করে: <strong>Quick Set</strong>
+            এবং <strong>WebFig</strong>।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে একটি নতুন MikroTik রাউটারকে বক্স থেকে বের করে ওয়েব
+            ব্রাউজারের মাধ্যমে বেসিক ইন্টারনেট, ওয়াই-ফাই এবং লোকাল নেটওয়ার্ক সেটআপ করা যায়।</p>
+
+          <div class="content-box">
+            <h3>Quick Set এবং WebFig কী?</h3>
+            <p><strong>WebFig:</strong> এটি হলো RouterOS এর একটি ওয়েব-বেসড গ্রাফিক্যাল ইউজার ইন্টারফেস (GUI)। Winbox-এ
+              আপনি যেসব মেনু বা অপশন পান, WebFig-এ ঠিক একই অপশনগুলো ওয়েব ব্রাউজারে পাওয়া যায়।</p>
+            <p><strong>Quick Set:</strong> এটি WebFig (বা Winbox) এর ভেতরের একটি বিশেষ ড্যাশবোর্ড, যেখানে রাউটারের
+              সবচেয়ে সাধারণ সেটিংসগুলো (যেমন WAN, LAN, Wi-Fi, এবং Password) একটিমাত্র স্ক্রিনে গুছিয়ে দেওয়া থাকে। মাত্র
+              কয়েক ক্লিকে রাউটার রেডি করার জন্য এটি ডিজাইন করা হয়েছে।</p>
+            <p><strong>রিয়েল-লাইফ সিনারিও:</strong> আপনি একজন ক্লায়েন্টের অফিসে গেছেন রাউটার কনফিগার করতে, কিন্তু আপনার
+              ল্যাপটপে Winbox নেই বা ক্লায়েন্ট তার পিসিতে থার্ড-পার্টি সফটওয়্যার ইন্সটল করতে দিচ্ছে না। তখন আপনি
+              ব্রাউজার ওপেন করে WebFig এবং Quick Set এর মাধ্যমে কয়েক মিনিটেই রাউটারটি লাইভ করে দিতে পারবেন।</p>
+          </div>
+
+          <h2>১. Router-এ লগইন করার প্রাথমিক ধাপ</h2>
+          <p>একটি নতুন বা ফ্যাক্টরি রিসেট করা MikroTik রাউটারে লগইন করার জন্য নিচের ধাপগুলো অনুসরণ করুন:</p>
+
+          <ul>
+            <li><strong>কানেকশন:</strong> রাউটারের <code>Ether1</code> পোর্টে ইন্টারনেটের তার (ISP এর ক্যাবল) লাগান।
+              এরপর রাউটারের <code>Ether2</code> (বা অন্য যেকোনো ল্যান পোর্ট) থেকে একটি ক্যাবল নিয়ে আপনার পিসিতে লাগান।
+            </li>
+            <li><strong>IP Address:</strong> ডিফল্টভাবে MikroTik রাউটারের পিসির দিকের পোর্টগুলোতে একটি DHCP Server চালু
+              থাকে এবং রাউটারের ডিফল্ট আইপি হয় <code>192.168.88.1</code>। আপনার পিসি স্বয়ংক্রিয়ভাবে
+              <code>192.168.88.X</code> ব্লকের একটি আইপি পেয়ে যাবে।</li>
+            <li><strong>ব্রাউজারে প্রবেশ:</strong> আপনার পিসির যেকোনো ওয়েব ব্রাউজার (যেমন Chrome, Edge) ওপেন করে
+              অ্যাড্রেস বারে <code>http://192.168.88.1</code> লিখে এন্টার চাপুন।</li>
+            <li><strong>লগইন:</strong> লগইন পেজ আসলে Username এ <code>admin</code> লিখুন এবং Password এর ঘর খালি (Blank)
+              রেখে লগইন বাটনে ক্লিক করুন।</li>
+          </ul>
+
+          <h2>২. Quick Set ব্যবহার করে বেসিক কনফিগারেশন</h2>
+          <p>লগইন করার পর ডিফল্টভাবেই <strong>Quick Set</strong> পেজটি ওপেন হয়। এটি অত্যন্ত ইউজার ফ্রেন্ডলি। চলুন ধাপে
+            ধাপে এটি কনফিগার করি:</p>
+
+          <h3>Step 1: Mode নির্বাচন করা</h3>
+          <p>পেজের একদম উপরে বাম কোণায় একটি ড্রপডাউন মেনু থাকে। হোম বা ছোট অফিসের জন্য এখান থেকে <strong>Home AP
+              Dual</strong> বা <strong>Ethernet (Router)</strong> সিলেক্ট করুন। ওয়্যারলেস রাউটার হলে Home AP সিলেক্ট
+            করাই বেস্ট।</p>
+
+          <h3>Step 2: Internet (WAN) কনফিগারেশন</h3>
+          <p>এই সেকশনে আপনার ISP (ইন্টারনেট সার্ভিস প্রোভাইডার) এর দেওয়া কানেকশন টাইপ সেট করতে হবে। এখানে তিনটি অপশন
+            থাকে:</p>
+          <ul>
+            <li><strong>Static:</strong> আপনার ISP যদি আপনাকে ফিক্সড IP, Netmask, Gateway এবং DNS দেয়, তবে সেগুলো এখানে
+              বসান।</li>
+            <li><strong>PPPoE:</strong> আপনার ISP যদি আপনাকে Username এবং Password দেয়, তবে PPPoE সিলেক্ট করে সেগুলো
+              বসিয়ে দিন।</li>
+            <li><strong>Automatic (DHCP):</strong> আইএসপি যদি অটোমেটিক আইপি দেয়, তবে এটি সিলেক্ট করুন।</li>
+          </ul>
+          <p><em>নোট: ম্যাক ফিল্টারিং থাকলে নিচে থাকা 'MAC Address' এর ঘরে আপনার পুরনো রাউটারের ম্যাক বসিয়ে ক্লোন
+              (Clone) করে নিতে পারবেন।</em></p>
+
+          <h3>Step 3: Local Network (LAN) কনফিগারেশন</h3>
+          <p>এই অংশে আপনি নির্ধারণ করবেন আপনার পিসি বা ল্যাপটপগুলো কোন ব্লকের IP Address পাবে।</p>
+          <ul>
+            <li><strong>IP Address:</strong> ডিফল্ট <code>192.168.88.1</code> এর বদলে আপনি চাইলে
+              <code>192.168.1.1</code> বা আপনার পছন্দমতো আইপি বসাতে পারেন। Netmask সাধারণত
+              <code>255.255.255.0 (/24)</code> থাকে।</li>
+            <li><strong>DHCP Server:</strong> এটি অবশ্যই চেকমার্ক করে রাখবেন এবং IP Range (যেমন
+              <code>192.168.1.10-192.168.1.254</code>) ঠিক করে দেবেন, যাতে পিসিগুলো অটোমেটিক আইপি পায়।</li>
+            <li><strong>NAT:</strong> এই অপশনটি অবশ্যই চেকমার্ক করে রাখবেন। NAT (Network Address Translation) না থাকলে
+              আপনার লোকাল ডিভাইসগুলো ইন্টারনেটে যেতে পারবে না।</li>
+          </ul>
+
+          <h3>Step 4: Wireless (Wi-Fi) কনফিগারেশন</h3>
+          <p>আপনার রাউটারে যদি Wi-Fi থাকে, তবে পেজের ডান দিকে Wireless সেকশনটি পাবেন।</p>
+          <ul>
+            <li><strong>Network Name (SSID):</strong> এখানে আপনার ওয়াই-ফাইয়ের নাম দিন (যেমন: MyOffice_WiFi)।</li>
+            <li><strong>WiFi Password:</strong> পাসওয়ার্ডের ঘরে একটি শক্তিশালী পাসওয়ার্ড দিন।</li>
+            <li><strong>Country:</strong> দেশের জায়গায় Bangladesh সিলেক্ট করতে পারেন। এটি ফ্রিকোয়েন্সি রেগুলেশন মেনে কাজ
+              করতে সাহায্য করে।</li>
+          </ul>
+
+          <h3>Step 5: System Configuration</h3>
+          <p>সবশেষে, পেজের নিচের দিকে <strong>Router Identity</strong> এর ঘরে রাউটারের একটি নাম দিন এবং
+            <strong>Password</strong> এর ঘরে রাউটারে লগইন করার জন্য একটি নতুন অ্যাডমিন পাসওয়ার্ড সেট করে <strong>Apply
+              Configuration</strong> বাটনে ক্লিক করুন। আপনার বেসিক রাউটার সেটআপ সম্পন্ন!</p>
+
+          <h2>৩. WebFig ব্যবহার করে অ্যাডভান্সড কনফিগারেশন</h2>
+          <p>Quick Set এর কাজ শেষ হওয়ার পর আপনি যদি আরও অ্যাডভান্সড কোনো কাজ (যেমন Bandwidth Control, Port Forwarding)
+            করতে চান, তবে আপনাকে <strong>WebFig</strong> মেনুগুলো ব্যবহার করতে হবে।</p>
+
+          <p>লগইন করা অবস্থায় পেজের ডানদিকের একদম ওপরে <strong>WebFig</strong> বাটনে ক্লিক করুন। এখন দেখবেন বাম পাশে
+            Winbox এর মতো বিশাল একটি মেনু লিস্ট চলে এসেছে।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>WebFig মেনু</th>
+                  <th>কাজের ধরন (Functionality)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">IP > Addresses</td>
+                  <td>এখান থেকে আপনি রাউটারের যেকোনো ফিজিক্যাল বা লজিক্যাল পোর্টে (VLAN) নতুন IP Address বসাতে পারবেন।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">IP > Routes</td>
+                  <td>রাউটিং টেবিল চেক করা এবং নতুন Static Route বা Default Gateway (0.0.0.0/0) অ্যাড করা।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">IP > Firewall</td>
+                  <td>এটি সবচেয়ে গুরুত্বপূর্ণ অংশ। এখান থেকে Filter Rules, NAT (Masquerade), এবং Mangle রুলস তৈরি করা
+                    যায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Queues</td>
+                  <td>কোন ইউজার কতটুকু স্পিড (Bandwidth) পাবে, তা Simple Queues এর মাধ্যমে এখান থেকে লিমিট করা হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. কমান্ড লাইন ইন্টারফেস (CLI) - বিকল্প পদ্ধতি</h2>
+          <p>যারা ওয়েব ইন্টারফেসের পাশাপাশি কমান্ড লাইনে কাজ করতে পছন্দ করেন, তারা WebFig এর উপরের ডানদিকের
+            <strong>Terminal</strong> বাটনে ক্লিক করে কমান্ড প্রম্পট ওপেন করতে পারেন। Quick Set-এ আমরা যা যা করেছি, তার
+            বেসিক কমান্ডগুলো হলো:</p>
+
+          <h3>ল্যান (LAN) আইপি বসানো:</h3>
+          <pre><code>/ip address add address=192.168.1.1/24 interface=bridge</code></pre>
+
+          <h3>NAT (Masquerade) কনফিগার করা:</h3>
+          <pre><code>/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade</code></pre>
+
+          <h3>ডিফল্ট রাউট (Internet Gateway) অ্যাড করা:</h3>
+          <pre><code>/ip route add dst-address=0.0.0.0/0 gateway=ISP_Gateway_IP</code></pre>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <p>WebFig বা Quick Set ব্যবহার করার সময় কিছু সাধারণ সমস্যা হতে পারে। নিচে সেগুলোর সমাধান দেওয়া হলো:</p>
+          <ul>
+            <li><strong>WebFig পেজ ওপেন হচ্ছে না:</strong> আপনার পিসির আইপি অ্যাড্রেস চেক করুন। পিসিতে যদি ম্যানুয়ালি
+              অন্য কোনো আইপি বসানো থাকে, তবে তা রিমুভ করে <code>Obtain an IP address automatically</code> সিলেক্ট করুন।
+              পিসি যেন 192.168.88.x ব্লকের আইপি পায় তা নিশ্চিত করুন।</li>
+            <li><strong>রাউটার ইন্টারনেট পাচ্ছে, কিন্তু পিসি পাচ্ছে না:</strong> WebFig থেকে
+              <code>IP > Firewall > NAT</code> এ যান। চেক করুন <code>srcnat</code> চেইনে <code>action=masquerade</code>
+              নামের কোনো রুল আছে কি না। না থাকলে এটি তৈরি করুন।</li>
+            <li><strong>IP ভুলে গেলে (MAC Login):</strong> ওয়েব ব্রাউজার শুধু IP Address দিয়ে কাজ করে। আপনি যদি রাউটারের
+              আইপি ভুলে যান বা কনফিগারেশন ভুল করে ফেলেন, তবে ব্রাউজার দিয়ে আর লগইন করা যাবে না। তখন আপনাকে বাধ্য হয়ে
+              <strong>Winbox</strong> ডাউনলোড করে <strong>MAC Address</strong> এর মাধ্যমে লগইন করতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>MikroTik কনফিগারেশন মানেই যে শুধু <strong>Winbox</strong> বা কঠিন <strong>CLI</strong> কমান্ড, এই ধারণাটি
+              ভুল। <strong>Quick Set</strong> এবং <strong>WebFig</strong> এর মাধ্যমে যেকোনো নতুন বা সাধারণ ব্যবহারকারী
+              মাত্র কয়েকটি ক্লিকেই একটি প্রফেশনাল রাউটার সেটআপ করে ফেলতে পারেন। Quick Set আপনাকে দেয় দ্রুততার নিশ্চয়তা,
+              আর WebFig আপনাকে দেয় রাউটারের অ্যাডভান্সড ফিচারগুলো ব্রাউজার থেকেই নিয়ন্ত্রণ করার স্বাধীনতা। এই দুটি টুলের
+              সঠিক ব্যবহার জানা থাকলে যেকোনো পরিস্থিতিতে আপনি একটি MikroTik নেটওয়ার্ক সহজে ম্যানেজ করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,324 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik RouterOS-এ FastTrack কী? কীভাবে এটি CPU load কমায় এবং রাউটারের পারফরম্যান্স বহুগুণ বাড়িয়ে দেয় তার বিস্তারিত বাংলা কনফিগারেশন গাইড।">
   <title>Configure FastTrack on MikroTik RouterOS | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configure FastTrack on MikroTik RouterOS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configure FastTrack on MikroTik RouterOS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configure FastTrack on MikroTik RouterOS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 01 December, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একটি নেটওয়ার্ক যখন বড় হতে থাকে, তখন রাউটারের ভেতর দিয়ে যাওয়া ডাটা প্যাকেটের (Packet) পরিমাণও বৃদ্ধি পায়।
+            MikroTik রাউটারে ফায়ারওয়াল (Firewall), ন্যাট (NAT) এবং কানেকশন ট্র্যাকিং (Connection Tracking) এর মতো জটিল
+            প্রসেসগুলো প্রতিটি প্যাকেটকে স্ক্যান করে, যার ফলে রাউটারের প্রসেসরের (CPU) ওপর প্রচুর চাপ পড়ে।</p>
+          <p>CPU লোড কমানো এবং রাউটারের থ্রুপুট (Throughput) বা পারফরম্যান্স প্রায় ৫ গুণ পর্যন্ত বাড়িয়ে দেওয়ার জন্য
+            MikroTik এর সবচেয়ে জাদুকরী ফিচারের নাম হলো <strong>FastTrack</strong>। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা
+            শিখবো FastTrack কী, এটি কীভাবে কাজ করে, এর সীমাবদ্ধতাগুলো কী এবং প্রোডাকশন নেটওয়ার্কে এটি কীভাবে কনফিগার
+            করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>FastTrack কী? (রিয়েল-লাইফ সিনারিও)</h3>
+            <p><strong>টোল প্লাজার উদাহরণ:</strong> ধরুন, একটি হাইওয়েতে টোল প্লাজা (Firewall) আছে। প্রথমবার যখন কোনো
+              গাড়ি (New Connection) আসে, তখন সিকিউরিটি গার্ড তার লাইসেন্স, আইডেন্টিটি সবকিছু চেক করে। এটি অনেক
+              সময়সাপেক্ষ।</p>
+            <p>কিন্তু সেই গাড়িটি যদি একবার ভেরিফাইড হয়ে যায় (Established Connection), তবে তাকে একটি ভিআইপি পাস
+              (FastTrack) দিয়ে দেওয়া হয়। পরেরবার যখন সেই গাড়িটি আসবে, তখন সে রেগুলার লাইনে না দাঁড়িয়ে সরাসরি
+              <strong>ভিআইপি লেন (VIP Lane)</strong> দিয়ে টোল প্লাজা পার হয়ে যাবে। এতে সময় বাঁচে এবং ট্রাফিক জ্যাম কমে।
+              FastTrack ঠিক এভাবেই কাজ করে। এটি <code>Established</code> এবং <code>Related</code> প্যাকেটগুলোকে
+              ফায়ারওয়ালের অনেকগুলো জটিল চেকিং থেকে বাইপাস করে সরাসরি গন্তব্যে পাঠিয়ে দেয়, যা CPU লোড অভাবনীয় হারে কমিয়ে
+              আনে।</p>
+          </div>
+
+          <h2>১. FastTrack কনফিগার করার পূর্বশর্ত (Prerequisites)</h2>
+          <p>FastTrack কনফিগার করার আগে আপনাকে কিছু বেসিক জিনিস নিশ্চিত করতে হবে:</p>
+          <ul>
+            <li>আপনার রাউটারে অবশ্যই <strong>Connection Tracking</strong> চালু থাকতে হবে (IP > Firewall > Connections >
+              Tracking)।</li>
+            <li>FastTrack শুধুমাত্র <strong>IPv4</strong> এবং <strong>TCP / UDP</strong> প্রোটোকলের জন্য কাজ করে।</li>
+            <li>এটি মূলত <strong>Forward Chain</strong> (ল্যান থেকে ইন্টারনেটে যাওয়া ট্রাফিক) এর জন্য কনফিগার করা হয়।
+            </li>
+          </ul>
+
+          <h2>২. Step-by-Step Configuration (Winbox)</h2>
+          <p>FastTrack কনফিগারেশন মূলত দুটি রুলের সমন্বয়ে তৈরি হয়। প্রথমটি হলো মূল FastTrack রুল এবং দ্বিতীয়টি হলো একটি
+            ডামি Accept রুল।</p>
+
+          <h3>Step 1: মূল FastTrack রুল তৈরি করা</h3>
+          <ul>
+            <li>Winbox থেকে <strong>IP > Firewall > Filter Rules</strong> এ যান।</li>
+            <li><strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>General</strong> ট্যাবে <strong>Chain:</strong> <code>forward</code> সিলেক্ট করুন।</li>
+            <li><strong>Connection State:</strong> এর ঘরে <code>established</code> এবং <code>related</code> বক্সে টিক
+              দিন।</li>
+            <li><strong>Action</strong> ট্যাবে গিয়ে <strong>Action:</strong> ড্রপডাউন থেকে
+              <code>fasttrack-connection</code> সিলেক্ট করুন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+
+          <h3>Step 2: ডামি Accept রুল তৈরি করা (অত্যন্ত গুরুত্বপূর্ণ)</h3>
+          <p>FastTrack রুলটি একা কাজ করতে পারে না। FastTrack প্যাকেটগুলো বাইপাস হওয়ার সময় যদি কোনো কারণে ফায়ারওয়ালের
+            ড্রপ রুলে পড়ে যায়, তবে কানেকশন লস হবে। তাই FastTrack রুলের ঠিক নিচেই একটি সাধারণ Accept রুল রাখতে হয়।</p>
+          <ul>
+            <li>আবার <strong>+ (Add)</strong> আইকনে ক্লিক করুন।</li>
+            <li><strong>General</strong> ট্যাবে <strong>Chain:</strong> <code>forward</code> সিলেক্ট করুন।</li>
+            <li><strong>Connection State:</strong> এর ঘরে <code>established</code> এবং <code>related</code> টিক দিন।
+            </li>
+            <li><strong>Action</strong> ট্যাবে <strong>Action:</strong> <code>accept</code> সিলেক্ট করুন।</li>
+            <li><strong>Apply</strong> এবং <strong>OK</strong> দিন।</li>
+          </ul>
+          <p><em>নোট: এই দুটি রুলকে ড্র্যাগ করে ফায়ারওয়াল লিস্টের একদম ওপরে (Top) নিয়ে যেতে হবে।</em></p>
+
+          <h2>৩. Command Line (CLI) ব্যবহার করে কনফিগারেশন</h2>
+          <p>টার্মিনাল থেকে মাত্র দুটি কমান্ড দিয়ে এই পুরো কনফিগারেশনটি করা সম্ভব। কমান্ড দেওয়ার পর রুল দুটিকে লিস্টের
+            ওপরে মুভ করে নিতে ভুলবেন না।</p>
+
+          <p><strong>১. FastTrack রুল:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=forward action=fasttrack-connection connection-state=established,related comment="FastTrack Rule"</code></pre>
+
+          <p><strong>২. Accept রুল:</strong></p>
+          <pre><code>[admin@MikroTik] > /ip firewall filter add chain=forward action=accept connection-state=established,related comment="Accept FastTracked Packets"</code></pre>
+
+          <h2>৪. FastTrack এর সীমাবদ্ধতা (Limitations)</h2>
+          <p>FastTrack একটি অসাধারণ ফিচার হলেও, কিছু অ্যাডভান্সড নেটওয়ার্ক কনফিগারেশনের সাথে এটি কাজ করে না। কারণ এটি
+            ফায়ারওয়ালের অনেকগুলো ধাপকে বাইপাস করে যায়।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>FastTrack এর প্রভাব (Impact)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Simple Queues (Bandwidth Control)</td>
+                  <td><strong>সবচেয়ে বড় সমস্যা:</strong> FastTrack চালু থাকলে Simple Queue দিয়ে স্পিড লিমিট করা যায়
+                    না। কারণ প্যাকেটগুলো Queue তে যাওয়ার আগেই বাইপাস হয়ে যায়। ফলস্বরূপ, ইউজার আনলিমিটেড স্পিড পেয়ে
+                    যাবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">IPsec VPN</td>
+                  <td>FastTrack এর সাথে IPsec পলিসি কনফ্লিক্ট করে। IPsec ট্রাফিককে FastTrack থেকে আলাদা রাখার জন্য বিশেষ
+                    Mangle রুল তৈরি করতে হয়, নতুবা ভিপিএন কাজ করবে না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Hotspot / Mangle Routing</td>
+                  <td>যেহেতু FastTrack ফায়ারওয়ালের Mangle টেবিল বাইপাস করে, তাই Load Balancing (PCC) বা Hotspot
+                    এনভায়রনমেন্টে FastTrack চালু রাখলে রাউটিং ব্রেক করে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+
+          <ul>
+            <li><strong>কিউ (Queue) কাজ না করলে কী করবেন?</strong> আপনি যদি হোম ইউজার না হয়ে একজন WISP প্রোভাইডার হন এবং
+              ব্যান্ডউইথ লিমিট করতে চান, তবে আপনাকে FastTrack রুলটি ডিজেবল (Disable) করে রাখতে হবে।
+              <code>IP > Firewall > Filter Rules</code> এ গিয়ে FastTrack রুলটির ওপর সিলেক্ট করে ক্রস (X) আইকনে ক্লিক করে
+              দিন।</li>
+            <li><strong>CPU 100% হয়ে যাচ্ছে:</strong> FastTrack কনফিগার করার পর যদি দেখেন CPU লোড কমছে না, তবে
+              <code>IP > Firewall > Filter Rules</code> এ গিয়ে চেক করুন 패কেট কাউন্টার (Packet Counter) বা বাইটগুলো
+              FastTrack রুলে হিট করছে কি না। যদি হিট না করে, তবে বুঝতে হবে রুলের অর্ডার (Order) ঠিক নেই। রুলটিকে ড্র্যাগ
+              করে একদম ওপরে নিয়ে আসুন।</li>
+            <li><strong>FastTrack Dummy Rule Missing:</strong> আপনি যদি শুধু FastTrack রুল দেন কিন্তু নিচের
+              <code>Accept</code> রুলটি না দেন, তবে আপনার নেটওয়ার্কে রেন্ডমলি ইন্টারনেট ড্রপ করতে পারে। অবশ্যই দুটি রুল
+              একসাথে ব্যবহার করবেন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>একটি সাধারণ <strong>MikroTik Router</strong> (যেমন: hAP lite বা RB750Gr3) থেকে গিগাবিট স্পিড (Gigabit
+              Speed) বের করে আনার মূল চাবিকাঠি হলো <strong>FastTrack</strong>। এটি রাউটারের প্রসেসরের ওপর থেকে
+              অপ্রয়োজনীয় চেকিংয়ের পাহাড় সরিয়ে দেয়। হোম নেটওয়ার্ক বা ছোট অফিসের জন্য যেখানে <strong>Simple
+                Queue</strong> বা <strong>Load Balancing</strong> এর প্রয়োজন নেই, সেখানে FastTrack রুলটি কনফিগার করে
+              রাখা একটি আবশ্যক (Mandatory) কাজ। এর সঠিক ব্যবহার আপনার রাউটারকে আরও দীর্ঘস্থায়ী এবং নেটওয়ার্ককে আরও
+              সুপার-ফাস্ট করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

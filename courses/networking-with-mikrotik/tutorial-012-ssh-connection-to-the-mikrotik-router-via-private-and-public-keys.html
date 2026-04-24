@@ -1,32 +1,314 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="MikroTik Router-এ পাসওয়ার্ড ছাড়া অত্যন্ত সুরক্ষিত উপায়ে SSH Public এবং Private Key ব্যবহার করে কীভাবে লগইন করতে হয় তার বিস্তারিত বাংলা গাইড।">
   <title>SSH connection to the MikroTik Router via Private and Public Keys | enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 30px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      color: var(--primary-color);
+      transform: translateX(-5px);
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>SSH connection to the MikroTik Router via Private and Public Keys</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>SSH connection to the MikroTik Router via Private and Public Keys</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>SSH connection to the MikroTik Router via Private and Public Keys</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 25 July, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্ক ডিভাইসে রিমোটলি লগইন করার জন্য <strong>SSH (Secure Shell)</strong> হলো সবচেয়ে নিরাপদ এবং জনপ্রিয়
+            প্রোটোকল। সাধারণত আমরা Username এবং Password দিয়ে SSH এ লগইন করে থাকি। কিন্তু হ্যাকাররা প্রতিনিয়ত
+            <strong>Brute-force Attack</strong> এর মাধ্যমে পাসওয়ার্ড ব্রেক করার চেষ্টা করে। এই সমস্যার চূড়ান্ত এবং
+            প্রফেশনাল সমাধান হলো পাসওয়ার্ডের বদলে <strong>SSH Key-Based Authentication</strong> ব্যবহার করা।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো Public এবং Private Key কীভাবে কাজ করে এবং আপনার পিসি থেকে
+            পাসওয়ার্ড ছাড়াই অত্যন্ত সুরক্ষিত উপায়ে একটি MikroTik Router-এ কীভাবে SSH লগইন করতে হয়।</p>
+
+          <div class="content-box">
+            <h3>১. Public এবং Private Key কীভাবে কাজ করে?</h3>
+            <p>SSH Key-Based Authentication মূলত <strong>Asymmetric Cryptography</strong> এর ওপর ভিত্তি করে কাজ করে।
+              এখানে একটি চাবির বদলে দুটি চাবি বা Key ব্যবহার করা হয়।</p>
+            <ul>
+              <li><strong>Public Key:</strong> এটিকে আপনি একটি তালার (Padlock) সাথে তুলনা করতে পারেন। এই চাবিটি আপনি
+                আপনার রাউটার বা যেকোনো সার্ভারে আপলোড করে রাখতে পারেন। এটি যে কারো কাছে থাকলেও কোনো সমস্যা নেই।</li>
+              <li><strong>Private Key:</strong> এটি হলো সেই তালার আসল চাবি (Key)। এটি শুধুমাত্র আপনার পিসিতে বা ল্যাপটপে
+                অত্যন্ত গোপনীয়ভাবে সংরক্ষিত থাকবে। এটি ভুলেও কাউকে দেওয়া যাবে না।</li>
+            </ul>
+            <p><strong>কীভাবে কানেক্ট হয়?</strong> আপনি যখন রাউটারে লগইন করার চেষ্টা করেন, রাউটার আপনার পিসিকে একটি
+              ম্যাথমেটিক্যাল পাজল (Puzzle) দেয়, যা রাউটারে থাকা Public Key দিয়ে লক করা থাকে। আপনার পিসি তার কাছে থাকা
+              Private Key দিয়ে সেই পাজলটি সলভ করে রাউটারকে ফেরত পাঠায়। রাউটার তখন বুঝতে পারে যে আপনিই সঠিক ইউজার এবং
+              আপনাকে পাসওয়ার্ড ছাড়াই লগইন করার অনুমতি দেয়।</p>
+          </div>
+
+          <h2>২. Step-by-Step: পিসিতে SSH Key তৈরি করা</h2>
+          <p>Windows 10/11, Linux, বা Mac—যেকোনো অপারেটিং সিস্টেমে ডিফল্টভাবেই SSH ক্লায়েন্ট ইন্সটল করা থাকে। প্রথমে
+            আমাদের একটি Key Pair (Public এবং Private) তৈরি করতে হবে।</p>
+
+          <p>আপনার পিসির <strong>Command Prompt (CMD)</strong> বা <strong>Terminal</strong> ওপেন করে নিচের কমান্ডটি দিন:
+          </p>
+          <pre><code>C:\> ssh-keygen -t rsa -b 4096</code></pre>
+
+          <p>এই কমান্ড দেওয়ার পর আপনার কাছে কিছু ইনফরমেশন জানতে চাইবে:</p>
+          <ul>
+            <li><strong>File in which to save the key:</strong> কোথায় ফাইলটি সেভ হবে তা জানতে চাইবে। ডিফল্ট লোকেশনে সেভ
+              করার জন্য শুধু <code>Enter</code> চাপুন।</li>
+            <li><strong>Passphrase:</strong> Private Key-কে আরও সুরক্ষিত করতে আপনি একটি পাসওয়ার্ড (Passphrase) দিতে
+              পারেন। আপনি চাইলে এটি খালিও রাখতে পারেন (শুধু Enter চাপুন)।</li>
+          </ul>
+          <p>কাজটি সফল হলে আপনার পিসির <code>C:\Users\YourUser\.ssh\</code> ফোল্ডারে দুটি ফাইল তৈরি হবে:</p>
+          <ul>
+            <li><code>id_rsa</code> (এটি আপনার Private Key, যা পিসিতেই থাকবে)।</li>
+            <li><code>id_rsa.pub</code> (এটি আপনার Public Key, যা রাউটারে পাঠাতে হবে)।</li>
+          </ul>
+
+          <h2>৩. MikroTik রাউটারে Public Key আপলোড করা</h2>
+          <p>এখন আমাদের তৈরি করা <code>id_rsa.pub</code> ফাইলটিকে MikroTik রাউটারে আপলোড করতে হবে।</p>
+
+          <ul>
+            <li><strong>Winbox পদ্ধতি:</strong> Winbox ওপেন করে রাউটারে লগইন করুন। বাম পাশের মেনু থেকে
+              <strong>Files</strong> এ ক্লিক করুন। আপনার পিসি থেকে <code>id_rsa.pub</code> ফাইলটি মাউস দিয়ে ড্র্যাগ
+              (Drag) করে Winbox-এর Files উইন্ডোর ভেতরে ড্রপ (Drop) করে দিন।</li>
+            <li><strong>SCP পদ্ধতি (Terminal থেকে):</strong> আপনি চাইলে কমান্ড লাইন দিয়েও ফাইলটি পাঠাতে পারেন:
+              <pre><code>C:\> scp C:\Users\YourUser\.ssh\id_rsa.pub admin@192.168.88.1:/</code></pre>
+            </li>
+          </ul>
+
+          <h2>৪. RouterOS এ Public Key ইম্পোর্ট করা</h2>
+          <p>ফাইলটি আপলোড করার পর রাউটারকে বলে দিতে হবে যে এই Public Key-টি কোন ইউজারের জন্য কাজ করবে। Winbox এর
+            <strong>New Terminal</strong> ওপেন করে নিচের কমান্ডটি দিন (ধরি, ইউজারনেম <code>admin</code>):</p>
+
+          <pre><code>[admin@MikroTik] > /user ssh-keys import public-key-file=id_rsa.pub user=admin</code></pre>
+
+          <p>ইম্পোর্ট সফল হয়েছে কি না, তা চেক করতে নিচের কমান্ডটি দিন:</p>
+          <pre><code>[admin@MikroTik] > /user ssh-keys print</code></pre>
+          <p>আউটপুটে আপনি আপনার পিসির নাম এবং ইউজারের নাম দেখতে পাবেন। এর মানে রাউটার এখন আপনার পিসিকে চেনে।</p>
+
+          <h2>৫. পাসওয়ার্ড ছাড়া SSH লগইন করা</h2>
+          <p>এখন ম্যাজিক দেখার পালা! আপনার পিসির Command Prompt (CMD) বা Terminal ওপেন করে রাউটারে SSH করার কমান্ড দিন:
+          </p>
+
+          <pre><code>C:\> ssh admin@192.168.88.1</code></pre>
+
+          <p>লক্ষ্য করুন, রাউটার এবার আপনার কাছে কোনো পাসওয়ার্ড (Password) চাইবে না। Private Key ভেরিফাই করে সরাসরি
+            আপনাকে RouterOS এর CLI-তে লগইন করিয়ে দেবে। এটি অটোমেশন (Automation) এবং স্ক্রিপ্টিংয়ের জন্য অত্যন্ত
+            কার্যকরী।</p>
+
+          <h2>৬. Troubleshooting Tips (সাধারণ সমস্যা ও সমাধান)</h2>
+          <p>SSH Key দিয়ে লগইন করতে গিয়ে কিছু সাধারণ এরর আসতে পারে। নিচে সেগুলোর সমাধান দেওয়া হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সমস্যা বা Error Message</th>
+                  <th>কারণ এবং সমাধান (Cause & Solution)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">"Permission denied (publickey,password)"</td>
+                  <td>রাউটার আপনার Private Key চিনতে পারছে না। কমান্ড প্রম্পটে
+                    <code>ssh -i C:\Users\YourUser\.ssh\id_rsa admin@192.168.88.1</code> কমান্ড দিয়ে নির্দিষ্ট করে
+                    Private Key-এর লোকেশন চিনিয়ে দিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">"Server refused our key" (PuTTY এর ক্ষেত্রে)</td>
+                  <td>PuTTY সরাসরি OpenSSH এর <code>id_rsa</code> ফরম্যাট বুঝতে পারে না। PuTTY ব্যবহার করলে আপনাকে
+                    <strong>PuTTYgen</strong> সফটওয়্যার দিয়ে <code>.ppk</code> ফরম্যাটে Private Key কনভার্ট করে নিতে
+                    হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Unprotected Private Key File</td>
+                  <td>Linux বা Mac সিস্টেমে Private Key ফাইলের পারমিশন বেশি উন্মুক্ত থাকলে (যেমন 777) সিকিউরিটির কারণে
+                    SSH কানেক্ট করতে দেয় না। টার্মিনালে <code>chmod 600 ~/.ssh/id_rsa</code> কমান্ড দিয়ে ফাইলের পারমিশন
+                    ঠিক করে নিন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>SSH Key-Based Authentication</strong> কনফিগার করাটা আধুনিক নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ের একটি বেস্ট
+              প্র্যাকটিস (Best Practice)। এর ফলে আপনার <strong>MikroTik Router</strong>-এর সিকিউরিটি কয়েকগুণ বেড়ে যায়,
+              কারণ হ্যাকাররা পাসওয়ার্ড ব্রুট-ফোর্স করে আর লগইন করতে পারে না। এছাড়া, Ansible বা Python এর মতো অটোমেশন
+              টুলস ব্যবহার করে রাউটার ম্যানেজ করার জন্য <strong>Public এবং Private Key</strong> এর মাধ্যমে এই
+              পাসওয়ার্ডলেস লগইন মেকানিজম কনফিগার করাটা অপরিহার্য।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>
