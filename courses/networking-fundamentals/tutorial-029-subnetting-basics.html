@@ -4,22 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction to Subnetting | tech-enablement.info</title>
   <meta name="description"
-    content="Subnetting কী, এটি কেন প্রয়োজন এবং সাবনেট মাস্ক ও CIDR নোটেশন ব্যবহার করে কীভাবে নেটওয়ার্ক ভাগ করা হয় তার বিস্তারিত গাইড।">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="Subnetting কী এবং কেন এটি নেটওয়ার্কিংয়ে অপরিহার্য তা নিয়ে একটি বিস্তারিত গাইড। IP Address বিভাজন, Subnet Mask এবং Host ক্যালকুলেশন শিখুন সহজ বাংলায়।">
+  <title>Introduction to Subnetting: A Comprehensive Deep Dive | tech-enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -93,20 +96,57 @@
       margin: 25px 0;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
       margin-bottom: 30px;
-      font-weight: 500;
-      transition: 0.3s;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
     }
 
-    .back-btn:hover {
-      color: var(--primary-color);
-      transform: translateX(-5px);
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
     }
   </style>
 
@@ -118,25 +158,166 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Introduction to Subnetting</h1>
+          <h1>Introduction to Subnetting: A Comprehensive Deep Dive</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> March 8, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction to Subnetting</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের জগতে <strong>Subnetting</strong> হলো এমন একটি টপিক যা অনেক নতুন শিক্ষার্থীর কাছে
+            ভীতিকর মনে হতে পারে। কিন্তু আপনি যদি একবার এর লজিক বুঝে ফেলেন, তবে এটি আপনার কাছে সবচেয়ে আকর্ষণীয় বিষয় হয়ে
+            দাঁড়াবে। একজন নেটওয়ার্ক ইঞ্জিনিয়ারের জন্য সাবনেটিং জানা ঠিক ততটাই জরুরি যতটা একজন গণিতবিদের জন্য নামতা জানা।
+          </p>
+          <p>সহজ ভাষায় বলতে গেলে, একটি বড় নেটওয়ার্ককে ছোট ছোট লজিক্যাল অংশে ভাগ করার পদ্ধতিকেই
+            <strong>Subnetting</strong> বলা হয়। আজকের এই টিউটোরিয়ালে আমরা সাবনেটিংয়ের একদম শুরু থেকে শেষ পর্যন্ত গভীর
+            আলোচনা করবো।</p>
+
+
+
+          <h2>১. Subnetting কী এবং কেন প্রয়োজন?</h2>
+          <p>পূর্বের টিউটোরিয়ালে আমরা Classful Addressing নিয়ে আলোচনা করেছি। সেখানে আমরা দেখেছি যে Class A বা Class B এর
+            মতো বড় নেটওয়ার্কগুলোতে কয়েক হাজার বা কোটি কোটি আইপি থাকে। কিন্তু প্র্যাকটিক্যাল লাইফে একটি সিঙ্গেল ফিজিক্যাল
+            নেটওয়ার্কে এত বেশি ডিভাইস রাখা সম্ভব নয় এবং এটি নিরাপদও নয়।</p>
+
+          <div class="content-box">
+            <h3>সাবনেটিংয়ের প্রয়োজনীয়তা (Real-life Scenario)</h3>
+            <p>ধরুন একটি বড় বিল্ডিংয়ে ২৫০ জন এমপ্লয়ি আছে। আপনি যদি তাদের সবাইকে একটি বড় হল রুমে বসিয়ে দেন (Single
+              Network), তবে সেখানে প্রচুর গোলমাল হবে। কেউ কারোর কথা শুনতে পাবে না। একে বলা হয় <strong>Broadcast
+                Storm</strong>।</p>
+            <p>কিন্তু আপনি যদি ওই বিল্ডিংয়ে ১০টি ছোট রুম তৈরি করেন এবং প্রতি রুমে ২৫ জন করে বসান (Subnetting), তবে কাজের
+              পরিবেশ অনেক শান্ত হবে এবং সিকিউরিটি বজায় রাখা সহজ হবে। নেটওয়ার্কিংয়েও ঠিক একই কারণে আমরা বড় নেটওয়ার্ককে
+              সাবনেটে ভাগ করি:</p>
+            <ul>
+              <li><strong>Efficiency:</strong> আইপি অ্যাড্রেসের অপচয় রোধ করা।</li>
+              <li><strong>Performance:</strong> ব্রডকাস্ট ট্রাফিক কমিয়ে নেটওয়ার্কের গতি বাড়ানো।</li>
+              <li><strong>Security:</strong> এক ডিপার্টমেন্টের ডাটা অন্য ডিপার্টমেন্ট থেকে আলাদা রাখা।</li>
+            </ul>
+          </div>
+
+          <h2>২. Subnetting-এর মূল উপাদানসমূহ</h2>
+          <p>সাবনেটিং বোঝার জন্য নিচের তিনটি টেকনিক্যাল টার্ম অবশ্যই পরিষ্কার হতে হবে:</p>
+
+          <h3>IP Address (IPv4)</h3>
+          <p>একটি ৩২-বিটের লজিক্যাল ঠিকানা যা ৪টি অকটেটে বিভক্ত। যেমন: <code>192.168.1.0</code>।</p>
+
+          <h3>Subnet Mask</h3>
+          <p>এটি রাউটারকে বলে দেয় আইপির কতটুকু অংশ নেটওয়ার্কের এবং কতটুকু হোস্টের। ডিফল্ট মাস্ক (যেমন
+            <code>255.255.255.0</code>) নির্দেশ করে এটি একটি Class C নেটওয়ার্ক। কিন্তু সাবনেটিংয়ের সময় আমরা এই মাস্কটি
+            পরিবর্তন করি।</p>
+
+          <h3>CIDR (Classless Inter-Domain Routing)</h3>
+          <p>একে স্ল্যাশ নোটেশনও বলা হয়। যেমন: <code>/24</code> বা <code>/26</code>। এটি সরাসরি বলে দেয় মাস্কের ভেতর
+            কয়টি বিট <strong>1</strong> বা <strong>On</strong> অবস্থায় আছে।</p>
+
+
+
+          <h2>৩. কীভাবে সাবনেটিং কাজ করে? (The Borrowing Concept)</h2>
+          <p>সাবনেটিংয়ের মূল মন্ত্র হলো <strong>"Borrowing Bits"</strong>। আমরা হোস্টের জন্য বরাদ্দকৃত বিট থেকে কিছু বিট
+            ধার করে নিয়ে নেটওয়ার্কের সাথে যোগ করি।</p>
+          <p>ধরুন আমাদের কাছে একটি Class C নেটওয়ার্ক আছে: <code>192.168.1.0/24</code>। এখানে শেষ ৮টি বিট হোস্টের জন্য।
+            এখন আমরা যদি একে ২ ভাগে ভাগ করতে চাই, তবে আমাদের হোস্ট বিট থেকে ১টি বিট ধার নিতে হবে।</p>
+          <ul>
+            <li>নতুন মাস্ক হবে <strong>/25</strong>।</li>
+            <li>সাবনেট সংখ্যা হবে $2^1 = 2$ টি।</li>
+            <li>প্রতি সাবনেটে হোস্ট হবে $2^7 - 2 = 126$ টি।</li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>CIDR Prefix</th>
+                  <th>Subnet Mask</th>
+                  <th>Total IPs</th>
+                  <th>Usable Hosts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">/24</td>
+                  <td>255.255.255.0</td>
+                  <td>256</td>
+                  <td>254</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/25</td>
+                  <td>255.255.255.128</td>
+                  <td>128</td>
+                  <td>126</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/26</td>
+                  <td>255.255.255.192</td>
+                  <td>64</td>
+                  <td>62</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/30</td>
+                  <td>255.255.255.252</td>
+                  <td>4</td>
+                  <td>2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল ক্যালকুলেশন (Step-by-Step)</h2>
+          <p>ধরি আমাদের একটি রিকোয়ারমেন্ট আছে: <code>192.168.10.0/24</code> কে এমনভাবে সাবনেট করতে হবে যাতে প্রতি
+            সাবনেটে অন্তত ৫০টি হোস্ট থাকে।</p>
+
+          <ol>
+            <li><strong>ধাপ ১:</strong> ৫০টি হোস্টের জন্য কয়টি বিট প্রয়োজন? আমরা জানি $2^6 = 64$, যা ৫০ এর চেয়ে বড়। তাই
+              হোস্ট বিট লাগবে ৬টি।</li>
+            <li><strong>ধাপ ২:</strong> নেটওয়ার্ক বিট কত হবে? মোট বিট ৩২ থেকে হোস্ট বিট ৬ বিয়োগ করি। ৩২ - ৬ = ২৬। অর্থাৎ
+              আমাদের CIDR হবে <strong>/26</strong>।</li>
+            <li><strong>ধাপ ৩:</strong> ম্যাজিক নম্বর বের করা। ২৫৬ থেকে শেষ অকটেটের মাস্ক (১৯২) বিয়োগ করি। ২৫৬ - ১৯২ =
+              ৬৪। অর্থাৎ প্রতিটি সাবনেট ৬৪ এর ব্যবধানে শুরু হবে।</li>
+            <li><strong>ধাপ ৪:</strong> নেটওয়ার্কগুলো লিখে ফেলা:
+              <ul>
+                <li>Subnet 1: <code>192.168.10.0/26</code> (রেঞ্জ: .1 থেকে .62)</li>
+                <li>Subnet 2: <code>192.168.10.64/26</code> (রেঞ্জ: .65 থেকে .126)</li>
+                <li>এবং এভাবে বাকিগুলো...</li>
+              </ul>
+            </li>
+          </ol>
+
+          <h2>৫. CLI Commands ও কনফিগারেশন</h2>
+          <p>একটি রাউটারে সাবনেট করা আইপি বসানোর কমান্ড নিচে দেওয়া হলো।</p>
+
+          <p><strong>MikroTik RouterOS-এ সাবনেট আইপি বসানো:</strong></p>
+          <pre><code>/ip address add address=192.168.10.1/26 interface=ether1</code></pre>
+          <p><em>ব্যাখ্যা: এখানে /26 ব্যবহার করার ফলে রাউটার নিজে থেকেই সাবনেট মাস্ক এবং নেটওয়ার্ক অ্যাড্রেস চিনে
+              নেবে।</em></p>
+
+          <h3>Troubleshooting টিপস:</h3>
+          <ul>
+            <li><strong>Network & Broadcast ID:</strong> মনে রাখবেন প্রতিটি সাবনেটের প্রথম আইপি (Network ID) এবং শেষ
+              আইপি (Broadcast ID) কোনো ডিভাইসে ব্যবহার করা যায় না। এই কারণেই আমরা হোস্ট সংখ্যা থেকে <strong>2</strong>
+              বিয়োগ করি।</li>
+            <li><strong>Gateway Configuration:</strong> নিশ্চিত করুন যে হোস্ট ডিভাইসের গেটওয়ে আইপি ওই সাবনেটেরই একটি বৈধ
+              আইপি।</li>
+            <li><strong>Overlap Issue:</strong> সবসময় সাবনেট ক্যালকুলেটর ব্যবহার করুন অথবা ম্যানুয়ালি চেক করুন যেন একটি
+              সাবনেটের আইপি রেঞ্জ অন্যটির ওপর না উঠে যায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Subnetting</strong> নেটওয়ার্ক ডিজাইনকে সুশৃঙ্খল এবং দক্ষ করে তোলে। এটি শুধুমাত্র আইপি সাশ্রয় করে
+              না, বরং আপনার নেটওয়ার্ককে আরও সুরক্ষিত এবং দ্রুতগামী করে। যদিও শুরুতে বাইনারি ক্যালকুলেশন কঠিন মনে হতে
+              পারে, কিন্তু নিয়মিত প্র্যাকটিস করলে এটি আপনার নেটওয়ার্কিং ক্যারিয়ারের সবচেয়ে শক্তিশালী স্কিল হয়ে দাঁড়াবে।
+              পরবর্তী টিউটোরিয়ালে আমরা <strong>VLSM (Variable Length Subnet Masking)</strong> নিয়ে আলোচনা করবো যা
+              সাবনেটিংকে আরও এক ধাপ উঁচুতে নিয়ে যায়।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

@@ -5,21 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="সহজে শিখুন Network Engineering. Piggybacking: Computer Network নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
-  <title>Piggybacking: Computer Network | tech-enablement.info</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="Computer Networking-এ Piggybacking প্রযুক্তি কী, এটি কীভাবে কাজ করে এবং এর মাধ্যমে ব্যান্ডউইথ সাশ্রয়ের পদ্ধতি নিয়ে বিস্তারিত বাংলা গাইড।">
+  <title>Piggybacking: A Smart Approach in Computer Network | tech-enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -93,20 +96,49 @@
       margin: 25px 0;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
       margin-bottom: 30px;
-      font-weight: 500;
-      transition: 0.3s;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
     }
 
-    .back-btn:hover {
-      color: var(--primary-color);
-      transform: translateX(-5px);
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
     }
   </style>
 
@@ -118,25 +150,126 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Piggybacking: Computer Network</h1>
+          <h1>Piggybacking in Computer Network: Detailed Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> February 10, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Data Communication & Networking</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Piggybacking: Computer Network</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>কম্পিউটার নেটওয়ার্কিংয়ে ডাটা ট্রান্সমিশন দক্ষতা বাড়ানোর জন্য বিভিন্ন মেকানিজম ব্যবহার করা হয়। যখন দুটি
+            ডিভাইস একে অপরের সাথে যোগাযোগ করে, তখন প্রতিটি ডাটা ফ্রেমের (Data Frame) প্রাপ্তি নিশ্চিত করার জন্য একটি
+            একনলেজমেন্ট (Acknowledgement বা ACK) পাঠানো অত্যন্ত জরুরি। কিন্তু প্রতিটি ছোট ACK-এর জন্য যদি আলাদা একটি
+            কন্ট্রোল ফ্রেম পাঠানো হয়, তবে নেটওয়ার্কে ট্রাফিক জ্যাম বা ওভারহেড (Overhead) বৃদ্ধি পায়।</p>
+          <p>এই সমস্যা সমাধানের জন্য <strong>Piggybacking</strong> প্রযুক্তি ব্যবহার করা হয়। এটি মূলত ব্যান্ডউইথ
+            সাশ্রয় করার একটি অত্যন্ত স্মার্ট পদ্ধতি। আজকের এই টিউটোরিয়ালে আমরা Piggybacking কী, এটি কীভাবে কাজ করে এবং
+            নেটওয়ার্কের কার্যক্ষমতা বৃদ্ধিতে এর ভূমিকা নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Piggybacking কী?</h2>
+          <p><strong>Piggybacking</strong> হলো এমন একটি মেকানিজম যেখানে একটি আউটগোয়িং ডাটা ফ্রেমের (Data Frame) ভেতরে
+            অন্য একটি রিসিভ করা ফ্রেমের একনলেজমেন্ট (Acknowledgement) ঢুকিয়ে দেওয়া হয়। সহজ কথায়, আলাদাভাবে ACK না
+            পাঠিয়ে, পরবর্তী ডাটা প্যাকেট পাঠানোর সময় তার সাথে "আমি তোমার আগের ডাটাটি পেয়েছি" এই মেসেজটি ট্যাগ করে
+            দেওয়া হয়।</p>
+          <p>এটি মূলত <strong>Bidirectional</strong> বা <strong>Full-Duplex</strong> ডাটা ট্রান্সমিশনে ব্যবহৃত হয়,
+            যেখানে উভয় পক্ষই একে অপরকে ডাটা পাঠাতে পারে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Lunch Box Analogy)</h3>
+            <p>ধরুন আপনার ছোট ভাই স্কুলে যাওয়ার জন্য একটি আলাদা রিকশা ব্যবহার করে এবং আপনার মা তার টিফিন বক্স পাঠানোর
+              জন্য আরেকটি সম্পূর্ণ আলাদা রিকশা ভাড়া করেন। এটি অত্যন্ত ব্যয়বহুল এবং রাস্তায় জ্যাম বাড়ায়।</p>
+            <p><strong>Piggybacking পদ্ধতি:</strong> আপনার ভাই যখন স্কুলে যাওয়ার রিকশায় ওঠে, তখন মা তার হাতে টিফিন
+              বক্সটি দিয়ে দিলেন। এখানে আলাদা কোনো রিকশার প্রয়োজন হলো না। ভাই নিজেই টিফিন বক্সটি "পিগিব্যাক" করে নিয়ে
+              গেলো। নেটওয়ার্কিংয়েও ঠিক তাই ঘটে—আসল ডাটা প্যাকেটটি একনলেজমেন্টকে সাথে করে নিয়ে যায়।</p>
+          </div>
+
+          <h2>২. Piggybacking কীভাবে কাজ করে?</h2>
+          <p>এই পদ্ধতিটি কাজ করার জন্য ডাটা ফ্রেমের ফরম্যাটে (Frame Format) কিছুটা পরিবর্তন আনতে হয়। একটি সাধারণ ফ্রেমে
+            সাধারণত Header, Data এবং Trailer থাকে। Piggybacking-এর ক্ষেত্রে Header-এ একটি অতিরিক্ত <strong>ACK
+              field</strong> যোগ করা হয়।</p>
+
+
+
+          <h3>কার্যপদ্ধতির ধাপসমূহ:</h3>
+          <ol>
+            <li><strong>Data Sent:</strong> স্টেশন A একটি ডাটা ফ্রেম স্টেশন B-কে পাঠায়।</li>
+            <li><strong>Data Received & Wait:</strong> স্টেশন B ডাটাটি সফলভাবে গ্রহণ করে। এখন B-কে একটি ACK পাঠাতে হবে।
+              কিন্তু B সাথে সাথে ACK না পাঠিয়ে কিছুক্ষণ অপেক্ষা করে (যাকে <strong>Delayed ACK</strong> বলা হয়)।</li>
+            <li><strong>Piggybacking:</strong> যদি এই অপেক্ষার সময়ের মধ্যে B-এর কাছে A-কে পাঠানোর মতো কোনো নিজস্ব ডাটা
+              তৈরি হয়, তবে সে ওই ডাটা ফ্রেমের হেডার-এর ACK ফিল্ডে A-এর প্রাপ্তি স্বীকারের নম্বরটি বসিয়ে দেয়।</li>
+            <li><strong>Combined Delivery:</strong> ডাটা এবং একনলেজমেন্ট এখন একটি সিঙ্গেল ফ্রেম হিসেবে A-এর কাছে পৌঁছে
+              যায়।</li>
+            <li><strong>Standalone ACK:</strong> যদি নির্দিষ্ট সময়ের মধ্যে B-এর কোনো ডাটা পাঠানোর না থাকে, তবে সে বাধ্য
+              হয়ে একটি আলাদা Standalone ACK ফ্রেম পাঠায়।</li>
+          </ol>
+
+          <h2>৩. Piggybacking-এর সুবিধা ও অসুবিধা</h2>
+          <p>নেটওয়ার্ক ডিজাইনে এই প্রযুক্তির কিছু চমৎকার সুবিধার পাশাপাশি কিছু চ্যালেঞ্জও রয়েছে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সুবিধা (Advantages)</th>
+                  <th>অসুবিধা (Disadvantages)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">ব্যান্ডউইথ (Bandwidth) সাশ্রয় হয় কারণ অতিরিক্ত ACK ফ্রেমের প্রয়োজন হয় না।
+                  </td>
+                  <td>যদি রিসিভারের কাছে পাঠানোর মতো কোনো ডাটা না থাকে, তবে ACK পাঠাতে দেরি (Delay) হতে পারে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">নেটওয়ার্ক ওভারহেড এবং কনজেশন (Congestion) কমে।</td>
+                  <td>এটি ইমপ্লিমেন্ট করা সাধারণ মেথডের চেয়ে কিছুটা জটিল।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">চ্যানেল ইউটিলাইজেশন (Channel Utilization) বৃদ্ধি পায়।</td>
+                  <td>অতিরিক্ত অপেক্ষার কারণে সেন্ডার সাইডে <strong>Timeout</strong> হওয়ার ঝুঁকি থাকে, যা পুনরায় ডাটা
+                    পাঠানোর (Retransmission) কারণ হতে পারে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. কেন এটি প্রফেশনাল নেটওয়ার্কিংয়ে গুরুত্বপূর্ণ?</h2>
+          <p>আধুনিক প্রোটোকল যেমন <strong>TCP (Transmission Control Protocol)</strong>-এ Piggybacking ব্যাপকভাবে ব্যবহৃত
+            হয়। এর কারণগুলো হলো:</p>
+          <ul>
+            <li><strong>Efficiency:</strong> মোবাইল নেটওয়ার্ক বা স্যাটেলাইট লিংকের মতো জায়গায় যেখানে ব্যান্ডউইথ খুব
+              সীমিত, সেখানে প্রতিটি বিট সাশ্রয় করা অত্যন্ত গুরুত্বপূর্ণ।</li>
+            <li><strong>Network Stability:</strong> অপ্রয়োজনীয় কন্ট্রোল ফ্রেমের সংখ্যা কমিয়ে এটি নেটওয়ার্ককে আরও
+              স্ট্যাবল রাখে।</li>
+          </ul>
+
+          <h2>৫. Troubleshooting ও ডিজাইন টিপস</h2>
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে Piggybacking ব্যবহারের সময় নিচের বিষয়গুলো খেয়াল রাখতে হয়:</p>
+          <ul>
+            <li><strong>Ack Timer Optimization:</strong> রিসিভার কতক্ষণ অপেক্ষা করবে তা নিখুঁতভাবে সেট করতে হয়। যদি
+              টাইমার খুব বেশি হয়, তবে প্রেরক (Sender) মনে করবে ডাটা হারিয়ে গেছে এবং সে পুনরায় ডাটা পাঠাবে, যা
+              ব্যান্ডউইথ অপচয় করবে।</li>
+            <li><strong>Handling Unidirectional Traffic:</strong> যদি ডাটা ট্রান্সমিশন শুধুমাত্র একদিকে হয় (যেমন ফাইল
+              ডাউনলোড), তবে Piggybacking কাজ করবে না। সেক্ষেত্রে স্ট্যান্ডার্ড ACK মেকানিজমই ভরসা।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Piggybacking</strong> কম্পিউটার নেটওয়ার্কিংয়ের একটি অত্যন্ত বুদ্ধিমান কৌশল। এটি "এক ঢিলে দুই
+              পাখি মারা"-র মতো কাজ করে, যেখানে ডাটা এবং একনলেজমেন্ট একসাথে ভ্রমণ করে। যদিও এটি কিছু ক্ষেত্রে সাময়িক
+              ডিলে তৈরি করতে পারে, তবুও ব্যান্ডউইথ সাশ্রয় এবং নেটওয়ার্ক দক্ষতা বাড়ানোর ক্ষেত্রে এর গুরুত্ব অপরিসীম।
+              আধুনিক হাই-স্পিড ডাটা কমিউনিকেশনে Piggybacking একটি অবিচ্ছেদ্য অংশ হিসেবে নিজেকে প্রতিষ্ঠিত করেছে।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

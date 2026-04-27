@@ -1,41 +1,317 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sliding Window Protocol- Selective Repeat | tech-enablement.info</title>
+  <meta name="description"
+    content="Sliding Window Protocol-এর অন্যতম দক্ষ মেকানিজম Selective Repeat (SR) নিয়ে বিস্তারিত টিউটোরিয়াল। জানুন কীভাবে শুধুমাত্র হারানো ডাটা প্যাকেট পুনরায় পাঠিয়ে নেটওয়ার্কের কার্যক্ষমতা বাড়ানো হয়।">
+  <title>Sliding Window Protocol: Selective Repeat (SR) Deep Dive | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Sliding Window Protocol- Selective Repeat</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Sliding Window Protocol- Selective Repeat</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Sliding Window Protocol: Selective Repeat (SR) Deep Dive</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Data Communication & Networking</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ডাটা কমিউনিকেশন এবং নেটওয়ার্কিংয়ে ডাটা প্যাকেটের সঠিক ডেলিভারি নিশ্চিত করা একটি বড় চ্যালেঞ্জ। বিশেষ করে
+            যখন আমরা হাই-স্পিড লিংকে ডাটা পাঠাই, তখন কিছু প্যাকেট নয়েজ বা কনজেশন (Congestion) এর কারণে মাঝপথে হারিয়ে
+            যেতে পারে। <strong>Go-Back-N (GBN)</strong> প্রোটোকলে একটি প্যাকেট হারালে তার পরবর্তী সব প্যাকেট আবার পাঠাতে
+            হতো, যা ব্যান্ডউইথ অপচয় করে।</p>
+          <p>এই সমস্যার সবচেয়ে দক্ষ সমাধান হলো <strong>Selective Repeat (SR)</strong> প্রোটোকল। এটি এমন একটি বুদ্ধিমান
+            মেকানিজম যেখানে শুধুমাত্র যে প্যাকেটটি হারিয়ে গেছে বা নষ্ট হয়েছে, সেটিই পুনরায় পাঠানো হয়। আজকের এই
+            টিউটোরিয়ালে আমরা Selective Repeat প্রোটোকলের খুঁটিনাটি এবং এর কার্যপদ্ধতি নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Selective Repeat (SR) কী?</h2>
+          <p>Selective Repeat হলো একটি <strong>Sliding Window Protocol</strong> যা এরর কন্ট্রোল (Error Control) এর জন্য
+            ব্যবহৃত হয়। এর মূল বৈশিষ্ট্য হলো এটি প্রতিটি প্যাকেটের জন্য আলাদা আলাদা টাইমার (Timer) এবং একনলেজমেন্ট
+            (Acknowledgement) ব্যবহার করে। যদি কোনো প্যাকেট গন্তব্যে না পৌঁছায়, তবে রিসিভার (Receiver) শুধুমাত্র ওই
+            প্যাকেটটির জন্য নেগেটিভ একনলেজমেন্ট পাঠায় অথবা সেন্ডার (Sender) টাইমার শেষ হওয়ার পর শুধু ওই প্যাকেটটিই
+            পুনরায় পাঠায়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Courier Service Analogy)</h3>
+            <p><strong>সিনারিও:</strong> আপনি আপনার কাস্টমারকে ৫টি আলাদা বক্স পাঠাচ্ছেন। প্রতিটি বক্সে সিরিয়াল নম্বর ১,
+              ২, ৩, ৪, ৫ দেওয়া আছে।</p>
+            <ul>
+              <li>কাস্টমার ১, ২ এবং ৪ নম্বর বক্স পেলো, কিন্তু ৩ নম্বর বক্সটি রাস্তায় হারিয়ে গেলো।</li>
+              <li><strong>Go-Back-N স্টাইল:</strong> কাস্টমার ১ এবং ২ গ্রহণ করতো, কিন্তু ৪ নম্বর বক্সটি সে ফেলে দিতো এবং
+                আপনাকে ৩, ৪, ৫ সব আবার পাঠাতে বলতো। এতে ৪ নম্বর বক্সটি ভালো থাকা সত্ত্বেও অপচয় হতো।</li>
+              <li><strong>Selective Repeat স্টাইল:</strong> কাস্টমার ১, ২ এবং ৪ নম্বর বক্সটি সযত্নে রেখে দেবে (Buffer)।
+                সে শুধু আপনাকে জানাবে যে "৩ নম্বর বক্সটি পাইনি"। আপনি তখন শুধু ৩ নম্বর বক্সটি আবার পাঠাবেন। ৩ নম্বরটি
+                হাতে পাওয়ার পর তার কাছে ১ থেকে ৪ পর্যন্ত সব বক্স পূর্ণ হবে। এটিই হলো Selective Repeat।</li>
+            </ul>
+          </div>
+
+          <h2>২. Selective Repeat এর প্রধান বৈশিষ্ট্যসমূহ</h2>
+          <p>এই প্রোটোকলটি অন্যান্য স্লাইডিং উইন্ডো প্রোটোকলের চেয়ে বেশ আলাদা এবং অ্যাডভান্সড:</p>
+          <ul>
+            <li><strong>Window Size:</strong> এখানে সেন্ডার এবং রিসিভার উভয়ের উইন্ডো সাইজ সমান হয়। সাধারণত উইন্ডো সাইজ
+              $N$ হলে, $N \le 2^{(m-1)}$ হয় (যেখানে $m$ সিকোয়েন্স নম্বরের বিট সংখ্যা)।</li>
+            <li><strong>Individual Timers:</strong> সেন্ডার প্রতিটি আউটগোয়িং প্যাকেটের জন্য আলাদা আলাদা টাইমার মেইনটেইন
+              করে।</li>
+            <li><strong>Buffering at Receiver:</strong> রিসিভারের এখানে বাফারিং ক্ষমতা থাকে। অর্থাৎ আউট-অফ-অর্ডার
+              (Out-of-order) প্যাকেট সে ফেলে না দিয়ে মেমোরিতে জমা রাখে যতক্ষণ না হারানো প্যাকেটটি এসে পৌঁছায়।</li>
+            <li><strong>Independent Acknowledgement:</strong> রিসিভার প্রতিটি প্যাকেটের জন্য আলাদা বা ইনডিপেন্ডেন্ট ACK
+              পাঠায়। এটি <strong>Cumulative ACK</strong> ব্যবহার করে না।</li>
+          </ul>
+
+
+
+          <h2>৩. এটি কীভাবে কাজ করে? (Step-by-Step Mechanism)</h2>
+          <p>Selective Repeat মেকানিজমটি নিচে ধাপে ধাপে ব্যাখ্যা করা হলো:</p>
+
+          <ol>
+            <li><strong>Transmission:</strong> প্রেরক তার উইন্ডো সাইজ অনুযায়ী ডাটা প্যাকেটগুলো (যেমন 0, 1, 2, 3)
+              পাঠিয়ে দেয় এবং প্রতিটি প্যাকেটের জন্য আলাদা টাইমার শুরু করে।</li>
+            <li><strong>Receiving & ACK:</strong> রিসিভার যদি প্যাকেট 0 এবং 1 পায়, সে ACK 0 এবং ACK 1 পাঠায়। প্রেরক
+              তখন তার উইন্ডো স্লাইড করে পরবর্তী প্যাকেটগুলো পাঠায়।</li>
+            <li><strong>Packet Loss:</strong> ধরি প্যাকেট 2 মাঝপথে হারিয়ে গেলো। কিন্তু রিসিভার প্যাকেট 3 ঠিকই পেলো।
+            </li>
+            <li><strong>Buffering:</strong> রিসিভার প্যাকেট 3 কে গ্রহণ করে বাফারে রেখে দেয় (যেহেতু এটি সিকোয়েন্স
+              অনুযায়ী ২ এর পরে আসার কথা ছিল), কিন্তু সে ACK 3 পাঠিয়ে দেয় যাতে প্রেরক বুঝতে পারে ৩ নম্বরটি নিরাপদে
+              পৌঁছেছে।</li>
+            <li><strong>Selective Retransmission:</strong> প্রেরক যখন দেখবে প্যাকেট 2 এর টাইমার শেষ হয়ে গেছে কিন্তু
+              কোনো ACK আসেনি, তখন সে <strong>শুধুমাত্র প্যাকেট 2</strong> পুনরায় পাঠাবে।</li>
+            <li><strong>Reordering:</strong> রিসিভার যখন হারানো প্যাকেট 2 পাবে, তখন সে অলরেডি বাফারে থাকা 3 এর সাথে
+              মিলিয়ে ডাটা উপরের লেয়ারে (Network Layer) পাঠিয়ে দেবে।</li>
+          </ol>
+
+          <h2>৪. GBN বনাম Selective Repeat (SR)</h2>
+          <p>নিচের টেবিলটি থেকে আপনি এই দুটির মূল পার্থক্য খুব সহজে বুঝতে পারবেন:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>Go-Back-N (GBN)</th>
+                  <th>Selective Repeat (SR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Receiver Window Size</td>
+                  <td>সর্বদা 1</td>
+                  <td>সেন্ডার উইন্ডোর সমান (> 1)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Retransmission</td>
+                  <td>হারানো প্যাকেট থেকে শুরু করে পরবর্তী সব প্যাকেট পুনরায় পাঠাতে হয়।</td>
+                  <td>শুধুমাত্র হারানো বা ড্যামেজ হওয়া প্যাকেটটি পুনরায় পাঠাতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Complexity</td>
+                  <td>সহজ এবং মেমোরি কম লাগে।</td>
+                  <td>বেশ জটিল এবং রিসিভার এন্ডে বাফার মেমোরি লাগে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Efficiency</td>
+                  <td>নয়েজি লিংকে ব্যান্ডউইথ অপচয় বেশি।</td>
+                  <td>ব্যান্ডউইথ এর সর্বোচ্চ ব্যবহার নিশ্চিত করে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. সুবিধা এবং অসুবিধা</h2>
+
+          <h3>সুবিধা (Advantages):</h3>
+          <ul>
+            <li><strong>Bandwidth Optimization:</strong> অপ্রয়োজনীয় ডাটা রি-ট্রান্সমিশন বন্ধ করে ব্যান্ডউইথ সাশ্রয়
+              করে।</li>
+            <li><strong>High Throughput:</strong> হাই-এরর রেট আছে এমন লিংকে এটি GBN এর চেয়ে অনেক বেশি থ্রুপুট প্রদান
+              করে।</li>
+            <li><strong>Better User Experience:</strong> ডাটা লস হলে পুরো উইন্ডো রিসেন্ড না করার ফলে ল্যাটেন্সি
+              (Latency) কম থাকে।</li>
+          </ul>
+
+          <h3>অসুবিধা (Disadvantages):</h3>
+          <ul>
+            <li><strong>Resource Intensive:</strong> রিসিভার সাইডে প্যাকেট বাফারিং এবং সর্টিং (Sorting) এর জন্য বেশি
+              র‍্যাম ও প্রসেসিং পাওয়ার লাগে।</li>
+            <li><strong>Complex Logic:</strong> প্রতিটি প্যাকেটের জন্য আলাদা টাইমার মেইনটেইন করা এবং আউট-অফ-অর্ডার
+              প্যাকেট হ্যান্ডেল করা বেশ জটিল।</li>
+          </ul>
+
+          <h2>৬. Troubleshooting ও প্রফেশনাল গাইড</h2>
+          <p>নেটওয়ার্ক প্রোটোকল ডিজাইনের সময় Selective Repeat ইমপ্লিমেন্ট করার ক্ষেত্রে কিছু কারিগরি বিষয় মাথায় রাখা
+            জরুরি:</p>
+          <ul>
+            <li><strong>Window Size Rule:</strong> সেন্ডার এবং রিসিভার উইন্ডো সাইজের যোগফল অবশ্যই সিকোয়েন্স নম্বর রেঞ্জ
+              ($2^m$) এর সমান বা ছোট হতে হবে। অন্যথায় রিসিভার পুরনো প্যাকেট এবং নতুন প্যাকেটের মধ্যে পার্থক্য করতে
+              পারবে না।</li>
+            <li><strong>NAK (Negative ACK) Usage:</strong> অনেক সময় টাইমার শেষ হওয়ার অপেক্ষায় না থেকে রিসিভার সরাসরি
+              NAK পাঠিয়ে দিতে পারে যদি সে বুঝতে পারে কোনো প্যাকেট মাঝখানে মিসিং। এটি রি-ট্রান্সমিশন প্রসেসকে আরও ফাস্ট
+              করে।</li>
+            <li><strong>Flow Control:</strong> শুধু এরর কন্ট্রোল নয়, রিসিভারের বাফার কতটুকু খালি আছে তা দেখে ডাটা
+              পাঠানোর গতি নিয়ন্ত্রণ করা উচিত।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Selective Repeat (SR)</strong> প্রোটোকলটি আধুনিক হাই-স্পিড ডাটা ট্রান্সমিশনের জন্য একটি অত্যন্ত
+              স্মার্ট এবং দক্ষ পদ্ধতি। যদিও এটি ইমপ্লিমেন্ট করা কিছুটা জটিল এবং মেমোরি সাপেক্ষ, কিন্তু ব্যান্ডউইথ
+              সাশ্রয় এবং রিলায়েবিলিটির ক্ষেত্রে এর কার্যকারিতা অতুলনীয়। যেখানে ইন্টারনেটের প্রতিটি প্যাকেট মূল্যবান,
+              সেখানে Selective Repeat মেকানিজম ব্যবহার করে আমরা একটি অত্যন্ত রিলায়েবল (Reliable) ডাটা কমিউনিকেশন
+              সিস্টেম গড়ে তুলতে পারি।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>
+<p>আপনি কি এই প্রোটোকলের উইন্ডো সাইজ এবং সিকোয়েন্স নম্বরের গাণিতিক সম্পর্ক নিয়ে আরও বিস্তারিত গাণিতিক উদাহরণ জানতে চান?
+</p>

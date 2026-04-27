@@ -1,41 +1,301 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subnet masks | tech-enablement.info</title>
+  <meta name="description"
+    content="Subnet Mask কী, এটি কীভাবে কাজ করে এবং কেন এটি আইপি অ্যাড্রেসিংয়ের জন্য অপরিহার্য তা নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড। সহজ বাংলায় সাবনেট মাস্ক ক্যালকুলেশন শিখুন।">
+  <title>Understanding Subnet Masks: A Detailed Technical Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Subnet masks</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Subnet masks</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Understanding Subnet Masks: A Detailed Technical Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ে <strong>IP Address</strong> এর নাম আমরা সবাই শুনেছি। কিন্তু আইপি অ্যাড্রেস একা কাজ
+            করতে পারে না। প্রতিটি আইপি অ্যাড্রেসের সাথে অবিচ্ছেদ্যভাবে জড়িয়ে থাকে একটি <strong>Subnet Mask</strong>।
+            অনেক বিগিনার মনে করেন সাবনেট মাস্ক মানেই <code>255.255.255.0</code>, কিন্তু এর গভীরতা অনেক বেশি।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা শিখবো সাবনেট মাস্ক কী, এটি কীভাবে আইপি অ্যাড্রেসকে <strong>Network</strong> এবং
+            <strong>Host</strong> অংশে বিভক্ত করে এবং কীভাবে এর মাধ্যমে নেটওয়ার্কের ট্রাফিক ম্যানেজ করা হয়।
+          </p>
+
+
+
+          <h2>১. Subnet Mask কী?</h2>
+          <p><strong>Subnet Mask</strong> হলো একটি ৩২-বিটের সংখ্যা যা একটি আইপি অ্যাড্রেসের সাথে জোড়ায় জোড়ায় থাকে। এর
+            প্রধান কাজ হলো রাউটার বা কম্পিউটারকে এটা বোঝানো যে, ওই নির্দিষ্ট আইপি অ্যাড্রেসের কতটুকু অংশ তার নেটওয়ার্কের
+            (এলাকা) পরিচয় এবং কতটুকু অংশ তার নিজের (ডিভাইস) পরিচয়।</p>
+          <p>সাবনেট মাস্ক ছাড়া একটি কম্পিউটার বুঝতে পারে না যে অন্য একটি কম্পিউটারে ডাটা পাঠানোর সময় তাকে <strong>Local
+              Network</strong> এ খুঁজতে হবে নাকি <strong>Internet</strong> (Default Gateway) এ পাঠাতে হবে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Address Analogy)</h3>
+            <p>ধরুন একটি ঠিকানা হলো: <strong>"বাড়ি নং ৫০, ধানমন্ডি ১০, ঢাকা"</strong>।</p>
+            <ul>
+              <li>এখানে <strong>"ধানমন্ডি ১০, ঢাকা"</strong> হলো নেটওয়ার্কের পরিচয় (এলাকা)।</li>
+              <li>আর <strong>"বাড়ি নং ৫০"</strong> হলো হোস্টের পরিচয় (নির্দিষ্ট ঘর)।</li>
+            </ul>
+            <p>সাবনেট মাস্ক অনেকটা ওই হাইলাইটার কলমের মতো যা ঠিকানার কোন অংশটি এলাকার নাম তা চিহ্নিত করে দেয়।
+              নেটওয়ার্কিংয়ে সাবনেট মাস্কের <code>1</code> বিটগুলো নেটওয়ার্ক বোঝায় এবং <code>0</code> বিটগুলো হোস্ট
+              বোঝায়।</p>
+          </div>
+
+          <h2>২. কীভাবে Subnet Mask কাজ করে? (Binary Logic)</h2>
+          <p>সাবনেট মাস্ক বাইনারি লেভেলে <strong>ANDing</strong> প্রসেস ব্যবহার করে কাজ করে। একটি সাবনেট মাস্কের ভেতরে
+            বিটগুলো সব সময় ক্রমানুসারে থাকে। অর্থাৎ শুরুতে সব <code>1</code> থাকবে এবং শেষে সব <code>0</code> থাকবে।
+            মাঝে কখনো ১ এবং ০ এলোমেলোভাবে বসতে পারে না।</p>
+
+          <p><strong>উদাহরণ:</strong></p>
+          <ul>
+            <li>আইপি অ্যাড্রেস: <code>192.168.1.10</code></li>
+            <li>সাবনেট মাস্ক: <code>255.255.255.0</code></li>
+          </ul>
+          <p>এখানে <code>255.255.255.0</code> মানে হলো প্রথম ২৪টি বিট <strong>On (1)</strong> অবস্থায় আছে। তার মানে এই
+            আইপির প্রথম ৩টি অংশ (192.168.1) হলো নেটওয়ার্ক আইডি এবং শেষ অংশটি (.10) হলো হোস্ট আইডি।</p>
+
+
+
+          <h2>৩. Default Subnet Masks (Classful)</h2>
+          <p>সাধারণত আইপি অ্যাড্রেসের ক্লাস অনুযায়ী কিছু ডিফল্ট সাবনেট মাস্ক থাকে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>IP Class</th>
+                  <th>Default Subnet Mask</th>
+                  <th>CIDR Notation</th>
+                  <th>Host Capacity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Class A</td>
+                  <td>255.0.0.0</td>
+                  <td>/8</td>
+                  <td>16,777,214</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class B</td>
+                  <td>255.255.0.0</td>
+                  <td>/16</td>
+                  <td>65,534</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class C</td>
+                  <td>255.255.255.0</td>
+                  <td>/24</td>
+                  <td>254</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. CIDR Notation ও সাবনেট মাস্কের সংক্ষিপ্ত রূপ</h2>
+          <p>পুরো মাস্ক (যেমন <code>255.255.255.0</code>) না লিখে আমরা স্ল্যাশ দিয়ে একটি সংখ্যা লিখি, যাকে <strong>CIDR
+              (Classless Inter-Domain Routing)</strong> বলা হয়। যেমন: <code>/24</code>।</p>
+          <ul>
+            <li><strong>/24</strong> এর মানে মাস্কের প্রথম ২৪টি বিট <code>1</code>।</li>
+            <li><strong>/30</strong> এর মানে মাস্কের প্রথম ৩০টি বিট <code>1</code>। এটি সাধারণত পয়েন্ট-টু-পয়েন্ট রাউটার
+              কানেকশনের জন্য ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h2>৫. Practical Troubleshooting ও কনফিগারেশন</h2>
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে ভুল সাবনেট মাস্ক কনফিগার করলে ডাটা আদান-প্রদান বন্ধ হয়ে যেতে পারে।</p>
+
+          <h3>কমন সমস্যা: সাবনেট মিসম্যাচ (Subnet Mismatch)</h3>
+          <p>যদি পিসি-১ এর আইপি <code>192.168.1.5/24</code> হয় এবং পিসি-২ এর আইপি <code>192.168.1.10/25</code> হয়, তবে
+            পিসি-১ হয়তো পিসি-২ কে পিং পাবে, কিন্তু পিসি-২ পিসি-১ কে পাবে না। কারণ তাদের নেটওয়ার্কের সীমানা আলাদা হয়ে
+            গেছে।</p>
+
+          <h3>CLI Commands:</h3>
+          <p><strong>Windows এ সাবনেট মাস্ক চেক করা:</strong></p>
+          <pre><code>C:\> ipconfig</code></pre>
+
+          <p><strong>Linux/Ubuntu তে ইন্টারফেস মাস্ক চেক করা:</strong></p>
+          <pre><code>$ ip addr show</code></pre>
+
+          <p><strong>MikroTik এ মাস্ক সহ আইপি বসানো:</strong></p>
+          <pre><code>/ip address add address=192.168.10.1/24 interface=ether1</code></pre>
+
+          <h2>৬. সাবনেট মাস্ক ক্যালকুলেশন টিপস</h2>
+          <p>ম্যাজিক নম্বর মেথড ব্যবহার করে দ্রুত মাস্ক বের করা যায়। ধরুন আপনার <strong>/26</strong> মাস্ক প্রয়োজন:</p>
+          <ol>
+            <li>/26 মানে শেষ অকটেটে ২বিটি ১ (11000000)।</li>
+            <li>বাইনারি থেকে ডেসিমাল করলে হয় ১৯২।</li>
+            <li>সুতরাং মাস্ক হবে <code>255.255.255.192</code>।</li>
+            <li>২৫৬ থেকে ১৯২ বিয়োগ করলে হয় ৬৪। তার মানে আপনার প্রতিটি সাবনেট ৬৪ আইপির ব্যবধানে হবে।</li>
+          </ol>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Subnet Mask</strong> হলো নেটওয়ার্কিংয়ের সেই ট্রাফিক পুলিশ যা নির্ধারণ করে ডাটা লোকাল রাস্তায় চলবে
+              নাকি ইন্টারনেটের মহাসড়কে যাবে। এটি ছাড়া আইপি অ্যাড্রেসিং বিশৃঙ্খল হয়ে পড়তো। একজন আইটি প্রফেশনাল হিসেবে
+              মাস্ক এবং <strong>Prefix Length</strong> এর সম্পর্ক বোঝা অত্যন্ত জরুরি। এটি আপনার নেটওয়ার্ক ট্রাবলশুটিং
+              এবং সাবনেটিং দক্ষতা বৃদ্ধিতে সাহায্য করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

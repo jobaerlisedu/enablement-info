@@ -5,21 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="নিখুঁত নেটওয়ার্ক ইঞ্জিনিয়ারিং শিখুন। Classful IP Addressing এবং এর গঠন সম্পর্কে বিস্তারিত তথ্য।">
-  <title>Classful IP Addressing | tech-enablement.info</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="Classful IP Addressing কী, এর প্রকারভেদ এবং কীভাবে Class A, B, C, D ও E নেটওয়ার্ক কাজ করে তার একটি বিস্তারিত গাইড। আইটি প্রফেশনালদের জন্য সহজ বাংলায় গভীর আলোচনা।">
+  <title>Classful IP Addressing: A Comprehensive Deep Dive | tech-enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -93,20 +96,48 @@
       margin: 25px 0;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
       margin-bottom: 30px;
-      font-weight: 500;
-      transition: 0.3s;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
     }
 
-    .back-btn:hover {
-      color: var(--primary-color);
-      transform: translateX(-5px);
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
     }
   </style>
 
@@ -118,25 +149,163 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Classful IP Addressing</h1>
+          <h1>Classful IP Addressing: A Comprehensive Deep Dive</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> February 27, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Classful IP Addressing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>ইন্টারনেটে সংযুক্ত প্রতিটি ডিভাইসের একটি অনন্য ঠিকানা প্রয়োজন, যাকে আমরা <strong>IP Address</strong> বলি।
+            আদিতে যখন ইন্টারনেট প্রোটোকল ভার্সন ৪ (IPv4) ডিজাইন করা হয়েছিল, তখন নেটওয়ার্কগুলোকে সুশৃঙ্খলভাবে সাজানোর
+            জন্য একটি আর্কিটেকচার ব্যবহার করা হতো যার নাম <strong>Classful Addressing</strong>। যদিও বর্তমানে আমরা
+            <strong>Classless Addressing (CIDR)</strong> বেশি ব্যবহার করি, কিন্তু নেটওয়ার্কিংয়ের ভিত্তি বোঝার জন্য এবং
+            সাবনেটিং (Subnetting) শেখার জন্য Classful IP Addressing জানা অত্যন্ত জরুরি।
+          </p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা IPv4-এর ক্লাসগুলো নিয়ে বিস্তারিত আলোচনা করবো এবং জানবো কীভাবে একটি আইপি দেখে তার
+            নেটওয়ার্ক ও হোস্ট বের করা যায়।</p>
+
+          <h2>১. Classful Addressing কী?</h2>
+          <p><strong>Classful Addressing</strong> হলো এমন একটি পদ্ধতি যেখানে ৩২-বিটের (32-bit) IPv4 অ্যাড্রেসকে পাঁচটি
+            সুনির্দিষ্ট ক্লাসে ভাগ করা হয় (Class A, B, C, D, এবং E)। প্রতিটি ক্লাসের একটি নির্দিষ্ট <strong>Subnet
+              Mask</strong> থাকে যা দিয়ে বোঝা যায় আইপির কতটুকু অংশ নেটওয়ার্কের জন্য এবং কতটুকু হোস্টের জন্য।</p>
+
+
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The City Analogy)</h3>
+            <p>ধরুন একটি শহরের ঠিকানা ব্যবস্থা:</p>
+            <ul>
+              <li><strong>Class A:</strong> এটি বড় বড় দেশের মতো, যেখানে অল্প কয়েকটি বড় বড় এলাকা (Network) আছে কিন্তু
+                প্রতি এলাকায় কোটি কোটি বাড়ি (Host) থাকতে পারে।</li>
+              <li><strong>Class B:</strong> এটি মাঝারি শহরের মতো, যেখানে এলাকা এবং বাড়ির সংখ্যা একটি ভারসাম্যপূর্ণ
+                অবস্থায় থাকে।</li>
+              <li><strong>Class C:</strong> এটি ছোট পাড়া বা অফিসের মতো, যেখানে এলাকার সংখ্যা অনেক বেশি হতে পারে কিন্তু
+                প্রতি এলাকায় অল্প কয়েকটি বাড়ি থাকে।</li>
+            </ul>
+          </div>
+
+          <h2>২. IP Address-এর গঠন (IP Structure)</h2>
+          <p>একটি IPv4 অ্যাড্রেসে ৪টি অকটেট (Octet) থাকে এবং প্রতিটি অকটেট ৮ বিট করে। মোট ৩২ বিট।</p>
+          <ul>
+            <li><strong>Network ID (NID):</strong> এটি নির্দেশ করে ডাটা প্যাকেটটি কোন নেটওয়ার্কে যাবে।</li>
+            <li><strong>Host ID (HID):</strong> এটি নির্দেশ করে ওই নেটওয়ার্কের ভেতর কোন নির্দিষ্ট ডিভাইসে ডাটা যাবে।
+            </li>
+          </ul>
+
+          <h2>৩. Classful IP-র প্রকারভেদ</h2>
+          <p>নিচে প্রতিটি ক্লাসের রেঞ্জ এবং তাদের গঠন বিশ্লেষণ করা হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>First Octet Range</th>
+                  <th>Network / Host Bits</th>
+                  <th>Default Subnet Mask</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Class A</td>
+                  <td>1 – 126</td>
+                  <td>8 Net / 24 Host</td>
+                  <td>255.0.0.0</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class B</td>
+                  <td>128 – 191</td>
+                  <td>16 Net / 16 Host</td>
+                  <td>255.255.0.0</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class C</td>
+                  <td>192 – 223</td>
+                  <td>24 Net / 8 Host</td>
+                  <td>255.255.255.0</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class D</td>
+                  <td>224 – 239</td>
+                  <td>Multicast Address</td>
+                  <td>N/A</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class E</td>
+                  <td>240 – 255</td>
+                  <td>Research/Experimental</td>
+                  <td>N/A</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Class A: বিশাল নেটওয়ার্কের জন্য</h3>
+          <p>প্রথম বিট সবসময় <code>0</code> থাকে। এর প্রথম অকটেট নেটওয়ার্কের জন্য এবং বাকি ৩টি অকটেট হোস্টের জন্য। এটি
+            বিশাল কোম্পানি বা সরকারি প্রতিষ্ঠানের জন্য ব্যবহৃত হতো। এখানে মোট $2^{24} - 2$ বা ১৬,৭৭৭,২১৪ টি হোস্ট সম্ভব।
+          </p>
+          <p><em>নোট: ১২৭ (127.x.x.x) রেঞ্জটি লুপব্যাক (Loopback) বা নিজের পিসি টেস্ট করার জন্য সংরক্ষিত।</em></p>
+
+          <h3>Class B: মাঝারি নেটওয়ার্কের জন্য</h3>
+          <p>প্রথম দুই বিট সবসময় <code>10</code> থাকে। প্রথম ২ অকটেট নেটওয়ার্ক এবং বাকি ২ অকটেট হোস্ট। এখানে প্রতিটি
+            নেটওয়ার্কে ৬৫,৫৩৪ টি হোস্ট সম্ভব।</p>
+
+          <h3>Class C: ছোট নেটওয়ার্কের জন্য</h3>
+          <p>প্রথম তিন বিট সবসময় <code>110</code> থাকে। প্রথম ৩ অকটেট নেটওয়ার্ক এবং শেষ ১ অকটেট হোস্ট। এটি ছোট অফিস বা
+            বাসার জন্য সবচেয়ে জনপ্রিয়। এখানে প্রতিটি নেটওয়ার্কে মাত্র ২৫৪ টি হোস্ট থাকতে পারে।</p>
+
+          <h3>Class D এবং E: বিশেষ উদ্দেশ্যে</h3>
+          <ul>
+            <li><strong>Class D:</strong> এটি <strong>Multicast</strong> এর জন্য ব্যবহৃত হয় (যেমন রাউটিং প্রোটোকল আপডেট
+              বা স্ট্রিমিং)। এর কোনো নির্দিষ্ট হোস্ট আইডি নেই।</li>
+            <li><strong>Class E:</strong> এটি বৈজ্ঞানিক গবেষণা এবং পরীক্ষামূলক কাজের জন্য সংরক্ষিত। সাধারণ ইউজাররা এটি
+              ব্যবহার করতে পারেন না।</li>
+          </ul>
+
+          <h2>৪. Classful Addressing-এর সীমাবদ্ধতা</h2>
+          <p>Classful সিস্টেমটি আগে বেশ কার্যকর থাকলেও ইন্টারনেটের প্রসারের সাথে সাথে এতে বড় সমস্যা দেখা দেয়:</p>
+          <ul>
+            <li><strong>IP Waste (অপচয়):</strong> ধরুন আপনার একটি নেটওয়ার্কে ৫০০টি আইপি প্রয়োজন। আপনি Class C নিলে হবে
+              না (কারণ মাত্র ২৫৪টি সম্ভব), তাই আপনাকে Class B নিতে হবে যেখানে ৬৫,৫৩৪টি আইপি থাকে। এখানে প্রায় ৬৫,০০০
+              আইপি অপচয় হচ্ছে।</li>
+            <li><strong>Rigidity:</strong> ফিক্সড মাস্ক থাকার কারণে নেটওয়ার্ক ডিজাইন ফ্লেক্সিবল ছিল না।</li>
+          </ul>
+          <p>এই সমস্যা সমাধানের জন্যই পরবর্তীতে <strong>Classless Inter-Domain Routing (CIDR)</strong> বা স্ল্যাশ নোটেশন
+            (যেমন <code>/25</code>) চালু করা হয়।</p>
+
+          <h2>৫. Troubleshooting ও প্র্যাকটিক্যাল টিপস</h2>
+          <p>নেটওয়ার্ক ট্রাবলশুটিং করার সময় আইপি দেখে ক্লাস শনাক্ত করা জরুরি:</p>
+          <ul>
+            <li>যদি আইপি হয় <code>10.0.0.5</code>, প্রথম অকটেট 10, তাই এটি <strong>Class A</strong>। সাবনেট মাস্ক হবে
+              <code>255.0.0.0</code>।
+            </li>
+            <li>যদি আইপি হয় <code>192.168.1.1</code>, প্রথম অকটেট 192, তাই এটি <strong>Class C</strong>। সাবনেট মাস্ক
+              হবে <code>255.255.255.0</code>।</li>
+          </ul>
+
+          <p><strong>কিভাবে বুঝবেন আপনার পিসির আইপি ক্লাস কত?</strong></p>
+          <p>আপনার টার্মিনাল বা কমান্ড প্রম্পটে গিয়ে লিখুন:</p>
+          <pre><code>C:\> ipconfig (Windows)
+$ ifconfig (Linux/Mac)</code></pre>
+          <p>সেখানে আপনার IPv4 Address এবং Subnet Mask দেখে সহজেই ক্লাস মিলিয়ে নিতে পারবেন।</p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Classful IP Addressing</strong> আধুনিক নেটওয়ার্কিংয়ে সরাসরি ব্যবহৃত না হলেও এটি শেখা অপরিহার্য।
+              এটি আমাদের শেখায় কীভাবে নেটওয়ার্ক ও হোস্ট বিভক্ত হয় এবং কীভাবে ডাটা প্যাকেট সঠিক গন্তব্যে পৌঁছানোর জন্য
+              লজিক্যাল ঠিকানা ব্যবহার করে। এই ধারণাটি পরিষ্কার থাকলে <strong>Subnetting</strong> এবং <strong>VLSM
+                (Variable Length Subnet Masking)</strong> শেখা আপনার জন্য অনেক সহজ হবে।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

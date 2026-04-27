@@ -1,41 +1,301 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sliding Window Protocol- Go Back N | tech-enablement.info</title>
+  <meta name="description"
+    content="Sliding Window Protocol-এর অন্যতম জনপ্রিয় মেকানিজম Go-Back-N (GBN) নিয়ে বিস্তারিত টিউটোরিয়াল। জানুন কীভাবে উইন্ডো সাইজ এবং সিকোয়েন্স নম্বর ব্যবহার করে ডাটা ট্রান্সমিশন নিশ্চিত করা হয়।">
+  <title>Sliding Window Protocol: Go-Back-N (GBN) Deep Dive | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    /* Custom Table Styling */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Sliding Window Protocol- Go Back N</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Sliding Window Protocol- Go Back N</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Sliding Window Protocol: Go-Back-N (GBN)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Data Communication & Networking</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ডাটা কমিউনিকেশন এবং নেটওয়ার্কিংয়ের ক্ষেত্রে <strong>Flow Control</strong> একটি অত্যন্ত গুরুত্বপূর্ণ বিষয়।
+            যখন একজন প্রেরক (Sender) খুব দ্রুত ডাটা পাঠাতে থাকে কিন্তু প্রাপক (Receiver) সেই গতিতে ডাটা গ্রহণ করতে পারে
+            না, তখন ডাটা লস হওয়ার সম্ভাবনা থাকে। এই সমস্যা সমাধানের জন্য <strong>Sliding Window Protocol</strong>
+            ব্যবহার করা হয়।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা Sliding Window Protocol-এর অন্যতম জনপ্রিয় মেকানিজম <strong>Go-Back-N
+              (GBN)</strong> নিয়ে বিস্তারিত আলোচনা করবো। আমরা শিখবো এটি কীভাবে কাজ করে, কেন এটি
+            <strong>Stop-and-Wait</strong> প্রোটোকলের চেয়ে উন্নত এবং রিয়েল-লাইফ নেটওয়ার্কিংয়ে এর প্রয়োজনীয়তা কতটুকু।
+          </p>
+
+
+
+          <h2>১. Go-Back-N (GBN) কী?</h2>
+          <p>Go-Back-N হলো একটি নির্দিষ্ট ধরনের <strong>Sliding Window Protocol</strong> যেখানে প্রেরককে প্রতিটি ডাটা
+            প্যাকেট পাঠানোর পর একনলেজমেন্ট (Acknowledgement বা ACK)-এর জন্য অপেক্ষা করতে হয় না। প্রেরক একটি নির্দিষ্ট
+            সংখ্যক প্যাকেট (যাকে Window Size বলা হয়) একবারে পাঠিয়ে দিতে পারে।</p>
+          <p>তবে এর নাম "Go-Back-N" হওয়ার কারণ হলো—যদি কোনো একটি প্যাকেট গন্তব্যে পৌঁছাতে ব্যর্থ হয় বা মাঝপথে হারিয়ে
+            যায়, তবে প্রেরককে ওই হারিয়ে যাওয়া প্যাকেট থেকে শুরু করে তার পরবর্তী সব কটি প্যাকেট পুনরায় পাঠাতে হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Postal Analogy)</h3>
+            <p><strong>সিনারিও:</strong> ধরুন আপনি আপনার বন্ধুকে ১০টি চিঠি পাঠাচ্ছেন। আপনি প্রতিটি চিঠির সিরিয়াল নম্বর
+              (Sequence Number) লিখে দিয়েছেন।</p>
+            <ul>
+              <li>আপনি একসাথে ৪টি চিঠি (Window Size = 4) পাঠিয়ে দিলেন।</li>
+              <li>আপনার বন্ধু ১, ২ নম্বর চিঠি পেল এবং আপনাকে জানাল যে সে ২ পর্যন্ত পেয়েছে (ACK 2)।</li>
+              <li>কিন্তু ৩ নম্বর চিঠিটি ডাকপিয়ন হারিয়ে ফেলল।</li>
+              <li>আপনার বন্ধু ৪, ৫ এবং ৬ নম্বর চিঠি পেলেও সে সেগুলো গ্রহণ করবে না, কারণ সে ৩ নম্বরটি পায়নি। সে শুধু ৩
+                নম্বর চিঠির জন্য অপেক্ষা করবে।</li>
+              <li>যখন আপনি নির্দিষ্ট সময়ের মধ্যে ৩ নম্বরের একনলেজমেন্ট পাবেন না, তখন আপনি ৩ নম্বর থেকে শুরু করে ৪, ৫, ৬
+                সব চিঠি আবার নতুন করে পাঠাবেন। এটিই হলো <strong>Go-Back-N</strong>।</li>
+            </ul>
+          </div>
+
+          <h2>২. GBN-এর প্রধান বৈশিষ্ট্যসমূহ</h2>
+          <p>Go-Back-N মেকানিজমটি বোঝার জন্য নিচের টেকনিক্যাল পয়েন্টগুলো লক্ষ্য করুন:</p>
+          <ul>
+            <li><strong>Sender Window Size (N):</strong> প্রেরক একসাথে সর্বোচ্চ $N$ সংখ্যক প্যাকেট পাঠাতে পারে। এটি
+              সাধারণত $2^m - 1$ হয় (যেখানে $m$ হলো সিকোয়েন্স নম্বরের বিট সংখ্যা)।</li>
+            <li><strong>Receiver Window Size:</strong> GBN-এ রিসিভারের উইন্ডো সাইজ সবসময় <strong>1</strong> হয়। কারণ
+              রিসিভার শুধুমাত্র ক্রমানুসারে (In-order) প্যাকেট গ্রহণ করে।</li>
+            <li><strong>Cumulative Acknowledgement:</strong> এটি GBN-এর একটি বড় সুবিধা। যদি রিসিভার ACK 5 পাঠায়, তার
+              মানে হলো সে ১ থেকে ৫ পর্যন্ত সব প্যাকেট সঠিকভাবে পেয়েছে।</li>
+            <li><strong>Timer:</strong> প্রেরক শুধুমাত্র উইন্ডোর প্রথম পাঠানো প্যাকেটের জন্য একটি টাইমার চালু রাখে।</li>
+          </ul>
+
+          <h2>৩. এটি কীভাবে কাজ করে? (Step-by-Step Mechanism)</h2>
+          <p>Go-Back-N প্রোটোকলটি কাজ করার প্রক্রিয়াকে আমরা নিচের ধাপগুলোতে ভাগ করতে পারি:</p>
+
+          <ol>
+            <li><strong>Window Initialization:</strong> প্রেরক তার উইন্ডো সাইজ অনুযায়ী প্রথম সেট ডাটা পাঠায়। ধরুন উইন্ডো
+              সাইজ 4, তাহলে সে প্যাকেট 0, 1, 2, 3 পাঠিয়ে দেবে।</li>
+            <li><strong>Wait for ACK:</strong> প্রেরক ডাটা পাঠানোর পর ACK-এর জন্য অপেক্ষা করে। যদি ACK 0 আসে, উইন্ডোটি
+              এক ধাপ ডানে সরে যাবে (Slide) এবং পরবর্তী প্যাকেট 4 পাঠাবে।</li>
+            <li><strong>Handling Packet Loss:</strong> যদি প্যাকেট 2 হারিয়ে যায়, তবে রিসিভার প্যাকেট 3 পেলেও তা গ্রহণ
+              করবে না (Discard করবে) এবং কোনো ACK পাঠাবে না।</li>
+            <li><strong>Timeout:</strong> প্রেরকের টাইমার শেষ হয়ে গেলে সে দেখবে যে প্যাকেট 2-এর কোনো ACK আসেনি।</li>
+            <li><strong>Retransmission:</strong> প্রেরক তখন প্যাকেট 2 থেকে শুরু করে পরবর্তী যা যা পাঠিয়েছিল (প্যাকেট 2
+              এবং 3), সব আবার পুনরায় পাঠাবে।</li>
+          </ol>
+
+          <h2>৪. GBN বনাম Stop-and-Wait</h2>
+          <p>কেন আমরা GBN ব্যবহার করি? নিচের টেবিলটি লক্ষ্য করুন:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>Stop-and-Wait</th>
+                  <th>Go-Back-N</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Efficiency</td>
+                  <td>খুবই কম। প্রতিটি প্যাকেটের পর বসে থাকতে হয়।</td>
+                  <td>অনেক বেশি। পাইপলাইনিং (Pipelining) সুবিধা পাওয়া যায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Window Size</td>
+                  <td>সর্বদা 1</td>
+                  <td>$N$ (একাধিক প্যাকেট)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Transmission Speed</td>
+                  <td>ধীরগতি সম্পন্ন</td>
+                  <td>হাই-স্পিড ডাটা ট্রান্সফারের জন্য উপযুক্ত</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. সুবিধা এবং অসুবিধা</h2>
+
+          <h3>সুবিধা (Advantages):</h3>
+          <ul>
+            <li><strong>Pipelining:</strong> একসাথে অনেক প্যাকেট পাঠানোর ফলে ব্যান্ডউইথ-এর সর্বোচ্চ ব্যবহার নিশ্চিত হয়।
+            </li>
+            <li><strong>Simple Receiver:</strong> রিসিভারকে কোনো ডাটা বাফার (Buffer) করতে হয় না, কারণ সে ইন-অর্ডার ডাটা
+              ছাড়া কিছু গ্রহণ করে না।</li>
+            <li><strong>Cumulative ACK:</strong> একটি ACK দিয়ে অনেকগুলো প্যাকেটের কনফার্মেশন পাওয়া যায়।</li>
+          </ul>
+
+          <h3>অসুবিধা (Disadvantages):</h3>
+          <ul>
+            <li><strong>Bandwidth Waste:</strong> একটি প্যাকেট হারালে অনেকগুলো ভালো প্যাকেট (যা রিসিভার ইতিমধ্যে পেলেও
+              ডিসকার্ড করেছে) পুনরায় পাঠাতে হয়।</li>
+            <li><strong>Network Congestion:</strong> বারবার রি-ট্রান্সমিশনের ফলে নেটওয়ার্কে জ্যাম তৈরি হতে পারে।</li>
+          </ul>
+
+          <h2>৬. Troubleshooting ও পারফরম্যান্স টিপস</h2>
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে GBN ব্যবহারের সময় কিছু বিষয় মাথায় রাখা জরুরি:</p>
+          <ul>
+            <li><strong>Timeout Setting:</strong> টাইমার খুব কম সেট করলে ডাটা পৌঁছানোর আগেই পুনরায় পাঠানো শুরু হতে পারে।
+              আবার খুব বেশি সেট করলে লিংকে প্যাকেট হারালে দীর্ঘক্ষণ বসে থাকতে হবে।</li>
+            <li><strong>Window Size Selection:</strong> উইন্ডো সাইজ খুব বড় হলে এবং লিংকে নয়েজ (Noise) বেশি থাকলে প্রচুর
+              ডাটা রি-ট্রান্সমিট করতে হবে, যা পারফরম্যান্স কমিয়ে দেবে।</li>
+            <li><strong>Selective Repeat:</strong> যদি দেখেন GBN-এ ডাটা রি-ট্রান্সমিশন অনেক বেশি হচ্ছে, তবে
+              <strong>Selective Repeat</strong> প্রোটোকল ব্যবহারের কথা চিন্তা করা যেতে পারে (যেখানে শুধু হারানো
+              প্যাকেটটিই আবার পাঠানো হয়)।
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Go-Back-N (GBN)</strong> প্রোটোকলটি আধুনিক নেটওয়ার্কিংয়ের একটি ভিত্তি। এটি আমাদের শেখায় কীভাবে
+              সীমিত রিসোর্স ব্যবহার করে দক্ষতার সাথে ডাটা ফ্লো কন্ট্রোল করা যায়। যদিও এতে কিছু ব্যান্ডউইথ অপচয় হয়,
+              কিন্তু এর সহজ ইমপ্লিমেন্টেশন এবং কিউমুলেটিভ একনলেজমেন্ট সিস্টেম একে আজও জনপ্রিয় করে রেখেছে। বিশেষ করে যে
+              সব লিংকে প্যাকেট এরর কম হয়, সেখানে GBN অত্যন্ত কার্যকর একটি সমাধান।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

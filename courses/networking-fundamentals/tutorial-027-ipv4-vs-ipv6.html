@@ -4,22 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Difference Between IPv4 and IPv6 | tech-enablement.info</title>
   <meta name="description"
-    content="IPv4 এবং IPv6-এর মধ্যে মূল পার্থক্যসমূহ, তাদের সুবিধা-অসুবিধা এবং ভবিষ্যতে কেন IPv6 অপরিহার্য তা নিয়ে বিস্তারিত গাইড।">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="IPv4 এবং IPv6 এর মধ্যে মূল পার্থক্যসমূহ নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড। জানুন অ্যাড্রেস স্পেস, হেডার ফরম্যাট এবং সিকিউরিটি ফিচারের পার্থক্য সহজ বাংলায়।">
+  <title>Difference Between IPv4 and IPv6: A Technical Deep Dive | tech-enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -93,20 +96,48 @@
       margin: 25px 0;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
       margin-bottom: 30px;
-      font-weight: 500;
-      transition: 0.3s;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
     }
 
-    .back-btn:hover {
-      color: var(--primary-color);
-      transform: translateX(-5px);
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
     }
   </style>
 
@@ -118,25 +149,156 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Difference Between IPv4 and IPv6</h1>
+          <h1>Difference Between IPv4 and IPv6: A Technical Deep Dive</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> March 8, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Difference Between IPv4 and IPv6</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>ইন্টারনেট প্রোটোকল বা <strong>IP</strong> হলো আধুনিক যোগাযোগের মেরুদণ্ড। বর্তমানে আমরা দুটি ভার্সনের আইপি
+            ব্যবহার করছি: <strong>IPv4</strong> এবং <strong>IPv6</strong>। আশির দশকে যখন IPv4 তৈরি করা হয়েছিল, তখন কেউ
+            ভাবেনি যে একদিন পৃথিবীর সব মানুষের হাতে হাতে ইন্টারনেটের ডিভাইস থাকবে। ক্রমবর্ধমান ডিভাইসের সংখ্যা এবং আইপি
+            অ্যাড্রেসের সংকটের কারণে <strong>IPv6</strong> এর জন্ম হয়েছে।</p>
+          <p>আজকের এই বিস্তারিত টিউটোরিয়ালে আমরা IPv4 এবং IPv6 এর মধ্যে কারিগরি পার্থক্যগুলো নিয়ে গভীর আলোচনা করবো। একজন
+            আইটি ইঞ্জিনিয়ার বা নেটওয়ার্কিংয়ের ছাত্র হিসেবে এই পার্থক্যগুলো জানা আপনার জন্য অত্যন্ত জরুরি।</p>
+
+
+
+          <h2>১. অ্যাড্রেসিং এবং স্পেস (Addressing and Space)</h2>
+          <p>IPv4 এবং IPv6 এর মধ্যে সবচেয়ে দৃশ্যমান পার্থক্য হলো তাদের অ্যাড্রেস ফরম্যাট এবং ধারণ ক্ষমতা।</p>
+
+          <h3>IPv4 (Internet Protocol Version 4)</h3>
+          <ul>
+            <li>এটি <strong>32-bit</strong> এর একটি অ্যাড্রেস সিস্টেম।</li>
+            <li>এটি ডট দ্বারা বিভক্ত ৪টি অকটেট (যেমন: 192.168.1.1) এ লেখা হয়, যাকে <strong>Dotted Decimal
+                Notation</strong> বলে।</li>
+            <li>এর মাধ্যমে মোট ৪.৩ বিলিয়ন ($2^{32}$) আইপি অ্যাড্রেস তৈরি করা সম্ভব।</li>
+          </ul>
+
+          <h3>IPv6 (Internet Protocol Version 6)</h3>
+          <ul>
+            <li>এটি <strong>128-bit</strong> এর একটি অ্যাড্রেস সিস্টেম।</li>
+            <li>এটি কোলন দ্বারা বিভক্ত ৮টি গ্রুপে লেখা হয় (যেমন: 2001:0db8:85a3:0000:0000:8a2e:0370:7334), যাকে
+              <strong>Hexadecimal Notation</strong> বলে।
+            </li>
+            <li>এর মাধ্যমে $3.4 \times 10^{38}$ সংখ্যক আইপি অ্যাড্রেস তৈরি করা সম্ভব, যা কার্যত অফুরন্ত।</li>
+          </ul>
+
+
+
+          <h2>২. হেডার ফরম্যাট (Header Format)</h2>
+          <p>রাউটার যখন ডাটা প্যাকেট প্রসেস করে, তখন প্যাকেটের হেডার গুরুত্বপূর্ণ ভূমিকা রাখে।</p>
+          <ul>
+            <li><strong>IPv4 Header:</strong> এটি ২০ থেকে ৬০ বাইট পর্যন্ত হতে পারে। এতে অনেকগুলো ঐচ্ছিক ফিল্ড থাকে যা
+              রাউটিং স্পিড কমিয়ে দেয়। এতে <strong>Header Checksum</strong> ফিল্ড থাকে যা প্রতিটি রাউটারে পুনরায়
+              ক্যালকুলেট করতে হয়।</li>
+            <li><strong>IPv6 Header:</strong> এটি ৪০ বাইট লম্বা এবং এর ডিজাইন অত্যন্ত সহজ ও ফিক্সড। এতে কোনো Checksum
+              ফিল্ড নেই, কারণ বর্তমানের লেয়ার ২ টেকনোলজি যথেষ্ট নির্ভুল। এটি রাউটারকে অনেক দ্রুত প্যাকেট প্রসেস করতে
+              সাহায্য করে।</li>
+          </ul>
+
+
+
+          <h2>৩. মূল পার্থক্যসমূহ (Comparison Table)</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>IPv4</th>
+                  <th>IPv6</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Bit Size</td>
+                  <td>32-bit</td>
+                  <td>128-bit</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Notation</td>
+                  <td>Numeric (Decimal)</td>
+                  <td>Alphanumeric (Hexadecimal)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">NAT Support</td>
+                  <td>প্রয়োজন হয় (আইপি সংকট নিরসনে)</td>
+                  <td>প্রয়োজন নেই (প্রচুর আইপি আছে)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Security (IPsec)</td>
+                  <td>ঐচ্ছিক (Optional)</td>
+                  <td>বিল্ট-ইন এবং বাধ্যতামূলক</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Configuration</td>
+                  <td>ম্যানুয়ালি বা DHCP দিয়ে করতে হয়</td>
+                  <td>স্বয়ংক্রিয় (Auto-configuration/SLAAC)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Fragmentation</td>
+                  <td>সার্ভার এবং রাউটার উভয়ই করতে পারে</td>
+                  <td>শুধুমাত্র সোর্স বা প্রেরক করতে পারে</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. সিকিউরিটি এবং কনফিগারেশন</h2>
+          <p>IPv6 ডিজাইন করার সময় সিকিউরিটিকে প্রাধান্য দেওয়া হয়েছে।</p>
+          <ul>
+            <li><strong>IPsec:</strong> IPv4-এ IPsec আলাদাভাবে কনফিগার করতে হয়। কিন্তু IPv6-এ এটি প্রোটোকল ডিজাইনের অংশ
+              হিসেবেই থাকে, যা এন্ড-টু-এন্ড এনক্রিপশন নিশ্চিত করে।</li>
+            <li><strong>Auto-configuration:</strong> IPv6-এ <strong>Stateless Address Autoconfiguration (SLAAC)</strong>
+              ফিচারের মাধ্যমে একটি ডিভাইস কোনো DHCP সার্ভার ছাড়াই নিজের আইপি নিজে জেনারেট করতে পারে।</li>
+          </ul>
+
+          <h2>৫. টেকনিক্যাল কমান্ড এবং ট্রাবলশুটিং</h2>
+          <p>আপনার ডিভাইসে আইপি চেক করার জন্য আপনি নিচের কমান্ডগুলো ব্যবহার করতে পারেন।</p>
+
+          <p><strong>Windows-এ আইপি চেক করা:</strong></p>
+          <pre><code>C:\> ipconfig</code></pre>
+          <p><em>ব্যাখ্যা: এখানে আপনি IPv4 এবং Link-local IPv6 address উভয়ই দেখতে পাবেন।</em></p>
+
+          <p><strong>IPv6 পিং (Ping) করা:</strong></p>
+          <pre><code>C:\> ping -6 google.com</code></pre>
+          <p><em>ব্যাখ্যা: এই কমান্ডটি নিশ্চিত করে যে আপনার নেটওয়ার্কটি IPv6 কানেক্টিভিটির জন্য প্রস্তুত কি না।</em></p>
+
+          <h2>৬. IPv6-এ কেন NAT নেই?</h2>
+          <div class="content-box">
+            <p><strong>NAT (Network Address Translation)</strong> তৈরি করা হয়েছিল কারণ IPv4 আইপি শেষ হয়ে যাচ্ছিল। একটি
+              পাবলিক আইপির আড়ালে অনেকগুলো প্রাইভেট আইপি লুকিয়ে রাখাই ছিল এর কাজ। কিন্তু IPv6-এ এতো বেশি আইপি আছে যে
+              পৃথিবীর প্রতিটি বালুকণার জন্য কোটি কোটি আইপি বরাদ্দ করা সম্ভব। তাই এখানে NAT-এর প্রয়োজন নেই, যা নেটওয়ার্ক
+              কমিউনিকেশনকে আরও সহজ এবং দ্রুত করে।</p>
+          </div>
+
+          <h3>ট্রাবলশুটিং টিপস:</h3>
+          <ul>
+            <li>যদি আপনার ল্যান কার্ডে IPv6 এনাবল থাকে কিন্তু রাউটার সাপোর্ট না করে, তবে অনেক সময় ব্রাউজিং স্লো হতে
+              পারে। এক্ষেত্রে IPv6 ডিজেবল করে দেখতে পারেন।</li>
+            <li>IPv6 অ্যাড্রেস অনেক বড় হওয়ায় এটি মনে রাখা কঠিন। তাই সবসময় <strong>DNS (Domain Name System)</strong> এর
+              ওপর নির্ভর করা উচিত।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>IPv4 আমাদের গত কয়েক দশক ধরে নিরবিচ্ছিন্ন সেবা দিয়ে আসছে, কিন্তু ভবিষ্যতের <strong>IoT (Internet of
+                Things)</strong> এবং স্মার্ট টেকনোলজির চাহিদাই হলো <strong>IPv6</strong>। যদিও বর্তমানে আমরা
+              <strong>Dual-stack</strong> পদ্ধতিতে উভয়ই ব্যবহার করছি, কিন্তু শেষ পর্যন্ত IPv6 ই হবে ইন্টারনেটের একমাত্র
+              ভাষা। এই দুই ভার্সনের পার্থক্য বোঝা আপনার নেটওয়ার্কিং ক্যারিয়ারের জন্য একটি বিশাল প্লাস পয়েন্ট।
+            </p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

@@ -4,22 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>What is Routing? | tech-enablement.info</title>
   <meta name="description"
-    content="Routing কী, এটি কীভাবে কাজ করে, Static, Dynamic ও Default Routing এর পার্থক্য এবং RIP, OSPF, BGP সহ গুরুত্বপূর্ণ Routing Protocol নিয়ে বিস্তারিত গাইড।">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="Routing কী, এটি কীভাবে কাজ করে এবং Static vs Dynamic Routing-এর বিস্তারিত গাইড। নেটওয়ার্কিং প্রফেশনালদের জন্য সহজ বাংলায় গভীর আলোচনা।">
+  <title>What is Routing? A Comprehensive Deep Dive | tech-enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -93,20 +96,47 @@
       margin: 25px 0;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
       margin-bottom: 30px;
-      font-weight: 500;
-      transition: 0.3s;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
     }
 
-    .back-btn:hover {
-      color: var(--primary-color);
-      transform: translateX(-5px);
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
     }
   </style>
 
@@ -118,25 +148,139 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>What is Routing?</h1>
+          <h1>What is Routing? A Comprehensive Deep Dive</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> March 8, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>What is Routing?</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের দুনিয়ায় <strong>Routing</strong> হলো সবচেয়ে মৌলিক এবং গুরুত্বপূর্ণ ধারণা।
+            আপনি যখন ইন্টারনেটে কোনো ওয়েবসাইটে ঢোকেন বা বন্ধুকে ইমেইল পাঠান, তখন আপনার ডাটা হাজার হাজার মাইল পাড়ি
+            দিয়ে সঠিক গন্তব্যে পৌঁছায়। এই ডাটা প্যাকেটগুলোকে এক নেটওয়ার্ক থেকে অন্য নেটওয়ার্কে পাঠানোর সঠিক পথ খুঁজে
+            বের করার প্রক্রিয়াটিই হলো রাউটিং।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা রাউটিং এর একদম শুরু থেকে শেষ পর্যন্ত বিস্তারিত আলোচনা করবো। আমরা জানবো এটি
+            কীভাবে কাজ করে এবং এর বিভিন্ন প্রকারভেদ সম্পর্কে।</p>
+
+
+
+          <h2>১. Routing কী?</h2>
+          <p><strong>Routing</strong> হলো নেটওয়ার্ক লেয়ারে (OSI Model-এর Layer 3) ডাটা প্যাকেট পাঠানোর জন্য সবচেয়ে
+            কার্যকর পথ নির্বাচন করার প্রক্রিয়া। একটি <strong>Router</strong> বিভিন্ন নেটওয়ার্কের মধ্যে সংযোগ স্থাপন
+            করে এবং সিদ্ধান্ত নেয় যে কোন পথ দিয়ে ডাটা পাঠালে তা দ্রুত এবং নির্ভুলভাবে পৌঁছাবে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The GPS Analogy)</h3>
+            <p>রাউটিংকে আপনি গুগল ম্যাপ বা জিপিএস (GPS) সিস্টেমের সাথে তুলনা করতে পারেন।</p>
+            <ul>
+              <li>আপনার বর্তমান অবস্থান হলো <strong>Source</strong>।</li>
+              <li>আপনার গন্তব্য হলো <strong>Destination</strong>।</li>
+              <li>রাস্তাগুলো হলো <strong>Network Paths</strong>।</li>
+              <li>গুগল ম্যাপ হলো <strong>Routing Algorithm</strong> যা জ্যাম, রাস্তার দূরত্ব এবং গতি বিবেচনা করে আপনাকে
+                সবচেয়ে ভালো পথটি দেখিয়ে দেয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. Routing কীভাবে কাজ করে?</h2>
+          <p>যখন একটি রাউটার কোনো ডাটা প্যাকেট পায়, সে প্যাকেটের গন্তব্য আইপি অ্যাড্রেস (Destination IP) চেক করে। এরপর
+            রাউটার তার নিজস্ব একটি ডিজিটাল ডায়েরি বা <strong>Routing Table</strong> পরীক্ষা করে। এই টেবিলে লেখা থাকে
+            কোন নেটওয়ার্কে যাওয়ার জন্য কোন পথ (Next Hop) ব্যবহার করতে হবে।</p>
+
+          <h3>Routing Table-এর প্রধান উপাদানসমূহ:</h3>
+          <ul>
+            <li><strong>Destination Network:</strong> যেখানে ডাটা পৌঁছাতে হবে।</li>
+            <li><strong>Next Hop:</strong> পরবর্তী যে রাউটারে ডাটা পাঠাতে হবে।</li>
+            <li><strong>Interface:</strong> রাউটারের কোন পোর্ট (Ethernet/Fiber) দিয়ে ডাটা বের হবে।</li>
+            <li><strong>Metric/Cost:</strong> পথের দূরত্ব বা গুণমান নির্দেশক ভ্যালু।</li>
+          </ul>
+
+
+
+          <h2>৩. Routing-এর প্রকারভেদ (Types of Routing)</h2>
+          <p>নেটওয়ার্কিংয়ে প্রধানত তিন ধরনের রাউটিং দেখা যায়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Routing Type</th>
+                  <th>Description</th>
+                  <th>Pros & Cons</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Static Routing</td>
+                  <td>অ্যাডমিনিস্ট্রেটর নিজে হাতে রুট বসিয়ে দেন।</td>
+                  <td>সুবিধা: সিকিউর এবং কম রিসোর্স লাগে। অসুবিধা: বড় নেটওয়ার্কে মেনটেইন করা কঠিন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Dynamic Routing</td>
+                  <td>প্রোটোকল (OSPF, BGP) ব্যবহার করে রাউটার নিজেই পথ খুঁজে নেয়।</td>
+                  <td>সুবিধা: অটোমেটিক এবং স্কেলেবল। অসুবিধা: রাউটারের CPU/RAM বেশি খরচ হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Default Routing</td>
+                  <td>অচেনা সব গন্তব্যের জন্য একটি নির্দিষ্ট পথ ব্যবহার করা।</td>
+                  <td>সুবিধা: কনফিগারেশন সহজ। সাধারণত ইন্টারনেট গেটওয়ের জন্য ব্যবহৃত হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Dynamic Routing Protocols</h2>
+          <p>ডায়নামিক রাউটিং এর ক্ষেত্রে কিছু বিশেষ প্রোটোকল ব্যবহৃত হয় যা একে অপরের সাথে তথ্য বিনিময় করে নেটওয়ার্ক
+            ম্যাপ তৈরি করে:</p>
+          <ul>
+            <li><strong>RIP (Routing Information Protocol):</strong> সবচেয়ে সহজ এবং পুরনো প্রোটোকল। এটি কতগুলো রাউটার
+              (Hops) পার হতে হবে তার ওপর ভিত্তি করে পথ ঠিক করে।</li>
+            <li><strong>OSPF (Open Shortest Path First):</strong> এটি লিংকের ব্যান্ডউইথ এবং অবস্থা দেখে সবচেয়ে দ্রুত
+              পথটি বেছে নেয়।</li>
+            <li><strong>BGP (Border Gateway Protocol):</strong> এটি ইন্টারনেটের প্রোটোকল। এক দেশ থেকে অন্য দেশে ডাটা
+              পাঠানোর জন্য এটি ব্যবহৃত হয়।</li>
+          </ul>
+
+
+
+          <h2>৫. Practical CLI Commands ও কনফিগারেশন</h2>
+          <p>রাউটার বা লিনাক্স সার্ভারে রাউটিং কনফিগারেশন এবং চেক করার কিছু সাধারণ কমান্ড নিচে দেওয়া হলো।</p>
+
+          <p><strong>১. লিনাক্স বা উইন্ডোজ এ Routing Table দেখা:</strong></p>
+          <pre><code># Windows
+C:\> route print
+
+# Linux
+$ netstat -rn  অথবা  $ ip route show</code></pre>
+
+          <p><strong>২. MikroTik Router-এ Static Route যোগ করা:</strong></p>
+          <pre><code>/ip route add dst-address=192.168.20.0/24 gateway=192.168.10.1</code></pre>
+          <p><em>ব্যাখ্যা: এখানে ১৯২.১৬৮.২০.০ নেটওয়ার্কে যাওয়ার জন্য ১০.১ গেটওয়েকে পথ হিসেবে সেট করা হয়েছে।</em></p>
+
+          <h2>৬. Troubleshooting ও কমন সমস্যাসমূহ</h2>
+          <ul>
+            <li><strong>Routing Loop:</strong> যখন ডাটা প্যাকেট গোলকধাঁধায় পড়ে যায় এবং গন্তব্যে না পৌঁছে রাউটারগুলোর
+              মাঝে ঘুরতে থাকে। এটি প্রতিরোধ করতে <strong>TTL (Time to Live)</strong> ভ্যালু কাজ করে।</li>
+            <li><strong>Destination Unreachable:</strong> এর মানে রাউটিং টেবিলে ওই গন্তব্যে যাওয়ার কোনো পথ নেই।</li>
+            <li><strong>Asymmetric Routing:</strong> ডাটা এক পথ দিয়ে যায় কিন্তু ফিরে আসে অন্য পথ দিয়ে। এটি অনেক সময়
+              ফায়ারওয়াল সমস্যা তৈরি করে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Routing</strong> হলো ইন্টারনেটের অদৃশ্য ট্রাফিক পুলিশ। এটি ছাড়া আজকের বিশাল গ্লোবাল নেটওয়ার্ক
+              পরিচালনা করা অসম্ভব ছিল। আপনি যখন একটি ছোট অফিসের ল্যান (LAN) তৈরি করেন বা একটি বিশাল টেলিকম নেটওয়ার্ক
+              ডিজাইন করেন, রাউটিং এর সঠিক জ্ঞানই আপনাকে একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে প্রতিষ্ঠিত করবে।
+              স্ট্যাটিক রাউটিং দিয়ে শুরু করলেও বর্তমানের জটিল নেটওয়ার্কে ডায়নামিক রাউটিং এর কোনো বিকল্প নেই।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

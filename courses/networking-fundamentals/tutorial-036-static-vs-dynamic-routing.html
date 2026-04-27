@@ -1,41 +1,310 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Static vs Dynamic Routing | tech-enablement.info</title>
+  <meta name="description"
+    content="Static vs Dynamic Routing-এর মূল পার্থক্য, সুবিধা, অসুবিধা এবং রিয়েল-লাইফ কনফিগারেশন নিয়ে একটি ইন-ডেপথ টেকনিক্যাল গাইড।">
+  <title>Static vs Dynamic Routing: A Technical Deep Dive | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Static vs Dynamic Routing</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Static vs Dynamic Routing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Static vs Dynamic Routing: A Technical Deep Dive</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিং এর দুনিয়ায় একটি প্যাকেটকে তার গন্তব্যে পৌঁছানোর জন্য রাউটারকে অবশ্যই জানতে হয় কোন পথে যেতে হবে।
+            এই পথটি রাউটারকে দুইভাবে শেখানো যায়: হয় আপনি নিজে হাতে পথটি দেখিয়ে দেবেন, নয়তো রাউটার নিজে থেকেই অন্য
+            রাউটারদের সাথে কথা বলে পথ খুঁজে নেবে। এই দুই পদ্ধতিকেই আমরা যথাক্রমে <strong>Static Routing</strong> এবং
+            <strong>Dynamic Routing</strong> বলি।</p>
+          <p>আজকের এই বিস্তারিত টিউটোরিয়ালে আমরা এই দুই পদ্ধতির কারিগরি পার্থক্য, সুবিধা, অসুবিধা এবং প্র্যাকটিক্যাল
+            ব্যবহার নিয়ে গভীর আলোচনা করবো।</p>
+
+
+
+          <h2>১. Static Routing কী?</h2>
+          <p><strong>Static Routing</strong> হলো এমন একটি প্রক্রিয়া যেখানে নেটওয়ার্ক অ্যাডমিনিস্ট্রেটর ম্যানুয়ালি
+            রাউটারের <strong>Routing Table</strong>-এ গন্তব্য নেটওয়ার্ক এবং সেখানে যাওয়ার পথ (Next Hop) সেট করে দেন।
+            রাউটার নিজে থেকে এই রুট পরিবর্তন বা আপডেট করতে পারে না।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Guided Tour)</h3>
+            <p>ধরুন আপনি একটি নতুন শহরে বেড়াতে গেছেন। আপনার গাইড আপনাকে একটি ম্যাপ দিয়ে বলল, "আপনি যদি নীলক্ষেত যেতে
+              চান, তবে অবশ্যই সায়েন্স ল্যাব হয়ে যাবেন।" এটি হলো <strong>Static Routing</strong>। রাস্তায় যদি জ্যাম থাকে
+              বা রাস্তা বন্ধ থাকে, তবুও আপনি ওই ম্যাপ অনুযায়ীই যাওয়ার চেষ্টা করবেন যতক্ষণ না গাইড আপনাকে নতুন নির্দেশনা
+              দিচ্ছে।</p>
+          </div>
+
+          <h3>সুবিধাসমূহ:</h3>
+          <ul>
+            <li><strong>Low Resource Consumption:</strong> রাউটারের CPU এবং RAM অনেক কম খরচ হয় কারণ রাউটারকে কোনো জটিল
+              অ্যালগরিদম চালাতে হয় না।</li>
+            <li><strong>High Security:</strong> অ্যাডমিনিস্ট্রেটর সম্পূর্ণ কন্ট্রোল করতে পারেন ডাটা কোন পথ দিয়ে যাবে।
+            </li>
+            <li><strong>Bandwidth Saving:</strong> রাউটারগুলোর মধ্যে কোনো রুট আপডেট বিনিময় হয় না, ফলে নেটওয়ার্ক
+              ব্যান্ডউইথ সাশ্রয় হয়।</li>
+          </ul>
+
+          <h3>অসুবিধাসমূহ:</h3>
+          <ul>
+            <li><strong>Lack of Scalability:</strong> বিশাল নেটওয়ার্কে শ'য়ে শ'য়ে রুট ম্যানুয়ালি বসানো প্রায় অসম্ভব।</li>
+            <li><strong>Manual Intervention:</strong> কোনো লিংক ডাউন হলে নেটওয়ার্ক নিজে থেকে রিকভার করতে পারে না;
+              অ্যাডমিনিস্ট্রেটরকে নিজে এসে রুট পরিবর্তন করতে হয়।</li>
+          </ul>
+
+          <h2>২. Dynamic Routing কী?</h2>
+          <p><strong>Dynamic Routing</strong> এমন একটি পদ্ধতি যেখানে রাউটারগুলো বিশেষ প্রোটোকল (যেমন: OSPF, EIGRP, BGP)
+            ব্যবহার করে একে অপরের সাথে নেটওয়ার্ক তথ্য শেয়ার করে। নেটওয়ার্কের ম্যাপে কোনো পরিবর্তন হলে রাউটারগুলো
+            স্বয়ংক্রিয়ভাবে তাদের <strong>Routing Table</strong> আপডেট করে নেয়।</p>
+
+
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (Google Maps)</h3>
+            <p>আপনি নীলক্ষেত যাওয়ার জন্য গুগল ম্যাপ চালু করলেন। ম্যাপ আপনাকে দেখাল সায়েন্স ল্যাবে জ্যাম আছে, তাই আপনি
+              ধানমন্ডি ২ নম্বর দিয়ে ঘুরে যান। এটিই হলো <strong>Dynamic Routing</strong>। ম্যাপ নিজেই জ্যাম বা রাস্তার
+              অবস্থা দেখে রিয়েল-টাইমে পথ পরিবর্তন করে দিচ্ছে।</p>
+          </div>
+
+          <h3>সুবিধাসমূহ:</h3>
+          <ul>
+            <li><strong>Auto-Discovery:</strong> রাউটার নিজে থেকেই নতুন নেটওয়ার্ক খুঁজে পায়।</li>
+            <li><strong>Fault Tolerance:</strong> কোনো লিংক ডাউন হলে প্রোটোকল নিজে থেকেই অল্টারনেটিভ বা ব্যাকআপ পথ খুঁজে
+              বের করে ডাটা পাঠিয়ে দেয়।</li>
+            <li><strong>Scalability:</strong> বড় বড় এন্টারপ্রাইজ নেটওয়ার্ক বা ইন্টারনেটের জন্য এটি অপরিহার্য।</li>
+          </ul>
+
+          <h3>অসুবিধাসমূহ:</h3>
+          <ul>
+            <li><strong>Resource Intensive:</strong> রাউটিং প্রোটোকল এবং অ্যালগরিদম চালানোর জন্য রাউটারের CPU এবং RAM
+              বেশি প্রয়োজন হয়।</li>
+            <li><strong>Complexity:</strong> কনফিগারেশন এবং ট্রাবলশুটিং স্ট্যাটিক রাউটিং এর চেয়ে কিছুটা জটিল।</li>
+          </ul>
+
+          <h2>৩. Static vs Dynamic Routing: তুলনামূলক আলোচনা</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>Static Routing</th>
+                  <th>Dynamic Routing</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Configuration</td>
+                  <td>ম্যানুয়ালি করতে হয় (Manual)</td>
+                  <td>স্বয়ংক্রিয়ভাবে হয় (Automatic)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Topology Changes</td>
+                  <td>অ্যাডমিনিস্ট্রেটরকে রুট আপডেট করতে হয়।</td>
+                  <td>নিজে থেকেই আপডেট হয়ে যায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Algorithm</td>
+                  <td>নেই।</td>
+                  <td>OSPF, BGP, RIP ইত্যাদি ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Network Size</td>
+                  <td>ছোট নেটওয়ার্কের জন্য ভালো।</td>
+                  <td>বড় এবং জটিল নেটওয়ার্কের জন্য আদর্শ।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Security</td>
+                  <td>অধিক নিরাপদ (Higher Security)।</td>
+                  <td>কম নিরাপদ (নিরাপত্তা নিশ্চিত করতে এক্সট্রা কনফিগারেশন লাগে)।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI কনফিগারেশন</h2>
+
+          <h3>Static Routing কনফিগারেশন (MikroTik):</h3>
+          <p>ধরুন ১৯২.১৬৮.২০.০/২৪ নেটওয়ার্কে যাওয়ার জন্য আমাদের ১০.১ গেটওয়ে ব্যবহার করতে হবে।</p>
+          <pre><code>/ip route add dst-address=192.168.20.0/24 gateway=192.168.10.1</code></pre>
+
+          <h3>Dynamic Routing (OSPF) কনফিগারেশন (MikroTik):</h3>
+          <p>রাউটারকে ওএসপিএফ-এ যুক্ত করা এবং নিজের ল্যান নেটওয়ার্ক পাবলিশ করা:</p>
+          <pre><code>/routing ospf instance add name=default router-id=1.1.1.1
+/routing ospf interface-template add networks=192.168.10.0/24 area=main</code></pre>
+
+          <h2>৫. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Administrative Distance (AD):</strong> মনে রাখবেন, যদি একই গন্তব্যের জন্য স্ট্যাটিক এবং
+              ডায়নামিক উভয় রুট থাকে, রাউটার স্ট্যাটিক রুটকেই পছন্দ করবে কারণ স্ট্যাটিক রুটের <strong>AD</strong> ভ্যালু
+              কম (সাধারণত 1)।</li>
+            <li><strong>Connectivity Check:</strong> স্ট্যাটিক রুটে গেটওয়ে আইপি পিং (Ping) পাওয়া যাচ্ছে কি না চেক করুন।
+              গেটওয়ে ডাউন থাকলে রুটটি ইনঅ্যাক্টিভ (Inactive) হয়ে যাবে।</li>
+            <li><strong>Routing Loop:</strong> স্ট্যাটিক রাউটিং এ ভুল কনফিগারেশনের কারণে লুপ হতে পারে। ডায়নামিক রাউটিং
+              এ এই সমস্যা সাধারণত প্রোটোকল নিজেই হ্যান্ডেল করে।</li>
+            <li><strong>Convergence Time:</strong> ডায়নামিক রাউটিং এ লিংক ডাউনের পর কত দ্রুত ব্যাকআপ রুট সচল হচ্ছে তা
+              নজর রাখুন। একে <strong>Convergence Time</strong> বলে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Static Routing</strong> এবং <strong>Dynamic Routing</strong>—কোনটি সেরা তার উত্তর নির্ভর করে
+              আপনার নেটওয়ার্ক ডিজাইনের ওপর। যদি নেটওয়ার্ক ছোট হয় এবং খুব একটা পরিবর্তন না হয়, তবে স্ট্যাটিক রাউটিং সেরা।
+              কিন্তু আপনার নেটওয়ার্ক যদি ক্রমবর্ধমান হয় এবং নিরবিচ্ছিন্ন সংযোগের প্রয়োজন থাকে, তবে <strong>Dynamic
+                Routing</strong> এর কোনো বিকল্প নেই। একজন প্রফেশনাল ইঞ্জিনিয়ার হিসেবে আপনাকে উভয় পদ্ধতিরই গভীর জ্ঞান
+              রাখতে হবে যাতে প্রয়োজনে আপনি <strong>Static-Dynamic Hybrid</strong> নেটওয়ার্ক তৈরি করতে পারেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

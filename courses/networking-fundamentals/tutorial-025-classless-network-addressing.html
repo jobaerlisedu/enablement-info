@@ -1,41 +1,299 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Classless Network Addressing | tech-enablement.info</title>
+  <meta name="description"
+    content="Classless Inter-Domain Routing (CIDR) এবং VLSM কী, এটি কীভাবে কাজ করে এবং নেটওয়ার্কিংয়ে এর গুরুত্ব নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Classless Network Addressing: A Complete Deep Dive | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Classless Network Addressing</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Classless Network Addressing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Classless Network Addressing: A Complete Deep Dive</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ইন্টারনেট প্রযুক্তির দ্রুত প্রসারের সাথে সাথে আইপি অ্যাড্রেসের (IP Address) চাহিদাও বহুগুণ বেড়ে গেছে। আগের
+            দিনের <strong>Classful Addressing</strong> পদ্ধতিতে আইপি অপচয় ছিল একটি বড় সমস্যা। এই সমস্যার কার্যকর সমাধান
+            হিসেবে ১৯৯৩ সালে প্রবর্তিত হয় <strong>Classless Addressing</strong> বা <strong>CIDR (Classless Inter-Domain
+              Routing)</strong>।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা শিখবো Classless Addressing কী, এটি কীভাবে কাজ করে এবং কেন এটি বর্তমান আধুনিক
+            নেটওয়ার্কিংয়ের জন্য অপরিহার্য।</p>
+
+
+
+          <h2>১. Classless Addressing কী?</h2>
+          <p><strong>Classless Addressing</strong> হলো আইপি অ্যাড্রেস বণ্টনের এমন একটি পদ্ধতি যেখানে Class A, B বা C এর
+            মতো কোনো ধরাবাঁধা সীমা নেই। এখানে <strong>Subnet Mask</strong> এর দৈর্ঘ্য ফিক্সড নয়। এর পরিবর্তে এখানে
+            <strong>Variable Length Subnet Masking (VLSM)</strong> ব্যবহার করা হয়, যা নেটওয়ার্ক অ্যাডমিনিস্ট্রেটরকে তার
+            প্রয়োজন অনুযায়ী আইপি ব্লককে ছোট বা বড় করার স্বাধীনতা দেয়।</p>
+          <p>সহজ ভাষায়, Classless Addressing এ আপনি একটি আইপি ব্লককে ঠিক ততটুকুই কাটতে পারবেন যতটুকু আপনার হোস্টের
+            (Device) জন্য প্রয়োজন। এতে আইপি অপচয় সর্বনিম্ন পর্যায়ে নামিয়ে আনা সম্ভব হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Pizza Slicing Analogy)</h3>
+            <p><strong>Classful (Class B):</strong> ধরুন আপনার কাছে একটি বড় পিৎজা আছে যা ১৬টি স্লাইসে কাটা। আপনার দরকার
+              মাত্র ৩টি স্লাইস। কিন্তু Classful নিয়ম অনুযায়ী আপনাকে পুরো ১৬টি স্লাইসই নিতে হবে। এতে ১৩টি স্লাইস অপচয়
+              হচ্ছে।</p>
+            <p><strong>Classless (CIDR):</strong> এখানে আপনার যতটুকু খিদে, ঠিক ততটুকু স্লাইসই আপনাকে দেওয়া হবে। আপনার
+              যদি ৩টি হোস্ট প্রয়োজন হয়, তবে আপনাকে ৪টি আইপি সম্বলিত একটি ছোট স্লাইস দেওয়া হবে। এতে বাকি পিৎজা অন্য কেউ
+              ব্যবহার করতে পারবে।</p>
+          </div>
+
+          <h2>২. CIDR Notation ও Slash (/) নোটেশন</h2>
+          <p>Classless Addressing এ আইপি অ্যাড্রেসকে চেনার উপায় হলো আইপির পরে একটি স্ল্যাশ এবং একটি সংখ্যা (যেমন:
+            <code>192.168.1.0/26</code>)। এই সংখ্যাটিকে বলা হয় <strong>CIDR Prefix</strong> বা <strong>Prefix
+              Length</strong>।</p>
+          <ul>
+            <li><strong>/24:</strong> এর মানে হলো প্রথম ২৪টি বিট নেটওয়ার্কের জন্য সংরক্ষিত (Mask: 255.255.255.0)।</li>
+            <li><strong>/30:</strong> এর মানে হলো প্রথম ৩০টি বিট নেটওয়ার্কের জন্য সংরক্ষিত। এটি সাধারণত পয়েন্ট-টু-পয়েন্ট
+              লিংকে ব্যবহৃত হয় যেখানে মাত্র ২টি আইপি প্রয়োজন।</li>
+          </ul>
+
+
+
+          <h2>৩. CIDR বনাম Classful Addressing</h2>
+          <p>নিচে এই দুটির মূল পার্থক্য তুলে ধরা হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>Classful Addressing</th>
+                  <th>Classless Addressing (CIDR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Subnet Mask</td>
+                  <td>Fixed (Class A, B, C)</td>
+                  <td>Variable (Any length from /0 to /32)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">IP Efficiency</td>
+                  <td>Low (প্রচুর অপচয় হয়)</td>
+                  <td>High (সর্বোচ্চ ব্যবহার নিশ্চিত হয়)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Routing Protocol</td>
+                  <td>RIP v1 (Mask পাঠায় না)</td>
+                  <td>OSPF, BGP, RIP v2 (Mask পাঠায়)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Flexibility</td>
+                  <td>Rigid বা অনমনীয়</td>
+                  <td>Highly Flexible বা নমনীয়</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Variable Length Subnet Masking (VLSM)</h2>
+          <p>Classless Addressing এর প্রাণ হলো <strong>VLSM</strong>। এটি ব্যবহার করে আমরা একটি বড় নেটওয়ার্ককে বিভিন্ন
+            সাইজের সাবনেটে ভাগ করতে পারি।</p>
+          <p><strong>উদাহরণ:</strong> আপনার কাছে একটি <code>/24</code> ব্লক আছে (২৫৬টি আইপি)। আপনার অফিসের রিকোয়ারমেন্ট
+            নিম্নরূপ:</p>
+          <ul>
+            <li>Sales Dept: ১০০টি হোস্ট (প্রয়োজন /25)</li>
+            <li>IT Dept: ৫০টি হোস্ট (প্রয়োজন /26)</li>
+            <li>HR Dept: ২০টি হোস্ট (প্রয়োজন /27)</li>
+          </ul>
+          <p>VLSM ব্যবহার করে আপনি একই মাস্টার ব্লক থেকে এই প্রতিটি ডিপার্টমেন্টকে আলাদা আলাদা মাস্ক দিয়ে আইপি দিতে
+            পারবেন, যা Classful পদ্ধতিতে সম্ভব ছিল না।</p>
+
+          <h2>৫. Practical CLI Commands ও Troubleshooting</h2>
+          <p>নেটওয়ার্ক ডিভাইসে (যেমন MikroTik বা Cisco) Classless আইপি বসানোর সময় এবং ট্রাবলশুট করার সময় কিছু বিষয় খেয়াল
+            রাখতে হয়।</p>
+
+          <p><strong>MikroTik এ Classless IP বসানো:</strong></p>
+          <pre><code>/ip address add address=192.168.10.1/26 interface=ether1</code></pre>
+          <p><em>ব্যাখ্যা: এখানে /26 ব্যবহার করার ফলে রাউটার বুঝে নেবে এই সাবনেটে সর্বোচ্চ ৬৪টি আইপি আছে এবং এর
+              ব্রডকাস্ট অ্যাড্রেস হবে 192.168.10.63।</em></p>
+
+          <h3>Troubleshooting টিপস:</h3>
+          <ul>
+            <li><strong>Subnet Mismatch:</strong> যদি দুটি ডিভাইসে একই সাবনেট মাস্ক না থাকে (যেমন একপাশে /24 অন্যপাশে
+              /25), তবে তারা একে অপরকে পিং (Ping) করতে পারবে না যদিও আইপি একই রেঞ্জের মনে হয়।</li>
+            <li><strong>Overlapping IP:</strong> VLSM করার সময় সতর্ক থাকতে হবে যেন একটি সাবনেটের আইপি রেঞ্জ অন্যটির ভেতর
+              ঢুকে না যায়। এটি রাউটিং টেবিলকে নষ্ট করে ফেলে।</li>
+            <li><strong>Gateway Address:</strong> সবসময় খেয়াল রাখুন যে হোস্ট ডিভাইসের গেটওয়ে আইপি যেন অবশ্যই ওই
+              নির্দিষ্ট Classless সাবনেটের ভেতরেই থাকে।</li>
+          </ul>
+
+          <h2>৬. Route Aggregation (Supernetting)</h2>
+          <p>Classless addressing এর আরেকটি বড় সুবিধা হলো <strong>Supernetting</strong>। অনেকগুলো ছোট ছোট ক্লাসলেস রুটকে
+            একটি মাত্র বড় রুটে রূপান্তর করা যায়। এতে রাউটারের <strong>Routing Table</strong> এর আকার ছোট থাকে এবং
+            রাউটারের পারফরম্যান্স বৃদ্ধি পায়।</p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Classless Network Addressing</strong> বা CIDR আধুনিক ইন্টারনেটের ভিত্তি। এটি ছাড়া আমরা আজকের
+              বিশাল গ্লোবাল নেটওয়ার্ক পরিচালনা করতে পারতাম না। আইপি অ্যাড্রেসের অপচয় রোধ, রাউটিং টেবিল অপ্টিমাইজেশন এবং
+              নেটওয়ার্ক ডিজাইনে নমনীয়তা আনার জন্য CIDR এবং VLSM এর কোনো বিকল্প নেই। একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে এই
+              টপিকটির ওপর দখল থাকা মানে হলো আপনি যেকোনো জটিল নেটওয়ার্ক ডিজাইন করার সক্ষমতা অর্জন করেছেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

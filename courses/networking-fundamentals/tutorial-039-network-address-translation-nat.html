@@ -1,41 +1,276 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Network Address Translation(NAT) | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Address Translation (NAT) কী, এটি কীভাবে কাজ করে এবং Static, Dynamic ও PAT-এর বিস্তারিত ব্যাখ্যা নিয়ে একটি ইন-ডেপথ টেকনিক্যাল গাইড।">
+  <title>Network Address Translation (NAT): A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Network Address Translation(NAT)</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Network Address Translation(NAT)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Network Address Translation (NAT): A Deep Dive Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking with MikroTik</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের সবচেয়ে গুরুত্বপূর্ণ এবং বহুল ব্যবহৃত একটি প্রযুক্তির নাম হলো <strong>Network
+              Address Translation</strong> বা সংক্ষেপে <strong>NAT</strong>। আপনি বর্তমানে যে ডিভাইসটি দিয়ে এই ব্লগটি
+            পড়ছেন, সেটিও ইন্টারনেটের সাথে যুক্ত হওয়ার জন্য কোনো না কোনোভাবে NAT ব্যবহার করছে। এটি মূলত আমাদের লোকাল
+            নেটওয়ার্কের <strong>Private IP</strong>-কে ইন্টারনেটে ব্যবহারযোগ্য <strong>Public IP</strong>-তে রূপান্তর
+            করার কাজ করে।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা NAT-এর খুঁটিনাটি, এর প্রয়োজনীয়তা এবং বিভিন্ন ধরনের NAT কনফিগারেশন নিয়ে বিস্তারিত
+            আলোচনা করবো।</p>
+
+
+
+          <h2>১. NAT কী এবং কেন এটি প্রয়োজন?</h2>
+          <p>IPv4 অ্যাড্রেস সিস্টেমে মাত্র ৪.৩ বিলিয়ন আইপি সম্ভব, যা বর্তমান বিশ্বের ডিভাইসের সংখ্যার তুলনায় অত্যন্ত কম।
+            এই আইপি সংকট দূর করার জন্য <strong>Private IP</strong> (যেমন: 192.168.1.0/24) তৈরি করা হয়েছে। কিন্তু Private
+            IP সরাসরি ইন্টারনেটে কাজ করে না।</p>
+          <p>রাউটার যখন লোকাল নেটওয়ার্ক থেকে আসা কোনো ডাটা প্যাকেট ইন্টারনেটে পাঠায়, তখন সে প্যাকেটের সোর্স হিসেবে আপনার
+            লোকাল আইপি মুছে দিয়ে নিজের <strong>Public IP</strong> বসিয়ে দেয়। এই প্রক্রিয়াটিই হলো <strong>NAT</strong>।
+          </p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Office Intercom Analogy)</h3>
+            <p>একটি অফিসের কথা চিন্তা করুন যেখানে অনেকগুলো ডেস্ক আছে এবং প্রতিটি ডেস্কে একটি করে
+              <strong>Intercom</strong> (Private IP) আছে। অফিসের বাইরের কেউ সরাসরি ইন্টারকম নাম্বারে কল দিতে পারে না।
+              তাদের অফিসের মেইন ল্যান্ডলাইন নাম্বারে (Public IP) কল দিতে হয়। অফিসের রিসেপশনিস্ট (Router) তখন কলটি বুঝে
+              নিয়ে সঠিক ডেস্কে পাঠিয়ে দেয়। NAT ঠিক এই রিসেপশনিস্টের মতোই কাজ করে।</p>
+          </div>
+
+          <h2>২. NAT-এর প্রকারভেদ (Types of NAT)</h2>
+          <p>নেটওয়ার্কের প্রয়োজন অনুযায়ী NAT-কে প্রধানত তিনটি ভাগে ভাগ করা যায়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>NAT Type</th>
+                  <th>Description</th>
+                  <th>Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Static NAT</td>
+                  <td>একটি Private IP-র বিপরীতে একটি নির্দিষ্ট Public IP ম্যাপ করা হয় (1-to-1)।</td>
+                  <td>সার্ভার হোস্টিংয়ের ক্ষেত্রে ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Dynamic NAT</td>
+                  <td>একটি পাবলিক আইপি পুল (Pool) থেকে ফ্রি আইপি নিয়ে ডাইনামিকভাবে ম্যাপ করা হয়।</td>
+                  <td>লিমিটেড পাবলিক আইপি থাকলে বড় নেটওয়ার্কে ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">PAT (Port Address Translation)</td>
+                  <td>একটি মাত্র Public IP ব্যবহার করে হাজার হাজার লোকাল ইউজার ইন্টারনেট চালায় (Many-to-1)।</td>
+                  <td>বাসা বা অফিসের সাধারণ ইন্টারনেট কানেকশনের জন্য।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৩. PAT বা NAT Masquerade কীভাবে কাজ করে?</h2>
+          <p>আজকাল আমরা যে NAT সবচেয়ে বেশি ব্যবহার করি তা হলো <strong>PAT</strong>। যখন একাধিক ইউজার একই পাবলিক আইপি
+            ব্যবহার করে ইন্টারনেটে যায়, রাউটার তখন প্রতিটি ইউজারের রিকোয়েস্ট আলাদা করার জন্য <strong>Port
+              Number</strong> ব্যবহার করে। রাউটার একটি <strong>NAT Translation Table</strong> তৈরি করে যেখানে লেখা থাকে
+            কোন লোকাল আইপি কোন পোর্টের মাধ্যমে কোন ওয়েবসাইট ভিজিট করছে।</p>
+
+          <h2>৪. কনফিগারেশন ধাপসমূহ (MikroTik CLI)</h2>
+          <p>MikroTik রাউটারে NAT কনফিগার করা অত্যন্ত সহজ। নিচে সাধারণ ইন্টারনেট শেয়ারিং বা <strong>Masquerade</strong>
+            করার কমান্ড দেওয়া হলো:</p>
+
+          <p><strong>১. সাধারণ ইন্টারনেট শেয়ারিং (Source NAT):</strong></p>
+          <pre><code>/ip firewall nat add chain=srcnat out-interface=ether1 action=masquerade</code></pre>
+          <p><em>ব্যাখ্যা: এখানে <code>ether1</code> হলো আপনার WAN বা ইন্টারনেট পোর্ট। এই কমান্ডের মাধ্যমে ল্যানের সব
+              ইউজার ইন্টারনেটে যেতে পারবে।</em></p>
+
+          <p><strong>২. পোর্ট ফরওয়ার্ডিং (Destination NAT):</strong></p>
+          <p>যদি আপনার লোকাল নেটওয়ার্কে কোনো ওয়েব সার্ভার (Port 80) থাকে এবং আপনি চান বাইরের মানুষ আপনার পাবলিক আইপি
+            দিয়ে সেই সার্ভারটি দেখুক:</p>
+          <pre><code>/ip firewall nat add chain=dstnat dst-address=1.1.1.1 protocol=tcp dst-port=80 action=dst-nat to-addresses=192.168.1.10 to-ports=80</code></pre>
+          <p><em>ব্যাখ্যা: এখানে 1.1.1.1 হলো আপনার পাবলিক আইপি এবং 192.168.1.10 হলো আপনার লোকাল সার্ভার।</em></p>
+
+
+
+          <h2>৫. Troubleshooting এবং কমন সমস্যাসমূহ</h2>
+          <ul>
+            <li><strong>Double NAT Issue:</strong> যদি আপনার আইএসপি থেকে একটি রাউটার দেওয়া থাকে এবং তার পেছনে আপনি নিজের
+              রাউটার লাগান, তবে অনেক সময় গেম বা ভিপিএন-এ সমস্যা হয়। একে Double NAT বলে। সমাধান হলো প্রথম রাউটারকে
+              <strong>Bridge Mode</strong>-এ চালানো।</li>
+            <li><strong>Port Conflict:</strong> যদি একাধিক সার্ভিস একই পোর্টে চালাতে চান, তবে আপনাকে <strong>Custom
+                Ports</strong> ব্যবহার করতে হবে।</li>
+            <li><strong>NAT Table Full:</strong> রাউটারের র‍্যাম কম হলে অনেক সময় NAT টেবিল ফুল হয়ে যায়, ফলে ইন্টারনেট
+              স্লো হয়ে যায় বা ডিসকানেক্ট হয়। সেক্ষেত্রে <strong>Timeout</strong> পিরিয়ড কমিয়ে দিতে হয়।</li>
+          </ul>
+
+          <h3>ভেরিফিকেশন কমান্ড (MikroTik):</h3>
+          <pre><code>/ip firewall nat print
+/ip firewall connection print</code></pre>
+          <p><em>ব্যাখ্যা: এই কমান্ডের মাধ্যমে আপনি বর্তমানে রাউটারে কতগুলো NAT সেশন সচল আছে তা দেখতে পাবেন।</em></p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Network Address Translation (NAT)</strong> শুধুমাত্র আইপি সংরক্ষণের একটি পদ্ধতি নয়, এটি নেটওয়ার্ক
+              সিকিউরিটির একটি স্তর হিসেবেও কাজ করে কারণ এটি আপনার লোকাল আইপিকে সরাসরি ইন্টারনেটে প্রকাশ করে না। বড়
+              প্রতিষ্ঠানের নেটওয়ার্ক ডিজাইন থেকে শুরু করে বাসার ওয়াইফাই রাউটার—সবখানেই NAT অপরিহার্য। একজন নেটওয়ার্ক
+              ইঞ্জিনিয়ার হিসেবে NAT-এর সঠিক মেকানিজম জানা থাকলে আপনি ট্রাবলশুটিং এবং সার্ভার পাবলিশিংয়ের কাজগুলো অত্যন্ত
+              নিখুঁতভাবে করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

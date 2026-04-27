@@ -1,41 +1,298 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Link State Routing | tech-enablement.info</title>
+  <meta name="description"
+    content="Link State Routing প্রোটোকল কীভাবে কাজ করে, Dijkstra's Algorithm এবং OSPF-এর ভূমিকা নিয়ে একটি বিস্তারিত ইন-ডেপথ টেকনিক্যাল গাইড।">
+  <title>Link State Routing: Concepts, Mechanisms and Deep Dive | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Link State Routing</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Link State Routing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Link State Routing: Concepts, Mechanisms and Deep Dive</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ডায়নামিক রাউটিং এর জগতে <strong>Link State Routing</strong> একটি অত্যন্ত শক্তিশালী এবং আধুনিক পদ্ধতি। এটি
+            মূলত <strong>Distance Vector Routing</strong> (যেমন RIP) এর সীমাবদ্ধতাগুলো দূর করার জন্য তৈরি করা হয়েছিল।
+            বড় এবং জটিল নেটওয়ার্কগুলোতে যেখানে দ্রুত ডাটা ট্রান্সমিশন এবং নেটওয়ার্ক টপোলজি পরিবর্তনের সাথে সাথে দ্রুত
+            আপডেট হওয়া প্রয়োজন, সেখানে Link State Routing এর কোনো বিকল্প নেই।</p>
+          <p>আজকের এই বিস্তারিত টিউটোরিয়ালে আমরা শিখবো Link State Routing কীভাবে কাজ করে, এর অ্যালগরিদম এবং প্রফেশনাল
+            নেটওয়ার্কিংয়ে এর ব্যবহার নিয়ে গভীর আলোচনা।</p>
+
+          <h2>১. Link State Routing কী?</h2>
+          <p><strong>Link State Routing</strong> হলো এমন একটি পদ্ধতি যেখানে প্রতিটি রাউটার পুরো নেটওয়ার্কের একটি
+            পূর্ণাঙ্গ মানচিত্র বা <strong>Topology Map</strong> নিজের কাছে রাখে। একটি রাউটার শুধুমাত্র তার প্রতিবেশীদের
+            তথ্য জানে না, বরং সে জানে পুরো নেটওয়ার্কে আর কয়টি রাউটার আছে এবং তারা একে অপরের সাথে কীভাবে যুক্ত।</p>
+          <p>এই পদ্ধতিতে প্রতিটি রাউটার তার সরাসরি যুক্ত লিংকের অবস্থা (Link State) যেমন- লিংকটি আপ আছে কি না, এর
+            <strong>Bandwidth</strong> কত এবং <strong>Delay</strong> কত—এই তথ্যগুলো একটি স্পেশাল প্যাকেটের মাধ্যমে পুরো
+            নেটওয়ার্কে ছড়িয়ে দেয়।</p>
+
+
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Full City Map Analogy)</h3>
+            <p><strong>Distance Vector:</strong> এটি অনেকটা এমন যে আপনি রাস্তায় একজনকে জিজ্ঞেস করলেন "নীলক্ষেত কোন
+              দিকে?" সে বলল "ডানে যান"। আপনি জানেন না ডানে আসলে কী আছে।</p>
+            <p><strong>Link State:</strong> এটি অনেকটা আপনার হাতে থাকা <strong>Google Maps</strong> এর মতো। আপনার কাছে
+              পুরো শহরের ম্যাপ আছে। আপনি নিজেই দেখতে পাচ্ছেন কোন কোন রাস্তা খোলা আছে, কোথায় জ্যাম বেশি এবং কোন রাস্তা
+              দিয়ে গেলে সবচেয়ে দ্রুত পৌঁছানো যাবে। Link State Routing এ প্রতিটি রাউটার তার কাছে থাকা ম্যাপ দেখে নিজেই
+              সিদ্ধান্ত নেয় শ্রেষ্ঠ পথ কোনটি।</p>
+          </div>
+
+          <h2>২. Link State Routing কীভাবে কাজ করে? (৫টি মূল ধাপ)</h2>
+          <p>একটি Link State রাউটার মূলত নিচের পাঁচটি ধাপ অনুসরণ করে তার <strong>Routing Table</strong> তৈরি করে:</p>
+
+          <ol>
+            <li><strong>Discovery:</strong> রাউটার তার প্রতিটি ইন্টারফেসে একটি <code>HELLO</code> প্যাকেট পাঠিয়ে তার
+              সরাসরি যুক্ত প্রতিবেশীদের (Neighbors) খুঁজে বের করে।</li>
+            <li><strong>Link Cost Measurement:</strong> রাউটার প্রতিটি লিংকের <strong>Cost</strong> বা দূরত্ব মেপে নেয়।
+              সাধারণত 100Mbps লিংকের চেয়ে 1Gbps লিংকের Cost কম হয় (যা বেশি ভালো)।</li>
+            <li><strong>LSP Creation:</strong> রাউটার একটি <strong>Link State Packet (LSP)</strong> তৈরি করে যাতে তার
+              নিজের নাম এবং তার সাথে যুক্ত সব লিংকের তথ্য থাকে।</li>
+            <li><strong>Flooding:</strong> রাউটার এই LSP টিকে নেটওয়ার্কের সব রাউটারের কাছে পাঠিয়ে দেয়। একে বলা হয়
+              <strong>Flooding</strong>। এভাবে প্রতিটি রাউটার সবার তথ্য পেয়ে যায়।</li>
+            <li><strong>Dijkstra's Algorithm:</strong> সব রাউটারের তথ্য পাওয়ার পর প্রতিটি রাউটার নিজের মেমোরিতে একটি
+              <strong>Link State Database (LSDB)</strong> তৈরি করে এবং <strong>SPF (Shortest Path First)</strong> বা
+              <strong>Dijkstra's Algorithm</strong> চালিয়ে গন্তব্যে যাওয়ার শ্রেষ্ঠ পথটি বের করে।</li>
+          </ol>
+
+
+
+          <h2>৩. Dijkstra's Algorithm এবং SPF Tree</h2>
+          <p>Link State Routing এর হৃৎপিণ্ড হলো <strong>Dijkstra's Algorithm</strong>। এটি প্রতিটি গন্তব্যের জন্য একটি
+            <strong>Tree</strong> তৈরি করে যেখানে বর্তমান রাউটারটি থাকে একদম শুরুতে (Root)। এরপর সে হিসাব করে প্রতিটি
+            নোডে পৌঁছাতে মোট কত Cost ব্যয় হবে। যে পথের Cost সবচেয়ে কম, সেটিকেই <strong>Routing Table</strong> এ যুক্ত
+            করা হয়।</p>
+
+          <h2>৪. Link State Routing এর সুবিধা ও অসুবিধা</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সুবিধা (Pros)</th>
+                  <th>অসুবিধা (Cons)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Fast Convergence</td>
+                  <td>নেটওয়ার্কে কোনো পরিবর্তন হলে এটি খুব দ্রুত সব রাউটারকে জানিয়ে দেয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Loop-Free</td>
+                  <td>যেহেতু সবার কাছে পুরো ম্যাপ থাকে, তাই রাউটিং লুপ হওয়ার সম্ভাবনা প্রায় শূন্য।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Scalability</td>
+                  <td>বড় বড় এন্টারপ্রাইজ নেটওয়ার্কের জন্য এটি অত্যন্ত কার্যকর।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Resource Intensive</td>
+                  <td>রাউটারের CPU এবং RAM অনেক বেশি ব্যবহার করে কারণ একে জটিল অ্যালগরিদম চালাতে হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Complex Configuration</td>
+                  <td>এটি কনফিগার এবং ট্রাবলশুট করা সাধারণ প্রোটোকলের চেয়ে কঠিন।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. পপুলার Link State Protocols</h2>
+          <p>নেটওয়ার্কিং জগতে দুটি প্রধান Link State প্রোটোকল ব্যবহৃত হয়:</p>
+          <ul>
+            <li><strong>OSPF (Open Shortest Path First):</strong> এটি সবচেয়ে জনপ্রিয় এবং বহুল ব্যবহৃত আইজিপি (IGP)। এটি
+              IP নেটওয়ার্কে ব্যাপকভাবে ব্যবহৃত হয়।</li>
+            <li><strong>IS-IS (Intermediate System to Intermediate System):</strong> এটি সাধারণত বড় বড় সার্ভিস
+              প্রোভাইডার বা আইএসপি (ISP) নেটওয়ার্কে ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h2>৬. Practical CLI Configuration (OSPF on MikroTik)</h2>
+          <p>Link State প্রোটোকল হিসেবে OSPF কনফিগার করার একটি সাধারণ উদাহরণ নিচে দেওয়া হলো।</p>
+
+          <p><strong>১. OSPF ইনস্ট্যান্স তৈরি করা:</strong></p>
+          <pre><code>/routing ospf instance add name=default router-id=1.1.1.1</code></pre>
+
+          <p><strong>২. এরিয়া এবং ইন্টারফেস টেমপ্লেট যুক্ত করা:</strong></p>
+          <pre><code>/routing ospf area add name=backbone-area instance=default area-id=0.0.0.0
+/routing ospf interface-template add networks=192.168.10.0/24 area=backbone-area</code></pre>
+          <p><em>ব্যাখ্যা: এখানে ১৯২.১৬৮.১০.০ নেটওয়ার্কটিকে ওএসপিএফ এর মাধ্যমে অন্য রাউটারদের কাছে প্রচার করা
+              হচ্ছে।</em></p>
+
+          <h2>৭. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Neighbor Adjacency:</strong> যদি দেখেন রুট আসছে না, তবে সবার আগে
+              <code>/routing ospf neighbor print</code> কমান্ড দিয়ে চেক করুন আপনার পাশের রাউটারের সাথে <strong>Full
+                Adjacency</strong> তৈরি হয়েছে কি না।</li>
+            <li><strong>Area ID Mismatch:</strong> ওএসপিএফ এ দুটি রাউটার যদি ভিন্ন এরিয়াতে থাকে এবং মাঝখানে
+              <strong>Backbone Area (Area 0)</strong> না থাকে, তবে তারা ডাটা বিনিময় করবে না।</li>
+            <li><strong>MTU Mismatch:</strong> অনেক সময় লিংকের <strong>MTU (Maximum Transmission Unit)</strong> এক না
+              হলে ওএসপিএফ নে বারবার আপ-ডাউন (Flapping) করে। উভয় পাশে MTU চেক করুন।</li>
+            <li><strong>LSDB Sync:</strong> যদি কোনো রাউটারে ভুল ম্যাপ দেখায়, তবে মেমোরি থেকে LSDB ফ্ল্যাশ বা রিফ্রেশ
+              করে দেখতে পারেন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Link State Routing</strong> আধুনিক নেটওয়ার্কিংয়ের একটি অবিচ্ছেদ্য অংশ। এটি তার <strong>Fast
+                Convergence</strong> এবং <strong>Accuracy</strong> এর জন্য বিশ্বজুড়ে সমাদৃত। যদিও এটি রাউটারের
+              হার্ডওয়্যার রিসোর্স কিছুটা বেশি ব্যবহার করে, কিন্তু এর মাধ্যমে প্রাপ্ত নেটওয়ার্ক স্ট্যাবিলিটি এবং
+              পারফরম্যান্স অতুলনীয়। একজন প্রফেশনাল নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে Link State Routing এর মেকানিজম এবং
+              Dijkstra's Algorithm এর ওপর দখল থাকা আপনাকে ক্যারিয়ারে অনেক দূর এগিয়ে নিয়ে যাবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

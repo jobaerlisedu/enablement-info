@@ -1,41 +1,310 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IPv4 Header Format | tech-enablement.info</title>
+  <meta name="description"
+    content="IPv4 Header Format কী এবং এর প্রতিটি ফিল্ড কীভাবে কাজ করে তার একটি বিস্তারিত টেকনিক্যাল গাইড। নেটওয়ার্কিং প্রফেশনালদের জন্য সহজ বাংলায় গভীর আলোচনা।">
+  <title>IPv4 Header Format: A Deep Dive Tutorial | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>IPv4 Header Format</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>IPv4 Header Format</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>IPv4 Header Format: A Deep Dive Tutorial</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ইন্টারনেট প্রোটোকল ভার্সন ৪ বা <strong>IPv4</strong> হলো নেটওয়ার্ক লেয়ারের সবচেয়ে গুরুত্বপূর্ণ প্রোটোকল।
+            যখন কোনো ডাটা নেটওয়ার্কের এক প্রান্ত থেকে অন্য প্রান্তে ভ্রমণ করে, তখন সেই ডাটা একা যায় না; বরং ডাটার সাথে
+            একটি "তথ্য সম্বলিত খাম" যুক্ত থাকে যাকে আমরা <strong>Header</strong> বলি। এই হেডারটিই নির্ধারণ করে প্যাকেটটি
+            কোথায় যাবে, কতক্ষণ বেঁচে থাকবে এবং কীভাবে একে প্রসেস করা হবে।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা <strong>IPv4 Header Format</strong> এর প্রতিটি বিট এবং ফিল্ড নিয়ে বিস্তারিত
+            আলোচনা করবো। আপনি যদি CCNA বা নেটওয়ার্কিং এর এডভান্সড কোনো কোর্সের ছাত্র হয়ে থাকেন, তবে এই টপিকটি আপনার
+            জন্য অত্যন্ত গুরুত্বপূর্ণ।</p>
+
+
+
+          <h2>১. IPv4 Header এর গঠন (Structure)</h2>
+          <p>একটি IPv4 হেডার সাধারণত <strong>20 bytes</strong> থেকে <strong>60 bytes</strong> পর্যন্ত লম্বা হতে পারে। এর
+            মধ্যে প্রথম ২০ বাইট হলো ফিক্সড বা বাধ্যতামূলক, আর বাকি অংশটুকু ঐচ্ছিক (Options)। হেডারটি মূলত ৩২-বিট (4
+            bytes) চওড়া কতগুলো রো (Row) নিয়ে গঠিত।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Courier Analogy)</h3>
+            <p>ধরুন আপনি একটি পার্সেল পাঠাবেন। পার্সেলের ভেতরে যে জিনিসটি আছে তা হলো আপনার আসল <strong>Data</strong>
+              (Payload)। কিন্তু কুরিয়ার সার্ভিসের কর্মীরা পার্সেলের ওপর একটি স্টিকার লাগিয়ে দেয় যেখানে প্রেরকের
+              ঠিকানা, প্রাপকের ঠিকানা, পার্সেলের ওজন এবং এটি কতটা জরুরি তা লেখা থাকে। এই স্টিকারটিই হলো
+              <strong>Header</strong>। এই স্টিকার ছাড়া কুরিয়ার সিস্টেম আপনার পার্সেলটি গন্তব্যে পৌঁছাতে পারবে না।</p>
+          </div>
+
+          <h2>২. IPv4 Header ফিল্ডগুলোর বিস্তারিত ব্যাখ্যা</h2>
+          <p>হেডারের প্রতিটি অংশের নির্দিষ্ট কাজ রয়েছে। নিচে প্রতিটি ফিল্ড বিশ্লেষণ করা হলো:</p>
+
+          <h3>Version (4 bits)</h3>
+          <p>এটি নির্দেশ করে প্যাকেটটি কোন ভার্সনের আইপি ব্যবহার করছে। IPv4 এর ক্ষেত্রে এর ভ্যালু সবসময়
+            <strong>4</strong> (বাইনারিতে <code>0100</code>) থাকে।</p>
+
+          <h3>IHL - Internet Header Length (4 bits)</h3>
+          <p>এই ফিল্ডটি বলে দেয় সম্পূর্ণ হেডারের সাইজ কত। যেহেতু অপশন ফিল্ডের কারণে হেডারের সাইজ কম-বেশি হতে পারে, তাই
+            রাউটারকে জানতে হয় হেডারটি কোথায় শেষ হয়েছে এবং আসল ডাটা কোথায় শুরু হয়েছে। এর ভ্যালুকে ৪ দিয়ে গুণ করে
+            হেডারের মোট বাইট বের করা হয়।</p>
+
+          <h3>Type of Service / DSCP (8 bits)</h3>
+          <p>এটি <strong>Quality of Service (QoS)</strong> নিশ্চিত করতে ব্যবহৃত হয়। প্যাকেটটি কি ভয়েস কল (VoIP), ভিডিও
+            স্ট্রিম নাকি সাধারণ টেক্সট—তা এখানে সেট করা থাকে। এর ওপর ভিত্তি করে রাউটার প্যাকেটটিকে অগ্রাধিকার (Priority)
+            দেয়।</p>
+
+          <h3>Total Length (16 bits)</h3>
+          <p>এটি সম্পূর্ণ প্যাকেটের (Header + Data) মোট সাইজ নির্দেশ করে। এর রেঞ্জ সর্বোচ্চ ৬৫,৫৩৫ বাইট পর্যন্ত হতে
+            পারে।</p>
+
+          <h3>Identification (16 bits)</h3>
+          <p>যখন একটি বড় প্যাকেটকে ছোট ছোট ভাগে ভাগ (Fragmentation) করা হয়, তখন প্রতিটি টুকরোতে একই Identification
+            নম্বর দেওয়া হয় যাতে প্রাপক ডিভাইস সবগুলোকে আবার জোড়া লাগিয়ে আসল ডাটা ফিরে পায়।</p>
+
+          <h3>Flags (3 bits)</h3>
+          <p>ফ্র্যাগমেন্টেশন কন্ট্রোল করার জন্য এটি ব্যবহৃত হয়। এর মধ্যে <strong>Don't Fragment (DF)</strong> এবং
+            <strong>More Fragments (MF)</strong> ফ্ল্যাগ থাকে।</p>
+
+          <h3>Fragment Offset (13 bits)</h3>
+          <p>টুকরো করা প্যাকেটগুলোর সিরিয়াল বা অবস্থান বোঝানোর জন্য এটি ব্যবহৃত হয়। এটি ছাড়া রিসিভার পিসি বুঝতে পারবে
+            না কোন টুকরোটির পর কোনটি বসবে।</p>
+
+
+
+          <h3>Time to Live - TTL (8 bits)</h3>
+          <p>এটি অত্যন্ত গুরুত্বপূর্ণ একটি ফিল্ড। এটি একটি প্যাকেটের "আয়ু" নির্ধারণ করে। প্যাকেটটি প্রতিটি রাউটার
+            অতিক্রম করার সময় TTL এর মান ১ করে কমে। যদি মান <strong>0</strong> হয়ে যায়, রাউটার প্যাকেটটিকে ফেলে দেয়
+            (Drop)। এটি লুপ (Loop) প্রতিরোধ করে।</p>
+
+          <h3>Protocol (8 bits)</h3>
+          <p>এটি বলে দেয় ডাটা প্যাকেটের ভেতরে কোন ট্রান্সপোর্ট লেয়ার প্রোটোকল আছে (যেমন: TCP হলে 6, UDP হলে 17, ICMP
+            হলে 1)।</p>
+
+          <h3>Header Checksum (16 bits)</h3>
+          <p>হেডারটি ট্রান্সমিশনের সময় কোনো এরর বা বিকৃতি হয়েছে কি না তা চেক করতে এটি ব্যবহৃত হয়।</p>
+
+          <h3>Source & Destination Address (32 bits each)</h3>
+          <p>প্রেরক এবং প্রাপকের আইপি অ্যাড্রেস এখানে থাকে। প্রতিটি অ্যাড্রেস ৩২-বিট বা ৪ বাইটের হয়।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Field Name</th>
+                  <th>Bit Size</th>
+                  <th>Main Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Version</td>
+                  <td>4 bits</td>
+                  <td>IP version (IPv4)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">TTL</td>
+                  <td>8 bits</td>
+                  <td>Prevent network loops</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Protocol</td>
+                  <td>8 bits</td>
+                  <td>Identify upper layer protocol (TCP/UDP)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Source IP</td>
+                  <td>32 bits</td>
+                  <td>IP of the sender</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Destination IP</td>
+                  <td>32 bits</td>
+                  <td>IP of the receiver</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Troubleshooting ও প্রফেশনাল টিপস</h2>
+          <p>নেটওয়ার্ক ট্রাবলশুটিং এর সময় IPv4 হেডার অ্যানালাইসিস করা অত্যন্ত জরুরি। আপনি যদি
+            <strong>Wireshark</strong> এর মতো টুল ব্যবহার করেন, তবে এই ফিল্ডগুলো রিয়েল-টাইমে দেখতে পাবেন।</p>
+
+          <ul>
+            <li><strong>TTL Exceeded:</strong> যদি আপনি <code>ping</code> করার সময় "TTL expired in transit" এরর পান,
+              তবে বুঝতে হবে আপনার নেটওয়ার্কে <strong>Routing Loop</strong> তৈরি হয়েছে।</li>
+            <li><strong>Fragmentation Failure:</strong> যদি কোনো রাউটারের MTU (Maximum Transmission Unit) ছোট হয় এবং
+              প্যাকেটে <code>DF flag</code> সেট করা থাকে, তবে রাউটার প্যাকেটটি ড্রপ করবে। এক্ষেত্রে
+              <code>MTU size</code> চেক করা প্রয়োজন।</li>
+            <li><strong>Checksum Error:</strong> যদি নেটওয়ার্কে হার্ডওয়্যার লেভেলে কোনো ত্রুটি থাকে বা তারের সমস্যা
+              থাকে, তবে প্যাকেটগুলো Checksum Error এর কারণে ড্রপ হতে পারে।</li>
+          </ul>
+
+          <p><strong>CLI কমান্ডের মাধ্যমে প্যাকেট তথ্য দেখা:</strong></p>
+          <pre><code># Linux বা MikroTik এ ট্রাফিক অ্যানালাইসিস করতে (Packet Sniffer)
+/tool sniffer quick interface=ether1 ip-address=8.8.8.8</code></pre>
+          <p><em>ব্যাখ্যা: এই কমান্ডের মাধ্যমে আপনি দেখতে পাবেন প্যাকেটের সাইজ, প্রোটোকল এবং আইপি ইনফরমেশন যা সরাসরি
+              আইপি হেডারের ফিল্ডগুলো থেকে সংগৃহীত।</em></p>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>IPv4 Header Format</strong> হলো ইন্টারনেটের ট্রাফিক কন্ট্রোল মেকানিজমের মূল চালিকাশক্তি। প্রতিটি
+              ফিল্ডের একটি নির্দিষ্ট গুরুত্ব রয়েছে যা ডাটা প্যাকেটের সফল এবং দ্রুত ডেলিভারি নিশ্চিত করে। আপনি যখন হেডার
+              অ্যানালাইসিস করতে শিখবেন, তখন নেটওয়ার্কের জটিল সমস্যাগুলো সমাধান করা আপনার জন্য অনেক সহজ হয়ে যাবে।
+              আধুনিক <strong>IPv6</strong> এর হেডার কিছুটা আলাদা হলেও, IPv4 এর ভিত্তি বোঝা যেকোনো আইটি প্রফেশনালের জন্য
+              প্রথম ধাপ।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

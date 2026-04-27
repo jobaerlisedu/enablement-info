@@ -1,41 +1,328 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculate network, broadcast and host addresses | tech-enablement.info</title>
+  <meta name="description"
+    content="আইপি সাবনেটিংয়ের মাধ্যমে কীভাবে Network Address, Broadcast Address এবং বৈধ Host Range বের করতে হয় তার একটি ইন-ডেপথ টেকনিক্যাল টিউটোরিয়াল।">
+  <title>Calculate Network, Broadcast and Host Addresses: A Step-by-Step Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Calculate network, broadcast and host addresses</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Calculate network, broadcast and host addresses</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Calculate Network, Broadcast and Host Addresses: A Step-by-Step Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিং নিয়ে কাজ করতে গেলে আমাদের প্রায়ই একটি আইপি অ্যাড্রেস এবং সাবনেট মাস্ক দেখে বলতে হয় ওই
+            নেটওয়ার্কের সীমানা কতটুকু। অর্থাৎ, ওই নেটওয়ার্কের প্রথম ঠিকানা কোনটি, শেষ ঠিকানা কোনটি এবং আমরা আমাদের পিসি
+            বা সার্ভারে কোন আইপিগুলো বসাতে পারবো।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে অত্যন্ত সহজ উপায়ে <strong>Network Address</strong>,
+            <strong>Broadcast Address</strong> এবং <strong>Valid Host Range</strong> ক্যালকুলেশন করতে হয়। এটি
+            নেটওয়ার্কিং ক্যারিয়ারের জন্য একটি অত্যন্ত বেসিক কিন্তু পাওয়ারফুল স্কিল।</p>
+
+
+
+          <h2>১. প্রধান তিনটি এড্রেসের সংজ্ঞা</h2>
+          <p>ক্যালকুলেশনে যাওয়ার আগে আমাদের জানতে হবে আমরা আসলে কী বের করছি:</p>
+          <ul>
+            <li><strong>Network Address:</strong> এটি একটি সাবনেটের প্রথম আইপি। এটি পুরো নেটওয়ার্কের পরিচয় হিসেবে কাজ
+              করে। এই আইপিটি কোনো ডিভাইসে এসাইন করা যায় না।</li>
+            <li><strong>Broadcast Address:</strong> এটি একটি সাবনেটের সর্বশেষ আইপি। এই ঠিকানায় কোনো প্যাকেট পাঠালে তা ওই
+              নেটওয়ার্কের সব ডিভাইসের কাছে পৌঁছে যায়। এটিও কোনো ডিভাইসে বসানো যায় না।</li>
+            <li><strong>Valid Host Range:</strong> নেটওয়ার্ক এবং ব্রডকাস্ট অ্যাড্রেসের মাঝখানের আইপিগুলো। এই আইপিগুলোই
+              আমরা রাউটার, পিসি বা সার্ভারে ব্যবহার করি।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Apartment Analogy)</h3>
+            <p>ধরুন একটি অ্যাপার্টমেন্ট বিল্ডিংয়ের ১০টি ফ্ল্যাট আছে (নম্বর ০ থেকে ৯)।</p>
+            <ul>
+              <li><strong>Network ID:</strong> বিল্ডিংয়ের মেইন গেট বা নাম (নম্বর ০)।</li>
+              <li><strong>Broadcast ID:</strong> বিল্ডিংয়ের নোটিশ বোর্ড (নম্বর ৯)। যেখানে নোটিশ দিলে সবাই দেখতে পায়।
+              </li>
+              <li><strong>Host Range:</strong> ফ্ল্যাট নম্বর ১ থেকে ৮ পর্যন্ত। যেখানে মানুষ বসবাস করে।</li>
+            </ul>
+          </div>
+
+          <h2>২. ক্যালকুলেশন মেথড: The Magic Number Method</h2>
+          <p>বাইনারি ক্যালকুলেশন ছাড়াই আমরা "ম্যাজিক নম্বর" ব্যবহার করে খুব দ্রুত এই অ্যাড্রেসগুলো বের করতে পারি। চলুন
+            একটি উদাহরণের মাধ্যমে শিখি।</p>
+          <p><strong>উদাহরণ আইপি:</strong> <code>192.168.10.45/26</code></p>
+
+
+
+          <h3>ধাপ ১: সাবনেট মাস্ক বের করা</h3>
+          <p>এখানে <code>/26</code> মানে হলো প্রথম ২৬টি বিট <code>1</code>। আমরা জানি একটি অকটেটে ৮টি বিট থাকে।</p>
+          <ul>
+            <li>১ম অকটেট: 8 bits (255)</li>
+            <li>২য় অকটেট: 8 bits (255)</li>
+            <li>৩য় অকটেট: 8 bits (255)</li>
+            <li>৪র্থ অকটেট: বাকি থাকে ২ bits (128+64 = 192)</li>
+          </ul>
+          <p>তাহলে সাবনেট মাস্ক হলো: <code>255.255.255.192</code></p>
+
+          <h3>ধাপ ২: ম্যাজিক নম্বর বের করা</h3>
+          <p>ম্যাজিক নম্বর বের করার সূত্র হলো: <strong>256 - (আক্রান্ত অকটেটের মাস্ক ভ্যালু)</strong>।</p>
+          <p>এখানে আমাদের আক্রান্ত অকটেট হলো ৪র্থ অকটেট (যেখানে ১৯২ আছে)।</p>
+          <p>ম্যাজিক নম্বর = <code>256 - 192 = 64</code>।</p>
+
+          <h3>ধাপ ৩: Network Address বের করা</h3>
+          <p>এখন আমরা দেখবো আইপির শেষ অকটেট (৪৫) আমাদের ম্যাজিক নম্বর (৬৪) এর কোন গুণিতক বা ব্লকের ভেতরে আছে।</p>
+          <ul>
+            <li>ব্লকগুলো হলো: ০, ৬৪, ১২৮, ১৯২...</li>
+            <li>আমাদের আইপি ৪৫ হলো ০ এবং ৬৪ এর মাঝখানে।</li>
+          </ul>
+          <p>সুতরাং, <strong>Network Address: <code>192.168.10.0</code></strong></p>
+
+          <h3>ধাপ ৪: Broadcast Address বের করা</h3>
+          <p>পরবর্তী ব্লকের শুরুর আগের আইপিটিই হলো বর্তমান ব্লকের ব্রডকাস্ট অ্যাড্রেস।</p>
+          <p>পরবর্তী ব্লক শুরু হয়েছে ৬৪-তে। তাহলে এর আগের আইপি হলো ৬৩।</p>
+          <p>সুতরাং, <strong>Broadcast Address: <code>192.168.10.63</code></strong></p>
+
+          <h3>ধাপ ৫: Valid Host Range বের করা</h3>
+          <p>নেটওয়ার্ক অ্যাড্রেসের পরবর্তী আইপি থেকে শুরু করে ব্রডকাস্ট অ্যাড্রেসের আগের আইপি পর্যন্ত।</p>
+          <ul>
+            <li>First Host: <code>192.168.10.1</code></li>
+            <li>Last Host: <code>192.168.10.62</code></li>
+          </ul>
+
+          <h2>৩. কুইক রেফারেন্স টেবিল (Common Subnets)</h2>
+          <p>নিচে সচরাচর ব্যবহৃত কিছু সাবনেটের তথ্য দেওয়া হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>CIDR Prefix</th>
+                  <th>Magic Number</th>
+                  <th>Total IPs</th>
+                  <th>Usable Hosts</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">/24</td>
+                  <td>256</td>
+                  <td>256</td>
+                  <td>254</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/25</td>
+                  <td>128</td>
+                  <td>128</td>
+                  <td>126</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/26</td>
+                  <td>64</td>
+                  <td>64</td>
+                  <td>62</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/27</td>
+                  <td>32</td>
+                  <td>32</td>
+                  <td>30</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/30</td>
+                  <td>4</td>
+                  <td>4</td>
+                  <td>2</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্রাকটিক্যাল কনফিগারেশন এবং ভেরিফিকেশন</h2>
+          <p>আপনি যখন আপনার লিনাক্স পিসি বা MikroTik রাউটারে আইপি বসাবেন, তখন আপনি নিজেই এটি ভেরিফাই করতে পারবেন।</p>
+
+          <p><strong>MikroTik এ ভেরিফাই করা:</strong></p>
+          <pre><code>/ip address add address=192.168.10.45/26 interface=ether1
+/ip address print</code></pre>
+          <p><em>ব্যাখ্যা: এখানে অ্যাড্রেস প্রিন্ট করলে আপনি দেখবেন রাউটার অটোমেটিক 'Network' কলামে 192.168.10.0 বসিয়ে
+              নিয়েছে।</em></p>
+
+          <p><strong>Linux এ চেক করা:</strong></p>
+          <pre><code>$ ip addr show</code></pre>
+          <p><em>ব্যাখ্যা: এখানে 'brd' বা Broadcast ফিল্ডে আপনি আপনার ক্যালকুলেট করা ব্রডকাস্ট অ্যাড্রেসটি দেখতে
+              পাবেন।</em></p>
+
+          <h2>৫. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>আইপি কনফিগার হচ্ছে না:</strong> যদি আপনি ভুলবশত Network Address (যেমন .0) বা Broadcast Address
+              (যেমন .63) পিসিতে বসাতে চান, তবে অপারেটিং সিস্টেম "Invalid IP Address" বা "Subnet mask and IP mismatch"
+              এরর দেবে।</li>
+            <li><strong>কানেক্টিভিটি নেই:</strong> যদি একই সাবনেটের ভেতর দুটি পিসি একে অপরকে পিং না পায়, তবে চেক করুন
+              তাদের সাবনেট মাস্ক (CIDR) একই কি না। পিসি-১ যদি /২৪ এবং পিসি-২ যদি /২৬ হয়, তবে তাদের নেটওয়ার্ক সীমানা
+              আলাদা হয়ে যাবে।</li>
+            <li><strong>গেটওয়ে সমস্যা:</strong> রাউটারের আইপি বা গেটওয়ে সবসময় ওই Valid Host Range-এর মধ্যেই হতে হবে।
+              সাধারণত রেঞ্জের প্রথম বা শেষ আইপিটি গেটওয়ে হিসেবে ব্যবহার করা প্রফেশনাল প্র্যাকটিস।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>Network, Broadcast এবং Host addresses ক্যালকুলেশন করা নেটওয়ার্কিংয়ের একটি আবশ্যিক কারিগরি দক্ষতা। ম্যাজিক
+              নম্বর মেথড ব্যবহার করে আপনি খুব সহজেই যেকোনো বড় বা ছোট নেটওয়ার্কের সীমানা নির্ধারণ করতে পারেন। এটি আপনাকে
+              আইপি অপচয় রোধ করতে এবং নেটওয়ার্ক ট্রাবলশুটিং দ্রুত করতে সাহায্য করবে। নিয়মিত প্র্যাকটিস করলে আপনি যেকোনো
+              CIDR নোটেশন দেখে মুহূর্তেই তার ডিটেইলস বলে দিতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

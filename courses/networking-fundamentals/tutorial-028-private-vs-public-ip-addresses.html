@@ -4,22 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Public vs Private IP Address | tech-enablement.info</title>
   <meta name="description"
-    content="Public এবং Private IP Address-এর মধ্যে পার্থক্য, তাদের ব্যবহারের Field এবং Security নিয়ে Detailed Discussion।">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="Public vs Private IP Address কী, এদের মধ্যে পার্থক্য এবং কেন NAT প্রযুক্তি প্রয়োজন তা নিয়ে একটি বিস্তারিত গাইড। আইটি প্রফেশনালদের জন্য সহজ বাংলায় গভীর আলোচনা।">
+  <title>Public vs Private IP Address: A Technical Deep Dive | tech-enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -93,20 +96,57 @@
       margin: 25px 0;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
       margin-bottom: 30px;
-      font-weight: 500;
-      transition: 0.3s;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
     }
 
-    .back-btn:hover {
-      color: var(--primary-color);
-      transform: translateX(-5px);
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
     }
   </style>
 
@@ -118,25 +158,152 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Public vs Private IP Address</h1>
+          <h1>Public vs Private IP Address: A Technical Deep Dive</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> February 27, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Public vs Private IP Address</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>ইন্টারনেট বা লোকাল নেটওয়ার্কে প্রতিটি ডিভাইসের একটি অনন্য পরিচয় থাকে, যাকে আমরা <strong>IP Address</strong>
+            বলি। কিন্তু আপনি কি জানেন যে আপনার স্মার্টফোনের ভেতরে যে আইপি অ্যাড্রেসটি দেখায়, সেটি ইন্টারনেটের কাছে
+            আপনার আসল পরিচয় নয়? এখানেই চলে আসে <strong>Public</strong> এবং <strong>Private IP Address</strong> এর ধারণা।
+          </p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা শিখবো এই দুই ধরনের আইপির পার্থক্য কী, কেন এদের আলাদা করা হয়েছে এবং কীভাবে এরা
+            <strong>NAT (Network Address Translation)</strong> প্রযুক্তির মাধ্যমে একসাথে কাজ করে।</p>
+
+
+
+          <h2>১. Public IP Address কী?</h2>
+          <p><strong>Public IP Address</strong> হলো এমন একটি ঠিকানা যা সরাসরি ইন্টারনেটের সাথে যুক্ত। এটি বিশ্বজুড়ে
+            অনন্য (Unique)। একটি Public IP দিয়ে পৃথিবীর যেকোনো প্রান্ত থেকে ওই ডিভাইসটিকে খুঁজে পাওয়া সম্ভব। এটি আপনার
+            ISP (Internet Service Provider) আপনাকে প্রদান করে।</p>
+          <ul>
+            <li>ইন্টারনেটে ডাটা আদান-প্রদানের জন্য এটি বাধ্যতামূলক।</li>
+            <li>এটি <strong>IANA (Internet Assigned Numbers Authority)</strong> দ্বারা নিয়ন্ত্রিত হয়।</li>
+            <li>আপনার বাসার Router ইন্টারনেটের সাথে যে আইপি দিয়ে কথা বলে, সেটিই হলো Public IP।</li>
+          </ul>
+
+          <h2>২. Private IP Address কী?</h2>
+          <p><strong>Private IP Address</strong> হলো আপনার নিজের নেটওয়ার্কের (Home or Office LAN) ভেতরের পরিচয়। এটি
+            ইন্টারনেটে দৃশ্যমান নয়। আপনার রাউটারের সাথে যুক্ত মোবাইল, ল্যাপটপ বা প্রিন্টারগুলো এই আইপি ব্যবহার করে একে
+            অপরের সাথে কথা বলে।</p>
+          <ul>
+            <li>এটি ইন্টারনেটে সরাসরি কাজ করে না।</li>
+            <li>একই Private IP পৃথিবীর কোটি কোটি লোকাল নেটওয়ার্কে পুনরায় ব্যবহার করা যেতে পারে।</li>
+            <li>এটি সাধারণত <strong>DHCP (Dynamic Host Configuration Protocol)</strong> এর মাধ্যমে রাউটার থেকে
+              ডিভাইসগুলো পেয়ে থাকে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Office Analogy)</h3>
+            <p>একটি বড় অফিসের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Public IP:</strong> এটি আপনার অফিসের প্রধান ফোন নম্বর (উদাঃ +৮৮০২-XXXXXXX)। বাইরের যে কেউ এই
+                নম্বরে কল করে অফিসে পৌঁছাতে পারে।</li>
+              <li><strong>Private IP:</strong> এটি আপনার অফিসের ভেতরের ইন্টারকম নম্বর (উদাঃ 101, 102)। আপনি এক ডেস্ক
+                থেকে অন্য ডেস্কে কথা বলতে এই নম্বর ব্যবহার করেন। কিন্তু বাইরের কেউ সরাসরি এই ইন্টারকম নম্বরে কল দিতে
+                পারবে না। তাকে আগে মেইন নম্বরে কল করতে হবে।</li>
+            </ul>
+          </div>
+
+          <h2>৩. Private IP রেঞ্জ (RFC 1918)</h2>
+          <p>Private IP হিসেবে আপনি যেকোনো আইপি ব্যবহার করতে পারবেন না। এর জন্য নির্দিষ্ট কিছু ব্লক বা রেঞ্জ সংরক্ষিত
+            করা হয়েছে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>Private IP Range</th>
+                  <th>Default Mask</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Class A</td>
+                  <td>10.0.0.0 – 10.255.255.255</td>
+                  <td>255.0.0.0</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class B</td>
+                  <td>172.16.0.0 – 172.31.255.255</td>
+                  <td>255.240.0.0</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class C</td>
+                  <td>192.168.0.0 – 192.168.255.255</td>
+                  <td>255.255.0.0</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. কেন এই বিভাজন প্রয়োজন?</h2>
+          <p>IPv4 সিস্টেমে মাত্র ৪.৩ বিলিয়ন আইপি সম্ভব। বর্তমান বিশ্বে ডিভাইসের সংখ্যা আইপির সংখ্যার চেয়ে অনেক বেশি। এই
+            অভাব পূরণ করতেই Public এবং Private IP এর সিস্টেম আনা হয়েছে।</p>
+          <ul>
+            <li><strong>IP Conservation:</strong> একটি মাত্র Public IP ব্যবহার করে একটি অফিসের ১০০০ জন ইউজার ইন্টারনেট
+              চালাতে পারে।</li>
+            <li><strong>Security:</strong> যেহেতু Private IP ইন্টারনেটে দেখা যায় না, তাই হ্যাকাররা সরাসরি আপনার লোকাল
+              পিসিতে অ্যাটাক করতে পারে না।</li>
+          </ul>
+
+          <h2>৫. NAT (Network Address Translation) কীভাবে কাজ করে?</h2>
+          <p>যখন আপনার লোকাল পিসি (Private IP) থেকে কোনো রিকোয়েস্ট ইন্টারনেটে যায়, তখন Router তার Private IP-কে Public
+            IP-তে রূপান্তর করে দেয়। একেই বলা হয় <strong>NAT</strong>।</p>
+
+
+
+          <h3>প্রক্রিয়া:</h3>
+          <ol>
+            <li>আপনার ল্যাপটপ (192.168.1.10) থেকে Google-কে একটি রিকোয়েস্ট পাঠানো হলো।</li>
+            <li>রাউটার এই প্যাকেটটি পায় এবং সোর্স আইপি হিসেবে তার নিজের Public IP বসিয়ে দেয়।</li>
+            <li>Google ওই Public IP-তে রিপ্লাই দেয়।</li>
+            <li>রাউটার তার <strong>NAT Table</strong> চেক করে দেখে এই রিকোয়েস্টটি ল্যাপটপ থেকে এসেছিল, তখন সে প্যাকেটটি
+              ল্যাপটপে পৌঁছে দেয়।</li>
+          </ol>
+
+          <h2>৬. Troubleshooting ও প্রফেশনাল টিপস</h2>
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনার আইপি চেক করার পদ্ধতি জানা জরুরি:</p>
+
+          <p><strong>১. Private IP দেখা (Windows/Linux CLI):</strong></p>
+          <pre><code>C:\> ipconfig (Windows)
+$ hostname -I (Linux)</code></pre>
+
+          <p><strong>২. Public IP দেখা:</strong></p>
+          <p>যেকোনো ব্রাউজারে গিয়ে গুগলে সার্চ করুন <code>"what is my ip"</code>। যে রেজাল্টটি আসবে সেটিই আপনার Public
+            IP।</p>
+
+          <h3>কমন ট্রাবলশুটিং সিনারিও:</h3>
+          <ul>
+            <li><strong>Cisco/MikroTik রাউটারে ইন্টারনেটের সমস্যা:</strong> যদি দেখেন পিসি লোকাললি পিং (Ping) পাচ্ছে
+              কিন্তু ইন্টারনেটে পাচ্ছে না, তবে চেক করুন আপনার রাউটারে <strong>Masquerade (NAT)</strong> কনফিগার করা আছে
+              কি না।</li>
+            <li><strong>IP Conflict:</strong> যদি আপনার লোকাল নেটওয়ার্কে কেউ ম্যানুয়ালি একই Private IP বসায়, তবে
+              নেটওয়ার্কে সমস্যা হবে। সবসময় DHCP ব্যবহার করা ভালো।</li>
+          </ul>
+
+          <p><strong>MikroTik NAT কনফিগারেশন কমান্ড (Masquerade):</strong></p>
+          <pre><code>/ip firewall nat add chain=srcnat action=masquerade out-interface=ether1</code></pre>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Public</strong> এবং <strong>Private IP Address</strong> এর পার্থক্য বোঝা নেটওয়ার্কিং ক্যারিয়ারের
+              প্রথম ধাপ। Public IP আমাদের ইন্টারনেটে দৃশ্যমান করে, আর Private IP আমাদের লোকাল নেটওয়ার্ককে সুরক্ষিত এবং
+              সাশ্রয়ী করে। এই দুইয়ের মেলবন্ধনই হলো আজকের আধুনিক ইন্টারনেট। একজন আইটি স্পেশালিস্ট হিসেবে এই কনসেপ্টটি
+              আপনার আইপি অ্যাড্রেসিং এবং নেটওয়ার্ক ডিজাইন দক্ষতাকে অনেক গুণ বাড়িয়ে দেবে।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>

@@ -1,41 +1,296 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced VLSM | tech-enablement.info</title>
+  <meta name="description"
+    content="অ্যাডভান্সড VLSM ক্যালকুলেশন, রুট সামারাইজেশন এবং এন্টারপ্রাইজ নেটওয়ার্ক ডিজাইনের ওপর একটি গভীর টেকনিক্যাল গাইড।">
+  <title>Advanced VLSM: Mastering Enterprise Network Design | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Advanced VLSM</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Advanced VLSM</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Advanced VLSM: Mastering Enterprise Network Design</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>সাবনেটিং বা বেসিক <strong>VLSM (Variable Length Subnet Masking)</strong> শেখার পর অনেক সময় আমরা মনে করি কাজ
+            শেষ। কিন্তু যখন আপনি একটি এন্টারপ্রাইজ লেভেল নেটওয়ার্ক ডিজাইন করবেন যেখানে হাজার হাজার হোস্ট এবং মাল্টিপল
+            রিজিয়নাল অফিস থাকবে, তখন সাধারণ সাবনেটিং দিয়ে কাজ চালানো অসম্ভব। <strong>Advanced VLSM</strong> মূলত সেই
+            দক্ষতা যা আপনাকে শেখাবে কীভাবে একটি বিশাল নেটওয়ার্ককে ম্যানেজযোগ্য এবং অপ্টিমাইজড রুটে রূপান্তর করা যায়।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা কেবল আইপি ভাগ করাই শিখবো না, বরং শিখবো কীভাবে <strong>Hierarchical
+              Addressing</strong> এবং <strong>Route Summarization</strong> ব্যবহার করে রাউটারের লোড কমানো যায়।</p>
+
+
+
+          <h2>১. Hierarchical Network Addressing কী?</h2>
+          <p>অ্যাডভান্সড VLSM-এর ভিত্তি হলো <strong>Hierarchical Addressing</strong>। এটি অনেকটা আমাদের টেলিফোন
+            নাম্বারের মতো (Country Code > Area Code > Local Number)। নেটওয়ার্কিংয়ে এটি করার অর্থ হলো বড় একটি আইপি ব্লককে
+            আগে বড় রিজিয়ন বা বিল্ডিং অনুযায়ী ভাগ করা এবং তারপর সেই বিল্ডিংয়ের ভেতর ছোট ছোট ডিপার্টমেন্ট অনুযায়ী সাবনেটিং
+            করা।</p>
+
+          <div class="content-box">
+            <h3>কেন এটি গুরুত্বপূর্ণ?</h3>
+            <ul>
+              <li><strong>Summarization:</strong> রাউটিং টেবিলে হাজার হাজার রুটের বদলে মাত্র একটি "সামারি রুট" রাখা যায়।
+              </li>
+              <li><strong>Fault Isolation:</strong> নেটওয়ার্কের এক প্রান্তে সমস্যা হলে তার প্রভাব অন্য প্রান্তে পড়ে না।
+              </li>
+              <li><strong>Scalability:</strong> ভবিষ্যতে নতুন ইউজার বাড়লে নেটওয়ার্ক ম্যাপ পরিবর্তন না করেই আইপি দেওয়া
+                সম্ভব।</li>
+            </ul>
+          </div>
+
+          <h2>২. অ্যাডভান্সড VLSM ডিজাইন প্রসেস</h2>
+          <p>একটি এন্টারপ্রাইজ নেটওয়ার্ক ডিজাইন করতে নিচের ধাপগুলো অনুসরণ করতে হয়:</p>
+
+          <h3>ধাপ ১: ইনভেন্টরি ও রিকোয়ারমেন্ট অ্যানালাইসিস</h3>
+          <p>প্রথমে আপনাকে সব হোস্টের রিকোয়ারমেন্ট বড় থেকে ছোট ক্রমে সাজাতে হবে। ধরুন আপনার একটি প্রধান অফিস এবং ৩টি
+            শাখা অফিস আছে।</p>
+          <ul>
+            <li><strong>Head Office (HO):</strong> ৫০০ হোস্ট।</li>
+            <li><strong>Branch 1 (B1):</strong> ২০০ হোস্ট।</li>
+            <li><strong>Branch 2 (B2):</strong> ১০০ হোস্ট।</li>
+            <li><strong>WAN Links:</strong> ৩টি পয়েন্ট-টু-পয়েন্ট লিংক (প্রতিটিতে ২ হোস্ট)।</li>
+          </ul>
+
+          <h3>ধাপ ২: ব্লক সিলেকশন (Master Block Selection)</h3>
+          <p>মোট হোস্ট সংখ্যা যোগ করে একটি উপযুক্ত মাস্টার ব্লক নিতে হবে। এখানে মোট হোস্ট ৮০০ এর বেশি, তাই আমাদের একটি
+            <code>/22</code> ব্লক (১০২৪টি আইপি) নিতে হবে। ধরি মাস্টার ব্লক: <code>172.16.0.0/22</code>।</p>
+
+
+
+          <h2>৩. প্রাকটিক্যাল সলিউশন ও ক্যালকুলেশন</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Location</th>
+                  <th>Host Required</th>
+                  <th>Next Available Subnet</th>
+                  <th>Assigned CIDR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Head Office</td>
+                  <td>500</td>
+                  <td>172.16.0.0</td>
+                  <td>172.16.0.0/23</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Branch 1</td>
+                  <td>200</td>
+                  <td>172.16.2.0</td>
+                  <td>172.16.2.0/24</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Branch 2</td>
+                  <td>100</td>
+                  <td>172.16.3.0</td>
+                  <td>172.16.3.0/25</td>
+                </tr>
+                <tr>
+                  <td class="type-column">WAN Link 1</td>
+                  <td>2</td>
+                  <td>172.16.3.128</td>
+                  <td>172.16.3.128/30</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Route Summarization (Supernetting)</h2>
+          <p>অ্যাডভান্সড VLSM-এর আসল জাদু হলো <strong>Route Summarization</strong>। আপনি যদি আপনার কোর রাউটারকে বলেন যে
+            <code>172.16.0.0/23</code>, <code>172.16.2.0/24</code> এবং <code>172.16.3.0/25</code> সবগুলোই একটি নির্দিষ্ট
+            ইন্টারফেসের দিকে আছে, তবে সে তিনটি আলাদা এন্ট্রি না রেখে শুধু <code>172.16.0.0/22</code> মনে রাখবে। একেই বলা
+            হয় <strong>Summarization</strong>।</p>
+
+
+
+          <h2>৫. CLI কনফিগারেশন এবং বেস্ট প্র্যাকটিস</h2>
+          <p>এন্টারপ্রাইজ নেটওয়ার্ক ডিজাইনের সময় রাউটারে আইপি এবং রুট বসানোর জন্য নিচের পদ্ধতিগুলো স্ট্যান্ডার্ড:</p>
+
+          <p><strong>MikroTik Router-এ ইন্টারফেস আইপি বসানো:</strong></p>
+          <pre><code># HO Router Configuration
+/ip address add address=172.16.0.1/23 interface=ether1 comment="Local-HO"
+/ip address add address=172.16.3.129/30 interface=ether2 comment="Link-to-B1"</code></pre>
+
+          <p><strong>Cisco Router-এ সামারি রুট কনফিগার করা:</strong></p>
+          <pre><code>(config)# ip route 172.16.0.0 255.255.252.0 Serial0/0/0</code></pre>
+
+          <h2>৬. Troubleshooting ও অ্যাডভান্সড টিপস</h2>
+          <ul>
+            <li><strong>Discontiguous Networks:</strong> কখনো অ্যাডভান্সড VLSM ডিজাইনের মাঝে অন্য কোনো ভিন্ন আইপি ব্লক
+              ঢুকিয়ে দেবেন না। এতে সামারাইজেশন কাজ করবে না।</li>
+            <li><strong>IP Address Planning:</strong> ভবিষ্যতে হোস্ট সংখ্যা দ্বিগুণ হতে পারে—এমন সম্ভাবনা মাথায় রেখে
+              প্রতিটি ব্লকের পর কিছু আইপি খালি (Reserved) রাখা বুদ্ধিমানের কাজ।</li>
+            <li><strong>Subnet Zero:</strong> আধুনিক রাউটারগুলোতে <code>192.168.1.0</code> এর মতো জিরো সাবনেট ব্যবহার
+              করা যায়, তবে পুরনো সিস্টেমে এটি সমস্যা করতে পারে। সর্বদা <code>ip subnet-zero</code> কমান্ডটি চেক করুন।
+            </li>
+            <li><strong>Variable Mask Mismatch:</strong> যদি দুটি রাউটারের মাঝখানের লিঙ্কে (WAN) একপাশে /৩০ এবং অন্যপাশে
+              /৩১ দেওয়া হয়, তবে রুট আপডেট বিনিময় হবে না। পয়েন্ট-টু-পয়েন্ট লিঙ্কে সব সময় /৩০ বা /৩১ (যদি রাউটার সাপোর্ট
+              করে) ব্যবহার করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Advanced VLSM</strong> কেবল একটি গাণিতিক প্রক্রিয়া নয়, এটি একটি নেটওয়ার্ক আর্কিটেকচারাল আর্ট। এটি
+              আপনার নেটওয়ার্ককে করে তোলে অনেক বেশি দক্ষ, দ্রুত এবং স্কেলেবল। সঠিক সামারাইজেশন এবং হায়ারার্কিকাল ডিজাইনের
+              মাধ্যমে আপনি একটি বিশাল প্রতিষ্ঠানের আইটি অবকাঠামোকে হাতের মুঠোয় নিয়ে আসতে পারেন। একজন টপ-লেভেল নেটওয়ার্ক
+              ইঞ্জিনিয়ার হতে হলে অ্যাডভান্সড VLSM ডিজাইনের ওপর দখল থাকা বাধ্যতামূলক।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

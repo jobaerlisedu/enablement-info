@@ -1,41 +1,302 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Distance Vector Routing | tech-enablement.info</title>
+  <meta name="description"
+    content="Distance Vector Routing প্রোটোকল কী, এটি কীভাবে কাজ করে এবং Bellman-Ford Algorithm-এর ভূমিকা নিয়ে একটি বিস্তারিত ইন-ডেপথ টেকনিক্যাল গাইড।">
+  <title>Distance Vector Routing: Concepts, Mechanisms and Deep Dive | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Distance Vector Routing</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Distance Vector Routing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Distance Vector Routing: Concepts, Mechanisms and Deep Dive</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>ডায়নামিক রাউটিং-এর জগতে সবচেয়ে পুরনো এবং সহজ মেকানিজম হলো <strong>Distance Vector Routing</strong>। আপনি
+            যদি নেটওয়ার্কিং নিয়ে পড়াশোনা শুরু করেন, তবে <strong>RIP (Routing Information Protocol)</strong> এর নাম
+            অবশ্যই শুনে থাকবেন, যা এই Distance Vector মেথডের ওপর ভিত্তি করেই কাজ করে। যদিও আধুনিক এন্টারপ্রাইজ
+            নেটওয়ার্কে Link State প্রোটোকল বেশি জনপ্রিয়, কিন্তু ছোট নেটওয়ার্ক এবং রাউটিং-এর মূল ভিত্তি বোঝার জন্য এটি
+            জানা অত্যন্ত জরুরি।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা শিখবো Distance Vector Routing কীভাবে কাজ করে, এর পেছনে থাকা গাণিতিক অ্যালগরিদম
+            এবং এর সীমাবদ্ধতাগুলো কী কী।</p>
+
+          <h2>১. Distance Vector Routing কী?</h2>
+          <p><strong>Distance Vector Routing</strong> হলো এমন একটি পদ্ধতি যেখানে প্রতিটি রাউটার তার পুরো নেটওয়ার্ক
+            টপোলজি সম্পর্কে জানে না। সে শুধুমাত্র জানে একটি নির্দিষ্ট গন্তব্যে পৌঁছাতে হলে তাকে কোন দিক দিয়ে যেতে হবে
+            (Vector) এবং গন্তব্যটি কত দূরে (Distance)।</p>
+          <p>এই পদ্ধতিতে প্রতিটি রাউটার নিয়মিত বিরতিতে তার নিজস্ব <strong>Routing Table</strong> এর একটি কপি তার সরাসরি
+            যুক্ত প্রতিবেশীদের (Neighbors) কাছে পাঠিয়ে দেয়। এভাবেই ধীরে ধীরে পুরো নেটওয়ার্কে রুট ইনফরমেশন ছড়িয়ে পড়ে।</p>
+
+
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Rumor-Based Routing)</h3>
+            <p>Distance Vector কে অনেক সময় "Routing by Rumor" বলা হয়। ধরুন আপনি একটি নতুন রাস্তায় দাঁড়িয়ে আছেন এবং আপনি
+              জানেন না গন্তব্য কোথায়।</p>
+            <ul>
+              <li>আপনি আপনার পাশের বাড়ির একজনকে জিজ্ঞেস করলেন। সে বলল, "ডান দিকে ৩ কিলোমিটার গেলে আপনি গন্তব্য পাবেন।"
+              </li>
+              <li>আপনি ওই ব্যক্তির কথা বিশ্বাস করে এগিয়ে গেলেন। আপনি নিজে কিন্তু পুরো শহর বা রাস্তা দেখেননি, আপনি
+                শুধুমাত্র পাশের মানুষের দেওয়া তথ্যের ওপর ভিত্তি করে সিদ্ধান্ত নিয়েছেন। এটিই হলো Distance Vector।</li>
+            </ul>
+          </div>
+
+          <h2>২. এটি কীভাবে কাজ করে? (Mechanism)</h2>
+          <p>Distance Vector Routing মূলত নিচের তিনটি বিষয়ের ওপর ভিত্তি করে কাজ করে:</p>
+
+          <ul>
+            <li><strong>Distance:</strong> গন্তব্যে পৌঁছাতে কতগুলো রাউটার পার হতে হবে, যাকে আমরা <strong>Hop
+                Count</strong> বলি।</li>
+            <li><strong>Vector:</strong> কোন ইন্টারফেস বা কোন প্রতিবেশী রাউটার হয়ে যেতে হবে।</li>
+            <li><strong>Periodic Updates:</strong> নির্দিষ্ট সময় পর পর (যেমন RIP-এর ক্ষেত্রে ৩০ সেকেন্ড) রাউটার তার পুরো
+              টেবিল প্রতিবেশীকে দেয়।</li>
+          </ul>
+
+          <h3>Bellman-Ford Algorithm</h3>
+          <p>Distance Vector Routing এর মূল ভিত্তি হলো <strong>Bellman-Ford Algorithm</strong>। এটি নিচের সূত্রের
+            মাধ্যমে কাজ করে:</p>
+          <p><code>d<sub>x</sub>(y) = min<sub>v</sub>{c(x,v) + d<sub>v</sub>(y)}</code></p>
+          <p>সহজ ভাষায়: রাউটার X থেকে গন্তব্য Y তে যাওয়ার খরচ হলো—রাউটার X থেকে তার প্রতিবেশী V তে যাওয়ার খরচ যোগ
+            প্রতিবেশী V থেকে গন্তব্য Y তে যাওয়ার খরচের সমষ্টির সর্বনিম্ন মান।</p>
+
+
+
+          <h2>৩. Distance Vector Routing এর সমস্যাসমূহ</h2>
+          <p>এই প্রোটোকলটি অনেক সহজ হলেও এতে কিছু কারিগরি ত্রুটি রয়েছে যা নেটওয়ার্ক অ্যাডমিনদের জন্য মাথাব্যথার কারণ হয়ে
+            দাঁড়ায়:</p>
+
+          <h3>A. Slow Convergence</h3>
+          <p>নেটওয়ার্কে কোনো পরিবর্তন হলে সব রাউটারের কাছে সেই তথ্য পৌঁছাতে অনেক সময় লাগে। একে বলা হয় <strong>Slow
+              Convergence</strong>।</p>
+
+          <h3>B. Count to Infinity Problem</h3>
+          <p>যদি কোনো লিঙ্ক ডাউন হয়ে যায়, তবে রাউটারগুলো অনেক সময় নিজেদের মধ্যে ভুল তথ্য শেয়ার করে একটি লুপ তৈরি করে
+            ফেলে। তারা মনে করে গন্তব্যটি অন্য কোনো রাউটার হয়ে এখনও পাওয়া যাচ্ছে। এভাবে Hop Count বাড়তে বাড়তে অসীম
+            (Infinity) পর্যন্ত চলে যেতে পারে।</p>
+
+
+
+          <h2>৪. সমাধান: Loop Prevention Mechanisms</h2>
+          <p>উপরের সমস্যাগুলো সমাধানের জন্য রাউটার কিছু মেকানিজম ব্যবহার করে:</p>
+          <ul>
+            <li><strong>Maximum Hop Count:</strong> যেমন RIP-এ সর্বোচ্চ ১৫ হপ পর্যন্ত যাওয়া যায়। ১৬ নম্বর হপকে অকেজো
+              (Unreachable) ধরা হয়।</li>
+            <li><strong>Split Horizon:</strong> যে ইন্টারফেস দিয়ে একটি রুট সম্পর্কে জানা গেছে, সেই ইন্টারফেস দিয়ে ওই
+              রুটের আপডেট আর পাঠানো যাবে না।</li>
+            <li><strong>Poison Reverse:</strong> কোনো রুট ডাউন হলে সেটিকে সাথে সাথে অসীম ভ্যালু (যেমন ১৬) দিয়ে পাবলিশ
+              করা হয় যাতে অন্যরা ওই রুটটি ডিলিট করে দেয়।</li>
+          </ul>
+
+          <h2>৫. সুবিধা ও অসুবিধা</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>সুবিধা (Pros)</th>
+                  <th>অসুবিধা (Cons)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Simple Configuration</td>
+                  <td>এটি কনফিগার করা অত্যন্ত সহজ।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Low Hardware Demand</td>
+                  <td>রাউটারের CPU এবং RAM অনেক কম ব্যবহার করে কারণ এর অ্যালগরিদম অনেক সহজ।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Network Loops</td>
+                  <td>রাউটিং লুপ হওয়ার সম্ভাবনা অনেক বেশি।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Bandwidth Waste</td>
+                  <td>পুরো রাউটিং টেবিল নিয়মিত বিরতিতে পাঠানোর ফলে ব্যান্ডউইথ অপচয় হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৬. Practical CLI Configuration (RIP on MikroTik)</h2>
+          <p>Distance Vector প্রোটোকল হিসেবে RIP কনফিগার করার পদ্ধতি নিচে দেওয়া হলো।</p>
+
+          <p><strong>১. RIP ইন্টারফেস এবং নেটওয়ার্ক যুক্ত করা:</strong></p>
+          <pre><code>/routing rip instance add name=rip-instance
+/routing rip interface-template add instance=rip-instance interfaces=all
+/routing rip network add network=192.168.10.0/24</code></pre>
+          <p><em>ব্যাখ্যা: এখানে রাউটার তার ১৯২.১৬৮.১০.০ নেটওয়ার্কটি তার প্রতিবেশীদের সাথে শেয়ার করবে।</em></p>
+
+          <h2>৭. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Metric Check:</strong> যদি দেখেন গন্তব্যে পৌঁছানো যাচ্ছে না, তবে
+              <code>/routing rip route print</code> কমান্ড দিয়ে দেখুন হপ কাউন্ট কত। যদি ১৬ দেখায়, তবে বুঝতে হবে রুটটি
+              আনরিচেবল।</li>
+            <li><strong>Update Interval:</strong> রাউটার ৩০ সেকেন্ড পর পর আপডেট পাঠাচ্ছে কি না তা লগে চেক করুন।</li>
+            <li><strong>Version Mismatch:</strong> RIP Version 1 এবং Version 2 এর মধ্যে পার্থক্য আছে। সবসময় Version 2
+              ব্যবহার করার চেষ্টা করুন কারণ এটি সাবনেট মাস্ক সাপোর্ট করে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Distance Vector Routing</strong> যদিও অনেক পুরনো পদ্ধতি, কিন্তু নেটওয়ার্কিং-এর মূল ভিত্তি বুঝতে
+              এর কোনো বিকল্প নেই। এর সহজ ইমপ্লিমেন্টেশন এবং লো-রিসোর্স ব্যবহার একে ছোট নেটওয়ার্কের জন্য আজও উপযোগী করে
+              রেখেছে। তবে লুপ হওয়া এবং স্লো কনভারজেন্স-এর কারণে বড় কর্পোরেট নেটওয়ার্কে এখন <strong>OSPF</strong> বা
+              <strong>EIGRP</strong> এর মতো অ্যাডভান্সড প্রোটোকল ব্যবহার করা হয়। একজন নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে এই
+              পদ্ধতির গাণিতিক লজিক বোঝা আপনার ক্যারিয়ারের জন্য একটি বড় প্লাস পয়েন্ট।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,41 +1,298 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Address Resolution Protocol(ARP) | tech-enablement.info</title>
+  <meta name="description"
+    content="Address Resolution Protocol (ARP) কী, এটি কীভাবে IP Address-কে MAC Address-এ রূপান্তর করে এবং এর বিভিন্ন প্রকারভেদ নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Address Resolution Protocol (ARP): A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-meta { color: var(--text-muted); font-size: 0.95rem; display: flex; flex-wrap: wrap; gap: 8px; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
-    .article-body h2 { color: var(--primary-color); margin-top: 40px; border-left: 4px solid var(--primary-color); padding-left: 15px; }
-    .article-body p { margin-bottom: 20px; }
-    .content-box { background: #f1f7fd; border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 8px; margin: 25px 0; }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Address Resolution Protocol(ARP)</h1>
-            <div class="article-meta">
-              <span><i class='bx bx-calendar'></i> 04 April, 2026</span>
-              <span><i class='bx bx-category'></i> Networking</span>
-              <span><i class='bx bx-user'></i> Jobaer Hossain</span>
-            </div>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Address Resolution Protocol(ARP)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Address Resolution Protocol (ARP): A Deep Dive Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ে আমরা যখন একে অপরের সাথে যোগাযোগ করি, তখন আমরা সাধারণত <strong>IP Address</strong>
+            ব্যবহার করি। কিন্তু পর্দার আড়ালে ডাটা প্যাকেট আদান-প্রদান করার জন্য ফিজিক্যাল অ্যাড্রেস বা <strong>MAC
+              Address</strong> এর প্রয়োজন হয়। আইপি অ্যাড্রেসকে এই ম্যাক অ্যাড্রেসে রূপান্তর করার জাদুকরী প্রোটোকলটির
+            নামই হলো <strong>Address Resolution Protocol</strong> বা সংক্ষেপে <strong>ARP</strong>।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা ARP-এর মেকানিজম, এর প্রকারভেদ এবং নেটওয়ার্ক ট্রাবলশুটিংয়ে এর গুরুত্ব নিয়ে
+            বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. ARP কী এবং এটি কেন প্রয়োজন?</h2>
+          <p>OSI Model অনুযায়ী, <strong>Network Layer (Layer 3)</strong> আইপি অ্যাড্রেস বোঝে, কিন্তু <strong>Data Link
+              Layer (Layer 2)</strong> শুধুমাত্র ম্যাক অ্যাড্রেস চেনে। ডাটা যখন এক পিসি থেকে অন্য পিসিতে যায়, তখন তাকে
+            লোকাল নেটওয়ার্কে পৌঁছানোর জন্য ম্যাক অ্যাড্রেস জানতেই হয়।</p>
+          <p>সহজ কথায়, <strong>ARP</strong> হলো একটি ডিরেক্টরি সার্ভিস যা লজিক্যাল অ্যাড্রেসকে (IP) ফিজিক্যাল
+            অ্যাড্রেসে (MAC) ম্যাপ করে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Classroom Analogy)</h3>
+            <p>ধরুন একটি ক্লাসরুমে শিক্ষক (Sender) একটি নির্দিষ্ট ছাত্রকে (Destination) ডাকতে চান।</p>
+            <ul>
+              <li>শিক্ষক জানেন ছাত্রটির নাম (IP Address), কিন্তু তিনি জানেন না ছাত্রটি কোথায় বসে আছে।</li>
+              <li>শিক্ষক ক্লাসে চিৎকার করে বললেন, "যার নাম রহিম, সে তার হাত তোলো" (ARP Request/Broadcast)।</li>
+              <li>পুরো ক্লাসের সবাই এটি শুনল, কিন্তু শুধুমাত্র রহিম হাত তুলল এবং বলল "আমি এখানে" (ARP Reply/Unicast)।
+              </li>
+              <li>শিক্ষক এখন রহিমকে চিনতে পারলেন এবং তার কাছে ডাটা পাঠাতে পারলেন।</li>
+            </ul>
+          </div>
+
+          <h2>২. ARP কীভাবে কাজ করে? (The 4-Step Process)</h2>
+          <p>ARP কমিউনিকেশন মূলত চারটি ধাপের মাধ্যমে সম্পন্ন হয়:</p>
+
+
+
+          <ol>
+            <li><strong>ARP Request (Broadcast):</strong> যখন হোস্ট A জানে হোস্ট B-এর আইপি কিন্তু ম্যাক জানে না, তখন সে
+              একটি <code>ARP Request</code> প্যাকেট পুরো নেটওয়ার্কে <strong>Broadcast</strong> করে।</li>
+            <li><strong>The Inspection:</strong> নেটওয়ার্কের প্রতিটি ডিভাইস এই প্যাকেটটি পায় এবং চেক করে যে প্যাকেটে
+              থাকা আইপি অ্যাড্রেসটি তার নিজের কি না।</li>
+            <li><strong>ARP Reply (Unicast):</strong> যার আইপি মিলে যায়, সে তার ম্যাক অ্যাড্রেস সহ একটি
+              <code>ARP Reply</code> হোস্ট A-কে পাঠায়। এটি <strong>Unicast</strong> বা সরাসরি যোগাযোগ।
+            </li>
+            <li><strong>ARP Cache Update:</strong> হোস্ট A এই ম্যাক অ্যাড্রেসটি পাওয়ার পর তা নিজের <strong>ARP Cache
+                Table</strong>-এ জমা রাখে যাতে ভবিষ্যতে আর বারবার রিকোয়েস্ট পাঠাতে না হয়।</li>
+          </ol>
+
+          <h2>৩. ARP-এর বিভিন্ন প্রকারভেদ</h2>
+          <p>নেটওয়ার্কের পরিস্থিতি অনুযায়ী ARP বিভিন্ন ধরনের হতে পারে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ARP Type</th>
+                  <th>Description</th>
+                  <th>Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Proxy ARP</td>
+                  <td>একটি রাউটার যখন অন্য নেটওয়ার্কের ডিভাইসের হয়ে ARP রিপ্লাই দেয়।</td>
+                  <td>ডিফল্ট গেটওয়ে কনফিগার করা না থাকলে ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Gratuitous ARP</td>
+                  <td>একটি ডিভাইস যখন কারো রিকোয়েস্ট ছাড়াই নিজের আইপি/ম্যাক প্রচার করে।</td>
+                  <td>আইপি কনফ্লিক্ট চেক করতে এবং গেটওয়ে রিডান্ডেন্সি নিশ্চিত করতে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Inverse ARP</td>
+                  <td>ম্যাক অ্যাড্রেস জানা থাকলে আইপি খুঁজে বের করতে ব্যবহৃত হয়।</td>
+                  <td>ফ্রেম রিলে নেটওয়ার্কে ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Reverse ARP (RARP)</td>
+                  <td>এটি পুরনো প্রোটোকল, ম্যাক থেকে আইপি পেতে ব্যবহৃত হতো।</td>
+                  <td>এখন DHCP এর মাধ্যমে এটি প্রতিস্থাপিত হয়েছে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. ARP Table দেখা এবং ম্যানেজমেন্ট (CLI)</h2>
+          <p>আপনার ডিভাইস বর্তমানে কার কার ম্যাক অ্যাড্রেস জানে তা দেখার জন্য নিচের কমান্ডগুলো ব্যবহার করতে পারেন:</p>
+
+          <p><strong>১. Windows-এ ARP Table দেখা:</strong></p>
+          <pre><code>C:\> arp -a</code></pre>
+
+          <p><strong>২. Linux-এ ARP Table দেখা:</strong></p>
+          <pre><code>$ ip neigh show  অথবা  $ arp -n</code></pre>
+
+          <p><strong>৩. MikroTik-এ ARP লিস্ট দেখা:</strong></p>
+          <pre><code>/ip arp print</code></pre>
+
+
+
+          <h2>৫. ARP Security: ARP Spoofing বা Poisoning</h2>
+          <p>ARP প্রোটোকলটি অনেক পুরনো হওয়ায় এতে বিল্ট-ইন সিকিউরিটি নেই। অ্যাটাকাররা ভুল ARP রিপ্লাই পাঠিয়ে আপনার
+            ট্রাফিক তাদের পিসিতে নিয়ে যেতে পারে। একে <strong>ARP Spoofing</strong> বলা হয়।</p>
+          <ul>
+            <li><strong>সমস্যা:</strong> হ্যাকার আপনার পিসিকে বলবে "আমিই তোমার রাউটার", আর রাউটারকে বলবে "আমিই সেই ইউজার
+              পিসি"। ফলে সব ডাটা হ্যাকারের পিসি হয়ে যাবে (Man-in-the-middle attack)।</li>
+            <li><strong>সমাধান:</strong> <strong>Static ARP</strong> ব্যবহার করা, সুইচে <strong>DAI (Dynamic ARP
+                Inspection)</strong> এনাবল করা এবং নেটওয়ার্ক মনিটরিং টুল ব্যবহার করা।</li>
+          </ul>
+
+          <p><strong>MikroTik-এ Static ARP তৈরি করার কমান্ড:</strong></p>
+          <pre><code>/ip arp add address=192.168.88.10 mac-address=00:0C:42:01:02:03 interface=ether1</code></pre>
+
+          <h2>৬. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>IP Conflict:</strong> যদি দুটি ডিভাইসে একই আইপি থাকে, তবে ARP Table বারবার ফ্ল্যাকচুয়েট করবে।
+              <code>Gratuitous ARP</code> লগ চেক করে এটি সমাধান করা যায়।
+            </li>
+            <li><strong>Gateway Unreachable:</strong> যদি গেটওয়ে পিং না পান, তবে <code>arp -a</code> দিয়ে দেখুন
+              গেটওয়ের ম্যাক অ্যাড্রেসটি 'Incomplete' দেখাচ্ছে কি না। যদি তাই হয়, তবে ক্যাবল বা লেয়ার ২ সংযোগ চেক
+              করুন।</li>
+            <li><strong>Clear ARP Cache:</strong> অনেক সময় পুরনো ম্যাক অ্যাড্রেস ক্যাশে জমা থাকলে সংযোগে সমস্যা হয়।
+              সেক্ষেত্রে ক্যাশ ডিলিট করে দিতে পারেন: <code>arp -d *</code> (Windows)।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Address Resolution Protocol (ARP)</strong> হলো নেটওয়ার্কিংয়ের সেই নিঃশব্দ কর্মী যা ছাড়া আইপি
+              কমিউনিকেশন অচল। এটি লজিক্যাল এবং ফিজিক্যাল লেয়ারের মধ্যে সেতুবন্ধন তৈরি করে। একজন নেটওয়ার্ক
+              অ্যাডমিনিস্ট্রেটর হিসেবে ARP-এর কার্যপদ্ধতি এবং এর সিকিউরিটি ঝুঁকিগুলো সম্পর্কে সম্যক ধারণা থাকা অত্যন্ত
+              জরুরি। এটি আপনাকে শুধুমাত্র কানেক্টিভিটি ইস্যু সমাধান করতেই সাহায্য করবে না, বরং আপনার নেটওয়ার্ককে সাইবার
+              অ্যাটাক থেকেও সুরক্ষিত রাখবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

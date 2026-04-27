@@ -5,21 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="সহজে শিখুন Network Engineering. Network Layer in OSI Model নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
-  <title>Network Layer in OSI Model | tech-enablement.info</title>
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
-
-  <script
-    type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
-
+    content="OSI Model-এর Network Layer কী, এটি কীভাবে কাজ করে এবং এর প্রধান কার্যাবলী যেমন Routing, Logical Addressing নিয়ে একটি বিস্তারিত গভীর টিউটোরিয়াল।">
+  <title>Network Layer in OSI Model: A Deep Dive Guide | tech-enablement.info</title>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../../css/style.css">
 
-
-
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../css/style.css">
   <style>
     body,
@@ -79,11 +69,24 @@
       padding-left: 15px;
     }
 
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
     .article-body p {
       margin-bottom: 20px;
     }
 
+    .article-body ul {
+      margin-bottom: 20px;
+    }
 
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
     .content-box {
       background: #f1f7fd;
@@ -93,20 +96,57 @@
       margin: 25px 0;
     }
 
-    .back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-muted);
-      text-decoration: none;
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
       margin-bottom: 30px;
-      font-weight: 500;
-      transition: 0.3s;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
     }
 
-    .back-btn:hover {
-      color: var(--primary-color);
-      transform: translateX(-5px);
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: #d63384;
+      display: inline-block;
+      margin-bottom: 5px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
     }
   </style>
 
@@ -118,25 +158,143 @@
 
       <article class="glass-panel">
         <header class="article-header">
-          <h1>Network Layer in OSI Model</h1>
+          <h1>Network Layer in OSI Model: A Deep Dive Guide</h1>
           <div class="article-meta">
-            <span><i class='bx bx-calendar'></i> February 27, 2026</span>
-
-            <span><i class='bx bx-category'></i> Networking</span>
-
+            <span><i class='bx bx-calendar'></i> 27 April, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
             <span><i class='bx bx-user'></i> Jobaer Hossain</span>
           </div>
         </header>
 
         <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Network Layer in OSI Model</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের জগতটি সাতটি স্তরে বিভক্ত, যাকে আমরা <strong>OSI (Open Systems Interconnection)
+              Model</strong> হিসেবে জানি। এই সাতটি স্তরের মধ্যে তিন নম্বর স্তর বা <strong>Network Layer</strong> হলো
+            ইন্টারনেটের মেরুদণ্ড। আপনি যখন আপনার ব্রাউজারে কোনো ওয়েবসাইটের নাম লিখে এন্টার দেন, তখন সেই ডাটা কীভাবে
+            হাজার মাইল দূরে থাকা একটি সার্ভারে পৌঁছাবে, তার ম্যাপ তৈরি করে এই লেয়ারটি।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা Network Layer-এর কার্যাবলী, প্রোটোকল এবং এর ভেতরের মেকানিজম নিয়ে বিস্তারিত আলোচনা
+            করবো।</p>
+
+
+
+          [Image of Network Layer in OSI Model diagram]
+
+
+          <h2>১. Network Layer কী?</h2>
+          <p>Network Layer হলো OSI Model-এর ৩ নম্বর লেয়ার। এর প্রধান কাজ হলো ডাটা প্যাকেটগুলোকে (Packets) সোর্স (Source)
+            থেকে ডেস্টিনেশন (Destination) পর্যন্ত পৌঁছে দেওয়ার জন্য সবচেয়ে ছোট এবং কার্যকর পথ খুঁজে বের করা। এই
+            প্রক্রিয়াটিকে বলা হয় <strong>Routing</strong>।</p>
+          <p>ডাটা লিংক লেয়ার (Layer 2) যেখানে শুধুমাত্র একই লোকাল নেটওয়ার্কের মধ্যে ডাটা পাঠাতে পারে, সেখানে Network
+            Layer ভিন্ন ভিন্ন নেটওয়ার্কের মধ্যে যোগাযোগ স্থাপন করে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Postal Service Analogy)</h3>
+            <p>ধরুন, আপনি ঢাকা থেকে চট্টগ্রামে একটি চিঠি পাঠাবেন।</p>
+            <ul>
+              <li><strong>Layer 2 (Data Link):</strong> এটি আপনার বাসার পাশের পোস্ট অফিসের মতো, যারা শুধু আপনার এলাকা
+                চিনে।</li>
+              <li><strong>Layer 3 (Network Layer):</strong> এটি কেন্দ্রীয় পোস্টাল সিস্টেমের মতো। সে জানে ঢাকা থেকে
+                চট্টগ্রামে যাওয়ার জন্য কোন রাস্তাটি খোলা আছে, কোথায় জ্যাম কম এবং কোন ট্রান্সপোর্ট ব্যবহার করলে দ্রুত
+                পৌঁছানো যাবে। সে চিঠির ওপর একটি জিপ কোড (IP Address) ব্যবহার করে গন্তব্য নিশ্চিত করে।</li>
+            </ul>
+          </div>
+
+          <h2>২. Network Layer-এর প্রধান কার্যাবলী (Key Functions)</h2>
+          <p>Network Layer মূলত দুটি গুরুত্বপূর্ণ কাজ সম্পাদন করে:</p>
+
+          <h3>A. Logical Addressing (IP Addressing)</h3>
+          <p>প্রতিটি ডিভাইসের একটি ইউনিক পরিচয় থাকতে হয় যাতে নেটওয়ার্কে তাকে খুঁজে পাওয়া যায়। Network Layer প্রতিটি ডাটা
+            প্যাকেটের সাথে সোর্স এবং ডেস্টিনেশন <strong>IP Address</strong> যুক্ত করে দেয়। একে বলা হয় <strong>Logical
+              Addressing</strong>। এটি Physical Address বা MAC Address থেকে আলাদা কারণ আইপি অ্যাড্রেস নেটওয়ার্ক
+            পরিবর্তনের সাথে সাথে পরিবর্তিত হতে পারে।</p>
+
+          <h3>B. Routing</h3>
+          <p>নেটওয়ার্কের এক প্রান্ত থেকে অন্য প্রান্তে যাওয়ার একাধিক রাস্তা থাকতে পারে। Network Layer-এর কাজ হলো
+            <strong>Routing Algorithms</strong> ব্যবহার করে শ্রেষ্ঠ পথটি (Best Path) নির্বাচন করা। এই কাজটি করার জন্য
+            <strong>Router</strong> নামক হার্ডওয়্যার ডিভাইস ব্যবহৃত হয়।
+          </p>
+
+
+
+          <h2>৩. Network Layer Protocols</h2>
+          <p>Network Layer-এ বিভিন্ন ধরনের প্রোটোকল কাজ করে, তবে নিচে উল্লিখিত প্রোটোকলগুলো সবচেয়ে বেশি জনপ্রিয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>প্রোটোকল (Protocol)</th>
+                  <th>কাজের বিবরণ (Description)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">IP (IPv4 & IPv6)</td>
+                  <td>ইন্টারনেট প্রোটোকল। এটি প্যাকেটের অ্যাড্রেসিং এবং ডেলিভারি নিশ্চিত করে। বর্তমানে আমরা IPv4 এবং
+                    IPv6 উভয়ই ব্যবহার করি।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">ICMP</td>
+                  <td>Internet Control Message Protocol. এটি মূলত নেটওয়ার্কের ভুল বা এরর মেসেজ এবং ডায়াগনস্টিকস (যেমন
+                    Ping) এর জন্য ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">IGMP</td>
+                  <td>Internet Group Management Protocol. এটি মাল্টিকাস্টিং (Multicasting) ট্রাফিক ম্যানেজ করতে ব্যবহৃত
+                    হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">IPsec</td>
+                  <td>ডাটাকে সুরক্ষিত এবং এনক্রিপ্ট করার জন্য ব্যবহৃত প্রোটোকল স্যুট, যা সাধারণত VPN-এ ব্যবহৃত হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Routing Algorithms ও Path Determination</h2>
+          <p>রাউটার কীভাবে সিদ্ধান্ত নেয় কোন পথে ডাটা যাবে? রাউটার তার <strong>Routing Table</strong> চেক করে এবং কিছু
+            অ্যালগরিদম ব্যবহার করে:</p>
+          <ul>
+            <li><strong>Distance Vector Routing:</strong> এটি প্যাকেটের গন্তব্যে পৌঁছাতে কতগুলো রাউটার (Hops) পার হতে
+              হবে তার ওপর ভিত্তি করে পথ ঠিক করে (যেমন: RIP)।</li>
+            <li><strong>Link State Routing:</strong> এটি নেটওয়ার্কের বর্তমান অবস্থা, জ্যাম এবং স্পিড চেক করে শ্রেষ্ঠ
+              পথটি বেছে নেয় (যেমন: OSPF)।</li>
+          </ul>
+
+          <h2>৫. Troubleshooting ও CLI কমান্ড</h2>
+          <p>Network Layer-এর সমস্যা ট্রাবলশুট করার জন্য কিছু কমান্ড নেটওয়ার্ক অ্যাডমিনদের নিয়মিত ব্যবহার করতে হয়।</p>
+
+          <p><strong>১. Connectivity চেক করা (Ping):</strong></p>
+          <pre><code>C:\> ping 8.8.8.8</code></pre>
+          <p>এটি ICMP প্রোটোকল ব্যবহার করে সোর্স এবং ডেস্টিনেশনের মধ্যে কানেক্টিভিটি চেক করে।</p>
+
+          <p><strong>২. পথের ম্যাপ দেখা (Traceroute):</strong></p>
+          <pre><code>C:\> tracert google.com</code></pre>
+          <p>এই কমান্ডটি দেখায় আপনার ডাটা প্যাকেটটি গন্তব্যে পৌঁছাতে মাঝপথে কোন কোন রাউটার অতিক্রম করছে।</p>
+
+          <h3>কমন সমস্যা ও সমাধান:</h3>
+          <ul>
+            <li><strong>Request Timed Out:</strong> এর মানে গন্তব্য রাউটারটি ডাউন অথবা ফায়ারওয়াল আপনার প্যাকেট ব্লক
+              করছে।</li>
+            <li><strong>Network Unreachable:</strong> এর মানে রাউটার গন্তব্যে যাওয়ার কোনো পথ খুঁজে পাচ্ছে না। রাউটিং
+              টেবিল চেক করা প্রয়োজন।</li>
+            <li><strong>IP Conflict:</strong> যখন একই নেটওয়ার্কে দুটি ডিভাইসে একই আইপি দেওয়া হয়। <strong>DHCP</strong>
+              ব্যবহার করলে এই সমস্যা এড়ানো যায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Network Layer</strong> ছাড়া আজকের ইন্টারনেট কল্পনা করা অসম্ভব। এটি শুধুমাত্র ডাটা এক জায়গা থেকে
+              অন্য জায়গায় পাঠায় না, বরং নিশ্চিত করে যে ডাটাটি সবচেয়ে নিরাপদ এবং দ্রুততম পথে পৌঁছাচ্ছে। একজন নেটওয়ার্ক
+              ইঞ্জিনিয়ার বা আইটি প্রফেশনাল হিসেবে এই লেয়ারটির মেকানিজম এবং আইপি অ্যাড্রেসিং সম্পর্কে স্বচ্ছ ধারণা থাকা
+              অত্যন্ত জরুরি।</p>
+          </div>
+
         </div>
       </article>
     </div>
   </div>
 
   <script type="module" src="../js/network-background.js"></script>
-  </div>
 </body>
 
 </html>
