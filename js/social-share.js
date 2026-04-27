@@ -2,7 +2,7 @@
 // Automatically adds Facebook, LinkedIn, and X share buttons to all post cards
 
 document.addEventListener('DOMContentLoaded', function () {
-    const BASE_URL = 'https://enablement.info/';
+    const BASE_URL = 'https://tech-enablement.info/';
 
     // Find all post cards
     const postCards = document.querySelectorAll('.post-card');

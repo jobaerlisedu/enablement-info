@@ -1,25 +1,25 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://enablement.info/</loc>
+    <loc>https://tech-enablement.info/</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs.html</loc>
+    <loc>https://tech-enablement.info/blogs.html</loc>
     <lastmod>2026-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses.html</loc>
+    <loc>https://tech-enablement.info/courses.html</loc>
     <lastmod>2026-03-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals.html</loc>
     <lastmod>2026-03-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -27,223 +27,223 @@
 
 	<!-- Blog Posts -->
     <url>
-    <loc>https://enablement.info/blogs/blog-01-understanding-modern-network-security-practices-in-2025.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-01-understanding-modern-network-security-practices-in-2025.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-02-mikrotik-advanced-queue-traffic-shaping-guide.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-02-mikrotik-advanced-queue-traffic-shaping-guide.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-03-windows-server-2025-what-s-new-for-it-admins.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-03-windows-server-2025-what-s-new-for-it-admins.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-04-implementing-zero-trust-in-enterprise-networks.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-04-implementing-zero-trust-in-enterprise-networks.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-05-linux-server-hardening-best-practices.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-05-linux-server-hardening-best-practices.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-06-firewall-rules-optimization-for-high-traffic-networks.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-06-firewall-rules-optimization-for-high-traffic-networks.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-07-monitoring-network-performance-with-snmp-grafana.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-07-monitoring-network-performance-with-snmp-grafana.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-08-active-directory-security-hardening-checklist.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-08-active-directory-security-hardening-checklist.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-13-designing-high-availability-networks-for-enterprise-environments.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-13-designing-high-availability-networks-for-enterprise-environments.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-16-managing-windows-servers-at-scale-with-powershell-automation.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-16-managing-windows-servers-at-scale-with-powershell-automation.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-17-hardening-windows-server-security-baselines-and-real-world-techniques.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-17-hardening-windows-server-security-baselines-and-real-world-techniques.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-19-linux-server-administration-essentials-for-modern-it-environments.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-19-linux-server-administration-essentials-for-modern-it-environments.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-20-building-secure-and-scalable-linux-servers-for-production.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-20-building-secure-and-scalable-linux-servers-for-production.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-25-network-security-in-2026-threats-tools-and-best-practices.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-25-network-security-in-2026-threats-tools-and-best-practices.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-27-ai-in-network-security-smarter-detection-and-faster-response.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-27-ai-in-network-security-smarter-detection-and-faster-response.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-30-designing-enterprise-networks-for-performance-security-and-scale.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-30-designing-enterprise-networks-for-performance-security-and-scale.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-31-identity-driven-networking-how-authentication-shapes-modern-security.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-31-identity-driven-networking-how-authentication-shapes-modern-security.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-33-networking-fundamentals-every-system-administrator-must-understand.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-33-networking-fundamentals-every-system-administrator-must-understand.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-35-how-network-security-really-works-a-clear-guide-for-it-students.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-35-how-network-security-really-works-a-clear-guide-for-it-students.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-36-essential-networking-commands-for-windows-and-linux-administrators.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-36-essential-networking-commands-for-windows-and-linux-administrators.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
   </url>
   <url>
-    <loc>https://enablement.info/blogs/blog-37-common-network-security-mistakes-and-how-to-avoid-them.html</loc>
+    <loc>https://tech-enablement.info/blogs/blog-37-common-network-security-mistakes-and-how-to-avoid-them.html</loc>
     <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.50</priority>
@@ -251,457 +251,457 @@
 
 
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-01-basics-of-networking.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-01-basics-of-networking.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-01-understanding-modern-network-security-practices-in-2025.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-01-understanding-modern-network-security-practices-in-2025.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-02-mikrotik-advanced-queue-traffic-shaping-guide.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-02-mikrotik-advanced-queue-traffic-shaping-guide.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-02-types-of-network.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-02-types-of-network.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-03-basics-of-internet.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-03-basics-of-internet.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-03-windows-server-2025-what-s-new-for-it-admins.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-03-windows-server-2025-what-s-new-for-it-admins.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-04-implementing-zero-trust-in-enterprise-networks.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-04-implementing-zero-trust-in-enterprise-networks.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-04-network-devices.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-04-network-devices.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-05-linux-server-hardening-best-practices.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-05-linux-server-hardening-best-practices.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-05-osi-model.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-05-osi-model.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-06-firewall-rules-optimization-for-high-traffic-networks.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-06-firewall-rules-optimization-for-high-traffic-networks.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-06-tcp-ip-model.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-06-tcp-ip-model.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-07-monitoring-network-performance-with-snmp-grafana.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-07-monitoring-network-performance-with-snmp-grafana.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-07-osi-vs-tcp-ip.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-07-osi-vs-tcp-ip.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-08-active-directory-security-hardening-checklist.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-08-active-directory-security-hardening-checklist.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-08-physical-layer.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-08-physical-layer.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-09-cloud-vs-on-prem-choosing-the-right-infrastructure.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-09-network-topologies.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-09-network-topologies.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-10-the-modern-network-engineer-s-guide-to-building-resilient-infrastructure.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-10-transmission-modes.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-10-transmission-modes.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-11-from-lan-to-cloud-how-networking-has-evolved-in-the-hybrid-era.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-11-transmission-media.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-11-transmission-media.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-12-data-link-layer.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-12-data-link-layer.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-12-understanding-tcp-ip-in-2026-what-still-matters-and-what-changed.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-13-designing-high-availability-networks-for-enterprise-environments.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-13-designing-high-availability-networks-for-enterprise-environments.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-13-switching.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-13-switching.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-14-software-defined-networking-sdn-the-backbone-of-modern-infrastructure.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-14-vlan.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-14-vlan.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-15-active-directory-in-the-modern-enterprise-best-practices-and-security.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-15-framing.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-15-framing.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-16-error-control.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-16-error-control.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-16-managing-windows-servers-at-scale-with-powershell-automation.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-16-managing-windows-servers-at-scale-with-powershell-automation.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-17-flow-control.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-17-flow-control.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-17-hardening-windows-server-security-baselines-and-real-world-techniques.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-17-hardening-windows-server-security-baselines-and-real-world-techniques.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-18-piggybacking.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-18-piggybacking.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-18-windows-server-vs-linux-server-choosing-the-right-platform-for-your-network.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-19-linux-server-administration-essentials-for-modern-it-environments.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-19-linux-server-administration-essentials-for-modern-it-environments.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-19-network-layer.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-19-network-layer.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-20-building-secure-and-scalable-linux-servers-for-production.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-20-building-secure-and-scalable-linux-servers-for-production.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-20-ip-address.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-20-ip-address.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-21-classful-addressing.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-21-classful-addressing.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-21-systemd-selinux-and-firewalld-mastering-linux-server-security.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-22-linux-networking-deep-dive-bridges-bonds-and-virtual-interfaces.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-22-public-private-ip.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-22-public-private-ip.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-23-ipv4-vs-ipv6.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-23-ipv4-vs-ipv6.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-23-why-linux-continues-to-dominate-cloud-and-devops-infrastructure.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-24-subnetting.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-24-subnetting.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-24-zero-trust-networking-redefining-security-in-a-perimeter-less-world.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-25-network-security-in-2026-threats-tools-and-best-practices.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-25-network-security-in-2026-threats-tools-and-best-practices.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-25-routing.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-25-routing.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-26-microsegmentation-and-network-isolation-limiting-the-blast-radius.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-26-network-layer-protocols.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-26-network-layer-protocols.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-27-ai-in-network-security-smarter-detection-and-faster-response.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-27-ai-in-network-security-smarter-detection-and-faster-response.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-27-transport-layer.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-27-transport-layer.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-28-securing-hybrid-networks-on-prem-cloud-and-remote-users.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-28-transport-layer-protocols.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-28-transport-layer-protocols.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-29-sase-explained-merging-networking-and-security-in-the-cloud-era.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-29-tcp.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-29-tcp.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-30-designing-enterprise-networks-for-performance-security-and-scale.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-30-designing-enterprise-networks-for-performance-security-and-scale.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-30-udp.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-30-udp.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-31-identity-driven-networking-how-authentication-shapes-modern-security.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-31-identity-driven-networking-how-authentication-shapes-modern-security.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-31-session-layer.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-31-session-layer.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-32-from-data-center-to-edge-networking-challenges-in-distributed-systems.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-32-presentation-layer.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-32-presentation-layer.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-33-networking-fundamentals-every-system-administrator-must-understand.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-33-networking-fundamentals-every-system-administrator-must-understand.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-33-ssl-tls.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-33-ssl-tls.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-34-pptp.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-34-pptp.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-34-windows-vs-linux-servers-a-practical-comparison-for-beginners.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-35-how-network-security-really-works-a-clear-guide-for-it-students.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-35-how-network-security-really-works-a-clear-guide-for-it-students.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-35-mime.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-35-mime.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-36-application-layer.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-36-application-layer.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-36-essential-networking-commands-for-windows-and-linux-administrators.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-36-essential-networking-commands-for-windows-and-linux-administrators.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-37-client-server-model.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-37-client-server-model.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-37-common-network-security-mistakes-and-how-to-avoid-them.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-37-common-network-security-mistakes-and-how-to-avoid-them.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-38-world-wide-web.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-38-world-wide-web.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://enablement.info/courses/networking-fundamentals/tutorial-39-email.html</loc>
+    <loc>https://tech-enablement.info/courses/networking-fundamentals/tutorial-39-email.html</loc>
     <lastmod>2026-03-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

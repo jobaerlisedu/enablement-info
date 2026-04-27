@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://enablement.info/sitemap.xml
+Sitemap: https://tech-enablement.info/sitemap.xml
