@@ -1,32 +1,296 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction to Single-Mode Fiber & Multimode Fiber | tech-enablement.info</title>
+  <meta name="description"
+    content="Single-Mode Fiber (SMF) এবং Multimode Fiber (MMF) এর মূল পার্থক্য, কাজের ধরন এবং ব্যবহার নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড। জানুন কোন ফাইবার অপটিক ক্যাবল আপনার নেটওয়ার্কের জন্য সেরা।">
+  <title>Introduction to Single-Mode Fiber & Multimode Fiber: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction to Single-Mode Fiber & Multimode Fiber</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction to Single-Mode Fiber & Multimode Fiber</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction to Single-Mode Fiber & Multimode Fiber</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আধুনিক নেটওয়ার্কিংয়ের দ্রুতগতির দুনিয়ায় <strong>Fiber Optic Cable</strong> হলো এক অপরিহার্য উপাদান। কপার
+            ক্যাবলের সীমাবদ্ধতা কাটিয়ে কয়েকশো কিলোমিটার দূরে ডাটা পৌঁছে দিতে ফাইবার অপটিকের বিকল্প নেই। তবে ফাইবার অপটিক
+            ক্যাবল মূলত দুই ধরনের হয়ে থাকে: <strong>Single-Mode Fiber (SMF)</strong> এবং <strong>Multimode Fiber
+              (MMF)</strong>। নেটওয়ার্ক ডিজাইন করার সময় সঠিক ফাইবার টাইপ নির্বাচন করা অত্যন্ত গুরুত্বপূর্ণ, কারণ এটি
+            আপনার নেটওয়ার্কের <strong>Bandwidth</strong> এবং <strong>Distance</strong> এর ওপর সরাসরি প্রভাব ফেলে।</p>
+          <p>আজকের এই বিস্তারিত টিউটোরিয়ালে আমরা এই দুই ধরনের ফাইবারের মেকানিজম, সুবিধা-অসুবিধা এবং প্র্যাকটিক্যাল
+            ব্যবহার নিয়ে গভীর আলোচনা করবো।</p>
+
+
+
+          <h2>১. Single-Mode Fiber (SMF) কী?</h2>
+          <p><strong>Single-Mode Fiber</strong> এমনভাবে ডিজাইন করা হয়েছে যাতে এর ভেতর দিয়ে শুধুমাত্র একটি আলোক রশ্মি
+            (Light Beam) সরাসরি গন্তব্যে পৌঁছাতে পারে। এর <strong>Core</strong> খুবই চিকন হয় (সাধারণত ৮ থেকে ১০
+            মাইক্রোমিটার)।</p>
+          <ul>
+            <li><strong>Light Source:</strong> এটি আলোক উৎস হিসেবে <strong>Laser</strong> ব্যবহার করে।</li>
+            <li><strong>Distance:</strong> এটি কয়েকশো কিলোমিটার পর্যন্ত ডাটা পাঠাতে সক্ষম কারণ এতে সিগন্যাল লস বা
+              <strong>Attenuation</strong> খুব কম হয়।</li>
+            <li><strong>Bandwidth:</strong> এর ব্যান্ডউইথ ক্ষমতা প্রায় অসীম বলা যায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Highway Analogy)</h3>
+            <p>Single-Mode ফাইবারকে আপনি একটি সোজা ও সরু হাইওয়ের সাথে তুলনা করতে পারেন যেখানে শুধুমাত্র একটি দ্রুতগামী
+              গাড়ি (Laser Beam) কোনো বাধা ছাড়াই মাইলের পর মাইল চলতে পারে। এখানে কোনো মোড় বা জ্যাম নেই, তাই লিমুজিট দ্রুত
+              গন্তব্যে পৌঁছায়।</p>
+          </div>
+
+          <h2>২. Multimode Fiber (MMF) কী?</h2>
+          <p><strong>Multimode Fiber</strong> এর <strong>Core</strong> তুলনামূলক মোটা হয় (সাধারণত ৫০ থেকে ৬২.৫
+            মাইক্রোমিটার)। ফলে এর ভেতর দিয়ে একসাথে একাধিক আলোক রশ্মি বিভিন্ন কোণে যাতায়াত করতে পারে।</p>
+          <ul>
+            <li><strong>Light Source:</strong> এটি সাধারণত <strong>LED</strong> বা <strong>VCSEL</strong> ব্যবহার করে।
+            </li>
+            <li><strong>Distance:</strong> আলোক রশ্মিগুলো ফাইবারের দেয়ালে ধাক্কা খেতে খেতে (Reflection) এগিয়ে যায় বলে
+              দীর্ঘ দূরত্বে সিগন্যাল দুর্বল হয়ে পড়ে। এটি সাধারণত ৩০০ থেকে ৫৫০ মিটারের মধ্যে সীমাবদ্ধ থাকে।</li>
+            <li><strong>Bandwidth:</strong> স্বল্প দূরত্বের জন্য এটি চমৎকার ব্যান্ডউইথ প্রদান করে (যেমন- OM3 বা OM4
+              ক্যাবল)।</li>
+          </ul>
+
+
+
+          <h2>৩. SMF বনাম MMF: মূল পার্থক্যসমূহ</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Single-Mode (SMF)</th>
+                  <th>Multimode (MMF)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Core Diameter</td>
+                  <td>~9 Micron (খুবই সরু)</td>
+                  <td>50 or 62.5 Micron (মোটা)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Light Source</td>
+                  <td>Laser</td>
+                  <td>LED / VCSEL</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Distance Capacity</td>
+                  <td>৪০-১০০ কি.মি. বা তারও বেশি।</td>
+                  <td>সাধারণত ৩০০ - ৫৫০ মিটার।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Color Code</td>
+                  <td>হলুদ (Yellow Jacket)</td>
+                  <td>অ্যাকুয়া বা কমলা (Aqua/Orange Jacket)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Cost (Overall)</td>
+                  <td>Transceiver এর দাম বেশি।</td>
+                  <td>পুরো সেটআপ সাশ্রয়ী।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. কখন কোনটি ব্যবহার করবেন? (Deployment Scenarios)</h2>
+          <p>নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আপনাকে সিদ্ধান্ত নিতে হবে আপনার প্রজেক্টের চাহিদা অনুযায়ী:</p>
+          <ul>
+            <li><strong>Campus Backbone:</strong> যদি একটি বিল্ডিংয়ের এক ফ্লোর থেকে অন্য ফ্লোরে বা একই ক্যাম্পাসের ভেতর
+              সুইচ কানেক্ট করতে হয়, তবে <strong>Multimode Fiber</strong> সেরা পছন্দ।</li>
+            <li><strong>WAN / Telco:</strong> এক শহর থেকে অন্য শহর কিংবা আইএসপি (ISP) থেকে ইউজার লেভেলে সংযোগ দিতে
+              <strong>Single-Mode Fiber</strong> ব্যবহার করা হয়।</li>
+            <li><strong>Data Center:</strong> ডাটা সেন্টারের ভেতরে উচ্চগতির স্টোরেজ কানেকশনের জন্য বর্তমানে <strong>MMF
+                (OM4/OM5)</strong> বেশি জনপ্রিয়।</li>
+          </ul>
+
+          <h2>৫. টেকনিক্যাল কনফিগারেশন: SFP Transceiver</h2>
+          <p>ফাইবার ক্যাবল সরাসরি সুইচে লাগানো যায় না। এর জন্য <strong>SFP (Small Form-factor Pluggable)</strong> মডিউল
+            প্রয়োজন হয়।</p>
+          <ul>
+            <li><strong>SMF SFP:</strong> এর গায়ে 'LX' বা 'EX' বা 'ZX' লেখা থাকে (যেমন- 10G-LR)।</li>
+            <li><strong>MMF SFP:</strong> এর গায়ে 'SX' বা 'SR' লেখা থাকে (যেমন- 10G-SR)।</li>
+          </ul>
+
+          <p><strong>Cisco Switch-এ SFP স্ট্যাটাস চেক করার কমান্ড:</strong></p>
+          <pre><code># সুইচে লাগানো SFP মডিউলের বিস্তারিত তথ্য দেখতে
+Switch# show inventory
+
+# পোর্টের ট্রান্সমিট এবং রিসিভ পাওয়ার (Light Level) চেক করতে
+Switch# show interfaces transceiver</code></pre>
+
+          <h2>৬. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Mismatch Issue:</strong> কখনোই Single-mode ক্যাবলে Multimode SFP লাগাবেন না। এতে লিঙ্কে 'Light'
+              পাবে না বা <strong>CRC Errors</strong> দেখা দিবে।</li>
+            <li><strong>Cleanliness:</strong> ফাইবার পোর্টে সামান্য ধুলোবালি সিগন্যাল নষ্ট করে দেয়। কানেক্ট করার আগে
+              <strong>Fiber Cleaner</strong> দিয়ে পরিষ্কার করে নিন।</li>
+            <li><strong>Bend Radius:</strong> ফাইবার ক্যাবল কপার ক্যাবলের মতো বেশি বাঁকানো (Bend) যাবে না। এতে ভেতরকার
+              কাঁচ ফেটে গিয়ে ডাটা লস হতে পারে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Single-Mode</strong> এবং <strong>Multimode Fiber</strong>—প্রতিটিরই নির্দিষ্ট কিছু ব্যবহার
+              ক্ষেত্র রয়েছে। দীর্ঘ দূরত্বের এবং অত্যন্ত উচ্চগতির ব্যাকবোন তৈরির জন্য Single-Mode অপরিহার্য, অন্যদিকে
+              স্বল্প দূরত্বে ইনডোর নেটওয়ার্কিংয়ের জন্য Multimode সাশ্রয়ী সমাধান। সঠিক ক্যাবলিং এবং
+              <strong>Transceiver</strong> নির্বাচন আপনার নেটওয়ার্ককে দীর্ঘস্থায়ী এবং ত্রুটিমুক্ত রাখবে। সিসিএনএ (CCNA)
+              বা নেটওয়ার্ক অ্যাডমিনিস্ট্রেশন ক্যারিয়ারে ফাইবারের এই ফিজিক্যাল প্রপার্টিগুলো বোঝা অত্যন্ত জরুরি।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,291 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction and Concept of Small Office/Home Office | tech-enablement.info</title>
+  <meta name="description"
+    content="Small Office/Home Office (SOHO) নেটওয়ার্ক ডিজাইন এবং এর মূল কনসেপ্ট নিয়ে বিস্তারিত গাইড। জানুন কীভাবে একটি ছোট অফিসের জন্য শক্তিশালী নেটওয়ার্ক তৈরি করতে হয়।">
+  <title>Introduction and Concept of Small Office/Home Office: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction and Concept of Small Office/Home Office</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction and Concept of Small Office/Home Office</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction and Concept of Small Office/Home Office (SOHO)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্কিং এবং আইটি ইনফ্রাস্ট্রাকচারের দুনিয়ায় <strong>SOHO</strong> বা <strong>Small Office/Home
+              Office</strong> একটি অত্যন্ত গুরুত্বপূর্ণ টার্ম। সহজ কথায়, যখন কোনো একটি ছোট ব্যবসা বা ফ্রিল্যান্সার তার
+            নিজের বাসা অথবা ছোট একটি অফিস থেকে কার্যক্রম পরিচালনা করে, তখন সেখানে যে নেটওয়ার্ক সেটআপ ব্যবহার করা হয়
+            তাকেই SOHO নেটওয়ার্ক বলা হয়। একটি এন্টারপ্রাইজ নেটওয়ার্কের তুলনায় এটি ছোট হলেও এর কার্যকারিতা এবং গুরুত্ব
+            কোনো অংশেই কম নয়।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা আলোচনা করবো SOHO নেটওয়ার্কের মূল কনসেপ্ট, এর প্রয়োজনীয় হার্ডওয়্যার এবং
+            কীভাবে একটি প্রফেশনাল সেটআপ তৈরি করতে হয়।</p>
+
+
+
+          <h2>১. SOHO কী এবং এর বৈশিষ্ট্য কী?</h2>
+          <p>SOHO নেটওয়ার্ক মূলত ১ থেকে ১০ জন ইউজারের জন্য ডিজাইন করা হয়। এটি সাধারণত একটি একক লোকাল এরিয়া নেটওয়ার্ক
+            (LAN) হিসেবে কাজ করে। এর প্রধান বৈশিষ্ট্যগুলো হলো:</p>
+          <ul>
+            <li><strong>Cost-Effective:</strong> এটি অত্যন্ত কম খরচে সেটআপ করা যায়।</li>
+            <li><strong>Simplified Management:</strong> এখানে আলাদাভাবে বড় কোনো সার্ভার রুম বা আইটি টিমের প্রয়োজন পড়ে
+              না।</li>
+            <li><strong>Converged Devices:</strong> সচরাচর একটি ডিভাইসের মাধ্যমেই রাউটিং, সুইচিং এবং ওয়্যারলেস এক্সেস
+              পয়েন্টের সুবিধা পাওয়া যায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Hybrid Workspace)</h3>
+            <p>ধরুন আপনি একজন গ্রাফিক ডিজাইনার এবং আপনার বাসায় আরও ২ জন টিম মেম্বার কাজ করেন। আপনাদের সবার ল্যাপটপ, একটি
+              নেটওয়ার্ক প্রিন্টার এবং ফাইল শেয়ার করার জন্য একটি <strong>NAS (Network Attached Storage)</strong> আছে। এই
+              পুরো সেটআপটি যখন একটি ওয়াই-ফাই রাউটারের মাধ্যমে ইন্টারনেটের সাথে যুক্ত হয়, তখন একেই বলা হয় একটি প্রফেশনাল
+              SOHO নেটওয়ার্ক।</p>
+          </div>
+
+          <h2>২. SOHO নেটওয়ার্কের প্রয়োজনীয় হার্ডওয়্যার (Hardware Components)</h2>
+          <p>একটি কার্যকর SOHO নেটওয়ার্ক তৈরি করতে নিচের ডিভাইসগুলো প্রয়োজন হয়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>কেন প্রয়োজন (Function)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Modem/ONT</td>
+                  <td>ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) থেকে কানেকশন রিসিভ করার জন্য।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Wireless Router</td>
+                  <td>এটি নেটওয়ার্কের মস্তিস্ক হিসেবে কাজ করে যা রাউটিং এবং ওয়াই-ফাই প্রদান করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Network Switch</td>
+                  <td>যদি তারযুক্ত (Wired) ডিভাইসের সংখ্যা বেশি হয়, তবে পোর্ট বাড়ানোর জন্য এটি ব্যবহৃত হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Endpoints</td>
+                  <td>ল্যাপটপ, পিসি, স্মার্টফোন, প্রিন্টার ইত্যাদি।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৩. SOHO বনাম Enterprise Network: পার্থক্য কোথায়?</h2>
+          <p>SOHO নেটওয়ার্ক ছোট হলেও অনেক সময় মানুষ এটিকে এন্টারপ্রাইজ লেভেলের সাথে গুলিয়ে ফেলে। এদের মূল পার্থক্যগুলো
+            নিচে দেওয়া হলো:</p>
+          <ul>
+            <li><strong>Scalability:</strong> এন্টারপ্রাইজ নেটওয়ার্ক হাজার হাজার ইউজার হ্যান্ডেল করতে পারে, কিন্তু SOHO
+              নির্দিষ্ট সীমার পর স্লো হয়ে যায়।</li>
+            <li><strong>Security:</strong> SOHO সাধারণত রাউটারের বিল্ট-ইন ফায়ারওয়ালের ওপর নির্ভর করে, যেখানে
+              এন্টারপ্রাইজে ডেডিকেটেড সিকিউরিটি অ্যাপ্লায়েন্স থাকে।</li>
+            <li><strong>Redundancy:</strong> বড় অফিসে একাধিক ইন্টারনেট ব্যাকআপ লাইন থাকে, কিন্তু SOHO তে সাধারণত একটি
+              সংযোগই থাকে।</li>
+          </ul>
+
+          <h2>৪. একটি আদর্শ SOHO নেটওয়ার্ক ডিজাইন (Design Guide)</h2>
+          <p>একটি প্রফেশনাল ছোট অফিস সেটআপে নিচের ধাপগুলো অনুসরণ করা উচিত:</p>
+          <ol>
+            <li><strong>Central Placement:</strong> রাউটারটি অফিসের মাঝখানে রাখুন যাতে সব জায়গায় সমান ওয়াই-ফাই সিগন্যাল
+              পাওয়া যায়।</li>
+            <li><strong>Static IP for Shared Devices:</strong> প্রিন্টার বা ফাইল সার্ভারের জন্য সব সময় <strong>Static
+                IP</strong> ব্যবহার করুন।</li>
+            <li><strong>VLAN for Guests:</strong> অফিসের গেস্টদের জন্য আলাদা একটি <strong>Guest Wi-Fi</strong> নেটওয়ার্ক
+              তৈরি করুন যাতে আপনার ইন্টারনাল ফাইল সুরক্ষিত থাকে।</li>
+          </ol>
+
+          <h2>৫. বেসিক কনফিগারেশন এবং সিকিউরিটি (CLI/Web Interface)</h2>
+          <p>SOHO রাউটারে (যেমন MikroTik বা Cisco ছোট রাউটার) কিছু বেসিক সিকিউরিটি এনাবল করা অত্যন্ত জরুরি।</p>
+
+          <p><strong>DHCP Server চেক করার কমান্ড (MikroTik):</strong></p>
+          <pre><code># আপনার রাউটার থেকে ডিভাইসগুলো আইপি পাচ্ছে কি না তা দেখতে
+/ip dhcp-server lease print
+
+# ডিফল্ট গেটওয়ে চেক করতে
+/ip route print</code></pre>
+
+          <p><strong>সিকিউরিটি টিপস:</strong></p>
+          <ul>
+            <li>ডিফল্ট অ্যাডমিন পাসওয়ার্ড অবশ্যই পরিবর্তন করুন।</li>
+            <li><strong>SSID Broadcasting</strong> বন্ধ রাখতে পারেন অথবা <strong>WPA3</strong> এনক্রিপশন ব্যবহার করুন।
+            </li>
+            <li>অপ্রয়োজনীয় পোর্ট (যেমন Telnet) বন্ধ করে দিন।</li>
+          </ul>
+
+          <h2>৬. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Wi-Fi Dead Zones:</strong> যদি নির্দিষ্ট কোনো রুমে সিগন্যাল কম হয়, তবে একটি <strong>Range
+                Extender</strong> অথবা <strong>Mesh Wi-Fi</strong> ব্যবহার করুন।</li>
+            <li><strong>IP Conflict:</strong> যদি কোনো ডিভাইস কানেক্ট না হয়, তবে চেক করুন স্ট্যাটিক আইপি দেওয়া ডিভাইসের
+              সাথে অন্য কোনো ডিভাইসের আইপি মিলে গেছে কি না।</li>
+            <li><strong>Slow Internet:</strong> যদি ইন্টারনেট স্লো হয়, তবে রাউটারের ইউজার লিস্ট চেক করুন। কেউ অতিরিক্ত
+              ব্যান্ডউইথ (যেমন টরেন্ট ডাউনলোড) ব্যবহার করছে কি না তা দেখুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Small Office/Home Office (SOHO)</strong> কনসেপ্টটি বর্তমানে রিমোট ওয়ার্ক এবং ফ্রিল্যান্সিং
+              কালচারের কারণে আগের চেয়ে অনেক বেশি প্রাসঙ্গিক। একটি শক্তিশালী এবং নিরাপদ SOHO নেটওয়ার্ক শুধুমাত্র কাজের
+              গতি বাড়ায় না, বরং আপনার ডাটাকেও সুরক্ষিত রাখে। আপনি যদি সিসিএনএ (CCNA) বা নেটওয়ার্কিং নিয়ে ক্যারিয়ার শুরু
+              করতে চান, তবে SOHO নেটওয়ার্ক ডিজাইন এবং ট্রাবলশুটিং শেখাই হলো আপনার প্রথম হাতেখড়ি। সঠিক হার্ডওয়্যার
+              সিলেকশন এবং স্মার্ট কনফিগারেশনই পারে একটি ছোট অফিসকে প্রফেশনাল পর্যায়ে নিয়ে যেতে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

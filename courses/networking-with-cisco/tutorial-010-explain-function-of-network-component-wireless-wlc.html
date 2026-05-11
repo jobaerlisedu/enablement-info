@@ -1,32 +1,298 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explain Function of Network Component Wireless WLC | tech-enablement.info</title>
+  <meta name="description"
+    content="Wireless LAN Controller (WLC) কী এবং এটি কীভাবে বড় নেটওয়ার্কে এক্সেস পয়েন্ট নিয়ন্ত্রণ করে তার বিস্তারিত গাইড। জানুন WLC-এর ফাংশন এবং মেকানিজম সহজ বাংলায়।">
+  <title>Explain Function of Network Component Wireless WLC: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Explain Function of Network Component Wireless WLC</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Explain Function of Network Component Wireless WLC</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Function of Network Component Wireless WLC</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>বড় কোনো অফিস, এয়ারপোর্ট বা ইউনিভার্সিটির নেটওয়ার্ক লক্ষ্য করলে দেখবেন সেখানে শত শত <strong>Wireless Access
+              Point (AP)</strong> থাকে। এখন প্রশ্ন হলো, একজন নেটওয়ার্ক ইঞ্জিনিয়ার কি প্রতিটি এক্সেস পয়েন্টে আলাদাভাবে
+            লগইন করে কনফিগার করেন? উত্তর হলো "না"। এই বিশাল ওয়্যারলেস নেটওয়ার্ককে এক জায়গা থেকে সেন্ট্রাল কন্ট্রোল করার
+            জন্য যে ডিভাইসটি ব্যবহৃত হয়, তাকে বলা হয় <strong>Wireless LAN Controller (WLC)</strong>।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা আলোচনা করবো WLC-এর কাজ করার মেকানিজম এবং আধুনিক এন্টারপ্রাইজ নেটওয়ার্কে
+            এর গুরুত্ব নিয়ে।</p>
+
+
+
+          <h2>১. Wireless LAN Controller (WLC) কী?</h2>
+          <p>WLC হলো একটি সেন্ট্রাল ম্যানেজমেন্ট ডিভাইস যা একটি নেটওয়ার্কের ভেতরে থাকা সমস্ত <strong>Lightweight Access
+              Point (LAP)</strong> গুলোকে নিয়ন্ত্রণ করে। এটি মূলত নেটওয়ার্ক অ্যাডমিনিস্ট্রেটরদের জন্য একটি ড্যাশবোর্ড
+            হিসেবে কাজ করে যেখান থেকে শত শত AP-এর কনফিগারেশন, সিকিউরিটি এবং আপডেট এক ক্লিকে সম্পন্ন করা যায়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The School Principal Analogy)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি বড় স্কুলের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Teachers:</strong> এক্সেস পয়েন্টগুলো হলো ক্লাসরুমের টিচার যারা সরাসরি ছাত্রদের (Users) পড়ান।
+              </li>
+              <li><strong>Principal:</strong> WLC হলো স্কুলের প্রিন্সিপাল। টিচাররা ক্লাসে কী পড়াবেন, কখন পড়াবেন এবং কী
+                কী নিয়ম মানবেন—সবই প্রিন্সিপাল ঠিক করে দেন।</li>
+              <li><strong>Coordination:</strong> প্রিন্সিপাল এক জায়গা থেকে নির্দেশ দিলেই সব টিচার একসাথে তা পালন করেন।
+                প্রিন্সিপাল না থাকলে প্রতিটি টিচারকে আলাদা করে নিয়ম বোঝানো অসম্ভব হয়ে পড়ত।</li>
+            </ul>
+          </div>
+
+          <h2>২. WLC-এর প্রধান ফাংশনসমূহ (Main Functions)</h2>
+          <p>একটি এন্টারপ্রাইজ লেভেলের WLC মূলত নিচের কাজগুলো সম্পন্ন করে:</p>
+          <ol>
+            <li><strong>Centralized Management:</strong> একটিমাত্র উইন্ডো থেকে সব AP-এর SSID, পাসওয়ার্ড এবং চ্যানেল
+              কনফিগার করা যায়।</li>
+            <li><strong>Radio Resource Management (RRM):</strong> এটি অটোমেটিক সিদ্ধান্ত নেয় কোন AP কোন চ্যানেলে কাজ
+              করবে এবং কার পাওয়ার (Signal Strength) কত হবে, যাতে সিগন্যাল ইন্টারফেয়ারেন্স না হয়।</li>
+            <li><strong>Seamless Roaming:</strong> ইউজার যখন ল্যাপটপ হাতে এক রুম থেকে অন্য রুমে যান, তখন WLC নিশ্চিত করে
+              যাতে ওয়াই-ফাই ডিসকানেক্ট না হয়ে এক AP থেকে অন্য AP-তে সুইচ করে।</li>
+            <li><strong>Security and Authentication:</strong> এটি ইউজারদের অথেনটিকেশন (যেমন- WPA3, RADIUS) সেন্ট্রালি
+              হ্যান্ডেল করে।</li>
+          </ol>
+
+
+
+          <h2>৩. CAPWAP প্রোটোকল: WLC-এর প্রাণকেন্দ্র</h2>
+          <p>WLC এবং এক্সেস পয়েন্টের মধ্যে যোগাযোগের জন্য একটি বিশেষ প্রোটোকল ব্যবহৃত হয় যার নাম <strong>CAPWAP (Control
+              and Provisioning of Wireless Access Points)</strong>।</p>
+          <ul>
+            <li><strong>Control Tunnel:</strong> এই টানেলের মাধ্যমে WLC এক্সেস পয়েন্টকে নির্দেশ দেয় (যেমন- কনফিগারেশন
+              আপডেট)। এটি সাধারণত UDP Port 5246 ব্যবহার করে।</li>
+            <li><strong>Data Tunnel:</strong> ইউজারদের পাঠানো ডাটা এই টানেলের মাধ্যমে WLC-তে পৌঁছায়। এটি UDP Port 5247
+              ব্যবহার করে।</li>
+          </ul>
+
+          <h2>৪. Autonomous AP বনাম Lightweight AP</h2>
+          <p>WLC ব্যবহারের গুরুত্ব বোঝার জন্য এই দুটি ডিভাইসের পার্থক্য জানা জরুরি:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>Autonomous AP (বাসার রাউটার টাইপ)</th>
+                  <th>Lightweight AP (WLC নির্ভর)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Management</td>
+                  <td>প্রতিটি আলাদাভাবে কনফিগার করতে হয়।</td>
+                  <td>WLC থেকে সেন্ট্রালি কনফিগার হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Intelligence</td>
+                  <td>নিজেই সব সিদ্ধান্ত নিতে পারে।</td>
+                  <td>সব কাজের জন্য WLC-এর ওপর নির্ভর করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Scalability</td>
+                  <td>বড় নেটওয়ার্কের জন্য কঠিন।</td>
+                  <td>হাজার হাজার AP যুক্ত করা সহজ।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Firmware Update</td>
+                  <td>ম্যানুয়ালি করতে হয়।</td>
+                  <td>WLC অটোমেটিক সব AP আপডেট করে দেয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. WLC Deployment মোডসমূহ</h2>
+          <p>নেটওয়ার্কের চাহিদা অনুযায়ী WLC বিভিন্নভাবে সেটআপ করা যায়:</p>
+          <ul>
+            <li><strong>Centralized Mode:</strong> WLC এবং AP গুলো একই ডাটা সেন্টারে থাকে। সমস্ত ট্রাফিক WLC-এর ভেতর
+              দিয়ে যায়।</li>
+            <li><strong>FlexConnect (Branch Mode):</strong> রিমোট অফিসের জন্য উপযোগী। যদি WLC ডিসকানেক্ট হয়ে যায়, তবুও
+              AP গুলো লোকাল ট্রাফিক পাস করতে পারে।</li>
+            <li><strong>Cloud-based WLC:</strong> ফিজিক্যাল ডিভাইসের বদলে ক্লাউড থেকে (যেমন- Cisco Meraki) ম্যানেজ করা
+              হয়।</li>
+          </ul>
+
+          <h2>৬. বেসিক কনফিগারেশন ও ভেরিফিকেশন</h2>
+          <p>সিসকো WLC-তে সাধারণত ওয়েব ইন্টারফেস বা GUI বেশি ব্যবহৃত হয়। তবে CLI এর মাধ্যমে কিছু গুরুত্বপূর্ণ তথ্য দেখা
+            যায়:</p>
+
+          <p><strong>কানেক্টেড এক্সেস পয়েন্টের লিস্ট দেখার কমান্ড:</strong></p>
+          <pre><code>(Cisco Controller) > show ap summary
+
+# এই কমান্ডটি দিলে কতগুলো AP বর্তমানে 'Up' আছে তা দেখা যাবে।</code></pre>
+
+          <p><strong>WLC-এর আইপি এবং স্ট্যাটাস দেখার কমান্ড:</strong></p>
+          <pre><code>(Cisco Controller) > show interface summary</code></pre>
+
+          <h2>৭. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>AP Join Issue:</strong> যদি কোনো AP কন্ট্রোলারের সাথে যুক্ত না হয়, তবে চেক করুন <strong>Option
+                43</strong> কনফিগার করা আছে কি না (এটি DHCP-এর মাধ্যমে AP-কে জানায় WLC-এর আইপি কত)।</li>
+            <li><strong>License Issue:</strong> WLC-তে কতগুলো AP চলবে তার একটি লাইসেন্স থাকে। লাইসেন্স লিমিট পার হয়ে
+              গেলে নতুন AP আর জয়েন করবে না।</li>
+            <li><strong>CAPWAP Flapping:</strong> যদি AP বারবার ডিসকানেক্ট হয়, তবে নেটওয়ার্কের MTU সাইজ চেক করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Wireless LAN Controller (WLC)</strong> হলো একটি আধুনিক ওয়্যারলেস নেটওয়ার্কের মস্তিস্ক। এটি ছাড়া
+              বড় কোনো প্রতিষ্ঠানে নিরবচ্ছিন্ন ওয়াই-ফাই সেবা দেওয়া অসম্ভব। আপনি যদি এন্টারপ্রাইজ নেটওয়ার্কিং বা সিসিএনএ
+              (CCNA) নিয়ে ক্যারিয়ার গড়তে চান, তবে WLC-এর <strong>CAPWAP</strong> মেকানিজম এবং <strong>Roaming</strong>
+              ফাংশন সম্পর্কে পরিষ্কার ধারণা থাকা জরুরি। এটি শুধুমাত্র কাজকে সহজ করে না, বরং পুরো নেটওয়ার্কের নিরাপত্তা
+              এবং স্থায়িত্ব নিশ্চিত করে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

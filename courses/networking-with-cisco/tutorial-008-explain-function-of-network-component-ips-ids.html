@@ -1,32 +1,296 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explain Function of Network Component IPS & IDS | tech-enablement.info</title>
+  <meta name="description"
+    content="IDS এবং IPS কী এবং এটি কীভাবে নেটওয়ার্কের নিরাপত্তা নিশ্চিত করে তার একটি বিস্তারিত গাইড। সহজ বাংলায় IDS বনাম IPS-এর কার্যপদ্ধতি এবং পার্থক্য নিয়ে আলোচনা।">
+  <title>Explain Function of Network Component IPS & IDS: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Explain Function of Network Component IPS & IDS</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Explain Function of Network Component IPS & IDS</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Function of Network Component IPS & IDS</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Cyber Security</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>নেটওয়ার্ক সিকিউরিটির ক্ষেত্রে <strong>Firewall</strong> প্রথম প্রতিরক্ষা স্তর হলেও এটি সব ধরনের আধুনিক
+            সাইবার অ্যাটাক রুখতে যথেষ্ট নয়। হ্যাকাররা যখন প্যাকেটের ভেতরে ক্ষতিকারক ডাটা লুকিয়ে পাঠায়, তখন আমাদের
+            প্রয়োজন হয় আরও বুদ্ধিমান সিস্টেমের। আর এই কাজটিই করে <strong>IDS (Intrusion Detection System)</strong> এবং
+            <strong>IPS (Intrusion Prevention System)</strong>। এরা মূলত নেটওয়ার্কের অতন্দ্র প্রহরী যারা প্রতিটি ডাটা
+            প্যাকেটের ভেতরে উঁকি দিয়ে দেখে কোনো সন্দেহজনক কার্যক্রম চলছে কি না।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা আলোচনা করবো IDS এবং IPS-এর কাজের ধরণ, এদের পার্থক্য এবং আধুনিক
+            নেটওয়ার্ক ডিজাইনে এদের গুরুত্ব নিয়ে।</p>
+
+
+
+          <h2>১. IDS এবং IPS কী?</h2>
+          <p>সহজ কথায়, IDS এবং IPS হলো নেটওয়ার্ক সিকিউরিটি অ্যাপ্লায়েন্স যা নেটওয়ার্ক ট্রাফিক মনিটর করে এবং
+            ক্ষতিকারক কার্যক্রম সনাক্ত করে।</p>
+          <ul>
+            <li><strong>IDS (Intrusion Detection System):</strong> এটি একটি <strong>Passive</strong> সিস্টেম। এটি
+              শুধুমাত্র নেটওয়ার্ক মনিটর করে এবং কোনো অ্যাটাক দেখলে অ্যাডমিনিস্ট্রেটরকে <strong>Alert</strong> বা সংকেত
+              পাঠায়। এটি নিজে থেকে অ্যাটাক থামাতে পারে না।</li>
+            <li><strong>IPS (Intrusion Prevention System):</strong> এটি একটি <strong>Active</strong> সিস্টেম। এটি শুধু
+              অ্যাটাক সনাক্তই করে না, বরং সাথে সাথে সেই ক্ষতিকারক ট্রাফিকটিকে <strong>Block</strong> করে দেয় বা ড্রপ
+              করে দেয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The CCTV vs Security Guard Analogy)</h3>
+            <p>একটি ব্যাংকের নিরাপত্তার কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>IDS:</strong> এটি হলো ব্যাংকের <strong>CCTV Camera</strong>। যদি কোনো চোর ব্যাংকে ঢোকে,
+                ক্যামেরা সেটি রেকর্ড করবে এবং কন্ট্রোল রুমে অ্যালার্ম বাজাবে। কিন্তু ক্যামেরা নিজে চোরকে ধরতে পারবে না।
+              </li>
+              <li><strong>IPS:</strong> এটি হলো ব্যাংকের গেটে দাঁড়িয়ে থাকা একজন <strong>Armed Security Guard</strong>।
+                সে যখনই দেখবে কেউ বেআইনিভাবে ঢোকার চেষ্টা করছে, সে সাথে সাথে তাকে বাধা দেবে এবং ভেতরে ঢুকতে দেবে না।
+              </li>
+            </ul>
+          </div>
+
+          <h2>২. IDS এবং IPS কীভাবে কাজ করে? (Detection Methods)</h2>
+          <p>এই সিস্টেমগুলো মূলত তিনটি মেথড ব্যবহার করে সন্দেহজনক ট্রাফিক খুঁজে বের করে:</p>
+          <ol>
+            <li><strong>Signature-Based Detection:</strong> এটি একটি লাইব্রেরি বা ডাটাবেজ ব্যবহার করে। যেখানে পরিচিত সব
+              ভাইরাসের বা অ্যাটাকের "সিগনেচার" বা প্যাটার্ন সেভ করা থাকে। যদি কোনো ইনকামিং ডাটার সাথে এই প্যাটার্ন মিলে
+              যায়, তবে সেটি ফ্ল্যাগ করা হয়।</li>
+            <li><strong>Anomaly-Based Detection:</strong> এটি নেটওয়ার্কের স্বাভাবিক আচরণের একটি
+              <strong>Baseline</strong> তৈরি করে। যদি হঠাৎ করে নেটওয়ার্কে অস্বাভাবিক কোনো পরিবর্তন দেখা যায় (যেমন-
+              হঠাৎ করে প্রচুর ডাটা আপলোড হওয়া), তবে এটি অ্যালার্ট দেয়।</li>
+            <li><strong>Policy-Based Detection:</strong> অ্যাডমিনিস্ট্রেটর যদি নির্দিষ্ট কোনো সিকিউরিটি পলিসি সেট করে
+              দেন এবং কেউ যদি তা লঙ্ঘন করার চেষ্টা করে, তবে এই মেথড সেটি ধরে ফেলে।</li>
+          </ol>
+
+
+
+          <h2>৩. IDS বনাম IPS: মূল পার্থক্যসমূহ</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>IDS (Detection)</th>
+                  <th>IPS (Prevention)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Action Mode</td>
+                  <td>Passive (শুধুমাত্র মনিটর করে)।</td>
+                  <td>Active (সরাসরি অ্যাকশন নেয়)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Deployment</td>
+                  <td>এটি নেটওয়ার্কের মূল পথের বাইরে (Out-of-band) থাকে।</td>
+                  <td>এটি নেটওয়ার্কের মূল পথে (In-line) থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Primary Goal</td>
+                  <td>অ্যাটাক সম্পর্কে জানানো এবং লগ তৈরি করা।</td>
+                  <td>অ্যাটাক হওয়া থেকে নেটওয়ার্ককে রক্ষা করা।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Traffic Latency</td>
+                  <td>নেটওয়ার্কের গতিতে কোনো প্রভাব ফেলে না।</td>
+                  <td>কিছুটা ল্যাটেন্সি তৈরি করতে পারে কারণ প্রতিটি প্যাকেট চেক হয়ে পার হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. কেন আপনার নেটওয়ার্কে IDS/IPS প্রয়োজন?</h2>
+          <p>বর্তমানে শুধুমাত্র ফায়ারওয়াল দিয়ে নিরাপত্তা নিশ্চিত করা সম্ভব নয় কারণ:</p>
+          <ul>
+            <li><strong>Zero-Day Attacks:</strong> নতুন ধরনের অ্যাটাকগুলো ফায়ারওয়াল অনেক সময় বুঝতে পারে না।</li>
+            <li><strong>Internal Threats:</strong> নেটওয়ার্কের ভেতর থেকে কেউ যদি ক্ষতি করার চেষ্টা করে, তবে IPS সেটি
+              রুখে দিতে পারে।</li>
+            <li><strong>Deep Packet Inspection (DPI):</strong> প্যাকেটের ভেতরে লুকিয়ে থাকা ম্যালওয়্যার বা কোড সনাক্ত
+              করার জন্য এটি অপরিহার্য।</li>
+          </ul>
+
+          <h2>৫. Configuration ও Deployment মোড</h2>
+          <p>প্রফেশনাল লেভেলে IDS/IPS মূলত দুইভাবে সেটআপ করা হয়:</p>
+
+          <p><strong>১. Host-based (HIDS/HIPS):</strong> এটি নির্দিষ্ট একটি সার্ভার বা পিসিতে ইনস্টল করা থাকে এবং
+            শুধুমাত্র ওই ডিভাইসের ইনকামিং-আউটগোয়িং চেক করে।</p>
+          <p><strong>২. Network-based (NIDS/NIPS):</strong> এটি পুরো নেটওয়ার্কের গেটওয়ে বা কোর সুইচে বসানো থাকে এবং
+            পুরো নেটওয়ার্কের ট্রাফিক মনিটর করে।</p>
+
+          <p><strong>Linux (Snort) কনফিগারেশন উদাহরণ:</strong></p>
+          <p>লিনাক্সে জনপ্রিয় একটি ওপেন সোর্স IDS হলো <strong>Snort</strong>। এটি রান করার একটি সাধারণ কমান্ড:</p>
+          <pre><code># Snort কে কনসোল মোডে চালানো এবং অ্যালার্ট দেখা
+snort -A console -i eth0 -c /etc/snort/snort.conf</code></pre>
+
+          <h2>৬. Troubleshooting ও বেস্ট প্র্যাকটিস</h2>
+          <ul>
+            <li><strong>False Positives:</strong> অনেক সময় বৈধ ট্রাফিককেও IDS/IPS ভুল করে অ্যাটাক মনে করে ব্লক করে
+              দেয়। এটি এড়াতে নিয়মিত <strong>Tuning</strong> এবং <strong>Whitelisting</strong> প্রয়োজন।</li>
+            <li><strong>Signature Updates:</strong> প্রতিদিন নতুন নতুন ভাইরাস তৈরি হচ্ছে। তাই প্রতিদিন আপনার IPS-এর
+              সিগনেচার ডাটাবেজ আপডেট রাখা বাধ্যতামূলক।</li>
+            <li><strong>Hardware Performance:</strong> IPS যেহেতু রিয়েল-টাইমে ডাটা চেক করে, তাই রাউটার বা গেটওয়ের CPU
+              এবং RAM যথেষ্ট শক্তিশালী হতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>IDS</strong> এবং <strong>IPS</strong> হলো আধুনিক নেটওয়ার্ক সিকিউরিটির অবিচ্ছেদ্য অংশ। IDS আমাদের
+              জানায় নেটওয়ার্কে কী ঘটছে, আর IPS নিশ্চিত করে যাতে কোনো খারাপ কিছু না ঘটে। একটি আদর্শ সিকিউরিটি
+              আর্কিটেকচারে ফায়ারওয়ালের পাশাপাশি IPS-এর উপস্থিতি নেটওয়ার্ককে বহুগুণ শক্তিশালী করে তোলে। আপনি যদি একজন
+              সাইবার সিকিউরিটি প্রফেশনাল হতে চান, তবে এই দুই সিস্টেমের কনফিগারেশন এবং লগ অ্যানালাইসিস শেখা আপনার জন্য
+              অত্যন্ত জরুরি।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

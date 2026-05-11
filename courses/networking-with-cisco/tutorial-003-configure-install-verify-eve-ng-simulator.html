@@ -1,32 +1,283 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Configure, Install & Verify EVE-NG Simulator | tech-enablement.info</title>
+  <meta name="description"
+    content="VMware-এ EVE-NG Simulator ইনস্টল, কনফিগার এবং ভেরিফাই করার একটি বিস্তারিত টেকনিক্যাল গাইড। সহজ বাংলায় প্রফেশনাল ল্যাব সেটআপ শিখুন।">
+  <title>Configure, Install & Verify EVE-NG Simulator: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Configure, Install & Verify EVE-NG Simulator</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Configure, Install & Verify EVE-NG Simulator</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Configure, Install & Verify EVE-NG Simulator</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আপনার ল্যাব এনভায়রনমেন্ট রেডি করার জন্য <strong>EVE-NG (Emulated Virtual Environment)</strong> বর্তমানে
+            একটি ইন্ডাস্ট্রি স্ট্যান্ডার্ড টুল। এটি শুধুমাত্র একটি সিমুলেটর নয়, এটি একটি পূর্ণাঙ্গ ইমুলেটর যেখানে আপনি
+            আসল <strong>Router</strong> এবং <strong>Switch</strong> এর অপারেটিং সিস্টেম চালিয়ে রিয়েল-টাইম অভিজ্ঞতা পেতে
+            পারেন।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা শিখবো কীভাবে <strong>VMware Workstation</strong>-এ ইভ-এনজি ইনস্টল করতে হয়,
+            প্রাথমিক কনফিগারেশন সম্পন্ন করতে হয় এবং সেটআপটি সঠিকভাবে কাজ করছে কি না তা ভেরিফাই করতে হয়।</p>
+
+
+
+          <h2>১. VMware-এ Virtual Machine (VM) তৈরি করা</h2>
+          <p>ইনস্টলেশনের প্রথম ধাপ হলো আপনার পিসির ভেতর একটি ভার্চুয়াল ঘর তৈরি করা যেখানে ইভ-এনজি ওএস থাকবে।</p>
+          <ul>
+            <li><strong>Step 1:</strong> VMware Workstation ওপেন করুন এবং <code>Create a New Virtual Machine</code>
+              অপশনে ক্লিক করুন।</li>
+            <li><strong>Step 2:</strong> ইভ-এনজি থেকে ডাউনলোড করা <strong>ISO</strong> ফাইলটি সিলেক্ট করুন।</li>
+            <li><strong>Step 3:</strong> ওএস টাইপ হিসেবে <code>Linux</code> এবং ভার্সন হিসেবে <code>Ubuntu 64-bit</code>
+              সিলেক্ট করুন।</li>
+            <li><strong>Step 4:</strong> অন্তত <strong>8GB RAM</strong> এবং <strong>4 CPU Cores</strong> বরাদ্দ করুন।
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>প্রো-টিপ: Virtualization Engine</h3>
+            <p>VMware সেটিংসের <strong>Processor</strong> ট্যাবে গিয়ে অবশ্যই
+              <code>Virtualize Intel VT-x/EPT or AMD-V/RVI</code> অপশনটি টিক দিয়ে রাখুন। এটি ছাড়া আপনার ইভ-এনজি ল্যাবের
+              ভেতর কোনো নোড (Node) স্টার্ট হবে না।</p>
+          </div>
+
+
+
+          <h2>২. EVE-NG OS ইনস্টলেশন প্রক্রিয়া</h2>
+          <p>ভার্চুয়াল মেশিনটি স্টার্ট করলে ইভ-এনজি ইনস্টলেশন উইজার্ড শুরু হবে।</p>
+          <ul>
+            <li>ইনস্টলেশনের সময় আপনাকে ল্যাঙ্গুয়েজ, টাইম জোন এবং কিবোর্ড লেআউট সেট করতে বলা হবে।</li>
+            <li><strong>Partitioning:</strong> অটোমেটিক পার্টিশন সিলেক্ট করে এগিয়ে যান।</li>
+            <li>ইনস্টলেশন শেষ হলে ভিএমটি রিবুট হবে এবং আপনি একটি লগইন প্রম্পট দেখতে পাবেন।</li>
+          </ul>
+
+          <h2>৩. প্রাথমিক কনফিগারেশন (Setup Wizard)</h2>
+          <p>প্রথমবার লগইন করার সময় আপনাকে কিছু বেসিক সেটিংস ঠিক করতে হবে।</p>
+          <ul>
+            <li><strong>Default Credentials:</strong> ইউজারনেম হিসেবে লিখুন <code>root</code> এবং পাসওয়ার্ড হিসেবে
+              <code>eve</code>।</li>
+            <li>লগইন করার পর একটি নীল রঙের স্ক্রিন আসবে।</li>
+            <li>সেখানে আপনাকে নতুন পাসওয়ার্ড সেট করতে হবে (ডিফল্ট <code>eve</code> রাখাই ভালো)।</li>
+            <li><strong>Network Configuration:</strong> এখানে <code>DHCP</code> অথবা <code>Static IP</code> সিলেক্ট
+              করুন। ল্যাবের জন্য স্ট্যাটিক আইপি ব্যবহার করা সুবিধাজনক।</li>
+          </ul>
+
+          <h2>৪. ভেরিফিকেশন এবং এক্সেস (Verification)</h2>
+          <p>সেটআপ সঠিকভাবে হয়েছে কি না তা বোঝার জন্য নিচের পদ্ধতিগুলো অনুসরণ করুন:</p>
+          <ul>
+            <li><strong>IP Address Check:</strong> রাউটারের কনসোলে একটি আইপি অ্যাড্রেস দেখাবে (যেমন: 192.168.x.x)।</li>
+            <li><strong>Web Access:</strong> আপনার পিসির যেকোনো ব্রাউজারে গিয়ে ওই আইপিটি টাইপ করুন। যদি ইভ-এনজি লগইন পেজ
+              আসে, তবে আপনার ইনস্টলেশন সফল।</li>
+            <li><strong>Default Web Login:</strong> ইউজারনেম: <code>admin</code> এবং পাসওয়ার্ড: <code>eve</code>।</li>
+          </ul>
+
+
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Login Method</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">CLI (SSH/VM)</td>
+                  <td>root</td>
+                  <td>eve</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Web UI (Browser)</td>
+                  <td>admin</td>
+                  <td>eve</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. Troubleshooting এবং দরকারি কমান্ড</h2>
+          <p>যদি কোনো সমস্যা হয়, তবে নিচের কমান্ডগুলো আপনার কাজে লাগবে:</p>
+
+          <p><strong>১. নেটওয়ার্ক পারমিশন ফিক্স করা:</strong></p>
+          <pre><code>/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code></pre>
+          <p><em>ব্যাখ্যা: ল্যাবে নতুন ইমেজ আপলোড করার পর এটি চালানো বাধ্যতামূলক। এটি না করলে অনেক সময় ডিভাইস 'Greyed
+              out' হয়ে থাকে।</em></p>
+
+          <p><strong>২. নেটওয়ার্ক স্ট্যাটাস চেক করা:</strong></p>
+          <pre><code>ifconfig</code></pre>
+
+          <h3>কমন সমস্যা ও সমাধান:</h3>
+          <ul>
+            <li><strong>Node Greyed Out:</strong> যদি ল্যাবে রাউটার আইকনটি ধূসর বা গ্রে হয়ে থাকে এবং স্টার্ট না হয়, তবে
+              বুঝতে হবে আপনার ইমেজ ঠিকমতো আপলোড হয়নি অথবা <strong>Fix Permissions</strong> কমান্ডটি চালানো হয়নি।</li>
+            <li><strong>Cannot Access Web UI:</strong> নিশ্চিত করুন যে আপনার পিসি এবং ইভ-এনজি ভিএম একই সাবনেটের আওতায়
+              আছে। VMware নেটওয়ার্ক অ্যাডাপ্টারটি <strong>Bridge</strong> অথবা <strong>NAT</strong> মোডে আছে কি না চেক
+              করুন।</li>
+            <li><strong>Intel VT-x/AMD-V Disabled:</strong> পিসি রিস্টার্ট দিয়ে BIOS সেটিংস থেকে 'Virtualization
+              Technology' এনাবল করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>EVE-NG</strong> ইনস্টল এবং কনফিগার করা একটি কারিগরি দক্ষতা যা আপনার নেটওয়ার্কিং শেখার গতিকে
+              বহুগুণ বাড়িয়ে দেয়। সঠিক ভার্চুয়ালাইজেশন সেটিংস এবং নেটওয়ার্ক কনফিগারেশন নিশ্চিত করলে আপনি কোনো ঝামেলা
+              ছাড়াই আপনার ল্যাব শুরু করতে পারবেন। মনে রাখবেন, একটি সফল ল্যাব সেটআপই হলো একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ার
+              হওয়ার প্রথম ধাপ। পরবর্তী টিউটোরিয়ালে আমরা আলোচনা করবো কীভাবে এই সিস্টেমে বিভিন্ন ভেন্ডরের ইমেজ আপলোড করতে
+              হয়।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

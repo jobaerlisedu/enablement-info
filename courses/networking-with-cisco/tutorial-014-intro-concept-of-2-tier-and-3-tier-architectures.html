@@ -1,32 +1,310 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intro & Concept of 2 Tier and 3 Tier Architectures | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Design-এর গুরুত্বপূর্ণ ২-টিয়ার এবং ৩-টিয়ার আর্কিটেকচার নিয়ে বিস্তারিত গাইড। জানুন Access, Distribution এবং Core Layer-এর কাজ সহজ বাংলায়।">
+  <title>Intro & Concept of 2 Tier and 3 Tier Architectures: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Intro & Concept of 2 Tier and 3 Tier Architectures</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Intro & Concept of 2 Tier and 3 Tier Architectures</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Intro & Concept of 2 Tier and 3 Tier Architectures</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একটি বড় প্রতিষ্ঠানের নেটওয়ার্ক ডিজাইন করা মোটেও সহজ কাজ নয়। যদি আপনি অগোছালোভাবে শত শত Switch এবং Router
+            একে অপরের সাথে যুক্ত করেন, তবে সেই নেটওয়ার্কটি ম্যানেজ করা অসম্ভব হয়ে পড়বে এবং প্রায়ই নেটওয়ার্ক ডাউন হওয়ার
+            সম্ভাবনা থাকবে। এই সমস্যা সমাধানের জন্য Cisco একটি হায়ারার্কিকাল নেটওয়ার্ক মডেল (Hierarchical Network Model)
+            প্রদান করেছে। এই মডেলের প্রধান দুটি রূপ হলো <strong>2-Tier Architecture</strong> এবং <strong>3-Tier
+              Architecture</strong>।</p>
+          <p>আজকের এই বিস্তারিত টিউটোরিয়ালে আমরা জানবো এই আর্কিটেকচারগুলো কী, এদের বিভিন্ন লেয়ারের কাজ কী এবং কখন কোনটি
+            ব্যবহার করা উচিত।</p>
+
+
+
+          <h2>১. Hierarchical Network Model কী?</h2>
+          <p>সহজ কথায়, একটি বিশাল নেটওয়ার্ককে ছোট ছোট লজিক্যাল লেয়ারে ভাগ করে ডিজাইন করাকেই হায়ারার্কিকাল নেটওয়ার্ক মডেল
+            বলা হয়। এর ফলে নেটওয়ার্ক অনেক বেশি <strong>Scalable</strong> (সহজে বড় করা যায়), <strong>Redundant</strong>
+            (একটি ডিভাইস নষ্ট হলেও নেটওয়ার্ক সচল থাকে) এবং <strong>Manageable</strong> হয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Corporate Office Analogy)</h3>
+            <p>একটি বড় মাল্টিন্যাশনাল কোম্পানির কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Access Layer:</strong> এটি হলো ফ্রন্ট ডেস্ক বা এমপ্লয়িদের ডেস্ক যেখানে তারা সরাসরি কাজ করে।
+              </li>
+              <li><strong>Distribution Layer:</strong> এটি হলো ডিপার্টমেন্টাল হেড বা ম্যানেজারদের অফিস, যারা বিভিন্ন
+                টিমের ডাটা বা রিপোর্ট সংগ্রহ করে ফিল্টার করেন।</li>
+              <li><strong>Core Layer:</strong> এটি হলো সিইও (CEO) বা মেইন বোর্ড রুম, যেখান থেকে ডাটা এক ডিপার্টমেন্ট
+                থেকে অন্য ডিপার্টমেন্টে বা বাইরের দেশে খুব দ্রুত গতিতে ট্রান্সফার করা হয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. ৩-টিয়ার আর্কিটেকচারের তিনটি লেয়ার (3-Tier Layers)</h2>
+          <p>একটি স্ট্যান্ডার্ড ৩-টিয়ার আর্কিটেকচার নিচের তিনটি লেয়ার নিয়ে গঠিত:</p>
+
+          <h3>ক. Access Layer</h3>
+          <p>এটি নেটওয়ার্কের একদম শুরুর দিক। এখানে এন্ড-ডিভাইসগুলো (যেমন- PC, Laptop, IP Phone) যুক্ত থাকে।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> ইউজারদের নেটওয়ার্কে ঢোকার অনুমতি দেওয়া।</li>
+            <li><strong>ডিভাইস:</strong> সাধারণত Layer 2 Switch ব্যবহার করা হয়।</li>
+            <li><strong>ফিচার:</strong> Port Security, VLAN assignment এবং PoE (Power over Ethernet)।</li>
+          </ul>
+
+          <h3>খ. Distribution Layer</h3>
+          <p>এটি Access এবং Core লেয়ারের মধ্যে ব্রিজ হিসেবে কাজ করে।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> ট্রাফিক ফিল্টার করা, Routing করা এবং সিকিউরিটি পলিসি (ACL) অ্যাপ্লাই করা।
+            </li>
+            <li><strong>ডিভাইস:</strong> Layer 3 বা Multilayer Switch ব্যবহার করা হয়।</li>
+            <li><strong>ফিচার:</strong> Inter-VLAN routing, Quality of Service (QoS), এবং Redundancy নিশ্চিত করা।</li>
+          </ul>
+
+          <h3>গ. Core Layer</h3>
+          <p>এটি নেটওয়ার্কের মেরুদণ্ড বা Backbone। এর কাজ হলো বিশাল পরিমাণ ডাটা অত্যন্ত দ্রুত গতিতে এক স্থান থেকে অন্য
+            স্থানে পাঠানো।</p>
+          <ul>
+            <li><strong>প্রধান কাজ:</strong> হাই-স্পিড ডাটা সুইচিং। এখানে কোনো প্যাকেট ফিল্টারিং করা হয় না যাতে গতি কমে
+              না যায়।</li>
+            <li><strong>ডিভাইস:</strong> হাই-এন্ড Backbone Switches বা Routers।</li>
+            <li><strong>ফিচার:</strong> Fault Tolerance এবং High Availability।</li>
+          </ul>
+
+          <h2>৩. ২-টিয়ার আর্কিটেকচার (Collapsed Core Design)</h2>
+          <p>যখন কোনো নেটওয়ার্ক তুলনামূলক ছোট হয়, তখন আলাদাভাবে Core এবং Distribution লেয়ার রাখা ব্যয়বহুল হতে পারে।
+            সেক্ষেত্রে এই দুটি লেয়ারকে একত্রিত করে একটি লেয়ারে নিয়ে আসা হয়। একেই বলা হয় <strong>2-Tier
+              Architecture</strong> বা <strong>Collapsed Core</strong> ডিজাইন।</p>
+
+
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>2-Tier Architecture</th>
+                  <th>3-Tier Architecture</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Complexity</td>
+                  <td>অনেক কম এবং সহজ।</td>
+                  <td>বেশি এবং জটিল।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Cost</td>
+                  <td>কম ডিভাইসের প্রয়োজন হয়।</td>
+                  <td>বেশি ডিভাইসের কারণে খরচ বেশি।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Scalability</td>
+                  <td>মাঝারি নেটওয়ার্কের জন্য ভালো।</td>
+                  <td>বিশাল নেটওয়ার্কের জন্য সবচেয়ে ভালো।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Performance</td>
+                  <td>Core এবং Distribution একই ডিভাইসে থাকে।</td>
+                  <td>প্রতিটি লেয়ারের আলাদা ডেডিকেটেড পারফরম্যান্স থাকে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. কেন এই আর্কিটেকচারগুলো ব্যবহার করবেন?</h2>
+          <ul>
+            <li><strong>Redundancy:</strong> যদি একটি Distribution Switch নষ্ট হয়, তবে ডাটা বিকল্প পথে Core-এ পৌঁছাতে
+              পারে।</li>
+            <li><strong>Modularity:</strong> আপনি নেটওয়ার্কের অন্য অংশ ডিস্টার্ব না করেই নতুন একটি বিল্ডিং বা ফ্লোর
+              (নতুন Access Layer) যুক্ত করতে পারেন।</li>
+            <li><strong>Troubleshooting:</strong> কোনো সমস্যা হলে খুব সহজে আইডেন্টিফাই করা যায় সমস্যাটি কি ইউজার লেভেলে
+              (Access) নাকি রাউটিং লেভেলে (Distribution)।</li>
+          </ul>
+
+          <h2>৫. টেকনিক্যাল কনফিগারেশন টিপস (Verification)</h2>
+          <p>এই আর্কিটেকচারগুলোতে সাধারণত <strong>EtherChannel</strong> ব্যবহার করা হয় যাতে ব্যান্ডউইথ বাড়ানো যায় এবং
+            লিঙ্ক ব্যাকআপ থাকে।</p>
+
+          <p><strong>Cisco Switch-এ লিঙ্ক স্ট্যাটাস চেক করার কমান্ড:</strong></p>
+          <pre><code># ইন্টারফেসগুলোর সামারি দেখার জন্য
+Switch# show ip interface brief
+
+# ইথারচ্যানেল বা লিঙ্ক এগ্রিগেশন চেক করার জন্য
+Switch# show etherchannel summary
+
+# সিডিপি (CDP) ব্যবহার করে নেইবার ডিভাইস চেক করা
+Switch# show cdp neighbors</code></pre>
+
+          <h2>৬. Troubleshooting গাইড</h2>
+          <ul>
+            <li><strong>Slow Speed:</strong> যদি পুরো নেটওয়ার্ক স্লো হয়, তবে Core Layer-এ চেক করুন কোনো লিঙ্ক
+              <strong>Utilization</strong> ১০০% হয়ে গেছে কি না।</li>
+            <li><strong>No Connectivity:</strong> যদি নির্দিষ্ট একটি ফ্লোরের ইউজাররা কানেক্ট হতে না পারে, তবে ওই ফ্লোরের
+              <strong>Access Switch</strong> এবং তার সাথে Distribution Switch-এর আপলিঙ্ক কানেকশন চেক করুন।</li>
+            <li><strong>Loop Issue:</strong> হায়ারার্কিকাল মডেলে লুপ এড়াতে সবসময় <strong>Spanning Tree Protocol
+                (STP)</strong> কনফিগারেশন ভেরিফাই করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>আপনার প্রতিষ্ঠানের আকার এবং বাজেটের ওপর ভিত্তি করে আপনাকে <strong>2-Tier</strong> অথবা <strong>3-Tier
+                Architecture</strong> বেছে নিতে হবে। ছোট বা মাঝারি অফিসের জন্য ২-টিয়ার যথেষ্ট কার্যকরী, কিন্তু
+              ক্যাম্পাস নেটওয়ার্ক বা বিশাল এন্টারপ্রাইজের জন্য ৩-টিয়ার আর্কিটেকচার হলো বেস্ট প্র্যাকটিস। একজন দক্ষ
+              নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে এই লেয়ারগুলোর কাজ এবং এদের মধ্যকার ডাটা ফ্লো বুঝতে পারা অত্যন্ত জরুরি। সঠিক
+              আর্কিটেকচার সিলেকশনই আপনার নেটওয়ার্ককে দীর্ঘস্থায়ী এবং ত্রুটিমুক্ত রাখবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

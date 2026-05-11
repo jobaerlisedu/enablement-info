@@ -1,32 +1,309 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction to GNS3 and EVE-NG Simulator | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Simulation এর জন্য জনপ্রিয় টুল GNS3 এবং EVE-NG নিয়ে বিস্তারিত গাইড। জানুন এদের কাজ করার পদ্ধতি, পার্থক্য এবং ল্যাব সেটআপ গাইড সহজ বাংলায়।">
+  <title>Introduction to GNS3 and EVE-NG Simulator: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction to GNS3 and EVE-NG Simulator</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction to GNS3 and EVE-NG Simulator</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction to GNS3 and EVE-NG Simulator: A Deep Dive Guide</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিং নিয়ে পড়াশোনা বা প্রফেশনাল কাজ করার সময় ল্যাব প্র্যাকটিস করা অত্যন্ত জরুরি। কিন্তু
+            বাস্তব জীবনে কয়েক লক্ষ টাকার Router বা Switch কেনা সবার পক্ষে সম্ভব নয়। এই সমস্যার সমাধানের জন্য আমরা
+            ব্যবহার করি <strong>Network Simulators</strong> এবং <strong>Emulators</strong>। বর্তমান সময়ে ইন্ডাস্ট্রি
+            স্ট্যান্ডার্ড ল্যাব সেটআপের জন্য দুটি নাম সবচেয়ে বেশি আলোচিত: <strong>GNS3</strong> এবং
+            <strong>EVE-NG</strong>।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা এই দুটি শক্তিশালী টুল নিয়ে গভীর আলোচনা করবো। আমরা জানবো এদের কাজের ধরন,
+            হার্ডওয়্যার রিকোয়ারমেন্ট এবং ল্যাব তৈরির পদ্ধতি।</p>
+
+
+
+          <h2>১. Network Simulator বনাম Emulator: পার্থক্য কী?</h2>
+          <p>GNS3 বা EVE-NG-তে যাওয়ার আগে আমাদের বুঝতে হবে এরা আসলে কীভাবে কাজ করে।</p>
+          <ul>
+            <li><strong>Simulator:</strong> এটি শুধুমাত্র আসল ডিভাইসের মতো আচরণ করার চেষ্টা করে। এখানে আসল
+              <strong>Operating System</strong> চলে না। যেমন: Cisco Packet Tracer।</li>
+            <li><strong>Emulator:</strong> এটি আপনার পিসিতে একটি <strong>Virtual Machine</strong> তৈরি করে সেখানে আসল
+              ডিভাইসের (যেমন Cisco IOS, MikroTik RouterOS, বা Windows/Linux) ইমেজ চালায়। GNS3 এবং EVE-NG মূলত এই
+              ক্যাটাগরিতে পড়ে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (Flight Simulator Analogy)</h3>
+            <p><strong>Simulator:</strong> এটি অনেকটা মোবাইল গেমের বিমান চালানোর মতো। আপনি আকাশে ওড়াতে পারবেন ঠিকই,
+              কিন্তু বিমানের সব বাটন বা সূক্ষ্ম টেকনিক্যাল কাজ এখানে পাওয়া যাবে না।</p>
+            <p><strong>Emulator:</strong> এটি পাইলটদের ট্রেনিংয়ের জন্য তৈরি প্রফেশনাল ককপিট সিমুলেটরের মতো। এখানে
+              বিমানের আসল ইঞ্জিন সফটওয়্যার চলে। আপনি ল্যাবে যা করবেন, আসল হার্ডওয়্যারেও ঠিক তাই হবে।</p>
+          </div>
+
+          <h2>২. GNS3 (Graphical Network Simulator-3)</h2>
+          <p><strong>GNS3</strong> হলো একটি ওপেন-সোর্স এবং ফ্রি সফটওয়্যার যা বিশ্বজুড়ে কয়েক মিলিয়ন নেটওয়ার্ক
+            ইঞ্জিনিয়ার ব্যবহার করেন। এটি <strong>Dynamips</strong>, <strong>QEMU</strong>, এবং <strong>Docker</strong>
+            প্রযুক্তি ব্যবহার করে ল্যাব তৈরি করে।</p>
+
+          <h3>GNS3 এর বৈশিষ্ট্যসমূহ:</h3>
+          <ul>
+            <li>এটি উইন্ডোজ, লিনাক্স এবং ম্যাক ওএস-এ সরাসরি ইনস্টল করা যায়।</li>
+            <li><strong>GNS3 VM:</strong> পারফরম্যান্স ভালো পাওয়ার জন্য এটি একটি ভার্চুয়াল মেশিন ব্যবহার করে ল্যাব
+              চালানোর পরামর্শ দেয়।</li>
+            <li>এটি <strong>Wireshark</strong>-এর সাথে সরাসরি যুক্ত থাকে, ফলে রিয়েল-টাইম প্যাকেট অ্যানালাইসিস করা যায়।
+            </li>
+          </ul>
+
+
+
+          <h2>৩. EVE-NG (Emulated Virtual Environment - Next Generation)</h2>
+          <p><strong>EVE-NG</strong> হলো বর্তমানে সবচেয়ে আধুনিক এবং প্রফেশনাল নেটওয়ার্ক ইমুলেশন প্ল্যাটফর্ম। এটি
+            ব্রাউজার-বেজড (Clientless) মেকানিজমে কাজ করে, অর্থাৎ ল্যাব তৈরি করার জন্য আপনার পিসিতে কোনো ভারি সফটওয়্যার
+            ইনস্টল করতে হবে না।</p>
+
+          <h3>EVE-NG এর বৈশিষ্ট্যসমূহ:</h3>
+          <ul>
+            <li>এটি একটি লিনাক্স (Ubuntu) বেজড ওএস যা <strong>Bare-Metal</strong> বা <strong>VMware</strong>-এ ইনস্টল
+              করতে হয়।</li>
+            <li>ল্যাব ডিজাইন করার জন্য শুধুমাত্র একটি ওয়েব ব্রাউজার (Chrome/Firefox) প্রয়োজন।</li>
+            <li>এটি মাল্টি-ইউজার সাপোর্ট করে, অর্থাৎ একটি সার্ভারে অনেকে মিলে আলাদা ল্যাব করতে পারে।</li>
+          </ul>
+
+
+
+          <h2>৪. GNS3 বনাম EVE-NG: একটি তুলনামূলক ছক</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>GNS3</th>
+                  <th>EVE-NG</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Interface</td>
+                  <td>Desktop Application</td>
+                  <td>Web Browser (HTML5)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Operating System</td>
+                  <td>Windows, Linux, macOS</td>
+                  <td>Ubuntu Based VM/Server</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Complexity</td>
+                  <td>বিগিনারদের জন্য সহজ।</td>
+                  <td>ইনস্টলেশন কিছুটা জটিল।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Hardware Usage</td>
+                  <td>পিসির ওপর বেশি চাপ দেয়।</td>
+                  <td>অনেক বেশি অপ্টিমাইজড।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Multi-vendor Support</td>
+                  <td>High (Cisco, MikroTik, Linux)</td>
+                  <td>Excellent (Cisco, Huawei, Juniper)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. ল্যাব সেটআপ গাইড (General Steps)</h2>
+          <p>যেকোনো ইমুলেটর সেটআপ করার জন্য আপনাকে নিচের ধাপগুলো অনুসরণ করতে হবে:</p>
+
+          <h3>ধাপ ১: হার্ডওয়্যার চেক</h3>
+          <p>এই সফটওয়্যারগুলো চালানোর জন্য কমপক্ষে <strong>8GB RAM</strong> এবং একটি <strong>Core i5/i7</strong>
+            প্রসেসর (Virtualization এনাবলড) থাকা প্রয়োজন।</p>
+
+          <h3>ধাপ ২: ভার্চুয়ালাইজেশন সফটওয়্যার</h3>
+          <p>প্রথমে আপনার পিসিতে <strong>VMware Workstation</strong> বা <strong>VirtualBox</strong> ইনস্টল করুন।</p>
+
+          <h3>ধাপ ৩: ইমেজ কালেকশন (Critical Step)</h3>
+          <p>GNS3 বা EVE-NG নিজে থেকে কোনো রাউটারের সফটওয়্যার দেয় না। আপনাকে ইন্টারনেট থেকে আইওএস (IOS) বা আইওইউ (IOU)
+            ইমেজ সংগ্রহ করতে হবে।</p>
+          <ul>
+            <li>Cisco IOS ইমেজ (bin/image ফাইল)</li>
+            <li>MikroTik CHR (Cloud Hosted Router) ইমেজ</li>
+            <li>Linux/Windows QCOW2 ইমেজ</li>
+          </ul>
+
+          <h2>৬. Troubleshooting এবং প্রফেশনাল টিপস</h2>
+          <ul>
+            <li><strong>CPU 100% Usage:</strong> GNS3-তে পুরনো ইমেজ চালালে অনেক সময় সিপিইউ ইউসেজ ১০০% হয়ে যায়। এটি
+              সমাধানের জন্য <strong>Idle-PC</strong> ভ্যালু ক্যালকুলেট করুন।</li>
+            <li><strong>VT-x/AMD-V Error:</strong> বায়োস (BIOS) থেকে ভার্চুয়ালাইজেশন এনাবল না থাকলে ইমুলেটর চলবে না।
+            </li>
+            <li><strong>Missing Images:</strong> EVE-NG তে ইমেজ আপলোড করার পর <code>fixpermissions</code> কমান্ড চালানো
+              বাধ্যতামূলক, অন্যথায় নোড স্টার্ট হবে না।</li>
+          </ul>
+
+          <p><strong>EVE-NG Permissions ফিক্স করার কমান্ড:</strong></p>
+          <pre><code># SSH এর মাধ্যমে সার্ভারে ঢুকে নিচের কমান্ডটি দিন
+/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code></pre>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>আপনি যদি সবেমাত্র সিসিএনএ (CCNA) বা বেসিক নেটওয়ার্কিং শুরু করেন, তবে <strong>GNS3</strong> আপনার জন্য
+              উপযুক্ত। কিন্তু আপনি যদি অ্যাডভান্সড লেভেলের ল্যাব যেমন CCNP, CCIE বা ডাটা সেন্টার নিয়ে কাজ করতে চান, তবে
+              <strong>EVE-NG</strong> এর কোনো বিকল্প নেই। এই টুলগুলো সঠিকভাবে ব্যবহার করতে পারলে আপনি ঘরে বসেই হাজার
+              কোটি টাকার নেটওয়ার্ক ইনফ্রাস্ট্রাকচার ডিজাইন ও ট্রাবলশুট করার অভিজ্ঞতা অর্জন করতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

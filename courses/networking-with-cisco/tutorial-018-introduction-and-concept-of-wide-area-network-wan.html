@@ -1,32 +1,293 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction and Concept of Wide Area Network (WAN) | tech-enablement.info</title>
+  <meta name="description"
+    content="Wide Area Network (WAN) কী এবং এটি কীভাবে কাজ করে তার বিস্তারিত টেকনিক্যাল গাইড। জানুন WAN Technologies, Protocols এবং বাস্তব জীবনে এর প্রয়োগ সহজ বাংলায়।">
+  <title>Introduction and Concept of Wide Area Network (WAN): A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction and Concept of Wide Area Network (WAN)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction and Concept of Wide Area Network (WAN)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction and Concept of Wide Area Network (WAN)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের জগতে যখন আমরা কোনো ছোট অফিস বা বাসার নেটওয়ার্ক নিয়ে কথা বলি, তখন তাকে বলি
+            <strong>LAN (Local Area Network)</strong>। কিন্তু যখন এই সীমানা ছাড়িয়ে একটি শহর থেকে অন্য শহর কিংবা এক দেশ
+            থেকে অন্য দেশের নেটওয়ার্ককে যুক্ত করার প্রয়োজন হয়, তখনই সামনে আসে <strong>Wide Area Network (WAN)</strong>।
+            বর্তমান বিশ্বের সবচেয়ে বড় WAN হলো ইন্টারনেট।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা আলোচনা করবো WAN-এর মূল কনসেপ্ট, এটি কীভাবে কাজ করে এবং আধুনিক এন্টারপ্রাইজ
+            ইনফ্রাস্ট্রাকচারে এর বিভিন্ন টেকনোলজি নিয়ে।</p>
+
+
+
+          <h2>১. Wide Area Network (WAN) কী?</h2>
+          <p><strong>WAN</strong> হলো এমন একটি টেলিকমিউনিকেশন নেটওয়ার্ক যা বিশাল ভৌগোলিক এলাকা জুড়ে বিস্তৃত থাকে। এটি
+            মূলত অনেকগুলো ছোট ছোট LAN-কে একে অপরের সাথে যুক্ত করে। WAN তৈরি করার জন্য সাধারণত থার্ড-পার্টি
+            <strong>Service Provider</strong> বা টেলকো অপারেটরদের (যেমন- ISP বা টেলিকম কোম্পানি) সাহায্য নিতে হয়।</p>
+          <ul>
+            <li><strong>Geographical Range:</strong> এটি শহর, দেশ বা এমনকি পুরো পৃথিবী জুড়ে হতে পারে।</li>
+            <li><strong>Ownership:</strong> সাধারণত WAN-এর মালিকানা কোনো একটি নির্দিষ্ট প্রতিষ্ঠানের থাকে না; এটি
+              বিভিন্ন প্রোভাইডারের লিঙ্কিংয়ের মাধ্যমে গঠিত হয়।</li>
+            <li><strong>Speed:</strong> LAN-এর তুলনায় WAN-এর স্পিড কিছুটা কম হতে পারে এবং <strong>Latency</strong> বেশি
+              থাকে কারণ ডাটাকে অনেক দীর্ঘ পথ পাড়ি দিতে হয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Global Banking System)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি ব্যাংকের কথা চিন্তা করুন:</p>
+            <ul>
+              <li>ঢাকার মতিঝিল ব্রাঞ্চের ভেতরে থাকা সব কম্পিউটার একটি <strong>LAN</strong>।</li>
+              <li>চট্টগ্রামের ব্রাঞ্চের ভেতরে থাকা সব কম্পিউটার আরেকটি <strong>LAN</strong>।</li>
+              <li>যখন ঢাকার ব্রাঞ্চ চট্টগ্রামের ব্রাঞ্চের ডাটাবেজ এক্সেস করে, তখন এই দুই ব্রাঞ্চের মাঝখানে যে কানেকশন
+                কাজ করে সেটিই হলো <strong>WAN</strong>।</li>
+            </ul>
+          </div>
+
+          <h2>২. WAN-এর প্রধান টেকনোলজিসমূহ (WAN Technologies)</h2>
+          <p>একটি প্রতিষ্ঠান বিভিন্ন পদ্ধতিতে তাদের WAN কানেক্টিভিটি নিশ্চিত করতে পারে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Technology</th>
+                  <th>কাজের ধরন (Mechanism)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Leased Line</td>
+                  <td>এটি একটি ডেডিকেটেড পয়েন্ট-টু-পয়েন্ট কানেকশন। অত্যন্ত সিকিউর এবং ব্যয়বহুল।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">MPLS</td>
+                  <td>Multi-Protocol Label Switching। এটি বর্তমানে বড় কর্পোরেট হাউসে সবচেয়ে জনপ্রিয়। এটি অত্যন্ত ফাস্ট
+                    ডাটা ট্রান্সফার নিশ্চিত করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Broadband Internet</td>
+                  <td>সাধারণ ইন্টারনেট যা VPN-এর মাধ্যমে অফিসগুলোকে যুক্ত করে। এটি সাশ্রয়ী।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">SD-WAN</td>
+                  <td>Software-Defined WAN। এটি বর্তমান সময়ের লেটেস্ট টেকনোলজি যা সফটওয়্যারের মাধ্যমে WAN ট্রাফিক
+                    কন্ট্রোল করে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৩. WAN ডিভাইসের ভূমিকা (WAN Components)</h2>
+          <p>WAN লিঙ্কে মূলত নিচের ডিভাইসগুলো গুরুত্বপূর্ণ ভূমিকা পালন করে:</p>
+          <ul>
+            <li><strong>Router:</strong> এটি WAN-এর মেইন ডিভাইস যা এক নেটওয়ার্ক থেকে অন্য নেটওয়ার্কে প্যাকেট রাউটিং করে।
+            </li>
+            <li><strong>Modem / CSU/DSU:</strong> ডিজিটাল ডাটাকে অ্যানালগ সিগন্যালে বা টেলকো লাইনের উপযোগী
+              ফ্রিকোয়েন্সিতে কনভার্ট করার জন্য।</li>
+            <li><strong>WAN Switch:</strong> সার্ভিস প্রোভাইডারের সাইডে ট্রাফিক হ্যান্ডেল করার জন্য ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h2>৪. WAN প্রোটোকলসমূহ (Common Protocols)</h2>
+          <p>ডাটা লিংক লেয়ারে (Layer 2) WAN-এর জন্য কিছু বিশেষ প্রোটোকল কাজ করে:</p>
+          <ol>
+            <li><strong>HDLC:</strong> Cisco-এর ডিফল্ট পয়েন্ট-টু-পয়েন্ট প্রোটোকল।</li>
+            <li><strong>PPP (Point-to-Point Protocol):</strong> এটি ওপেন স্ট্যান্ডার্ড এবং এতে অথেনটিকেশন (PAP/CHAP)
+              সুবিধা আছে।</li>
+            <li><strong>Frame Relay & ATM:</strong> এগুলো পুরনো টেকনোলজি, যা বর্তমানে খুব একটা ব্যবহৃত হয় না।</li>
+          </ol>
+
+          <h2>৫. টেকনিক্যাল কনফিগারেশন এবং ভেরিফিকেশন (Cisco CLI)</h2>
+          <p>একটি রাউটারে WAN ইন্টারফেস কনফিগার করা এবং স্ট্যাটাস চেক করা একজন ইঞ্জিনিয়ারের নিয়মিত কাজ।</p>
+
+          <p><strong>ইন্টারফেস স্ট্যাটাস চেক করার কমান্ড:</strong></p>
+          <pre><code># WAN ইন্টারফেসের আইপি এবং স্ট্যাটাস দেখতে
+Router# show ip interface brief
+
+# সিরিয়াল ইন্টারফেসের এনক্যাপসুলেশন চেক করতে
+Router# show interfaces serial 0/0/0</code></pre>
+
+          <p><strong>Latency এবং Path চেক করার কমান্ড:</strong></p>
+          <pre><code># রিমোট অফিসের সাথে রেসপন্স টাইম দেখতে
+Router# ping 103.x.x.x
+
+# ডাটা কোন কোন রাউটার হয়ে যাচ্ছে তা দেখতে
+Router# traceroute 8.8.8.8</code></pre>
+
+          <h2>৬. WAN ডিজাইনে চ্যালেঞ্জ এবং Troubleshooting</h2>
+          <ul>
+            <li><strong>Bandwidth Cost:</strong> WAN ব্যান্ডউইথ অনেক দামী, তাই <strong>Quality of Service (QoS)</strong>
+              ব্যবহার করে গুরুত্বপূর্ণ ট্রাফিককে (যেমন- Voice) প্রায়োরিটি দিতে হয়।</li>
+            <li><strong>Security:</strong> যেহেতু ডাটা পাবলিক ইন্টারমিডিয়ারি দিয়ে যায়, তাই <strong>IPsec VPN</strong> বা
+              এনক্রিপশন ব্যবহার করা বাধ্যতামূলক।</li>
+            <li><strong>High Latency:</strong> যদি পিং টাইম অনেক বেশি হয়, তবে সার্ভিস প্রোভাইডারের
+              <strong>Backhaul</strong> চেক করতে হবে।</li>
+          </ul>
+
+
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Wide Area Network (WAN)</strong> হলো বর্তমান গ্লোবালাইজেশনের প্রাণকেন্দ্র। এটি ছাড়া কোনো ব্যবসা
+              তার গণ্ডি ছাড়িয়ে বিশ্বব্যাপী কার্যক্রম পরিচালনা করতে পারতো না। আপনি যদি <strong>CCNA</strong> বা
+              <strong>CCNP</strong> লেভেলের নেটওয়ার্কিং শিখতে চান, তবে WAN-এর বিভিন্ন রাউটিং প্রোটোকল (যেমন- BGP) এবং
+              আধুনিক <strong>SD-WAN</strong> সম্পর্কে স্বচ্ছ ধারণা থাকা জরুরি। প্রযুক্তির পরিবর্তনের সাথে সাথে WAN এখন
+              আরও বেশি সফটওয়্যার নির্ভর হয়ে পড়ছে, যা নেটওয়ার্ক ম্যানেজমেন্টকে সহজ এবং ফ্লেক্সিবল করে তুলেছে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

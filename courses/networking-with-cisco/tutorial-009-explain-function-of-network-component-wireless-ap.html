@@ -1,32 +1,303 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explain Function of Network Component Wireless AP | tech-enablement.info</title>
+  <meta name="description"
+    content="Wireless Access Point (AP) কী এবং এটি কীভাবে কাজ করে তার বিস্তারিত গাইড। জানুন Wireless AP-এর ফাংশন, কাজের প্রক্রিয়া এবং রাউটারের সাথে এর পার্থক্য।">
+  <title>Explain Function of Network Component Wireless AP: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Explain Function of Network Component Wireless AP</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Explain Function of Network Component Wireless AP</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Function of Network Component Wireless AP</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>বর্তমান যুগে তারবিহীন বা Wireless যোগাযোগ ব্যবস্থা ছাড়া একটি আধুনিক নেটওয়ার্ক কল্পনা করা অসম্ভব। একটি
+            অফিসের প্রতিটি কোণায় তারের সংযোগ পৌঁছানো যেমন ব্যয়বহুল, তেমনি ঝামেলার কাজ। এই সমস্যার সমাধান দেয়
+            <strong>Wireless Access Point (AP)</strong>। এটি মূলত একটি হার্ডওয়্যার ডিভাইস যা লোকাল এরিয়া নেটওয়ার্ক বা
+            <strong>LAN</strong>-এ তারবিহীন ডিভাইসের সংযোগ নিশ্চিত করে।</p>
+          <p>আজকের এই বিস্তারিত ব্লগে আমরা আলোচনা করবো Wireless AP-এর কাজ করার পদ্ধতি, এর মেকানিজম এবং আধুনিক
+            এন্টারপ্রাইজ নেটওয়ার্ক ডিজাইনে এর ভূমিকা নিয়ে।</p>
+
+
+
+          <h2>১. Wireless Access Point (AP) কী?</h2>
+          <p>Wireless AP হলো এমন একটি নেটওয়ার্কিং হার্ডওয়্যার যা একটি <strong>Wired Router</strong> বা
+            <strong>Switch</strong> এর সাথে সরাসরি ইথারনেট (Ethernet) ক্যাবলের মাধ্যমে যুক্ত থাকে এবং নির্দিষ্ট এলাকায়
+            ওয়াই-ফাই (Wi-Fi) সিগন্যাল প্রদান করে। এটি তারযুক্ত নেটওয়ার্ক এবং তারবিহীন ডিভাইসের (যেমন- স্মার্টফোন,
+            ল্যাপটপ, ট্যাবলেট) মধ্যে একটি ব্রিজ বা সেতু হিসেবে কাজ করে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Power Extension Analogy)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি মাল্টিপ্লাগ বা এক্সটেনশন সকেটের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Main Socket:</strong> আপনার মেইন দেয়ালের সকেটটি হলো ইথারনেট পোর্ট।</li>
+              <li><strong>Extension Cable:</strong> এটি হলো ইথারনেট ক্যাবল।</li>
+              <li><strong>Wireless AP:</strong> মাল্টিপ্লাগটি হলো এক্সেস পয়েন্ট। এটি মেইন সকেট থেকে বিদ্যুৎ নিয়ে
+                অনেকগুলো পোর্টে ডিস্ট্রিবিউশন করে। একইভাবে AP মেইন নেটওয়ার্ক থেকে ডাটা নিয়ে হাওয়ার মাধ্যমে অনেকগুলো
+                ডিভাইসে ছড়িয়ে দেয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. Wireless AP-এর প্রধান ফাংশনসমূহ (Main Functions)</h2>
+          <p>একটি প্রফেশনাল Wireless AP মূলত নিচের কাজগুলো সম্পন্ন করে:</p>
+          <ol>
+            <li><strong>Wireless Connectivity:</strong> এটি রেডিও ফ্রিকোয়েন্সি (RF) ব্যবহার করে তারবিহীন সিগন্যাল তৈরি
+              করে, যার ফলে ইউজাররা তারের ঝামেলা ছাড়াই নেটওয়ার্কে যুক্ত হতে পারে।</li>
+            <li><strong>Bridging:</strong> এটি <strong>Layer 2 (Data Link Layer)</strong>-এ কাজ করে এবং তারবিহীন
+              ফ্রেমগুলোকে (802.11) ইথারনেট ফ্রেমে (802.3) কনভার্ট করে।</li>
+            <li><strong>SSID Broadcasting:</strong> এটি একটি নাম (SSID) প্রচার করে যাতে ইউজাররা নেটওয়ার্কটি খুঁজে পায়।
+            </li>
+            <li><strong>Authentication and Security:</strong> এক্সেস পয়েন্ট নিশ্চিত করে যে শুধুমাত্র অনুমোদিত ইউজাররাই
+              নেটওয়ার্কে প্রবেশ করতে পারছে (WPA2/WPA3 এনক্রিপশনের মাধ্যমে)।</li>
+          </ol>
+
+
+
+          <h2>৩. Wireless Router বনাম Wireless AP: পার্থক্য কী?</h2>
+          <p>অনেকেই মনে করেন বাসায় ব্যবহৃত রাউটার এবং এক্সেস পয়েন্ট একই জিনিস। আসলে বাসার রাউটার হলো একটি
+            <strong>3-in-1</strong> ডিভাইস যাতে রাউটার, সুইচ এবং এক্সেস পয়েন্ট বিল্ট-ইন থাকে। কিন্তু প্রফেশনাল বা
+            এন্টারপ্রাইজ লেভেলে এগুলো আলাদা থাকে।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>Wireless Router</th>
+                  <th>Wireless Access Point (AP)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Primary Role</td>
+                  <td>একাধিক নেটওয়ার্ক যুক্ত করে এবং আইপি প্রদান করে।</td>
+                  <td>শুধুমাত্র ওয়াই-ফাই সিগন্যাল বাড়িয়ে দেয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">OSI Layer</td>
+                  <td>Layer 3 (Network Layer)</td>
+                  <td>Layer 2 (Data Link Layer)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Capacity</td>
+                  <td>ইউজার হ্যান্ডেল করার ক্ষমতা সীমিত (১৫-২০ জন)।</td>
+                  <td>বিশাল সংখ্যক ইউজার হ্যান্ডেল করতে পারে (১০০+ জন)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Usage</td>
+                  <td>বাসা বা ছোট অফিসের জন্য।</td>
+                  <td>বড় অফিস, ইউনিভার্সিটি বা শপিং মলের জন্য।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Wireless AP কীভাবে কাজ করে?</h2>
+          <p>যখন একটি ল্যাপটপ থেকে কোনো ডাটা ইন্টারনেটে পাঠানো হয়, তখন AP নিচের ধাপগুলো অনুসরণ করে:</p>
+          <ul>
+            <li><strong>Step 1:</strong> ল্যাপটপ থেকে রেডিও সিগন্যাল রিসিভ করে।</li>
+            <li><strong>Step 2:</strong> রিসিভ করা ডাটা প্যাকেটটি পরীক্ষা করে দেখে এর গন্তব্য কোথায়।</li>
+            <li><strong>Step 3:</strong> সিগন্যালটিকে ইলেকট্রিক্যাল পালস বা ইথারনেট ফ্রেমে রূপান্তর করে তারের মাধ্যমে
+              সুইচে পাঠিয়ে দেয়।</li>
+            <li><strong>Step 4:</strong> একইভাবে ইন্টারনেট থেকে আসা ডাটাকে রেডিও ওয়েভে কনভার্ট করে ল্যাপটপে পৌঁছে দেয়।
+            </li>
+          </ul>
+
+          <h2>৫. এক্সেস পয়েন্টের বিভিন্ন মোড (Operational Modes)</h2>
+          <p>প্রয়োজন অনুযায়ী একটি AP-কে বিভিন্ন মোডে কনফিগার করা যায়:</p>
+          <ul>
+            <li><strong>Root Mode:</strong> এটি সবচেয়ে কমন মোড। যেখানে AP সরাসরি সুইচের সাথে কানেক্টেড থাকে।</li>
+            <li><strong>Repeater Mode:</strong> যখন একটি AP অন্য একটি AP-এর সিগন্যাল রিসিভ করে পুনরায় প্রচার করে।</li>
+            <li><strong>Bridge Mode:</strong> যখন দুটি ভিন্ন বিল্ডিংয়ের নেটওয়ার্ককে তার ছাড়া সরাসরি যুক্ত করা হয়।</li>
+          </ul>
+
+          <h2>৬. Configuration ও বেস্ট প্র্যাকটিস (Technical Tips)</h2>
+          <p>একটি ভালো পারফরম্যান্সের ওয়াই-ফাই নেটওয়ার্কের জন্য নিচের বিষয়গুলো খেয়াল রাখা জরুরি:</p>
+          <ul>
+            <li><strong>Channel Selection:</strong> সিগন্যাল ইন্টারফেয়ারেন্স এড়াতে 2.4GHz ব্যান্ডে শুধুমাত্র ১, ৬ এবং ১১
+              নম্বর চ্যানেল ব্যবহার করা উচিত।</li>
+            <li><strong>PoE (Power over Ethernet):</strong> আধুনিক AP-গুলোতে আলাদা পাওয়ার অ্যাডাপ্টার লাগে না। ইথারনেট
+              ক্যাবল দিয়েই বিদ্যুৎ সরবরাহ করা হয়।</li>
+            <li><strong>Security:</strong> সবসময় <strong>WPA3</strong> এনক্রিপশন ব্যবহার করার চেষ্টা করুন এবং একটি গেস্ট
+              নেটওয়ার্ক (Guest SSID) আলাদা রাখুন।</li>
+          </ul>
+
+          <p><strong>Cisco AP-তে আইপি চেক করার কমান্ড (CLI):</strong></p>
+          <pre><code># সিসকো হালকা এক্সেস পয়েন্টে আইপি এবং স্ট্যাটাস দেখার জন্য
+AP# show ip interface brief
+AP# show lwapp ip config</code></pre>
+
+          <h2>৭. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Dead Zones:</strong> যদি নির্দিষ্ট জায়গায় সিগন্যাল না পাওয়া যায়, তবে AP-এর পজিশন পরিবর্তন করুন।
+              দেয়াল বা ইলেকট্রনিক ডিভাইস সিগন্যাল বাধাগ্রস্ত করে।</li>
+            <li><strong>Speed Drop:</strong> যদি হঠাৎ স্পিড কমে যায়, তবে চেক করুন আপনার ক্যাবলটি
+              <strong>Gigabit</strong> সাপোর্ট করে কি না।</li>
+            <li><strong>Device Overload:</strong> একটি AP-তে ধারণক্ষমতার চেয়ে বেশি ইউজার যুক্ত হলে স্পিড ড্রপ হয়।
+              এক্ষেত্রে অতিরিক্ত AP যোগ করতে হয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Wireless Access Point (AP)</strong> আধুনিক নেটওয়ার্কিংয়ের এক অবিচ্ছেদ্য অংশ। এটি শুধুমাত্র আমাদের
+              মোবিলিটি বা চলাফেরার স্বাধীনতা দেয় না, বরং বড় বড় প্রতিষ্ঠানের নেটওয়ার্ক স্কেলেবিলিটি বা পরিধি বাড়াতে
+              সাহায্য করে। আপনি যদি সিসিএনএ (CCNA) বা নেটওয়ার্ক অ্যাডমিনিস্ট্রেশন নিয়ে কাজ করতে চান, তবে তারযুক্ত এবং
+              তারবিহীন নেটওয়ার্কের সংযোগ মেকানিজম বোঝা অত্যন্ত জরুরি। সঠিক জায়গায় সঠিক পজিশনে AP বসাতে পারাই একজন দক্ষ
+              নেটওয়ার্ক ইঞ্জিনিয়ারের অন্যতম প্রধান কাজ।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

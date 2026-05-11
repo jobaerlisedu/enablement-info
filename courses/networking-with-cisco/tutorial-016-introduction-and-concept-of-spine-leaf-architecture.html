@@ -1,32 +1,282 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction and Concept of Spine-Leaf Architecture | tech-enablement.info</title>
+  <meta name="description"
+    content="Spine-Leaf Architecture কী এবং এটি কীভাবে আধুনিক ডাটা সেন্টার নেটওয়ার্কিংয়ে ব্যবহৃত হয় তার বিস্তারিত গাইড। জানুন Traditional 3-Tier বনাম Spine-Leaf এর পার্থক্য।">
+  <title>Introduction and Concept of Spine-Leaf Architecture: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction and Concept of Spine-Leaf Architecture</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction and Concept of Spine-Leaf Architecture</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction and Concept of Spine-Leaf Architecture</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আধুনিক ডাটা সেন্টার নেটওয়ার্কিং-এর দুনিয়ায় <strong>Spine-Leaf Architecture</strong> একটি বিপ্লব নিয়ে
+            এসেছে। আগেকার দিনে আমরা সাধারণত Traditional 3-Tier (Core, Distribution, Access) মডেল ব্যবহার করতাম। কিন্তু
+            ক্লাউড কম্পিউটিং এবং বিশাল ডাটা প্রবাহের কারণে সেই পুরনো মডেল এখন অনেক ক্ষেত্রে অকেজো হয়ে পড়ছে। এই সমস্যার
+            সমাধান হিসেবেই এসেছে <strong>Spine-Leaf</strong> ডিজাইন, যা নেটওয়ার্কের গতি এবং স্কেলেবিলিটি বহুগুণ বাড়িয়ে
+            দেয়।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা আলোচনা করবো Spine-Leaf আর্কিটেকচার কী, এটি কীভাবে কাজ করে এবং কেন এটি আধুনিক ডাটা
+            সেন্টারের জন্য অপরিহার্য।</p>
+
+
+
+          <h2>১. Spine-Leaf Architecture কী?</h2>
+          <p>Spine-Leaf হলো একটি দুই স্তরের (Two-tier) নেটওয়ার্ক টপোলজি। এখানে নেটওয়ার্ক সুইচগুলোকে দুটি প্রধান ভাগে
+            ভাগ করা হয়:</p>
+          <ul>
+            <li><strong>Spine Layer:</strong> এটি নেটওয়ার্কের ব্যাকবোন বা মেরুদণ্ড। সব Leaf Switch এই Spine এর সাথে
+              যুক্ত থাকে।</li>
+            <li><strong>Leaf Layer:</strong> এই স্তরের সুইচগুলো সরাসরি সার্ভার, স্টোরেজ বা এন্ড-ডিভাইসের সাথে যুক্ত
+              থাকে।</li>
+          </ul>
+          <p>এই আর্কিটেকচারের সবচেয়ে বড় বৈশিষ্ট্য হলো, প্রতিটি <strong>Leaf Switch</strong> প্রতিটি <strong>Spine
+              Switch</strong> এর সাথে সরাসরি কানেক্টেড থাকে। এর ফলে যেকোনো একটি সার্ভার থেকে অন্য সার্ভারে যাওয়ার পথ বা
+            দূরত্ব সব সময় সমান থাকে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Hub and Spoke Analogy)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি চাকার স্পোকের (Spoke) কথা চিন্তা করুন:</p>
+            <ul>
+              <li>চাকার মাঝখানের অংশটি হলো <strong>Spine</strong>।</li>
+              <li>বাইরের রিম বা টায়ারের দিকের অংশগুলো হলো <strong>Leaf</strong>।</li>
+              <li>মাঝখানের অংশ থেকে রিমের প্রতিটি পয়েন্টে পৌঁছাতে সব সময় সমান সময় এবং দূরত্ব লাগে। কোনো পয়েন্টই কারো
+                চেয়ে বেশি দূরে নয়। এটিই Spine-Leaf এর মূল শক্তি।</li>
+            </ul>
+          </div>
+
+          <h2>২. কেন Spine-Leaf প্রয়োজন? (East-West Traffic)</h2>
+          <p>প্রথাগত ৩-টিয়ার আর্কিটেকচার তৈরি করা হয়েছিল <strong>North-South Traffic</strong> (ইউজার থেকে সার্ভার) এর
+            জন্য। কিন্তু আধুনিক ডাটা সেন্টারে এক সার্ভার থেকে অন্য সার্ভারের মধ্যে ডাটা আদান-প্রদান অনেক বেশি হয়, যাকে
+            বলা হয় <strong>East-West Traffic</strong>।</p>
+          <p>৩-টিয়ার মডেলে এক সার্ভার থেকে পাশের র‍্যাকের সার্ভারে যেতে ডাটা অনেকগুলো সুইচ পার হয়ে Core পর্যন্ত যেতে হয়,
+            যা <strong>Latency</strong> বা বিলম্ব বাড়ায়। Spine-Leaf মডেলে যেকোনো সার্ভার অন্য সার্ভার থেকে মাত্র এক লাফ
+            (One hop) দূরে থাকে, যা ল্যাটেন্সি কমিয়ে পারফরম্যান্স বাড়ায়।</p>
+
+          <h2>৩. Spine-Leaf আর্কিটেকচারের লেয়ারসমূহ</h2>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Layer Name</th>
+                  <th>কাজের ধরন (Function)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Spine Layer</td>
+                  <td>এটি ট্রাফিক ফরওয়ার্ডিং এর মেইন ইঞ্জিন। এটি কোনো সার্ভারের সাথে সরাসরি যুক্ত হয় না, শুধুমাত্র Leaf
+                    সুইচগুলোকে যুক্ত করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Leaf Layer</td>
+                  <td>এটি সরাসরি সার্ভার এবং এন্ড-ডিভাইসের সাথে যুক্ত থাকে। একে Access Layer এর আধুনিক রূপ বলা যেতে
+                    পারে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৪. Spine-Leaf এর প্রধান সুবিধাগুলো</h2>
+          <ul>
+            <li><strong>Low Latency:</strong> ডাটা প্যাকেটকে গন্তব্যে পৌঁছাতে সব সময় সমান সংখ্যক ধাপ পার হতে হয়।</li>
+            <li><strong>Redundancy:</strong> যদি একটি Spine Switch নষ্ট হয়ে যায়, তবে নেটওয়ার্ক ডাউন হয় না। অন্য Spine
+              সুইচগুলো সেই ট্রাফিক হ্যান্ডেল করে।</li>
+            <li><strong>Scalability:</strong> নেটওয়ার্কের ক্ষমতা বাড়াতে চাইলে শুধু নতুন একটি Leaf বা Spine সুইচ যোগ
+              করলেই হয়, পুরো ডিজাইন বদলানোর প্রয়োজন পড়ে না।</li>
+            <li><strong>Bandwidth Optimization:</strong> এখানে <strong>ECMP (Equal-Cost Multi-Pathing)</strong> ব্যবহার
+              করা হয়, যার ফলে সব লিঙ্ক একই সাথে ডাটা আদান-প্রদান করতে পারে।</li>
+          </ul>
+
+          <h2>৫. টেকনিক্যাল কনসেপ্ট: ECMP বনাম STP</h2>
+          <p>৩-টিয়ার আর্কিটেকচারে লুপ এড়াতে <strong>STP (Spanning Tree Protocol)</strong> ব্যবহার করা হয়, যা অনেকগুলো
+            ব্যাকআপ লিঙ্ক বন্ধ করে রাখে। কিন্তু Spine-Leaf আর্কিটেকচারে <strong>ECMP</strong> ব্যবহার করা হয়। এটি লুপ
+            তৈরি না করেই সব লিঙ্ককে সক্রিয় রাখে এবং ব্যান্ডউইথ কয়েকগুণ বাড়িয়ে দেয়।</p>
+
+          <h2>৬. কনফিগারেশন এবং ভেরিফিকেশন (Technical Insight)</h2>
+          <p>Spine-Leaf আর্কিটেকচারে সাধারণত <strong>BGP</strong> বা <strong>IS-IS</strong> প্রোটোকল ব্যবহার করা হয়
+            রাউটিং এর জন্য। নিচে একটি সিসকো সুইচে নেইবারশিপ চেক করার বেসিক কমান্ড দেওয়া হলো:</p>
+
+          <p><strong>BGP নেইবার স্ট্যাটাস চেক করার কমান্ড:</strong></p>
+          <pre><code># Spine থেকে Leaf এর কানেক্টিভিটি চেক করা
+Spine-01# show ip bgp summary
+
+# ইন্টারফেসের স্ট্যাটাস দেখার জন্য
+Leaf-01# show interface description</code></pre>
+
+          <h2>৭. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Link Failure:</strong> যদি কোনো একটি Spine লিঙ্ক ডাউন হয়, তবে দেখুন <strong>ECMP</strong> লোড
+              ব্যালেন্স করছে কি না।</li>
+            <li><strong>MTU Mismatch:</strong> ডাটা সেন্টারে বড় ডাটা (Jumbo Frames) যাতায়াত করে। তাই সব সুইচে
+              <strong>MTU (9000)</strong> সেটিং চেক করা জরুরি।</li>
+            <li><strong>Routing Convergence:</strong> কোনো রুট আপডেট না হলে BGP এর <code>neighbor</code> সেটিংস এবং
+              <code>AS Number</code> ভেরিফাই করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Spine-Leaf Architecture</strong> হলো বর্তমান এবং ভবিষ্যৎ ডাটা সেন্টার নেটওয়ার্কিংয়ের মেরুদণ্ড।
+              এটি স্কেলেবিলিটি, হাই-স্পিড এবং লো-ল্যাটেন্সি নিশ্চিত করে যা ক্লাউড এবং ভার্চুয়ালাইজেশন এনভায়রনমেন্টের
+              জন্য অত্যন্ত জরুরি। আপনি যদি সিসিএনপি (CCNP) বা ডাটা সেন্টার স্পেশালিস্ট হিসেবে ক্যারিয়ার গড়তে চান, তবে এই
+              আর্কিটেকচারের ডিজাইন এবং প্রোটোকল মেকানিজম সম্পর্কে পরিষ্কার ধারণা থাকা আপনার জন্য বাধ্যতামূলক।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

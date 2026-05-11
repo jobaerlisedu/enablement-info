@@ -1,32 +1,306 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explain Function of Network Component Servers | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Server কী এবং এটি কীভাবে কাজ করে তার একটি বিস্তারিত টেকনিক্যাল গাইড। সহজ বাংলায় সার্ভারের ফাংশন, প্রকারভেদ এবং ক্লায়েন্ট-সার্ভার আর্কিটেকচার নিয়ে গভীর আলোচনা।">
+  <title>Explain Function of Network Component Servers: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Explain Function of Network Component Servers</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Explain Function of Network Component Servers</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Function of Network Component Servers</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের জগতে <strong>Server</strong> হলো এমন একটি শক্তিশালী ডিভাইস বা প্রোগ্রাম যা
+            অন্যান্য কম্পিউটারকে (যাদের আমরা <strong>Client</strong> বলি) বিভিন্ন রিসোর্স, ডাটা বা সার্ভিস প্রদান করে।
+            ইন্টারনেটের প্রতিটি ওয়েবসাইট, ইমেইল সার্ভিস কিংবা অনলাইন গেম—সবকিছুর পেছনেই কাজ করে এক বা একাধিক সার্ভার।
+            সহজ কথায়, সার্ভার হলো একটি নেটওয়ার্কের কেন্দ্রবিন্দু যা সব রিকোয়েস্ট প্রসেস করে।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা আলোচনা করবো সার্ভারের মূল ফাংশনসমূহ, এর কাজের পদ্ধতি এবং আধুনিক আইটি
+            ইনফ্রাস্ট্রাকচারে এর বিভিন্ন প্রকারভেদ নিয়ে।</p>
+
+
+
+          <h2>১. Network Server কী?</h2>
+          <p>সার্ভার হলো একটি উচ্চ-ক্ষমতাসম্পন্ন কম্পিউটার যা ২৪ ঘণ্টা চালু থাকে এবং নেটওয়ার্কে যুক্ত অন্যান্য
+            ডিভাইসগুলোকে সার্ভিস দেওয়ার জন্য প্রস্তুত থাকে। হার্ডওয়্যার হিসেবে এটি একটি শক্তিশালী পিসি হতে পারে, আবার
+            সফটওয়্যার হিসেবে এটি একটি প্রোগ্রামও হতে পারে যা নির্দিষ্ট কোনো প্রোটোকল (যেমন HTTP বা FTP) ব্যবহার করে কাজ
+            করে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Restaurant Analogy)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি রেস্টুরেন্টের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Client:</strong> আপনি যখন রেস্টুরেন্টে গিয়ে খাবার অর্ডার করেন, আপনি হলেন একজন ক্লায়েন্ট।</li>
+              <li><strong>Server:</strong> রেস্টুরেন্টের কিচেন বা শেফ হলো সার্ভার। সে আপনার অর্ডার (Request) নেয়, সেটি
+                প্রস্তুত করে (Process) এবং আপনার টেবিলে খাবার পৌঁছে দেয় (Response)।</li>
+              <li><strong>Network:</strong> ওয়েটার হলো নেটওয়ার্ক মাধ্যম যে আপনার এবং কিচেনের মধ্যে যোগাযোগ রক্ষা করে।
+              </li>
+            </ul>
+          </div>
+
+          <h2>২. সার্ভারের প্রধান ফাংশনসমূহ (Main Functions)</h2>
+          <p>একটি নেটওয়ার্ক সার্ভার মূলত নিচের কাজগুলো সম্পন্ন করে:</p>
+          <ol>
+            <li><strong>Centralized Data Storage:</strong> সব গুরুত্বপূর্ণ ফাইল বা ডাটা এক জায়গায় জমা রাখে যাতে
+              নেটওয়ার্কের অনুমোদিত ইউজাররা সেটি এক্সেস করতে পারে।</li>
+            <li><strong>Resource Sharing:</strong> এটি প্রিন্টার, ইন্টারনেট কানেকশন বা সফটওয়্যার লাইসেন্স শেয়ার করতে
+              সাহায্য করে।</li>
+            <li><strong>Authentication:</strong> ইউজার যখন লগইন করে, সার্ভার তার ইউজারনেম এবং পাসওয়ার্ড ভেরিফাই করে
+              নেটওয়ার্কে প্রবেশের অনুমতি দেয়।</li>
+            <li><strong>Hosting Services:</strong> ওয়েবসাইট হোস্টিং (Web Hosting) থেকে শুরু করে ইমেইল সার্ভিস ম্যানেজ
+              করা পর্যন্ত সব কাজ সার্ভার করে।</li>
+          </ol>
+
+          <h2>৩. বিভিন্ন ধরনের সার্ভার (Types of Servers)</h2>
+          <p>কাজের ওপর ভিত্তি করে সার্ভারকে কয়েক ভাগে ভাগ করা যায়:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Server Type</th>
+                  <th>কাজের ধরন (Function)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Web Server</td>
+                  <td>এটি ওয়েবসাইট হোস্ট করে এবং <strong>HTTP/HTTPS</strong> প্রোটোকল ব্যবহার করে ব্রাউজারে ডাটা পাঠায়।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">File Server</td>
+                  <td>এটি নেটওয়ার্কের ভেতরে ফাইল শেয়ারিং এবং স্টোরেজ ম্যানেজমেন্টের কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Database Server</td>
+                  <td>এটি বিশাল পরিমাণ ডাটা (যেমন- ইউজার প্রোফাইল বা ট্রানজেকশন) জমা রাখে এবং কুয়েরি প্রসেস করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">DNS Server</td>
+                  <td>এটি ডোমেইন নেমকে (যেমন google.com) আইপি অ্যাড্রেসে রূপান্তর করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Mail Server</td>
+                  <td>এটি ইমেইল আদান-প্রদান এবং স্টোর করার কাজ পরিচালনা করে (SMTP/IMAP/POP3)।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৪. সার্ভার কীভাবে কাজ করে? (Step-by-Step)</h2>
+          <p>সার্ভার মূলত <strong>Request-Response</strong> মডেলে কাজ করে:</p>
+          <ul>
+            <li><strong>Step 1 (Request):</strong> ক্লায়েন্ট কম্পিউটার বা ব্রাউজার থেকে একটি নির্দিষ্ট রিকোয়েস্ট পাঠানো
+              হয় (যেমন- একটি ওয়েবসাইট ভিজিট করা)।</li>
+            <li><strong>Step 2 (Processing):</strong> সার্ভার রিকোয়েস্টটি পায় এবং তার ডাটাবেজ বা ফাইল সিস্টেমে প্রয়োজনীয়
+              তথ্য খুঁজে বের করে।</li>
+            <li><strong>Step 3 (Response):</strong> সার্ভার তথ্যটিকে নির্দিষ্ট ফরম্যাটে (যেমন- HTML বা JSON) ক্লায়েন্টের
+              কাছে ফেরত পাঠায়।</li>
+          </ul>
+
+          <h2>৫. সার্ভার হার্ডওয়্যার বনাম সফটওয়্যার</h2>
+          <p>একটি সার্ভার তৈরি করতে হলে দুটি জিনিসের সমন্বয় প্রয়োজন:</p>
+          <ul>
+            <li><strong>Hardware:</strong> এটি একটি শক্তিশালী মেশিন যার মাল্টি-কোর <strong>CPU</strong>, বিশাল পরিমাণ
+              <strong>RAM</strong> এবং হাই-স্পিড <strong>SSD/HDD</strong> থাকে। সাধারণত এগুলো 'Rack-mount' বা 'Tower'
+              ডিজাইনের হয়।</li>
+            <li><strong>Operating System:</strong> সার্ভারে সাধারণ উইন্ডোজের বদলে বিশেষ ওএস ব্যবহৃত হয় যেমন—
+              <strong>Windows Server</strong>, <strong>Ubuntu Server</strong>, বা <strong>Rocky Linux</strong>।</li>
+          </ul>
+
+          <h2>৬. বেসিক কনফিগারেশন ও অপারেশন (CLI Example)</h2>
+          <p>লিনাক্স সার্ভারে কোনো সার্ভিস সচল আছে কি না তা দেখার জন্য আমাদের কমান্ড লাইন ব্যবহার করতে হয়।</p>
+
+          <p><strong>সার্ভার স্ট্যাটাস চেক করার কমান্ড (Linux):</strong></p>
+          <pre><code># Apache Web Server সচল আছে কি না তা দেখতে
+$ systemctl status apache2
+
+# সার্ভারের নেটওয়ার্ক পিন লিসেনিং চেক করতে
+$ netstat -plntu</code></pre>
+
+          <p><strong>সার্ভার আইপি এবং কানেক্টিভিটি চেক:</strong></p>
+          <pre><code># সার্ভারের আইপি অ্যাড্রেস দেখতে
+$ hostname -I
+
+# গেটওয়ের সাথে কানেক্টিভিটি চেক করতে
+$ ping 8.8.8.8</code></pre>
+
+          <h2>৭. Troubleshooting ও মেইনটেন্যান্স টিপস</h2>
+          <ul>
+            <li><strong>Overheating:</strong> সার্ভার সবসময় ঠাণ্ডা পরিবেশে (Server Room) রাখতে হয়, নাহলে হার্ডওয়্যার
+              ফেইল করতে পারে।</li>
+            <li><strong>Backups:</strong> সার্ভারের ডাটা নিয়মিত ব্যাকআপ রাখা বাধ্যতামূলক। লিনাক্সে <code>rsync</code> বা
+              ক্লাউড ব্যাকআপ টুল ব্যবহার করা ভালো।</li>
+            <li><strong>Security Updates:</strong> সার্ভারকে হ্যাকিং থেকে বাঁচাতে নিয়মিত ওএস এবং সার্ভিস আপডেট দিন
+              (যেমন- <code>apt update && apt upgrade</code>)।</li>
+            <li><strong>Downtime:</strong> যদি সার্ভার ডাউন হয়, তবে প্রথমে নেটওয়ার্ক কানেক্টিভিটি এবং তারপর সার্ভিস
+              স্ট্যাটাস চেক করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Servers</strong> হলো আধুনিক ইন্টারনেটের মেরুদণ্ড। একটি শক্তিশালী সার্ভার সেটআপ ছাড়া কোনো
+              প্রতিষ্ঠান তাদের ডিজিটাল কার্যক্রম পরিচালনা করতে পারে না। আপনি যদি সিস্টেম অ্যাডমিনিস্ট্রেশন বা নেটওয়ার্ক
+              ইঞ্জিনিয়ারিং শিখতে চান, তবে সার্ভারের ইন্টারনাল ফাংশন এবং এর <strong>Resource Management</strong> সম্পর্কে
+              গভীর জ্ঞান থাকা অপরিহার্য। নিয়মিত প্র্যাকটিস এবং লিনাক্স কমান্ডের ওপর দখল আপনাকে একজন দক্ষ সার্ভার
+              অ্যাডমিনিস্ট্রেটর হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

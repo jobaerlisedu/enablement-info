@@ -1,32 +1,321 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compare Physical Interface & Different Cabling Types | tech-enablement.info</title>
+  <meta name="description"
+    content="Physical Interface এবং বিভিন্ন ধরনের নেটওয়ার্ক Cabling (Copper, Fiber, Console) নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড। জানুন কোন ক্যাবল কোথায় ব্যবহার করবেন।">
+  <title>Compare Physical Interface & Different Cabling Types: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Compare Physical Interface & Different Cabling Types</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Compare Physical Interface & Different Cabling Types</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Compare Physical Interface & Different Cabling Types</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের ভিত্তি হলো সংযোগ বা Connectivity। একটি Router বা Switch যতই শক্তিশালী হোক না কেন,
+            যদি সেটির <strong>Physical Interface</strong> এবং <strong>Cabling</strong> সঠিক না হয়, তবে পুরো নেটওয়ার্ক
+            পারফরম্যান্স নষ্ট হয়ে যেতে পারে। নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে আমাদের জানতে হয় কোন ডিভাইসে কোন ধরনের পোর্ট
+            থাকে এবং সেই পোর্টের সাথে কোন ক্যাবলটি সামঞ্জস্যপূর্ণ।</p>
+          <p>আজকের এই ব্লগে আমরা ফিজিক্যাল ইন্টারফেসের প্রকারভেদ এবং বিভিন্ন ধরনের নেটওয়ার্ক ক্যাবলিং নিয়ে গভীর আলোচনা
+            করবো।</p>
+
+
+
+          <h2>১. Physical Interface কী?</h2>
+          <p>ফিজিক্যাল ইন্টারফেস হলো একটি হার্ডওয়্যার পোর্ট বা কানেক্টর যার মাধ্যমে একটি নেটওয়ার্ক ডিভাইস অন্য ডিভাইসের
+            সাথে যুক্ত হয়। একে আমরা <strong>Physical Port</strong>-ও বলে থাকি। ডাটা আদান-প্রদান করার জন্য এই
+            ইন্টারফেসগুলো ইলেকট্রিক্যাল সিগন্যাল (Copper) অথবা লাইট সিগন্যাল (Fiber) ব্যবহার করে।</p>
+
+          <h3>কমন ইন্টারফেসের প্রকারভেদ:</h3>
+          <ul>
+            <li><strong>Ethernet Port (RJ45):</strong> এটি সবচেয়ে পরিচিত ইন্টারফেস যা আমাদের পিসি, ল্যাপটপ এবং সুইচে
+              দেখা যায়।</li>
+            <li><strong>SFP/SFP+ (Small Form-factor Pluggable):</strong> এটি একটি স্লট যেখানে আলাদা
+              <strong>Transceiver</strong> লাগিয়ে ফাইবার অপটিক ক্যাবল কানেক্ট করা হয়।</li>
+            <li><strong>Console Port:</strong> এটি রাউটার বা সুইচের কনফিগারেশন করার জন্য সরাসরি পিসির সাথে যুক্ত করতে
+              ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h2>২. Network Cabling Types (ক্যাবলিংয়ের প্রকারভেদ)</h2>
+          <p>নেটওয়ার্কিংয়ে মূলত তিন ধরনের ক্যাবলিং সিস্টেম সবচেয়ে বেশি জনপ্রিয়। নিচে এদের বিস্তারিত তুলনা দেওয়া হলো:</p>
+
+          <h3>ক. Copper Cabling (Twisted Pair)</h3>
+          <p>কপার ক্যাবল মূলত তামা ব্যবহার করে ইলেকট্রিক্যাল সিগন্যালের মাধ্যমে ডাটা পাঠায়। এর মধ্যে <strong>UTP
+              (Unshielded Twisted Pair)</strong> সবচেয়ে বেশি ব্যবহৃত হয়।</p>
+          <ul>
+            <li><strong>Category 5e (Cat5e):</strong> এটি 1 Gbps স্পিড সাপোর্ট করে ১০০ মিটার পর্যন্ত।</li>
+            <li><strong>Category 6 (Cat6):</strong> এটি 1 Gbps থেকে 10 Gbps পর্যন্ত সাপোর্ট করে (দূরত্বের ওপর ভিত্তি
+              করে)। এতে ক্রস-টক কমানোর জন্য ভেতরে আলাদা প্লাস্টিক ফ্রেম থাকে।</li>
+            <li><strong>Category 6a (Cat6a):</strong> এটি পূর্ণ ১০০ মিটার দূরত্বে 10 Gbps স্পিড দিতে সক্ষম।</li>
+          </ul>
+
+
+
+          <h3>খ. Fiber Optic Cabling</h3>
+          <p>ফাইবার অপটিক ক্যাবল কাঁচ বা প্লাস্টিকের সুতোর মধ্য দিয়ে আলোর সাহায্যে ডাটা পাঠায়। এর ব্যান্ডউইথ এবং দূরত্ব
+            কপার ক্যাবলের চেয়ে অনেক বেশি।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Fiber Type</th>
+                  <th>Core Size</th>
+                  <th>Distance Capacity</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Single-Mode (SMF)</td>
+                  <td>খুবই চিকন (9 micron)</td>
+                  <td>কয়েক কিলোমিটার পর্যন্ত (Long Haul)</td>
+                  <td>WAN এবং বড় ডাটা সেন্টারের ব্যাকবোন হিসেবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Multi-Mode (MMF)</td>
+                  <td>তুলনামূলক মোটা (50/62.5 micron)</td>
+                  <td>৩০০ থেকে ৫৫০ মিটার পর্যন্ত</td>
+                  <td>একই বিল্ডিং বা ক্যাম্পাসের ভেতরে কানেক্টিভিটির জন্য।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৩. Interface বনাম Cabling: স্পিড এবং কানেকশন চার্ট</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Interface Type</th>
+                  <th>Cable Type</th>
+                  <th>Maximum Speed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Fast Ethernet</td>
+                  <td>Cat5e / Cat6</td>
+                  <td>100 Mbps</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Gigabit Ethernet</td>
+                  <td>Cat6 / Cat6a</td>
+                  <td>1000 Mbps (1 Gbps)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">SFP (Fiber)</td>
+                  <td>Multi-mode / Single-mode</td>
+                  <td>1 Gbps</td>
+                </tr>
+                <tr>
+                  <td class="type-column">SFP+ (Fiber)</td>
+                  <td>Multi-mode / Single-mode</td>
+                  <td>10 Gbps</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. Console Cabling (Management Connection)</h2>
+          <p>নেটওয়ার্ক ডিভাইসের ওএস এক্সেস করার জন্য আমরা কনসোল ক্যাবল ব্যবহার করি।</p>
+          <ul>
+            <li><strong>Rollover Cable:</strong> সিসকো ডিভাইসের পুরনো নীল রঙের ক্যাবল যা DB9 বা USB দিয়ে কানেক্ট হয়।
+            </li>
+            <li><strong>USB Console:</strong> বর্তমানের আধুনিক রাউটারগুলোতে সরাসরি Mini-USB বা Type-C পোর্ট থাকে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (Small Office Setup)</h3>
+            <p>ধরুন আপনি একটি ছোট অফিস সেটআপ করছেন। সেখানে ইউজারদের পিসি কানেক্ট করার জন্য আপনি <strong>Cat6
+                UTP</strong> ক্যাবল এবং সুইচের <strong>RJ45 Port</strong> ব্যবহার করবেন। কিন্তু যদি আপনার সুইচটি অন্য
+              একটি বিল্ডিংয়ের সাথে যুক্ত করতে হয় যা ৫০০ মিটার দূরে, তবে আপনাকে অবশ্যই <strong>Single-mode Fiber</strong>
+              এবং সুইচের <strong>SFP Port</strong> ব্যবহার করতে হবে।</p>
+          </div>
+
+          <h2>৫. CLI ভেরিফিকেশন (Cisco Command)</h2>
+          <p>আপনার পোর্টে কোন ধরনের ইন্টারফেস আছে এবং সেটির স্ট্যাটাস কী, তা কমান্ড লাইনের মাধ্যমে দেখা যায়।</p>
+
+          <pre><code># ইন্টারফেসের ফিজিক্যাল স্ট্যাটাস এবং স্পিড দেখার জন্য
+Switch# show interfaces status
+
+# পোর্টের ক্যাপাবিলিটি এবং মিডিয়া টাইপ (Copper/Fiber) চেক করা
+Switch# show interfaces gigabitEthernet 0/1 capabilities</code></pre>
+
+          <h2>৬. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Link Down:</strong> যদি ইন্টারফেস 'Down' দেখায়, তবে ক্যাবলটি অন্য পোর্টে লাগিয়ে টেস্ট করুন। কপার
+              ক্যাবলের ক্ষেত্রে RJ45 কানেক্টরটি লুজ হতে পারে।</li>
+            <li><strong>Input Errors:</strong> যদি <code>show interface</code> কমান্ডে 'Input Errors' বা 'CRC' দেখেন,
+              তবে বুঝবেন ক্যাবলটি ড্যামেজ অথবা ইলেক্ট্রো-ম্যাগনেটিক ইন্টারফেয়ারেন্স (EMI) হচ্ছে।</li>
+            <li><strong>Duplex Mismatch:</strong> যদি একপাশে Half-duplex এবং অন্যপাশে Full-duplex থাকে, তবে কানেকশন স্লো
+              হবে। সবসময় <strong>Auto-negotiation</strong> এনাবল রাখুন।</li>
+            <li><strong>Fiber SFP Cleanliness:</strong> ফাইবার কানেকশনে সমস্যা হলে SFP ট্রান্সসিভারটি পরিষ্কার আছে কি না
+              চেক করুন। সামান্য ধুলোবালিতেও অপটিক্যাল সিগন্যাল লস হতে পারে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>নেটওয়ার্কিংয়ে ফিজিক্যাল লেয়ারের গুরুত্ব অপরিসীম। আপনি যদি সঠিক <strong>Interface</strong>-এর জন্য সঠিক
+              <strong>Cabling</strong> নির্বাচন করতে না পারেন, তবে নেটওয়ার্কে ল্যাটেন্সি এবং প্যাকেট ড্রপের মতো সমস্যা
+              লেগেই থাকবে। স্বল্প দূরত্বের জন্য কপার ক্যাবল সাশ্রয়ী হলেও দীর্ঘ দূরত্ব এবং উচ্চ গতির জন্য ফাইবার অপটিক
+              ক্যাবলই সেরা সমাধান। একজন প্রফেশনাল হিসেবে এই হার্ডওয়্যার ডিটেইলসগুলো জানা আপনাকে ইনফ্রাস্ট্রাকচার ডিজাইনে
+              আরও আত্মবিশ্বাসী করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

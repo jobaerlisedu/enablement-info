@@ -1,32 +1,301 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explain Function of Network Component Switch | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Switch কী এবং এটি কীভাবে কাজ করে তার একটি বিস্তারিত টেকনিক্যাল গাইড। সহজ বাংলায় সুইচের ফাংশন, MAC Address Table এবং কাজের প্রক্রিয়া নিয়ে গভীর আলোচনা।">
+  <title>Explain Function of Network Component Switch: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Explain Function of Network Component Switch</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Explain Function of Network Component Switch</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Function of Network Component Switch</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিং-এর দুনিয়ায় <strong>Switch</strong> হলো এমন একটি ডিভাইস যা লোকাল নেটওয়ার্ক বা
+            <strong>LAN</strong>-এর মেরুদণ্ড হিসেবে কাজ করে। আমরা যখন একটি অফিসের ভেতর অনেকগুলো কম্পিউটার, প্রিন্টার এবং
+            সার্ভারকে একে অপরের সাথে যুক্ত করতে চাই, তখন সুইচের প্রয়োজন হয়। এটি শুধুমাত্র ডিভাইসগুলোকে যুক্তই করে না,
+            বরং অত্যন্ত বুদ্ধিমত্তার সাথে ডাটা ফিল্টার এবং ফরোয়ার্ড করে।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা আলোচনা করবো সুইচের মূল কাজ করার পদ্ধতি, এর বৈশিষ্ট্য এবং এটি কেন একটি হাব (Hub)
+            থেকে আলাদা।</p>
+
+
+
+          <h2>১. Network Switch কী?</h2>
+          <p>নেটওয়ার্ক সুইচ হলো একটি <strong>Layer 2 (Data Link Layer)</strong> ডিভাইস যা ফিজিক্যাল অ্যাড্রেস বা
+            <strong>MAC Address</strong> ব্যবহার করে নেটওয়ার্কের ভেতরে ডাটা আদান-প্রদান করে। এটি একটি বুদ্ধিমান ডিভাইস
+            কারণ এটি জানে কোন পোর্টে কোন কম্পিউটারটি যুক্ত আছে। যখন কোনো ডাটা আসে, সুইচ সেটি সবার কাছে না পাঠিয়ে
+            শুধুমাত্র যার জন্য পাঠানো হয়েছে তাকেই দেয়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Private Postman Analogy)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি কুরিয়ার সার্ভিসের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Hub (পুরাতন প্রযুক্তি):</strong> একজন পিয়ন যদি একটি চিঠি নিয়ে এসে পুরো পাড়ায় চিৎকার করে
+                বলে "রহিম সাহেবের চিঠি", তবে সেটি হাবের মতো কাজ করে। এখানে প্রাইভেসি কম এবং গোলমাল বেশি।</li>
+              <li><strong>Switch (আধুনিক প্রযুক্তি):</strong> পিয়ন যদি সরাসরি রহিম সাহেবের বাড়িতে গিয়ে কলিং বেল চেপে
+                চিঠিটি দিয়ে আসে, তবে সেটি সুইচের কাজ। এটি অনেক বেশি দক্ষ এবং সিকিউর।</li>
+            </ul>
+          </div>
+
+          <h2>২. সুইচের প্রধান ফাংশনসমূহ (Main Functions)</h2>
+          <p>একটি প্রফেশনাল সুইচ মূলত তিনটি প্রধান মেকানিজমের মাধ্যমে কাজ সম্পন্ন করে:</p>
+          <ol>
+            <li><strong>Address Learning:</strong> সুইচ যখন কোনো পোর্ট থেকে ডাটা পায়, সে ওই ডিভাইসের <strong>Source MAC
+                Address</strong>-টি নিজের <strong>MAC Table</strong>-এ সেভ করে রাখে। এভাবেই সে চিনে নেয় কোন পোর্টে কে
+              আছে।</li>
+            <li><strong>Forwarding/Filtering Decision:</strong> ডাটা ফ্রেমটি আসার পর সুইচ গন্তব্য ম্যাক অ্যাড্রেস চেক
+              করে। যদি তার টেবিলে ওই অ্যাড্রেস থাকে, তবে সে নির্দিষ্ট পোর্টে পাঠায় (Forwarding), অন্যথায় সে ফিল্টার
+              করে ডাটা ট্রাফিক কমিয়ে দেয়।</li>
+            <li><strong>Loop Avoidance:</strong> অনেক সময় অনেকগুলো সুইচ একসাথে যুক্ত থাকলে ডাটা প্যাকেট একই জায়গায়
+              ঘুরপাক খেতে পারে (Loop)। সুইচ <strong>Spanning Tree Protocol (STP)</strong> ব্যবহার করে এই লুপ বন্ধ করে।
+            </li>
+          </ol>
+
+
+
+          <h2>৩. সুইচ কীভাবে কাজ করে? (Mechanism)</h2>
+          <p>সুইচ যখন একটি ডাটা ফ্রেম পায়, সে নিচের ধাপগুলো অনুসরণ করে:</p>
+          <ul>
+            <li><strong>Step 1:</strong> সুইচ ফ্রেমটি রিসিভ করে এবং সোর্স ম্যাক অ্যাড্রেসটি চেক করে তার টেবিলে যোগ করে।
+            </li>
+            <li><strong>Step 2:</strong> এরপর সে ফ্রেমের <strong>Destination MAC Address</strong>-টি চেক করে।</li>
+            <li><strong>Step 3:</strong> যদি গন্তব্য ঠিকানাটি তার <strong>MAC Table</strong>-এ থাকে, তবে সুইচ শুধুমাত্র
+              ওই পোর্টে ডাটা পাঠায় (Unicast)।</li>
+            <li><strong>Step 4:</strong> যদি গন্তব্যটি অজানা হয়, তবে সে সোর্স পোর্ট বাদে বাকি সব পোর্টে ফ্রেমটি পাঠিয়ে
+              দেয় (Flooding)। পরবর্তীতে রিপ্লাই আসলে সে ঠিকানাটি শিখে নেয়।</li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার (Feature)</th>
+                  <th>সুইচের ভূমিকা</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">OSI Layer</td>
+                  <td>প্রধানত <strong>Layer 2</strong> এ কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Addressing</td>
+                  <td>এটি <strong>MAC Address</strong> এর ওপর ভিত্তি করে কাজ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Transmission Mode</td>
+                  <td>এটি <strong>Full-Duplex</strong> সাপোর্ট করে (একই সাথে ডাটা পাঠানো এবং গ্রহণ করা)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Collision Domain</td>
+                  <td>প্রতিটি পোর্ট একটি আলাদা <strong>Collision Domain</strong> তৈরি করে, ফলে জ্যাম হয় না।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. ম্যানেজড বনাম আনম্যানেজড সুইচ (Managed vs Unmanaged)</h2>
+          <p>নেটওয়ার্কের প্রয়োজন অনুযায়ী দুই ধরনের সুইচ পাওয়া যায়:</p>
+          <ul>
+            <li><strong>Unmanaged Switch:</strong> এগুলো হলো "Plug and Play" ডিভাইস। কোনো কনফিগারেশন করা যায় না।
+              সাধারণত বাসা বা ছোট ছোট দোকানে এগুলো ব্যবহৃত হয়।</li>
+            <li><strong>Managed Switch:</strong> এই সুইচগুলোতে অনেক অ্যাডভান্সড ফিচার থাকে। যেমন- <strong>VLAN</strong>
+              তৈরি করা, <strong>Port Security</strong> সেট করা এবং নেটওয়ার্ক ট্রাফিক মনিটর করা। বড় অফিসের জন্য এগুলো
+              অপরিহার্য।</li>
+          </ul>
+
+          <h2>৫. Cisco Switch CLI এবং বেসিক অপারেশন</h2>
+          <p>প্রফেশনাল সুইচে কাজ করার জন্য আমাদের কমান্ড লাইন ব্যবহার করতে হয়।</p>
+
+          <p><strong>সুইচের ম্যাক টেবিল দেখার কমান্ড:</strong></p>
+          <pre><code># সিসকো সুইচে ম্যাক অ্যাড্রেস টেবিল দেখার জন্য
+Switch# show mac address-table
+
+# কোন পোর্টে কোন ডিভাইস আছে তা এখান থেকে নিশ্চিত হওয়া যায়।</code></pre>
+
+          <p><strong>ভিলেন (VLAN) তৈরির কমান্ড:</strong></p>
+          <pre><code># একটি নতুন ভিলেন তৈরি করা
+Switch(config)# vlan 10
+Switch(config-vlan)# name IT-Dept
+Switch(config-vlan)# exit
+
+# ইন্টারফেসকে ভিলেনে যুক্ত করা
+Switch(config)# interface fastEthernet 0/5
+Switch(config-if)# switchport mode access
+Switch(config-if)# switchport access vlan 10</code></pre>
+
+          <h2>৬. Troubleshooting টিপস</h2>
+          <p>সুইচে কোনো সমস্যা হলে একজন আইটি প্রফেশনাল যেভাবে চেক করেন:</p>
+          <ul>
+            <li><strong>Port LED:</strong> পোর্টের লাইট জ্বলছে কি না দেখুন। যদি কমলা (Amber) রঙের লাইট জ্বলে থাকে, তবে
+              বুঝতে হবে <strong>STP</strong> ওই পোর্টটিকে ব্লক করে রেখেছে।</li>
+            <li><strong>Speed/Duplex Mismatch:</strong> যদি কানেকশন অনেক স্লো হয়, তবে চেক করুন উভয় পাশে স্পিড সেটিংস
+              (100Mbps/1000Mbps) ঠিক আছে কি না।</li>
+            <li><strong>Cable Check:</strong> ডাটা ড্রপ করলে বা প্যাকেট লস হলে অবশ্যই <strong>Cat6</strong> ক্যাবলটি
+              ভালো মানের কি না তা পরীক্ষা করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>লোকাল নেটওয়ার্কের ট্রাফিক পুলিশ হলো <strong>Switch</strong>। এটি শুধুমাত্র অনেকগুলো ডিভাইসকে যুক্ত করে
+              না, বরং ডাটা কলিশন কমিয়ে এবং সরাসরি গন্তব্যে ডাটা পৌঁছে দিয়ে নেটওয়ার্কের পারফরম্যান্স বহুগুণ বাড়ায়।
+              আপনি যদি <strong>CCNA</strong> বা ল্যান অ্যাডমিনিস্ট্রেশন শিখতে চান, তবে সুইচের <strong>MAC
+                Learning</strong> মেকানিজম এবং <strong>VLAN</strong> সম্পর্কে স্বচ্ছ ধারণা থাকা জরুরি। নিয়মিত ল্যাব
+              প্র্যাকটিস এবং প্যাকেট অ্যানালাইসিসই আপনাকে একজন দক্ষ নেটওয়ার্ক প্রফেশনাল হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

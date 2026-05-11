@@ -1,32 +1,297 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explain Function of Network Component Endpoints | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Endpoint কী এবং এটি কীভাবে কাজ করে তার একটি বিস্তারিত টেকনিক্যাল গাইড। সহজ বাংলায় Endpoint-এর ফাংশন, প্রকারভেদ এবং সিকিউরিটি মেকানিজম নিয়ে গভীর আলোচনা।">
+  <title>Explain Function of Network Component Endpoints: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Explain Function of Network Component Endpoints</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Explain Function of Network Component Endpoints</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Function of Network Component Endpoints</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একটি কম্পিউটার নেটওয়ার্কের সবচেয়ে দৃশ্যমান এবং গুরুত্বপূর্ণ অংশ হলো <strong>Endpoints</strong>। আমরা যখন
+            কোনো নেটওয়ার্ক ইনফ্রাস্ট্রাকচার নিয়ে কথা বলি, তখন Router, Switch বা Firewall নিয়ে অনেক আলোচনা করি, কিন্তু
+            দিনশেষে এই সব কিছু তৈরি করা হয়েছে যাতে Endpoints গুলো একে অপরের সাথে যোগাযোগ করতে পারে। সহজ কথায়,
+            নেটওয়ার্কের শেষ প্রান্তে থাকা যে ডিভাইসগুলোর মাধ্যমে ইউজাররা নেটওয়ার্ক এক্সেস করে, সেগুলোই হলো
+            এন্ডপয়েন্ট।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা এন্ডপয়েন্টের কাজ, এর প্রকারভেদ এবং সাইবার সিকিউরিটিতে এর গুরুত্ব নিয়ে
+            বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Network Endpoints কী?</h2>
+          <p>একটি নেটওয়ার্কের সাথে যুক্ত যেকোনো ডিভাইস যা ডাটা জেনারেট করে বা রিসিভ করে এবং যার একটি নিজস্ব <strong>IP
+              Address</strong> থাকে, তাকেই এন্ডপয়েন্ট বলা হয়। এটি হলো নেটওয়ার্ক কমিউনিকেশন চেইনের শেষ বিন্দু।
+            উদাহরণস্বরূপ, আপনার ল্যাপটপ যখন ইন্টারনেটের সাথে যুক্ত হয়, তখন ল্যাপটপটি একটি এন্ডপয়েন্ট হিসেবে কাজ করে।
+          </p>
+          <p>তবে মনে রাখতে হবে, মধ্যবর্তী ডিভাইস যেমন <strong>Unmanaged Switch</strong> বা <strong>Hub</strong>
+            এন্ডপয়েন্ট নয়, কারণ এগুলো ডাটার গন্তব্য নয় বরং ডাটা পাস করার মাধ্যম মাত্র।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Postal Service Analogy)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি চিঠি আদান-প্রদান ব্যবস্থার কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Endpoints:</strong> প্রেরক (Sender) এবং প্রাপক (Receiver) এর বাড়ি হলো এন্ডপয়েন্ট। চিঠিটি
+                মূলত এই দুটি বিন্দুর মধ্যেই আদান-প্রদান হয়।</li>
+              <li><strong>Intermediate Devices:</strong> ডাকঘর বা পোস্টম্যান হলো রাউটার বা সুইচের মতো। তারা শুধুমাত্র
+                চিঠিটি গন্তব্যে পৌঁছে দেয়, তারা নিজেরা চিঠির গন্তব্য নয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. Endpoints এর প্রধান ফাংশনসমূহ (Main Functions)</h2>
+          <p>নেটওয়ার্কে এন্ডপয়েন্ট মূলত নিচের কাজগুলো সম্পন্ন করে:</p>
+          <ol>
+            <li><strong>Data Generation:</strong> ইউজার যখন ইমেইল পাঠায় বা ফাইল তৈরি করে, তখন এন্ডপয়েন্ট সেই ডাটা
+              জেনারেট করে।</li>
+            <li><strong>Data Consumption:</strong> সার্ভার থেকে যখন কোনো ভিডিও বা ওয়েবসাইট লোড করা হয়, এন্ডপয়েন্ট
+              সেটি রিসিভ এবং ডিসপ্লে করে।</li>
+            <li><strong>User Interface:</strong> এন্ডপয়েন্ট ইউজারের সাথে নেটওয়ার্কের ইন্টারফেস হিসেবে কাজ করে।</li>
+            <li><strong>Identity Management:</strong> এন্ডপয়েন্টের মাধ্যমে ইউজার নেটওয়ার্কে নিজের আইডেন্টিটি বা পরিচয়
+              প্রদান করে (Login/Authentication)।</li>
+          </ol>
+
+          <h2>৩. বিভিন্ন ধরনের এন্ডপয়েন্ট (Types of Endpoints)</h2>
+          <p>বর্তমান সময়ে এন্ডপয়েন্টের পরিধি অনেক বিস্তৃত হয়েছে। নিচে প্রধান কিছু ক্যাটাগরি দেওয়া হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Endpoint Category</th>
+                  <th>উদাহরণ (Examples)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Traditional Computing</td>
+                  <td>Desktop PC, Laptop, Workstations.</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Mobile Devices</td>
+                  <td>Smartphones, Tablets, Smartwatches.</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Enterprise Infrastructure</td>
+                  <td>Web Servers, Database Servers, Storage Arrays.</td>
+                </tr>
+                <tr>
+                  <td class="type-column">IoT Devices</td>
+                  <td>Smart Camera, Smart Sensors, IP Phones, Printers.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৪. এন্ডপয়েন্ট সিকিউরিটি কেন জরুরি?</h2>
+          <p>সাইবার সিকিউরিটির দুনিয়ায় এন্ডপয়েন্টকে বলা হয় <strong>"The Weakest Link"</strong>। কারণ:</p>
+          <ul>
+            <li><strong>Entry Point:</strong> অধিকাংশ সাইবার অ্যাটাক (যেমন- Phishing বা Malware) এন্ডপয়েন্টের মাধ্যমেই
+              নেটওয়ার্কে প্রবেশ করে।</li>
+            <li><strong>Data Vulnerability:</strong> এন্ডপয়েন্টেই সবচেয়ে সেনসিটিভ ডাটা স্টোর বা ডিসপ্লে করা হয়।</li>
+            <li><strong>Human Error:</strong> ইউজারের ভুল ক্লিকের কারণে এন্ডপয়েন্ট হ্যাক হতে পারে, যা পুরো কর্পোরেট
+              নেটওয়ার্ককে ঝুঁকির মুখে ফেলে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>Solution: Endpoint Detection and Response (EDR)</h3>
+            <p>আধুনিক কোম্পানিগুলো শুধুমাত্র এন্টিভাইরাস ব্যবহার না করে <strong>EDR</strong> বা <strong>XDR</strong>
+              সলিউশন ব্যবহার করে যা রিয়েল-টাইমে এন্ডপয়েন্টের প্রতিটি মুভমেন্ট মনিটর করে।</p>
+          </div>
+
+          <h2>৫. Endpoints এবং IP Addressing (Technical Perspective)</h2>
+          <p>প্রতিটি এন্ডপয়েন্টকে নেটওয়ার্কে চেনার জন্য একটি লজিক্যাল অ্যাড্রেস প্রয়োজন হয়। এটি সাধারণত <strong>DHCP
+              Server</strong> এর মাধ্যমে অটোমেটিক বা ম্যানুয়ালি <strong>Static IP</strong> হিসেবে কনফিগার করা হয়।</p>
+
+          <p><strong>Windows এন্ডপয়েন্টে আইপি চেক করার কমান্ড (CLI):</strong></p>
+          <pre><code># আপনার পিসির আইপি এবং গেটওয়ে দেখার জন্য
+C:\> ipconfig
+
+# বিস্তারিত অ্যাডাপ্টার তথ্য দেখার জন্য
+C:\> ipconfig /all</code></pre>
+
+          <p><strong>Linux/Server এন্ডপয়েন্টে আইপি দেখার কমান্ড:</strong></p>
+          <pre><code># লিনাক্স টার্মিনালে আইপি চেক করা
+$ ip addr show</code></pre>
+
+          <h2>৬. Troubleshooting টিপস</h2>
+          <p>এন্ডপয়েন্টে নেটওয়ার্ক কানেক্টিভিটি সমস্যা হলে নিচের ধাপগুলো অনুসরণ করুন:</p>
+          <ul>
+            <li><strong>Physical Layer:</strong> ল্যাপটপের Wi-Fi অন আছে কি না বা ডেস্কটপের LAN Cable ঠিকমতো লাগানো আছে
+              কি না দেখুন।</li>
+            <li><strong>IP Configuration:</strong> এন্ডপয়েন্টটি সঠিক সাবনেটের আইপি পেয়েছে কি না তা
+              <code>ipconfig</code> দিয়ে চেক করুন।</li>
+            <li><strong>Default Gateway:</strong> আপনার রাউটার বা গেটওয়েকে <code>ping</code> দিয়ে কানেক্টিভিটি চেক
+              করুন।</li>
+            <li><strong>DNS Check:</strong> যদি ইন্টারনেট না চলে কিন্তু পিং কাজ করে, তবে <code>nslookup</code> দিয়ে DNS
+              সেটিংস চেক করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Endpoints</strong> হলো একটি নেটওয়ার্কের মূল ভিত্তি কারণ ইউজাররা সরাসরি এদের সাথেই ইন্টারঅ্যাক্ট
+              করে। একটি দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ার হিসেবে এন্ডপয়েন্টের <strong>Configuration</strong>,
+              <strong>Connectivity</strong> এবং <strong>Security</strong> নিশ্চিত করা আপনার প্রধান দায়িত্ব। বর্তমানে
+              <strong>BYOD (Bring Your Own Device)</strong> কালচার এবং <strong>IoT</strong> ডিভাইসের আধিক্যের কারণে
+              এন্ডপয়েন্ট ম্যানেজমেন্ট অনেক বেশি চ্যালেঞ্জিং হয়ে পড়েছে। তাই এন্ডপয়েন্টের ফাংশন এবং এর সিকিউরিটি
+              মেকানিজম সম্পর্কে গভীর জ্ঞান থাকা আপনার আইটি ক্যারিয়ারের জন্য অত্যন্ত ফলপ্রসূ হবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

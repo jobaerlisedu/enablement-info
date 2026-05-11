@@ -1,32 +1,288 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download and make ready software for EVE-NG | tech-enablement.info</title>
+  <meta name="description"
+    content="EVE-NG ল্যাব সেটআপের জন্য প্রয়োজনীয় সব সফটওয়্যার ডাউনলোড এবং কনফিগার করার বিস্তারিত গাইড। জানুন VMware, EVE-NG ISO এবং Client Pack সেটআপ করার পদ্ধতি।">
+  <title>Download and Make Ready Software for EVE-NG: A Step-by-Step Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Download and make ready software for EVE-NG</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Download and make ready software for EVE-NG</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Download and Make Ready Software for EVE-NG</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিং ল্যাব তৈরির জন্য বর্তমান সময়ে সবচেয়ে শক্তিশালী ইমুলেটর হলো <strong>EVE-NG (Emulated
+              Virtual Environment-Next Generation)</strong>। তবে এই টুলটি শুধুমাত্র ইন্সটল করলেই হয় না, এটিকে কার্যকরী
+            করার জন্য সঠিক সফটওয়্যার নির্বাচন এবং ডাউনলোডের একটি নির্দিষ্ট সিকোয়েন্স রয়েছে। আপনি যদি সিসিএনএ (CCNA) বা
+            সিসিএনপি (CCNP) এর মতো অ্যাডভান্সড ল্যাব প্র্যাকটিস করতে চান, তবে আপনার পিসিকে আগে "Lab Ready" করে নিতে হবে।
+          </p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা আলোচনা করবো কীভাবে প্রয়োজনীয় সব সফটওয়্যার ডাউনলোড করবেন এবং আপনার এনভায়রনমেন্ট
+            সেটআপ করবেন।</p>
+
+
+
+          <h2>১. প্রয়োজনীয় সফটওয়্যারের তালিকা (Prerequisites)</h2>
+          <p>EVE-NG সঠিকভাবে কাজ করানোর জন্য আপনার পিসিতে নিচের সফটওয়্যারগুলো থাকা বাধ্যতামূলক:</p>
+          <ul>
+            <li><strong>VMware Workstation Pro/Player:</strong> এটি আপনার ভার্চুয়ালাইজেশন প্ল্যাটফর্ম হিসেবে কাজ করবে
+              যেখানে EVE-NG ওএস চলবে।</li>
+            <li><strong>EVE-NG Community Edition (ISO/OVA):</strong> এটিই মূল ইমুলেটর ইঞ্জিন।</li>
+            <li><strong>EVE-NG Client Pack:</strong> এটি ব্রাউজারের সাথে আপনার পিসির Putty, Wireshark এবং UltraVNC কে
+              যুক্ত করে।</li>
+            <li><strong>WinSCP:</strong> রাউটারের ইমেজ ফাইলগুলো (IOS/QEMU) পিসি থেকে সার্ভারে ট্রান্সফার করার জন্য এটি
+              প্রয়োজন।</li>
+          </ul>
+
+          <h2>২. হার্ডওয়্যার রিকোয়ারমেন্ট চেক করুন</h2>
+          <p>ভারি নেটওয়ার্ক ডিভাইস (যেমন- Cisco IOL বা ASA Firewall) চালানোর জন্য আপনার পিসির কনফিগারেশন ভালো হতে হবে।
+          </p>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Component</th>
+                  <th>Minimum Requirement</th>
+                  <th>Recommended</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">RAM</td>
+                  <td>8 GB</td>
+                  <td>16 GB or 32 GB</td>
+                </tr>
+                <tr>
+                  <td class="type-column">CPU</td>
+                  <td>4 Cores (VT-x Enabled)</td>
+                  <td>8 Cores or Higher</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Storage</td>
+                  <td>40 GB (HDD)</td>
+                  <td>100 GB (SSD)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. সফটওয়্যার ডাউনলোড করার পদ্ধতি</h2>
+
+          <h3>ধাপ ১: VMware Workstation</h3>
+          <p>প্রথমে VMware এর অফিসিয়াল ওয়েবসাইট থেকে <strong>VMware Workstation Pro</strong> বা ফ্রি ভার্সন
+            <strong>Player</strong> ডাউনলোড করুন। এটি ইন্সটল করার পর পিসি রিবুট দিন এবং বায়োস (BIOS) থেকে
+            <strong>Virtualization Technology</strong> এনাবল আছে কি না নিশ্চিত করুন।</p>
+
+          <h3>ধাপ ২: EVE-NG Community ISO/OVA</h3>
+          <p>ইভ-এনজি'র অফিসিয়াল ওয়েবসাইট (eve-ng.net) থেকে <strong>Community Edition</strong> ডাউনলোড লিঙ্কে যান।</p>
+          <ul>
+            <li><strong>OVA ফাইল:</strong> এটি সরাসরি ইমপোর্ট করা যায়। যারা বিগিনার তাদের জন্য এটি সবচেয়ে সহজ।</li>
+            <li><strong>ISO ফাইল:</strong> যদি আপনি নিজের মতো করে পার্টিশন করতে চান, তবে এটি ডাউনলোড করুন।</li>
+          </ul>
+
+          <h3>ধাপ ৩: EVE-NG Client Pack (অত্যন্ত গুরুত্বপূর্ণ)</h3>
+          <p>অনেকেই শুধুমাত্র EVE-NG ইন্সটল করেন কিন্তু ক্লায়েন্ট প্যাক ডাউনলোড করেন না। ফলে ব্রাউজারে রাউটারের ওপর
+            ক্লিক করলে কনসোল ওপেন হয় না।</p>
+          <ul>
+            <li>ওয়েবসাইটের <strong>Client-side</strong> সেকশন থেকে <code>EVE-NG-Win-Client-Pack</code> ডাউনলোড করুন।
+            </li>
+            <li>এটি ইন্সটল করার সময় <strong>Wireshark</strong> এবং <strong>Putty</strong> অপশনগুলো টিক দিয়ে দিন।</li>
+          </ul>
+
+
+
+          <h2>৪. ইমেজ কালেকশন এবং প্রি-সেটআপ</h2>
+          <p>EVE-NG ল্যাবে রাউটার বা সুইচ যোগ করতে হলে আপনাকে আলাদাভাবে <strong>Images</strong> সংগ্রহ করতে হবে। সচরাচর
+            নিচের ইমেজগুলো বেশি ব্যবহৃত হয়:</p>
+          <ul>
+            <li><strong>Cisco IOL (IOS on Linux):</strong> এটি র‍্যাম খুব কম খরচ করে, তাই বড় ল্যাবের জন্য উপযোগী।</li>
+            <li><strong>QEMU Images:</strong> যেমন- MikroTik CHR, Windows Server, বা Linux।</li>
+            <li><strong>Dynamics Images:</strong> পুরনো মডেলের সিসকো রাউটারের জন্য।</li>
+          </ul>
+
+          <h2>৫. ফাইল ট্রান্সফার সফটওয়্যার (WinSCP)</h2>
+          <p>যেহেতু EVE-NG একটি লিনাক্স বেজড ওএস, তাই আপনার উইন্ডোজ পিসি থেকে রাউটার ইমেজগুলো সেখানে পাঠানোর জন্য
+            <strong>WinSCP</strong> ব্যবহার করতে হবে।</p>
+          <ul>
+            <li>Host: আপনার EVE-NG এর IP Address</li>
+            <li>User: root</li>
+            <li>Password: eve (Default)</li>
+            <li>Port: 22 (SFTP)</li>
+          </ul>
+
+          <h2>৬. Troubleshooting ও সচরাচর ভুলসমূহ</h2>
+          <ul>
+            <li><strong>VT-x Error:</strong> যদি VMware এ ইভ-এনজি চালু না হয়, তবে বুঝতে হবে বায়োস থেকে ভার্চুয়ালাইজেশন
+              বন্ধ করা আছে।</li>
+            <li><strong>Browser Integration:</strong> যদি ব্রাউজার থেকে রাউটার ওপেন না হয়, তবে Client Pack পুনরায় ইন্সটল
+              করুন এবং পিসি রিস্টার্ট দিন।</li>
+            <li><strong>Permission Issue:</strong> ইমেজ আপলোড করার পর কমান্ড লাইনে গিয়ে নিচের কমান্ডটি দেওয়া
+              বাধ্যতামূলক, না হলে নোড স্টার্ট হবে না।</li>
+          </ul>
+
+          <p><strong>ফাইল পারমিশন ঠিক করার কমান্ড:</strong></p>
+          <pre><code>/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code></pre>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>EVE-NG ল্যাব তৈরির জন্য সফটওয়্যার প্রস্তুত করা প্রাথমিক ধাপ হলেও এটি সবচেয়ে গুরুত্বপূর্ণ। সঠিক
+              হার্ডওয়্যার এবং সফটওয়্যারের সমন্বয় থাকলে আপনি খুব সহজেই জটিল সব নেটওয়ার্ক সিনারিও ইমুলেট করতে পারবেন।
+              একবার সব সফটওয়্যার ডাউনলোড এবং ইন্সটল হয়ে গেলে আপনি সরাসরি ল্যাব ডিজাইনে চলে যেতে পারবেন। পরবর্তী
+              টিউটোরিয়ালে আমরা আলোচনা করবো কীভাবে এই সফটওয়্যারে <strong>Cisco</strong> এবং <strong>MikroTik</strong>
+              ইমেজ যুক্ত করতে হয়।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

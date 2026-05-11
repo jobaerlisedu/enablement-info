@@ -1,32 +1,292 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explain Function of Network Component Firewalls | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Firewall কী এবং এটি কীভাবে কাজ করে তার একটি বিস্তারিত টেকনিক্যাল গাইড। সহজ বাংলায় ফায়ারওয়ালের ফাংশন, প্রকারভেদ এবং সিকিউরিটি মেকানিজম নিয়ে গভীর আলোচনা।">
+  <title>Explain Function of Network Component Firewalls: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Explain Function of Network Component Firewalls</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Explain Function of Network Component Firewalls</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Function of Network Component Firewalls</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 12 May, 2026</span>
+            <span><i class='bx bx-category'></i> Cyber Security</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>সাইবার সিকিউরিটির দুনিয়ায় সবচেয়ে পরিচিত এবং অপরিহার্য একটি শব্দ হলো <strong>Firewall</strong>। আমরা যখন
+            একটি নেটওয়ার্ক তৈরি করি, তখন সেটি ইন্টারনেটের সাথে যুক্ত হওয়ার সাথে সাথে হাজারো নিরাপত্তা ঝুঁকির মুখে
+            পড়ে। এই ঝুঁকি বা আক্রমণ থেকে নেটওয়ার্ককে রক্ষা করার জন্য প্রথম প্রতিরক্ষা প্রাচীর হিসেবে কাজ করে
+            ফায়ারওয়াল। এটি মূলত একটি ফিল্টারিং সিস্টেম যা নেটওয়ার্কে আসা এবং নেটওয়ার্ক থেকে যাওয়া প্রতিটি ডাটা
+            প্যাকেটকে গভীরভাবে পরীক্ষা করে।</p>
+          <p>আজকের এই টিউটোরিয়ালে আমরা আলোচনা করবো ফায়ারওয়ালের মূল ফাংশনসমূহ, এর বিভিন্ন প্রকারভেদ এবং এটি কীভাবে
+            একটি প্রতিষ্ঠানের ডাটা সুরক্ষিত রাখে।</p>
+
+
+
+          <h2>১. Network Firewall কী?</h2>
+          <p>ফায়ারওয়াল হলো একটি সিকিউরিটি সিস্টেম (যা হার্ডওয়্যার বা সফটওয়্যার উভয়ই হতে পারে) যা একটি বিশ্বাসযোগ্য
+            ইন্টারনাল নেটওয়ার্ক এবং একটি অবিশ্বস্ত এক্সটারনাল নেটওয়ার্কের (যেমন ইন্টারনেট) মাঝে দেয়াল হিসেবে
+            দাঁড়িয়ে থাকে। এটি পূর্বনির্ধারিত <strong>Security Rules</strong> এর ওপর ভিত্তি করে ইনকামিং এবং আউটগোয়িং
+            ট্রাফিক মনিটর এবং কন্ট্রোল করে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Security Guard Analogy)</h3>
+            <p>সহজভাবে বোঝার জন্য একটি বড় অ্যাপার্টমেন্ট বা অফিসের মেইন গেটের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Security Guard:</strong> ফায়ারওয়াল হলো ওই গেটের সিকিউরিটি গার্ড।</li>
+              <li><strong>Visitor List:</strong> তার কাছে একটি তালিকা (Security Rules) আছে যে কারা ভেতরে ঢুকতে পারবে আর
+                কারা পারবে না।</li>
+              <li><strong>Checking:</strong> কেউ ভেতরে ঢুকতে চাইলে গার্ড তার পরিচয়পত্র পরীক্ষা করে। যদি তালিকার সাথে
+                মিলে যায় তবেই ঢুকতে দেয়, অন্যথায় গেট থেকেই বিদায় করে দেয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. ফায়ারওয়ালের প্রধান ফাংশনসমূহ (Main Functions)</h2>
+          <p>একটি আধুনিক ফায়ারওয়াল মূলত নিচের কাজগুলো সম্পন্ন করে থাকে:</p>
+          <ol>
+            <li><strong>Packet Filtering:</strong> এটি প্রতিটি প্যাকেটের <strong>Source IP</strong>, <strong>Destination
+                IP</strong>, এবং <strong>Port Number</strong> পরীক্ষা করে সিদ্ধান্ত নেয় প্যাকেটটি পাস হবে কি না।</li>
+            <li><strong>Stateful Inspection:</strong> এটি শুধুমাত্র একটি প্যাকেট দেখে না, বরং একটি কানেকশনের পুরো ইতিহাস
+              (State) মনে রাখে। যেমন- আপনি যদি গুগল ভিজিট করেন, তবে গুগল থেকে আসা রিপ্লাই প্যাকেটটি সে অটোমেটিক চিনতে
+              পারে।</li>
+            <li><strong>Application Control:</strong> আধুনিক ফায়ারওয়াল (Next-Gen) নির্দিষ্ট অ্যাপ্লিকেশনের ওপর ভিত্তি
+              করে ট্রাফিক ব্লক করতে পারে। যেমন- আপনি চাইলে পুরো ইন্টারনেট খোলা রেখে শুধু Facebook বা YouTube ব্লক করে
+              রাখতে পারেন।</li>
+            <li><strong>NAT (Network Address Translation):</strong> ফায়ারওয়াল আপনার লোকাল নেটওয়ার্কের প্রাইভেট
+              আইপিগুলোকে ইন্টারনেটে হাইড করে রাখে, যা সিকিউরিটির একটি বড় অংশ।</li>
+          </ol>
+
+
+
+          <h2>৩. ফায়ারওয়ালের প্রকারভেদ (Types of Firewalls)</h2>
+          <p>প্রযুক্তির বিবর্তনের সাথে সাথে ফায়ারওয়ালও বিভিন্ন ধরনের হয়ে থাকে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Firewall Type</th>
+                  <th>কাজের ধরন (Mechanism)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Packet Filtering</td>
+                  <td>সবচেয়ে পুরনো পদ্ধতি। এটি শুধুমাত্র IP এবং Port দেখে ট্রাফিক চেক করে। এটি দ্রুত কিন্তু কম সিকিউর।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">Stateful Inspection</td>
+                  <td>এটি একটি কানেকশন বা সেশনের ট্র্যাকিং করে। এটি আগেরটির চেয়ে অনেক বেশি বুদ্ধিমান।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Proxy Firewall</td>
+                  <td>এটি ইউজার এবং সার্ভারের মাঝখানে মধ্যস্থতাকারী হিসেবে কাজ করে। ইউজার সরাসরি সার্ভারের সাথে কথা বলতে
+                    পারে না।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Next-Generation (NGFW)</td>
+                  <td>বর্তমানে এটি সবচেয়ে জনপ্রিয়। এতে <strong>IPS (Intrusion Prevention System)</strong> এবং
+                    <strong>Deep Packet Inspection</strong> থাকে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. কেন ফায়ারওয়াল ব্যবহার করা বাধ্যতামূলক?</h2>
+          <p>আপনার নেটওয়ার্কে ফায়ারওয়াল না থাকলে নিচের সমস্যাগুলো হতে পারে:</p>
+          <ul>
+            <li><strong>Unauthorized Access:</strong> হ্যাকাররা সরাসরি আপনার পিসি বা সার্ভারে ঢুকে ডাটা চুরি করতে পারবে।
+            </li>
+            <li><strong>Malware Attacks:</strong> ক্ষতিকারক ভাইরাস বা ম্যালওয়্যার আপনার নেটওয়ার্কে ছড়িয়ে পড়তে পারে।
+            </li>
+            <li><strong>Data Leakage:</strong> অফিসের গোপন ডাটা ইন্টারনেটে পাচার হয়ে যেতে পারে।</li>
+            <li><strong>Bandwidth Waste:</strong> আনওয়ান্টেড ট্রাফিক আপনার নেটওয়ার্ক ব্যান্ডউইথ দখল করে রাখবে।</li>
+          </ul>
+
+          <h2>৫. Firewall Configuration (MikroTik CLI Example)</h2>
+          <p>একটি সাধারণ ফায়ারওয়াল রুল কীভাবে কাজ করে তা বোঝার জন্য মাইক্রোটিক রাউটারের একটি উদাহরণ নিচে দেওয়া হলো।
+          </p>
+
+          <p><strong>একটি নির্দিষ্ট আইপি ব্লক করার কমান্ড:</strong></p>
+          <pre><code># ১৯২.১৬৮.১০.৫০ আইপিটিকে ইন্টারনেট থেকে ব্লক করা
+/ip firewall filter add chain=forward src-address=192.168.10.50 action=drop</code></pre>
+
+          <p><strong>ব্যান্ডউইথ নষ্ট করা সার্ভিস ব্লক করা (যেমন- YouTube/Social Media):</strong></p>
+          <pre><code># কন্টেন্ট ফিল্টারিং এর মাধ্যমে ব্লক করা
+/ip firewall filter add chain=forward content="youtube.com" action=drop</code></pre>
+
+          <h2>৬. Troubleshooting ও বেস্ট প্র্যাকটিস</h2>
+          <p>ফায়ারওয়াল কনফিগার করার সময় নিচের বিষয়গুলো মাথায় রাখা জরুরি:</p>
+          <ul>
+            <li><strong>Least Privilege:</strong> ডিফল্টভাবে সবকিছু ব্লক রাখুন এবং শুধুমাত্র যা প্রয়োজন তা পারমিট করুন।
+            </li>
+            <li><strong>Rule Order:</strong> ফায়ারওয়াল রুলগুলো সবসময় টপ-টু-বটম (উপর থেকে নিচে) কাজ করে। তাই
+              গুরুত্বপূর্ণ রুলগুলো উপরে রাখুন।</li>
+            <li><strong>Logging:</strong> সবসময় ড্রপ হওয়া প্যাকেটের <strong>Log</strong> এনাবল রাখুন যাতে পরবর্তীতে
+              কেউ অ্যাটাক করার চেষ্টা করলে আপনি সেটি দেখতে পারেন।</li>
+            <li><strong>Updates:</strong> আপনার ফায়ারওয়াল ডিভাইসের ফার্মওয়্যার সবসময় আপ-টু-ডেট রাখুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Network Firewall</strong> হলো আপনার ডিজিটাল জগতের বডিগার্ড। এটি ছাড়া বর্তমান সময়ে একটি
+              নেটওয়ার্ক কল্পনা করা অসম্ভব। আপনি যত ভালো ডিজাইনের নেটওয়ার্কই তৈরি করুন না কেন, সঠিক ফায়ারওয়াল পলিসি
+              না থাকলে আপনার পুরো অবকাঠামো ঝুঁকির মুখে থাকবে। তাই একজন নেটওয়ার্ক বা সিকিউরিটি ইঞ্জিনিয়ার হিসেবে
+              ফায়ারওয়ালের <strong>Filtering Logic</strong> এবং <strong>Next-Gen Features</strong> সম্পর্কে গভীর জ্ঞান
+              থাকা আপনার ক্যারিয়ারের জন্য অত্যন্ত ফলপ্রসূ হবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>
