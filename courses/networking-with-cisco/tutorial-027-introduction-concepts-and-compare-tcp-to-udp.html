@@ -1,32 +1,353 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction, Concepts and Compare TCP to UDP | tech-enablement.info</title>
+  <meta name="description"
+    content="TCP এবং UDP প্রোটোকলের মূল মেকানিজম, কাজের ধরন এবং এদের গভীর টেকনিক্যাল পার্থক্যের ওপর একটি সম্পূর্ণ গাইড। সহজ বাংলায় থ্রি-ওয়ে হ্যান্ডশেক ও প্যাকেট অ্যানালাইসিস আলোচনা।">
+  <title>Introduction, Concepts and Compare TCP to UDP: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction, Concepts and Compare TCP to UDP</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction, Concepts and Compare TCP to UDP</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction, Concepts and Compare TCP to UDP</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 17 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিং এবং <strong>Cisco CCNA</strong>-র সিলেবাসে সবচেয়ে মৌলিক এবং গুরুত্বপূর্ণ
+            লেয়ারগুলোর একটি হলো <strong>Transport Layer (Layer 4)</strong>। আমরা যখন ইন্টারনেটে কোনো ডেটা আদান-প্রদান
+            করি, তখন সেই ডেটা কীভাবে এক কম্পিউটার থেকে অন্য কম্পিউটারে পৌঁছাবে, তার লজিক্যাল নিয়মাবলী এই লেয়ারেই
+            নির্ধারিত হয়। আর এই লেয়ারের পুরো শাসনভার মূলত দুটি কোর প্রোটোকলের হাতে ন্যস্ত: <strong>TCP (Transmission
+              Control Protocol)</strong> এবং <strong>UDP (User Datagram Protocol)</strong>।</p>
+          <p>আপনি ইন্টারনেটে যাই করুন না কেন—ওয়েবসাইট ব্রাউজ করা, ইমেইল পাঠানো, ইউটিউবে ভিডিও দেখা কিংবা ল্যাগ-ফ্রী
+            অনলাইন গেম খেলা—সবকিছুর পেছনেই এই দুটি প্রোটোকলের যেকোনো একটি কাজ করছে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা
+            TCP এবং UDP-এর মেকানিজম, কাজের ধরণ এবং এদের ফিজিক্যাল ও লজিক্যাল পার্থক্য নিয়ে গভীরভাবে আলোচনা করবো।</p>
+
+
+
+          <h2>১. Transmission Control Protocol (TCP) কী?</h2>
+          <p><strong>TCP</strong> হলো একটি <strong>Connection-oriented</strong> এবং অত্যন্ত বিশ্বস্ত বা Reliable
+            প্রোটোকল। এর প্রধান কাজ হলো ডাটা সোর্স থেকে ডেস্টিনেশনে একদম নিখুঁতভাবে পৌঁছানো নিশ্চিত করা। যদি কোনো কারণে
+            নেটওয়ার্কের জ্যামে পড়ে কোনো ডাটা প্যাকেট হারিয়ে বা ড্যামেজ হয়ে যায়, তবে TCP স্বয়ংক্রিয়ভাবে সেই
+            প্যাকেটটি পুনরায় পাঠায় (Retransmission)।</p>
+
+          <h3>TCP-এর প্রধান বৈশিষ্ট্যসমূহ:</h3>
+          <ul>
+            <li><strong>Reliable Delivery:</strong> ডাটা গন্তব্যে পৌঁছানোর শতভাগ গ্যারান্টি দেয়।</li>
+            <li><strong>Ordered Data Transfer:</strong> ডাটা ছোট ছোট টুকরো বা <strong>Segments</strong> আকারে পাঠানোর
+              পর, অপর প্রান্তে গিয়ে ঠিক একই সিকোয়েন্সে (১, ২, ৩...) সাজানো নিশ্চিত করে।</li>
+            <li><strong>Flow Control:</strong> এটি <strong>Sliding Window</strong> মেকানিজম ব্যবহার করে ক্লায়েন্ট এবং
+              সার্ভারের ডেটা প্রসেসিং ক্ষমতার ওপর ভিত্তি করে ডাটা প্রবাহের গতি নিয়ন্ত্রণ করে, যাতে অতিরিক্ত ডাটার চাপে
+              কোনো ডিভাইস ক্র্যাশ না করে।</li>
+            <li><strong>Heavy Overhead:</strong> প্রতিটি TCP হেডার সাইজ বড় হয় (২০ থেকে ৬০ বাইট), কারণ এতে সিকোয়েন্স
+              নাম্বার, অ্যাকনলেজমেন্ট নাম্বার এবং বিভিন্ন ফ্ল্যাগ থাকে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>TCP থ্রি-ওয়ে হ্যান্ডশেক (Three-Way Handshake)</h3>
+            <p>TCP ডাটা পাঠানোর আগে সোর্স এবং ডেস্টিনেশনের মধ্যে একটি ফিজিক্যাল সেটিং বা লজিক্যাল কানেকশন তৈরি করে নেয়।
+              এই প্রক্রিয়াকে বলা হয় <strong>Three-Way Handshake</strong>:</p>
+            <ol>
+              <li><strong>SYN (Synchronize):</strong> ক্লায়েন্ট সার্ভারকে একটি কানেকশন রিকোয়েস্ট প্যাকেট পাঠায়।</li>
+              <li><strong>SYN-ACK (Synchronize-Acknowledgment):</strong> সার্ভার রিকোয়েস্টটি গ্রহণ করে একটি সম্মতি এবং
+                ফিরতি রিকোয়েস্ট পাঠায়।</li>
+              <li><strong>ACK (Acknowledgment):</strong> ক্লায়েন্ট সার্ভারের রিকোয়েস্টের কনফার্মেশন দেয়। এরপরই কেবল
+                মূল ডাটা ট্রান্সমিশন শুরু হয়।</li>
+            </ol>
+          </div>
+
+
+
+          <h2>২. User Datagram Protocol (UDP) কী?</h2>
+          <p><strong>UDP</strong> হলো TCP-এর সম্পূর্ণ বিপরীত একটি প্রোটোকল। এটি একটি <strong>Connectionless</strong> এবং
+            অনির্ভরযোগ্য বা Unreliable প্রোটোকল। তবে "অনির্ভরযোগ্য" শব্দের অর্থ এই নয় যে এটি খারাপ; এর মূল ফোকাস হলো
+            গ্যারান্টির চেয়ে <strong>Speed</strong> বা গতির ওপর। এটি ডাটা পাঠানোর আগে কোনো হ্যান্ডশেক বা কানেকশন তৈরি
+            করে না।</p>
+
+          <h3>UDP-এর প্রধান বৈশিষ্ট্যসমূহ:</h3>
+          <ul>
+            <li><strong>No Guarantee:</strong> ডাটা পৌঁছালো কি না, তা নিয়ে UDP-এর কোনো মাথা ব্যথা নেই। কোনো প্যাকেট
+              হারালে সেটির পুনরায় রিকোয়েস্ট পাঠানো হয় না।</li>
+            <li><strong>No Flow or Error Control:</strong> এতে ডাটা রি-অর্ডার বা স্পীড কন্ট্রোল করার কোনো ইন্টারনাল
+              মেকানিজম নেই।</li>
+            <li><strong>Low Overhead:</strong> UDP হেডার সাইজ অত্যন্ত ছোট—স্থিরভাবে মাত্র <strong>৮ বাইট</strong>।
+              অতিরিক্ত কোনো কন্ট্রোল বিট না থাকায় এটি অত্যন্ত ফাস্ট কাজ করে।</li>
+            <li><strong>Broadcast/Multicast Support:</strong> এটি একই সাথে নেটওয়ার্কের অনেক ডিভাইসে ডাটা ব্রডকাস্ট করতে
+              পারে, যা TCP করতে পারে না।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Postal vs Live Streaming Analogy)</h3>
+            <p>সহজ বাংলায় এই দুই প্রোটোকলের পার্থক্য বোঝার জন্য বাস্তব জীবনের দুটি উদাহরণ দেখুন:</p>
+            <ul>
+              <li><strong>TCP (Registry Post):</strong> এটি হলো সরকারি রেজিস্ট্রি ডাক বা কুরিয়ার সার্ভিসের মতো। চিঠি
+                প্রাপকের হাতে পৌঁছানোর পর প্রাপক দস্তখত বা রিসিভ কপি (ACK) দেয়। যদি চিঠি না পৌঁছায়, তবে ডাকঘর তদন্ত
+                করে আবার পাঠায়। আমরা যখন ব্যাংক অ্যাকাউন্ট বা ইমেইলের পাসওয়ার্ড পাঠাই, তখন আমাদের এই মেকানিজম (TCP)
+                প্রয়োজন।</li>
+              <li><strong>UDP (Live Television Broadcast):</strong> এটি হলো লাইভ ফুটবল ম্যাচ সম্প্রচারের মতো। স্টুডিও
+                থেকে অনবরত ভিডিও ফ্রেম (Datagrams) বাতাসে ভাসিয়ে দেওয়া হচ্ছে। আপনার ডিসি বা ডিশের লাইনে ১ সেকেন্ডের
+                জন্য কোনো সিগন্যাল ড্রপ হলে ওই ১ সেকেন্ডের খেলা আপনি আর দেখতে পাবেন না, খেলাটি কিন্তু ওই ১ সেকেন্ড স্কিপ
+                করে লাইভ চলতে থাকবে। পুরাতন ফ্রেমের রিকোয়েস্ট করার কোনো সুযোগ এখানে নেই।</li>
+            </ul>
+          </div>
+
+          <h2>৩. TCP বনাম UDP: গভীর টেকনিক্যাল তুলনা</h2>
+          <p>নেটওয়ার্ক ইনফ্রাস্ট্রাকচার বা অ্যাপ্লিকেশন ডিজাইন করার সুবিধার্থে এই দুই প্রোটোকলের নিখুঁত টেকনিক্যাল
+            তুলনা নিচে দেওয়া হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার বা বৈশিষ্ট্য (Feature)</th>
+                  <th>TCP (Transmission Control Protocol)</th>
+                  <th>UDP (User Datagram Protocol)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Connection State</td>
+                  <td>Connection-oriented (হ্যান্ডশেক বাধ্যতামূলক)</td>
+                  <td>Connectionless (সরাসরি ডাটা ফায়ার করে)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Reliability</td>
+                  <td>Highly Reliable (ডাটা লস রিকভারি আছে)</td>
+                  <td>Unreliable (প্যাকেট লস হলে রিকভারি নেই)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Speed & Latency</td>
+                  <td>ধীরগতির (Overhead এবং চেকিংয়ের কারণে)</td>
+                  <td>অত্যন্ত দ্রুতগামী (লো-ল্যাটেন্সি নিশ্চিত করে)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Header Size</td>
+                  <td>20 to 60 Bytes</td>
+                  <td>Fixed 8 Bytes</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Data Flow Control</td>
+                  <td>সাপোর্ট করে (Sliding Window মেকানিজম)</td>
+                  <td>সাপোর্ট করে না</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Common Protocols</td>
+                  <td>HTTP, HTTPS, FTP, SSH, SMTP, Telnet</td>
+                  <td>DNS, DHCP, TFTP, SNMP, VoIP, IPTV</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৪. অ্যাপ্লিকেশন লেয়ারে প্রোটোকল ব্যবহারের সিদ্ধান্ত</h2>
+          <p>বাস্তব ক্ষেত্রে কোনো নির্দিষ্ট অ্যাপ্লিকেশনের জন্য কোন প্রোটোকল ব্যবহার করা হবে, তা নির্ধারণ করা হয়
+            অ্যাপ্লিকেশনের চাহিদার ওপর ভিত্তি করে:</p>
+          <ol>
+            <li><strong>ওয়েবসাইট ব্রাউজিং (HTTP/HTTPS):</strong> একটি ওয়েব পেজ লোড করার সময় যদি ১ বিট ডাটায় এরর
+              থাকে, তবে পুরো পেজ বা ইমেজ ভেঙে যাবে। তাই এখানে <strong>TCP</strong> ব্যবহার করা বাধ্যতামূলক।</li>
+            <li><strong>অনলাইন ভয়েস ও ভিডিও কল (VoIP):</strong> কথা বলার সময় নেটওয়ার্কের সামান্য ত্রুটির কারণে ২-৩টি
+              প্যাকেট ড্রপ হলে কথা একটু অস্পষ্ট শোনাবে, যা মেনে নেওয়া যায়। কিন্তু যদি আমরা TCP ব্যবহার করতাম, তবে
+              হারানো প্যাকেট পুনরায় আসার চক্করে আপনার কথা ৫ সেকেন্ড দেরিতে ওলটপালট হয়ে ওপারে পৌঁছাত, যা রিয়েল-টাইম
+              কমিউনিকেশন অসম্ভব করে দিত। তাই এখানে <strong>UDP</strong> ব্যবহৃত হয়।</li>
+            <li><strong>DNS (Domain Name System):</strong> আপনি যখন ব্রাউজারে একটি নাম লেখেন, পিসি সাথে সাথে ডিএনএস
+              কোয়েরি পাঠায়। এটি এত ছোট ট্রাফিক যে এর জন্য আগে হ্যান্ডশেক তৈরি করা ব্যান্ডউইথের অপচয়। তাই দ্রুত
+              রেসপন্সের জন্য <strong>UDP Port 53</strong> ব্যবহার করা হয়।</li>
+          </ol>
+
+          <h2>৫. Linux / Cisco CLI-এর মাধ্যমে সেশন ভেরিফিকেশন</h2>
+          <p>আপনার প্রোডাকশন সার্ভার বা রাউটারে কোন কোন সার্ভিস বর্তমানে TCP বা UDP প্রোটোকল লিসেন (Listen) করছে, তা
+            কমান্ড লাইনের মাধ্যমে ট্র্যাক করা যায়।</p>
+
+          <p><strong>লিনাক্স সার্ভারে অ্যাক্টিভ কানেকশন চেক করার কমান্ড:</strong></p>
+          <pre><code># সব TCP এবং UDP কানেকশন পোর্ট নাম্বারসহ দেখার জন্য
+$ sudo ss -tuln
+
+# পুরাতন নেটস্ট্যাট কমান্ডের ব্যবহার:
+$ sudo netstat -plntu</code></pre>
+          <p><em>আউটপুট অ্যানালাইসিস: কমান্ডের আউটপুটে <code>tcp</code> বা <code>udp</code> লেখা থাকবে, যার পাশে লোকাল
+              আইপি এবং পোর্টের বিবরণ (যেমন: 0.0.0.0:80 ফর ওয়েব সার্ভার) দেখতে পাবেন।</em></p>
+
+          <p><strong>Cisco Router-এ কানেক্টিভিটি এবং পোর্ট টেস্ট করার কমান্ড:</strong></p>
+          <pre><code># রাউটার থেকে নির্দিষ্ট কোনো পোর্টের TCP কানেক্টিভিটি চেক করা
+Router# telnet 192.168.10.50 80
+
+# রাউটারের ট্রাফিক টাইপ অ্যানালাইসিস দেখতে
+Router# show ip traffic</code></pre>
+
+          <h2>৬. Troubleshooting ও বেস্ট প্র্যাকটিস টিপস</h2>
+          <ul>
+            <li><strong>TCP SYN Flood Attack:</strong> হ্যাকাররা অনেক সময় সার্ভারে অনবরত ভুয়া SYN রিকোয়েস্ট পাঠিয়ে
+              হ্যান্ডশেক ঝুলিয়ে রাখে, ফলে সার্ভারের মেমরি ফুল হয়ে সাধারণ ইউজাররা এক্সেস পায় না। এটি প্রতিরোধের জন্য
+              ফায়ারওয়ালে <strong>SYN Cookies</strong> এনাবল করা উচিত।</li>
+            <li><strong>Firewall Port Blocking:</strong> ট্রাবলশুটিংয়ের সময় অনেক সময় দেখা যায় পিং (ICMP) কাজ করছে
+              কিন্তু ওয়েবসাইট বা সার্ভিস লোড হচ্ছে না। এর মূল কারণ ফায়ারওয়াল লেয়ারে নির্দিষ্ট TCP পোর্ট (যেমন: 80 বা
+              443) অথবা UDP পোর্ট (যেমন: 53) ব্লক থাকা। ফায়ারওয়াল রুল ভেরিফাই করুন।</li>
+            <li><strong>MTU/MSS Mismatch:</strong> TCP লিঙ্কে যদি ডাটা প্যাকেট সাইজ ফিজিক্যাল ইন্টারফেসের <strong>MTU
+                (Maximum Transmission Unit)</strong> থেকে বড় হয়, তবে প্যাকেট ফ্র্যাগমেন্টেশন হয় এবং গতি কমে যায়।
+              রাউটারে <code>ip tcp adjust-mss</code> কমান্ড ব্যবহার করে এটি অপ্টিমাইজ করা যায়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>TCP</strong> এবং <strong>UDP</strong> কম্পিউটার নেটওয়ার্কের দুটি আলাদা রথ, যা ভিন্ন ভিন্ন
+              উদ্দেশ্যে তৈরি করা হয়েছে। যেখানে ডাটার নিখুঁত ও সঠিক পৌঁছানো নিশ্চিত করা সবচেয়ে বড় চ্যালেঞ্জ, সেখানে
+              TCP একমাত্র ভরসা; আর যেখানে প্রসেসিংয়ের গতি এবং রিয়েল-টাইম রেসপন্স সবচেয়ে বেশি অগ্রাধিকার পায়, সেখানে
+              UDP অনবদ্য। একজন নেটওয়ার্ক এডমিনিস্ট্রেটর বা সিকিউরিটি স্পেশালিস্ট হিসেবে এই দুই প্রোটোকলের
+              <strong>Header Mechanics</strong> এবং সেশন ম্যানেজমেন্ট নিখুঁতভাবে বুঝতে পারা আপনার ক্যারিয়ারের গভীরতা
+              বাড়াতে এবং রিয়েল-লাইফ ইনফ্রাস্ট্রাকচার অপ্টিমাইজ করতে অত্যন্ত সহায়ক হবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

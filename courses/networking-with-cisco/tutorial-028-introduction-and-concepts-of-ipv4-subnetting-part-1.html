@@ -1,32 +1,346 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction and Concepts of IPv4 Subnetting Part-1 | tech-enablement.info</title>
+  <meta name="description"
+    content="IPv4 Subnetting কী এবং কেন এটি নেটওয়ার্কিংয়ে অত্যন্ত গুরুত্বপূর্ণ তার একটি সম্পূর্ণ প্র্যাকটিক্যাল গাইড। সহজ বাংলায় Subnet Mask, Host ও Network Bit-এর গভীর আলোচনা।">
+  <title>Introduction and Concepts of IPv4 Subnetting Part-1: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction and Concepts of IPv4 Subnetting Part-1</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction and Concepts of IPv4 Subnetting Part-1</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction and Concepts of IPv4 Subnetting Part-1</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 17 May, 2026</span>
+            <span><i class='bx bx-category'></i> CCNA Tutorials</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিং এবং <strong>Cisco CCNA</strong> সিলেবাসের সবচেয়ে রোমাঞ্চকর, কিন্তু অনেক বিগিনারের
+            কাছে কিছুটা জটিল মনে হওয়া টপিক হলো <strong>IPv4 Subnetting</strong>। আপনি যদি একজন নেটওয়ার্ক ইঞ্জিনিয়ার বা
+            সিস্টেম অ্যাডমিনিস্ট্রেটর হিসেবে রিয়েল-লাইফ প্রোডাকশন নেটওয়ার্কে কাজ করতে চান, তবে সাবনেটিংয়ের ওপর আপনার
+            নিখুঁত ও গভীর দখল থাকা বাধ্যতামূলক। সাবনেটিং না জানলে একটি বড় প্রতিষ্ঠানের নেটওয়ার্ক ডিজাইন, আইপি অপচয় রোধ
+            কিংবা সিকিউরিটি নিশ্চিত করা অসম্ভব।</p>
+          <p>আজকের এই টিউটোরিয়ালটি হলো আমাদের সাবনেটিং সিরিজের "পার্ট-১"। এই ব্লগে আমরা কোনো জটিল গণিতে না গিয়ে
+            সাবনেটিংয়ের মূল কনসেপ্ট, এর প্রয়োজনীয়তা এবং এর পেছনের লজিক্যাল স্ট্রাকচার নিয়ে একদম শূন্য থেকে গভীর আলোচনা
+            করবো।</p>
+
+
+
+          <h2>১. IPv4 Subnetting কী? (The Core Concept)</h2>
+          <p><strong>Subnetting</strong> শব্দটিকে ভাঙলে আমরা পাই <strong>Sub-Networking</strong>। অর্থাৎ, একটি বিশাল বড়
+            ফিজিক্যাল বা লজিক্যাল নেটওয়ার্ককে (Large Network) ভেঙে একাধিক ছোট ছোট লজিক্যাল নেটওয়ার্কে (Smaller Networks)
+            রূপান্তর করার প্রক্রিয়াকেই বলা হয় Subnetting। আর এই ছোট ছোট টুকরো নেটওয়ার্কগুলোকে বলা হয়
+            <strong>Subnet</strong>।</p>
+          <p>আমরা জানি, একটি স্ট্যান্ডার্ড Class C নেটওয়ার্কে (যেমন- <code>192.168.1.0/24</code>) ২৫৪টি আইপি অ্যাড্রেস
+            হোস্টের জন্য খালি থাকে। এখন আপনার যদি মাত্র ৩০টি আইপির প্রয়োজন হয়, তবে পুরো ক্লাস সি নেটওয়ার্কটি সেখানে
+            অ্যাসাইন করে দিলে বাকি ২২৪টি আইপি চিরদিনের জন্য অপচয় হবে। সাবনেটিং আমাদের এই অপচয় থেকে রক্ষা করে নির্দিষ্ট
+            মাপের নেটওয়ার্ক তৈরি করতে সাহায্য করে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Building and Apartment Analogy)</h3>
+            <p>সাবনেটিংয়ের প্রয়োজনীয়তা সহজে বোঝার জন্য একটি বড় কমার্শিয়াল ভবনের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Classful Network (সাবনেটিং ছাড়া):</strong> ধরুন ভবনের প্রতিটি ফ্লোর হলো একটি বিশাল বড় হল রুম।
+                সেখানে কোনো দেয়াল বা সেপারেশন নেই। এখন ১০টি ছোট ছোট কোম্পানি সেই ফ্লোরটি ভাড়া নিলো। যেহেতু কোনো দেয়াল
+                নেই, তাই এক কোম্পানির গোপন ফাইল অন্য কোম্পানির মানুষ দেখে ফেলছে, আবার সবাই একসাথে কথা বলায় বিশাল গোলমাল
+                (Broadcast) তৈরি হচ্ছে।</li>
+              <li><strong>Subnetted Network (সাবনেটিং সহ):</strong> এবার একজন আর্কিটেক্ট এসে ওই হল রুমের ভেতরে সুন্দর
+                করে ইটের দেয়াল দিয়ে ১০টি আলাদা অফিস কেবিন (Subnets) তৈরি করে দিলেন। এখন প্রতিটি কোম্পানির নিজস্ব
+                প্রাইভেসি (Security) থাকলো, আবার এক রুমের আওয়াজ অন্য রুমে গিয়ে ডিস্টার্ব (Broadcast Control) করলো না। এই
+                দেয়াল তোলার কাজটাই হলো সাবনেটিং।</li>
+            </ul>
+          </div>
+
+          <h2>২. কেন আমাদের সাবনেটিং প্রয়োজন? (The Need for Subnetting)</h2>
+          <p>একটি এন্টারপ্রাইজ নেটওয়ার্ক ডিজাইনে সাবনেটিং করার পেছনে মূলত তিনটি প্রধান কারণ থাকে:</p>
+
+          <h3>১. Reduce Network Traffic (ব্রডকাস্ট নিয়ন্ত্রণ)</h3>
+          <p>একটি বড় নেটওয়ার্কে যখন কোনো কম্পিউটার <strong>Broadcast</strong> প্যাকেট পাঠায়, তখন ওই নেটওয়ার্কে থাকা
+            সমস্ত ডিভাইস সেই প্যাকেট রিসিভ ও প্রসেস করতে বাধ্য হয়। নেটওয়ার্কে যদি হোস্টের সংখ্যা অতিরিক্ত বেশি হয় (যেমন-
+            ক্লাস এ নেটওয়ার্কে ১৬ মিলিয়ন), তবে অনবরত ব্রডকাস্টের কারণে পুরো <strong>Bandwidth</strong> শেষ হয়ে যাবে এবং
+            নেটওয়ার্ক ক্র্যাশ করবে (Broadcast Storm)। সাবনেটিং ব্রডকাস্ট ডোমেইনকে ছোট করে ট্রাফিক কমিয়ে দেয়।</p>
+
+          <h3>২. Enhance Network Security (নিরাপত্তা নিশ্চিতকরণ)</h3>
+          <p>সাবনেটিংয়ের মাধ্যমে আমরা একটি প্রতিষ্ঠানের বিভিন্ন ডিপার্টমেন্টকে আলাদা লজিক্যাল বাউন্ডারিতে ভাগ করতে পারি।
+            যেমন- HR Dept, Finance Dept এবং IT Dept-কে আলাদা আলাদা সাবনেটে রাখলে এক ডিপার্টমেন্টের ইউজার সরাসরি অন্য
+            ডিপার্টমেন্টের কম্পিউটারে এক্সেস পাবে না। পরবর্তীতে <strong>Router</strong> বা <strong>Firewall</strong>-এ
+            <strong>ACL (Access Control List)</strong> বসিয়ে এদের সিকিউরিটি খুব সহজে নিয়ন্ত্রণ করা যায়।</p>
+
+          <h3>৩. Efficient IP Address Utilization (আইপি অপচয় রোধ)</h3>
+          <p>আমরা জানি গ্লোবাল IPv4 এর তীব্র সংকট চলছে। সাবনেটিংয়ের মাধ্যমে আমরা আমাদের প্রয়োজন অনুযায়ী ঠিক ততটুকুই
+            নেটওয়ার্ক সাইজ তৈরি করতে পারি, ফলে একটি আইপিও অতিরিক্ত নষ্ট হয় না।</p>
+
+
+
+          <h2>৩. সাবনেটিংয়ের পেছনের মূল মেকানিজম (The Logical Structure)</h2>
+          <p>সাবনেটিং কীভাবে কাজ করে তা বুঝতে হলে আমাদের আবার আইপি অ্যাড্রেসের বিট লেভেলে ফিরে যেতে হবে। আমরা জানি,
+            প্রতিটি IPv4 অ্যাড্রেস <strong>32-bit</strong> এর হয়। এই ৩২টি বিট মূলত দুটি অংশে বিভক্ত থাকে:</p>
+          <ol>
+            <li><strong>Network Portion:</strong> যা নির্দেশ করে ডিভাইসটি কোন প্রধান নেটওয়ার্কের অধীনে আছে। এটি কখনো
+              পরিবর্তন করা যায় না।</li>
+            <li><strong>Host Portion:</strong> যা নির্দেশ করে ওই নেটওয়ার্কের নির্দিষ্ট হোস্ট বা পিসির আইডি। এই বিটগুলো
+              ব্যবহার করেই আমরা আইপি এসাইন করি।</li>
+          </ol>
+
+          <h3>The Bit Borrowing Concept (বিট ধার নেওয়ার জাদু)</h3>
+          <p>সাবনেটিংয়ের মূল চাবিকাঠি হলো <strong>Bit Borrowing</strong> বা বিট ধার নেওয়া। আমরা যখন একটি নেটওয়ার্ককে
+            সাবনেট করতে চাই, তখন আমরা <strong>Host Portion</strong> থেকে কিছু বিট ধার (Borrow) করে নিয়ে সেটিকে
+            <strong>Subnet Portion</strong> বা নেটওয়ার্কের অংশে রূপান্তর করি।</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Network Type</th>
+                  <th>Network Bits</th>
+                  <th>Subnet Bits (Borrowed)</th>
+                  <th>Remaining Host Bits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Default Class C</td>
+                  <td>২৪ বিট (স্থির)</td>
+                  <td>০ বিট (কোনো সাবনেটিং নেই)</td>
+                  <td>৮ বিট (২৫৪ হোস্ট)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnetted Class C</td>
+                  <td>২৪ বিট (স্থির)</td>
+                  <td><strong>৩ বিট (ধার নেওয়া হলো)</strong></td>
+                  <td>৫ বিট (বাকি থাকলো)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>হোস্টের অংশ থেকে আমরা যত বেশি বিট ধার নেবো, আমাদের সাবনেটের সংখ্যা (তৈরি হওয়া ছোট নেটওয়ার্ক) তত বাড়বে,
+            কিন্তু প্রতিটি সাবনেটে হোস্ট বা পিসি বসানোর ক্ষমতা (Host Capacity) তত কমতে থাকবে।</p>
+
+          <h2>৪. Subnet Mask এবং CIDR-এর নতুন রূপ</h2>
+          <p>ক্লাসফুল নেটওয়ার্কে সাবনেট মাস্ক ফিক্সড থাকে (যেমন ক্লাস সি এর জন্য 255.255.255.0)। কিন্তু যখনই আমরা
+            সাবনেটিং করবো, তখন আমাদের <strong>Subnet Mask</strong>-ও পরিবর্তিত হয়ে যাবে।</p>
+          <p>যদি আমরা ক্লাস সি এর ডিফল্ট <code>/24</code> থেকে ১টি বিট ধার নেই, তবে নতুন <strong>CIDR (Classless
+              Inter-Domain Routing)</strong> ভ্যালু হবে <code>/25</code>। বাইনারিতে এর অর্থ হলো প্রথম ২৫টি বিট
+            <code>1</code> এবং বাকি ৭টি বিট <code>0</code>। ডেসিমাল ফরম্যাটে এই নতুন সাবনেট মাস্কটি হবে
+            <code>255.255.255.128</code>। এই পরিবর্তিত মাস্কটিই রাউটারকে বোঝায় যে নেটওয়ার্কটি এখন আর ডিফল্ট অবস্থায় নেই,
+            এটিকে সাবনেট করা হয়েছে।</p>
+
+
+
+          <h2>৫. সাবনেটিংয়ের ৩টি গোল্ডেন রুলস (The Golden Rules)</h2>
+          <p>পার্ট-২ তে আমরা যখন প্র্যাকটিক্যাল ম্যাথ বা ক্যালকুলেশন করবো, তখন নিচের ৩টি গাণিতিক সূত্র আমাদের অনবরত
+            প্রয়োজন হবে। এগুলো আজই মুখস্থ করে নেওয়া ভালো:</p>
+
+          <ul>
+            <li><strong>১. সাবনেটের সংখ্যা বের করার সূত্র:</strong> $2^n$ (এখানে $n$ হলো হোস্ট থেকে ধার নেওয়া বিটের
+              সংখ্যা)।</li>
+            <li><strong>২. প্রতিটি সাবনেটে মোট আইপি বের করার সূত্র:</strong> $2^h$ (এখানে $h$ হলো বাকি থাকা হোস্ট বিটের
+              সংখ্যা)।</li>
+            <li><strong>৩. ভ্যালিড বা ব্যবহারযোগ্য হোস্ট আইপি বের করার সূত্র:</strong> $2^h - 2$</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>কেন সব সময় ২ বিয়োগ (-২) করতে হয়?</h3>
+            <p>যেকোনো সাবনেট বা নেটওয়ার্ক ব্লকের প্রথম আইপি এবং শেষ আইপিটি আমরা কখনো কোনো পিসি বা রাউটার ইন্টারফেসে
+              বসাতে পারি না।</p>
+            <ul>
+              <li><strong>First IP:</strong> এটি হলো ওই সাবনেটের নিজস্ব আইডেন্টিটি বা <strong>Network ID</strong>।</li>
+              <li><strong>Last IP:</strong> এটি হলো ওই সাবনেটের <strong>Broadcast ID</strong> (এই আইপিতে ডাটা পাঠালে ওই
+                সাবনেটের সবার কাছে পৌঁছায়)।</li>
+            </ul>
+            <p>এই দুটি আইপি সিস্টেমের জন্য সংরক্ষিত থাকায় সবসময় ব্যবহারযোগ্য হোস্ট আইপি বের করার সময় ২ বিয়োগ করতে হয়।
+            </p>
+          </div>
+
+          <h2>৬. Verification via CLI (সিসকো রাউটারে সাবনেট মাস্কের আচরণ)</h2>
+          <p>একটি সিসকো রাউটারে যখন কাস্টম সাবনেট করা আইপি বসানো হয়, তখন রাউটার তার <strong>Routing Table</strong>-এ
+            কীভাবে তা সাবনেট হিসেবে ভেরিফাই করে তা নিচে দেখানো হলো।</p>
+
+          <p><strong>রাউটার ইন্টারফেসে কাস্টম সাবনেট আইপি বসানোর কমান্ড:</strong></p>
+          <pre><code>Router> enable
+Router# configure terminal
+Router(config)# interface gigabitEthernet 0/0
+Router(config-if)# ip address 192.168.1.1 255.255.255.128
+Router(config-if)# no shutdown
+Router(config-if)# exit</code></pre>
+
+          <p><strong>রাউটিং টেবিল ভেরিফিকেশন কমান্ড:</strong></p>
+          <pre><code>Router# show ip route</code></pre>
+          <p>আউটপুটে রাউটার আপনাকে সুনির্দিষ্টভাবে সাবনেটের বিবরণ দেখাবে:</p>
+          <pre><code>     192.168.1.0/25 is variably subnetted, 2 subnets, 2 masks
+C       192.168.1.0/25 is directly connected, GigabitEthernet0/0</code></pre>
+          <p><em>অ্যানালাইসিস: রাউটার নিজেই বুঝে নিয়েছে যে 192.168.1.0 নেটওয়ার্কটি <code>/25</code> মাস্ক ব্যবহার করে
+              সাবনেট করা হয়েছে।</em></p>
+
+          <h2>৭. সাধারণ ভুল এবং Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>The Overlap Error:</strong> আপনি যদি রাউটারের এক পোর্টে <code>192.168.1.1 255.255.255.128</code>
+              বসান এবং অন্য পোর্টে ভুল করে <code>192.168.1.50 255.255.255.0</code> বসাতে যান, তবে সিসকো ওএস <strong>"IP
+                address overlap"</strong> এরর দেবে। কারণ সাবনেটের বাউন্ডারি না বুঝলে দুটি পোর্ট একই নেটওয়ার্কের আওতায়
+              পড়ে যায়, যা রাউটার অ্যালাউ করে না।</li>
+            <li><strong>Assigning Invalid IP:</strong> অনেক সময় নতুন আইটি টেকনিশিয়ানরা পিসিতে ভুল করে নেটওয়ার্ক আইডি
+              (যেমন ওকটেটের শেষে ০ বা ১২৮) অথবা ব্রডকাস্ট আইডি আইপি হিসেবে বসানোর চেষ্টা করেন। উইন্ডোজ ওএস সাথে সাথে এরর
+              পপ-আপ দেবে এবং আইপি সেভ করতে দেবে না। সবসময় ভ্যালিড হোস্ট রেঞ্জের আইপি ব্যবহার করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>IPv4 Subnetting</strong> কোনো জটিল জুজু নয়, এটি হলো নেটওয়ার্ককে সুশৃঙ্খল ও অপচয়মুক্ত রাখার একটি
+              স্মার্ট লজিক্যাল আর্কিটেকচার। পার্ট-১ এর এই আলোচনায় আমরা জানলাম সাবনেটিংয়ের তাত্ত্বিক ভিত্তি, বিট ধার
+              নেওয়ার কনসেপ্ট এবং নেটওয়ার্ক ও ব্রডকাস্ট আইডির গুরুত্ব। এই বেসিক কনসেপ্টটি মাথায় গেঁথে নিলে পরবর্তী
+              পার্টগুলোতে ফ্ল্যাশ স্পিডে ম্যাথ বা ক্যালকুলেশন করা আপনার জন্য পানিবাতাত হয়ে যাবে। নিয়মিত স্টাডি এবং
+              কৌতূহলই আপনাকে একজন টপ-নচ নেটওয়ার্ক প্রফেশনাল হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,394 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction and Concepts of IPv4 Subnetting Part-2 | tech-enablement.info</title>
+  <meta name="description"
+    content="IPv4 Subnetting Part-2: Class C নেটওয়ার্কের প্র্যাকটিক্যাল সাবনেটিং ক্যালকুলেশন, Magic Number ট্রিক এবং সিসকো ইন্টারফেস কনফিগারেশনের সম্পূর্ণ গাইড।">
+  <title>Introduction and Concepts of IPv4 Subnetting Part-2: Practical Calculation Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction and Concepts of IPv4 Subnetting Part-2</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction and Concepts of IPv4 Subnetting Part-2</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction and Concepts of IPv4 Subnetting Part-2</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 17 May, 2026</span>
+            <span><i class='bx bx-category'></i> CCNA Tutorials</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আমাদের সাবনেটিং সিরিজের প্রথম পার্টে আমরা সাবনেটিংয়ের তাত্ত্বিক ভিত্তি, এর প্রয়োজনীয়তা এবং Bit Borrowing বা
+            বিট ধার নেওয়ার মূল লজিক নিয়ে আলোচনা করেছিলাম। আমরা জেনেছিলাম কীভাবে Host Portion থেকে বিট ধার নিয়ে নতুন
+            Subnet তৈরি করা হয়। তাত্ত্বিক ধারণা স্পষ্ট থাকার পর, এবার আমাদের প্র্যাকটিক্যাল গাণিতিক হিসাব এবং
+            রিয়েল-লাইফ নেটওয়ার্ক ডিজাইনে এর প্রয়োগ শেখার সময় এসেছে।</p>
+          <p>আজকের এই "পার্ট-২" টিউটোরিয়ালে আমরা একটি নির্দিষ্ট Class C নেটওয়ার্ক ব্লক নিয়ে সেটিকে ধাপে ধাপে সাবনেট করা
+            শিখবো। একই সাথে আমরা আলোচনা করবো এমন একটি শর্টকাট টেকনিক বা <strong>Magic Number Method</strong> নিয়ে, যা
+            ব্যবহার করে আপনারা খাতা-কলম বা বাইনারি কনভার্সন ছাড়াই মাত্র কয়েক সেকেন্ডে যেকোনো সাবনেটিংয়ের উত্তর বের করে
+            ফেলতে পারবেন।</p>
+
+
+
+          <h2>১. প্র্যাকটিক্যাল সাবনেটিং সিনারিও (The Scenario)</h2>
+          <p>বাস্তবসম্মত একটি প্রজেক্ট দিয়ে শুরু করা যাক। ধরুন আপনি একটি মিডিয়া হাউসের নেটওয়ার্ক ডিজাইন করছেন। আপনার
+            ইন্টারনেট সার্ভিস প্রোভাইডার (ISP) আপনাকে একটি Class C নেটওয়ার্ক ব্লক দিয়েছে: <code>192.168.10.0/24</code>।
+          </p>
+          <p>আপনার রিকোয়ারমেন্ট হলো, এই একক ব্লকটিকে ভেঙে এমনভাবে সাবনেট তৈরি করতে হবে যেন প্রতিটি সাবনেটে কমপক্ষে
+            <strong>৩০টি করে ভ্যালিড হোস্ট আইপি</strong> সচল থাকে।</p>
+
+          <div class="content-box">
+            <h3>৫টি কোর প্রশ্ন যা আমাদের সমাধান করতে হবে:</h3>
+            <ol>
+              <li>আমাদের নতুন কাস্টম Subnet Mask বা CIDR ভ্যালু কত হবে?</li>
+              <li>হোস্ট বিট থেকে আমাদের ঠিক কতটি বিট ধার (Borrow) করতে হবে?</li>
+              <li>এই প্রক্রিয়ায় মোট কতটি নতুন Subnet তৈরি হবে?</li>
+              <li>প্রতিটি সাবনেটে মোট ব্যবহারযোগ্য (Usable) আইপি সংখ্যা কত হবে?</li>
+              <li>তৈরি হওয়া সাবনেটগুলোর Network ID, Usable IP Range এবং Broadcast ID-র চার্টটি কেমন হবে?</li>
+            </ol>
+          </div>
+
+          <h2>২. ধাপে ধাপে গাণিতিক সমাধান (Step-by-Step Calculation)</h2>
+          <p>আসুন পার্ট-১ এ শেখা ৩টি গোল্ডেন রুলস এবং বাইনারি পজিশনাল ভ্যালু ব্যবহার করে সমস্যাটি সমাধান করি।</p>
+
+          <h3>ধাপ ১: প্রয়োজনীয় হোস্ট বিট ($h$) নির্ধারণ করা</h3>
+          <p>আমাদের প্রতিটি সাবনেটে অন্তত ৩০টি ব্যবহারযোগ্য আইপি লাগবে। আমরা জানি ভ্যালিড হোস্ট বের করার সূত্র হলো: $2^h
+            - 2$।</p>
+          <p>এখন আমাদের $h$-এর এমন একটি মান বের করতে হবে যেন তা ৩০ বা তার চেয়ে বড় হয়:</p>
+          <ul>
+            <li>যদি $h = 4$ হয়, তবে $2^4 - 2 = 16 - 2 = 14$ (রিকোয়ারমেন্ট পূরণ হয় না)।</li>
+            <li>যদি $h = 5$ হয়, তবে $2^5 - 2 = 32 - 2 = 30$ (রিকোয়ারমেন্ট একদম নিখুঁতভাবে পূরণ হয়)।</li>
+          </ul>
+          <p>সুতরাং, আমাদের প্রতিটি সাবনেটের জন্য অবশিষ্টাংশ হোস্ট বিট রাখতে হবে <strong>$h = 5$</strong>।</p>
+
+          <h3>ধাপ ২: ধার নেওয়া বিটের সংখ্যা ($n$) বের করা</h3>
+          <p>আমরা জানি একটি Class C নেটওয়ার্কের শেষ ওকটেটে (৪র্থ ওকটেট) মোট ৮টি হোস্ট বিট থাকে।</p>
+          <p>যেহেতু আমরা হোস্টের জন্য ৫টি বিট ফিক্সড করে ফেলেছি, তাই বাকি বিটগুলো আমরা নেটওয়ার্কের জন্য ধার নিতে পারি:
+          </p>
+          <p>Borrowed Bits ($n$) = Total Host Bits - Remaining Host Bits = $8 - 5 = 3$ বিট।</p>
+          <p>অর্থাৎ, আমরা হোস্টের অংশ থেকে <strong>৩টি বিট</strong> ধার নিলাম।</p>
+
+          <h3>ধাপ ৩: মোট তৈরি হওয়া সাবনেটের সংখ্যা বের করা</h3>
+          <p>ধার নেওয়া বিটের সংখ্যা থেকে সাবনেট বের করার সূত্র হলো: $2^n$।</p>
+          <p>যেহেতু $n = 3$, তাই মোট সাবনেট সংখ্যা = $2^3 = 8$টি।</p>
+          <p>তার মানে, <code>192.168.10.0/24</code> ব্লকটিকে ভাঙলে আমরা মোট <strong>৮টি ছোট ছোট নেটওয়ার্ক</strong> পাবো।
+          </p>
+
+          <h3>ধাপ ৪: নতুন কাস্টম Subnet Mask বের করা</h3>
+          <p>ডিফল্ট Class C নেটওয়ার্কের মাস্ক হলো <code>/24</code> (অর্থাৎ প্রথম ২৪টি বিট ১)। যেহেতু আমরা আরও ৩টি বিট
+            ধার নিয়ে নেটওয়ার্কের সাথে যুক্ত করেছি, তাই আমাদের নতুন CIDR ভ্যালু হবে: $24 + 3 = /27$।</p>
+          <p>আসুন এই <code>/27</code> কে ডেসিমাল সাবনেট মাস্কে রূপান্তর করি। এর অর্থ হলো ৪র্থ ওকটেটের প্রথম ৩টি বিট
+            <code>1</code> এবং বাকি ৫টি বিট <code>0</code>।</p>
+          <p>৪র্থ ওকটেটের বাইনারি রূপ: <code>1 1 1 0 0 0 0 0</code></p>
+          <p>আমরা জানি প্রথম ৩টি বাইনারি পজিশনের মান হলো ১২৮, ৬৪ এবং ৩২। এদের যোগ করলে পাই:</p>
+          <p>$128 + 64 + 32 = 224$।</p>
+          <p>সুতরাং, আমাদের নতুন কাস্টম Subnet Mask হলো: <strong><code>255.255.255.224</code></strong>।</p>
+
+
+
+          <h2>৩. শর্টকাট টেকনিক: The Magic Number Method</h2>
+          <p>বাস্তব কর্মক্ষেত্রে বা পরীক্ষার হলে এত বড় বাইনারি হিসাব করার সময় আমাদের থাকে না। তাই আমরা ব্যবহার করবো
+            <strong>Magic Number Method</strong>।</p>
+
+          <div class="content-box">
+            <h3>ম্যাজিক নাম্বার বের করার নিয়ম:</h3>
+            <p>আপনার কাস্টম ডেসিমাল সাবনেট মাস্কের যে ওকটেটে পরিবর্তন এসেছে (এখানে ৪র্থ ওকটেট, যার মান ২২৪), সেটিকে ২৫৬
+              (256) থেকে বিয়োগ করতে হবে।</p>
+            <p><strong>Magic Number = 256 - Custom Subnet Mask Value</strong></p>
+            <p>আমাদের এই উদাহরণের জন্য: $256 - 224 = 32$।</p>
+            <p>এই <strong>32</strong>-ই হলো আমাদের ম্যাজিক নাম্বার বা ব্লক সাইজ (Block Size)। এর মানে হলো, আমাদের তৈরি
+              হওয়া সাবনেটগুলোর নেটওয়ার্ক আইডি ০ থেকে শুরু হয়ে ৩২ ঘর পর পর লাফিয়ে (Increment) এগিয়ে যাবে।</p>
+          </div>
+
+          <h2>৪. সম্পূর্ণ সাবনেট টেবিল (The Subnetting Chart)</h2>
+          <p>ম্যাজিক নাম্বার ৩২ ব্যবহার করে আসুন আমরা আমাদের তৈরি হওয়া ৮টি সাবনেটের সম্পূর্ণ রেঞ্জ চার্টটি তৈরি করে
+            ফেলি:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Subnet #</th>
+                  <th>Network ID</th>
+                  <th>First Usable IP</th>
+                  <th>Last Usable IP</th>
+                  <th>Broadcast ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Subnet 1</td>
+                  <td>192.168.10.0</td>
+                  <td>192.168.10.1</td>
+                  <td>192.168.10.30</td>
+                  <td>192.168.10.31</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnet 2</td>
+                  <td>192.168.10.32</td>
+                  <td>192.168.10.33</td>
+                  <td>192.168.10.62</td>
+                  <td>192.168.10.63</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnet 3</td>
+                  <td>192.168.10.64</td>
+                  <td>192.168.10.65</td>
+                  <td>192.168.10.94</td>
+                  <td>192.168.10.95</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnet 4</td>
+                  <td>192.168.10.96</td>
+                  <td>192.168.10.97</td>
+                  <td>192.168.10.126</td>
+                  <td>192.168.10.127</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnet 5</td>
+                  <td>192.168.10.128</td>
+                  <td>192.168.10.129</td>
+                  <td>192.168.10.158</td>
+                  <td>192.168.10.159</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnet 6</td>
+                  <td>192.168.10.160</td>
+                  <td>192.168.10.161</td>
+                  <td>192.168.10.190</td>
+                  <td>192.168.10.191</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnet 7</td>
+                  <td>192.168.10.192</td>
+                  <td>192.168.10.193</td>
+                  <td>192.168.10.222</td>
+                  <td>192.168.10.223</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Subnet 8</td>
+                  <td>192.168.10.224</td>
+                  <td>192.168.10.225</td>
+                  <td>192.168.10.254</td>
+                  <td>192.168.10.255</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>চার্ট তৈরির টেকনিক্যাল ব্যাখ্যা:</h3>
+            <ul>
+              <li><strong>Network ID:</strong> প্রথম সাবনেট সবসময় ০ থেকে শুরু হয়। পরবর্তী সাবনেট আইডি বের করতে আগের
+                আইডির সাথে ম্যাজিক নাম্বার (৩২) যোগ করতে হয় (যেমন- ০, ৩২, ৬৪, ৯৬...)।</li>
+              <li><strong>Broadcast ID:</strong> পরবর্তী সাবনেটের Network ID থেকে ১ বিয়োগ করলে আগের সাবনেটের Broadcast
+                ID পাওয়া যায় (যেমন- দ্বিতীয় সাবনেট ৩২ হলে, প্রথমটির ব্রডকাস্ট ৩১)।</li>
+              <li><strong>Usable IP Range:</strong> Network ID-র ঠিক পরের আইপি থেকে শুরু করে Broadcast ID-র ঠিক আগের
+                আইপি পর্যন্ত হলো পিসিতে বসানোর মতো ভ্যালিড হোস্ট আইপি।</li>
+            </ul>
+          </div>
+
+          <h2>৫. Cisco Router CLI-তে সাবনেট ইন্টারফেস কনফিগারেশন</h2>
+          <p>এবার আসুন আমরা আমাদের তৈরি করা চার্টের "Subnet 2" ব্লকটি একটি Cisco Router-এর গিগাবিট ইন্টারফেসে
+            প্র্যাকটিক্যালি কনফিগার করি এবং ভেরিফাই করি। আমরা এই সাবনেটের প্রথম ভ্যালিড আইপিটি রাউটারের গেটওয়ে হিসেবে
+            ব্যবহার করবো।</p>
+
+          <pre><code># গ্লোবাল কনফিগারেশন মোডে প্রবেশ করুন
+Router> enable
+Router# configure terminal
+
+# নির্দিষ্ট ফিজিক্যাল ইন্টারফেসে প্রবেশ
+Router(config)# interface gigabitEthernet 0/1
+
+# সাবনেট মাস্কসহ কাস্টম আইপি অ্যাসাইন করা
+Router(config-if)# ip address 192.168.10.33 255.255.255.224
+Router(config-if)# description Gateway_For_Subnet_2
+Router(config-if)# no shutdown
+Router(config-if)# exit
+Router(config)# exit</code></pre>
+
+          <h3>কনফিগারেশন ভেরিফিকেশন (Verification Commands):</h3>
+          <p>পোর্টটি সঠিক মাস্ক পেয়েছে কি না এবং সচল আছে কি না তা দেখার জন্য নিচের কমান্ডটি দিন:</p>
+          <pre><code>Router# show ip interface brief gigabitEthernet 0/1</code></pre>
+
+          <p>রাউটার এই সাবনেটটিকে তার রাউটিং টেবিলে কীভাবে এন্ট্রি নিয়েছে তা দেখার কমান্ড:</p>
+          <pre><code>Router# show ip route</code></pre>
+          <p>আউটপুটের ভেতরের লাইনে সুনির্দিষ্টভাবে সাবনেট মাস্কসহ রুটটি দেখতে পাবেন:</p>
+          <pre><code>192.168.10.0/27 is variably subnetted, 8 subnets, 1 masks
+C    192.168.10.32/27 is directly connected, GigabitEthernet 0/1</code></pre>
+
+          <h2>৬. Troubleshooting ও সাধারণ সাবনেটিং ত্রুটিসমূহ</h2>
+          <ul>
+            <li><strong>The "Bad Mask" Error:</strong> আপনি যদি কোনো ডিভাইসে আইপি বসানোর সময় ভুল করে সাবনেট মাস্ক
+              <code>255.255.255.230</code> লিখে ফেলেন, তবে ওএস এরর দেবে। সাবনেট মাস্কের বাইনারি বিট সব সময় একাদিক্রমে
+              <code>1</code> হতে হয়, মাঝখানে কোনো ০ বসতে পারে না। ভ্যালিড মাস্ক নম্বরগুলো হলো ১২৮, ১৯২, ২২৪, ২৪০, ২৪৮,
+              ২৫২, ২৫৪ এবং ২৫৫।</li>
+            <li><strong>Host Mask Mismatch on Clients:</strong> বাস্তব ক্ষেত্রে নেটওয়ার্কের সবচেয়ে বড় ঝামেলা হয় যখন একটি
+              পিসিতে সাবনেট মাস্ক দেওয়া হয় <code>255.255.255.224</code> (/27) কিন্তু পাশের অন্য পিসিতে ভুলবশত ডিফল্ট
+              <code>255.255.255.0</code> (/24) রেখে দেওয়া হয়। এর ফলে পিসিগুলো একই সুইচে কানেক্টেড থাকলেও একে অপরের সাথে
+              যোগাযোগ করতে পারবে না, কারণ তাদের লোকাল নেটওয়ার্ক বাউন্ডারি আলাদা হয়ে গেছে। সবসময় পুরো সাবনেটের সব ডিভাইসে
+              একই মাস্ক নিশ্চিত করুন।</li>
+            <li><strong>Invalid Gateway Assignment:</strong> যদি আপনি কোনো পিসির আইপি সেটিংসের <strong>Default
+                Gateway</strong>-র ঘরে ওই সাবনেটের Network ID (যেমন- ৩২) বা Broadcast ID (যেমন- ৬৩) বসিয়ে দেন, তবে লোকাল
+              নেটওয়ার্ক আংশিক কাজ করলেও ইন্টারনেট ট্রাফিক সম্পূর্ণ ড্রপ করবে। গেটওয়ে আইপি সবসময় ভ্যালিড ইউজেবল রেঞ্জের
+              ভেতরের হতে হবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>IPv4 Subnetting Part-2</strong>-এর এই প্র্যাকটিক্যাল গাইডটির মাধ্যমে আমরা শিখলাম কীভাবে একটি
+              নির্দিষ্ট রিকোয়ারমেন্টের ওপর ভিত্তি করে ক্লাস সি নেটওয়ার্ককে বাইনারি এবং <strong>Magic Number
+                Method</strong>-এর সাহায্যে নিখুঁতভাবে ভেঙে ছোট ছোট সাবনেটে রূপান্তর করতে হয়। এই ম্যাজিক নাম্বারের
+              ট্রিকটি আয়ত্ত করতে পারলে যেকোনো বড় সাবনেটিংয়ের হিসাব চোখের পলকে সমাধান করা সম্ভব। সিসিএনএ পরীক্ষা এবং
+              নেটওয়ার্কিং ক্যারিয়ারের সফলতার জন্য এই গাণিতিক চার্ট তৈরি করতে পারা অত্যন্ত মৌলিক একটি স্কিল। নিয়মিত ল্যাব
+              প্র্যাকটিস এবং ভিন্ন ভিন্ন আইপি ব্লক নিয়ে নিজে নিজে চার্ট তৈরি করার অভ্যাসই আপনাকে একজন দক্ষ নেটওয়ার্ক
+              আর্কিটেক্ট হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

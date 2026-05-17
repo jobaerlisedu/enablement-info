@@ -1,32 +1,368 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verify IP Parameters for Client OS (Windows, Linux) | tech-enablement.info</title>
+  <meta name="description"
+    content="Windows এবং Linux Client OS-এ IP Address, Subnet Mask, Gateway এবং DNS ভেরিফাই ও ট্রাবলশুট করার একটি সম্পূর্ণ প্র্যাকটিক্যাল ডিপ-ডাইভ গাইড সহজ বাংলায়।">
+  <title>Verify IP Parameters for Client OS (Windows, Linux): A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Verify IP Parameters for Client OS (Windows, Linux)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Verify IP Parameters for Client OS (Windows, Linux)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Verify IP Parameters for Client OS (Windows, Linux)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 17 May, 2026</span>
+            <span><i class='bx bx-category'></i> CCNA Tutorials</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>একটি কম্পিউটার নেটওয়ার্ক বা এন্টারপ্রাইজ ইনফ্রাস্ট্রাকচার তৈরি করার পর সবচেয়ে সাধারণ যে কাজটি একজন
+            নেটওয়ার্ক ইঞ্জিনিয়ার বা আইটি সাপোর্ট প্রফেশনালকে প্রতিদিন করতে হয়, তা হলো—<strong>Client OS</strong>-এর
+            নেটওয়ার্ক কানেক্টিভিটি ভেরিফাই এবং ট্রাবলশুট করা। কোনো ইউজার যদি কমপ্লেন করেন যে তিনি ইন্টারনেট এক্সেস করতে
+            পারছেন না বা লোকাল সার্ভার পাচ্ছেন না, তখন প্রথম পদক্ষেপই হয় ওই ইউজারের ডিভাইসের <strong>IP
+              Parameters</strong> সুনির্দিষ্টভাবে পরীক্ষা করা।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো কীভাবে অত্যন্ত জনপ্রিয় দুটি ওএস—<strong>Windows</strong> এবং
+            <strong>Linux</strong>-এ নিখুঁতভাবে IP Parameters (IP Address, Subnet Mask, Default Gateway, এবং DNS) চেক,
+            ভেরিফাই এবং ট্রাবলশুট করতে হয়।</p>
+
+
+
+          <h2>১. ৪টি কোর IP Parameters কী এবং কেন এগুলো গুরুত্বপূর্ণ?</h2>
+          <p>যেকোনো Client OS-কে নেটওয়ার্কে সফলভাবে ডেটা আদান-প্রদান করতে হলে ৪টি কোর প্যারামিটার সঠিকভাবে কনফিগার হতে
+            হয়:</p>
+          <ol>
+            <li><strong>IP Address:</strong> নেটওয়ার্কের ভেতরে ডিভাইসের নিজস্ব অনন্য লজিক্যাল আইডেন্টিটি।</li>
+            <li><strong>Subnet Mask:</strong> ডিভাইসটি কোন লোকাল নেটওয়ার্কের (Subnet) অংশ এবং তার লোকাল বাউন্ডারি
+              কতটুকু, তা নির্ধারণ করে।</li>
+            <li><strong>Default Gateway:</strong> লোকাল নেটওয়ার্কের বাউন্ডারি পার হয়ে বাইরের অন্য কোনো নেটওয়ার্কে বা
+              ইন্টারনেটে ডেটা পাঠাতে যে ইন্টারমিডিয়েট রাউটার আইপি ব্যবহার করা হয়, সেটিই হলো গেটওয়ে।</li>
+            <li><strong>DNS Server:</strong> Domain Name System সার্ভার মানুষের পড়ার উপযোগী নামকে (যেমন: google.com)
+              মেশিনের উপযোগী আইপি অ্যাড্রেসে (যেমন: 8.8.8.8) অনুবাদ করে।</li>
+          </ol>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Office Workstation Problem)</h3>
+            <p>ধরুন, আপনার অফিসের একজন গ্রাফিক ডিজাইনারের পিসিতে লোকাল নেটওয়ার্কের ফাইল শেয়ারিং কাজ করছে, কিন্তু তিনি
+              ব্রাউজারে কোনো ওয়েবসাইট লোড করতে পারছেন না। একজন প্রফেশনাল হিসেবে আপনি সরাসরি তার পিসির IP Parameters
+              ভেরিফাই করবেন। যদি দেখেন তার IP এবং Gateway ঠিক আছে কিন্তু DNS Server-এর ঘরটি ফাঁকা বা ভুল আইপি দেওয়া,
+              তবে আপনি মুহূর্তেই সমস্যাটি সনাক্ত ও সমাধান করে ফেলতে পারবেন।</p>
+          </div>
+
+          <h2>২. Windows Client OS-এ IP Parameters ভেরিফিকেশন</h2>
+          <p>মাইক্রোসফট উইন্ডোজ ওএস-এ গ্রাফিক্যাল ইন্টারফেস (GUI) এবং কমান্ড লাইন (CLI)—উভয় পদ্ধতিতেই এই
+            প্যারামিটারগুলো নিখুঁতভাবে চেক করা যায়।</p>
+
+          <h3>ক. Windows CLI (Command Prompt / PowerShell) পদ্ধতি</h3>
+          <p>সবচেয়ে দ্রুত এবং প্রফেশনাল পদ্ধতি হলো <strong>CMD</strong> ব্যবহার করা। এটি ওপেন করে নিচের কমান্ডটি রান
+            করুন:</p>
+          <pre><code>C:\> ipconfig</code></pre>
+          <p><em>ব্যাখ্যা: এই বেসিক কমান্ডটি আপনার পিসির সব ফিজিক্যাল এবং ওয়্যারলেস অ্যাডাপ্টারের IP Address, Subnet
+              Mask এবং Default Gateway প্রদর্শন করবে।</em></p>
+
+          <p>তবে আপনি যদি DNS এবং DHCP সার্ভারসহ সম্পূর্ণ ডিটেইলস দেখতে চান, তবে আপনাকে এক্সটেন্ডেড কমান্ডটি ব্যবহার
+            করতে হবে:</p>
+          <pre><code>C:\> ipconfig /all</code></pre>
+
+
+
+          <h3>খ. Windows GUI (Graphical User Interface) পদ্ধতি</h3>
+          <p>কমান্ড লাইনে স্বাচ্ছন্দ্য বোধ না করলে গ্রাফিক্যালি চেক করার ধাপগুলো নিচে দেওয়া হলো:</p>
+          <ul>
+            <li><strong>Step 1:</strong> কিবোর্ড থেকে <code>Windows Key + R</code> প্রেস করে রান বক্সে লিখুন
+              <code>ncpa.cpl</code> এবং এন্টার দিন। এতে <strong>Network Connections</strong> উইন্ডোটি ওপেন হবে।</li>
+            <li><strong>Step 2:</strong> আপনার সক্রিয় কানেকশনটির (Ethernet বা Wi-Fi) ওপর রাইট ক্লিক করে
+              <strong>Status</strong>-এ যান।</li>
+            <li><strong>Step 3:</strong> নতুন পপ-আপ উইন্ডো থেকে <strong>Details...</strong> বাটনে ক্লিক করুন। এখানে
+              আপনার ওএস-এর যাবতীয় আইপি প্যারামিটার এক নজরে দেখতে পাবেন।</li>
+          </ul>
+
+          <h2>৩. Linux Client OS-এ IP Parameters ভেরিফিকেশন</h2>
+          <p>আধুনিক লিনাক্স ডিস্ট্রিবিউশনগুলোতে (যেমন: Ubuntu, Rocky Linux, Fedora, Debian) নেটওয়ার্ক স্ট্যাক ম্যানেজ
+            করার জন্য কিছু স্ট্যান্ডার্ড টুলস এবং কনফিগারেশন ফাইল থাকে।</p>
+
+          <h3>ক. IP Address এবং Subnet Mask চেক করা</h3>
+          <p>লিনাক্সে পুরনো <code>ifconfig</code> কমান্ডের পরিবর্তে আধুনিক <strong>iproute2</strong> প্যাকেজের কমান্ড
+            ব্যবহার করা বেস্ট প্র্যাকটিস:</p>
+          <pre><code>$ ip addr show</code></pre>
+          <p>বা সংক্ষেপে:</p>
+          <pre><code>$ ip a</code></pre>
+          <p><em>ব্যাখ্যা: এটি আপনার লিনাক্স ডিভাইসের সব ইন্টারফেস (যেমন: eth0, wlan0) এবং তাদের সাথে অ্যাসাইন করা আইপি
+              প্রদর্শন করবে। আইপির পাশে থাকা স্ল্যাশ নোটেশন (যেমন: /24) মূলত সাবনেট মাস্ক নির্দেশ করে।</em></p>
+
+          <h3>খ. Default Gateway ভেরিফাই করা</h3>
+          <p>আপনার লিনাক্স ক্লায়েন্টটি কোন রাউটার বা গেটওয়ে দিয়ে বাইরের ট্রাফিক পাস করছে তা দেখার কমান্ড:</p>
+          <pre><code>$ ip route show</code></pre>
+          <p>বা সংক্ষেপে:</p>
+          <pre><code>$ ip r</code></pre>
+          <p>আউটপুটের প্রথম লাইনেই দেখতে পাবেন <code>default via 192.168.1.1 dev eth0</code>, যার মানে 192.168.1.1 হলো
+            আপনার ডিফল্ট গেটওয়ে।</p>
+
+          <h3>গ. DNS Server প্যারামিটার ভেরিফাই করা</h3>
+          <p>লিনাক্স সিস্টেমে কনফিগার করা DNS সার্ভারের আইপিগুলো একটি নির্দিষ্ট টেক্সট ফাইলে জমা থাকে। এটি টার্মিনালে
+            রিড করার জন্য নিচের কমান্ডটি দিন:</p>
+          <pre><code>$ cat /etc/resolv.conf</code></pre>
+          <p><em>আউটপুট ভেরিফিকেশন: ফাইলে <code>nameserver 8.8.8.8</code> এর মতো লাইন দেখতে পাবেন, যা নির্দেশ করে
+              সিস্টেমটি কোন ডিএনএস সার্ভার কোয়েরি করছে।</em></p>
+
+          <h2>৪. Windows এবং Linux কমান্ডের তুলনামূলক ছক</h2>
+          <p>সহজে মনে রাখার জন্য উভয় ওএস-এর প্রয়োজনীয় ট্রাবলশুটিং ও ভেরিফিকেশন কমান্ডের একটি তুলনামূলক রেফারেন্স
+            টেবিল নিচে দেওয়া হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Target Parameter</th>
+                  <th>Windows (CMD/PowerShell)</th>
+                  <th>Linux (Terminal)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">All IP Parameters Summary</td>
+                  <td><code>ipconfig</code></td>
+                  <td><code>ip a && ip r</code></td>
+                  <td>ডিভাইসের আইপি এবং গেটওয়ের কুইক ভিউ।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Deep Network Details</td>
+                  <td><code>ipconfig /all</code></td>
+                  <td><code>nmcli device show</code></td>
+                  <td>MAC Address, DHCP Lease এবং DNS এর সম্পূর্ণ বিবরণ।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Routing Table / Gateway</td>
+                  <td><code>route print</code></td>
+                  <td><code>ip route show</code></td>
+                  <td>সিস্টেমের ইন্টারনাল রাউটিং পাথ ও গেটওয়ে চেক।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">DNS Resolver View</td>
+                  <td><code>nslookup google.com</code></td>
+                  <td><code>cat /etc/resolv.conf</code></td>
+                  <td>ডিএনএস রিজলভার সঠিকভাবে কাজ করছে কি না তা নিশ্চিত করা।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. APIPA (Automatic Private IP Addressing) এবং এরর সনাক্তকরণ</h2>
+          <p>আইপি প্যারামিটার ভেরিফাই করার সময় একটি বিশেষ টেকনিক্যাল কন্ডিশন মাথায় রাখা জরুরি, যাকে বলা হয়
+            <strong>APIPA</strong>। </p>
+          <p>উইন্ডোজ বা লিনাক্স ক্লায়েন্ট যদি <strong>DHCP</strong> মোডে কনফিগার করা থাকে এবং নেটওয়ার্কের DHCP সার্ভার
+            থেকে আইপি পেতে ব্যর্থ হয়, তবে ওএস নিজে থেকেই একটি বিশেষ রেঞ্জের আইপি অ্যাসাইন করে নেয়। রেঞ্জটি হলো:
+            <code>169.254.0.0 — 169.254.255.255</code>।</p>
+          <div class="content-box">
+            <h3>ক্রিটিক্যাল ট্রাবলশুটিং লজিক</h3>
+            <p>যদি <code>ipconfig</code> বা <code>ip a</code> দেওয়ার পর দেখেন ক্লায়েন্ট পিসির আইপি শুরু হয়েছে
+              <strong>169.254.x.x</strong> দিয়ে, তবে বুঝবেন পিসির ক্যাবল বা ওয়াই-ফাই কানেকশন সচল থাকলেও সেটি আপনার
+              রাউটার বা ডিএইচসিপি সার্ভারের সাথে যোগাযোগ করতে পারছে না। এটি কোনো ভ্যালিড ইন্টারনেট বা লোকাল কর্পোরেট
+              আইপি নয়।</p>
+          </div>
+
+          <h2>৬. নেটওয়ার্ক কানেক্টিভিটি ভেরিফিকেশন ও ট্রাবলশুটিং স্টেপস</h2>
+          <p>প্যারামিটার চেক করার পর কানেক্টিভিটি শতভাগ নিশ্চিত করতে ধাপে ধাপে নিচের টেকনিক্যাল স্টেপগুলো অনুসরণ করুন:
+          </p>
+
+          <h3>ধাপ ১: লোকাল TCP/IP স্ট্যাক ভেরিফাই করা (Loopback Test)</h3>
+          <p>আপনার ওএস-এর ইন্টারনাল নেটওয়ার্ক কার্ডের সফটওয়্যার ড্রাইভার ঠিক আছে কি না তা পরীক্ষা করতে লুপব্যাক আইপিতে
+            পিং করুন।</p>
+          <pre><code># Windows & Linux উভয় ওএস-এর জন্য সাধারণ কমান্ড
+ping 127.0.0.1</code></pre>
+          <p><em>ব্যাখ্যা: এখানে যদি রিপ্লাই সাকসেসফুল আসে, তবে বুঝবেন আপনার ওএস-এর নেটওয়ার্কিং সফটওয়্যার লেয়ার
+              সম্পূর্ণ ঠিক আছে।</em></p>
+
+          <h3>ধাপ ২: Default Gateway-তে পিং করা</h3>
+          <p>আপনার পিসি থেকে ফিজিক্যাল ক্যাবল বা সুইচের মাধ্যমে রাউটার পর্যন্ত ডেটা পৌঁছাচ্ছে কি না তা পরীক্ষা করুন।</p>
+          <pre><code>ping 192.168.1.1</code></pre>
+          <p><em>ব্যাখ্যা: (এখানে আপনার গেটওয়ে আইপি বসাবেন) যদি পিং ড্রপ করে, তবে ক্যাবল ড্যামেজ, লুজ কানেকশন বা ভুল
+              সাবনেট মাস্কের কারণে এই সমস্যা হতে পারে।</em></p>
+
+          <h3>ধাপ ৩: পাবলিক আইপিতে পিং করা (ইন্টারনেট চেক)</h3>
+          <p>রাউটার পার হয়ে বাইরের ইন্টারনেট দুনিয়ায় আপনার পিসির ডেটা প্যাকেট যাচ্ছে কি না তা নিশ্চিত হোন।</p>
+          <pre><code>ping 8.8.8.8</code></pre>
+          <p><em>ব্যাখ্যা: 8.8.8.8 হলো গুগলের পাবলিক ডিএনএস। এখানে পিং সফল হওয়ার অর্থ হলো আপনার পিসির আইপি, মাস্ক এবং
+              গেটওয়ে একদম নিখুঁতভাবে কাজ করছে এবং ইন্টারনেটের সাথে সংযোগ আছে।</em></p>
+
+          <h3>ধাপ ৪: DNS নাম রেজল্যুশন টেস্ট করা</h3>
+          <p>সবশেষে ডোমেইন নেম রেজল্যুশন ঠিক আছে কি না তা পরীক্ষা করুন:</p>
+          <pre><code>nslookup tech-enablement.info</code></pre>
+          <p><em>ব্যাখ্যা: যদি এই কমান্ডটি ডোমেইনের সঠিক আইপি অ্যাড্রেস বের করে দেখাতে পারে, তবে আপনার ক্লায়েন্ট ওএস-এর
+              সমস্ত আইপি প্যারামিটার ১০০% পারফেক্ট।</em></p>
+
+          <h2>৭. প্রফেশনাল ট্রাবলশুটিং টিপস</h2>
+          <ul>
+            <li><strong>IP Conflict:</strong> যদি নেটওয়ার্কে একই আইপি অন্য কোনো ডিভাইসে কনফিগার করা থাকে, তবে উইন্ডোজ
+              "IP Address Conflict" এরর দেবে। লিনাক্সে এটি চেক করার জন্য <code>arping</code> টুল ব্যবহার করে ডুপ্লিকেট
+              ম্যাক অ্যাড্রেস সনাক্ত করা যায়।</li>
+            <li><strong>DHCP IP Lease Renew:</strong> উইন্ডোজ ক্লায়েন্ট যদি ভুল আইপি ধরে রাখে, তবে CLI থেকে আইপি রিলিজ
+              এবং রিনিউ করার কমান্ড:
+              <pre><code>C:\> ipconfig /release
+C:\> ipconfig /renew</code></pre>
+            </li>
+            <li><strong>Linux Network Manager Restart:</strong> লিনাক্সে স্ট্যাটিক আইপি পরিবর্তনের পর নেটওয়ার্ক সার্ভিস
+              রিস্টার্ট করার কমান্ড:
+              <pre><code>$ sudo systemctl restart NetworkManager</code></pre>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>যেকোনো এন্টারপ্রাইজ বা লোকাল নেটওয়ার্কের ইঞ্জিনিয়ারিংয়ে <strong>Verify IP Parameters</strong> অত্যন্ত
+              বেসিক কিন্তু সবচেয়ে শক্তিশালী ডায়াগনস্টিক স্কিল। Windows এবং Linux Client OS-এর কমান্ড লাইন টুলস যেমন
+              <code>ipconfig</code>, <code>ip a</code>, এবং <code>nslookup</code>-এর ওপর নিখুঁত নিয়ন্ত্রণ থাকলে আপনি
+              যেকোনো নেটওয়ার্ক ডাউনটাইম বা কানেক্টিভিটি ইস্যু মুহূর্তের মধ্যে সনাক্ত এবং সমাধান করে ফেলতে পারবেন।
+              নিয়মিত এই প্যারামিটারগুলো অ্যানালাইসিস করার অভ্যাসই আপনাকে একজন দক্ষ নেটওয়ার্ক এবং সিস্টেম
+              অ্যাডমিনিস্ট্রেটর হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,345 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Introduction, Configure and Verify IPv4 Addressing | tech-enablement.info</title>
+  <meta name="description"
+    content="IPv4 Addressing কী, এর ক্লাসিফিকেশন, সাবনেটিং এবং কীভাবে সিসকো ডিভাইসে এটি কনফিগার ও ভেরিফাই করতে হয় তার একটি সম্পূর্ণ টেকনিক্যাল গাইড সহজ বাংলায়।">
+  <title>Introduction, Configure and Verify IPv4 Addressing: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Introduction, Configure and Verify IPv4 Addressing</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Introduction, Configure and Verify IPv4 Addressing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction, Configure and Verify IPv4 Addressing</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 17 May, 2026</span>
+            <span><i class='bx bx-category'></i> CCNA Tutorials</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের একদম বেসিক এবং সবচেয়ে গুরুত্বপূর্ণ স্তম্ভ হলো <strong>IP Addressing</strong>। একটি
+            নেটওয়ার্কে থাকা ডিভাইসগুলো যেমন- Router, Switch, Server বা PC কীভাবে একে অপরকে চিনবে এবং ডাটা আদান-প্রদান
+            করবে, তা সম্পূর্ণ নির্ভর করে আইপি অ্যাড্রেসের ওপর। বর্তমান বিশ্বে আইপি-র দুটি ভার্সন চালু আছে, যার মধ্যে
+            <strong>IPv4 (Internet Protocol Version 4)</strong> এখনও সবচেয়ে বেশি ব্যবহৃত ও জনপ্রিয়।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা আলোচনা করবো IPv4 Addressing এর থিওরিটিক্যাল ব্যাকগ্রাউন্ড, এর
+            স্ট্রাকচার, সিসকো ডিভাইসে এর প্র্যাকটিক্যাল কনফিগারেশন এবং ভেরিফিকেশন মেথড নিয়ে।</p>
+
+
+
+          <h2>১. Introduction to IPv4 Addressing (মূল ধারণা)</h2>
+          <p><strong>IPv4 Address</strong> হলো একটি নেটওয়ার্কে যুক্ত প্রতিটি ডিভাইসের জন্য একটি অনন্য বা ইউনিক লজিক্যাল
+            আইডেন্টিটি (Logical Identity)। এটি একটি <strong>32-bit</strong> এর বাইনারি অ্যাড্রেস, যা মানুষের পড়ার
+            সুবিধার্থে ডটেড ডেসিমাল (Dotted Decimal) ফরম্যাটে লেখা হয়।</p>
+          <p>এই ৩২টি বিটকে ৪টি ভাগে ভাগ করা হয়, যাদের প্রতিটি ভাগকে বলা হয় <strong>Octet</strong>। প্রতিটি ওকটেটে ৮টি
+            করে বিট থাকে এবং প্রতিটি ওকটেট একটি ডট (.) দ্বারা আলাদা করা থাকে। উদাহরণস্বরূপ: <code>192.168.1.1</code></p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Phone Number Analogy)</h3>
+            <p>আইপি অ্যাড্রেসকে একটি আন্তর্জাতিক ফোন নাম্বারের সাথে তুলনা করা যায়:</p>
+            <ul>
+              <li>ফোন নাম্বারের শুরুতে একটি কান্ট্রি কোড বা এরিয়া কোড থাকে (যেমন- +৮৮০), যা নির্দিষ্ট এলাকা নির্দেশ করে।
+              </li>
+              <li>নাম্বারের শেষ অংশটি নির্দিষ্ট একজন ব্যক্তির ফোনকে নির্দেশ করে।</li>
+              <li>একইভাবে আইপি অ্যাড্রেসের দুটি অংশ থাকে: <strong>Network Portion</strong> (যা নির্দেশ করে ডিভাইসটি কোন
+                নেটওয়ার্কে আছে) এবং <strong>Host Portion</strong> (যা ওই নেটওয়ার্কের নির্দিষ্ট ডিভাইসটিকে নির্দেশ করে)।
+              </li>
+            </ul>
+          </div>
+
+          <h2>২. IPv4 এর গঠন এবং ক্লাসিফিকেশন (Classes of IPv4)</h2>
+          <p>IPv4 অ্যাড্রেসকে মূলত ৫টি ক্লাসে ভাগ করা হয়েছে, যার রেঞ্জ নির্ধারণ করা হয় প্রথম ওকটেটের বাইনারি ভ্যালু
+            দেখে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Class</th>
+                  <th>First Octet Range</th>
+                  <th>Default Subnet Mask</th>
+                  <th>Primary Purpose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Class A</td>
+                  <td>1 - 126</td>
+                  <td>255.0.0.0 (/8)</td>
+                  <td>বিশাল নেটওয়ার্কের জন্য (প্রচুর হোস্ট সাপোর্ট করে)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class B</td>
+                  <td>128 - 191</td>
+                  <td>255.255.0.0 (/16)</td>
+                  <td>মাঝারি আকারের কর্পোরেট নেটওয়ার্কের জন্য</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class C</td>
+                  <td>192 - 223</td>
+                  <td>255.255.255.0 (/24)</td>
+                  <td>ছোট অফিস বা হোম নেটওয়ার্কের (SOHO) জন্য</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class D</td>
+                  <td>224 - 239</td>
+                  <td>N/A</td>
+                  <td>Multicasting এর জন্য সংরক্ষিত</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Class E</td>
+                  <td>240 - 255</td>
+                  <td>N/A</td>
+                  <td>গবেষণা এবং পরীক্ষামূলক কাজের জন্য সংরক্ষিত</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="content-box">
+            <h3>বিশেষ দ্রষ্টব্য: 127.0.0.0 রেঞ্জ</h3>
+            <p>লক্ষ্য করলে দেখবেন ক্লাস A এবং B এর মাঝে <code>127.0.0.0</code> রেঞ্জটি বাদ দেওয়া হয়েছে। এই পুরো রেঞ্জটি
+              <strong>Loopback Testing</strong> এর জন্য সংরক্ষিত। আপনার নিজের পিসির নেটওয়ার্ক কার্ড বা TCP/IP স্ট্যাক
+              ঠিক আছে কি না তা পরীক্ষা করতে <code>ping 127.0.0.1</code> কমান্ডটি ব্যবহার করা হয়।</p>
+          </div>
+
+          <h3>Public vs Private IP Address</h3>
+          <p>আইপি অ্যাড্রেসের অপচয় রোধ করতে এবং নিরাপত্তা নিশ্চিত করতে আইপি-কে পাবলিক ও প্রাইভেট দুই ভাগে ভাগ করা হয়েছে:
+          </p>
+          <ul>
+            <li><strong>Public IP:</strong> এই আইপিগুলো ইন্টারনেটে সরাসরি রাউটেবল এবং গ্লোবালি ইউনিক। এগুলো টাকা দিয়ে
+              কিনতে হয়।</li>
+            <li><strong>Private IP:</strong> এগুলো লোকাল নেটওয়ার্কে (যেমন- বাসা বা অফিস) বিনামূল্যে ব্যবহার করা যায় এবং
+              এগুলো ইন্টারনেটে সরাসরি চলে না। এদের ইন্টারনেটে পাঠাতে <strong>NAT (Network Address Translation)</strong>
+              ব্যবহার করতে হয়।</li>
+          </ul>
+
+
+
+          <h2>৩. Subnet Mask এবং CIDR এর ধারণা</h2>
+          <p>একটি আইপি অ্যাড্রেসের কতটুকু অংশ নেটওয়ার্কের আর কতটুকু অংশ হোস্টের, তা রাউটার বা কম্পিউটারকে বোঝানোর
+            মাধ্যমই হলো <strong>Subnet Mask</strong>।</p>
+          <p>যদি সাবনেট মাস্কের কোনো বিট <code>1</code> হয়, তবে তা নেটওয়ার্ক নির্দেশ করে; আর <code>0</code> হলে তা হোস্ট
+            নির্দেশ করে। ডেসিমাল ফরম্যাটে 255 মানে সব বিট ১। আধুনিক নেটওয়ার্কিংয়ে সাবনেট মাস্ককে সংক্ষেপে লেখার জন্য
+            <strong>CIDR (Classless Inter-Domain Routing)</strong> বা স্ল্যাশ (/) নোটেশন ব্যবহার করা হয়। যেমন-
+            255.255.255.0 এর পরিবর্তে লেখা হয় <code>/24</code>।</p>
+
+          <h2>৪. Configure IPv4 Addressing (সিসকো রাউটারে কনফিগারেশন)</h2>
+          <p>তত্ত্ব জানার পর এবার আমরা দেখবো কীভাবে প্র্যাকটিক্যালি একটি Cisco Router এর ফিজিক্যাল ইন্টারফেসে আইপি
+            অ্যাড্রেস অ্যাসাইন করতে হয়।</p>
+
+          <h3>কনফিগারেশন স্টেপস (Step-by-Step CLI):</h3>
+          <p>ধাপ ১: প্রথমে রাউটারের ইউজার মোড থেকে প্রিভিলেজড মোড হয়ে গ্লোবাল কনফিগারেশন মোডে প্রবেশ করুন।</p>
+          <pre><code>Router> enable
+Router# configure terminal
+Router(config)# </code></pre>
+
+          <p>ধাপ ২: যে ইন্টারফেসে আইপি বসাতে চান, সেই ইন্টারফেসের ভেতরে প্রবেশ করুন (যেমন- GigabitEthernet 0/0)।</p>
+          <pre><code>Router(config)# interface gigabitEthernet 0/0
+Router(config-if)# </code></pre>
+
+          <p>ধাপ ৩: <code>ip address</code> কমান্ডটি ব্যবহার করে আইপি এবং সাবনেট মাস্ক বসিয়ে দিন।</p>
+          <pre><code>Router(config-if)# ip address 192.168.10.1 255.255.255.0</code></pre>
+          <p><em>ব্যাখ্যা: এখানে আমরা ক্লাস C এর একটি প্রাইভেট আইপি এবং তার ডিফল্ট সাবনেট মাস্ক ব্যবহার করেছি।</em></p>
+
+          <p>ধাপ ৪: সিসকো ডিভাইসের সব পোর্ট ডিফল্টভাবে বন্ধ বা শাটডাউন থাকে। পোর্টটি চালু করতে <code>no shutdown</code>
+            কমান্ড দিন।</p>
+          <pre><code>Router(config-if)# no shutdown
+Router(config-if)# exit
+Router(config)# exit
+Router# </code></pre>
+
+          <h2>৫. Verify IPv4 Addressing (ভেরিফিকেশন মেথড)</h2>
+          <p>আইপি কনফিগার করার পর সেটি সঠিকভাবে বসেছে কি না এবং লিঙ্কটি সচল আছে কি না তা ভেরিফাই করার জন্য সিসকো কিছু
+            শক্তিশালী <strong>Show Commands</strong> প্রদান করে।</p>
+
+          <h3>১. ইন্টারফেস সামারি চেক করা:</h3>
+          <pre><code>Router# show ip interface brief</code></pre>
+          <p>এটি নেটওয়ার্ক ইঞ্জিনিয়ারদের সবচেয়ে বেশি ব্যবহৃত কমান্ড। এর আউটপুট দেখতে নিচের মতো হয়:</p>
+          <pre><code>Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     192.168.10.1    YES manual up                    up
+GigabitEthernet0/1     unassigned      YES unset  admindown             down</code></pre>
+          <p><em>ভেরিফিকেশন চেক: এখানে Status <strong>up</strong> এবং Protocol <strong>up</strong> থাকার মানে হলো
+              পোর্টটি ফিজিক্যালি ও লজিক্যালি সম্পূর্ণ সচল।</em></p>
+
+          <h3>২. নির্দিষ্ট ইন্টারফেসের বিস্তারিত দেখা:</h3>
+          <pre><code>Router# show interfaces gigabitEthernet 0/0</code></pre>
+          <p>এই কমান্ডের মাধ্যমে পোর্টের স্পিড, ডুপ্লেক্স মোড, এবং কোনো প্যাকেট এরর বা কলিশন হচ্ছে কি না তা গভীরভাবে
+            জানা যায়।</p>
+
+          <h3>৩. কানেক্টিভিটি টেস্ট (Ping Testing):</h3>
+          <pre><code>Router# ping 192.168.10.5</code></pre>
+          <p>আপনার গেটওয়ে থেকে এন্ডপয়েন্ট পিসিতে ডাটা পৌঁছাচ্ছে কি না তা টেস্ট করার জন্য পিং কমান্ড ব্যবহার করা হয়।
+            সিসকোতে <code>!!!!!</code> আসার মানে হলো কানেক্টিভিটি ১০০% সফল, আর <code>.....</code> আসার মানে হলো
+            রিকোয়েস্ট টাইম আউট বা কানেকশন ফেইল।</p>
+
+          <h2>৬. Troubleshooting টিপস</h2>
+          <ul>
+            <li><strong>Status is Up, Protocol is Down:</strong> এর মানে ফিজিক্যাল ক্যাবল ঠিক আছে, কিন্তু অপর প্রান্তের
+              ডিভাইসের সাথে <strong>Encapsulation</strong>, Speed বা Duplex মোড মিলছে না।</li>
+            <li><strong>Administrative Down:</strong> যদি স্ট্যাটাসে এটি দেখায়, তবে বুঝতে হবে আপনি ইন্টারফেসে গিয়ে
+              <code>no shutdown</code> কমান্ড দিতে ভুলে গেছেন।</li>
+            <li><strong>IP Subnet Overlap Error:</strong> রাউটারের দুটি ভিন্ন ইন্টারফেসে একই সাবনেটের আইপি বসালে সিসকো
+              এই এরর দেয়। রাউটারের প্রতিটি পোর্টকে অবশ্যই আলাদা আলাদা নেটওয়ার্ক বা সাবনেটের অন্তর্ভুক্ত হতে হবে।</li>
+            <li><strong>Wrong Gateway on Endpoint:</strong> যদি লোকাল পিসি থেকে রাউটারে পিং না মেলে, তবে পিসির আইপি
+              সেটিংস চেক করুন এবং নিশ্চিত হোন যে পিসির <strong>Default Gateway</strong> আইপিটি রাউটারের ইন্টারফেস আইপির
+              সাথে হুবহু মিলছে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>IPv4 Addressing</strong> বোঝা এবং এটি সঠিকভাবে কনফিগার ও ট্রাবলশুট করতে পারা একজন নেটওয়ার্ক
+              প্রফেশনালের প্রাথমিক ও সবচেয়ে গুরুত্বপূর্ণ দায়িত্ব। আইপি-র লজিক্যাল স্ট্রাকচার এবং সাবনেট মাস্কের মেকানিজম
+              যত পরিষ্কার থাকবে, আপনার জন্য জটিল নেটওয়ার্ক ডিজাইন করা তত সহজ হবে। সিসিএনএ (CCNA) এক্সাম এবং রিয়েল-লাইফ
+              প্রোডাকশন নেটওয়ার্ক—উভয় ক্ষেত্রেই এই কমান্ড এবং ভেরিফিকেশন মেথডগুলোর ব্যবহার প্রতিনিয়ত করতে হয়। নিয়মিত
+              ল্যাব প্র্যাকটিস এবং প্যাকেট অ্যানালাইসিসই আপনাকে আইপি প্ল্যানিংয়ে দক্ষ করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

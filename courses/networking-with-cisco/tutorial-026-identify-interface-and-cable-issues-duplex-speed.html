@@ -1,32 +1,353 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Identify Interface and Cable Issues Duplex & Speed | tech-enablement.info</title>
+  <meta name="description"
+    content="Network Interface এবং Cable সংক্রান্ত সমস্যা যেমন Duplex Mismatch এবং Speed Mismatch সনাক্ত ও ট্রাবলশুট করার একটি প্রফেশনাল ডিপ-ডাইভ গাইড সহজ বাংলায়।">
+  <title>Identify Interface and Cable Issues Duplex & Speed: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Identify Interface and Cable Issues Duplex & Speed</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Identify Interface and Cable Issues Duplex & Speed</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Identify Interface and Cable Issues Duplex & Speed</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 17 May, 2026</span>
+            <span><i class='bx bx-category'></i> CCNA Tutorials</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিং ট্রাবলশুটিংয়ের ক্ষেত্রে আমরা প্রায়শই জটিল Routing Protocol বা Firewall পলিসি নিয়ে
+            দীর্ঘ সময় ব্যয় করি। কিন্তু বাস্তব ক্ষেত্রে দেখা যায়, এন্টারপ্রাইজ নেটওয়ার্ক স্লো হওয়ার বা পারফরম্যান্স
+            ড্রপ করার প্রধান কারণগুলো লুকিয়ে থাকে একদম নিচের স্তরে—অর্থাৎ <strong>OSI Physical Layer</strong> এবং
+            <strong>Data Link Layer</strong>-এ। এর মধ্যে সবচেয়ে কমন ও মারাত্মক দুটি সমস্যা হলো <strong>Duplex
+              Mismatch</strong> এবং <strong>Speed Mismatch</strong>।</p>
+          <p>যখন একটি Ethernet ক্যাবল বা ইন্টারফেস সঠিকভাবে সিঙ্ক্রোনাইজ হতে পারে না, তখন নেটওয়ার্কে মারাত্মক প্যাকেট
+            লস এবং ইনপুট এরর তৈরি হয়। আজকের এই প্রফেশনাল ডিপ-ডাইভ গাইডটিতে আমরা শিখবো কীভাবে লজিক্যাল কমান্ডের মাধ্যমে
+            এই ইন্টারফেস এবং ক্যাবল সংক্রান্ত সমস্যাগুলো নিখুঁতভাবে সনাক্ত ও সমাধান করতে হয়।</p>
+
+
+
+          <h2>১. Ethernet Speed এবং Duplex-এর মূল কনসেপ্ট</h2>
+          <p>একটি নেটওয়ার্ক লিঙ্কের মাধ্যমে দুটি ফিজিক্যাল ডিভাইস যখন যুক্ত হয়, তখন তাদের ডাটা আদান-প্রদানের গতি এবং
+            ধরণ এক হতে হয়।</p>
+          <ul>
+            <li><strong>Speed:</strong> এটি লিঙ্কের ফিজিক্যাল ব্যান্ডউইথ বা ডাটা ট্রান্সমিশন রেট নির্দেশ করে। যেমন—
+              <strong>10 Mbps (10Base-T)</strong>, <strong>100 Mbps (Fast Ethernet)</strong>, বা <strong>1000 Mbps
+                (Gigabit Ethernet)</strong>।</li>
+            <li><strong>Duplex Modes:</strong> এটি ডাটা প্রবাহের দিক বা ডিরেকশন নিয়ন্ত্রণ করে। এটি দুই ধরনের হয়:
+              <ul>
+                <li><strong>Half-Duplex:</strong> ডিভাইস একই সময়ে হয় ডাটা পাঠাতে পারবে, না হয় গ্রহণ করতে পারবে। যেমন—
+                  পুরাতন Network Hub বা ওয়্যারলেস Wi-Fi নেটওয়ার্ক। এখানে <strong>CSMA/CD</strong> মেকানিজম কাজ করে।
+                </li>
+                <li><strong>Full-Duplex:</strong> ডিভাইস একই সাথে সর্বোচ্চ গতিতে ডাটা পাঠাতে এবং গ্রহণ করতে পারে। আধুনিক
+                  Network Switch এবং এন্ডপয়েন্ট কানেকশন ফুল-ডুপ্লেক্সে কাজ করে।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Narrow Bridge Analogy)</h3>
+            <p>সহজ কথায়, <strong>Speed</strong> হলো একটি রাস্তার চওড়া বা লেনের সংখ্যা (লেন যত বড়, একসাথে তত বেশি
+              গাড়ি চলতে পারে)। আর <strong>Duplex</strong> হলো ট্রাফিকের নিয়ম:</p>
+            <ul>
+              <li><strong>Half-Duplex:</strong> এটি হলো একটি সরু এক লেনের ব্রিজ। একদিকের গাড়ি পার হয়ে যাওয়ার পর
+                সিগন্যাল দিলে অন্যদিকের গাড়ি আসতে পারবে। একই সাথে দুই দিক থেকে গাড়ি চলে আসলে মুখোমুখি সংঘর্ষ
+                (Collision) অনিবার্য।</li>
+              <li><strong>Full-Duplex:</strong> এটি হলো একটি টু-ওয়ে হাইওয়ে। যাওয়ার জন্য আলাদা রাস্তা এবং আসার জন্য
+                আলাদা রাস্তা। কেউ কাউকে বাধা না দিয়ে একই সাথে দ্রুত গতিতে চলতে পারে।</li>
+            </ul>
+          </div>
+
+          <h2>২. Auto-Negotiation কী এবং এটি কীভাবে ফেইল করে?</h2>
+          <p>আধুনিক নেটওয়ার্ক কার্ড বা পোর্টে <strong>Auto-Negotiation (IEEE 802.3u)</strong> নামক একটি প্রোটোকল
+            বিল্ট-ইন থাকে। এর কাজ হলো ক্যাবল কানেক্ট করার সাথে সাথে দুই প্রান্তের ডিভাইস নিজেদের ক্ষমতা শেয়ার করে
+            সর্বোচ্চ গতি এবং ডুপ্লেক্স মোড অটোমেটিক সেট করে নেয়।</p>
+          <p>কিন্তু এই অটো-নেগোসিয়েশন ফেইল করে যখন নিচের পরিস্থিতিগুলো তৈরি হয়:</p>
+          <ol>
+            <li><strong>Manual Configuration Mismatch:</strong> যদি লিঙ্কের একপাশে ইঞ্জিনিয়ার ম্যানুয়ালি
+              <code>100/Full</code> ফিক্সড করে দেন, আর অন্যপাশে <code>Auto</code> মোড অন থাকে।</li>
+            <li><strong>Legacy Hardware Compatibility:</strong> পুরাতন হাফ-ডুপ্লেক্স ডিভাইসের সাথে আধুনিক গিগাবিট সুইচের
+              কানেকশন।</li>
+            <li><strong>Bad Quality Cable:</strong> ক্যাবল ড্যামেজ বা ক্যাবল কোয়ালিটি খারাপ হলে সিগন্যাল লস হয়, যার
+              ফলে অটো-নেগোসিয়েশন প্রোটোকল ভেঙে পড়ে।</li>
+          </ol>
+
+          <h3>The Auto-Negotiation Rule Table</h3>
+          <p>যদি এক প্রান্তে ম্যানুয়ালি কনফিগার করা থাকে এবং অন্য প্রান্ত অটো মোডে থাকে, তবে সিসকো বা স্ট্যান্ডার্ড ওএস
+            ডিভাইসগুলো নিচের নিয়ম (Fallback Rules) অনুযায়ী কাজ করে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>এক প্রান্তের সেটিংস (Node A)</th>
+                  <th>অন্য প্রান্তের সেটিংস (Node B)</th>
+                  <th>ফলাফল স্পীড (Speed)</th>
+                  <th>ফলাফল ডুপ্লেক্স (Duplex)</th>
+                  <th>লিঙ্ক স্ট্যাটাস (Status)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">100 / Full (Manual)</td>
+                  <td>Auto / Auto (Negotiation)</td>
+                  <td>100 Mbps (সঠিক)</td>
+                  <td><strong>Half Duplex (Mismatch!)</strong></td>
+                  <td>লিঙ্ক আপ হবে কিন্তু পারফরম্যান্স অত্যন্ত ড্রপ করবে এবং এরর তৈরি হবে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">100 / Full (Manual)</td>
+                  <td>100 / Full (Manual)</td>
+                  <td>100 Mbps</td>
+                  <td>Full Duplex</td>
+                  <td>পারফেক্ট কানেকশন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">1000 / Full (Gigabit)</td>
+                  <td>10 / Full (Manual)</td>
+                  <td><strong>Link Down!</strong></td>
+                  <td>N/A</td>
+                  <td>স্পীড আলাদা হওয়ার কারণে লিঙ্ক ফিজিক্যালি ডাউন থাকবে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৩. সিসকো CLI-এর মাধ্যমে এরর সনাক্তকরণ (Identification)</h2>
+          <p>নেটওয়ার্ক ডিভাইস বা ক্যাবলে ডুপ্লেক্স বা স্পীড সংক্রান্ত সমস্যা হলে তা কমান্ড লাইনের মাধ্যমে নিখুঁতভাবে
+            সনাক্ত করা যায়। এর জন্য সবচেয়ে গুরুত্বপূর্ণ কমান্ডটি হলো:</p>
+          <pre><code>Switch# show interfaces fastEthernet 0/1</code></pre>
+
+          <h3>ক্লু ১: Duplex এবং Speed ভেরিফাই করা</h3>
+          <p>আউটপুটের শুরুর লাইনেই পোর্টের ডুপ্লেক্স এবং স্পীড সেটিংস দেখা যায়:</p>
+          <pre><code>Half-duplex, 100Mb/s, media type is 10/100BaseTX</code></pre>
+          <p><em>অ্যানালাইসিস: যদি এই পোর্টটি একটি কোর সার্ভারের সাথে কানেক্টেড থাকে এবং সেটি হাফ-ডুপ্লেক্সে দেখায়, তবে
+              বুঝবেন এখানে ডুপ্লেক্স মিসম্যাচ হওয়ার সম্ভাবনা প্রায় শতভাগ।</em></p>
+
+          <h3>ক্লু ২: এরর কাউন্টার অ্যানালাইসিস (Critical Diagnostics)</h3>
+          <p>কমান্ডের আউটপুটের নিচের দিকে কিছু বিশেষ এরর কাউন্টার থাকে যা ক্যাবল এবং পোর্টের ফিজিক্যাল কন্ডিশন নির্দেশ
+            করে:</p>
+          <pre><code>     0 input errors, 0 CRC, 0 frame, 0 overrun, 0 ignored
+     0 output errors, 452 collisions, 128 late collisions</code></pre>
+
+          <ul>
+            <li><strong>CRC (Cyclic Redundancy Check) Errors:</strong> যদি এই কাউন্টারটি অনবরত বাড়তে থাকে, তবে বুঝতে
+              হবে ক্যাবলটি ড্যামেজ, কানেক্টর লুজ অথবা ক্যাবলের পাশ দিয়ে কোনো হাই-ভোল্টেজ কারেন্টের তার গেছে যার কারণে
+              <strong>EMI (Electromagnetic Interference)</strong> হচ্ছে।</li>
+            <li><strong>Collisions:</strong> হাফ-ডুপ্লেক্স লিঙ্কে কিছু কলিশন হওয়া স্বাভাবিক। কিন্তু ফুল-ডুপ্লেক্স
+              লিঙ্কে কলিশন কাউন্টার বাড়ার অর্থ হলো অপর প্রান্তটি হাফ-ডুপ্লেক্সে চলছে (Duplex Mismatch)।</li>
+            <li><strong>Late Collisions:</strong> এটি ডুপ্লেক্স মিসম্যাচের সবচেয়ে বড় প্রমাণ। ডাটা ফ্রেমের প্রথম ৬৪
+              বাইট চলে যাওয়ার পরও যদি কলিশন হয়, তাকে লেট কলিশন বলে। এটি ক্যাবলের দৈর্ঘ্য ১০০ মিটারের বেশি হলেও হতে
+              পারে।</li>
+          </ul>
+
+          <h2>৪. ধাপে ধাপে কনফিগারেশন এবং সমস্যার সমাধান (Configuration Steps)</h2>
+          <p>যদি অটো-নেগোসিয়েশন কাজ না করে, তবে বেস্ট প্র্যাকটিস হলো লিঙ্কের উভয় প্রান্তে ম্যানুয়ালি একই স্পীড এবং
+            ডুপ্লেক্স ফিক্সড করে দেওয়া।</p>
+
+          <p><strong>ধাপ ১: সিসকো সুইচের ইন্টারফেসে প্রবেশ করুন।</strong></p>
+          <pre><code>Switch# configure terminal
+Switch(config)# interface fastEthernet 0/1</code></pre>
+
+          <p><strong>ধাপ ২: স্পীড এবং ডুপ্লেক্স ম্যানুয়ালি কনফিগার করুন।</strong></p>
+          <pre><code>Switch(config-if)# speed 100
+Switch(config-if)# duplex full</code></pre>
+          <p><em>ব্যাখ্যা: এই কমান্ডের মাধ্যমে আমরা পোর্টের অটো-নেগোসিয়েশন বন্ধ করে তাকে জোরপূর্বক ১০০ এমবিপিএস
+              ফুল-ডুপ্লেক্স মোডে সেট করলাম।</em></p>
+
+          <p><strong>ধাপ ৩: পোর্টটি রিস্টার্ট করুন যাতে নতুন সেটিংস সঠিকভাবে কার্যকর হয়।</strong></p>
+          <pre><code>Switch(config-if)# shutdown
+Switch(config-if)# no shutdown
+Switch(config-if)# end
+Switch# write memory</code></pre>
+
+          <div class="content-box">
+            <h3>সতর্কতা: উভয় প্রান্তে কনফিগারেশন মিলিয়ে নিন</h3>
+            <p>মনে রাখবেন, আপনি সুইচের পোর্টে ম্যানুয়ালি <code>speed 100</code> এবং <code>duplex full</code> করার পর,
+              অপর প্রান্তে সংযুক্ত ডিভাইসটিতেও (যেমন উইন্ডোজ পিসি বা লিনাক্স সার্ভার) নেটওয়ার্ক কার্ডের সেটিংসের
+              <strong>Advanced Properties</strong>-এ গিয়ে ম্যানুয়ালি একই কনফিগারেশন সেট করতে হবে। একপাশে অটো আর একপাশে
+              ম্যানুয়াল রাখলে সমস্যা সমাধান হবে না।</p>
+          </div>
+
+          <h2>৫. Troubleshooting এবং প্রফেশনাল মেইনটেন্যান্স টিপস</h2>
+          <p>বাস্তব ফিল্ডে কাজ করার সময় নিচের গাইডলাইনটি অনুসরণ করলে আপনি দ্রুত ফল্ট সনাক্ত করতে পারবেন:</p>
+          <ul>
+            <li><strong>Check Port LED:</strong> সুইচের পোর্টের লাইট যদি অনবরত সবুজ বা কমলা রঙে ফ্ল্যাশ করে (Flapping),
+              তবে বুঝতে হবে স্পীড মিসম্যাচ হয়েছে। দুই প্রান্তের স্পীড না মিললে লিঙ্ক ফিজিক্যালি আপ হতে পারে না।</li>
+            <li><strong>Clear Counters for Validation:</strong> ট্রাবলশুটিং করার সময় পুরনো এরর কাউন্টারগুলো মুছে ফেলা
+              ভালো, যাতে নতুন এরর আসছে কি না তা ট্র্যাক করা যায়। এরর কাউন্টার ক্লিয়ার করার কমান্ড:
+              <pre><code>Switch# clear counters fastEthernet 0/1</code></pre>
+              এরপর কয়েক মিনিট অপেক্ষা করে পুনরায় <code>show interface</code> দিয়ে এরর কাউন্ট বাড়ছে কি না তা মনিটর
+              করুন।
+            </li>
+            <li><strong>Gigabit Rules:</strong> মনে রাখবেন, <strong>1000Base-T (Gigabit Ethernet)</strong>
+              স্ট্যান্ডার্ডে ফুল-ডুপ্লেক্স মোড সচল রাখার জন্য এবং ক্লাকিং সিঙ্ক্রোনাইজেশনের জন্য
+              <strong>Auto-Negotiation</strong> এনাবল রাখা বাধ্যতামূলক। গিগাবিট লিঙ্কে ম্যানুয়ালি ডুপ্লেক্স বন্ধ করা
+              উচিত নয়।</li>
+            <li><strong>Cable Replacement Test:</strong> যদি ডুপ্লেক্স এবং স্পীড ফিক্সড করার পরও ক্রমাগত <strong>CRC
+                Errors</strong> বাড়তে থাকে, তবে কালক্ষেপণ না করে প্যাচ কর্ড (Patch Cord) বা মেইন Cat6 ক্যাবলটি পরিবর্তন
+              করে ফেলুন। ভালো মানের ক্যাবল বা ফ্লুক টেস্টার (Fluke Tester) দিয়ে ক্যাবলের কন্টিনিউটি মেপে নিন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>নেটওয়ার্ক ইনফ্রাস্ট্রাকচারের স্থায়িত্ব সম্পূর্ণ নির্ভর করে ফিজিক্যাল লেয়ারের নিখুঁত সংযোগের ওপর।
+              <strong>Duplex Mismatch</strong> এবং <strong>Speed Mismatch</strong> এর মতো সমস্যাগুলো নেটওয়ার্ককে
+              পুরোপুরি ডাউন না করলেও, এটি ট্রাফিককে মারাত্মক ধীরগতির করে দেয় এবং ভয়েস বা ভিডিও কলের মতো রিয়েল-টাইম
+              অ্যাপ্লিকেশনে ড্রপ তৈরি করে। সিসিএনএ (CCNA) পরীক্ষা এবং রিয়েল-লাইফ কর্পোরেট সাপোর্ট—উভয় ক্ষেত্রেই
+              <code>show interfaces</code> কমান্ড এবং এরর কাউন্টার অ্যানালাইসিসের মাধ্যমে ক্যাবল ও ইন্টারফেসের ত্রুটি
+              সনাক্ত করতে পারা একজন দক্ষ নেটওয়ার্ক ইঞ্জিনিয়ারের অত্যন্ত মৌলিক এবং জরুরি কারিগরি দক্ষতা।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

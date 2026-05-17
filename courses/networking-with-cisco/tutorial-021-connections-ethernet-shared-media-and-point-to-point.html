@@ -1,32 +1,323 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connections Ethernet Shared Media and Point-to-Point | tech-enablement.info</title>
+  <meta name="description"
+    content="Ethernet Shared Media এবং Point-to-Point Connections-এর মূল পার্থক্য, কার্যপদ্ধতি এবং গভীর মেকানিজম নিয়ে বিস্তারিত গাইড। সহজ বাংলায় নেটওয়ার্ক টপোলজির গভীর আলোচনা।">
+  <title>Connections Ethernet Shared Media and Point-to-Point: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Connections Ethernet Shared Media and Point-to-Point</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Connections Ethernet Shared Media and Point-to-Point</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Connections Ethernet Shared Media and Point-to-Point</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 16 May, 2026</span>
+            <span><i class='bx bx-category'></i> Networking Concepts</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটার নেটওয়ার্কিংয়ের বিবর্তনের ইতিহাস লক্ষ্য করলে দেখা যায়, ডিভাইসগুলোর একে অপরের সাথে সংযুক্ত হওয়ার
+            এবং ডাটা আদান-প্রদান করার মেকানিজম প্রতিনিয়ত পরিবর্তিত হয়েছে। <strong>Cisco CCNA</strong> এবং প্রফেশনাল
+            নেটওয়ার্ক ইঞ্জিনিয়ারিংয়ের অন্যতম একটি মৌলিক আলোচনা হলো ডাটা লিংক এবং ফিজিক্যাল লেয়ারের মিডিয়া এক্সেস পদ্ধতি।
+            মূলত Ethernet নেটওয়ার্ক দুইভাবে কাজ করতে পারে: <strong>Shared Media</strong> এবং <strong>Point-to-Point
+              Connections</strong>।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা এই দুই ধরনের কানেকশনের কার্যপদ্ধতি, এদের ভেতরের টেকনিক্যাল প্রোটোকল
+            (যেমন CSMA/CD) এবং আধুনিক নেটওয়ার্ক ডিজাইনে এদের বাস্তব প্রয়োগ নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Ethernet Shared Media কী? (The Legacy Approach)</h2>
+          <p><strong>Shared Media</strong> হলো এমন একটি নেটওয়ার্ক এনভায়রনমেন্ট যেখানে একাধিক ডিভাইস ডাটা আদান-প্রদান
+            করার জন্য একটিমাত্র ফিজিক্যাল মিডিয়াম বা ক্যাবল শেয়ার করে। পুরনো দিনের <strong>Bus Topology</strong> (যা
+            Coaxial Cable ব্যবহার করত) এবং <strong>Network Hub</strong> দ্বারা তৈরি নেটওয়ার্ক হলো এর প্রধান উদাহরণ।</p>
+          <ul>
+            <li><strong>Collision Domain:</strong> শেয়ারড মিডিয়াতে সব ডিভাইস একটি একক <strong>Collision
+                Domain</strong>-এর মধ্যে থাকে। অর্থাৎ, একই সময়ে যদি দুটি ডিভাইস ডাটা পাঠায়, তবে ডাটার মধ্যে সংঘর্ষ বা
+              Collision ঘটে এবং ডাটা নষ্ট হয়ে যায়।</li>
+            <li><strong>Transmission Mode:</strong> এটি শুধুমাত্র <strong>Half-Duplex</strong> মোডে কাজ করতে পারে। এর
+              মানে হলো একটি ডিভাইস এক সময়ে কেবল ডাটা পাঠাতে পারবে অথবা গ্রহণ করতে পারবে, একসাথে দুটি কাজ সম্ভব নয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Meeting Room Analogy)</h3>
+            <p>শেয়ারড মিডিয়াকে একটি শান্ত মিটিং রুমের সাথে তুলনা করা যায় যেখানে সবাই একটিমাত্র বাতাস (Medium) শেয়ার করে
+              কথা বলছে:</p>
+            <ul>
+              <li>যদি একজন কথা বলে, বাকি সবাইকে চুপচাপ শুনতে হয়।</li>
+              <li>যদি হঠাৎ করে দুইজন মানুষ একসাথে কথা বলা শুরু করে, তবে কারো কথাই স্পষ্ট বোঝা যায় না (Collision)।</li>
+              <li>তখন উভয়কেই থামতে হয় এবং কিছু সময় অপেক্ষা করে আবার যেকোনো একজনকে কথা শুরু করতে হয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. CSMA/CD মেকানিজম (How Shared Media Works)</h2>
+          <p>শেয়ারড মিডিয়াতে যাতে ডাটা কলিশন না হয় বা কলিশন হলে তা কীভাবে সমাধান করা যায়, তার জন্য একটি প্রোটোকল ব্যবহৃত
+            হয় যার নাম <strong>CSMA/CD (Carrier Sense Multiple Access with Collision Detection)</strong>।</p>
+
+
+
+          <h3>CSMA/CD যেভাবে কাজ করে (Step-by-Step):</h3>
+          <ol>
+            <li><strong>Carrier Sense:</strong> ডাটা পাঠানোর আগে ডিভাইসটি ক্যাবল বা মিডিয়ামটি পরীক্ষা করে দেখে (Senses)
+              সেখানে অন্য কোনো সিগন্যাল চলছে কি না (ক্যাবলটি ফ্রী আছে কি না)।</li>
+            <li><strong>Multiple Access:</strong> যদি মিডিয়ামটি ফ্রী থাকে, তবে ডিভাইসটি ডাটা ট্রান্সমিশন শুরু করে।
+              যেহেতু একাধিক ডিভাইস এই সুযোগের অপেক্ষায় থাকে, তাই একে Multiple Access বলে।</li>
+            <li><strong>Collision Detection:</strong> ডাটা পাঠানোর সময়ও ডিভাইসটি মিডিয়াম মনিটর করতে থাকে। যদি অন্য কোনো
+              ডিভাইস একই সময়ে ডাটা পাঠিয়ে দেয়, তবে <strong>Collision</strong> সনাক্ত হয়।</li>
+            <li><strong>Jam Signal & Backoff:</strong> কলিশন সনাক্ত হওয়ামাত্র ডিভাইসগুলো একটি <strong>Jam
+                Signal</strong> পাঠায় যাতে নেটওয়ার্কের সবাই বুঝতে পারে কলিশন হয়েছে। এরপর প্রতিটি ডিভাইস একটি র‍্যান্ডম
+              সময় (Random Backoff Timer) অপেক্ষা করে পুনরায় প্রথম ধাপ থেকে প্রক্রিয়াটি শুরু করে।</li>
+          </ol>
+
+          <h2>৩. Ethernet Point-to-Point Connections কী? (The Modern Standard)</h2>
+          <p><strong>Point-to-Point Connections</strong> হলো আধুনিক নেটওয়ার্কিংয়ের ভিত্তি। এখানে একটি ডেডিকেটেড ক্যাবল
+            বা লিঙ্কের মাধ্যমে শুধুমাত্র দুটি ডিভাইস সরাসরি একে অপরের সাথে যুক্ত থাকে। আধুনিক <strong>Network
+              Switch</strong>-এর প্রতিটি পোর্ট এবং এন্ড-ডিভাইসের (PC/Server) মধ্যকার সংযোগই হলো পয়েন্ট-টু-পয়েন্ট।</p>
+          <ul>
+            <li><strong>No Collisions:</strong> যেহেতু প্রতিটি লিঙ্কের দুই প্রান্তে মাত্র দুটি ডিভাইস থাকে এবং তাদের
+              ডাটা পাঠানো ও গ্রহণের পথ সম্পূর্ণ আলাদা, তাই এখানে কোনো ডাটা কলিশন হওয়ার সুযোগ নেই।</li>
+            <li><strong>Transmission Mode:</strong> এটি <strong>Full-Duplex</strong> মোডে কাজ করে। অর্থাৎ, ডিভাইসগুলো
+              একই সাথে সর্বোচ্চ স্পিডে ডাটা পাঠাতে এবং গ্রহণ করতে পারে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Express Highway Analogy)</h3>
+            <p>পয়েন্ট-টু-পয়েন্ট কানেকশন হলো একটি দ্বি-মুখী এক্সপ্রেস হাইওয়ের (Two-way Expressway) মতো। যাওয়ার জন্য একটি
+              আলাদা ডেডিকেটেড লেন এবং আসার জন্য আরেকটি আলাদা লেন রয়েছে। দুই লেনের গাড়ি সম্পূর্ণ স্বাধীনভাবে একই সময়ে
+              সর্বোচ্চ গতিতে চলতে পারে, মুখোমুখি সংঘর্ষের কোনো সম্ভাবনাই এখানে নেই।</p>
+          </div>
+
+          <h2>৪. Shared Media বনাম Point-to-Point: তুলনামূলক ছক</h2>
+          <p>নেটওয়ার্ক ডিজাইনের সুবিধার্থে এই দুই প্রযুক্তির মূল টেকনিক্যাল পার্থক্যগুলো নিচে দেওয়া হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Shared Media (Hub/Bus)</th>
+                  <th>Point-to-Point (Switch/Router)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">OSI Layer Device</td>
+                  <td>Layer 1 (Hub, Repeater)</td>
+                  <td>Layer 2 / Layer 3 (Switch, Router)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Duplex Mode</td>
+                  <td>Half-Duplex (একমুখী যোগাযোগ)</td>
+                  <td>Full-Duplex (উভয়মুখী একসাথে)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Collision Probability</td>
+                  <td>অত্যন্ত বেশি (CSMA/CD প্রয়োজন)</td>
+                  <td>শূন্য বা একেবারেই নেই (0% Collision)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Bandwidth Utilization</td>
+                  <td>সব ডিভাইস মিলে ব্যান্ডউইথ শেয়ার করে।</td>
+                  <td>প্রতিটি লিঙ্ক ডেডিকেটেড ফুল ব্যান্ডউইথ পায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Performance & Scale</td>
+                  <td>ডিভাইস বাড়লে নেটওয়ার্ক অত্যন্ত স্লো হয়ে যায়।</td>
+                  <td>বিশাল নেটওয়ার্কেও উচ্চ কার্যক্ষমতা বজায় থাকে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. Cisco CLI-এর মাধ্যমে Interface Duplex ও Speed ভেরিফিকেশন</h2>
+          <p>বাস্তব ক্ষেত্রে একটি ইন্টারফেস Half-Duplex (Shared এনভায়রনমেন্টের মতো) নাকি Full-Duplex মোডে চলছে তা চেক
+            করা অত্যন্ত জরুরি। ভুল কনফিগারেশনের কারণে <strong>Duplex Mismatch</strong> হতে পারে।</p>
+
+          <p><strong>ইন্টারফেস স্ট্যাটাস এবং ডুপ্লেক্স চেক করার কমান্ড:</strong></p>
+          <pre><code># সিসকো সুইচে ইন্টারফেসের ডুপ্লেক্স এবং স্পিড দেখার কমান্ড
+Switch# show interfaces fastEthernet 0/1
+
+# আউটপুটে নিচের লাইনের মতো দেখতে পাবেন:
+# Full-duplex, 100Mb/s, media type is 10/100BaseTX</code></pre>
+
+          <p><strong>ম্যানুয়ালি ডুপ্লেক্স এবং স্পিড কনফিগার করার পদ্ধতি:</strong></p>
+          <p>যদি কোনো পুরনো ডিভাইস সংযুক্ত করার কারণে অটো-নেগোসিয়েশন ফেইল করে, তবে ম্যানুয়ালি কনফিগার করতে হয়:</p>
+          <pre><code>Switch(config)# interface fastEthernet 0/1
+Switch(config-if)# speed 100
+Switch(config-if)# duplex full
+Switch(config-if)# no shutdown</code></pre>
+
+          <h2>৬. Troubleshooting ও প্রফেশনাল ইঞ্জিনিয়ারিং টিপস</h2>
+          <ul>
+            <li><strong>Duplex Mismatch Syndrome:</strong> যদি লিঙ্কের একপাশে <code>Full</code> এবং অন্যপাশে
+              <code>Half</code> কনফিগার করা থাকে, তবে নেটওয়ার্ক মারাত্মক স্লো হয়ে যাবে এবং প্রচুর <strong>Late
+                Collisions</strong> ও <strong>CRC Errors</strong> দেখা দেবে।</li>
+            <li><strong>Checking Errors via CLI:</strong> ইন্টারফেসের এরর কাউন্টার চেক করার জন্য নিচের কমান্ডটি ব্যবহার
+              করুন:
+              <pre><code>Switch# show interfaces fastEthernet 0/1 counters errors</code></pre>
+              যদি দেখেন <code>Collisions</code> কাউন্ট বাড়ছে, তবে বুঝতে হবে লিঙ্কটি হাফ-ডুপ্লেক্স বা শেয়ারড মোডে কাজ
+              করছে।
+            </li>
+            <li><strong>Modern Wireless Networks:</strong> মনে রাখবেন, আধুনিক ক্যাবলড ইথারনেট পয়েন্ট-টু-পয়েন্ট হলেও
+              আমাদের বর্তমান <strong>Wi-Fi (Wireless)</strong> নেটওয়ার্ক কিন্তু এখনও একটি <strong>Shared Media</strong>
+              হিসেবে কাজ করে এবং সেখানে <strong>CSMA/CA</strong> (Collision Avoidance) প্রোটোকল ব্যবহৃত হয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p>ইথারনেট প্রযুক্তির আদি যুগ ছিল <strong>Shared Media</strong> নির্ভর, যা নেটওয়ার্কের পরিধি বাড়াতে বড় বাধা
+              ছিল। আধুনিক <strong>Network Switch</strong> এবং <strong>Point-to-Point Connections</strong> সেই বাধা দূর
+              করে প্রতিটি ডিভাইসকে ফুল-ডুপ্লেক্স ও ডেডিকেটেড ব্যান্ডউইথের স্বাধীনতা দিয়েছে। একজন আইটি প্রফেশনাল বা
+              <strong>CCNA</strong> ক্যান্ডিডেট হিসেবে এই দুই ধরনের মিডিয়া এক্সেস মেকানিজম বুঝতে পারা অত্যন্ত আবশ্যক,
+              কারণ এর ওপর ভিত্তি করেই গড়ে উঠেছে আধুনিক হাই-স্পিড নেটওয়ার্ক আর্কিটেকচার।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>
