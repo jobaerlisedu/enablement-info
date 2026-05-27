@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Windows Server Administration - A comprehensive guide with links to various Windows Server topics.">
+  <title>Windows Server Administration Tutorials | tech-enablement.info</title>
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: var(--primary-color);
+      margin-top: 30px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body li {
+      margin-bottom: 8px;
+    }
+
+    .article-body a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .article-body a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Windows Server Administration</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
+            <span><i class='bx bx-category'></i> Windows Server</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>Windows Server Administration হলো উইন্ডোজ সার্ভার অ্যাডমিনিস্ট্রেশন, অ্যাক্টিভ ডিরেক্টরি (AD DS), গ্রুপ পলিসি (GPO), ডিএইচসিপি (DHCP), ডিএনএস (DNS) এবং সার্ভার সিকিউরিটি নিয়ে তৈরি একটি পূর্ণাঙ্গ টিউটোরিয়াল সিরিজ। উইন্ডোজ সার্ভার পরিচালনা ও ম্যানেজমেন্টের প্রয়োজনীয় বিষয়গুলো এখানে ধাপে ধাপে আলোচনা করা হয়েছে।</p>
+
+          <h2><i class="bx bx-book"></i> Windows Server Basics</h2>
+          <p>এই অধ্যায়ে Windows Server Basics সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-001-introducing-windows-server-2022.html" target="course-frame">Introducing Windows Server 2022</a></li>
+            <li><a href="tutorial-002-windows-server-editions.html" target="course-frame">Windows Server Editions</a></li>
+            <li><a href="tutorial-003-windows-server-2022-azure-edition-features.html" target="course-frame">Windows Server 2022 Azure Edition Features</a></li>
+            <li><a href="tutorial-004-course-note-about-azure-topics.html" target="course-frame">Course note about Azure topics</a></li>
+            <li><a href="tutorial-005-demo-windows-server-2022-azure-edition.html" target="course-frame">Demo: Windows Server 2022 Azure Edition</a></li>
+            <li><a href="tutorial-006-hardware-requirements.html" target="course-frame">Hardware Requirements</a></li>
+            <li><a href="tutorial-007-demo-microsoft-lifecycle-website.html" target="course-frame">Demo: Microsoft Lifecycle Website</a></li>
+            <li><a href="tutorial-008-deployment-options.html" target="course-frame">Deployment Options</a></li>
+            <li><a href="tutorial-009-demo-creating-a-new-vm.html" target="course-frame">Demo: Creating a New VM</a></li>
+            <li><a href="tutorial-010-demo-installing-windows-server-2022.html" target="course-frame">Demo: Installing Windows Server 2022</a></li>
+            <li><a href="tutorial-011-course-ip-addressing-design.html" target="course-frame">Course IP addressing design</a></li>
+            <li><a href="tutorial-012-demo-post-installation-tasks.html" target="course-frame">Demo: Post-Installation Tasks</a></li>
+            <li><a href="tutorial-013-servicing-channels.html" target="course-frame">Servicing Channels</a></li>
+            <li><a href="tutorial-014-licensing.html" target="course-frame">Licensing</a></li>
+            <li><a href="tutorial-015-activation.html" target="course-frame">Activation</a></li>
+            <li><a href="tutorial-016-demo-volume-activation-services.html" target="course-frame">Demo: Volume Activation Services</a></li>
+            <li><a href="tutorial-017-demo-software-licensing-manager-slmgr-vbs.html" target="course-frame">Demo: Software Licensing Manager (SLMGR.VBS)</a></li>
+            <li><a href="tutorial-018-server-core.html" target="course-frame">Server Core</a></li>
+            <li><a href="tutorial-019-demo-server-core-installation.html" target="course-frame">Demo: Server Core Installation</a></li>
+            <li><a href="tutorial-020-demo-installing-rts-svr.html" target="course-frame">Demo: Installing RTS-SVR</a></li>
+            <li><a href="tutorial-021-what-is-copilot.html" target="course-frame">What is Copilot</a></li>
+            <li><a href="tutorial-022-demo-copilot.html" target="course-frame">Demo: Copilot</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Active Directory Domain Services (AD DS)</h2>
+          <p>এই অধ্যায়ে Active Directory Domain Services (AD DS) সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-023-active-directory-domain-services-on-windows-server-2022.html" target="course-frame">Active Directory Domain Services on Windows Server 2022</a></li>
+            <li><a href="tutorial-024-workgroup-vs-domain.html" target="course-frame">Workgroup vs Domain</a></li>
+            <li><a href="tutorial-025-workgroup-vs-domain-non-technical-concept.html" target="course-frame">Workgroup vs Domain (non-technical concept)</a></li>
+            <li><a href="tutorial-026-demo-verify-workgroup-or-domain-membership.html" target="course-frame">Demo: Verify Workgroup or Domain membership</a></li>
+            <li><a href="tutorial-027-active-directory-domain-services-terms.html" target="course-frame">Active Directory Domain Services Terms</a></li>
+            <li><a href="tutorial-028-active-directory-domain-services-objects.html" target="course-frame">Active Directory Domain Services Objects</a></li>
+            <li><a href="tutorial-029-active-directory-domain-services-ip-configuration-example.html" target="course-frame">Active Directory Domain Services IP configuration example</a></li>
+            <li><a href="tutorial-030-demo-active-directory-domain-services-installation.html" target="course-frame">Demo: Active Directory Domain Services Installation</a></li>
+            <li><a href="tutorial-031-demo-users-and-groups.html" target="course-frame">Demo: Users and Groups</a></li>
+            <li><a href="tutorial-032-demo-joining-a-desktop-experience-server-to-the-domain.html" target="course-frame">Demo: Joining a Desktop Experience Server to the Domain</a></li>
+            <li><a href="tutorial-033-demo-joining-a-core-server-to-the-domain.html" target="course-frame">Demo: Joining a Core Server to the Domain</a></li>
+            <li><a href="tutorial-034-organizational-units-and-containers.html" target="course-frame">Organizational Units and Containers</a></li>
+            <li><a href="tutorial-035-demo-organizational-units-and-containers.html" target="course-frame">Demo: Organizational Units and Containers</a></li>
+            <li><a href="tutorial-036-domain-controllers.html" target="course-frame">Domain Controllers</a></li>
+            <li><a href="tutorial-037-demo-ntds-sysvol-and-logs.html" target="course-frame">Demo: NTDS, SYSVOL, and Logs</a></li>
+            <li><a href="tutorial-038-global-catalog-servers.html" target="course-frame">Global Catalog Servers</a></li>
+            <li><a href="tutorial-039-demo-global-catalog-servers.html" target="course-frame">Demo: Global Catalog Servers</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Group Policy & Administration</h2>
+          <p>এই অধ্যায়ে Group Policy & Administration সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-040-group-policy-objects-gpo.html" target="course-frame">Group Policy Objects (GPO)</a></li>
+            <li><a href="tutorial-041-demo-folder-redirection-using-group-policy.html" target="course-frame">Demo: Folder Redirection using Group Policy</a></li>
+            <li><a href="tutorial-042-default-policies.html" target="course-frame">Default Policies</a></li>
+            <li><a href="tutorial-043-demo-default-policies.html" target="course-frame">Demo: Default Policies</a></li>
+            <li><a href="tutorial-044-group-policy-preferences.html" target="course-frame">Group Policy Preferences</a></li>
+            <li><a href="tutorial-045-demo-mapping-a-drive-using-group-policy-preferences.html" target="course-frame">Demo: Mapping a Drive using Group Policy Preferences</a></li>
+            <li><a href="tutorial-046-group-policy-processing-order.html" target="course-frame">Group Policy Processing Order</a></li>
+            <li><a href="tutorial-047-demo-group-policy-processing-order.html" target="course-frame">Demo: Group Policy Processing Order</a></li>
+            <li><a href="tutorial-048-altering-group-policy-processing-order.html" target="course-frame">Altering Group Policy Processing Order</a></li>
+            <li><a href="tutorial-049-demo-group-policy-filtering.html" target="course-frame">Demo: Group Policy Filtering</a></li>
+            <li><a href="tutorial-050-gpupdate.html" target="course-frame">GPUPDATE</a></li>
+            <li><a href="tutorial-051-gpresult.html" target="course-frame">GPRESULT</a></li>
+            <li><a href="tutorial-052-understanding-active-directory-sites-and-group-policy-relationships.html" target="course-frame">Understanding Active Directory Sites and Group Policy Relationships</a></li>
+            <li><a href="tutorial-053-least-privilege-administration.html" target="course-frame">Least Privilege Administration</a></li>
+            <li><a href="tutorial-054-demo-least-privilege-administration.html" target="course-frame">Demo: Least Privilege Administration</a></li>
+            <li><a href="tutorial-055-delegated-privileges.html" target="course-frame">Delegated Privileges</a></li>
+            <li><a href="tutorial-056-demo-delegation.html" target="course-frame">Demo: Delegation</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Management Tools & PowerShell</h2>
+          <p>এই অধ্যায়ে Management Tools & PowerShell সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-057-jump-server.html" target="course-frame">Jump Server</a></li>
+            <li><a href="tutorial-058-admin-center.html" target="course-frame">Admin Center</a></li>
+            <li><a href="tutorial-059-demo-admin-center.html" target="course-frame">Demo: Admin Center</a></li>
+            <li><a href="tutorial-060-server-manager.html" target="course-frame">Server Manager</a></li>
+            <li><a href="tutorial-061-demo-server-manager.html" target="course-frame">Demo: Server Manager</a></li>
+            <li><a href="tutorial-062-remote-server-administration-tools.html" target="course-frame">Remote Server Administration Tools</a></li>
+            <li><a href="tutorial-063-powershell-part-1.html" target="course-frame">Powershell (part 1)</a></li>
+            <li><a href="tutorial-064-powershell-part-2.html" target="course-frame">Powershell (part 2)</a></li>
+            <li><a href="tutorial-065-demo-active-directory-administrative-center-adac.html" target="course-frame">Demo: Active Directory Administrative Center (ADAC)</a></li>
+            <li><a href="tutorial-066-demo-chatgpt-to-create-powershell-scripts.html" target="course-frame">Demo: ChatGPT to create Powershell scripts</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> DHCP Management</h2>
+          <p>এই অধ্যায়ে DHCP Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-067-managing-dhcp-dynamic-host-configuration-protocol.html" target="course-frame">Managing DHCP (Dynamic Host Configuration Protocol)</a></li>
+            <li><a href="tutorial-068-overview-of-dhcp.html" target="course-frame">Overview of DHCP</a></li>
+            <li><a href="tutorial-069-wireshark-capture.html" target="course-frame">Wireshark Capture</a></li>
+            <li><a href="tutorial-070-demo-set-virtual-switch-to-private.html" target="course-frame">Demo: Set Virtual Switch to Private</a></li>
+            <li><a href="tutorial-071-install-and-configure-dhcp.html" target="course-frame">Install and Configure DHCP</a></li>
+            <li><a href="tutorial-072-scope-and-authorization.html" target="course-frame">Scope and Authorization</a></li>
+            <li><a href="tutorial-073-demo-installing-dhcp.html" target="course-frame">Demo: Installing DHCP</a></li>
+            <li><a href="tutorial-074-demo-scope-and-authorization.html" target="course-frame">Demo: Scope and Authorization</a></li>
+            <li><a href="tutorial-075-dhcp-high-availability.html" target="course-frame">DHCP High Availability</a></li>
+            <li><a href="tutorial-076-demo-dhcp-high-availability.html" target="course-frame">Demo: DHCP High Availability</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> DNS Management</h2>
+          <p>এই অধ্যায়ে DNS Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-077-managing-dns-domain-naming-service.html" target="course-frame">Managing DNS (Domain Naming Service)</a></li>
+            <li><a href="tutorial-078-dns-components.html" target="course-frame">DNS Components</a></li>
+            <li><a href="tutorial-079-dns-resolution-process.html" target="course-frame">DNS Resolution Process</a></li>
+            <li><a href="tutorial-080-dns-records.html" target="course-frame">DNS Records</a></li>
+            <li><a href="tutorial-081-demo-dns-records.html" target="course-frame">Demo: DNS Records</a></li>
+            <li><a href="tutorial-082-dns-zones.html" target="course-frame">DNS Zones</a></li>
+            <li><a href="tutorial-083-demo-dns-installation.html" target="course-frame">Demo: DNS Installation</a></li>
+            <li><a href="tutorial-084-dns-zones-diagram.html" target="course-frame">DNS Zones Diagram</a></li>
+            <li><a href="tutorial-085-demo-primary-and-secondary.html" target="course-frame">Demo: Primary and Secondary</a></li>
+            <li><a href="tutorial-086-demo-active-directory-integrated.html" target="course-frame">Demo: Active Directory Integrated</a></li>
+            <li><a href="tutorial-087-demo-reverse-lookup-zone.html" target="course-frame">Demo: Reverse Lookup Zone</a></li>
+            <li><a href="tutorial-088-dns-forwarding-and-root-hints.html" target="course-frame">DNS Forwarding and Root Hints</a></li>
+            <li><a href="tutorial-089-demo-dns-forwarding-and-root-hints.html" target="course-frame">Demo: DNS Forwarding and Root Hints</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> File Servers & Storage Management</h2>
+          <p>এই অধ্যায়ে File Servers & Storage Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-090-managing-file-servers-and-storage.html" target="course-frame">Managing File Servers and Storage</a></li>
+            <li><a href="tutorial-091-file-system-overview.html" target="course-frame">File System Overview</a></li>
+            <li><a href="tutorial-092-ntfs-permission-overview.html" target="course-frame">NTFS Permission Overview</a></li>
+            <li><a href="tutorial-093-ntfs-permission-diagram.html" target="course-frame">NTFS Permission Diagram</a></li>
+            <li><a href="tutorial-094-share-permission.html" target="course-frame">Share Permission</a></li>
+            <li><a href="tutorial-095-demo-ntfs-and-share-permission.html" target="course-frame">Demo: NTFS and Share Permission</a></li>
+            <li><a href="tutorial-096-demo-ntfs-deny-permission.html" target="course-frame">Demo: NTFS Deny Permission</a></li>
+            <li><a href="tutorial-097-demo-advanced-permission.html" target="course-frame">Demo: Advanced Permission</a></li>
+            <li><a href="tutorial-098-demo-ntfs-inheritance.html" target="course-frame">Demo: NTFS Inheritance</a></li>
+            <li><a href="tutorial-099-file-server-resource-manager-fsrm.html" target="course-frame">File Server Resource Manager (FSRM)</a></li>
+            <li><a href="tutorial-100-demo-installing-fsrm.html" target="course-frame">Demo: Installing FSRM</a></li>
+            <li><a href="tutorial-101-demo-quota-template.html" target="course-frame">Demo: Quota Template</a></li>
+            <li><a href="tutorial-102-demo-file-screen.html" target="course-frame">Demo: File Screen</a></li>
+            <li><a href="tutorial-103-basic-and-dynamic-disks.html" target="course-frame">Basic and Dynamic Disks</a></li>
+            <li><a href="tutorial-104-demo-raid.html" target="course-frame">Demo: RAID</a></li>
+            <li><a href="tutorial-105-demo-virtual-hard-disk-vhdx.html" target="course-frame">Demo: Virtual Hard Disk (VHDX)</a></li>
+            <li><a href="tutorial-106-storage-pool.html" target="course-frame">Storage Pool</a></li>
+            <li><a href="tutorial-107-demo-storage-pool.html" target="course-frame">Demo: Storage Pool</a></li>
+            <li><a href="tutorial-108-data-deduplication-overview.html" target="course-frame">Data Deduplication Overview</a></li>
+            <li><a href="tutorial-109-deduplication-process.html" target="course-frame">Deduplication Process</a></li>
+            <li><a href="tutorial-110-plan-and-deploy-data-deduplication.html" target="course-frame">Plan and Deploy Data Deduplication</a></li>
+            <li><a href="tutorial-111-demo-data-deduplication.html" target="course-frame">Demo: Data Deduplication</a></li>
+            <li><a href="tutorial-112-data-deduplication-backup.html" target="course-frame">Data Deduplication Backup</a></li>
+            <li><a href="tutorial-113-dfs-namespace.html" target="course-frame">DFS Namespace</a></li>
+            <li><a href="tutorial-114-dfs-replication.html" target="course-frame">DFS Replication</a></li>
+            <li><a href="tutorial-115-demo-dfs-namespace.html" target="course-frame">Demo: DFS Namespace</a></li>
+            <li><a href="tutorial-116-demo-dfs-replication.html" target="course-frame">Demo: DFS Replication</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Hyper-V Virtualization</h2>
+          <p>এই অধ্যায়ে Hyper-V Virtualization সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-117-implementing-hyper-v-virtualization.html" target="course-frame">Implementing Hyper-V Virtualization</a></li>
+            <li><a href="tutorial-118-hyper-v-overview.html" target="course-frame">Hyper-V Overview</a></li>
+            <li><a href="tutorial-119-exploring-hyper-v-manager.html" target="course-frame">Exploring Hyper-V Manager</a></li>
+            <li><a href="tutorial-120-hyper-v-best-practices.html" target="course-frame">Hyper-V Best Practices</a></li>
+            <li><a href="tutorial-121-nested-virtualization.html" target="course-frame">Nested Virtualization</a></li>
+            <li><a href="tutorial-122-demo-hyper-v-install-and-nested-virtualization.html" target="course-frame">Demo: Hyper-V Install and Nested Virtualization</a></li>
+            <li><a href="tutorial-123-demo-hyper-v-host-settings.html" target="course-frame">Demo: Hyper-V Host Settings</a></li>
+            <li><a href="tutorial-124-virtual-machine-generations.html" target="course-frame">Virtual Machine Generations</a></li>
+            <li><a href="tutorial-125-note-about-the-course-virtual-machines.html" target="course-frame">Note about the course Virtual Machines</a></li>
+            <li><a href="tutorial-126-demo-creating-a-new-virtual-machine.html" target="course-frame">Demo: Creating a New Virtual Machine</a></li>
+            <li><a href="tutorial-127-demo-virtual-machine-settings.html" target="course-frame">Demo: Virtual Machine Settings</a></li>
+            <li><a href="tutorial-128-demo-virtual-machine-operating-system-installation.html" target="course-frame">Demo: Virtual Machine Operating System Installation</a></li>
+            <li><a href="tutorial-129-storage-types-and-formats.html" target="course-frame">Storage Types and Formats</a></li>
+            <li><a href="tutorial-130-demo-managing-a-virtual-hard-disk-vhdx.html" target="course-frame">Demo: Managing a Virtual Hard Disk (VHDX)</a></li>
+            <li><a href="tutorial-131-demo-differencing-disks.html" target="course-frame">Demo: Differencing Disks</a></li>
+            <li><a href="tutorial-132-understanding-virtual-switch-types.html" target="course-frame">Understanding Virtual Switch Types</a></li>
+            <li><a href="tutorial-133-demo-virtual-switch-configurations.html" target="course-frame">Demo: Virtual Switch Configurations</a></li>
+            <li><a href="tutorial-134-virtual-machine-state-and-checkpoints.html" target="course-frame">Virtual Machine State and Checkpoints</a></li>
+            <li><a href="tutorial-135-demo-checkpoints.html" target="course-frame">Demo: Checkpoints</a></li>
+            <li><a href="tutorial-136-import-and-export-virtual-machines.html" target="course-frame">Import and Export Virtual Machines</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Print Server Management</h2>
+          <p>এই অধ্যায়ে Print Server Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-137-implementing-windows-print-server.html" target="course-frame">Implementing Windows Print Server</a></li>
+            <li><a href="tutorial-138-exploring-windows-print-servers.html" target="course-frame">Exploring Windows Print Servers</a></li>
+            <li><a href="tutorial-139-how-a-print-server-works.html" target="course-frame">How a Print Server works</a></li>
+            <li><a href="tutorial-140-windows-print-server-best-practices.html" target="course-frame">Windows Print Server Best Practices</a></li>
+            <li><a href="tutorial-141-type-3-vs-type-4-printers.html" target="course-frame">Type 3 vs Type 4 Printers</a></li>
+            <li><a href="tutorial-142-demo-adding-a-printer-feature.html" target="course-frame">Demo: Adding a Printer Feature</a></li>
+            <li><a href="tutorial-143-understanding-print-permissions.html" target="course-frame">Understanding Print Permissions</a></li>
+            <li><a href="tutorial-144-demo-printer-settings-and-permissions.html" target="course-frame">Demo: Printer Settings and Permissions</a></li>
+            <li><a href="tutorial-145-understanding-printer-pooling.html" target="course-frame">Understanding Printer Pooling</a></li>
+            <li><a href="tutorial-146-demo-printer-pooling.html" target="course-frame">Demo: Printer Pooling</a></li>
+            <li><a href="tutorial-147-understanding-printer-priority.html" target="course-frame">Understanding Printer Priority</a></li>
+            <li><a href="tutorial-148-demo-printer-priority.html" target="course-frame">Demo: Printer Priority</a></li>
+            <li><a href="tutorial-149-demo-print-management-administrative-tool.html" target="course-frame">Demo: Print Management Administrative Tool</a></li>
+            <li><a href="tutorial-150-demo-export-and-import-printers-and-settings.html" target="course-frame">Demo: Export and Import Printers and Settings</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Disaster Recovery & Backup</h2>
+          <p>এই অধ্যায়ে Disaster Recovery & Backup সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-151-disaster-recovery-on-windows-server-2022.html" target="course-frame">Disaster Recovery on Windows Server 2022</a></li>
+            <li><a href="tutorial-152-overview-of-windows-server-backup.html" target="course-frame">Overview of Windows Server Backup</a></li>
+            <li><a href="tutorial-153-overview-of-azure-backup.html" target="course-frame">Overview of Azure backup</a></li>
+            <li><a href="tutorial-154-backup-hyper-v-virtual-machines.html" target="course-frame">Backup Hyper-V Virtual Machines</a></li>
+            <li><a href="tutorial-155-demo-install-and-configure-windows-server-backup.html" target="course-frame">Demo: Install and Configure Windows Server Backup</a></li>
+            <li><a href="tutorial-156-demo-recovery-of-data-and-virtual-machines.html" target="course-frame">Demo: Recovery of Data and Virtual Machines</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> WSUS Update Management</h2>
+          <p>এই অধ্যায়ে WSUS Update Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-157-implementing-wsus-on-windows-server-2022.html" target="course-frame">Implementing WSUS on Windows Server 2022</a></li>
+            <li><a href="tutorial-158-understanding-wsus.html" target="course-frame">Understanding WSUS</a></li>
+            <li><a href="tutorial-159-wsus-requirements.html" target="course-frame">WSUS Requirements</a></li>
+            <li><a href="tutorial-160-wsus-deployment-options.html" target="course-frame">WSUS Deployment Options</a></li>
+            <li><a href="tutorial-161-demo-wsus-installation.html" target="course-frame">Demo WSUS Installation</a></li>
+            <li><a href="tutorial-162-demo-integrating-wsus-with-group-policy.html" target="course-frame">Demo: Integrating WSUS with Group Policy</a></li>
+            <li><a href="tutorial-163-demo-wsus-configuration.html" target="course-frame">Demo: WSUS Configuration</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Remote Access & VPN</h2>
+          <p>এই অধ্যায়ে Remote Access & VPN সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-164-implementing-remote-access-on-windows-server-2022.html" target="course-frame">Implementing Remote Access on Windows Server 2022</a></li>
+            <li><a href="tutorial-165-vpn-scenarios.html" target="course-frame">VPN Scenarios</a></li>
+            <li><a href="tutorial-166-understanding-tunneling-protocols.html" target="course-frame">Understanding Tunneling Protocols</a></li>
+            <li><a href="tutorial-167-understanding-authentication-protocols.html" target="course-frame">Understanding Authentication Protocols</a></li>
+            <li><a href="tutorial-168-demo-installing-and-configuring-remote-access.html" target="course-frame">Demo: Installing and Configuring Remote Access</a></li>
+            <li><a href="tutorial-169-demo-vpn-client.html" target="course-frame">Demo: VPN Client</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> SAN & Failover Clustering</h2>
+          <p>এই অধ্যায়ে SAN & Failover Clustering সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-170-managing-san-storage-and-failover-clustering.html" target="course-frame">Managing SAN Storage and Failover Clustering</a></li>
+            <li><a href="tutorial-171-understanding-an-iscsi-storage-area-network-san.html" target="course-frame">Understanding an iSCSI Storage Area Network (SAN)</a></li>
+            <li><a href="tutorial-172-demo-iscsi-san.html" target="course-frame">Demo: iSCSI SAN</a></li>
+            <li><a href="tutorial-173-understanding-failover-clustering.html" target="course-frame">Understanding Failover Clustering</a></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a[target="course-frame"]');
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          window.parent.postMessage({ type: 'tutorial-click', href: href }, '*');
+        });
+      });
+    });
+  </script>
+  <script type="module" src="../../js/network-background.js"></script>
+</body>
+
+</html>

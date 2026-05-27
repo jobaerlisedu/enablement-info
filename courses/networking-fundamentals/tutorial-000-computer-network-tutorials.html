@@ -400,6 +400,17 @@
     </div>
   </div>
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a[target="course-frame"]');
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          window.parent.postMessage({ type: 'tutorial-click', href: href }, '*');
+        });
+      });
+    });
+  </script>
   <script type="module" src="../../js/network-background.js"></script>
 </body>
 

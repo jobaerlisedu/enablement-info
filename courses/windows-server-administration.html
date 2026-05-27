@@ -48,7 +48,7 @@
       display: flex;
       flex-direction: column;
       padding: 0;
-      overflow-y: auto;
+      overflow: hidden;
       box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
     }
 
@@ -92,6 +92,8 @@
     .course-nav {
       padding: 20px 15px;
       margin: 0;
+      flex: 1;
+      overflow-y: auto;
     }
 
     .course-nav ul {
@@ -210,20 +212,20 @@
     }
 
     /* Scrollbar Styling */
-    .course-sidebar::-webkit-scrollbar {
+    .course-nav::-webkit-scrollbar {
       width: 6px;
     }
 
-    .course-sidebar::-webkit-scrollbar-track {
+    .course-nav::-webkit-scrollbar-track {
       background: transparent;
     }
 
-    .course-sidebar::-webkit-scrollbar-thumb {
+    .course-nav::-webkit-scrollbar-thumb {
       background: #e2e8f0;
       border-radius: 10px;
     }
 
-    .course-sidebar::-webkit-scrollbar-thumb:hover {
+    .course-nav::-webkit-scrollbar-thumb:hover {
       background: #cbd5e1;
     }
 
@@ -369,6 +371,8 @@
           <h2 class="course-title">Windows Server Administration</h2>
         </div>
         <ul id="sidebar-nav">
+          <li><a href="windows-server-administration/tutorial-000-windows-tutorials.html"
+              target="course-frame"><span>Windows Tutorials</span></a></li>
           <li><a href="windows-server-administration/tutorial-001-introducing-windows-server-2022.html"
               target="course-frame"><span>Introducing Windows Server 2022</span></a>
           </li>
@@ -958,7 +962,7 @@
     <main class="course-main">
       <div class="content-panel">
         <iframe name="course-frame"
-          src="windows-server-administration/tutorial-001-introducing-windows-server-2022.html"
+          src="windows-server-administration/tutorial-000-windows-tutorials.html"
           allowfullscreen></iframe>
       </div>
     </main>
@@ -1031,6 +1035,21 @@
           }
         });
       }
+
+      // Listen for message from iframe (useful under file:// protocol where direct access is blocked)
+      window.addEventListener('message', function (event) {
+        if (event.data && event.data.type === 'tutorial-click') {
+          const clickedHref = event.data.href;
+          links.forEach(link => {
+            const linkHref = link.getAttribute('href');
+            if (linkHref && (linkHref.split('/').pop() === clickedHref.split('/').pop())) {
+              links.forEach(l => l.classList.remove('active-link'));
+              link.classList.add('active-link');
+              link.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          });
+        }
+      });
     });
   </script>
 </body>

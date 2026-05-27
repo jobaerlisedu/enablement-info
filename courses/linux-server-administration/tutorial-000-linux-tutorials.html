@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Linux Server Administration - A comprehensive guide with links to various Linux topics.">
+  <title>Linux Server Administration Tutorials | tech-enablement.info</title>
+
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../css/style.css">
+
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: var(--primary-color);
+      margin-top: 30px;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body li {
+      margin-bottom: 8px;
+    }
+
+    .article-body a {
+      color: var(--accent-blue);
+      text-decoration: none;
+    }
+
+    .article-body a:hover {
+      text-decoration: underline;
+    }
+  </style>
+
+</head>
+
+<body class="tutorial-page">
+  <div class="blog-content-wrapper">
+    <div class="container">
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Linux Server Administration</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 07 April, 2026</span>
+            <span><i class='bx bx-category'></i> Linux</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>Linux Server Administration হলো লিনাক্স সার্ভার সেটআপ, কমান্ড লাইন, ইউজার ও গ্রুপ ম্যানেজমেন্ট, সিস্টেম সিকিউরিটি এবং সার্ভিস কনফিগারেশন নিয়ে তৈরি একটি পূর্ণাঙ্গ টিউটোরিয়াল সিরিজ। লিনাক্স সার্ভার পরিচালনা ও অটোমেশনের প্রয়োজনীয় বিষয়গুলো এখানে ধাপে ধাপে আলোচনা করা হয়েছে।</p>
+
+          <h2><i class="bx bx-book"></i> Linux Concepts</h2>
+          <p>এই অধ্যায়ে Linux Concepts সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-000-linux-tutorials.html" target="course-frame">Linux Tutorials</a></li>
+            <li><a href="tutorial-001-linux-concepts.html" target="course-frame">Linux Concepts</a></li>
+            <li><a href="tutorial-002-boot-process.html" target="course-frame">Boot Process</a></li>
+            <li><a href="tutorial-003-system-directories.html" target="course-frame">System Directories</a></li>
+            <li><a href="tutorial-004-user-and-application-related-directories.html" target="course-frame">User and Application-related Directories</a></li>
+            <li><a href="tutorial-005-server-architectures.html" target="course-frame">Server Architectures</a></li>
+            <li><a href="tutorial-006-linux-distributions.html" target="course-frame">Linux Distributions</a></li>
+            <li><a href="tutorial-007-graphical-user-interface-gui.html" target="course-frame">Graphical User Interface (GUI)</a></li>
+            <li><a href="tutorial-008-software-licensing.html" target="course-frame">Software Licensing</a></li>
+            <li><a href="tutorial-009-checkpoint-linux-concepts.html" target="course-frame">Checkpoint: Linux Concepts</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Shell Operations</h2>
+          <p>এই অধ্যায়ে Shell Operations সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-010-shell-operations.html" target="course-frame">Shell Operations</a></li>
+            <li><a href="tutorial-011-user-and-session-environmental-variables.html" target="course-frame">User and Session Environmental Variables</a></li>
+            <li><a href="tutorial-012-system-and-execution-environmental-variables.html" target="course-frame">System and Execution Environmental Variables</a></li>
+            <li><a href="tutorial-013-paths.html" target="course-frame">Paths</a></li>
+            <li><a href="tutorial-014-environment-configurations.html" target="course-frame">Environment Configurations</a></li>
+            <li><a href="tutorial-015-input-redirection.html" target="course-frame">Input Redirection</a></li>
+            <li><a href="tutorial-016-output-redirection.html" target="course-frame">Output Redirection</a></li>
+            <li><a href="tutorial-017-history-and-shortcuts.html" target="course-frame">History and Shortcuts</a></li>
+            <li><a href="tutorial-018-regex.html" target="course-frame">Regex</a></li>
+            <li><a href="tutorial-019-search-and-extract.html" target="course-frame">Search and Extract</a></li>
+            <li><a href="tutorial-020-modify-and-replace.html" target="course-frame">Modify and Replace</a></li>
+            <li><a href="tutorial-021-sort-and-count.html" target="course-frame">Sort and Count</a></li>
+            <li><a href="tutorial-022-view-and-navigate.html" target="course-frame">View and Navigate</a></li>
+            <li><a href="tutorial-023-output-and-redirect.html" target="course-frame">Output and Redirect</a></li>
+            <li><a href="tutorial-024-math-and-format.html" target="course-frame">Math and Format</a></li>
+            <li><a href="tutorial-025-system-and-scripts.html" target="course-frame">System and Scripts</a></li>
+            <li><a href="tutorial-026-text-editors.html" target="course-frame">Text editors</a></li>
+            <li><a href="tutorial-027-checkpoint-shell-operations.html" target="course-frame">Checkpoint: Shell Operations</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Device Management</h2>
+          <p>এই অধ্যায়ে Device Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-028-device-management.html" target="course-frame">Device Management</a></li>
+            <li><a href="tutorial-029-kernel-module-management.html" target="course-frame">Kernel Module Management</a></li>
+            <li><a href="tutorial-030-module-information-and-dependency-handling.html" target="course-frame">Module Information and Dependency Handling</a></li>
+            <li><a href="tutorial-031-hardware-information-commands.html" target="course-frame">Hardware Information Commands</a></li>
+            <li><a href="tutorial-032-hardware-inventory-commands.html" target="course-frame">Hardware Inventory Commands</a></li>
+            <li><a href="tutorial-033-system-monitoring-and-diagnostics-commands.html" target="course-frame">System Monitoring and Diagnostics Commands</a></li>
+            <li><a href="tutorial-034-initrd-management.html" target="course-frame">Initrd Management</a></li>
+            <li><a href="tutorial-035-custom-hardware.html" target="course-frame">Custom Hardware</a></li>
+            <li><a href="tutorial-036-checkpoint-device-management.html" target="course-frame">Checkpoint: Device Management</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Storage Management</h2>
+          <p>এই অধ্যায়ে Storage Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-037-storage-management.html" target="course-frame">Storage Management</a></li>
+            <li><a href="tutorial-038-partition-information-commands.html" target="course-frame">Partition Information Commands</a></li>
+            <li><a href="tutorial-039-partition-management-commands.html" target="course-frame">Partition Management Commands</a></li>
+            <li><a href="tutorial-040-redundant-array-of-independent-disks-raid.html" target="course-frame">Redundant Array of Independent Disks (RAID)</a></li>
+            <li><a href="tutorial-041-basic-physical-volume-management.html" target="course-frame">Basic Physical Volume Management</a></li>
+            <li><a href="tutorial-042-modifying-and-removing-physical-volumes.html" target="course-frame">Modifying and Removing Physical Volumes</a></li>
+            <li><a href="tutorial-043-basic-volume-group-management.html" target="course-frame">Basic Volume Group Management</a></li>
+            <li><a href="tutorial-044-modifying-and-removing-volume-groups.html" target="course-frame">Modifying and Removing Volume Groups</a></li>
+            <li><a href="tutorial-045-basic-logical-volume-management.html" target="course-frame">Basic Logical Volume Management</a></li>
+            <li><a href="tutorial-046-modifying-and-removing-logical-volumes.html" target="course-frame">Modifying and Removing Logical Volumes</a></li>
+            <li><a href="tutorial-047-static-and-system-mount-information.html" target="course-frame">Static and System Mount Information</a></li>
+            <li><a href="tutorial-048-dynamic-mounting-and-automounting.html" target="course-frame">Dynamic Mounting and Automounting</a></li>
+            <li><a href="tutorial-049-performance-accessibility-mount-options.html" target="course-frame">Performance & Accessibility Mount Options</a></li>
+            <li><a href="tutorial-050-security-restriction-mount-options.html" target="course-frame">Security & Restriction Mount Options</a></li>
+            <li><a href="tutorial-051-network-mounts.html" target="course-frame">Network Mounts</a></li>
+            <li><a href="tutorial-052-filesystems-formats.html" target="course-frame">Filesystems Formats</a></li>
+            <li><a href="tutorial-053-inodes.html" target="course-frame">Inodes</a></li>
+            <li><a href="tutorial-054-filesystem-creation-and-modification-utilities.html" target="course-frame">Filesystem Creation and Modification Utilities</a></li>
+            <li><a href="tutorial-055-checkpoint-storage-management.html" target="course-frame">Checkpoint: Storage Management</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> File and Directory Management</h2>
+          <p>এই অধ্যায়ে File and Directory Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-056-file-and-directory-management.html" target="course-frame">File and Directory Management</a></li>
+            <li><a href="tutorial-057-navigation-and-directory-management-commands.html" target="course-frame">Navigation and Directory Management Commands</a></li>
+            <li><a href="tutorial-058-file-operation-commands.html" target="course-frame">File Operation Commands</a></li>
+            <li><a href="tutorial-059-file-information-and-search-commands.html" target="course-frame">File Information and Search Commands</a></li>
+            <li><a href="tutorial-060-file-comparison-and-usage-commands.html" target="course-frame">File Comparison and Usage Commands</a></li>
+            <li><a href="tutorial-061-file-links.html" target="course-frame">File Links</a></li>
+            <li><a href="tutorial-062-dev-device-types.html" target="course-frame">/dev Device Types</a></li>
+            <li><a href="tutorial-063-checkpoint-file-and-directory-management.html" target="course-frame">Checkpoint: File and Directory Management</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Local Account Management</h2>
+          <p>এই অধ্যায়ে Local Account Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-064-local-account-management.html" target="course-frame">Local Account Management</a></li>
+            <li><a href="tutorial-065-add.html" target="course-frame">Add</a></li>
+            <li><a href="tutorial-066-delete.html" target="course-frame">Delete</a></li>
+            <li><a href="tutorial-067-modify.html" target="course-frame">Modify</a></li>
+            <li><a href="tutorial-068-lock.html" target="course-frame">Lock</a></li>
+            <li><a href="tutorial-069-expiration.html" target="course-frame">Expiration</a></li>
+            <li><a href="tutorial-070-user-information.html" target="course-frame">User Information</a></li>
+            <li><a href="tutorial-071-login-session-tracking.html" target="course-frame">Login/Session Tracking</a></li>
+            <li><a href="tutorial-072-user-profile-templates.html" target="course-frame">User Profile Templates</a></li>
+            <li><a href="tutorial-073-account-files.html" target="course-frame">Account Files</a></li>
+            <li><a href="tutorial-074-attributes.html" target="course-frame">Attributes</a></li>
+            <li><a href="tutorial-075-account-comparisons.html" target="course-frame">Account Comparisons</a></li>
+            <li><a href="tutorial-076-checkpoint-local-account-management.html" target="course-frame">Checkpoint: Local Account Management</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Processes</h2>
+          <p>এই অধ্যায়ে Processes সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-077-processes.html" target="course-frame">Processes</a></li>
+            <li><a href="tutorial-078-process-id.html" target="course-frame">Process ID</a></li>
+            <li><a href="tutorial-079-process-states.html" target="course-frame">Process States</a></li>
+            <li><a href="tutorial-080-process-priority.html" target="course-frame">Process Priority</a></li>
+            <li><a href="tutorial-081-process-monitoring.html" target="course-frame">Process Monitoring</a></li>
+            <li><a href="tutorial-082-performance-metrics.html" target="course-frame">Performance Metrics</a></li>
+            <li><a href="tutorial-083-diagnostic-and-debugging-tools.html" target="course-frame">Diagnostic and Debugging Tools</a></li>
+            <li><a href="tutorial-084-process-limits.html" target="course-frame">Process Limits</a></li>
+            <li><a href="tutorial-085-job-control-commands.html" target="course-frame">Job Control Commands</a></li>
+            <li><a href="tutorial-086-background-execution-commands.html" target="course-frame">Background Execution Commands</a></li>
+            <li><a href="tutorial-087-signals-and-process-termination.html" target="course-frame">Signals and Process Termination</a></li>
+            <li><a href="tutorial-088-shell-and-process-invocation.html" target="course-frame">Shell and Process Invocation</a></li>
+            <li><a href="tutorial-089-job-scheduling.html" target="course-frame">Job Scheduling</a></li>
+            <li><a href="tutorial-090-checkpoint-processes.html" target="course-frame">Checkpoint: Processes</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Software Configuration and Management</h2>
+          <p>এই অধ্যায়ে Software Configuration and Management সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-091-software-configuration-and-management.html" target="course-frame">Software Configuration and Management</a></li>
+            <li><a href="tutorial-092-package-managers-by-distributions.html" target="course-frame">Package Managers by Distributions</a></li>
+            <li><a href="tutorial-093-system-level-package-management.html" target="course-frame">System-Level Package Management</a></li>
+            <li><a href="tutorial-094-manual-or-specialized-installations.html" target="course-frame">Manual or Specialized Installations</a></li>
+            <li><a href="tutorial-095-repository-management.html" target="course-frame">Repository Management</a></li>
+            <li><a href="tutorial-096-debian-based-package-and-repository-exclusions.html" target="course-frame">Debian-based Package and Repository Exclusions</a></li>
+            <li><a href="tutorial-097-rhel-based-package-and-repository-exclusions.html" target="course-frame">RHEL-based Package and Repository Exclusions</a></li>
+            <li><a href="tutorial-098-opensuse-based-package-and-repository-exclusions.html" target="course-frame">openSUSE-based Package and Repository Exclusions</a></li>
+            <li><a href="tutorial-099-update-alternatives.html" target="course-frame">Update Alternatives</a></li>
+            <li><a href="tutorial-100-software-configuration.html" target="course-frame">Software Configuration</a></li>
+            <li><a href="tutorial-101-sandboxed-applications.html" target="course-frame">Sandboxed Applications</a></li>
+            <li><a href="tutorial-102-core-level-service-configuration.html" target="course-frame">Core-level Service Configuration</a></li>
+            <li><a href="tutorial-103-application-level-service-configuration.html" target="course-frame">Application-level Service Configuration</a></li>
+            <li><a href="tutorial-104-checkpoint-software-configuration-and-management.html" target="course-frame">Checkpoint: Software Configuration and Management</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Systemd</h2>
+          <p>এই অধ্যায়ে Systemd সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-105-systemd.html" target="course-frame">Systemd</a></li>
+            <li><a href="tutorial-106-units.html" target="course-frame">Units</a></li>
+            <li><a href="tutorial-107-management-utilities.html" target="course-frame">Management Utilities</a></li>
+            <li><a href="tutorial-108-configuration-utilities.html" target="course-frame">Configuration Utilities</a></li>
+            <li><a href="tutorial-109-analysis-and-diagnostic-utilities.html" target="course-frame">Analysis and Diagnostic Utilities</a></li>
+            <li><a href="tutorial-110-configuration-and-reloading-unit-states.html" target="course-frame">Configuration and Reloading Unit States</a></li>
+            <li><a href="tutorial-111-boot-time-state-management.html" target="course-frame">Boot-Time State Management</a></li>
+            <li><a href="tutorial-112-service-control.html" target="course-frame">Service Control</a></li>
+            <li><a href="tutorial-113-checkpoint-systemd.html" target="course-frame">Checkpoint: Systemd</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Virtualization</h2>
+          <p>এই অধ্যায়ে Virtualization সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-114-virtualization.html" target="course-frame">Virtualization</a></li>
+            <li><a href="tutorial-115-bare-metal-vs-virtual-machines.html" target="course-frame">Bare metal vs virtual machines</a></li>
+            <li><a href="tutorial-116-hypervisors.html" target="course-frame">Hypervisors</a></li>
+            <li><a href="tutorial-117-vm-architecture-and-performance.html" target="course-frame">VM Architecture and Performance</a></li>
+            <li><a href="tutorial-118-operations.html" target="course-frame">Operations</a></li>
+            <li><a href="tutorial-119-vm-resources.html" target="course-frame">VM Resources</a></li>
+            <li><a href="tutorial-120-vm-management.html" target="course-frame">VM Management</a></li>
+            <li><a href="tutorial-121-network-types.html" target="course-frame">Network Types</a></li>
+            <li><a href="tutorial-122-vm-tools.html" target="course-frame">VM Tools</a></li>
+            <li><a href="tutorial-123-checkpoint-virtualization.html" target="course-frame">Checkpoint: Virtualization</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Containers</h2>
+          <p>এই অধ্যায়ে Containers সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-124-containers.html" target="course-frame">Containers</a></li>
+            <li><a href="tutorial-125-runtimes.html" target="course-frame">Runtimes</a></li>
+            <li><a href="tutorial-126-building-an-image.html" target="course-frame">Building an Image</a></li>
+            <li><a href="tutorial-127-image-retrieval-and-maintenance.html" target="course-frame">Image Retrieval and Maintenance</a></li>
+            <li><a href="tutorial-128-container-lifecycle-management.html" target="course-frame">Container Lifecycle Management</a></li>
+            <li><a href="tutorial-129-container-inspection-and-interaction.html" target="course-frame">Container Inspection and Interaction</a></li>
+            <li><a href="tutorial-130-container-storage-and-tagging.html" target="course-frame">Container Storage and Tagging</a></li>
+            <li><a href="tutorial-131-volume-management-operations.html" target="course-frame">Volume Management Operations</a></li>
+            <li><a href="tutorial-132-volume-security-and-filesystem-operations.html" target="course-frame">Volume Security and Filesystem Operations</a></li>
+            <li><a href="tutorial-133-network-management-operations.html" target="course-frame">Network Management Operations</a></li>
+            <li><a href="tutorial-134-local-networks.html" target="course-frame">Local Networks</a></li>
+            <li><a href="tutorial-135-advanced-and-overlay-networks.html" target="course-frame">Advanced and Overlay Networks</a></li>
+            <li><a href="tutorial-136-privileged-vs-unprivileged.html" target="course-frame">Privileged vs Unprivileged</a></li>
+            <li><a href="tutorial-137-checkpoint-containers.html" target="course-frame">Checkpoint: Containers</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Network Services and Configurations</h2>
+          <p>এই অধ্যায়ে Network Services and Configurations সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-138-network-services-and-configurations.html" target="course-frame">Network Services and Configurations</a></li>
+            <li><a href="tutorial-139-network-configuration.html" target="course-frame">Network Configuration</a></li>
+            <li><a href="tutorial-140-networkmanager.html" target="course-frame">NetworkManager</a></li>
+            <li><a href="tutorial-141-netplan.html" target="course-frame">Netplan</a></li>
+            <li><a href="tutorial-142-ip-network-management-tool.html" target="course-frame">IP Network Management Tool</a></li>
+            <li><a href="tutorial-143-network-configuration-tools.html" target="course-frame">Network Configuration Tools</a></li>
+            <li><a href="tutorial-144-network-connectivity-tools.html" target="course-frame">Network Connectivity Tools</a></li>
+            <li><a href="tutorial-145-scanning-and-traffic-analysis-tools.html" target="course-frame">Scanning and Traffic Analysis Tools</a></li>
+            <li><a href="tutorial-146-dns-tools.html" target="course-frame">DNS Tools</a></li>
+            <li><a href="tutorial-147-checkpoint-network-services-and-configurations.html" target="course-frame">Checkpoint: Network Services and Configurations</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Backup and Restore Operations</h2>
+          <p>এই অধ্যায়ে Backup and Restore Operations সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-148-backup-and-restore-operations.html" target="course-frame">Backup and Restore Operations</a></li>
+            <li><a href="tutorial-149-relative-paths.html" target="course-frame">Relative Paths</a></li>
+            <li><a href="tutorial-150-archiving.html" target="course-frame">Archiving</a></li>
+            <li><a href="tutorial-151-compression-tools.html" target="course-frame">Compression Tools</a></li>
+            <li><a href="tutorial-152-decompression-tools.html" target="course-frame">Decompression Tools</a></li>
+            <li><a href="tutorial-153-data-copy-and-recovery.html" target="course-frame">Data Copy and Recovery</a></li>
+            <li><a href="tutorial-154-compressed-file-operations.html" target="course-frame">Compressed File Operations</a></li>
+            <li><a href="tutorial-155-checkpoint-backup-and-restore-operations.html" target="course-frame">Checkpoint: Backup and Restore Operations</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Authorization, Authentication, and Accounting Methods</h2>
+          <p>এই অধ্যায়ে Authorization, Authentication, and Accounting Methods সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-156-authorization-authentication-and-accounting-methods.html" target="course-frame">Authorization, Authentication, and Accounting Methods</a></li>
+            <li><a href="tutorial-157-local-authentication.html" target="course-frame">Local Authentication</a></li>
+            <li><a href="tutorial-158-directory-based-identity-management.html" target="course-frame">Directory-based Identity Management</a></li>
+            <li><a href="tutorial-159-network-domain-integration.html" target="course-frame">Network / Domain Integration</a></li>
+            <li><a href="tutorial-160-logging.html" target="course-frame">Logging</a></li>
+            <li><a href="tutorial-161-system-audit.html" target="course-frame">System Audit</a></li>
+            <li><a href="tutorial-162-checkpoint-authorization-authentication-and-accounting-methods.html" target="course-frame">Checkpoint: Authorization, Authentication, and Accounting Methods</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Firewall Implementation</h2>
+          <p>এই অধ্যায়ে Firewall Implementation সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-163-firewall-implementation.html" target="course-frame">Firewall Implementation</a></li>
+            <li><a href="tutorial-164-firewalld-configuration-and-management.html" target="course-frame">Firewalld Configuration and Management</a></li>
+            <li><a href="tutorial-165-firewalld-rules-and-access-control.html" target="course-frame">Firewalld Rules and Access Control</a></li>
+            <li><a href="tutorial-166-uncomplicated-firewall.html" target="course-frame">Uncomplicated Firewall</a></li>
+            <li><a href="tutorial-167-firewall-implementations.html" target="course-frame">Firewall Implementations</a></li>
+            <li><a href="tutorial-168-netfilter-module.html" target="course-frame">Netfilter Module</a></li>
+            <li><a href="tutorial-169-types-of-address-translation.html" target="course-frame">Types of Address Translation</a></li>
+            <li><a href="tutorial-170-network-address-translation-variants.html" target="course-frame">Network Address Translation Variants</a></li>
+            <li><a href="tutorial-171-stateful-vs-stateless.html" target="course-frame">Stateful vs Stateless</a></li>
+            <li><a href="tutorial-172-ip-forwarding.html" target="course-frame">IP forwarding</a></li>
+            <li><a href="tutorial-173-checkpoint-firewall-implementation.html" target="course-frame">Checkpoint: Firewall Implementation</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Hardening Techniques</h2>
+          <p>এই অধ্যায়ে Hardening Techniques সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-174-account-hardening-techniques.html" target="course-frame">Account Hardening Techniques</a></li>
+            <li><a href="tutorial-175-password-composition-controls.html" target="course-frame">Password Composition Controls</a></li>
+            <li><a href="tutorial-176-password-lifecycle-controls.html" target="course-frame">Password Lifecycle Controls</a></li>
+            <li><a href="tutorial-177-mfa.html" target="course-frame">MFA</a></li>
+            <li><a href="tutorial-178-checking-existing-breach-lists.html" target="course-frame">Checking existing breach lists</a></li>
+            <li><a href="tutorial-179-restricted-shell-use.html" target="course-frame">Restricted shell use</a></li>
+            <li><a href="tutorial-180-pam-tally2.html" target="course-frame">pam_tally2</a></li>
+            <li><a href="tutorial-181-avoid-running-as-root.html" target="course-frame">Avoid running as root</a></li>
+            <li><a href="tutorial-182-checkpoint-hardening-techniques.html" target="course-frame">Checkpoint: Hardening Techniques</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Cryptographic Concepts</h2>
+          <p>এই অধ্যায়ে Cryptographic Concepts সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-183-cryptographic-concepts.html" target="course-frame">Cryptographic Concepts</a></li>
+            <li><a href="tutorial-184-data-at-rest-file-encryption.html" target="course-frame">Data at Rest - File Encryption</a></li>
+            <li><a href="tutorial-185-data-at-rest-filesystem-encryption.html" target="course-frame">Data at Rest - Filesystem Encryption</a></li>
+            <li><a href="tutorial-186-data-in-transit-openssl.html" target="course-frame">Data in Transit - OpenSSL</a></li>
+            <li><a href="tutorial-187-data-in-transit-protection-methods.html" target="course-frame">Data in Transit Protection Methods</a></li>
+            <li><a href="tutorial-188-hashing.html" target="course-frame">Hashing</a></li>
+            <li><a href="tutorial-189-removal-of-weak-algorithms.html" target="course-frame">Removal of Weak Algorithms</a></li>
+            <li><a href="tutorial-190-certificate-management.html" target="course-frame">Certificate Management</a></li>
+            <li><a href="tutorial-191-self-signed-certificates.html" target="course-frame">Self-Signed Certificates</a></li>
+            <li><a href="tutorial-192-checkpoint-cryptographic-concepts.html" target="course-frame">Checkpoint: Cryptographic Concepts</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Compliance and Audit Procedures</h2>
+          <p>এই অধ্যায়ে Compliance and Audit Procedures সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-193-compliance-and-audit-procedures.html" target="course-frame">Compliance and Audit Procedures</a></li>
+            <li><a href="tutorial-194-detection-and-response.html" target="course-frame">Detection and Response</a></li>
+            <li><a href="tutorial-195-vulnerability-categorization.html" target="course-frame">Vulnerability Categorization</a></li>
+            <li><a href="tutorial-196-vulnerability-management.html" target="course-frame">Vulnerability Management</a></li>
+            <li><a href="tutorial-197-vulnerability-detection.html" target="course-frame">Vulnerability Detection</a></li>
+            <li><a href="tutorial-198-standards-and-audit.html" target="course-frame">Standards and Audit</a></li>
+            <li><a href="tutorial-199-file-integrity-verification.html" target="course-frame">File Integrity Verification</a></li>
+            <li><a href="tutorial-200-file-integrity-tools.html" target="course-frame">File Integrity Tools</a></li>
+            <li><a href="tutorial-201-data-destruction-overwriting-tools.html" target="course-frame">Data Destruction Overwriting Tools</a></li>
+            <li><a href="tutorial-202-cryptographic-data-destruction.html" target="course-frame">Cryptographic Data Destruction</a></li>
+            <li><a href="tutorial-203-software-supply-chain.html" target="course-frame">Software Supply Chain</a></li>
+            <li><a href="tutorial-204-security-banners.html" target="course-frame">Security Banners</a></li>
+            <li><a href="tutorial-205-checkpoint-compliance-and-audit-procedures.html" target="course-frame">Checkpoint: Compliance and Audit Procedures</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Operating System Hardening</h2>
+          <p>এই অধ্যায়ে Operating System Hardening সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-206-operating-system-hardening.html" target="course-frame">Operating System Hardening</a></li>
+            <li><a href="tutorial-207-sudo-configuration.html" target="course-frame">sudo Configuration</a></li>
+            <li><a href="tutorial-208-sudoers-directives.html" target="course-frame">sudoers Directives</a></li>
+            <li><a href="tutorial-209-sudo-user-groups.html" target="course-frame">sudo User Groups</a></li>
+            <li><a href="tutorial-210-root-shell.html" target="course-frame">Root shell</a></li>
+            <li><a href="tutorial-211-file-attributes.html" target="course-frame">File Attributes</a></li>
+            <li><a href="tutorial-212-file-permissions.html" target="course-frame">File Permissions</a></li>
+            <li><a href="tutorial-213-file-modifications.html" target="course-frame">File Modifications</a></li>
+            <li><a href="tutorial-214-file-special-permissions.html" target="course-frame">File Special Permissions</a></li>
+            <li><a href="tutorial-215-default-file-creation-mask.html" target="course-frame">Default File Creation Mask</a></li>
+            <li><a href="tutorial-216-acls.html" target="course-frame">ACLs</a></li>
+            <li><a href="tutorial-217-selinux-states.html" target="course-frame">SELinux States</a></li>
+            <li><a href="tutorial-218-selinux-mode-management.html" target="course-frame">SELinux Mode Management</a></li>
+            <li><a href="tutorial-219-selinux-file-security-contexts.html" target="course-frame">SELinux File Security Contexts</a></li>
+            <li><a href="tutorial-220-selinux-system-wide-configuration.html" target="course-frame">SELinux System-wide Configuration</a></li>
+            <li><a href="tutorial-221-selinux-logging-and-troubleshooting.html" target="course-frame">SELinux Logging and Troubleshooting</a></li>
+            <li><a href="tutorial-222-sshd-secure-authentication-and-access-control.html" target="course-frame">SSHD Secure Authentication and Access Control</a></li>
+            <li><a href="tutorial-223-sshd-secure-configuration-and-usage.html" target="course-frame">SSHD Secure Configuration and Usage</a></li>
+            <li><a href="tutorial-224-secure-remote-access.html" target="course-frame">Secure Remote Access</a></li>
+            <li><a href="tutorial-225-fail2ban.html" target="course-frame">fail2ban</a></li>
+            <li><a href="tutorial-226-avoid-unsecure-services.html" target="course-frame">Avoid Unsecure Services</a></li>
+            <li><a href="tutorial-227-disable-unused-file-systems.html" target="course-frame">Disable Unused File Systems</a></li>
+            <li><a href="tutorial-228-unnecessary-suid-permissions.html" target="course-frame">Unnecessary SUID Permissions</a></li>
+            <li><a href="tutorial-229-secure-boot.html" target="course-frame">Secure Boot</a></li>
+            <li><a href="tutorial-230-checkpoint-operating-system-hardening.html" target="course-frame">Checkpoint: Operating System Hardening</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Automation and Orchestration</h2>
+          <p>এই অধ্যায়ে Automation and Orchestration সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-231-automation-and-orchestration.html" target="course-frame">Automation and Orchestration</a></li>
+            <li><a href="tutorial-232-ansible-iac-core-concepts.html" target="course-frame">Ansible IaC Core Concepts</a></li>
+            <li><a href="tutorial-233-ansible-iac-advanced-usage.html" target="course-frame">Ansible IaC Advanced Usage</a></li>
+            <li><a href="tutorial-234-puppet-core-usage.html" target="course-frame">Puppet Core Usage</a></li>
+            <li><a href="tutorial-235-puppet-advanced-usage.html" target="course-frame">Puppet Advanced Usage</a></li>
+            <li><a href="tutorial-236-opentofu-core-usage.html" target="course-frame">OpenTofu Core Usage</a></li>
+            <li><a href="tutorial-237-opentofu-advanced-usage.html" target="course-frame">OpenTofu Advanced Usage</a></li>
+            <li><a href="tutorial-238-unattended-deployment.html" target="course-frame">Unattended Deployment</a></li>
+            <li><a href="tutorial-239-foundational-ci-cd-concepts.html" target="course-frame">Foundational CI/CD Concepts</a></li>
+            <li><a href="tutorial-240-modern-ci-cd-approaches.html" target="course-frame">Modern CI/CD Approaches</a></li>
+            <li><a href="tutorial-241-kubernetes-core-workloads-for-deployment-orchestration.html" target="course-frame">Kubernetes Core Workloads for Deployment Orchestration</a></li>
+            <li><a href="tutorial-242-kubernetes-configuration.html" target="course-frame">Kubernetes Configuration</a></li>
+            <li><a href="tutorial-243-docker-swarm-core-workloads-for-deployment-orchestration.html" target="course-frame">Docker Swarm Core Workloads for Deployment Orchestration</a></li>
+            <li><a href="tutorial-244-docker-swarm-configuration.html" target="course-frame">Docker Swarm Configuration</a></li>
+            <li><a href="tutorial-245-docker-podman-compose-for-deployment-orchestration.html" target="course-frame">Docker/Podman Compose for Deployment Orchestration</a></li>
+            <li><a href="tutorial-246-checkpoint-automation-and-orchestration.html" target="course-frame">Checkpoint: Automation and Orchestration</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Automated Tasks with Shell Scripting</h2>
+          <p>এই অধ্যায়ে Automated Tasks with Shell Scripting সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-247-automated-tasks-with-shell-scripting.html" target="course-frame">Automated Tasks with Shell Scripting</a></li>
+            <li><a href="tutorial-248-parameter-expansion.html" target="course-frame">Parameter Expansion</a></li>
+            <li><a href="tutorial-249-command-substitution.html" target="course-frame">Command Substitution</a></li>
+            <li><a href="tutorial-250-subshell-execution.html" target="course-frame">Subshell Execution</a></li>
+            <li><a href="tutorial-251-functions.html" target="course-frame">Functions</a></li>
+            <li><a href="tutorial-252-internal-field-separator-output-field-separator.html" target="course-frame">Internal Field Separator / Output Field Separator</a></li>
+            <li><a href="tutorial-253-conditional-statements.html" target="course-frame">Conditional Statements</a></li>
+            <li><a href="tutorial-254-looping-statements.html" target="course-frame">Looping Statements</a></li>
+            <li><a href="tutorial-255-interpreter-directive.html" target="course-frame">Interpreter Directive</a></li>
+            <li><a href="tutorial-256-numerical-comparisons.html" target="course-frame">Numerical Comparisons</a></li>
+            <li><a href="tutorial-257-redirection-string-operators.html" target="course-frame">Redirection String Operators</a></li>
+            <li><a href="tutorial-258-comparison-string-operators.html" target="course-frame">Comparison String Operators</a></li>
+            <li><a href="tutorial-259-regular-expressions.html" target="course-frame">Regular Expressions</a></li>
+            <li><a href="tutorial-260-test-operators.html" target="course-frame">Test Operators</a></li>
+            <li><a href="tutorial-261-variables.html" target="course-frame">Variables</a></li>
+            <li><a href="tutorial-262-alias-and-command-management.html" target="course-frame">Alias and Command Management</a></li>
+            <li><a href="tutorial-263-variable-management.html" target="course-frame">Variable Management</a></li>
+            <li><a href="tutorial-264-return-codes.html" target="course-frame">Return Codes</a></li>
+            <li><a href="tutorial-265-checkpoint-automated-tasks-with-shell-scripting.html" target="course-frame">Checkpoint: Automated Tasks with Shell Scripting</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Python Basics</h2>
+          <p>এই অধ্যায়ে Python Basics সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-266-python-basics.html" target="course-frame">Python Basics</a></li>
+            <li><a href="tutorial-267-setting-up-a-virtual-environment.html" target="course-frame">Setting up a virtual environment</a></li>
+            <li><a href="tutorial-268-built-in-modules.html" target="course-frame">Built-in modules</a></li>
+            <li><a href="tutorial-269-installing-dependencies.html" target="course-frame">Installing dependencies</a></li>
+            <li><a href="tutorial-270-python-fundamentals.html" target="course-frame">Python Fundamentals</a></li>
+            <li><a href="tutorial-271-python-data-types.html" target="course-frame">Python Data Types</a></li>
+            <li><a href="tutorial-272-python-structures.html" target="course-frame">Python Structures</a></li>
+            <li><a href="tutorial-273-extensible-using-python-modules-and-packages.html" target="course-frame">Extensible using Python modules and packages</a></li>
+            <li><a href="tutorial-274-pep-8-best-practices.html" target="course-frame">PEP 8 Best Practices</a></li>
+            <li><a href="tutorial-275-checkpoint-python-basics.html" target="course-frame">Checkpoint: Python Basics</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Implement Git</h2>
+          <p>এই অধ্যায়ে Implement Git সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-276-implement-git.html" target="course-frame">Implement Git</a></li>
+            <li><a href="tutorial-277-git-basics.html" target="course-frame">Git Basics</a></li>
+            <li><a href="tutorial-278-git-changes.html" target="course-frame">Git Changes</a></li>
+            <li><a href="tutorial-279-git-versions.html" target="course-frame">Git Versions</a></li>
+            <li><a href="tutorial-280-git-repositories.html" target="course-frame">Git Repositories</a></li>
+            <li><a href="tutorial-281-managing-git-workflows.html" target="course-frame">Managing Git Workflows</a></li>
+            <li><a href="tutorial-282-checkpoint-implement-git.html" target="course-frame">Checkpoint: Implement Git</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Use of Artificial Intelligence</h2>
+          <p>এই অধ্যায়ে Use of Artificial Intelligence সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-283-use-of-artificial-intelligence.html" target="course-frame">Use of Artificial Intelligence</a></li>
+            <li><a href="tutorial-284-code-generation-use-cases.html" target="course-frame">Code Generation Use Cases</a></li>
+            <li><a href="tutorial-285-code-quality-use-cases.html" target="course-frame">Code Quality Use Cases</a></li>
+            <li><a href="tutorial-286-security-and-compliance-use-cases.html" target="course-frame">Security and Compliance Use Cases</a></li>
+            <li><a href="tutorial-287-ai-best-practices.html" target="course-frame">AI Best Practices</a></li>
+            <li><a href="tutorial-288-ai-data-governance.html" target="course-frame">AI Data Governance</a></li>
+            <li><a href="tutorial-289-ai-local-models.html" target="course-frame">AI Local Models</a></li>
+            <li><a href="tutorial-290-prompt-engineering.html" target="course-frame">Prompt Engineering</a></li>
+            <li><a href="tutorial-291-checkpoint-use-of-artificial-intelligence.html" target="course-frame">Checkpoint: Use of Artificial Intelligence</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Monitoring Concepts and Configurations</h2>
+          <p>এই অধ্যায়ে Monitoring Concepts and Configurations সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-292-monitoring-concepts-and-configurations.html" target="course-frame">Monitoring Concepts and Configurations</a></li>
+            <li><a href="tutorial-293-service-monitoring.html" target="course-frame">Service Monitoring</a></li>
+            <li><a href="tutorial-294-networking-monitoring.html" target="course-frame">Networking Monitoring</a></li>
+            <li><a href="tutorial-295-event-driven-data-collection.html" target="course-frame">Event-driven Data Collection</a></li>
+            <li><a href="tutorial-296-event-management.html" target="course-frame">Event Management</a></li>
+            <li><a href="tutorial-297-alerting-and-notifications.html" target="course-frame">Alerting and Notifications</a></li>
+            <li><a href="tutorial-298-checkpoint-monitoring-concepts-and-configurations.html" target="course-frame">Checkpoint: Monitoring Concepts and Configurations</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Troubleshooting Hardware, Storage, and LinuxOS</h2>
+          <p>এই অধ্যায়ে Troubleshooting Hardware, Storage, and LinuxOS সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-299-troubleshooting-hardware-storage-and-linuxos.html" target="course-frame">Troubleshooting Hardware, Storage, and LinuxOS</a></li>
+            <li><a href="tutorial-300-boot-issues.html" target="course-frame">Boot Issues</a></li>
+            <li><a href="tutorial-301-filesystem-issues.html" target="course-frame">Filesystem Issues</a></li>
+            <li><a href="tutorial-302-process-issues.html" target="course-frame">Process Issues</a></li>
+            <li><a href="tutorial-303-system-issues.html" target="course-frame">System Issues</a></li>
+            <li><a href="tutorial-304-dependency-issues.html" target="course-frame">Dependency Issues</a></li>
+            <li><a href="tutorial-305-checkpoint-troubleshooting-hardware-storage-and-linuxos.html" target="course-frame">Checkpoint: Troubleshooting Hardware, Storage, and LinuxOS</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Troubleshooting Networking Issues</h2>
+          <p>এই অধ্যায়ে Troubleshooting Networking Issues সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-306-troubleshooting-networking-issues.html" target="course-frame">Troubleshooting Networking Issues</a></li>
+            <li><a href="tutorial-307-firewall-issues.html" target="course-frame">Firewall Issues</a></li>
+            <li><a href="tutorial-308-addressing-issues.html" target="course-frame">Addressing Issues</a></li>
+            <li><a href="tutorial-309-routing-issues.html" target="course-frame">Routing Issues</a></li>
+            <li><a href="tutorial-310-interface-misconfiguration.html" target="course-frame">Interface Misconfiguration</a></li>
+            <li><a href="tutorial-311-link-issues.html" target="course-frame">Link Issues</a></li>
+            <li><a href="tutorial-312-checkpoint-troubleshooting-networking-issues.html" target="course-frame">Checkpoint: Troubleshooting Networking Issues</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Troubleshooting Security Issues</h2>
+          <p>এই অধ্যায়ে Troubleshooting Security Issues সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-313-troubleshooting-security-issues.html" target="course-frame">Troubleshooting Security Issues</a></li>
+            <li><a href="tutorial-314-selinux-issues.html" target="course-frame">SELinux Issues</a></li>
+            <li><a href="tutorial-315-file-and-directory-permission-issues.html" target="course-frame">File and Directory Permission Issues</a></li>
+            <li><a href="tutorial-316-access-issues.html" target="course-frame">Access Issues</a></li>
+            <li><a href="tutorial-317-configuration-issues.html" target="course-frame">Configuration Issues</a></li>
+            <li><a href="tutorial-318-vulnerabilities.html" target="course-frame">Vulnerabilities</a></li>
+            <li><a href="tutorial-319-checkpoint-troubleshooting-security-issues.html" target="course-frame">Checkpoint: Troubleshooting Security Issues</a></li>
+          </ul>
+
+          <h2><i class="bx bx-book"></i> Troubleshooting Performance Issues</h2>
+          <p>এই অধ্যায়ে Troubleshooting Performance Issues সম্পর্কিত বিষয়সমূহ ও ব্যবহারিক প্রয়োগ বিস্তারিত আলোচনা করা হয়েছে।</p>
+          <ul>
+            <li><a href="tutorial-320-troubleshooting-performance-issues.html" target="course-frame">Troubleshooting Performance Issues</a></li>
+            <li><a href="tutorial-321-cpu-issues.html" target="course-frame">CPU Issues</a></li>
+            <li><a href="tutorial-322-memory-issues.html" target="course-frame">Memory Issues</a></li>
+            <li><a href="tutorial-323-disk-i-o-issues.html" target="course-frame">Disk I/O Issues</a></li>
+            <li><a href="tutorial-324-network-stability-issues.html" target="course-frame">Network Stability Issues</a></li>
+            <li><a href="tutorial-325-network-performance-issues.html" target="course-frame">Network Performance Issues</a></li>
+            <li><a href="tutorial-326-system-responsiveness-issues.html" target="course-frame">System Responsiveness Issues</a></li>
+            <li><a href="tutorial-327-process-management-issues.html" target="course-frame">Process Management Issues</a></li>
+            <li><a href="tutorial-328-security-related-performance-issues.html" target="course-frame">Security-related Performance Issues</a></li>
+            <li><a href="tutorial-329-checkpoint-troubleshooting-performance-issues.html" target="course-frame">Checkpoint: Troubleshooting Performance Issues</a></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = document.querySelectorAll('a[target="course-frame"]');
+      links.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const href = link.getAttribute('href');
+          window.parent.postMessage({ type: 'tutorial-click', href: href }, '*');
+        });
+      });
+    });
+  </script>
+  <script type="module" src="../../js/network-background.js"></script>
+</body>
+
+</html>
