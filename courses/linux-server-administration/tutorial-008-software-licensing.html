@@ -1,32 +1,350 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Software Licensing | tech-enablement.info</title>
+  <meta name="description"
+    content="Software Licensing কী, এর বিভিন্ন প্রকারভেদ যেমন ওপেন সোর্স এবং প্রোপাইটরি লাইসেন্স এর গভীর মেকানিজম নিয়ে একটি সম্পূর্ণ প্রফেশনাল গাইড সহজ বাংলায়।">
+  <title>Deep Dive into Software Licensing: Types, Concepts, and Compliance | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Software Licensing</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Software Licensing</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Software Licensing</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আইটি ইনফ্রাস্ট্রাকচার ম্যানেজমেন্ট এবং সফটওয়্যার ডেভেলপমেন্টের ক্ষেত্রে আমরা প্রায়শই কোড, সার্ভার
+            কনফিগারেশন এবং আর্কিটেকচার নিয়ে মেতে থাকি। কিন্তু একটি এন্টারপ্রাইজ এনভায়রনমেন্ট সচল রাখতে ব্যাকএন্ডের
+            আরেকটি অত্যন্ত জটিল এবং গুরুত্বপূর্ণ লিগ্যাল বিষয় নিয়ে আমাদের ডিল করতে হয়, যার নাম <strong>Software
+              Licensing</strong>। আপনি একটি ওপেন-সোর্স লিনাক্স সার্ভার চালাচ্ছেন, নাকি কমার্শিয়াল কোনো ডাটাবেজ ব্যবহার
+            করছেন—তার আইনি বৈধতা ও ব্যবহারের বাউন্ডারি সম্পূর্ণ নির্ধারিত হয় এই সফটওয়্যার লাইসেন্সিংয়ের মাধ্যমে।</p>
+          <p>একজন প্রফেশনাল সিস্টেম অ্যাডমিনিস্ট্রেটর বা আইটি ম্যানেজার হিসেবে সফটওয়্যার লাইসেন্সিং এবং কমপ্লায়েন্স
+            (Compliance) এর খুঁটিনাটি নিখুঁতভাবে জানা বাধ্যতামূলক। এর সঠিক জ্ঞান না থাকলে কোম্পানি যেকোনো সময় বড় ধরনের
+            আইনি জটিলতা বা বিশাল অঙ্কের জরিমানার (Compliance Penalty) মুখে পড়তে পারে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা
+            ওপেন-সোর্স থেকে শুরু করে প্রোপাইটরি লাইসেন্সিং মডেলের গভীর মেকানিজম নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Software Licensing কী? (The Legal Framework)</h2>
+          <p>সহজ কথায়, <strong>Software License</strong> হলো একটি সফটওয়্যার ডেভেলপার বা ভেন্ডর (Licensor) এবং
+            ব্যবহারকারীর (Licensee) মধ্যে সম্পাদিত একটি আইনি চুক্তি বা লিগ্যাল ডকুমেন্ট। এই চুক্তিটি সুনির্দিষ্টভাবে
+            নির্দেশ করে যে ব্যবহারকারী সফটওয়্যারটি কীভাবে ব্যবহার করতে পারবেন, কতগুলো ডিভাইসে এটি ইনস্টল করা যাবে এবং
+            এর সোর্স কোড মডিফাই বা পুনঃডিস্ট্রিবিউট (Redistribute) করার কোনো অধিকার থাকবে কি না।</p>
+          <p>মনে রাখা জরুরি, যখন আপনি কোনো সফটওয়্যার কেনেন, আপনি কিন্তু মূলত সফটওয়্যারটির মালিকানা (Ownership) কেনেন
+            না; আপনি শুধুমাত্র সেটি ব্যবহারের একটি আইনি অনুমতিপত্র বা লাইসেন্স কেনেন। সফটওয়্যারটির মূল
+            <strong>Intellectual Property (IP)</strong> এবং কপিরাইট সব সময় ডেভেলপারের কাছেই সংরক্ষিত থাকে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Apartment Rental Analogy)</h3>
+            <p>সফটওয়্যার লাইসেন্সিংয়ের কনসেপ্টটি সহজে বোঝার জন্য একটি ফ্ল্যাট বা অ্যাপার্টমেন্টের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>The Ownership:</strong> অ্যাপার্টমেন্ট বিল্ডিংটির মূল ফিজিক্যাল মালিক হলেন একজন বাড়িওয়ালা
+                (Software Developer)।</li>
+              <li><strong>The Rental Agreement:</strong> আপনি যখন তার ফ্ল্যাটে থাকার জন্য একটি চুক্তিপত্র বা ডিড সই
+                করেন, সেটি হলো <strong>Software License</strong>। এই চুক্তিপত্রে লেখা থাকে আপনি ফ্ল্যাটে শুধু পরিবার
+                নিয়ে থাকতে পারবেন (Personal Use), নাকি সেখানে বাণিজ্যিক অফিস খুলতে পারবেন (Commercial Use)। </li>
+              <li><strong>The Boundary:</strong> চুক্তিপত্র অনুযায়ী আপনি ফ্ল্যাটের ভেতরের কোনো দেয়াল ভেঙে স্ট্রাকচার
+                পরিবর্তন (Modify Source Code) করতে পারবেন না। আপনি শর্ত ভঙ্গ করলে বাড়িওয়ালা আপনাকে আইনি নোটিশ দিতে
+                পারেন।</li>
+            </ul>
+          </div>
+
+          <h2>২. ওপেন সোর্স লাইসেন্সিং মডেল (Open Source Licensing)</h2>
+          <p>লিনাক্স ইকোসিস্টেম এবং আধুনিক সফটওয়্যার ইঞ্জিনিয়ারিংয়ের মূল চালিকাশক্তি হলো <strong>Open Source Software
+              (OSS)</strong>। ওপেন সোর্স লাইসেন্সগুলোর মূল দর্শন হলো ইউজারকে কোড দেখার, পরিবর্তন করার এবং শেয়ার করার
+            স্বাধীনতা দেওয়া। তবে ওপেন সোর্স লাইসেন্সকে মূলত দুটি প্রধান ভাগে ভাগ করা হয়:</p>
+
+          <h3>ক. Permissive Licenses (ফ্লেক্সিবিলটি এবং স্বাধীনতা)</h3>
+          <p>এই ধরনের লাইসেন্সগুলো ব্যবহারকারীকে প্রায় অসীম স্বাধীনতা দেয়। আপনি কোডটি নিয়ে নিজের মতো পরিবর্তন করতে পারেন
+            এবং চাইলে সেটিকে নিজের তৈরি একটি ক্লোজড-সোর্স বা বাণিজ্যিক সফটওয়্যার হিসেবে বিক্রিও করে দিতে পারেন। ওরিজিনাল
+            ডেভেলপারকে শুধু ক্রেডিট বা স্বীকৃতি দেওয়াই এখানে একমাত্র শর্ত।</p>
+          <ul>
+            <li><strong>MIT License:</strong> এটি পৃথিবীর সবচেয়ে জনপ্রিয় এবং সাধারণ পারমিসিভ লাইসেন্স। অত্যন্ত ছোট এবং
+              সোজা সাপটা নিয়ম।</li>
+            <li><strong>Apache License 2.0:</strong> এটিও পারমিসিভ, তবে এর বিশেষত্ব হলো এটি ব্যবহারকারীকে <strong>Patent
+                Rights</strong> বা পেটেন্ট সুরক্ষা প্রদান করে।</li>
+          </ul>
+
+          <h3>খ. Copyleft / Reciprocal Licenses (শেয়ারড প্রোটেকশন)</h3>
+          <p>একে বলা হয় "Restrictive" বা সুরক্ষামূলক ওপেন-সোর্স লাইসেন্স। এর মূল মূলনীতি হলো—আপনি যদি কোনো কপিলেফট
+            লাইসেন্সড ওপেন-সোর্স কোড ব্যবহার করে নিজের কোনো নতুন সফটওয়্যার বা মডিউল তৈরি করেন, তবে আপনার তৈরি নতুন
+            সফটওয়্যারের সোর্স কোডও বাধ্যতামূলকভাবে ওপেন-সোর্স হিসেবেই বাজারে ছাড়তে হবে। আপনি সেটিকে ক্লোজড-সোর্স বা
+            কমার্শিয়াল করতে পারবেন না।</p>
+          <ul>
+            <li><strong>GNU GPL (General Public License):</strong> লিনাক্স কার্নেল স্বয়ং এই <strong>GPLv2</strong>
+              লাইসেন্সের অধীনে চালিত হয়। আপনি লিনাক্সের কোড মডিফাই করে কোনো নতুন ওএস বানালে, আপনার ওএস-এর সোর্স কোডও
+              গ্লোবালি ফ্রি করে দিতে হবে।</li>
+          </ul>
+
+
+
+          <h2>৩. প্রোপাইটরি এবং কমার্শিয়াল লাইসেন্সিং (Proprietary Licensing)</h2>
+          <p>বাণিজ্যিক প্রতিষ্ঠানগুলো (যেমন—Microsoft, Oracle, Cisco) তাদের সফটওয়্যারের সোর্স কোড গোপন রাখে এবং
+            ব্যবহারের ওপর কঠোর আইনি সীমাবদ্ধতা আরোপ করে। একে বলা হয় <strong>Proprietary</strong> বা ক্লোজড-সোর্স
+            সফটওয়্যার। এর প্রধান মডেলগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>ক. EULA (End User License Agreement)</h3>
+          <p>আমরা যখন উইন্ডোজ ওএস বা কোনো কমার্শিয়াল অ্যাপ ইনস্টল করার সময় বড় একটি টেক্সট বক্সের নিচে "I Accept" বাটনে
+            ক্লিক করি, সেটিই হলো <strong>EULA</strong>। এটি একজন সিঙ্গেল ইউজারের ব্যবহারের নিয়ম ফিক্সড করে দেয়।</p>
+
+          <h3>খ. Enterprise Client Access License (CAL)</h3>
+          <p>কর্পোরেট নেটওয়ার্কে সার্ভার ওএস ব্যবহারের জন্য এটি অত্যন্ত গুরুত্বপূর্ণ। এখানে শুধু সার্ভারের লাইসেন্স
+            নিলেই চলে না; ওই সার্ভারটি অফিসের কতজন এমপ্লয়ি বা ক্লায়েন্ট ডিভাইস এক্সেস করছে, তার ওপর ভিত্তি করে
+            <strong>User CAL</strong> বা <strong>Device CAL</strong> লাইসেন্স আলাদাভাবে কিনতে হয়।</p>
+
+          <h3>গ. Core-Based Licensing</h3>
+          <p>আধুনিক ডাটাবেজ (যেমন Oracle, Microsoft SQL Server) এবং এন্টারপ্রাইজ অ্যাপ্লিকেশনগুলো এই মডেলে চলে। এখানে
+            ইউজার সংখ্যার ওপর বিল হয় না; আপনার ফিজিক্যাল বা ভার্চুয়াল সার্ভারে মোট কতটি <strong>CPU Core</strong> সচল
+            আছে, তার ওপর ভিত্তি করে লাইসেন্সের মূল্য নির্ধারিত হয়। প্রসেসর কোর যত বেশি হবে, লাইসেন্সের খরচ তত গুণ
+            জ্যামিতিক হারে বৃদ্ধি পাবে।</p>
+
+          <h2>৪. এক নজরে সফটওয়্যার লাইসেন্সিং রেডি-রেফারেন্স টেবিল</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>License Type Category</th>
+                  <th>Source Code Access</th>
+                  <th>Modification / Derivative Rights</th>
+                  <th>Commercial Re-branding</th>
+                  <th>Key Industry Examples</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Permissive Open Source</td>
+                  <td>Fully Open & Visible</td>
+                  <td>Allowed (Unlimited)</td>
+                  <td>Allowed (Can turn into closed source)</td>
+                  <td>MIT, Apache 2.0, BSD Licenses</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Copyleft Open Source</td>
+                  <td>Fully Open & Visible</td>
+                  <td>Allowed (Must remain open)</td>
+                  <td>Strictly Forbidden (Must use same GPL)</td>
+                  <td>GNU GPL v2/v3, Linux Kernel Core</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Proprietary / Commercial</td>
+                  <td>Strictly Hidden (Closed)</td>
+                  <td>Strictly Forbidden (Illegal)</td>
+                  <td>N/A (Managed by single Vendor)</td>
+                  <td>Microsoft Windows, Cisco IOS, Oracle DB</td>
+                </tr>
+                <tr>
+                  <td class="type-column">SaaS (Software as a Service)</td>
+                  <td>Cloud Hosted (No local access)</td>
+                  <td>N/A (Managed in Cloud)</td>
+                  <td>Subscription Model (Pay-per-user)</td>
+                  <td>Microsoft 365, AWS Cloud Services, Salesforce</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৫. প্র্যাকটিক্যাল লিনাক্স অপারেশন: লাইসেন্স ও কমপ্লায়েন্স অডিট</h2>
+          <p>একটি এন্টারপ্রাইজ লিনাক্স সার্ভারে আপনার ইনস্টল করা প্যাকেজ বা থার্ড-পার্টি টুলসগুলো কোন লাইসেন্সের অধীনে
+            চলছে, তা কমান্ড লাইনের মাধ্যমে অডিট করার স্ট্যান্ডার্ড ধাপগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>ধাপ ১: নির্দিষ্ট প্যাকেজের লাইসেন্স টাইপ ভেরিফাই করা (Red Hat / Rocky Linux)</h3>
+          <p>রেড হ্যাট ফ্যামিলিতে <code>rpm</code> বা <code>dnf</code> কোয়েরি দিয়ে যেকোনো ইনস্টলড প্যাকেজের অফিশিয়াল
+            লাইসেন্স মেটাডাটা রিড করা যায়:</p>
+          <pre><code># Curl প্যাকেজের লাইসেন্স ইনফরমেশন দেখা
+$ rpm -qi curl | grep License
+
+# আউটপুটে 'License: MIT' বা অনুরূপ ভ্যালু দেখতে পাবেন।</code></pre>
+
+          <h3>ধাপ ২: ডেবিয়ান / উবুন্টু ফ্যামিলিতে লাইসেন্স ফাইল রিড করা</h3>
+          <p>উবুন্টু বা ডেবিয়ান সিস্টেমে প্রতিটি ইনস্টলড সফটওয়্যারের কপিরাইট এবং লাইসেন্স টেক্সট একটি সুনির্দিষ্ট পাথে
+            জমা থাকে:</p>
+          <pre><code># OpenSSH সার্ভারের অফিশিয়াল লাইসেন্স টেক্সট ফাইলটি রিড করা
+$ cat /usr/share/doc/openssh-server/copyright | less</code></pre>
+
+          <h3>ধাপ ৩: এন্টারপ্রাইজ অডিটের জন্য গ্লোবাল লাইসেন্স স্ক্যানিং</h3>
+          <p>প্রোডাকশন সার্ভারে শত শত কাস্টম কোড বা লাইব্রেরি থাকলে, সেগুলোর ভেতরে কোনো অবৈধ বা নিষিদ্ধ লাইসেন্স (যেমন
+            পুরানো কপিলেফট যা আপনার কমার্শিয়াল প্রজেক্টকে ঝুঁকিতে ফেলতে পারে) আছে কি না তা
+            <strong>scancode-toolkit</strong> বা <strong>FOSSology</strong> দিয়ে স্ক্যান করা বেস্ট প্র্যাকটিস।</p>
+
+          <h2>৬. Troubleshooting এবং কমপ্লায়েন্স ঝুঁকি এড়ানোর টিপস</h2>
+          <ul>
+            <li><strong>The "GPL Contamination" Risk (GPL দূষণ ঝুঁকি):</strong> বাস্তব ক্ষেত্রে বড় বড় সফটওয়্যার
+              কোম্পানিগুলোর সবচেয়ে বড় ভয় হলো এটি। আপনার টিম যদি একটি ক্লোজড-সোর্স বাণিজ্যিক সফটওয়্যার তৈরি করার সময় ভুল
+              করে ইন্টারনেট থেকে একটি <strong>GNU GPL</strong> লাইসেন্সড কোড কপি করে প্রজেক্টের ভেতরে পেস্ট করে দেয়, তবে
+              আইনিভাবে আপনার পুরো প্রজেক্টের কপিরাইট ভেঙে সেটিকে ফ্রি ওপেন-সোর্স করে দেওয়ার বাধ্যবাধকতা তৈরি হতে পারে।
+              সবসময় ডেভেলপারদের <code>MIT</code> বা <code>Apache</code> কোড ব্যবহারে উৎসাহিত করুন এবং কোড অডিট করুন।
+            </li>
+            <li><strong>License Over-utilization (লাইসেন্স অতিরিক্ত ব্যবহার এরর):</strong> আপনি একটি ১০-ইউজার লাইসেন্সের
+              কমার্শিয়াল অ্যাপ ভুল করে ২০টি ল্যাপটপে ইনস্টল করে দিয়েছেন। থার্ড-পার্টি ভেন্ডর যখন আকস্মিক <strong>License
+                Audit</strong> করবে, তখন বড় অঙ্কের জরিমানার মুখে পড়তে হবে। সমাধান হিসেবে সেন্ট্রাল <strong>SAM (Software
+                Asset Management)</strong> টুল ব্যবহার করে লাইসেন্স ব্যবহারের সংখ্যা লাইভ ট্র্যাক করুন।</li>
+            <li><strong>SaaS Cost Flapping:</strong> আধুনিক <strong>SaaS (Software as a Service)</strong> মডেলগুলোতে
+              (যেমন Microsoft 365) এমপ্লয়ি চাকরি ছেড়ে চলে যাওয়ার পরও অনেক সময় তাদের অ্যাকাউন্ট সচল থাকে এবং প্রতি মাসে
+              অনর্থক বিল কাটতে থাকে। সিস্টেম এডমিনদের প্রতি মাসে <code>Active Subscriptions</code> এবং আইডেন্টিটি
+              প্রোভাইডার লিসেনিং অডিট করা উচিত।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Software Licensing</strong> কোনো শুষ্ক আইনি দলিল মাত্র নয়, এটি আধুনিক আইটি অবকাঠামোর এক অন্যতম
+              লজিক্যাল ও ফিনান্সিয়াল ফ্রেমওয়ার্ক। ওপেন-সোর্সের উন্মুক্ত স্বাধীনতা (MIT/GPL) থেকে শুরু করে প্রোপাইটরির
+              কঠোর নিরাপত্তা ও কোর-বেসড রেস্ট্রিকশন—প্রতিটি লাইসেন্সিং মডেলেরই সুনির্দিষ্ট ব্যবসায়িক ও কারিগরি উদ্দেশ্য
+              রয়েছে। একজন দক্ষ সিস্টেম অ্যাডমিনিস্ট্রেটর বা আইটি আর্কিটেক্ট হিসেবে এই লাইসেন্সিং বাউন্ডারি এবং
+              <code>rpm -qi</code> বা কমপ্লায়েন্স অডিট মেকানিজমগুলো সঠিকভাবে বুঝতে পারলে আপনি আপনার প্রতিষ্ঠানের আইটি
+              বাজেট অপ্টিমাইজ করার পাশাপাশি যেকোনো বড় ধরনের আইনি ও কমপ্লায়েন্স ঝুঁকি থেকে ইনফ্রাস্ট্রাকচারকে সম্পূর্ণ
+              নিরাপদ রাখতে পারবেন।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

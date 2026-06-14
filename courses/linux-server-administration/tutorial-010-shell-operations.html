@@ -1,32 +1,342 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shell Operations | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux Shell Operations কী, এর কাজের মেকানিজম, CLI এনভায়রনমেন্ট নেভিগেশন, ইনপুট/আউটপুট রিডাইরেকশন এবং প্রফেশনাল পাইপলাইনিং মেথডের ওপর একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Deep Dive into Linux Shell Operations: Mastering the CLI Environment | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Shell Operations</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Shell Operations</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Shell Operations</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেশনের আসল ক্ষমতা লুকিয়ে আছে এর ব্ল্যাক স্ক্রিন বা টার্মিনালের ভেতরে। আমরা যখন
+            গ্রাফিক্যাল ইন্টারফেস বা GUI ছাড়া কোনো রিমোট ক্লাউড সার্ভার পরিচালনা করি, তখন ওএস কার্নেলকে কমান্ড দেওয়ার
+            জন্য আমাদের একটি শক্তিশালী ইন্টারমিডিয়েট প্রোগ্রামের সাহায্য নিতে হয়, যাকে বলা হয় <strong>Shell</strong>।
+            লিনাক্স এনভায়রনমেন্টে ডাটা প্রসেসিং, স্ক্রিপ্টিং, ফাইল ম্যানিপুলেশন এবং অটোমেশনের জন্য <strong>Shell
+              Operations</strong> জানা প্রতিটি সিস্টেম ইঞ্জিনিয়ার এবং সাইবার সিকিউরিটি প্রফেশনালের জন্য একদম প্রাথমিক ও
+            অলঙ্ঘনীয় কারিগরি দক্ষতা।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা আলোচনা করবো লিনাক্স শেলের ব্যাকএন্ড মেকানিজম, প্রয়োজনীয় অপারেশনসমূহ,
+            ইনপুট/আউটপুট রিডাইরেকশন এবং কীভাবে একাধিক কমান্ডকে পাইপলাইনের মাধ্যমে যুক্ত করে জটিল সব কাজ এক লাইনে সমাধান
+            করা যায় তা নিয়ে।</p>
+
+
+
+          <h2>১. Linux Shell কী এবং এটি কীভাবে কাজ করে?</h2>
+          <p><strong>Shell</strong> হলো একটি বিশেষ ইউজার-স্পেস অ্যাপ্লিকেশন (Command Language Interpreter) যা
+            ব্যবহারকারীর কাছ থেকে ক্যারেক্টার বা টেক্সট ভিত্তিক কমান্ড গ্রহণ করে, সেটির সিনট্যাক্স বা ব্যাকরণ পরীক্ষা
+            করে এবং কার্নেলের (Kernel) বোঝার উপযোগী সিস্টেমে রূপান্তর করে এক্সিকিউট করে।</p>
+          <p>সহজ কথায়, সেল হলো কার্নেলের ওপর একটি সুরক্ষামূলক মোড়ক বা খোলস। এটি সরাসরি হার্ডওয়্যারে ইউজারকে এক্সেস না
+            দিয়ে একটি নিয়ন্ত্রিত এনভায়রনমেন্ট তৈরি করে দেয়। লিনাক্স জগতে বেশ কয়েক ধরনের শেল রয়েছে:</p>
+          <ul>
+            <li><strong>Bash (Bourne Again Shell):</strong> এটি লিনাক্সের সবচেয়ে স্ট্যান্ডার্ড এবং ডিফল্ট শেল। প্রায় সব
+              এন্টারপ্রাইজ ডিস্ট্রোতে (যেমন RHEL, Ubuntu) এটি প্রি-ইনস্টলড থাকে।</li>
+            <li><strong>Zsh (Z Shell):</strong> এটি বাশের একটি আধুনিক ও কাস্টমাইজড রূপ, যা অটো-কমপ্লিশন এবং প্লাগইন
+              সাপোর্টের জন্য ডেভেলপারদের কাছে অত্যন্ত জনপ্রিয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Voice Assistant Analogy)</h3>
+            <p>শেল অপারেশনের ভূমিকা সহজে বোঝার জন্য একটি আধুনিক স্মার্টফোনের ভয়েস অ্যাসিস্ট্যান্টের (যেমন Google
+              Assistant বা Siri) কথা চিন্তা করুন:</p>
+            <ul>
+              <li>আপনার ফোনের ভেতরের জটিল সার্কিট, ক্যামেরা লেন্স বা ওএস সফটওয়্যার হলো <strong>Kernel/Hardware</strong>।
+              </li>
+              <li>আপনি যখন মুখে বলেন "Hey Siri, call my manager", তখন এই ভয়েস অ্যাসিস্ট্যান্ট প্রোগ্রামটি আপনার ভাষা
+                প্রসেস করে ফোনের ভেতরের ডায়ালার সার্কিটকে অ্যাক্টিভেট করে দেয়। এখানে অ্যাসিস্ট্যান্টটিই হলো
+                <strong>Shell</strong>। সে নিজে ফিজিক্যালি কল করছে না, কিন্তু আপনার ইনপুটকে ফোনের ইন্টারনাল মেকানিজমে
+                অনুবাদ করে দিচ্ছে।</li>
+            </ul>
+          </div>
+
+          <h2>২. Core Shell Operations & Navigation</h2>
+          <p>টার্মিনালে কাজ করার সময় শেল কয়েকটি সুনির্দিষ্ট এনভায়রনমেন্ট প্যারামিটার এবং প্রম্পট সাইন (Prompt Signs)
+            প্রদর্শন করে:</p>
+          <ul>
+            <li><strong>The Prompt ($ vs #):</strong> আপনি যখন টার্মিনালে <code>$</code> সাইন দেখবেন, তার মানে আপনি একজন
+              সাধারণ ইউজার (Regular User) হিসেবে লগইন আছেন। আর যদি সেখানে <code>#</code> সাইন থাকে, তবে বুঝতে হবে আপনি
+              সিস্টেমের সর্বোচ্চ ক্ষমতাশালী <strong>root</strong> বা সুপারের ইউজার মোডে আছেন।</li>
+            <li><strong>Command Syntax:</strong> শেলের প্রতিটি কমান্ড একটি নির্দিষ্ট ফরম্যাট মেনে চলে:
+              <code>Command [-options] [arguments]</code>। যেমন— <code>ls -lh /var/log</code>। এখানে <code>ls</code> হলো
+              কমান্ড, <code>-lh</code> হলো অপশন বা ফ্ল্যাগ এবং <code>/var/log</code> হলো আর্গুমেন্ট বা নির্দিষ্ট পাথ।
+            </li>
+          </ul>
+
+          <h2>৩. Input, Output, and Error Redirection (I/O Redirection)</h2>
+          <p>লিনাক্স শেলের অন্যতম শক্তিশালী অপারেশন হলো ইনপুট এবং আউটপুট রিডাইরেকশন। ডিফল্টভাবে, একটি কমান্ড তার ইনপুট
+            নেয় কিবোর্ড থেকে এবং আউটপুট ও এরর প্রদর্শন করে স্ক্রিনে বা মনিটরে। শেলের ভাষায় এদের ৩টি স্ট্যান্ডার্ড ডেটা
+            স্ট্রিম (Data Streams) বলা হয়, যাদের নিজস্ব <strong>File Descriptor (FD)</strong> নাম্বার থাকে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Stream Name</th>
+                  <th>File Descriptor (FD)</th>
+                  <th>Default Physical Device</th>
+                  <th>Shell Redirection Operator</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><strong>stdin</strong> (Standard Input)</td>
+                  <td>0</td>
+                  <td>Keyboard</td>
+                  <td><code>&lt;</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column"><strong>stdout</strong> (Standard Output)</td>
+                  <td>1</td>
+                  <td>Screen / Monitor</td>
+                  <td><code>&gt;</code> (Overwrite) বা <code>&gt;&gt;</code> (Append)</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><strong>stderr</strong> (Standard Error)</td>
+                  <td>2</td>
+                  <td>Screen / Monitor</td>
+                  <td><code>2&gt;</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          [Image illustration of Standard Input, Output, and Error streams redirection to physical files]
+
+          <h3>ক্লিপবোর্ড বা ফাইলে ডাটা রিডাইরেক্ট করার প্র্যাকটিক্যাল মেকানিজম:</h3>
+          <p>১. <strong>Overwrite Output (`>`):</strong> কোনো কমান্ডের স্ক্রিন আউটপুটকে মনিটরে না দেখিয়ে সরাসরি একটি
+            ফাইলে সেভ করার অপারেশন। এটি ফাইলের পুরনো ডাটা মুছে নতুন ডাটা রাইট করে।</p>
+          <pre><code>$ ls -lh /etc &gt; etc_files_list.txt</code></pre>
+
+          <p>২. <strong>Append Output (`>>`):</strong> এটি পুরনো ডাটা অক্ষুণ্ণ রেখে ফাইলের একদম শেষ লাইনের পর নতুন
+            আউটপুট ডাটা যোগ (Append) করে।</p>
+          <pre><code>$ date &gt;&gt; uptime_history.txt</code></pre>
+
+          <p>৩. <strong>Redirecting Errors (`2>`):</strong> অনেক সময় কমান্ড রান করার সময় স্ক্রিনে প্রচুর এরর মেসেজ আসে
+            যা আমরা মূল আউটপুট থেকে আলাদা করতে চাই। এররগুলো একটি নির্দিষ্ট লগে জমানোর কমান্ড:</p>
+          <pre><code>$ find / -name "secret.txt" 2&gt; error_log.txt</code></pre>
+
+          <h2>৪. Pipelines (The Pipe Operator `|`)</h2>
+          <p>শেল অপারেশনের সবচেয়ে জাদুকরী এবং অ্যাডভান্সড ফিচার হলো <strong>Pipelines</strong>, যা একটি খাড়া দাগ বা পাইপ
+            ক্যারেক্টার (<code>|</code>) দিয়ে প্রকাশ করা হয়।</p>
+          <p><strong>কাজের মেকানিজম:</strong> এটি প্রথম কমান্ডের আউটপুটকে (stdout) স্ক্রিনে না পাঠিয়ে সরাসরি দ্বিতীয়
+            কমান্ডের ইনপুট (stdin) হিসেবে পাস করে দেয়। এইভাবে আপনি চেইন রিঅ্যাকশনের মতো একের পর এক অসংখ্য কমান্ড যুক্ত
+            করে বিশাল ডেটা ফিল্টারিং করতে পারেন।</p>
+
+          [Image schematic diagram of Linux Pipe operation connecting Command 1 Output to Command 2 Input]
+
+          <h3>প্রফেশনাল রিয়েল-লাইফ পাইপলাইন এক্সাম্পল:</h3>
+          <p>ধরুন আপনার ওয়েব সার্ভারের অ্যাক্সেস লগ ফাইলে (access.log) হাজার হাজার ট্রাফিক ডেটা আছে। আপনি দেখতে চান
+            নির্দিষ্ট একটি আইপি (যেমন 192.168.10.50) কতবার আপনার সার্ভার হিট করেছে:</p>
+          <pre><code>$ cat /var/log/nginx/access.log | grep "192.168.10.50" | wc -l</code></pre>
+          <p><em>স্টেপ বাই স্টেপ টেকনিক্যাল ব্যাখ্যা:</em></p>
+          <ul>
+            <li><code>cat</code> কমান্ডটি পুরো লগ ফাইলের ডাটা টেক্সট আকারে বের করে পাইপের মুখে দেয়।</li>
+            <li><code>grep</code> কমান্ডটি সেই আউটপুট থেকে অন্য সব ডাটা ফেলে দিয়ে শুধুমাত্র "192.168.10.50" সম্বলিত
+              লাইনগুলো ফিল্টার করে পরবর্তী পাইপে পাঠায়।</li>
+            <li><code>wc -l</code> (Word Count Lines) কমান্ডটি সেই ফিল্টার হওয়া লাইনগুলো গুনে স্ক্রিনে একটি সুনির্দিষ্ট
+              সংখ্যা (যেমন 452) প্রদর্শন করে।</li>
+          </ul>
+
+          <h2>৫. Shell Variables and Expansion (এনভায়রনমেন্ট কন্ট্রোল)</h2>
+          <p>শেল তার কাজের সুবিধার্থে মেমরিতে কিছু সাময়িক ভেরিয়েবল বা তথ্য জমা রাখে, যাকে <strong>Shell
+              Variables</strong> বলা হয়।</p>
+          <ul>
+            <li><strong>Global Env Variables:</strong> এগুলো ওএস লেভেলে ফিক্সড থাকে। যেমন— <code>$USER</code> (বর্তমানে
+              লগইন থাকা ইউজারের নাম), <code>$HOME</code> (ইউজারের হোম পাথ)।</li>
+            <li><strong>Command Substitution:</strong> একটি কমান্ডের ভেতরের আউটপুটকে অন্য কমান্ডের ভেরিয়েবল হিসেবে রিড
+              করানোর অপারেশন। এটি ব্যাকটিক (<code>`</code>) বা <code>$()</code> দিয়ে করা হয়।</li>
+          </ul>
+
+          <pre><code># ইউজারের হোম ডিরেক্টরির পাথ স্ক্রিনে প্রিন্ট করা
+$ echo "Current user path is $HOME"
+
+# কাস্টম ব্যাকআপ ফাইল তৈরিতে কমান্ড সাবস্টিটিউশন ব্যবহার:
+$ tar -czf backup-$(date +%F).tar.gz /home/jobaer/data/</code></pre>
+
+          <h2>৬. Troubleshooting ও সাধারণ শেল চ্যালেঞ্জসমূহ</h2>
+          <ul>
+            <li><strong>The "Permission Denied" with Redirection Error:</strong> জুনিয়র অ্যাডমিনিস্ট্রেটররা প্রায়ই এই
+              ভুলটি করেন। তারা রুট ডিরেক্টরির কোনো ফাইলে ডাটা রাইট করার জন্য
+              <code>sudo echo "data" > /etc/protected.conf</code> রান করেন এবং "Permission Denied" এরর পান।
+              <br><strong>কারণ:</strong> <code>sudo</code> শুধুমাত্র <code>echo</code> কমান্ডটিকে রুট প্রিভিলেজ দেয়,
+              কিন্তু শেলের রিডাইরেকশন অপারেটর (<code>></code>) টি সাধারণ ইউজারের ক্ষমতা দিয়েই ফাইল রাইট করার চেষ্টা করে।
+              <br><strong>সমাধান:</strong> এই ক্ষেত্রে পাইপ এবং <code>tee</code> কমান্ড ব্যবহার করতে হয়, যা রুট
+              প্রিভিলেজ নিয়ে ফাইল রাইট করতে পারে:
+              <pre><code>$ echo "data" | sudo tee /etc/protected.conf</code></pre>
+            </li>
+            <li><strong>Zsh vs Bash Syntax Mismatch:</strong> বাশ শেলের কোনো স্ক্রিপ্ট (যেমন অ্যারে ইন্ডেক্সিং যা ০ থেকে
+              শুরু হয়) হুবহু জশ (Zsh) শেলে রান করলে এরর আসতে পারে, কারণ জশ-এর অ্যারে ইন্ডেক্স ১ থেকে শুরু হয়। সবসময়
+              স্ক্রিপ্টের একদম প্রথম লাইনে <strong>Shebang</strong> (<code>#!/bin/bash</code>) ব্যবহার করুন, যা ওএস-কে
+              নির্দেশ দেয় স্ক্রিপ্টটি কোন নির্দিষ্ট শেল দিয়ে এক্সিকিউট করতে হবে।</li>
+            <li><strong>Stuck Terminal due to Foreground Process:</strong> টার্মিনালে কোনো কমান্ড রান করে স্ক্রিন লক হয়ে
+              গেলে কিবোর্ড থেকে <code>Ctrl + Z</code> প্রেস করে প্রসেসটি সাসপেন্ড করুন এবং <code>bg</code> কমান্ড দিয়ে
+              সেটিকে ব্যাকগ্রাউন্ডে সচল করে টার্মিনাল ফ্রী করুন। অথবা <code>Ctrl + C</code> চেপে প্রসেসটি সম্পূর্ণ কিল
+              বা টার্মিনেট করে দিন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Shell Operations</strong> হলো লিনাক্স এবং ইউনিক্স অপারেটিং সিস্টেমের মূল চালিকাশক্তি। শেলের
+              ইনপুট/আউটপুট রিডাইরেকশন মেকানিজম, পাইপলাইনের সাহায্যে ডেটা ফিল্টারিং এবং এনভায়রনমেন্ট ভেরিয়েবলের ব্যবহার
+              বুঝতে পারলে কমান্ড লাইনের ওপর আপনার পূর্ণ নিয়ন্ত্রণ প্রতিষ্ঠা পাবে। এটি আপনার প্রতিদিনের রুটিন কাজকে
+              অটোমেট করার পাশাপাশি সার্ভারের ডাউনটাইম এবং সাইবার সিকিউরিটি অডিটের সময় দ্রুত ডায়াগনস্টিক সিদ্ধান্ত নিতে
+              শতভাগ কারিগরি সহায়তা দেবে। নিয়মিত টার্মিনাল কমান্ড প্র্যাকটিস এবং জটিল চেইন পাইপলাইন তৈরি করার অভ্যাসই
+              আপনাকে একজন প্রো-লেভেল লিনাক্স সিস্টেম ইঞ্জিনিয়ার হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

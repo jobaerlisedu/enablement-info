@@ -1,32 +1,374 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Boot Process | tech-enablement.info</title>
+  <meta name="description"
+    content="একটি কম্পিউটার পাওয়ার অন করার পর থেকে অপারেটিং সিস্টেম চালু হওয়া পর্যন্ত প্রতিটি ব্যাকএন্ড ধাপের বিস্তারিত গাইড। সহজ বাংলায় BIOS, UEFI, GRUB এবং Kernel-এর কাজের প্রক্রিয়া।">
+  <title>Explain Linux and System Boot Process: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Boot Process</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Boot Process</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Explain Linux and System Boot Process</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আমরা যখন কম্পিউটারের ফিজিক্যাল পাওয়ার বাটনটি প্রেস করি, তখন স্ক্রিনে অপারেটিং সিস্টেমের লগো ভেসে উঠতে মাত্র
+            কয়েক সেকেন্ড সময় লাগে। কিন্তু এই অল্প সময়ের মধ্যে কম্পিউটারের ভেতরের হার্ডওয়্যার এবং সফটওয়্যার লেয়ারে একটি
+            বিশাল ও সুশৃঙ্খল চেইন রিঅ্যাকশন সম্পন্ন হয়। আইটি এবং সিস্টেম অ্যাডমিনিস্ট্রেশনের ভাষায় এই পুরো প্রক্রিয়াটিকে
+            বলা হয় <strong>Boot Process</strong> বা <strong>Bootstrapping</strong>।</p>
+          <p>একজন দক্ষ সিস্টেম ইঞ্জিনিয়ারের জন্য এই বুট প্রসেসের প্রতিটি নিখুঁত ধাপ জানা অত্যন্ত জরুরি। কারণ সিস্টেম
+            ক্র্যাশ করলে বা সার্ভার বুট না হলে, ব্যাকএন্ডের কোন স্তরে সমস্যাটি হয়েছে তা বুট সিকোয়েন্স না বুঝলে সনাক্ত
+            করা অসম্ভব। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা লিনাক্স এবং জেনারেল কম্পিউটার আর্কিটেকচারের বুট প্রসেস নিয়ে
+            একদম স্ক্র্যাচ থেকে অ্যাডভান্সড লেভেলে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Boot Process কী?</h2>
+          <p><strong>Boot Process</strong> হলো এমন একটি ইনিশিয়াল সিকোয়েন্স বা ধারাবাহিক প্রক্রিয়া যার মাধ্যমে কম্পিউটার
+            তার পাওয়ার অন হওয়ার পর ফিজিক্যাল হার্ডওয়্যার ভেরিফাই করে এবং সেকেন্ডারি স্টোরেজ (HDD/SSD) থেকে অপারেটিং
+            সিস্টেমের কোর ফাইলগুলোকে মেইন মেমরি বা RAM-এ লোড করে সিস্টেমকে সম্পূর্ণ কাজের উপযোগী করে তোলে।</p>
+          <p>যেহেতু পাওয়ার অন করার সাথে সাথে সরাসরি অপারেটিং সিস্টেম চলতে পারে না, তাই ধাপে ধাপে একটি ছোট প্রোগ্রাম
+            পরবর্তী বড় প্রোগ্রামকে ডেকে সচল করে। এই ছোট থেকে বড় প্রোগ্রামে স্থানান্তরের ধারণাকেই বলা হয় Bootstrapping।
+          </p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Airplane Takeoff Analogy)</h3>
+            <p>কম্পিউটারের বুট প্রসেসকে একটি বড় কমার্শিয়াল এরোপ্লেন উড্ডয়নের (Takeoff) প্রস্তুতির সাথে তুলনা করা যায়:
+            </p>
+            <ul>
+              <li><strong>Pre-flight Check:</strong> পাইলট বিমানে উঠে ইঞ্জিন চালু করার আগে ককপিটের সব লাইট, ফুয়েল লেভেল
+                এবং উইংসের পার্টসগুলো ঠিক আছে কি না তা একটি একটি করে পরীক্ষা করেন। এটি হলো কম্পিউটারের <strong>POST
+                  (Power-On Self-Test)</strong>।</li>
+              <li><strong>Runway Guidance:</strong> ককপিট চেকিং শেষ হলে এয়ার ট্রাফিক কন্ট্রোল থেকে রানওয়ে ধরে এগিয়ে
+                যাওয়ার সিগন্যাল আসে। এটি হলো <strong>Bootloader</strong>-এর কাজ যা ওএস-কে পথ দেখায়।</li>
+              <li><strong>Cruising Mode:</strong> বিমানটি যখন মাটি ছেড়ে আকাশে উড়াল দেয় এবং অটো-পাইলট মোড সচল করে
+                স্বাভাবিক গতিতে চলতে থাকে, তখন এটি অপারেটিং সিস্টেমের <strong>Kernel Run Mode</strong>-এর মতো কাজ করে।
+              </li>
+            </ul>
+          </div>
+
+          <h2>২. লিনাক্স বুট প্রসেসের ৬টি মূল ধাপ (The 6 Stages)</h2>
+          <p>একটি স্ট্যান্ডার্ড লিনাক্স সার্ভার বা সিস্টেম বুট হওয়ার সময় মূলত নিচের ৬টি প্রধান ধাপ বা স্টেজ পার হয়ে
+            থাকে:</p>
+
+          <h3>ধাপ ১: BIOS / UEFI (Hardware Initialization)</h3>
+          <p>পাওয়ার বাটন চাপার সাথে সাথে মাদারবোর্ডের <strong>ROM (Read-Only Memory)</strong> চিপে থাকা একটি ছোট
+            ফার্মওয়্যার সচল হয়, যাকে আমরা <strong>BIOS (Basic Input/Output System)</strong> বা আধুনিক কম্পিউটারে
+            <strong>UEFI (Unified Extensible Firmware Interface)</strong> বলি।</p>
+          <ul>
+            <li><strong>POST (Power-On Self-Test):</strong> এর প্রথম কাজ হলো কম্পিউটারের ফিজিক্যাল হার্ডওয়্যার (যেমন
+              RAM, CPU, Keyboard, Hard Disk) ঠিকমতো সংযুক্ত আছে কি না তা ইলেকট্রিক্যাল পালস দিয়ে চেক করা। কোনো এরর থাকলে
+              মাদারবোর্ড থেকে <code>Beep Code</code> বা শব্দ শোনা যায়।</li>
+            <li><strong>Boot Device Search:</strong> POST সফল হলে BIOS/UEFI তার সেটিংসের প্রায়োরিটি লিস্ট অনুযায়ী বুটেবল
+              ডিভাইস (যেমন Hard Drive, SSD, USB Drive, Network) খুঁজে বের করে এবং সেই ড্রাইভের একদম শুরুর সেক্টরে চলে
+              যায়।</li>
+          </ul>
+
+          <h3>ধাপ ২: MBR / EFI Partition (The Entry Point)</h3>
+          <p>BIOS যদি বুটেবল ফিজিক্যাল ড্রাইভ খুঁজে পায়, তবে সেটির পার্টিশন স্টাইল অনুযায়ী প্রথম অংশটি রিড করে।</p>
+          <ul>
+            <li><strong>MBR (Master Boot Record):</strong> প্রথাগত সিস্টেমে হার্ডডিস্কের একদম প্রথম সেক্টরকে (Sector 0)
+              বলা হয় MBR, যার সাইজ মাত্র <strong>৫১২ বাইট</strong>। এই ৫১২ বাইটের ভেতরে ৪৪৬ বাইট থাকে মেইন
+              <code>Primary Bootloader Code</code>-এর জন্য, ৬৪ বাইট থাকে পার্টিশন টেবিলের তথ্যের জন্য এবং ২ বাইট থাকে
+              ম্যাজিক নাম্বারের জন্য।</li>
+            <li><strong>EFI System Partition (ESP):</strong> আধুনিক UEFI সিস্টেমে MBR-এর এই সাইজ সীমাবদ্ধতা নেই। এটি
+              সরাসরি ফ্যাট (FAT) ফরম্যাটের একটি আলাদা পার্টিশন থেকে বুট ফাইলের <code>.efi</code> এক্সটেনশন রিড করে।</li>
+          </ul>
+
+          <h3>ধাপ ৩: GRUB / Bootloader (The Guide)</h3>
+          <p>MBR বা EFI থেকে প্রাইমারি কোড লোড হওয়ার পর স্ক্রিনে ওএস সিলেক্ট করার উইন্ডো আসে। লিনাক্স জগতের সবচেয়ে
+            জনপ্রিয় বুটলোডার হলো <strong>GRUB2 (Grand Unified Bootloader Version 2)</strong>।</p>
+          <ul>
+            <li><strong>Configuration Load:</strong> GRUB2 তার কনফিগারেশন ফাইল থেকে বুট মেনুর লিস্ট ইউজারকে দেখায়।</li>
+            <li><strong>Kernel Identification:</strong> ইউজার যখন কোনো নির্দিষ্ট লিনাক্স কার্নেল সিলেক্ট করেন, GRUB2 তখন
+              হার্ডডিস্কের <code>/boot</code> ডিরেক্টরি থেকে নির্দিষ্ট কার্নেল ইমেজ ফাইল এবং <strong>Initramfs</strong>
+              ফাইলটি মেমরিতে ডেকে নিয়ে আসে।</li>
+          </ul>
+
+
+
+          <h3>ধাপ ৪: Kernel (The Brain)</h3>
+          <p>বুটলোডার যখন কার্নেলকে RAM-এ লোড করে দেয়, তখন থেকে বুটলোডারের দায়িত্ব শেষ এবং কার্নেলের শাসন শুরু হয়।
+            লিনাক্স কার্নেল সাধারণত একটি কমপ্রেসড ফাইল হিসেবে থাকে যাকে <strong>vmlinuz</strong> বলা হয়। মেমরিতে এসে এটি
+            নিজেকে আন-কমপ্রেস করে নেয়।</p>
+          <ul>
+            <li><strong>Hardware Probe:</strong> কার্নেল তার নিজস্ব বিল্ট-ইন ড্রাইভার দিয়ে কম্পিউটারের সব ফিজিক্যাল
+              হার্ডওয়্যার পুনরায় গভীরভাবে পরীক্ষা করে এবং নিজের নিয়ন্ত্রণে নেয়।</li>
+            <li><strong>Root Filesystem Mount:</strong> কার্নেল তার টেম্পোরারি ফাইল সিস্টেম (Initramfs) ব্যবহার করে মেইন
+              স্টোরেজের রুট ফাইল সিস্টেমকে (<code>/</code>) <strong>Read-Only</strong> মোডে মাউন্ট করে।</li>
+          </ul>
+
+          <h3>ধাপ ৫: Initramfs / Initrd (Temporary Root)</h3>
+          <p>আজকের যুগের হার্ডডিস্কগুলো বিভিন্ন অ্যাডভান্সড ফরম্যাটে থাকে যেমন—RAID, NVMe বা এনক্রিপ্টেড স্টোরেজ (LUKS)।
+            কার্নেল সাইজ ছোট রাখার জন্য এই জটিল স্টোরেজের ড্রাইভারগুলো কার্নেলের ভেতরে বিল্ট-ইন থাকে না।</p>
+          <ul>
+            <li><strong>Loading Storage Drivers:</strong> <strong>Initramfs (Initial RAM Filesystem)</strong> হলো একটি
+              ছোট ভার্চুয়াল ফাইল সিস্টেম যা RAM-এর ভেতরে তৈরি হয়। এর কাজ হলো কার্নেলকে প্রয়োজনীয় স্টোরেজ ড্রাইভার মডিউল
+              সরবরাহ করা যাতে কার্নেল আসল হার্ডডিস্কটি রিড করতে পারে।</li>
+            <li><strong>Pivot Root:</strong> আসল হার্ডডিস্ক এক্সেস পাওয়ার সাথে সাথে সিস্টেম এই টেম্পোরারি রুট থেকে মেইন
+              ফিজিক্যাল রুট ডিরেক্টরিতে সুইচ করে।</li>
+          </ul>
+
+          <h3>ধাপ ৬: Systemd / Init (The System Controller)</h3>
+          <p>রুট ফাইল সিস্টেম মাউন্ট করার পর কার্নেল ব্যাকএন্ডের একদম প্রথম এবং আদি প্রসেসটি রান করে। আধুনিক সব লিনাক্স
+            ডিস্ট্রিবিউশনে (যেমন Ubuntu, CentOS, Rocky Linux) এই প্রথম প্রসেসটি হলো <strong>systemd</strong>। এর
+            <strong>PID (Process ID)</strong> সব সময় <code>1</code> হয়।</p>
+          <ul>
+            <li><strong>Starting Services:</strong> systemd তার কনফিগারেশন টার্গেট (যেমন- <code>multi-user.target</code>
+              বা <code>graphical.target</code>) অনুযায়ী ব্যাকএন্ডের সমস্ত প্রয়োজনীয় সার্ভিস ও ডেমন (যেমন- SSH Server,
+              Network Manager, Web Server, Display Manager) একে একে প্যারালাল স্পিডে চালু করে।</li>
+            <li><strong>Login Prompt:</strong> সব সার্ভিস সফলভাবে চালু হলে systemd স্ক্রিনে ইউজারকে লগইন প্রম্পট বা
+              গ্রাফিক্যাল ডিসপ্লে ম্যানেজার (GDM/LightDM) প্রদর্শন করে বুট প্রসেসের সমাপ্তি ঘটায়।</li>
+          </ul>
+
+          <h2>৩. BIOS বনাম UEFI: আর্কিটেকচারাল পার্থক্য</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>ফিচার বা বৈশিষ্ট্য (Feature)</th>
+                  <th>BIOS (Legacy)</th>
+                  <th>UEFI (Modern)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Architecture Mode</td>
+                  <td>16-bit real mode-এ কাজ করে। মাত্র ১ মেগাবাইট মেমরি এক্সেস করতে পারে।</td>
+                  <td>32-bit বা 64-bit প্রোটেক্টেড মোডে চলে। বিশাল মেমরি এক্সেস ক্ষমতা।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Drive Capacity Support</td>
+                  <td>সর্বোচ্চ 2.2 TB সাইজের ডিস্ক সাপোর্ট করে (MBR স্টাইল)।</td>
+                  <td>সর্বোচ্চ 9.4 ZB (Zettabytes) ডিস্ক সাইজ সাপোর্ট করে (GPT স্টাইল)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Boot Speed</td>
+                  <td>ধীরগতির হার্ডওয়্যার ইনিশিয়ালাইজেশন।</td>
+                  <td>অনেক ফাস্ট বুট টাইম এবং অপ্টিমাইজেশন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Security</td>
+                  <td>কোনো সিকিউর বুট মেকানিজম নেই।</td>
+                  <td><strong>Secure Boot</strong> ফিচার আছে যা ম্যালওয়্যার আক্রান্ত বুট ফাইল ব্লক করে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. বুট প্রসেস ভেরিফিকেশন ও অ্যানালিসিস (Linux CLI Commands)</h2>
+          <p>আপনার লিনাক্স সার্ভারটি শেষবার বুট হতে কত সেকেন্ড সময় নিয়েছে এবং কোন সার্ভিসটির কারণে বুট হতে দেরি হচ্ছে,
+            তা কমান্ড লাইনের সাহায্যে নিখুঁতভাবে মাপা যায়।</p>
+
+          <p><strong>১. বুট টাইমের ওভারওভারভিউ দেখা:</strong></p>
+          <pre><code>$ systemd-analyze
+
+# এই কমান্ডটি দিলে কার্নেল, ইনিটআরডি এবং ইউজারস্পেস বুট হতে মোট কত সেকেন্ড লেগেছে তা দেখাবে।</code></pre>
+
+          <p><strong>২. কোন সার্ভিস বুট হতে কত সময় নিয়েছে তার ব্লেম লিস্ট (Blame List) দেখা:</strong></p>
+          <pre><code>$ systemd-analyze blame
+
+# আউটপুটে সবচেয়ে বেশি সময় নেওয়া সার্ভিসগুলো ক্রমানুসারে (Descending Order) সাজানো থাকবে।
+# যেমন: 4.521s network.service</code></pre>
+
+          <p><strong>৩. কার্নেলের বুট মেসেজ বা মেমরি লগ চেক করা:</strong></p>
+          <pre><code># বুট হওয়ার সময় কার্নেল কী কী হার্ডওয়্যার ডিটেক্ট করেছিল তার লগ দেখা
+$ sudo dmesg | grep -i cpu
+$ sudo dmesg | less</code></pre>
+
+          <h2>৫. Common Boot Issues এবং Troubleshooting গাইড</h2>
+          <p>বাস্তব কর্মক্ষেত্রে সার্ভার বুট না হলে নিচে দেওয়া ডায়াগনস্টিক মেথডগুলো ব্যবহার করুন:</p>
+          <ul>
+            <li><strong>Problem 1: "No Bootable Device Found" or GRub Rescue Error</strong>
+              <ul>
+                <li><strong>কারণ:</strong> MBR বা EFI পার্টিশনটি ড্যামেজ হয়ে গেছে অথবা বায়োসে হার্ডডিস্কের বুট অর্ডার
+                  ওলটপালট হয়ে গেছে।</li>
+                <li><strong>সমাধান:</strong> সিস্টেমে একটি <code>Live Linux USB</code> প্লাগ করে বুট করুন এবং
+                  <code>grub2-install /dev/sda</code> কমান্ডের মাধ্যমে বুটলোডার কোড পুনরায় ফিক্সড বা রি-ইনস্টল করুন।
+                </li>
+              </ul>
+            </li>
+            <li><strong>Problem 2: Stuck at Kernel Panic (Kernel Panic - not syncing)</strong>
+              <ul>
+                <li><strong>কারণ:</strong> কার্নেল ফাইলটি ক্র্যাশ করেছে অথবা <code>Initramfs</code> ফাইলটি মেইন রুট ফাইল
+                  সিস্টেম মাউন্ট করতে ব্যর্থ হয়েছে। ওএস আপডেট করার সময় কার্নেল ফাইল ড্যামেজ হলে এটি বেশি হয়।</li>
+                <li><strong>সমাধান:</strong> পিসি রিস্টার্ট করে GRUB2 মেনু আসার সাথে সাথে কিবোর্ডের অ্যারো কি চেপে
+                  তালিকায় থাকা আগের ওল্ড কার্নেল সংস্করণটি (Old Kernel Version) সিলেক্ট করে বুট করুন। সিস্টেমে ঢুকে নতুন
+                  কার্নেলটি ফিক্সড করুন।</li>
+              </ul>
+            </li>
+            <li><strong>Problem 3: Emergency Mode / Dracut Shell Prompt</strong>
+              <ul>
+                <li><strong>কারণ:</strong> যদি <code>/etc/fstab</code> ফাইলে কোনো হার্ডডিস্ক বা মাউন্ট পয়েন্টের তথ্য ভুল
+                  থাকে, তবে systemd বুট প্রসেস মাঝপথে থামিয়ে ইমার্জেন্সি শেল প্রম্পট দিয়ে দেয়।</li>
+                <li><strong>সমাধান:</strong> রুট পাসওয়ার্ড দিয়ে শেলে প্রবেশ করুন এবং <code>mount -o remount,rw /</code>
+                  কমান্ড দিয়ে রুট ফাইল সিস্টেম রাইট মোডে এনে <code>nano /etc/fstab</code> ফাইল থেকে ভুল ড্রাইভের লাইনটি
+                  মুছে বা কমেন্ট (<code>#</code>) করে দিন।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>System Boot Process</strong> হলো একটি কম্পিউটারের ফিজিক্যাল অস্তিত্ব থেকে লজিক্যাল ওএস স্তরে
+              উন্নীত হওয়ার এক সুনিপুণ মহাকাব্য। BIOS/UEFI-এর হার্ডওয়্যার চেকিং থেকে শুরু করে GRUB-এর পথপ্রদর্শন,
+              কার্নেলের মস্তিস্ক সক্রিয়করণ এবং দিনশেষে <strong>systemd</strong>-এর সার্ভিস ম্যানেজমেন্ট—প্রতিটি ধাপ একে
+              অপরের পরিপূরক। একজন এন্টারপ্রাইজ সিস্টেম অ্যাডমিনিস্ট্রেটর হিসেবে এই বুট সিকোয়েন্সের মেকানিজম এবং
+              <code>systemd-analyze</code>-এর মতো ডায়াগনস্টিক টুলের ব্যবহার জানা আপনার ক্যারিয়ারের গভীরতা বহুগুণ বাড়িয়ে
+              দেবে, যা আপনাকে যেকোনো ক্রিটিক্যাল ডাউনটাইমে দ্রুত ও নিখুঁত ট্রাবলশুটিং করতে সহায়তা করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

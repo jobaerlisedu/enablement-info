@@ -1,32 +1,363 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux Distributions | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux Distributions বা Distros কী, বিভিন্ন ফ্যামিলি যেমন Debian, Red Hat, Arch এবং সার্ভার ও ডেস্কটপের জন্য সেরা লিনাক্স ডিস্ট্রিবিউশন নির্বাচনের বিস্তারিত গাইড।">
+  <title>Explain Linux Distributions (Distros): A Comprehensive Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Linux Distributions</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Linux Distributions</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Linux Distributions</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>মাইক্রোসফ্ট উইন্ডোজ বা অ্যাপল ম্যাকওএস-এর মতো ইকোসিস্টেমে আমরা সাধারণত একটি নির্দিষ্ট ওএস সংস্করণ দেখতে
+            পাই। কিন্তু লিনাক্সের দুনিয়ায় পা রাখলেই আমরা শত শত বিভিন্ন নামের অপারেটিং সিস্টেমের মুখোমুখি হই—যেমন Ubuntu,
+            Red Hat, Rocky Linux, বা Kali Linux। এই ভিন্ন ভিন্ন রূপগুলোকে লিনাক্সের ভাষায় বলা হয় <strong>Linux
+              Distributions</strong> বা সংক্ষেপে <strong>Distros</strong>। লিনাক্স মূলত ওপেন-সোর্স (Open-Source) হওয়ায়
+            যে কেউ এর কোর অংশকে নিজের মতো কাস্টমাইজ করে নতুন একটি ওএস তৈরি করতে পারে।</p>
+          <p>একজন এন্টারপ্রাইজ লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেটর বা আইটি প্রফেশনাল হতে হলে বিভিন্ন লিনাক্স
+            ডিস্ট্রিবিউশনের শ্রেণীবিভাগ, এদের পেছনের <strong>Package Manager</strong> এবং কোন কাজের জন্য কোন ডিস্ট্রো
+            পারফেক্ট, তা গভীরভাবে জানা অত্যন্ত জরুরি। আজকের এই ডিপ-ডাইভ গাইডে আমরা লিনাক্স ডিস্ট্রিবিউশনের মূল কনসেপ্ট,
+            প্রধান ডিস্ট্রো ফ্যামিলি এবং এদের প্র্যাকটিক্যাল ব্যবহার নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Linux Distribution কী? (The Core Concept)</h2>
+          <p>সহজ ভাষায়, লিনাক্স নিজে কিন্তু একটি সম্পূর্ণ অপারেটিং সিস্টেম নয়; লিনাক্স হলো একটি <strong>Kernel</strong>।
+            কার্নেল হলো ওএস-এর সেই ভেতরের ইঞ্জিন যা সরাসরি কম্পিউটারের হার্ডওয়্যারকে নিয়ন্ত্রণ করে। এখন এই ইঞ্জিনের সাথে
+            যখন একটি গোটানো <strong>Shell</strong>, <strong>GNU Core Utilities</strong> (যেমন ফাইল ম্যানেজার, কমান্ড
+            টুলস), একটি <strong>Package Manager</strong> (সফটওয়্যার ইনস্টল করার জন্য), এবং একটি <strong>Desktop
+              Environment</strong> (গ্রাফিক্যাল ইন্টারফেসের জন্য) একত্রিত করে একটি সম্পূর্ণ ইনস্টল করার উপযোগী ওএস ফাইল
+            (ISO) তৈরি করা হয়, তাকেই বলে <strong>Linux Distribution</strong>।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Automobile Engine Analogy)</h3>
+            <p>লিনাক্স ডিস্ট্রিবিউশনের কনসেপ্টটি প্র্যাকটিক্যালি বোঝার জন্য একটি গাড়ি তৈরির কারখানার কথা চিন্তা করুন:
+            </p>
+            <ul>
+              <li><strong>The Linux Kernel:</strong> এটি হলো গাড়ির শক্তিশালী মেইন ইঞ্জিন। ইঞ্জিন একা কোনো যাত্রীকে
+                গন্তব্যে নিয়ে যেতে পারে না, এর জন্য বডি ও চাকা প্রয়োজন।</li>
+              <li><strong>Ubuntu / Rocky Linux (Distros):</strong> বিভিন্ন গাড়ি নির্মাতা প্রতিষ্ঠান (যেমন Toyota বা BMW)
+                ওই একই ইঞ্জিন বা মেকানিজম ব্যবহার করে নিজস্ব ডিজাইন, সিট, স্টিয়ারিং এবং এসি যোগ করে বাজারে গাড়ি ছাড়ে।
+                একইভাবে বিভিন্ন কমিউনিটি লিনাক্স কার্নেল নিয়ে আলাদা আলাদা ডিস্ট্রো তৈরি করে। কোনো কোম্পানি বানায় রেসিং
+                কার (যেমন Kali Linux ফর সিকিউরিটি), আবার কেউ বানায় ভারী লোড নেওয়ার ট্রাক (যেমন Red Hat ফর এন্টারপ্রাইজ
+                সার্ভার)।</li>
+            </ul>
+          </div>
+
+          <h2>২. প্রধান লিনাক্স ডিস্ট্রিবিউশন ফ্যামিলিসমূহ</h2>
+          <p>পৃথিবীর প্রায় সব লিনাক্স ডিস্ট্রো কোনো না কোনো প্রধান আদি ফ্যামিলির (Parent Lineage) ওপর ভিত্তি করে তৈরি
+            হয়েছে। এদের মূল পার্থক্য থাকে এদের <strong>Package Manager</strong> এবং রিলিজ সাইকেলের ওপর। প্রধান ৩টি
+            ফ্যামিলি নিচে দেওয়া হলো:</p>
+
+          <h3>ক. The Debian Family (Debian, Ubuntu, Linux Mint)</h3>
+          <p>এটি লিনাক্স জগতের অন্যতম প্রাচীন, স্থিতিশীল এবং সবচেয়ে জনপ্রিয় ফ্যামিলি।</p>
+          <ul>
+            <li><strong>Core Characteristics:</strong> এটি ইউজার-ফ্রেন্ডলি এবং এর বিশাল সফটওয়্যার রিপোজিটরি (Repository)
+              রয়েছে। ডেবিয়ান অত্যন্ত স্থিতিশীল (Stable) ওএস হিসেবে পরিচিত।</li>
+            <li><strong>Package Manager:</strong> এই ফ্যামিলির প্যাকেজ ফাইলের এক্সটেনশন হয় <code>.deb</code>। ব্যাকএন্ডে
+              সফটওয়্যার ম্যানেজ করার জন্য <strong>APT (Advanced Package Tool)</strong> বা <code>dpkg</code> ব্যবহৃত হয়।
+            </li>
+            <li><strong>Ubuntu:</strong> ডেবিয়ানের ওপর ভিত্তি করে তৈরি উবুন্টু বর্তমান বিশ্বের সবচেয়ে জনপ্রিয় ডিস্ট্রো,
+              যা ডেস্কটপ এবং ক্লাউড সার্ভার উভয় ক্ষেত্রে ব্যাপকভাবে ব্যবহৃত হয়।</li>
+          </ul>
+
+          <h3>খ. The Red Hat Family (RHEL, Rocky Linux, Fedora)</h3>
+          <p>এটি এন্টারপ্রাইজ বিজনেস এবং কর্পোরেট ডাটা সেন্টারের অবিসংবাদিত রাজা।</p>
+          <ul>
+            <li><strong>Core Characteristics:</strong> এটি চরম লেভেলের সিকিউরিটি (যেমন SE-Linux), পারফরম্যান্স
+              অপ্টিমাইজেশন এবং দীর্ঘমেয়াদী লাইফ-সাপোর্ট (LTS) প্রদান করে।</li>
+            <li><strong>Package Manager:</strong> এদের প্যাকেজ ফাইলের এক্সটেনশন হয় <code>.rpm</code> (Red Hat Package
+              Manager)। আধুনিক ডিস্ট্রোগুলোতে কমান্ড লাইনের জন্য <strong>DNF (Dandified YUM)</strong> বা
+              <code>yum</code> ম্যানেজার ব্যবহৃত হয়।</li>
+            <li><strong>RHEL & Rocky Linux:</strong> RHEL (Red Hat Enterprise Linux) একটি পেইড বা বাণিজ্যিক ওএস। RHEL-এর
+              হুবহু ফ্রি এবং ওপেন-সোর্স ক্লোন সংস্করণ হলো <strong>Rocky Linux</strong> এবং <strong>AlmaLinux</strong>,
+              যা বর্তমান বিশ্বের টপ ডাটা সেন্টারগুলোতে সার্ভার ওএস হিসেবে ব্যবহৃত হচ্ছে।</li>
+          </ul>
+
+          <h3>গ. The Arch Family (Arch Linux, Manjaro)</h3>
+          <p>অ্যাডভান্সড লিনাক্স ইউজার এবং কাস্টমাইজেশন লাভারদের জন্য এটি একটি স্বর্গ।</p>
+          <ul>
+            <li><strong>Core Characteristics:</strong> এটি <strong>Rolling Release</strong> মডেল অনুসরণ করে। অর্থাৎ
+              উইন্ডোজ বা উবুন্টুর মতো এর কোনো ফিক্সড ভার্সন (যেমন উবুন্টু ২৪.০৪) থাকে না; এটি প্রতিদিন প্রতিনিয়ত আপডেট
+              হতে থাকে। আর্চ লিনাক্স ইনস্টল করার সময় কোনো গ্রাফিক্যাল ইন্টারফেস থাকে না, ব্ল্যাক টার্মিনাল থেকে কোড লিখে
+              লিখে ওএস তৈরি করতে হয়।</li>
+            <li><strong>Package Manager:</strong> এটি অত্যন্ত ফাস্ট একটি টুল ব্যবহার করে যার নাম
+              <strong>Pacman</strong>। এছাড়া এর রয়েছে <strong>AUR (Arch User Repository)</strong>, যেখানে দুনিয়ার প্রায়
+              সব কাস্টম সফটওয়্যার পাওয়া যায়।</li>
+          </ul>
+
+
+
+          <h2>৩. এক নজরে ডিস্ট্রো ও প্যাকেজ ম্যানেজার রেফারেন্স টেবিল</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Distribution Name</th>
+                  <th>Parent Family</th>
+                  <th>Package Format</th>
+                  <th>CLI Package Tool</th>
+                  <th>Primary Use Case Target</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Ubuntu Server / Desktop</td>
+                  <td>Debian</td>
+                  <td><code>.deb</code></td>
+                  <td><code>apt</code> / <code>apt-get</code></td>
+                  <td>Cloud hosting, developers workstations, web servers.</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Rocky Linux / AlmaLinux</td>
+                  <td>Red Hat (RHEL)</td>
+                  <td><code>.rpm</code></td>
+                  <td><code>dnf</code> / <code>yum</code></td>
+                  <td>Enterprise databases, mission-critical data centers.</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Kali Linux</td>
+                  <td>Debian</td>
+                  <td><code>.deb</code></td>
+                  <td><code>apt</code></td>
+                  <td>Cybersecurity penetration testing and digital forensics.</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Manjaro / Arch</td>
+                  <td>Arch</td>
+                  <td>Tarball Packages</td>
+                  <td><code>pacman</code></td>
+                  <td>Bleeding-edge software development and deep OS customization.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন: ওএস এবং প্যাকেজ ভেরিফিকেশন</h2>
+          <p>আপনি যখন কোনো দূরবর্তী ক্লাউড সার্ভারে SSH দিয়ে লগইন করবেন, তখন সেটি কোন ডিস্ট্রিবিউশন এবং সেখানে কোন
+            প্যাকেজ ম্যানেজার কাজ করছে, তা কমান্ড লাইনের মাধ্যমে পরীক্ষা করার স্ট্যান্ডার্ড ধাপগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>ধাপ ১: ডিস্ট্রিবিউশন এবং ভার্সন আইডেন্টিফিকেশন</h3>
+          <p>যেকোনো মডার্ন লিনাক্স ডিস্ট্রোর অফিশিয়াল রিলিজ তথ্য দেখার গ্লোবাল কমান্ড:</p>
+          <pre><code>$ cat /etc/os-release</code></pre>
+          <p><em>আউটপুট অ্যানালাইসিস: এই কমান্ডটি দিলে স্ক্রিনে <code>NAME="Ubuntu"</code> বা
+              <code>NAME="Rocky Linux"</code> এবং তার সুনির্দিষ্ট <code>VERSION_ID</code> ও ডিস্ট্রো ফ্যামিলির বিবরণ
+              লাইভ দেখতে পাবেন।</em></p>
+
+          <h3>ধাপ ২: ডেবিয়ান/উবুন্টু ফ্যামিলিতে সিস্টেম আপডেট ও সফটওয়্যার ইনস্টলেশন</h3>
+          <p>যদি <code>/etc/os-release</code>-এ ডেবিয়ান বা উবুন্টু ফ্যামিলি ডিটেক্ট হয়, তবে নিচের কমান্ড মেকানিজম
+            ব্যবহার করুন:</p>
+          <pre><code># সিস্টেমের লোকাল রিপোজিটরি ইনডেক্স আপডেট করা
+$ sudo apt update
+
+# একটি নতুন অ্যাপ্লিকেশন (যেমন Nginx Web Server) ইনস্টল করা
+$ sudo apt install nginx -y</code></pre>
+
+          <h3>ধাপ ৩: রেড হ্যাট / রকি লিনাক্স ফ্যামিলিতে সফটওয়্যার ইনস্টলেশন</h3>
+          <p>যদি সার্ভারটি আরপিএম (RPM) ভিত্তিক রকি বা সেন্টওএস (CentOS) হয়ে থাকে, তবে <code>dnf</code> কমান্ড টুল
+            ব্যবহার করুন:</p>
+          <pre><code># সিস্টেমের সব প্যাকেজ লেটেস্ট সংস্করণে আপগ্রেড করা
+$ sudo dnf upgrade -y
+
+# একই অ্যাপ্লিকেশন DNF এর মাধ্যমে ইনস্টল করা
+$ sudo dnf install nginx -y</code></pre>
+
+          <h2>৫. স্পেশালাইজড ডিস্ট্রিবিউশন: Kali Linux এবং Alpine</h2>
+          <p>সাধারণ ডেস্কটপ বা সার্ভার ছাড়াও কিছু লিনাক্স ডিস্ট্রো তৈরি করা হয়েছে অত্যন্ত সুনির্দিষ্ট ফিজিক্যাল ও
+            লজিক্যাল কাজের জন্য:</p>
+          <ul>
+            <li><strong>Kali Linux (Cyber Security):</strong> এটি ডেবিয়ান ভিত্তিক একটি ওএস। এর ভেতরে শত শত প্রি-ইনস্টলড
+              সিকিউরিটি এবং হ্যাকিং টুলস (যেমন- Nmap, Wireshark, Burp Suite) বিল্ট-ইন থাকে। এটি মূলত সাইবার সিকিউরিটি
+              প্রফেশনালদের <strong>Penetration Testing</strong> বা ভেদযোগ্যতা পরীক্ষার জন্য ব্যবহৃত হয়।</li>
+            <li><strong>Alpine Linux (Docker Containers):</strong> এটি একটি আল্ট্রা-মিনিমালিস্ট লিনাক্স ডিস্ট্রো যার
+              সাইজ মাত্র <strong>৫ মেগাবাইট</strong>। এতে কোনো গ্রাফিক্যাল ইন্টারফেস বা অপ্রয়োজনীয় সার্ভিস থাকে না।
+              আধুনিক <strong>Docker Container</strong> এবং মাইক্রোসার্ভিস আর্কিটেকচারে ইমেজ সাইজ ছোট রাখার জন্য আলপাইন
+              লিনাক্স বিশ্বব্যাপী এক নম্বর পছন্দ।</li>
+          </ul>
+
+          <h2>৬. Troubleshooting ও সাধারণ ডিস্ট্রো চ্যালেঞ্জসমূহ</h2>
+          <ul>
+            <li><strong>The "Package Not Found" Error:</strong> একটি ডিস্ট্রোর কমান্ড (যেমন <code>apt install</code>)
+              অন্য ডিস্ট্রোতে (যেমন Rocky Linux) রান করলে ওএস এরর দেবে। সবসময় ওএস ফ্যামিলি অনুযায়ী প্যাকেজ টুল ব্যবহার
+              করুন। এছাড়া, যদি সঠিক প্রোভাইডারেও প্যাকেজ না পাওয়া যায়, তবে বুঝতে হবে আপনাকে এক্সটার্নাল রিপোজিটরি এনাবল
+              করতে হবে (যেমন রেড হ্যাট ফ্যামিলির জন্য <strong>EPEL - Extra Packages for Enterprise Linux</strong>)।
+              <br><strong>রকি লিনাক্সে EPEL এড করার কমান্ড:</strong>
+              <pre><code>$ sudo dnf install epel-release -y</code></pre>
+            </li>
+            <li><strong>Dependency Hell (প্যাকেজ নির্ভরতা জটিলতা):</strong> অনেক সময় ম্যানুয়ালি <code>.rpm</code> বা
+              <code>.deb</code> ফাইল সরাসরি ইনস্টল করতে গেলে ওএস বলে যে এর জন্য আরও ৫টি সাপোর্ট ফাইল বা ডিপেন্ডেন্সি
+              লাগবে। এই সমস্যা এড়াতে সরাসরি অফিশিয়াল প্যাকেজ ম্যানেজার (<code>apt</code> বা <code>dnf</code>) ব্যবহার
+              করা উচিত, কারণ এরা ব্যাকঅ্যান্ডে ইন্টারনেট থেকে স্বয়ংক্রিয়ভাবে সব ডিপেন্ডেন্সি ফাইল ডাউনলোড করে নেয়।</li>
+            <li><strong>GPG Key Verification Failure:</strong> থার্ড-পার্টি কোনো সফটওয়্যার সোর্স অ্যাড করার পর সিস্টেম
+              আপডেট দিলে সিকিউরিটি কি (Key) এরর আসতে পারে। এর সমাধান হলো ওই নির্দিষ্ট সফটওয়্যার প্রোভাইডারের ভ্যালিড
+              <code>GPG Public Key</code>-টি রাউটার বা ওএস লেয়ারে ইমপোর্ট করে নেওয়া।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Linux Distributions</strong>-এর এই বৈচিত্র্যই লিনাক্স ইকোসিস্টেমকে পৃথিবীর সবচেয়ে নমনীয় বা
+              ফ্লেক্সিবল অপারেটিং সিস্টেমে পরিণত করেছে। আপনার যদি ঘরের পুরনো পিসির জন্য হালকা ওএস লাগে তবে উবুন্টু বা
+              মিন্ট, যদি ব্যাংকের ডাটাবেজ সার্ভার চালাতে হয় তবে রকি লিনাক্স, আর যদি সাইবার সিকিউরিটি অডিট করতে হয় তবে
+              কালি লিনাক্স—প্রতিটি কাজের জন্য ডেডিকেটেড ডিস্ট্রো প্রস্তুত রয়েছে। একজন দক্ষ সিস্টেম অ্যাডমিনিস্ট্রেটর
+              হিসেবে এই বিভিন্ন ডিস্ট্রোর আর্কিটেকচার এবং প্যাকেজ ম্যানেজমেন্ট মেকানিজম বুঝতে পারা আপনার আইটি
+              ক্যারিয়ারের পরিধি ও গভীরতা বহুগুণ বাড়িয়ে দেবে। নিয়মিত টার্মিনাল ল্যাব প্র্যাকটিসই আপনাকে এই ভিন্ন ভিন্ন
+              ওএস এনভায়রনমেন্টে মাস্টার করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

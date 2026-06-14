@@ -1,32 +1,359 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Graphical User Interface (GUI) | tech-enablement.info</title>
+  <meta name="description"
+    content="Graphical User Interface (GUI) কী, এর উপাদানসমূহ, কাজের ব্যাকএন্ড মেকানিজম এবং লিনাক্স ডিসপ্লে সার্ভার আর্কিটেকচারের ওপর একটি সম্পূর্ণ প্রফেশনাল গাইড সহজ বাংলায়।">
+  <title>Graphical User Interface (GUI): Architecture, Components, and Working Mechanism | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Graphical User Interface (GUI)</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Graphical User Interface (GUI)</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Graphical User Interface (GUI)</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>কম্পিউটারের আদি যুগে মানুষের সাথে মেশিনের যোগাযোগের একমাত্র মাধ্যম ছিল টেক্সট বা কোড। কোনো ফাইল ওপেন করতে
+            বা ডিলিট করতে তখন কালো স্ক্রিনে নিখুঁত কমান্ড টাইপ করতে হতো, যাকে আমরা <strong>CLI (Command Line
+              Interface)</strong> বলি। কিন্তু এই জটিল মেকানিজমকে পেছনে ফেলে কম্পিউটারকে সাধারণ মানুষের ব্যবহারের উপযোগী
+            করে তুলেছে যে প্রযুক্তি, তার নাম <strong>Graphical User Interface (GUI)</strong>। উইন্ডোজের চেনা আইকন,
+            ম্যাকওএস-এর স্মুথ অ্যানিমেশন কিংবা লিনাক্সের ডেক্সটপ এনভায়রনমেন্ট—সবকিছুর পেছনেই কাজ করছে চমৎকার এই ইউজার
+            ইন্টারফেস আর্কিটেকচার।</p>
+          <p>একজন আইটি প্রফেশনাল বা সিস্টেম অ্যাডমিনিস্ট্রেটর হিসেবে আমাদের শুধু জিইউআই (GUI) ব্যবহার করতে জানলেই চলে
+            না; এর ব্যাকএন্ড আর্কিটেকচার, উইন্ডো ম্যানেজার এবং লিনাক্সের ডিসপ্লে সার্ভার মেকানিজম গভীরভাবে বুঝতে হয়।
+            আজকের এই ডিপ-ডাইভ গাইডটিতে আমরা GUI-এর মৌলিক নীতি, এর কোর উপাদান এবং ওএস লেয়ারে এর কাজের প্রক্রিয়া নিয়ে
+            বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Graphical User Interface (GUI) কী?</h2>
+          <p><strong>GUI</strong> হলো এমন এক ধরনের ইউজার ইন্টারফেস যা ভিজ্যুয়াল উপাদান যেমন—আইকন (Icons), মেনু (Menus),
+            উইন্ডো (Windows), বাটন (Buttons) এবং পয়েন্টার (Pointer) ব্যবহার করে মানুষের সাথে কম্পিউটারের ইলেকট্রনিক
+            হার্ডওয়্যারের যোগাযোগ ঘটিয়ে দেয়।</p>
+          <p>এখানে ইউজারকে ব্যাকএন্ডের জটিল কোড বা সিনট্যাক্স মুখস্থ রাখতে হয় না। একটি মাউস ক্লিক বা টাচ স্ক্রিনের আলতো
+            স্পর্শেই সিস্টেমের জটিল সব কমান্ড মেমরিতে এক্সিকিউট (Execute) হয়ে যায়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Restaurant Menu Analogy)</h3>
+            <p>CLI এবং GUI-এর মধ্যকার বাস্তব পার্থক্য বুঝতে একটি আধুনিক রেস্টুরেন্টের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>The CLI Approach:</strong> আপনি রেস্টুরেন্টে গেলেন কিন্তু টেবিলে কোনো মেনু কার্ড বা ওয়েটার
+                নেই। কিচেনে সরাসরি শেফ দাঁড়িয়ে আছে। আপনাকে কিচেনের ভেতরকার টেকনিক্যাল রেসিপির টার্মিনোলজি এবং সঠিক
+                উপাদানের নাম হুবহু মুখে বলে অর্ডার দিতে হবে। সামান্য একটি শব্দ ভুল হলেই শেফ অর্ডার বাতিল করে দেবে।</li>
+              <li><strong>The GUI Approach:</strong> আপনি টেবিলে বসলেন এবং আপনার সামনে সুন্দর ছবিসহ একটি ডিজিটাল মেনু
+                ড্যাশবোর্ড বা ট্যাবলেট দেওয়া হলো। আপনি খাবারের ছবি ও বাটন দেখে জাস্ট স্ক্রিনে একটা টাচ করলেন এবং অর্ডার
+                কিচেনে চলে গেল। এখানে মেনু ইন্টারফেসটিই হলো একটি চমৎকার GUI।</li>
+            </ul>
+          </div>
+
+          <h2>২. GUI-এর মূল স্তম্ভ: The WIMP Model</h2>
+          <p>দুনিয়ার প্রায় সব আধুনিক ডেস্কটপ এবং এন্টারপ্রাইজ GUI একটি স্ট্যান্ডার্ড মডেল অনুসরণ করে তৈরি করা হয়েছে,
+            যাকে বলা হয় <strong>WIMP Model</strong>। এর পূর্ণরূপ নিচে বিশ্লেষণ করা হলো:</p>
+          <ul>
+            <li><strong>W - Windows:</strong> এটি স্ক্রিনের একটি নির্দিষ্ট চারকোনা এরিয়া বা ফ্রেম যা কোনো অ্যাপ্লিকেশন
+              বা ফাইলকে নিজের বাউন্ডারির ভেতরে রান ও ডিসপ্লে করে। ইউজার একই সাথে একাধিক উইন্ডো ওপেন করে কাজ করতে পারেন
+              (Multitasking)।</li>
+            <li><strong>I - Icons:</strong> এটি কোনো ফাইল, ফোল্ডার, অ্যাপ্লিকেশন বা কমান্ডের একটি ছোট ভিজ্যুয়াল অবজেক্ট
+              বা গ্রাফিক্যাল রিপ্রেজেন্টেশন। যেমন—একটি ট্র্যাশ ক্যানের ছবি দেখে আমরা সহজেই বুঝি এটি ডিলিট করা ফাইল জমা
+              রাখার ডিরেক্টরি।</li>
+            <li><strong>M - Menus:</strong> এটি ব্যবহারকারীর সামনে থাকা বিভিন্ন অপশন বা কমান্ডের একটি সুশৃঙ্খল তালিকা
+              (List)। ইউজার তালিকায় মাউস নিয়ে গিয়ে নিজের প্রয়োজনীয় অপশনটি সিলেক্ট করতে পারেন।</li>
+            <li><strong>P - Pointer:</strong> স্ক্রিনের ওপর থাকা অ্যারো (Arrow) চিহ্ন বা কার্সার যা মাউস বা
+              ট্র্যাকপ্যাডের ফিজিক্যাল মুভমেন্ট অনুযায়ী নড়াচড়া করে এবং স্ক্রিনের গ্রাফিক্যাল এলিমেন্টগুলোকে সিলেক্ট ও
+              ট্রিগার করতে সাহায্য করে।</li>
+          </ul>
+
+          <h2>৩. GUI বনাম CLI: গভীর টেকনিক্যাল তুলনা</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>বৈশিষ্ট্য (Feature)</th>
+                  <th>Graphical User Interface (GUI)</th>
+                  <th>Command Line Interface (CLI)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Ease of Use</td>
+                  <td>অত্যন্ত সহজ এবং বিগিনার-ফ্রেন্ডলি। গ্রাফিক্স দেখে বোঝা যায়।</td>
+                  <td>জটিল। নিখুঁত কমান্ড এবং সিনট্যাক্স মুখস্থ রাখা বাধ্যতামূলক।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Resource Utilization</td>
+                  <td><strong>High:</strong> গ্রাফিক্স রেন্ডার করার জন্য প্রচুর RAM এবং GPU মেমরি খরচ হয়।</td>
+                  <td><strong>Low:</strong> অত্যন্ত হালকা। সামান্য মেমরি এবং প্রসেসর পাওয়ারেই রান করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Speed & Automation</td>
+                  <td>ম্যানুয়াল ক্লিকের কারণে প্রতি বার কাজ করতে একই সময় লাগে। স্ক্রিপ্টিং কঠিন।</td>
+                  <td><strong>Ultra-Fast:</strong> এক লাইনের স্ক্রিপ্ট দিয়ে হাজার হাজার কাজ অটোমেটিক করা যায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Remote Management</td>
+                  <td>ব্যান্ডউইথ বেশি লাগে (VNC/RDP)। স্লো কানেকশনে ল্যাগ করে।</td>
+                  <td>অত্যন্ত সাশ্রয়ী। সামান্য 2G বা 3G ব্যান্ডউইথেই SSH দিয়ে সার্ভার কন্ট্রোল করা যায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Target Deployment</td>
+                  <td>পার্সোনাল ল্যাপটপ, ডেস্কটপ, স্মার্টফোন এবং সাধারণ এন্ডপয়েন্ট ওএস।</td>
+                  <td>এন্টারপ্রাইজ ডাটা সেন্টার, ক্লাউড সার্ভার এবং কোর নেটওয়ার্কিং গিয়ার (Cisco/MikroTik)।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+
+          <h2>৪. লিনাক্স জিইউআই আর্কিটেকচার (The Layers Behind Linux GUI)</h2>
+          <p>উইন্ডোজ অপারেটিং সিস্টেমে GUI ওএস-এর কার্নেলের সাথে ওতপ্রোতভাবে যুক্ত থাকে, যা আলাদা করা যায় না। কিন্তু
+            লিনাক্স অত্যন্ত মডুলার হওয়ায় এর GUI সম্পূর্ণ স্বাধীন একটি সাবসিস্টেম হিসেবে ব্যাকঅ্যান্ডে কাজ করে। একটি
+            লিনাক্স গ্রাফিক্যাল ইন্টারফেস মূলত নিচের ৩টি লেয়ারের সমন্বয়ে গঠিত হয়:</p>
+
+          <h3>ক. Display Server</h3>
+          <p>এটি গ্রাফিক্যাল আর্কিটেকচারের একদম নিচের স্তর। এর কাজ হলো কিবোর্ড বা মাউসের ইনপুট সিগন্যাল গ্রহণ করা এবং
+            কার্নেলের <strong>DRM (Direct Rendering Manager)</strong> ব্যবহার করে স্ক্রিনে পিক্সেল বা গ্রাফিক্স আর্ট
+            রেন্ডার করা।</p>
+          <ul>
+            <li><strong>X11 (X Org):</strong> এটি লিনাক্সের কয়েক দশক পুরনো ট্র্যাডিশনাল এবং ক্লাসিক ডিসপ্লে সার্ভার
+              প্রোটোকল। এটি নেটওয়ার্ক-ট্রান্সপারেন্ট, অর্থাৎ দূরবর্তী কোনো পিসির গ্রাফিক্স নিজের স্ক্রিনে দেখাতে পারে।
+            </li>
+            <li><strong>Wayland:</strong> এটি বর্তমান সময়ের লেটেস্ট ও আধুনিক ডিসপ্লে সার্ভার প্রোটোকল যা অত্যন্ত সিকিউর
+              এবং ফাস্ট। এটি X11-এর জটিলতা এবং পুরনো আর্কিটেকচারকে রিপ্লেস করে উবুন্টু, ফেডোরা বা রকি লিনাক্সের লেটেস্ট
+              সংস্করণে ডিফল্ট হিসেবে ব্যবহৃত হচ্ছে।</li>
+          </ul>
+
+          <h3>খ. Window Manager (WM)</h3>
+          <p>ডিসপ্লে সার্ভার শুধু গ্রাফিক্স আঁকতে পারে, কিন্তু উইন্ডোর ফ্রেম কেমন হবে, স্ক্রিনে উইন্ডোটি কীভাবে ছোট-বড়
+            (Minimize/Maximize) হবে বা মাউস দিয়ে ড্র্যাগ করে এক জায়গা থেকে অন্য জায়গায় সরানো যাবে কি না—তা নিয়ন্ত্রণ করে
+            এই <strong>Window Manager</strong>। যেমন— <code>Mutter</code> (Gnome এর জন্য) বা <code>KWin</code> (KDE এর
+            জন্য)।</p>
+
+          <h3>গ. Desktop Environment (DE)</h3>
+          <p>এটি একদম উপরের লেয়ার যা ইউজার সরাসরি চোখের সামনে দেখতে পান। এটি ডিসপ্লে সার্ভার, উইন্ডো ম্যানেজার এবং এক
+            সেট গ্রাফিক্যাল ইউটিলিটি অ্যাপ্লিকেশনকে (যেমন—ফাইল ম্যানেজার, সেটিংস প্যানেল, টেক্সট এডিটর) একত্রিত করে একটি
+            সম্পূর্ণ থিমড লুক বা ওএস ইন্টারফেস প্রদান করে।</p>
+          <ul>
+            <li><strong>GNOME:</strong> উবুন্টু এবং রেড হ্যাটের অফিশিয়াল ডিফল্ট ডেক্সটপ এনভায়রনমেন্ট। এটি দেখতে অত্যন্ত
+              মডার্ন, মিনিমালিস্ট এবং টাচ-স্ক্রিন ফ্রেন্ডলি।</li>
+            <li><strong>KDE Plasma:</strong> অত্যন্ত কাস্টমাইজেশন-সমৃদ্ধ ডেক্সটপ এনভায়রনমেন্ট যা দেখতে অনেকটা উইন্ডোজ
+              ওএস-এর মতো এবং এতে প্রচুর গ্রাফিক্যাল উইজেট যুক্ত করা যায়।</li>
+            <li><strong>XFCE:</strong> এটি একটি আল্ট্রা-লাইটওয়েট ডেক্সটপ এনভায়রনমেন্ট। পুরনো পিসি বা কম র‍্যাম বিশিষ্ট
+              ভার্চুয়াল মেশিনে স্মুথলি GUI চালানোর জন্য এটি সেরা পছন্দ।</li>
+          </ul>
+
+          <h2>৫. প্র্যাকটিক্যাল CLI অপারেশন: লিনাক্স GUI কন্ট্রোল এবং ভেরিফিকেশন</h2>
+          <p>একটি লিনাক্স এন্টারপ্রাইজ সার্ভারে টার্মিনালের সাহায্যে ব্যাকএন্ডের গ্রাফিক্যাল সার্ভিস কীভাবে চেক ও
+            কন্ট্রোল করতে হয়, তার প্র্যাকটিক্যাল ধাপগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>ধাপ ১: বর্তমানে কোন ডিসপ্লে সার্ভার সচল আছে তা চেক করা</h3>
+          <p>আপনার সিস্টেম X11 নাকি আধুনিক Wayland সেশনে রান করছে তা ওএস এনভায়রনমেন্ট ভেরিয়েবল রিড করে জানা যায়:</p>
+          <pre><code>$ echo $XDG_SESSION_TYPE
+
+# আউটপুট যদি 'wayland' বা 'x11' আসে, তবে বুঝবেন আপনার গ্রাফিক্যাল সার্ভার পারফেক্টলি রানিং।</code></pre>
+
+          <h3>ধাপ ২: লিনাক্স গ্রাফিক্যাল ডিসপ্লে ম্যানেজার (GDM/LightDM) স্ট্যাটাস চেক করা</h3>
+          <p>জিইউআই লগইন স্ক্রিন কন্ট্রোল করার ডেমো সার্ভিস চেক করার কমান্ড:</p>
+          <pre><code># GNOME Display Manager (gdm) সচল আছে কি না তা দেখতে
+$ sudo systemctl status gdm
+
+# আউটপুটে 'Active: active (running)' দেখতে পাবেন।</code></pre>
+
+          <h3>ধাপ ৩: সার্ভারের রান-লেভেল পরিবর্তন করা (Switching between CLI and GUI)</h3>
+          <p>অনেক সময় সার্ভারের মেমরি বা র‍্যাম বাঁচাতে আমাদের গ্রাফিক্যাল ইন্টারফেস সাময়িকভাবে বন্ধ করে সম্পূর্ণ টেকস্ট
+            মোডে (CLI) সুইচ করতে হয়:</p>
+          <pre><code># সিস্টেমকে পিওর টেক্সট মোডে (Command Line) নিয়ে যাওয়ার কমান্ড
+$ sudo systemctl set-default multi-user.target
+$ sudo reboot
+
+# পুনরায় গ্রাফিক্যাল মোডে (GUI ড্যাশবোর্ড) ফিরে আসার কমান্ড
+$ sudo systemctl set-default graphical.target
+$ sudo reboot</code></pre>
+
+          <h2>৬. Troubleshooting এবং প্রফেশনাল সাপোর্ট টিপস</h2>
+          <ul>
+            <li><strong>Black Screen of Death after NVIDIA Driver Update:</strong> এটি লিনাক্স অ্যাডমিনিস্ট্রেশনের
+              অত্যন্ত পরিচিত একটি প্রবলেম। গ্রাফিক্স ড্রাইভার আপডেট করার পর ওএস বুট হয়ে জিইউআই না এসে কালো স্ক্রিন হয়ে
+              ঝুলে থাকে।
+              <br><strong>সমাধান:</strong> কিবোর্ড থেকে <code>Ctrl + Alt + F3</code> প্রেস করে <strong>TTY Virtual
+                Terminal (CLI Mode)</strong>-এ লগইন করুন এবং নিচের কমান্ড দিয়ে ডিসপ্লে ম্যানেজার রিস্টার্ট করুন অথবা
+              ত্রুটিপূর্ণ ড্রাইভারটি রিমুভ করে দিন:
+              <pre><code>$ sudo systemctl restart gdm</code></pre>
+            </li>
+            <li><strong>GUI Freezing due to XOrg Memory Leak:</strong> অনেক সময় দীর্ঘ দিন সার্ভার রানিং থাকলে
+              গ্রাফিক্যাল মেমরি লিক হয়ে স্ক্রিন লক বা ফ্রিজ হয়ে যেতে পারে। এর জন্য পুরো ওএস রিস্টার্ট না করে শুধুমাত্র
+              আপনার শেলের ডিসপ্লে সার্ভিস রিলিজ করার কমান্ড:
+              <pre><code># উবুন্টু বা ডেবিয়ান সিস্টেমে ডিসপ্লে রিসেট করা
+$ sudo systemctl restart display-manager</code></pre>
+            </li>
+            <li><strong>High CPU Spike by Gnome-Shell:</strong> যদি দেখেন <code>top</code> কমান্ড দেওয়ার পর
+              <code>gnome-shell</code> প্রসেসটি অতিরিক্ত সিপিইউ ক্ষমতা গ্রাস করছে, তবে বুঝবেন কোনো কাস্টম ডেক্সটপ
+              এক্সটেনশন ব্যাকঅ্যান্ডে ক্র্যাশ করেছে। <code>gnome-extensions disable</code> কমান্ড দিয়ে থার্ড-পার্টি
+              প্লাগইনগুলো বন্ধ করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Graphical User Interface (GUI)</strong> বর্তমান আধুনিক কম্পিউটিংয়ের চেহারা পুরোপুরি বদলে দিয়েছে
+              এবং প্রযুক্তির গণতন্ত্রীকরণ নিশ্চিত করেছে। তবে সাধারণ ইউজারের কাছে এটি কেবল সুন্দর স্ক্রিন ও বাটন হলেও,
+              একজন এন্টারপ্রাইজ সিস্টেম ইঞ্জিনিয়ারের কাছে এটি একটি লেয়ারড সাবসিস্টেম আর্কিটেকচার। প্রোডাকশন সার্ভারে
+              মেমরি অপ্টিমাইজেশনের জন্য অনেক সময় আমাদের GUI বর্জন করে CLI ব্যবহার করতে হয়, আবার রিয়েল-টাইমে ডাটা
+              অ্যানালিসিস বা মনিটরিংয়ের জন্য কাস্টম ড্যাশবোর্ডের মাধ্যমে জিইউআই-এর সাহায্য নিতে হয়। লিনাক্সের
+              <strong>Wayland/X11 ডিসপ্লে সার্ভার</strong> এবং <strong>Systemd Target Management</strong>-এর গভীর
+              বোঝাপড়া আপনাকে যেকোনো জটিল আইটি ইনফ্রাস্ট্রাকচার নিখুঁতভাবে পরিচালনা ও ট্রাবলশুট করতে শতভাগ কারিগরি সহায়তা
+              প্রদান করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

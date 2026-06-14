@@ -1,32 +1,353 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User and Application-related Directories | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux-এর User এবং Application-related Directories যেমন /usr, /opt, /home, /var এবং /usr/local এর গঠন, কাজ এবং প্রফেশনাল ব্যবহারের ওপর বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Deep Dive into Linux User and Application-related Directories | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>User and Application-related Directories</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>User and Application-related Directories</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>User and Application-related Directories</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স ফাইল সিস্টেমের প্রাথমিক ধারণা বা <strong>Filesystem Hierarchy Standard (FHS)</strong> নিয়ে স্টাডি
+            করার সময় আমরা রুট (<code>/</code>) ডিরেক্টরির অধীনে থাকা বেসিক ডিরেক্টরিগুলোর সাথে পরিচিত হই। তবে একটি
+            প্রোডাকশন সার্ভার বা মাল্টি-ইউজার এনভায়রনমেন্ট পরিচালনা করার সময় সবচেয়ে বেশি যে অংশটি নিয়ে কাজ করতে হয়, তা
+            হলো <strong>User and Application-related Directories</strong>। সাধারণ ইউজারদের ডাটা, সিস্টেমের সেকেন্ডারি
+            অ্যাপ্লিকেশন এবং থার্ড-পার্টি এন্টারপ্রাইজ সফটওয়্যারগুলো লিনাক্স ফাইল সিস্টেমের একটি নির্দিষ্ট আর্কিটেকচার
+            মেনে বিন্যস্ত থাকে।</p>
+          <p>একজন প্রফেশনাল সিস্টেম অ্যাডমিনিস্ট্রেটর হিসেবে আপনাকে সুনির্দিষ্টভাবে জানতে হবে কোন ডিরেক্টরি ইউজারের
+            নিজস্ব স্পেস, কোন ডিরেক্টরিতে থার্ড-পার্টি বাইনারি ফাইল রাখতে হয় এবং সিস্টেম প্যাকেজ ম্যানেজার কীভাবে
+            অ্যাপ্লিকেশনগুলোর ডাটা ডিস্ট্রিবিউট করে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা ইউজার এবং অ্যাপ্লিকেশন সম্পর্কিত
+            ডিরেক্টরিগুলোর ইন্টারনাল মেকানিজম এবং প্র্যাকটিক্যাল ব্যবহার নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. লিনাক্স ইউজার ও অ্যাপ্লিকেশন ডিরেক্টরির গুরত্ব</h2>
+          <p>উইন্ডোজ অপারেটিং সিস্টেমে যেকোনো নতুন সফটওয়্যার বা অ্যাপ্লিকেশন ইনস্টল করলে তা সাধারণত
+            <code>C:\Program Files</code> ডিরেক্টরির ভেতরে একটি একক ফোল্ডারে তার সমস্ত ফাইল (Binaries, Configurations,
+            Logs) গুছিয়ে রাখে। কিন্তু লিনাক্সের দর্শন সম্পূর্ণ আলাদা। লিনাক্স একটি অ্যাপ্লিকেশনের বিভিন্ন উপাদানের
+            কার্যকারিতা অনুযায়ী সেগুলোকে পুরো সিস্টেমের আলাদা আলাদা ডিরেক্টরিতে ছড়িয়ে দেয়।</p>
+          <p>এই বিন্যাস মূলত সিস্টেমের নিরাপত্তা, ফ্লেক্সিবিলিটি এবং মাল্টি-ইউজার শেয়ারিং ক্ষমতা বহুগুণ বাড়িয়ে দেয়। আসুন
+            এই সম্পর্কিত প্রধান ডিরেক্টরিগুলো একে একে গভীরভাবে বিশ্লেষণ করি।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Corporate Office Desk Analogy)</h3>
+            <p>একটি কর্পোরেট অফিসের কর্মপরিবেশের সাথে এই ডিরেক্টরিগুলোর তুলনা করা যাক:</p>
+            <ul>
+              <li><strong>/home (Personal Desk):</strong> এটি প্রতিটি এমপ্লয়ির নিজস্ব কাজের টেবিল বা ড্রয়ার। এখানে তারা
+                নিজেদের ব্যক্তিগত ফাইল, ডায়েরি বা নোটস রাখেন। অন্য কেউ এই ডেস্কে হাত দেওয়ার পারমিশন পায় না।</li>
+              <li><strong>/usr (Office Stationery Room):</strong> এটি অফিসের একটি কমন রুম যেখান থেকে সব এমপ্লয়িরা কলম,
+                ডায়েরি বা সাধারণ সফটওয়্যার টুলস (যেমন ক্যালকুলেটর) শেয়ার করে ব্যবহার করেন। এটি সবার জন্য উন্মুক্ত এবং
+                স্ট্যাটিক।</li>
+              <li><strong>/opt (Special Shared Machine):</strong> ধরুন অফিস একটি বিশেষ এবং দামী থার্ড-পার্টি থ্রিডি
+                প্রিন্টার বা সফটওয়্যার কিনে নিয়ে আসলো, যা অফিসের সাধারণ সাপ্লাইয়ের অংশ নয়। সেটিকে অফিসের একটি নির্দিষ্ট
+                ডেডিকেটেড কর্নারে রাখা হয়। এটিই হলো থার্ড-পার্টি অ্যাপ্লিকেশনের জন্য <code>/opt</code>।</li>
+            </ul>
+          </div>
+
+          <h2>২. /usr ডিরেক্টরি: User System Resources</h2>
+          <p>অনেকেই ভুল করে মনে করেন <code>/usr</code> এর পূর্ণরূপ হলো "User"। আসলে এর প্রকৃত অর্থ হলো <strong>User
+              System Resources</strong>। লিনাক্স সিস্টেমের ওএস ইনস্টল হওয়ার পর যত অ্যাপ্লিকেশন, লাইব্রেরি ফাইল এবং
+            ইউজার-শেয়ার্ড বাইনারি যুক্ত হয়, তার সিংহভাগই এই <code>/usr</code> ডিরেক্টরির ভেতরে থাকে। এটি মূলত একটি
+            "Read-Only" ডিরেক্টরি হিসেবে কাজ করে, অর্থাৎ সাধারণ অ্যাপ চলাকালীন এখানে কোনো ডাটা রাইট বা পরিবর্তন হয় না।
+          </p>
+
+          <h3>/usr এর ভেতরের গুরুত্বপূর্ণ সাব-ডিরেক্টরি সমূহ:</h3>
+          <ul>
+            <li><strong>/usr/bin:</strong> সিস্টেমে ইনস্টল করা প্রায় সব সাধারণ ইউজার অ্যাপ্লিকেশনের এক্সিকিউটেবল বাইনারি
+              ফাইল বা কমান্ডগুলো এখানে থাকে। যেমন— <code>python</code>, <code>git</code>, <code>curl</code>,
+              <code>nano</code> ইত্যাদি।</li>
+            <li><strong>/usr/sbin:</strong> এটি হলো সিস্টেম অ্যাডমিনিস্ট্রেটরের জন্য প্রয়োজনীয় বাইনারি ফাইলগুলোর স্থান,
+              যা সাধারণ ইউজাররা সচরাচর ব্যবহার করেন না। যেমন— নেটওয়ার্ক কনফিগারেশন বা ডেমন কন্ট্রোল টুলস।</li>
+            <li><strong>/usr/lib এবং /usr/lib64:</strong> <code>/usr/bin</code> এবং <code>/usr/sbin</code>-এর ভেতরে থাকা
+              অ্যাপ্লিকেশনগুলো রান করার জন্য যে শেয়ারড লাইব্রেরি অবজেক্ট (Shared Libraries - <code>.so</code> ফাইল)
+              প্রয়োজন হয়, তা এখানে জমা থাকে।</li>
+            <li><strong>/usr/share:</strong> এটি একটি আর্কিটেকচার-ইন্ডিপেনডেন্ট স্পেস। এখানে বিভিন্ন অ্যাপ্লিকেশনের
+              ম্যানুয়াল পেজ (Man Pages), ডক ফাইল এবং আইকন থিম ফাইল থাকে।</li>
+          </ul>
+
+          <h3>/usr/local ডিরেক্টরি: Local Administrator Customizations</h3>
+          <p><code>/usr</code> এর ভেতরে আরেকটি বিশেষ ডিরেক্টরি থাকে যাকে বলা হয় <code>/usr/local</code>। এর গুরুত্ব
+            অত্যন্ত বেশি:</p>
+          <p>যখন আপনি ওএস-এর ডিফল্ট প্যাকেজ ম্যানেজার (যেমন— <code>apt</code> বা <code>dnf</code>) ব্যবহার না করে সরাসরি
+            কোনো সোর্স কোড ডাউনলোড করে ম্যানুয়ালি কম্পাইল (Compile) ও ইনস্টল করেন, তখন সেই কাস্টম অ্যাপ্লিকেশনের
+            ফাইলগুলো রাখার স্ট্যান্ডার্ড জায়গা হলো <code>/usr/local/bin</code>। এর ফলে ওএস আপগ্রেড করার সময় আপনার
+            ম্যানুয়ালি ইনস্টল করা কাস্টম সফটওয়্যারগুলো মুছে বা ওভাররাইট হয়ে যায় না।</p>
+
+          <h2>৩. /opt ডিরেক্টরি: Optional Add-on Applications</h2>
+          <p><strong>/opt</strong> এর পূর্ণরূপ হলো Optional। এটি মূলত বড় বড় থার্ড-পার্টি প্রোপাইটরি বা কমার্শিয়াল
+            এন্টারপ্রাইজ সফটওয়্যারগুলোর জন্য নির্ধারিত স্থান। </p>
+          <p>যে অ্যাপ্লিকেশনগুলো লিনাক্সের প্রথাগত স্প্লিট-ফাইল মেকানিজম (অর্থাৎ আলাদা আলাদা করে <code>/bin</code> বা
+            <code>/lib</code>-এ ফাইল ছড়ানো) অনুসরণ করে না, বরং নিজেদের সমস্ত বাইনারি, লাইব্রেরি এবং কনফিগারেশন একটি একক
+            মনোলিথিক ফোল্ডারে রাখতে চায়, তারা <code>/opt</code> এর অধীনে ইনস্টল হয়।</p>
+          <p><strong>কমন উদাহরণ:</strong> <code>/opt/google/chrome</code>, <code>/opt/zoom</code>, বা বড় ডাটাবেজ সলিউশন
+            যেমন ওরাকল (Oracle) বা আইবিএম (IBM) এর সফটওয়্যার প্যাকেজসমূহ।</p>
+
+
+
+          <h2>৪. /home এবং ইউজার-স্পেসিফিক কনফিগারেশন (.dotfiles)</h2>
+          <p><strong>/home</strong> ডিরেক্টরি হলো সাধারণ ইউজারদের ডাটা স্টোরেজ। কিন্তু এর ভেতরে অ্যাপ্লিকেশনের সাথে
+            সম্পর্কিত একটি গোপন স্তর থাকে। প্রতিটি অ্যাপ্লিকেশনের গ্লোবাল কনফিগারেশন <code>/etc</code>-তে থাকলেও,
+            নির্দিষ্ট ইউজারের পার্সোনাল সেটিংস কিন্তু তার নিজস্ব হোম ডিরেক্টরির ভেতরে <strong>Hidden Files</strong> বা
+            <strong>Dotfiles</strong> হিসেবে সেভ হয়।</p>
+          <p>যেমন, আপনি যদি কোনো টেক্সট এডিটরের থিম বা ফন্ট নিজের মতো চেঞ্জ করেন, তবে সেই কনফিগারেশন ফাইলটি আপনার হোম
+            ডিরেক্টরির <code>~/.config/</code> বা <code>~/.bashrc</code> ফাইলের ভেতরে রাইট হবে, যা অন্য কোনো ইউজারের
+            অ্যাপ পারফরম্যান্সে প্রভাব ফেলবে না।</p>
+
+          <h2>৫. এক নজরে ডিরেক্টরি স্ট্রাকচার ও পলিসি টেবিল</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Directory Path</th>
+                  <th>Source / Origin Type</th>
+                  <th>Standard Management Tool</th>
+                  <th>Isolation Level</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><code>/usr/bin</code></td>
+                  <td>Official OS Repository Distribution.</td>
+                  <td>System Package Manager (APT / DNF / YUM).</td>
+                  <td>System-wide (Accessible by all users).</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>/usr/local/bin</code></td>
+                  <td>Custom Local Administrator Compilation.</td>
+                  <td>Manual Source Build (<code>make && make install</code>).</td>
+                  <td>System-wide but safe from OS updates.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>/opt</code></td>
+                  <td>Third-party Commercial / Proprietary Software.</td>
+                  <td>Independent Vendor Installer scripts or self-contained packages.</td>
+                  <td>Monolithic self-contained directory per application.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>/home/user/.config</code></td>
+                  <td>User-specific runtime and personal preferences.</td>
+                  <td>The individual application binary triggered by that user.</td>
+                  <td>Strictly isolated per specific Linux User account.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৬. প্র্যাকটিক্যাল CLI অপারেশন এবং ভেরিফিকেশন স্টেপস</h2>
+          <p>আসুন টার্মিনাল বা কমান্ড লাইনের মাধ্যমে আমরা এই ডিরেক্টরিগুলোর অবস্থান এবং ফাইল মেকানিজম প্র্যাকটিক্যালি
+            ভেরিফাই করি।</p>
+
+          <h3>ধাপ ১: কোন কমান্ড বা অ্যাপ্লিকেশন কোন ডিরেক্টরি থেকে রান হচ্ছে তা সনাক্ত করা</h3>
+          <p>আপনি যখন টার্মিনালে কোনো কমান্ড লেখেন, সিস্টেম সেটি কোন ফিজিক্যাল ডিরেক্টরি থেকে ট্রিগার করছে তা
+            <code>which</code> বা <code>whereis</code> কমান্ড দিয়ে নিখুঁতভাবে ট্র্যাক করা যায়:</p>
+          <pre><code># Git কমান্ডের বাইনারি লোকেশন চেক করা
+$ which git
+# আউটপুট দেখতে পাবেন: /usr/bin/git
+
+# কাস্টম বা থার্ড-পার্টি কোনো সার্ভিসের সম্পূর্ণ পাথ ট্র্যাক করা
+$ whereis python</code></pre>
+
+          <h3>ধাপ ২: ইউজার পাথ এনভায়রনমেন্ট ($PATH Variable) ভেরিফাই করা</h3>
+          <p>আপনি যখন কোনো ফুল পাথ (যেমন <code>/usr/bin/ls</code>) না লিখে শুধু <code>ls</code> লেখেন, লিনাক্স কীভাবে
+            বোঝে যে ফাইলটি কোন ডিরেক্টরি থেকে রান করতে হবে? ওএস মূলত <strong>$PATH Environment Variable</strong>-এ থাকা
+            ডিরেক্টরি লিস্ট ক্রমানুসারে সার্চ করে। এই লিস্ট দেখার কমান্ড:</p>
+          <pre><code>$ echo $PATH
+
+# আউটপুটে ডিরেক্টরিগুলোর প্রায়োরিটি লিস্ট দেখতে পাবেন:
+# /usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin</code></pre>
+
+          <h3>ধাপ ৩: /opt ডিরেক্টরির মনোলিথিক স্ট্রাকচার চেক করা</h3>
+          <p>আপনার সিস্টেমে কোনো কমার্শিয়াল অ্যাপ ডেডিকেটেডলি বসে আছে কি না তা দেখতে <code>/opt</code> ডিরেক্টরি ব্রাউজ
+            করুন:</p>
+          <pre><code>$ cd /opt
+$ ls -lh</code></pre>
+
+          <h2>৭. Troubleshooting এবং প্রফেশনাল অ্যাডমিনিস্ট্রেশন টিপস</h2>
+          <ul>
+            <li><strong>"Command Not Found" for Custom Installed Applications:</strong> আপনি <code>/opt</code> বা
+              <code>/usr/local/bin</code>-এ একটি নতুন কাস্টম স্ক্রিপ্ট বা থার্ড-পার্টি অ্যাপ রাখলেন, কিন্তু টার্মিনালে
+              তার নাম লিখলে ওএস বলছে "Command Not Found"। এর প্রধান কারণ ফাইলটি আপনার <strong>$PATH</strong> ভেরিয়েবলে
+              যুক্ত নেই।
+              <br><strong>সমাধান:</strong> ইউজারের <code>~/.bashrc</code> ফাইলের শেষে নিচের লাইনটি যুক্ত করে
+              <code>source ~/.bashrc</code> রান করুন:
+              <pre><code>export PATH=$PATH:/opt/your_custom_app/bin</code></pre>
+            </li>
+            <li><strong>Permission Mismatch in /usr/local:</strong> অনেক সময় জুনিয়র এডমিনরা কাস্টম সফটওয়্যার ইনস্টল করার
+              সময় ভুল পারমিশনের কারণে সাধারণ ইউজারদের এক্সেস ব্লক করে ফেলেন। মনে রাখবেন, <code>/usr/bin</code> বা
+              <code>/usr/local</code>-এর ফাইলগুলোর রিড ও এক্সিকিউট পারমিশন (r-x) সব সময় গ্লোবালি সচল থাকতে হবে, যাতে সব
+              ইউজার তা রান করতে পারেন।</li>
+            <li><strong>Disk Space Exhaustion in Home Directories:</strong> মাল্টি-ইউজার ডেভেলপমেন্ট সার্ভারে ইউজাররা
+              নিজেদের <code>/home</code> স্পেসে বিশাল সাইজের ক্যাশ ফাইল বা ডকার ইমেজ ডাউনলোড করে মেইন হার্ডডিস্ক ফুল করে
+              ফেলতে পারেন। এটি প্রতিরোধ করতে অ্যাডমিনিস্ট্রেটরের উচিত <strong>Disk Quota</strong> কনফিগার করা, যা
+              প্রতিটি ইউজারের সর্বোচ্চ স্টোরেজ লিমিট ফিক্সড করে দেয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>User and Application-related Directories</strong>-এর নিখুঁত লজিক্যাল বিন্যাসই লিনাক্স অপারেটিং
+              সিস্টেমকে এন্টারপ্রাইজ লেভেলে চরম স্থায়িত্ব এবং আর্কিটেকচারাল সৌন্দর্য প্রদান করেছে। প্রাতিষ্ঠানিক প্যাকেজ
+              ম্যানেজারের ফাইল (<code>/usr</code>), কাস্টম লোকাল কম্পাইলেশন (<code>/usr/local</code>), স্বাধীন
+              থার্ড-পার্টি সফটওয়্যার (<code>/opt</code>) এবং ইউজারের নিজস্ব সেটিংসের (<code>/home</code>) মধ্যকার
+              সূক্ষ্ম টেকনিক্যাল সীমানাগুলো বুঝতে পারলে আপনার জন্য যেকোনো বড় লিনাক্স ইনফ্রাস্ট্রাকচার হ্যান্ডেল করা
+              অত্যন্ত সহজ হয়ে যাবে। নিয়মিত টার্মিনালে এই পাথগুলো অ্যানালাইসিস করার অভ্যাসই আপনাকে একজন প্রো-লেভেল
+              সিস্টেম ইঞ্জিনিয়ার হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

@@ -1,32 +1,339 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>System and Execution Environmental Variables | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux-এর System এবং Execution Environmental Variables কী, এদের আর্কিটেকচারাল মেকানিজম এবং রানটাইম এক্সিকিউশনে এদের প্রভাব নিয়ে একটি বিস্তারিত টেকনিক্যাল গাইড।">
+  <title>Deep Dive into System and Execution Environmental Variables in Linux | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>System and Execution Environmental Variables</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>System and Execution Environmental Variables</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>System and Execution Environmental Variables</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স এবং ইউনিক্স-লাইক সিস্টেমের ব্যাকএন্ড আর্কিটেকচারে যখন কোনো প্রসেস সচল হয়, তখন সেটি সম্পূর্ণ অন্ধ বা
+            আইসোলেটেড অবস্থায় থাকে না। কার্নেল লেভেল থেকে শুরু করে অ্যাপ্লিকেশন রানটাইম পর্যন্ত প্রতিটি প্রোগ্রামকে
+            সফলভাবে এক্সিকিউট হতে কিছু গ্লোবাল কনটেক্সট এবং ডাইনামিক ডেটার ওপর নির্ভর করতে হয়। এই ডেটা সরবরাহ করার
+            সেন্ট্রাল মেকানিজমই হলো <strong>Environmental Variables</strong>। এর আগে আমরা ইউজার এবং সেশন লেভেলের
+            ভেরিয়েবল নিয়ে আলোচনা করেছি, তবে ওএস লেভেলের গ্লোবাল স্টেট এবং বাইনারি রানটাইম নিয়ন্ত্রণ করার জন্য সবচেয়ে
+            গুরুত্বপূর্ণ হলো <strong>System and Execution Environmental Variables</strong>।</p>
+          <p>একজন প্রফেশনাল লিনাক্স অ্যাডমিনিস্ট্রেটর বা ডেভঅপ্স (DevOps) ইঞ্জিনিয়ারের জন্য এই ভেরিয়েবলগুলোর নিখুঁত
+            মেকানিজম এবং জীবনচক্র (Lifecycle) জানা অত্যন্ত জরুরী। সিস্টেম ডেমোনের আচরণ নিয়ন্ত্রণ, কম্পাইলার বিহেভিয়ার
+            এবং অ্যাপ্লিকেশন রানটাইম পরিবেশ অপ্টিমাইজ করতে এই কনসেপ্টগুলো সরাসরি ব্যবহৃত হয়। আজকের এই ডিপ-ডাইভ
+            টিউটোরিয়ালে আমরা এদের ইন্টারনাল আর্কিটেকচার, প্রসেস ইনহেরিটেন্স এবং প্র্যাকটিক্যাল অপারেশন নিয়ে বিস্তারিত
+            আলোচনা করবো।</p>
+
+
+
+          <h2>১. System & Execution Environmental Variables কী?</h2>
+          <p><strong>System Environmental Variables</strong> হলো ওএস লেভেলের নির্দিষ্ট গ্লোবাল প্যারামিটার যা বুট প্রসেস
+            সম্পন্ন হওয়ার পর <code>systemd</code> বা গ্লোবাল ইনিট স্ক্রিপ্ট দ্বারা সিস্টেমে স্থায়ীভাবে ডিফাইন করা হয়।
+            এগুলো কোনো নির্দিষ্ট ইউজার সেশনের ওপর ভিত্তি করে কাজ করে না, বরং পুরো লিনাক্স ওএস-এর আচরণ, মেমরি লেআউট,
+            টাইম-জোন এবং হার্ডওয়্যার ইন্টারঅ্যাকশন সিঙ্ক্রোনাইজ করতে ব্যবহৃত হয়।</p>
+          <p>অন্যদিকে, <strong>Execution Environmental Variables</strong> হলো এমন কিছু ক্ষণস্থায়ী বা ডাইনামিক
+            প্যারামিটার যা কোনো সুনির্দিষ্ট বাইনারি বা স্ক্রিপ্ট রান করার মুহূর্তে (Runtime) ওই প্রসেসের মেমরি ব্লকে
+            ইনজেক্ট (Inject) করা হয়। এর মাধ্যমে আমরা মূল অ্যাপ্লিকেশনের সোর্স কোড পরিবর্তন না করেই তার রানটাইম
+            এক্সিকিউশন আচরণ সম্পূর্ণ বদলে দিতে পারি।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Industrial Factory Analogy)</h3>
+            <p>সিস্টেম এবং এক্সিকিউশন ভেরিয়েবলের প্র্যাকটিক্যাল কাজের ধরণ বুঝতে একটি স্বয়ংক্রিয় প্লাস্টিক কারখানার কথা
+              চিন্তা করুন:</p>
+            <ul>
+              <li><strong>System Variables (কারখানার মূল অবকাঠামো):</strong> কারখানার মেইন ফ্লোরের ভোল্টেজ লিমিট
+                (VOLTAGE), মেইন ওয়াটার সাপ্লাই পাইপলাইন (WATER_PATH), এবং সেন্ট্রাল এলার্ম সিস্টেম হলো গ্লোবাল
+                প্যারামিটার। এগুলো সব মেশিনের জন্য সমান এবং স্থায়ী।</li>
+              <li><strong>Execution Variables (নির্দিষ্ট ডাইস বা মোল্ড রানটাইম):</strong> ধরুন আপনি কারখানার একটি
+                রোবোটিক ইনজেকশন মেশিনে একটি বাটন চাপলেন খেলনা গাড়ি বানানোর জন্য। বাটন চাপার মুহূর্তে আপনি মেশিনের
+                প্যানেলে ইনপুট দিলেন <code>COLOR=RED SPEED=FAST run_machine</code>। মেশিন কিন্তু একই, কিন্তু এই রানটাইম
+                ভেরিয়েবলের কারণে সে এবার লাল রঙের গাড়ি দ্রুত তৈরি করবে। পরবর্তী কমান্ডে <code>COLOR=BLUE</code> দিলে সে
+                নীল গাড়ি বানাবে। এটিই হলো এক্সিকিউশন ভেরিয়েবল।</li>
+            </ul>
+          </div>
+
+          <h2>২. প্রসেস ইনহেরিটেন্স এবং মেমরি ফোর্কিং মেকানিজম</h2>
+          <p>লিনাক্সে একটি নতুন প্রসেস যখন তৈরি হয়, তখন কার্নেল সরাসরি শূন্য থেকে কোনো প্রসেস জন্ম দেয় না। এটি মূলত
+            <code>fork()</code> এবং <code>execve()</code> সিস্টেম কলের মাধ্যমে তার প্যারেন্ট প্রসেসকে ক্লোন বা কপি করে।
+          </p>
+
+
+
+          <h3>The Inheritance Rule (উত্তরাধিকার মেকানিজম):</h3>
+          <p>যখন একটি প্যারেন্ট প্রসেস (Parent Process) চাইল্ড প্রসেস (Child Process) তৈরি করে, তখন প্যারেন্টের মেমরিতে
+            থাকা সমস্ত <strong>Environmental Variables</strong> স্বয়ংক্রিয়ভাবে চাইল্ড প্রসেসের এক্সিকিউশন ব্লকে কপি বা
+            ইনহেরিট হয়ে যায়। তবে চাইল্ড প্রসেস যদি নিজের এক্সিকিউশন মেমরিতে কোনো ভেরিয়েবল পরিবর্তন বা ডিলিট করে, তার
+            প্রভাব কিন্তু রিভার্স মোডে প্যারেন্ট প্রসেসের ওপর পড়ে না। এই একমুখী লজিক্যাল বাউন্ডারি ওএস স্ট্যাককে
+            মিউচুয়াল এরর থেকে সম্পূর্ণ নিরাপদ রাখে।</p>
+
+          <h2>৩. গুরুত্বপূর্ণ কোর সিস্টেম এবং এক্সিকিউশন ভেরিয়েবল সমূহ</h2>
+          <p>সিস্টেম লেভেলে প্রতিনিয়ত ব্যবহৃত এবং বাইনারি এক্সিকিউশন নিয়ন্ত্রণকারী কিছু কোর ভেরিয়েবলের বিবরণ নিচে দেওয়া
+            হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Variable Name</th>
+                  <th>Classification Type</th>
+                  <th>Technical Purpose & Architecture Impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><code>$LD_LIBRARY_PATH</code></td>
+                  <td>Execution / Linker</td>
+                  <td>ডাইনামিক লিঙ্কার বা লোডারকে ওএস-এর স্ট্যান্ডার্ড ডিরেক্টরির বাইরে কাস্টম শেয়ারড লাইব্রেরি
+                    (<code>.so</code> ফাইল) খোঁজার পাথ বা ট্রেইল দেখায়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$HOSTNAME</code></td>
+                  <td>System Static</td>
+                  <td>কার্নেল নেটওয়ার্ক স্ট্যাক এবং সিস্টেম ডেমোনের ব্যবহারের জন্য সার্ভারের অফিশিয়াল নেটওয়ার্ক নাম
+                    স্টোর করে রাখে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$TZ</code></td>
+                  <td>System Dynamic</td>
+                  <td>সিস্টেমের গ্লোবাল ঘড়ি এবং ক্রন-জব (Cron Jobs) রান করার জন্য টাইম-জোন নির্ধারণ করে (যেমন:
+                    <code>Asia/Dhaka</code>)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$TERM</code></td>
+                  <td>Execution / Display</td>
+                  <td>টার্মিনাল ইমুলেটরের ধরণ নির্দেশ করে (যেমন <code>xterm-256color</code>), যা স্ক্রিনে কালার
+                    রেন্ডারিং কোড নিয়ন্ত্রণ করে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$DEBIAN_FRONTEND</code></td>
+                  <td>Execution / Installer</td>
+                  <td>ডেবিয়ান বা উবুন্টু প্যাকেজ ইনস্টল করার সময় ইন্টারঅ্যাক্টিভ ডায়ালগ বক্স স্কিপ করে সম্পূর্ণ
+                    নন-ইন্টারেক্টিভ মোড এনাবল করতে ব্যবহৃত হয়।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন এবং অ্যাডভান্সড কনফিগারেশন স্টেপস</h2>
+          <p>টার্মিনাল কমান্ড লাইনের মাধ্যমে সিস্টেম লেভেলের ভেরিয়েবল অডিট করা এবং রানটাইমে এক্সিকিউশন ভেরিয়েবল ইনজেক্ট
+            করার প্র্যাকটিক্যাল মেথডগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>স্টেপ ১: কোনো নির্দিষ্ট প্রসেসের রিয়েল-টাইম এনভায়রনমেন্ট মেমরি রিড করা</h3>
+          <p>লিনাক্সে প্রসেসগুলোর সমস্ত লাইভ প্যারামিটার <code>/proc</code> ভার্চুয়াল ফাইল সিস্টেমে জমা থাকে। একটি রানিং
+            প্রসেসের (যেমন PID: 1245) আসল মেমরি ভেরিয়েবল দেখার কমান্ড:</p>
+          <pre><code># প্রসেসের মেমরি ব্লক থেকে নাল-ক্যারেক্টার ফিল্টার করে ভেরিয়েবল দেখা
+$ sudo cat /proc/1245/environ | tr '\0' '\n'</code></pre>
+
+          <h3>স্টেপ ২: Inline Execution Variable Injection (অন-দ্য-ফ্লাই ইনজেকশন)</h3>
+          <p>শেলের গ্লোবাল এনভায়রনমেন্ট স্পর্শ না করে শুধুমাত্র একটি নির্দিষ্ট কমান্ডের জন্য সাময়িকভাবে ভেরিয়েবল পাস
+            করার স্ট্যান্ডার্ড মেথড:</p>
+          <pre><code># শুধুমাত্র এই নির্দিষ্ট স্ক্রিপ্ট রান করার জন্য ডেটাবেজ ইউআরএল ইনজেক্ট করা
+$ DATABASE_PORT=27017 NODE_ENV=production node app.js</code></pre>
+          <p><em>ব্যাখ্যা: <code>node app.js</code> প্রসেসটি বন্ধ হওয়ার সাথে সাথে <code>DATABASE_PORT</code> ভেরিয়েবলটি
+              মেমরি থেকে চিরতরে বিলুপ্ত হয়ে যাবে। শেলের ওপর এর কোনো স্থায়ী প্রভাব থাকবে না।</em></p>
+
+          <h3>স্টেপ ৩: systemd সার্ভিসের ভেতরে সিস্টেম ভেরিয়েবল স্থায়ী করা</h3>
+          <p>এন্টারপ্রাইজ ব্যাকঅ্যান্ড ডেমোনের (যেমন Nginx বা কাস্টম API) জন্য গ্লোবাল সিস্টেম ভেরিয়েবল ডিক্লেয়ার করার
+            সঠিক পদ্ধতি হলো তার সার্ভিস ফাইলে কনফিগার করা:</p>
+          <pre><code># নির্দিষ্ট সার্ভিসটি এডিট মোডে ওপেন করুন
+$ sudo systemctl edit my_custom_api.service
+
+# নতুন পপ-আপ ফাইলে [Service] ব্লকের অধীনে নিচের ডিরেক্টিভ যুক্ত করুন:
+[Service]
+Environment="APP_TARGET_ZONE=Cloud_Prod"
+Environment="MAX_THREADS=8"
+
+# সিস্টেম ডেমন রিলোড করে সার্ভিসটি রিস্টার্ট করুন
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart my_custom_api.service</code></pre>
+
+          <h2>৫. Troubleshooting এবং প্রফেশনাল রানটাইম এরর হ্যান্ডলিং</h2>
+          <ul>
+            <li><strong>The `LD_LIBRARY_PATH` Security Trap (Shared Library Hijacking):</strong> অনেক সময় কাস্টম
+              সফটওয়্যার চালাতে গিয়ে ইঞ্জিনিয়াররা <code>export LD_LIBRARY_PATH=/tmp/local/lib</code> গ্লোবালি সেট করে
+              দেন। এটি একটি মারাত্মক সিকিউরিটি ভালনারেবিলিটি তৈরি করে। হ্যাকাররা যদি <code>/tmp</code> ডিরেক্টরিতে একটি
+              ম্যালিসিয়াস বা ক্ষতিকারক <code>.so</code> ফাইল একই নামে রেখে দেয়, তবে সিস্টেমের রুট বাইনারিগুলো অফিশিয়াল
+              লাইব্রেরির আগে ওই ভুয়া ফাইলটি এক্সিকিউট করে সার্ভারের সম্পূর্ণ নিয়ন্ত্রণ হ্যাকারকে দিয়ে দেবে।
+              <br><strong>বেস্ট প্র্যাকটিস সমাধান:</strong> গ্লোবালি এক্সপোর্ট না করে শুধুমাত্র ওই নির্দিষ্ট বাইনারি রান
+              করার মুহূর্তে ইনলাইন ইনজেকশন দিন অথবা <code>/etc/ld.so.conf.d/</code> ফাইলে সিকিউর পাথ এন্ট্রি করুন।
+            </li>
+            <li><strong>Automation Hanging due to Interactive Frontends:</strong> যখন আপনি কোনো অটোমেটেড ক্রন-জব বা
+              আনএটেন্ডেড বাশ স্ক্রিপ্ট (Ansible/Bash Script) দিয়ে উবুন্টু সার্ভার আপডেট করতে যান, তখন মাঝেমধ্যে
+              স্ক্রিপ্টটি আটকে (Hang) থাকে এবং কোনো রেসপন্স করে না।
+              <br><strong>কারণ:</strong> ব্যাকঅ্যান্ডে প্যাকেজ ম্যানেজার কনফিগারেশন ফাইল ওভাররাইট করার জন্য গ্রাফিক্যাল
+              প্রম্পট বা ইউজার ইনপুট আশা করছে।
+              <br><strong>সমাধান:</strong> এক্সিকিউশন লাইনের শুরুতে নন-ইন্টারেক্টিভ ফ্ল্যাগ ইনজেক্ট করে দিন:
+              <pre><code>$ sudo DEBIAN_FRONTEND=noninteractive apt-get upgrade -y</code></pre>
+            </li>
+            <li><strong>Systemd Services Missing Global Shell Exports:</strong> গ্লোবাল <code>/etc/profile</code> ফাইলে
+              কোনো এনভায়রনমেন্ট ভেরিয়েবল ডিফাইন করার পরও যদি systemd সার্ভিস সেটি রিড করতে না পারে, তবে বুঝবেন systemd
+              সম্পূর্ণ আলাদা একটি ক্লিন কার্নেল কনটেক্সটে বুট হয়, যা ইউজারের প্রোফাইল ফাইলগুলো স্কিপ করে। সমাধান হিসেবে
+              সার্ভিস ফাইলের ভেতরেই <code>EnvironmentFile=/etc/default/myapp</code> ডিরেক্টিভ ব্যবহার করে ভেরিয়েবল লোড
+              করুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>System and Execution Environmental Variables</strong> লিনাক্স অপারেটিং সিস্টেমের ব্যাকঅ্যান্ড
+              আর্কিটেকচার এবং ওএস রানটাইমের অত্যন্ত শক্তিশালী ও নির্ভরযোগ্য একটি লজিক্যাল ফ্রেমওয়ার্ক। প্রসেস ফোর্কিং
+              মেকানিজম এবং ইনলাইন রানটাইম ইনজেকশনের মাধ্যমে আমরা আমাদের অ্যাপ্লিকেশন বা স্ক্রিপ্টগুলোকে কোনো কন্টেইনার
+              বা ফিজিক্যাল সার্ভারে কোড রিকম্পাইল করা ছাড়াই অত্যন্ত ডাইনামিকভাবে রান করতে পারি। একজন দক্ষ আইটি প্রফেশনাল
+              বা সিস্টেম ইঞ্জিনিয়ার হিসেবে এই মেমরি আইসোলেশন ও <code>systemd</code> এনভায়রনমেন্ট সেটিংসের নিখুঁত ব্যবহার
+              বুঝতে পারা আপনার ট্রাবলশুটিং ক্ষমতা বহুগুণ বাড়িয়ে দেবে, যা আপনাকে বড় বড় ক্লাউড এবং ডাটা সেন্টার
+              ইনফ্রাস্ট্রাকচার সম্পূর্ণ এরর-মুক্ত ও নিখুঁতভাবে পরিচালনা করতে সহায়তা করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

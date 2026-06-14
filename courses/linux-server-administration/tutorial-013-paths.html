@@ -1,32 +1,352 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paths | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux-এর Absolute Path এবং Relative Path কী, এদের ভেতরের কারিগরি মেকানিজম এবং প্রফেশনাল নেভিগেশনের ওপর একটি সম্পূর্ণ ডিপ-ডাইভ টেকনিক্যাল গাইড সহজ বাংলায়।">
+  <title>Understanding Absolute and Relative Paths in Linux: A Deep Dive Guide | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Paths</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Paths</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Paths</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স ফাইল সিস্টেমের কাঠামো বা <strong>Filesystem Hierarchy Standard (FHS)</strong> নিয়ে স্টাডি করার সময়
+            আমরা ডিরেক্টরিগুলোর বিন্যাস সম্পর্কে অবগত হয়েছি। কিন্তু টার্মিনাল বা Command Line Interface (CLI)-তে ফাইল
+            তৈরি করা, ডিরেক্টরি ব্রাউজ করা কিংবা কোনো স্ক্রিপ্ট রান করার সময় আমাদের ওএস-কে সুনির্দিষ্ট ঠিকানা বা লোকেশন
+            বুঝিয়ে দিতে হয়। লিনাক্সের ভাষায় এই ঠিকানাকেই বলা হয় <strong>Path</strong>। লিনাক্স অ্যাডমিনিস্ট্রেশনে এবং
+            Bash Scripting-এ ফাইল লোকেটিং নিখুঁতভাবে পরিচালনা করতে <strong>Paths</strong>-এর গভীর মেকানিজম বুঝতে পারা এক
+            অপরিহার্য কারিগরি চাবিকাঠি।</p>
+          <p>আপনি যদি একটি ভুল পাথ ডিফাইন করেন, তবে সিস্টেম আপনার ফাইলটি খুঁজে পাবে না অথবা সম্পূর্ণ ভুল ডিরেক্টরিতে
+            ডেটা রাইট করে বড় ধরনের বিপর্যয় ঘটিয়ে ফেলবে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা লিনাক্সের দুই ধরনের
+            পাথ—<strong>Absolute Path</strong> এবং <strong>Relative Path</strong>-এর ইন্টারনাল মেকানিজম, এদের সূক্ষ্ম
+            কারিগরি পার্থক্য এবং প্র্যাকটিক্যাল অপারেশন নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Linux Path কী? (The Structural Concept)</h2>
+          <p>সহজ কথায়, <strong>Path</strong> হলো লিনাক্স ডিরেক্টরি ট্রির (Directory Tree) মধ্য দিয়ে একটি সুনির্দিষ্ট
+            ফাইল বা ফোল্ডারে পৌঁছানোর লজিক্যাল রাস্তা বা সিকোয়েন্সিয়াল এড্রেস। লিনাক্সে ডিরেক্টরিগুলোকে আলাদা করার জন্য
+            ফরওয়ার্ড স্ল্যাশ (<code>/</code>) চিহ্ন ব্যবহার করা হয় (মনে রাখবেন, উইন্ডোজে ব্যাকস্ল্যাশ <code>\</code>
+            ব্যবহৃত হয়)।</p>
+          <p>যেমন: <code>/var/log/nginx/access.log</code> একটি পাথ। এর অর্থ হলো, মেইন রুট ডিরেক্টরির ভেতরে থাকা
+            <code>var</code> ফোল্ডারের ভেতরের <code>log</code> ফোল্ডারের ভেতরের <code>nginx</code> ডিরেক্টরিতে অবস্থানরত
+            <code>access.log</code> নামক একটি সুনির্দিষ্ট ফাইল।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Global Positioning System Analogy)</h3>
+            <p>পাথের কনসেপ্টটি প্র্যাকটিক্যালি বোঝার জন্য বাস্তব জীবনের একটি ঠিকানা বা গ্লোবাল লোকেশনের কথা চিন্তা করুন:
+            </p>
+            <ul>
+              <li><strong>Absolute Path (গ্লোবাল জিপিএস কোঅর্ডিনেট):</strong> ধরুন আপনি কাউকে আপনার অফিসের ঠিকানা দিলেন:
+                "বাংলাদেশ, ঢাকা, ধানমন্ডি, রোড ৫A, হাউস নম্বর ১২"। এই ঠিকানাটি পৃথিবীর যেকোনো প্রান্ত থেকে একজন মানুষ
+                ট্র্যাক করে সোজা আপনার অফিসে এসে পৌঁছাতে পারবেন। এর জন্য তিনি বর্তমানে কোথায় দাঁড়িয়ে আছেন তা জানা জরুরী
+                নয়।</li>
+              <li><strong>Relative Path (বর্তমান সাপেক্ষ নির্দেশনা):</strong> আপনি অলরেডি ধানমন্ডি ৫A রোডের মাথায়
+                দাঁড়িয়ে আছেন আপনার এক বন্ধুর সাথে। আপনি তাকে বললেন, "সামনের দিকে ২ ব্লক এগিয়ে বামের ৩ নম্বর বিল্ডিংয়ে
+                যাও।" এই ঠিকানাটি শুধুমাত্র ওই নির্দিষ্ট মুহূর্তে ওই স্থানে দাঁড়ানো মানুষের জন্যই সত্য। আপনি যদি কুড়িল
+                বিশ্বরোডে দাঁড়িয়ে এই কথা বলেন, তবে আপনার বন্ধু সম্পূর্ণ ভুল জায়গায় চলে যাবে। এটিই হলো রিলেটিভ পাথ।</li>
+            </ul>
+          </div>
+
+          <h2>২. Absolute Path: সর্বজনীন ও সুনির্দিষ্ট ঠিকানা</h2>
+          <p><strong>Absolute Path</strong> হলো এমন একটি পাথ যা ফাইল সিস্টেমের বর্তমান ওয়ার্কিং ডিরেক্টরির (Current
+            Working Directory) ওপর নির্ভর করে না। এটি সব সময় এবং সব মোডেই সম্পূর্ণ স্বাধীন।</p>
+
+          <h3>Absolute Path-এর মূল কারিগরি বৈশিষ্ট্যসমূহ:</h3>
+          <ul>
+            <li>এই পাথটি সব সময় লিনাক্সের আদি রুট বা স্ল্যাশ (<code>/</code>) চিহ্ন দিয়ে শুরু হয়।</li>
+            <li>টার্মিনালের সেশনে আপনি বর্তমানে যে ফোল্ডারেই অবস্থান করুন না কেন, Absolute Path ব্যবহার করে যেকোনো
+              ফাইলকে সরাসরি ট্রিগার বা অ্যাক্সেস করা সম্ভব।</li>
+            <li>কনফিগারেশন ফাইল ও সিস্টেম ডেমোনের (Systemd Services) ভেতরে সব সময় এই পাথ ব্যবহার করা বাধ্যতামূলক, যাতে
+              ব্যাকঅ্যান্ড প্রসেস কোনো কনফ্লিক্ট ছাড়া ফাইল রিড করতে পারে।</li>
+          </ul>
+          <p><strong>উদাহরণ:</strong> যদি আপনি <code>/home/jobaer/projects/app.py</code> ফাইলটি অ্যাক্সেস করতে চান, তবে
+            এটিই হলো এর Absolute Path।</p>
+
+          <h2>৩. Relative Path: বর্তমান অবস্থান সাপেক্ষ ঠিকানা</h2>
+          <p><strong>Relative Path</strong> হলো এমন একটি পাথ যা ব্যবহারকারীর বর্তমান কাজের অবস্থান বা ডিরেক্টরির
+            (Current Working Directory) সাপেক্ষে ফাইল বা ফোল্ডারের ঠিকানা নির্দেশ করে।</p>
+
+          <h3>Relative Path-এর মূল কারিগরি বৈশিষ্ট্যসমূহ:</h3>
+          <ul>
+            <li>এই পাথের শুরুতে কখনো ফরওয়ার্ড স্ল্যাশ (<code>/</code>) বসে না।</li>
+            <li>এটি মূলত শর্টকাট নেভিগেশনের জন্য টার্মিনাল ইন্টারেকশনের সময় ইঞ্জিনিয়াররা বেশি ব্যবহার করেন।</li>
+            <li>রিলেটিভ পাথ হ্যান্ডেল করতে লিনাক্স দুটি বিশেষ স্পেশাল ক্যারেক্টার বা ডট-নোটেশন ব্যবহার করে:
+              <ul>
+                <li><strong>একটি ডট (<code>.</code>):</strong> এটি বর্তমান ডিরেক্টরি (Current Directory) নির্দেশ করে।
+                </li>
+                <li><strong>দুটি ডট (<code>..</code>):</strong> এটি ঠিক এক ধাপ উপরের বা প্যারেন্ট ডিরেক্টরি (Parent
+                  Directory) নির্দেশ করে।</li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Path Mode Type</th>
+                  <th>Starting Indicator</th>
+                  <th>Current Context Reliance</th>
+                  <th>Best Use Case Standard</th>
+                  <th>Syntax Structural Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">Absolute Path</td>
+                  <td>সরাসরি Root (<code>/</code>) দিয়ে শুরু হয়।</td>
+                  <td>সম্পূর্ণ স্বাধীন (No reliance).</td>
+                  <td>Systemd scripts, Cron jobs, Configuration entries.</td>
+                  <td><code>/var/www/html/index.html</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column">Relative Path</td>
+                  <td>ফাইল/ফোল্ডারের নাম বা <code>.</code> বা <code>..</code> দিয়ে শুরু হয়।</td>
+                  <td>বর্তমান ডিরেক্টরির ওপর শতভাগ নির্ভরশীল।</td>
+                  <td>Quick terminal navigation, relative code imports.</td>
+                  <td><code>../html/index.html</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          [Image layout comparing path expression differences for absolute and relative paths]
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন: পাথ নেভিগেশন ও ট্রাভার্সাল</h2>
+          <p>আসুন আমরা টার্মিনাল বা কমান্ড লাইনের মাধ্যমে এই দুই ধরনের পাথের আচরণ ও নেভিগেশন মেকানিজম প্র্যাকটিক্যালি
+            ভেরিফাই করি।</p>
+
+          <h3>ধাপ ১: বর্তমান কাজের ডিরেক্টরি বা বাউন্ডারি সনাক্ত করা</h3>
+          <p>টার্মিনালে আপনি ফিজিক্যালি কোথায় অবস্থান করছেন তা জানার কমান্ড:</p>
+          <pre><code>$ pwd
+# আউটপুটে আপনার Absolute Path দেখাবে, যেমন: /home/jobaer/downloads</code></pre>
+
+          <h3>ধাপ ২: Absolute Path ব্যবহার করে ডিরেক্টরি পরিবর্তন</h3>
+          <p>আপনি বর্তমানে যেখানেই থাকুন না কেন, এক কমান্ডে গ্লোবাল কনফিগারেশন ডিরেক্টরিতে যাওয়ার মেথড:</p>
+          <pre><code>$ cd /etc/nginx/conf.d</code></pre>
+          <p><em>ব্যাখ্যা: পাথের শুরুতে <code>/</code> থাকায় ওএস সরাসরি রুট লেভেল থেকে সার্চ শুরু করে সেখানে নিয়ে
+              যাবে।</em></p>
+
+          <h3>ধাপ ৩: Relative Path ও ডট-নোটেশন ব্যবহার করে এক ধাপ উপরে যাওয়া</h3>
+          <p>ধরুন আপনি বর্তমানে <code>/var/log/nginx</code> ডিরেক্টরিতে আছেন। আপনি চাচ্ছেন এক লেভেল উপরে অর্থাৎ
+            <code>/var/log</code> ফোল্ডারে ব্যাক করতে:</p>
+          <pre><code>$ cd ..</code></pre>
+          <p>এখন যদি আপনি <code>pwd</code> দেন, তবে দেখতে পাবেন আপনার বর্তমান ঠিকানা <code>/var/log</code>।</p>
+
+          <h3>ধাপ ৪: একই লেভেলের অন্য ডিরেক্টরিতে রিলেটিভলি সুইচ করা</h3>
+          <p>ধরুন আপনি বর্তমানে আছেন <code>/var/log</code>-এ। আপনি এক ধাপ উপরে গিয়ে আবার <code>www</code> ফোল্ডারের
+            ভেতরে ঢুকতে চান (অর্থাৎ <code>/var/www</code> পাথে যেতে চান):</p>
+          <pre><code>$ cd ../www</code></pre>
+          <p><em>মেকানিজম ব্যাখ্যা: <code>..</code> কমান্ডটিকে <code>/var/log</code> থেকে এক ধাপ উপরে
+              <code>/var</code>-এ নিয়ে যায়, এবং সেখান থেকে ফরওয়ার্ড হয়ে <code>www</code> ডিরেক্টরিতে প্রবেশ করায়।</em>
+          </p>
+
+          <h3>ধাপ ৫: বর্তমান ডিরেক্টরিতে স্ক্রিপ্ট এক্সিকিউট করা (`./`)</h3>
+          <p>লিনাক্সে কারেন্ট ডিরেক্টরির কোনো স্ক্রিপ্ট রান করার সময় আমরা লিখি <code>./myscript.sh</code>। এখানে
+            <code>.</code> নির্দেশ করে বর্তমান ফোল্ডার এবং <code>/</code> দিয়ে ফাইলের নাম আলাদা করা হয়। এটি একটি পিওর
+            Relative Path অপারেশন।</p>
+
+          <h2>৫. দ্য টিল্ডা নোটিফিকেশন (The Tilde Symbol `~`)</h2>
+          <p>পাথ অপারেশনের আরেকটি অ্যাডভান্সড ক্যারেক্টার হলো টিল্ডা (<code>~</code>) সাইন। লিনাক্স শেলের ভেতরে এই
+            <code>~</code> চিহ্নটি সরাসরি বর্তমান লগইন থাকা ইউজারের <strong>Home Directory</strong>-র Absolute Path
+            রিপ্রেজেন্ট করে।</p>
+          <p>যেমন— আপনি যদি টার্মিনালে লেখেন <code>cd ~/projects</code>, ওএস ব্যাকঅ্যান্ডে এটিকে অনুবাদ করে নেবে
+            <code>cd /home/jobaer/projects</code> হিসেবে। এটি ফাইল পাথের রাইটিং স্পিড বহুগুণ বাড়িয়ে দেয়।</p>
+
+          <h2>৬. Troubleshooting ও প্রফেশনাল পাথ হ্যান্ডলিং এরর</h2>
+          <ul>
+            <li><strong>The "No such file or directory" Error in Cron Jobs:</strong> এটি ডেভঅপ্স এবং সিস্টেম
+              ইঞ্জিনিয়ারদের ফেস করা সবচেয়ে কমন ট্র্যাপ। আপনি একটি বাশ স্ক্রিপ্ট তৈরি করলেন এবং টার্মিনাল থেকে সেটি
+              রিলেটিভ পাথ (যেমন: <code>cat mydata.txt</code>) ব্যবহার করে রান করলেন, স্ক্রিপ্ট পারফেক্টলি কাজ করলো।
+              কিন্তু যখনই সেটি <strong>Cron Job</strong>-এ শিডিউল করলেন, সেটি ফেইল করে এই এরর দিল।
+              <br><strong>কারণ:</strong> ক্রন-জব যখন ব্যাকঅ্যান্ডে রান হয়, তখন তার ডিফল্ট কারেন্ট ডিরেক্টরি থাকে রুটের
+              হোমে। ফলে সে আপনার <code>mydata.txt</code> ফাইলটি সেখানে খুঁজে পায় না।
+              <br><strong>সমাধান:</strong> অটোমেশন বা ক্রন স্ক্রিপ্টের ভেতরে কখনো রিলেটিভ পাথ ব্যবহার করবেন না। সবসময়
+              ফাইলের পূর্ণ <strong>Absolute Path</strong> ডিফائن করুন:
+              <pre><code># স্ক্রিপ্টের ভেতরে সঠিক এন্ট্রি মেথড
+cat /home/jobaer/data/mydata.txt</code></pre>
+            </li>
+            <li><strong>Accidental Directory Destruction via Relative Path:</strong> ধরুন আপনি
+              <code>/var/www/html/old_app</code> ফোল্ডারের ফাইল ডিলিট করার জন্য একটি ডিলিট কমান্ড রান করতে চান। আপনি
+              টার্মিনালে তাড়াহুড়ো করে ভুল ডিরেক্টরিতে থাকা অবস্থায় <code>rm -rf ./.*</code> বা অনুরূপ রিলেটিভ কমান্ড
+              দিলেন। এটি আপনার বর্তমান ফোল্ডারের প্যারেন্ট ডিরেক্টরির সমস্ত মেইন ফাইল মুছে সার্ভার ক্র্যাশ করিয়ে দিতে
+              পারে।
+              <br><strong>বেস্ট প্র্যাকটিস:</strong> যেকোনো ডেস্ট্রাক্টিভ কমান্ড (যেমন <code>rm</code> বা
+              <code>mv</code>) রান করার আগে <code>pwd</code> দিয়ে নিজের অবস্থান নিশ্চিত করে নিন অথবা রিস্ক এড়াতে সরাসরি
+              Absolute Path ব্যবহার করুন।
+            </li>
+            <li><strong>Path Traversal Vulnerability (সাইবার সিকিউরিটি ঝুঁকি):</strong> ওয়েব অ্যাপ্লিকেশন ডেভেলপ করার
+              সময় যদি ইউজার ইনপুট পাথের সাথে যুক্ত হয়, তবে হ্যাকাররা রিলেটিভ ডট-নোটেশন ইনজেক্ট করে সিস্টেমের ফাইল
+              বাউন্ডারি ব্রেক করতে পারে। যেমন— ইনপুটে <code>../../../../etc/passwd</code> দিয়ে আপনার সার্ভারের গোপন
+              পাসওয়ার্ড ফাইল চুরি করা। এটি প্রতিরোধ করতে অ্যাপ্লিকেশন লেয়ারে <strong>Path Sanitization</strong> বা ইনপুট
+              ভ্যালিডেশন নিশ্চিত করা অত্যন্ত জরুরী।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Paths</strong> এবং এর ইন্টারনাল ডিরেক্টরি ট্রাভার্সাল মেকানিজম লিনাক্স সিস্টেম
+              অ্যাডমিনিস্ট্রেশনের অত্যন্ত মৌলিক ও শক্তিশালী একটি লজিক্যাল ফ্রেমওয়ার্ক। <strong>Absolute Path</strong>-এর
+              সর্বজনীন স্থায়ী স্থায়িত্ব এবং <strong>Relative Path</strong>-এর ডট-নোটেশন ভিত্তিক কুইক নেভিগেশন—উভয়
+              পদ্ধতিরই সিস্টেমে সুনির্দিষ্ট কার্যকারিতা রয়েছে। একজন আইটি প্রফেশনাল হিসেবে এই দুই পাথের কারিগরি সীমানা
+              এবং সেশন কনটেক্সট নিখুঁতভাবে বুঝতে পারলে আপনি প্রোডাকশন সার্ভারে যেকোনো স্ক্রিপ্ট অটোমেশন, ক্রন-জব
+              ডিপ্লয়মেন্ট বা কনফিগারেশন ফাইল ডিক্লেয়ারেশন অত্যন্ত নিরাপদ ও নিখুঁতভাবে পরিচালনা ও ট্রাবলশুট করতে পারবেন।
+              নিয়মিত টার্মিনাল ল্যাব প্র্যাকটিসই আপনাকে ডিরেক্টরি নেভিগেশনে মাস্টার করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

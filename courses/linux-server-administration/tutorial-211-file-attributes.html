@@ -1,32 +1,375 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Attributes | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux File Attributes এবং Inode মেকানিজম কী, কীভাবে chattr এবং lsattr কমান্ড ব্যবহার করে ফাইলকে শতভাগ সুরক্ষিত ও আন-ডিলিটেবল করা যায় তার একটি গভীর টেকনিক্যাল গাইড।">
+  <title>Deep Dive into Linux File Attributes and Advanced Security Mechanics | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>File Attributes</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>File Attributes</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction and Advanced Concepts of File Attributes</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স ফাইল সিস্টেমের নিরাপত্তা এবং ফাইল ম্যানেজমেন্ট নিয়ে আলোচনা করার সময় আমরা সাধারণত <code>Read</code>,
+            <code>Write</code> এবং <code>Execute</code> পারমিশন (যা <code>chmod</code> কমান্ড দিয়ে নিয়ন্ত্রণ করা হয়)
+            নিয়ে বিস্তারিত পড়াশোনা করি। কিন্তু অনেক সময় এন্টারপ্রাইজ প্রোডাকশন এনভায়রনমেন্টে এমন কিছু পরিস্থিতি তৈরি হয়
+            যেখানে প্রচলিত ফাইল পারমিশন মেকানিজম একা সিস্টেমকে শতভাগ সুরক্ষা দিতে ব্যর্থ হয়। উদাহরণস্বরূপ, লিনাক্সের
+            সর্বোচ্চ ক্ষমতাশালী <strong>Root User</strong> চাইলে যেকোনো <code>Read-only</code> ফাইলকে এক সেকেন্ডে ডিলিট
+            বা মডিফাই করে দিতে পারেন। </p>
+          <p>তাহলে উপায় কী? কার্নেল লেভেলে ফাইলকে আরও গভীরভাবে লক করার জন্য লিনাক্স ফাইল সিস্টেম (যেমন ext4, XFS) আরেকটি
+            লেয়ার ব্যবহার করে, যাকে বলা হয় <strong>File Attributes</strong>। এই বিশেষ এট্রিবিউটের মাধ্যমে একটি ফাইলকে
+            এমনভাবে প্রটেক্ট করা সম্ভব যে স্বয়ং রুট ইউজারও ফাইলটি ডিলিট, রিনেম বা এডিট করতে পারবেন না যতক্ষণ না সেই
+            এট্রিবিউট লক সরানো হচ্ছে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা লিনাক্স ফাইল এট্রিবিউটের ইন্টারনাল মেকানিজম, এর
+            বিভিন্ন ফ্ল্যাগ, <code>chattr</code> ও <code>lsattr</code> কমান্ডের প্র্যাকটিক্যাল কনফিগারেশন এবং ট্রাবলশুট
+            নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. File Permissions বনাম File Attributes</h2>
+          <p>কাজ শুরু করার আগে এই দুটি কনসেপ্টের মধ্যকার মূল টেকনিক্যাল ও লজিক্যাল পার্থক্যটি বোঝা অত্যন্ত জরুরী:</p>
+          <ul>
+            <li><strong>File Permissions (chmod):</strong> এটি ওএস লেভেলে ডিফাইন করা একটি সিকিউরিটি ফিল্টার, যা
+              নির্দিষ্ট ইউজার বা গ্রুপ অ্যাকাউন্টের অ্যাক্সেস রেস্ট্রিকশন (rwx) নিয়ন্ত্রণ করে। তবে এই পারমিশনের ফাইল
+              বাউন্ডারি <code>root</code> (UID=0) ইউজারের কাছে প্রযোজ্য নয়। রুট ইউজার রাইট পারমিশন ছাড়াও যেকোনো ফাইল
+              ওভাররাইট করতে পারেন।</li>
+            <li><strong>File Attributes (chattr):</strong> এটি সরাসরি ফাইল সিস্টেমের লো-লেভেল মেটাডাটা বা <strong>Inode
+                Block</strong>-এর ভেতরে একটি ফ্ল্যাগ বা প্রপার্টি হিসেবে লক হয়ে থাকে। এটি ইউজারের ওপরে কাজ করে না, এটি
+              সরাসরি ফাইলের আচরণের (Behavior) ওপর রেস্ট্রিকশন আরোপ করে। ফলে রুট ইউজারও এই লকিং মেকানিজমের বাউন্ডারি
+              ব্রেক করতে পারেন না।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Bank Safe Box Analogy)</h3>
+            <p>পারমিশন এবং এট্রিবিউটের প্র্যাকটিক্যাল পার্থক্য বুঝতে একটি ব্যাংকের লকার বা সেফ বক্সের কথা চিন্তা করুন:
+            </p>
+            <ul>
+              <li><strong>File Permissions (লকার রুমের সিকিউরিটি গার্ড):</strong> এটি হলো ব্যাংকের গেটে থাকা সিকিউরিটি
+                গার্ড। সে সাধারণ মানুষকে ভেতরে ঢুকতে বাধা দেয়, কিন্তু ব্যাংকের মেইন ডিরেক্টর বা ম্যানেজার (Root User)
+                আসলে তাকে সসম্মানে ভল্ট রুমে ঢুকতে পারমিশন দিয়ে দেয়।</li>
+              <li><strong>File Attributes (ডিজিটাল টাইম-লক মেকানিজম):</strong> এটি হলো ভল্টের দরজার ভেতরে বিল্ট-ইন থাকা
+                একটি মেকানিক্যাল বা ডিজিটাল লক, যা প্রোগ্রাম করা আছে যে আগামী ২৪ ঘণ্টা এই দরজা খোলা যাবে না। এখন
+                ব্যাংকের ম্যানেজার নিজে এসে চাবি ঘোরালেও দরজা খুলবে না, কারণ লকটি সরাসরি দরজার ফিজিক্যাল মেকানিজমের অংশ।
+                এটিই হলো ফিজিক্যাল <strong>File Attributes</strong>।</li>
+            </ul>
+          </div>
+
+          <h2>২. গুরুত্বপূর্ণ কোর File Attributes এবং এদের ফ্ল্যাগ সমূহ</h2>
+          <p>লিনাক্স কার্নেল বেশ কিছু সুনির্দিষ্ট ফাইল এট্রিবিউট সাপোর্ট করে। কমান্ড লাইনে এদেরকে ছোট হাতের বা বড় হাতের
+            একক লেটার বা ফ্ল্যাগ (Flags) দিয়ে প্রকাশ করা হয়। সবচেয়ে গুরুত্বপূর্ণ ফ্ল্যাগগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>ক. Immutable Attribute (`i` ফ্ল্যাগ)</h3>
+          <p>এটি লিনাক্সের সবচেয়ে শক্তিশালী এবং বহুল ব্যবহৃত সিকিউরিটি এট্রিবিউট। কোনো ফাইলে <code>i</code> ফ্ল্যাগ সেট
+            করলে সেই ফাইলটি সম্পূর্ণ অপরিবর্তনশীল বা <strong>Immutable</strong> হয়ে যায়।</p>
+          <ul>
+            <li>এই ফাইলটি কোনো ইউজার (এমনকি রুট) ডিলিট বা রিনেম করতে পারবেন না।</li>
+            <li>ফাইলের ভেতরে নতুন কোনো ডাটা রাইট করা যাবে না এবং নতুন কোনো হার্ড লিঙ্ক বা সফট লিঙ্ক তৈরি করা যাবে না।
+            </li>
+            <li><strong>Use Case:</strong> সিস্টেমের অতি সংবেদনশীল ফাইল যেমন— <code>/etc/passwd</code>,
+              <code>/etc/shadow</code> বা নেটওয়ার্ক কনফিগারেশন ফাইল <code>/etc/resolv.conf</code> হ্যাকারদের হাত থেকে বা
+              এক্সিডেন্টাল ডিলিশন থেকে বাঁচাতে এটি ব্যবহার করা হয়।</li>
+          </ul>
+
+          <h3>খ. Append-Only Attribute (`a` ফ্ল্যাগ)</h3>
+          <p>এই এট্রিবিউটটি সেট করলে ফাইলটি ডিলিট বা ওভাররাইট করা সম্পূর্ণ ব্লক হয়ে যায়, তবে ফাইলের একদম শেষ লাইনের পর
+            নতুন ডাটা যোগ (Append) করার অনুমতি থাকে।</p>
+          <ul>
+            <li>ফাইলের ভেতরের পুরনো ডাটা কেউ মুছতে বা এডিট করতে পারে না।</li>
+            <li>শুধুমাত্র নতুন ডাটা লাইনের শেষে ইনজেক্ট করা যায়।</li>
+            <li><strong>Use Case:</strong> এন্টারপ্রাইজ সিস্টেমের <strong>Log Files</strong> (যেমন—
+              <code>/var/log/secure</code> বা <code>/var/log/messages</code>)। হ্যাকাররা সার্ভারে ঢুকে যেন তাদের ট্রেইল
+              বা লগ মুছে প্রমাণ গায়েব করতে না পারে, তার জন্য লগ ফাইলে <code>a</code> ফ্ল্যাগ দিয়ে লক করা হয়।</li>
+          </ul>
+
+          [Image workflow of append-only attribute blocking modification but allowing trailing text data writes]
+
+          <h3>গ. অন্যান্য স্পেশাল এট্রিবিউটস (`s`, `A`, `d`)</h3>
+          <ul>
+            <li><strong>`s` (Secure Deletion):</strong> এই ফ্ল্যাগটি কোনো ফাইলে অন থাকলে, ফাইলটি ডিলিট করার সাথে সাথে
+              হার্ডডিস্কের ওই নির্দিষ্ট ব্লক বা সেক্টরে জিরো (0) রাইট হয়ে যায়। ফলে ডাটা রিকভারি সফটওয়্যার দিয়েও সেই ফাইল
+              আর কখনো ফিরিয়ে আনা সম্ভব হয় না।</li>
+            <li><strong>`A` (No Atime Updates):</strong> লিনাক্সে কোনো ফাইল রিড বা ওপেন করলেই তার মেটাডাটায়
+              <strong>Access Time (atime)</strong> আপডেট হয়, যা ডিস্কে অতিরিক্ত রাইট অপারেশন তৈরি করে। এই ফ্ল্যাগটি অন
+              রাখলে ওএস <code>atime</code> রাইট করা বন্ধ রাখে, যা ল্যাপটপ বা সার্ভারের SSD-র পারফরম্যান্স ও আয়ু বহুগুণ
+              বাড়িয়ে দেয়।</li>
+            <li><strong>`d` (No Dump):</strong> লিনাক্সের ট্র্যাডিশনাল <code>dump</code> ব্যাকআপ টুল রান করার সময় যে
+              ফাইলগুলোতে এই ফ্ল্যাগ সেট করা থাকে, সেগুলোকে ব্যাকআপ ইমেজ থেকে স্কিপ করা হয়।</li>
+          </ul>
+
+          <h2>৩. এক নজরে ফাইল এট্রিবিউট রেফারেন্স টেবিল</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Attribute Flag</th>
+                  <th>Technical Name</th>
+                  <th>Root User Overwrite Capability</th>
+                  <th>Permitted Operations Scope</th>
+                  <th>Primary Tactical Security Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><code>i</code></td>
+                  <td>Immutable</td>
+                  <td>Strictly Blocked</td>
+                  <td>Read-only (No write, delete, rename, link creation).</td>
+                  <td>Protecting core OS configs from Ransomware and rootkits.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>a</code></td>
+                  <td>Append-Only</td>
+                  <td>Strictly Blocked</td>
+                  <td>Only text/data insertion at the absolute end of the file.</td>
+                  <td>Securing auditing log files from log tampering attacks.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>A</code></td>
+                  <td>No atime update</td>
+                  <td>Allowed</td>
+                  <td>All normal ops, but suppresses access time metadata disk writes.</td>
+                  <td>Optimizing high-frequency I/O database storage and SSD lifespan.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>s</code></td>
+                  <td>Secure Deletion</td>
+                  <td>Allowed</td>
+                  <td>Wipes the secondary storage blocks completely with zeros upon deletion.</td>
+                  <td>Handling top-secret cryptographic keys or intellectual property.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন: chattr ও lsattr কমান্ডের ব্যবহার</h2>
+          <p>ফাইল এট্রিবিউট চেক এবং কনফিগার করার জন্য লিনাক্সে দুটি ডেডিকেটেড কমান্ড রয়েছে: <code>lsattr</code> (List
+            Attributes) এবং <code>chattr</code> (Change Attributes)। এই অপারেশনগুলো রান করতে বাধ্যতামূলকভাবে
+            <code>root</code> বা <code>sudo</code> প্রিভিলেজ প্রয়োজন হয়।</p>
+
+          <h3>ধাপ ১: বর্তমান ফাইল এট্রিবিউট চেক করা</h3>
+          <p>একটি নির্দিষ্ট ফাইলের লাইভ এট্রিবিউট স্ট্যাটাস দেখার কমান্ড:</p>
+          <pre><code>$ lsattr important_config.conf
+
+# আউটপুট দেখতে নিচের মতো ফ্ল্যাট ড্যাশ স্ট্রিং হবে:
+# --------------e------- important_config.conf</code></pre>
+          <p><em>ব্যাখ্যা: এখানে <code>e</code> মানে ফাইলটি Extents ব্যবহার করছে (আধুনিক ফাইল সিস্টেমের ডিফল্ট আচরণ)।
+              বর্তমানে কোনো সিকিউরিটি লক অন নেই।</em></p>
+
+          <h3>ধাপ ২: ফাইলকে Immutable বা আন-ডিলিটেবল করা (+i)</h3>
+          <p>ফাইল সিস্টেমে কাস্টম এট্রিবিউট যোগ করার জন্য প্লাস (<code>+</code>) সাইন ব্যবহার করা হয়:</p>
+          <pre><code>$ sudo chattr +i important_config.conf</code></pre>
+          <p>এবার পুনরায় <code>lsattr</code> দিয়ে ভেরিফাই করুন:</p>
+          <pre><code>$ lsattr important_config.conf
+# আউটপুট: ----i---------e------- important_config.conf</code></pre>
+
+          <h3>ধাপ ৩: টেস্ট ডিলিশন (Testing the Lock)</h3>
+          <p>আসুন আমরা প্রমাণ করে দেখি যে লকটি আসলেই কাজ করছে কি না। রুট প্রিভিলেজ নিয়ে ফাইলটি ফোর্সফুলি ডিলিট করার
+            চেষ্টা করুন:</p>
+          <pre><code>$ sudo rm -rf important_config.conf
+
+# কার্নেল সরাসরি কমান্ডটি রিজেক্ট করে এরর মেসেজ দেবে:
+# rm: cannot remove 'important_config.conf': Operation not permitted</code></pre>
+          <p><em>ভেরিফিকেশন চেক: ওএস পারমিশন ডেনাইড বলেনি, বলেছে <strong>Operation not permitted</strong>। এর মানে ফাইল
+              সিস্টেমের লো-লেভেল ড্রাইভার নিজেই এই প্রসেস ব্লক করে দিয়েছে।</em></p>
+
+          <h3>ধাপ ৪: লক রিমুভ বা আনলক করা (-i)</h3>
+          <p>ফাইল থেকে কোনো এট্রিবিউট মুছে ফেলার জন্য মাইনাস (<code>-</code>) সাইন ব্যবহার করা হয়:</p>
+          <pre><code># ফাইলটি পুনরায় এডিট বা ডিলিট করার উপযোগী করতে
+$ sudo chattr -i important_config.conf</code></pre>
+
+          <h2>৫. Troubleshooting এবং প্রফেশনাল সিকিউরিটি টিপস</h2>
+          <ul>
+            <li><strong>The Ransomware or Malware Rootkit Trap:</strong> সাইবার সিকিউরিটি অডিটের সময় অনেক সময় দেখা যায়
+              হ্যাকাররা সার্ভারে ঢুকে কোনো ব্যাকডোর স্ক্রিপ্ট (Backdoor) বা ম্যালওয়্যার ফাইল তৈরি করে সেটিতে
+              <code>+i</code> বা Immutable ফ্ল্যাগ সেট করে রেখে দেয়। এর ফলে সিস্টেম এডমিন সার্ভার ক্লিন করার সময়
+              <code>rm -rf</code> দিয়েও ওই ক্ষতিকারক ফাইল ডিলিট করতে পারেন না এবং বিভ্রান্তিতে পড়েন।
+              <br><strong>সমাধান মেথড:</strong> যদি রুট ইউজার হয়েও কোনো ফাইল ডিলিট করতে না পারেন, তবে সিএসএস বা ফাইল
+              পারমিশন চেকিংয়ে সময় নষ্ট না করে সরাসরি <code>lsattr</code> রান করুন। যদি <code>i</code> বা <code>a</code>
+              ফ্ল্যাগ দেখতে পান, তবে প্রথমে <code>chattr -i filename</code> দিয়ে লক রিলিজ করুন এবং তারপর ফাইলটি ডিলিট
+              করুন।
+            </li>
+            <li><strong>Log Rotation Breaking due to `+a` flag:</strong> আপনি আপনার সিস্টেমের সিকিউরিটি বাড়াতে
+              <code>/var/log/nginx/access.log</code> ফাইলে <code>chattr +a</code> সেট করে দিলেন যাতে কেউ লগ মুছে না
+              ফেলে। কিন্তু কিছুদিন পর দেখলেন আপনার <strong>Logrotate Service</strong> ক্র্যাশ করেছে এবং নতুন লগ তৈরি
+              হচ্ছে না।
+              <br><strong>কারণ:</strong> লিনাক্সের লগ-রোটেশন সার্ভিসটি পুরনো লগকে কমপ্রেস করে রিনেম (Rename) করতে চায়
+              এবং একটি নতুন ব্ল্যাঙ্ক লগ ফাইল তৈরি করে। যেহেতু <code>+a</code> ফ্ল্যাগ রিনেম বা ফাইল রিপ্লেসমেন্ট ব্লক
+              করে, তাই সার্ভিসটি ফেইল করেছে।
+              <br><strong>সমাধান:</strong> লোটেশন স্ক্রিপ্টের কনফিগারেশনে (<code>/etc/logrotate.d/nginx</code>)
+              <code>prerotate</code> এবং <code>postrotate</code> ডিরেক্টিভ ব্যবহার করে স্ক্রিপ্ট এক্সিকিউশনের ঠিক আগে
+              ক্ষণস্থায়ীভাবে <code>chattr -a</code> এবং কাজ শেষে পুনরায় <code>chattr +a</code> অটোমেট করে দিন।
+            </li>
+            <li><strong>Directory Level Inheritance:</strong> যদি আপনি কোনো নির্দিষ্ট ডিরেক্টরি এবং তার ভেতরের সমস্ত
+              সাব-ফাইল ও ফোল্ডারকে একসাথে সাবনেটেড বা ইমিউটেবল করতে চান, তবে রিকার্সিভ (Recursive) ফ্ল্যাগ
+              <code>-R</code> ব্যবহার করুন:
+              <pre><code>$ sudo chattr -R +i /home/jobaer/protected_directory/</code></pre>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Linux File Attributes</strong> এবং <code>chattr/lsattr</code> মেকানিজম অপারেটিং সিস্টেমের
+              ফিজিক্যাল ও লজিক্যাল লেয়ারের এক অত্যন্ত শক্তিশালী ডিফেন্স ইন ডেপথ (Defense-in-depth) সিকিউরিটি
+              ফ্রেমওয়ার্ক। এটি প্রথাগত <code>chmod</code> পারমিশন মডেলের সীমাবদ্ধতা ভেঙে রুট ইউজারের ভুল অপারেশন বা
+              ম্যালিসিয়াস প্রসেস থেকে কোর ওএস ফাইল এবং অডিট লগকে শতভাগ অক্ষুণ্ণ রাখতে সহায়তা করে। একজন দক্ষ এবং
+              প্রো-লেভেল লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেটর হিসেবে এই ইনোড-লেভেল লকিং প্রপার্টিগুলো বুঝতে পারা আপনার
+              ট্রাবলশুটিং ও ইনফ্রাস্ট্রাকচার হার্ডেনিং (System Hardening) ক্ষমতা বহুগুণ বাড়িয়ে দেবে, যা আপনাকে
+              রিয়েল-লাইফ ডাটা সেন্টারকে যেকোনো ক্রিটিক্যাল র‍্যানসমওয়্যার বা ডেস্ট্রাক্টিভ অ্যাটাক থেকে সম্পূর্ণ নিরাপদ
+              রাখতে সাহায্য করবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

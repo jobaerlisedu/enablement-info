@@ -1,32 +1,383 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>System Directories | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux System Directories এবং Filesystem Hierarchy Standard (FHS) এর বিস্তারিত গাইড। সহজ বাংলায় প্রতিটি ডিরেক্টরির কাজ, গঠন এবং প্র্যাকটিক্যাল কমান্ড আলোচনা।">
+  <title>Explain Linux System Directories and Filesystem Hierarchy Standard: A Deep Dive Guide | tech-enablement.info
+  </title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>System Directories</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>System Directories</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>System Directories</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>উইন্ডোজ অপারেটিং সিস্টেম থেকে লিনাক্স এনভায়রনমেন্টে আসার পর একজন বিগিনারের সবচেয়ে বড় যে ধাক্কাটি লাগে, তা
+            হলো এর ফাইল এবং ফোল্ডার ম্যানেজমেন্ট সিস্টেম। উইন্ডোজের চেনা পরিচিত <code>C:</code> ড্রাইভ,
+            <code>Program Files</code> বা <code>Users</code> ডিরেক্টরি লিনাক্সে খুঁজে পাওয়া যায় না। লিনাক্স তার সমস্ত
+            ফাইল এবং সিস্টেম ডিরেক্টরি একটি সুনির্দিষ্ট গ্লোবাল স্ট্যান্ডার্ড অনুযায়ী সাজিয়ে রাখে, যাকে বলা হয়
+            <strong>FHS (Filesystem Hierarchy Standard)</strong>।</p>
+          <p>একজন এন্টারপ্রাইজ লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেটর হতে হলে এই <strong>System Directories</strong>-গুলোর
+            নিখুঁত মেকানিজম জানা অত্যন্ত জরুরি। কনফিগারেশন ফাইল কোথায় থাকে, সিস্টেম লগ কোথায় জমা হয় কিংবা কোন
+            ডিরেক্টরিতে ইউজার ডাটা স্টোর করা উচিত—তা না বুঝলে প্রফেশনাল লেভেলের সার্ভার ম্যানেজমেন্ট বা ট্রাবলশুটিং করা
+            অসম্ভব। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা লিনাক্সের মেইন সিস্টেম ডিরেক্টরিগুলোর ভেতরের কাজ এবং তাদের
+            লজিক্যাল স্ট্রাকচার নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Filesystem Hierarchy Standard (FHS) কী?</h2>
+          <p><strong>FHS</strong> হলো একটি আন্তর্জাতিক স্ট্যান্ডার্ড বা নির্দেশিকা যা লিনাক্স এবং অন্যান্য ইউনিক্স-লাইক
+            (Unix-like) অপারেটিং সিস্টেমে কোন ডিরেক্টরির ভেতরে কী ধরনের ফাইল থাকবে তা সুনির্দিষ্টভাবে নির্ধারণ করে দেয়।
+            ১৯৯৪ সালে এই স্ট্যান্ডার্ড প্রথম প্রকাশ করা হয়, যার ফলে Red Hat, Ubuntu, Debian বা Rocky Linux—যেকোনো
+            ডিস্ট্রিবিউশনেই কোর ডিরেক্টরিগুলোর গঠন হুবহু একই থাকে।</p>
+          <p>লিনাক্স ফাইল সিস্টেমের আরেকটি প্রধান কনসেপ্ট হলো—উইন্ডোজের মতো এখানে একাধিক ড্রাইভ বা রুট থাকে না। পুরো
+            অপারেটিং সিস্টেমের একটিমাত্র মূল রুট থাকে, যাকে একটি ফরওয়ার্ড স্ল্যাশ (<code>/</code>) দিয়ে প্রকাশ করা হয়।
+            সমস্ত ফিজিক্যাল হার্ডডিস্ক পার্টিশন, পেনড্রাইভ বা নেটওয়ার্ক স্টোরেজ এই একক রুট ডিরেক্টরির কোনো না কোনো
+            সাব-ডিরেক্টরির ভেতরে মাউন্ট (Mount) হয়ে যুক্ত থাকে।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Central Library Analogy)</h3>
+            <p>লিনাক্সের সিস্টেম ডিরেক্টরি স্ট্রাকচারকে একটি বিশাল সুশৃঙ্খল সেন্ট্রাল লাইব্রেরির সাথে তুলনা করা যায়:</p>
+            <ul>
+              <li><strong>The Root (/):</strong> লাইব্রেরির মেইন এন্ট্রান্স বা প্রধান গেট। লাইব্রেরির ভেতরে ঢুকতে হলে
+                আপনাকে এই গেট দিয়েই প্রবেশ করতে হবে।</li>
+              <li><strong>/etc (Admin Office):</strong> লাইব্রেরির প্রশাসনিক অফিস যেখানে সব নিয়মাবলী, মেম্বারশিপ পলিসি
+                এবং ডিরেক্টিভস ফাইল ক্যাবিনেটে তালাবদ্ধ থাকে।</li>
+              <li><strong>/home (Reading Desks):</strong> সাধারণ পাঠকদের জন্য নির্ধারিত ডেস্ক বা টেবিল, যেখানে যার যার
+                ব্যক্তিগত বই এবং নোটস রাখার স্বাধীনতা আছে।</li>
+              <li><strong>/var (Daily Newspapers Corner):</strong> লাইব্রেরির সেই কর্নার যেখানে প্রতিদিন নতুন পত্রিকা বা
+                সাময়িকী আসে এবং কিছুদিন পর পর সেগুলো পরিবর্তন বা আপডেট হয়।</li>
+            </ul>
+          </div>
+
+          <h2>২. কোর লিনাক্স সিস্টেম ডিরেক্টরি এবং এদের ফাংশন</h2>
+          <p>আসুন আমরা রুট (<code>/</code>) ডিরেক্টরির ভেতরে থাকা প্রধান প্রধান সিস্টেম ডিরেক্টরিগুলোর কারিগরি ভূমিকা
+            গভীরভাবে বিশ্লেষণ করি:</p>
+
+          <h3>ক. /bin এবং /sbin (Executable Binaries)</h3>
+          <ul>
+            <li><strong>/bin:</strong> এর পূর্ণরূপ হলো User Binaries। এই ডিরেক্টরিতে সিস্টেমের মৌলিক কমান্ড এবং
+              এক্সিকিউটেবল ফাইলগুলো থাকে যা সাধারণ ইউজার এবং অ্যাডমিনিস্ট্রেটর উভয়ই রান করতে পারেন। যেমন—
+              <code>ls</code>, <code>cd</code>, <code>cp</code>, <code>mv</code>, <code>ping</code> ইত্যাদি।</li>
+            <li><strong>/sbin:</strong> এর পূর্ণরূপ হলো System Binaries। এই ডিরেক্টরিতে এমন কিছু অত্যন্ত গুরুত্বপূর্ণ
+              কমান্ড এবং টুলস থাকে যা মূলত সিস্টেম মেইনটেন্যান্স এবং অ্যাডমিনিস্ট্রেশনের জন্য সংরক্ষিত। এগুলো রান করতে
+              সাধারণত <code>root</code> বা <code>sudo</code> প্রিভিলেজ প্রয়োজন হয়। যেমন— <code>fdisk</code>,
+              <code>iptables</code>, <code>ifconfig</code>, <code>reboot</code> ইত্যাদি।</li>
+          </ul>
+
+          <h3>খ. /etc (System Configurations)</h3>
+          <p>এটি লিনাক্স সার্ভার ম্যানেজমেন্টের সবচেয়ে গুরুত্বপূর্ণ ডিরেক্টরি। আপনার সিস্টেমে ইনস্টল করা সমস্ত সার্ভিস,
+            সফটওয়্যার এবং ওএস-এর নিজস্ব গ্লোবাল কনফিগারেশন ফাইল এই <code>/etc</code> ডিরেক্টরির ভেতরে অবস্থান করে। এখানে
+            কোনো বাইনারি ফাইল থাকে না, সবই টেক্সট ফাইল হিসেবে থাকে যা <code>vim</code> বা <code>nano</code> এডিটর দিয়ে
+            এডিট করা যায়।</p>
+          <ul>
+            <li><code>/etc/passwd</code>: সিস্টেমের সমস্ত ইউজার অ্যাকাউন্টের বিবরণ থাকে।</li>
+            <li><code>/etc/fstab</code>: স্টোরেজ ড্রাইভ এবং পার্টিশনগুলোর অটো-মাউন্ট তথ্য থাকে।</li>
+            <li><code>/etc/ssh/sshd_config</code>: রিমোট সিকিউর শেলের পোর্ট এবং অ্যাক্সেস পলিসি কনফিগার করার ফাইল।</li>
+          </ul>
+
+          <h3>গ. /home এবং /root (User Spaces)</h3>
+          <ul>
+            <li><strong>/home:</strong> এটি সাধারণ ইউজারদের ব্যক্তিগত অভয়ারণ্য। আপনি যখনই কোনো নতুন ইউজার (যেমন-
+              jobaer) তৈরি করবেন, তার পার্সোনাল ফাইল, ডাউনলোড এবং সেটিংস সেভ করার জন্য <code>/home/jobaer</code>
+              ডিরেক্টরি তৈরি হবে। অন্য কোনো সাধারণ ইউজার আপনার হোম ডিরেক্টরিতে উঁকি দেওয়ার পারমিশন পায় না।</li>
+            <li><strong>/root:</strong> লিনাক্স সিস্টেমের সর্বোচ্চ ক্ষমতাশালী সুপারইউজার (Superuser)-এর জন্য একটি
+              ডেডিকেটেড হোম ডিরেক্টরি থাকে, যা সাধারণ <code>/home</code> এর ভেতরে না থেকে সরাসরি মেইন রুটের অধীনে থাকে।
+              এটি নিরাপত্তার জন্য আলাদা রাখা হয়।</li>
+          </ul>
+
+          <h3>ঘ. /var (Variable Data)</h3>
+          <p>এর পূর্ণরূপ হলো Variable। সিস্টেম চলার সময় যে ফাইলগুলোর সাইজ এবং ডাটা অনবরত পরিবর্তিত বা বৃদ্ধি পায়, সেগুলো
+            এখানে থাকে।</p>
+          <ul>
+            <li><code>/var/log</code>: এটি ট্রাবলশুটিংয়ের জন্য সবচেয়ে গুরুত্বপূর্ণ স্পেস। সিস্টেমের কার্নেল লগ,
+              সিকিউরিটি অডিট এবং অ্যাপ্লিকেশনের সব এরর লগ (যেমন Nginx বা Apache এর <code>error.log</code>) এখানে জমা হয়।
+            </li>
+            <li><code>/var/www/html</code>: ওয়েব সার্ভারের মেইন ওয়েবসাইট হোস্টিং ফাইলগুলো প্রথাগতভাবে এখানে রাখা হয়।
+            </li>
+            <li><code>/var/mail</code>: সিস্টেমের ইউজারদের ইন্টারনাল ইমেইল ইনবক্স ডেটা এখানে থাকে।</li>
+          </ul>
+
+          <h3>ঙ. /dev, /proc এবং /sys (Virtual & Device Files)</h3>
+          <p>লিনাক্সের "Everything is a file" দর্শনের বাস্তব রূপ দেখা যায় এই তিনটি ডিরেক্টরিতে:</p>
+          <ul>
+            <li><strong>/dev:</strong> Device Files। আপনার কম্পিউটারে সংযুক্ত প্রতিটি ফিজিক্যাল হার্ডওয়্যারকে লিনাক্স
+              এখানে ফাইল হিসেবে রিপ্রেজেন্ট করে। যেমন—প্রথম হার্ডডিস্ককে বলা হয় <code>/dev/sda</code>, এবং তার প্রথম
+              পার্টিশন হলো <code>/dev/sda1</code>।</li>
+            <li><strong>/proc:</strong> Process Files। এটি কোনো ফিজিক্যাল হার্ডডিস্ক স্পেস নেয় না; এটি মূলত একটি
+              ভার্চুয়াল ফাইল সিস্টেম যা সরাসরি RAM-এর ভেতরে অবস্থান করে। কার্নেল রিয়েল-টাইমে প্রসেস এবং মেমরির
+              স্ট্যাটাস এই ডিরেক্টরির ফাইলগুলোতে রিফ্লেক্ট করে। যেমন— <code>/proc/cpuinfo</code> ফাইলটি রিড করলে
+              প্রসেসরের স্পেসিফিকেশন দেখা যায়।</li>
+            <li><strong>/sys:</strong> এটিও একটি ভার্চুয়াল ডিরেক্টরি যা ড্রাইভার এবং ডিভাইস মডিউলের বিভিন্ন প্যারামিটার
+              ম্যানেজ করতে কার্নেল ব্যবহার করে।</li>
+          </ul>
+
+          <h3>চ. /boot, /lib, /mnt, /media এবং /tmp</h3>
+          <ul>
+            <li><strong>/boot:</strong> কম্পিউটার স্টার্ট বা বুট করার জন্য প্রয়োজনীয় ফাইল যেমন—লিনাক্স কার্নেল ইমেজ
+              (vmlinuz), Initramfs এবং GRUB2 বুটলোডার ফাইল এখানে সংরক্ষিত থাকে।</li>
+            <li><strong>/lib এবং /lib64:</strong> সিস্টেমের বাইনারি ফাইল এবং কার্নেল মডিউলগুলো চালানোর জন্য যে শেয়ারড
+              লাইব্রেরি কোড (Shared Libraries) প্রয়োজন হয়, তা এখানে থাকে (উইন্ডোজের <code>.dll</code> ফাইলের মতো
+              লিনাক্সে <code>.so</code> ফাইল)।</li>
+            <li><strong>/mnt এবং /media:</strong> টেম্পোরারি মাউন্ট পয়েন্ট। পেনড্রাইভ বা এক্সটার্নাল ড্রাইভ প্লাগ করলে
+              তা অটোমেটিকভাবে <code>/media</code> ডিরেক্টরিতে শো করে। আর নেটওয়ার্ক স্টোরেজ বা কাস্টম পার্টিশনকে
+              ম্যানুয়ালি মাউন্ট করার জন্য <code>/mnt</code> ব্যবহৃত হয়।</li>
+            <li><strong>/tmp:</strong> Temporary Files। বিভিন্ন অ্যাপ্লিকেশন চলার সময় সাময়িকভাবে কিছু ফাইল তৈরি করে
+              এখানে রাখে। সিস্টেম রিবুট বা রিস্টার্ট দিলে এই ডিরেক্টরির সমস্ত ফাইল স্বয়ংক্রিয়ভাবে মুছে যায়।</li>
+          </ul>
+
+
+
+          <h2>৩. এক নজরে ডিরেক্টরি রেফারেন্স টেবিল</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Directory Path</th>
+                  <th>Classification</th>
+                  <th>Primary Content Type</th>
+                  <th>Write Access Restrictions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><code>/etc</code></td>
+                  <td>Static Text</td>
+                  <td>System configurations, service properties, routing tables.</td>
+                  <td>Only Root / Superuser.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>/home/user</code></td>
+                  <td>Variable Data</td>
+                  <td>Personal documents, user scripts, custom desktop layouts.</td>
+                  <td>The specific owner and Root.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>/var/log</code></td>
+                  <td>Dynamic Log</td>
+                  <td>Kernel messages, SSH login attempts, application failures.</td>
+                  <td>System services and Root.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>/bin</code></td>
+                  <td>Static Binary</td>
+                  <td>Core commands required in single and multi-user modes.</td>
+                  <td>Only Package Manager / Root.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>/proc</code></td>
+                  <td>Virtual (RAM)</td>
+                  <td>Real-time CPU metrics, memory statistics, active PID maps.</td>
+                  <td>Read-only (Managed by Kernel).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন এবং ডিরেক্টরি ট্রাভার্সাল</h2>
+          <p>লিনাক্স টার্মিনালের সাহায্যে বিভিন্ন সিস্টেম ডিরেক্টরি ব্রাউজ করা এবং তাদের মেকানিজম ভেরিফাই করার জন্য
+            নিচের কমান্ডগুলো ব্যবহার করুন:</p>
+
+          <h3>ধাপ ১: ডিরেক্টরিগুলোর ফিজিক্যাল লোকেশন এবং ফাইল টাইপ দেখা</h3>
+          <pre><code># রুট ডিরেক্টরিতে গিয়ে সব ডিরেক্টরির ডিটেইল লিস্ট দেখা
+$ cd /
+$ ls -lh</code></pre>
+
+          <h3>ধাপ ২: ভার্চুয়াল ফাইল সিস্টেম থেকে CPU ডিটেইলস রিড করা</h3>
+          <pre><code># হার্ডডিস্কে কোনো স্পেস না নিয়ে সরাসরি RAM থেকে প্রসেসর ইনফো দেখা
+$ cat /proc/cpuinfo</code></pre>
+
+          <h3>ধাপ ৩: প্র্যাকটিক্যাল স্টোরেজ পার্টিশন ডিরেক্টরি আইডেন্টিফিকেশন</h3>
+          <pre><code># আপনার সিস্টেমের ফিজিক্যাল ড্রাইভের লিস্ট /dev ডিরেক্টরি থেকে চেক করা
+$ ls -l /dev/sd*
+
+# আউটপুটে /dev/sda, /dev/sda1 ইত্যাদি দেখতে পাবেন।</code></pre>
+
+          <h3>ধাপ ৪: ট্রাবলশুটিংয়ের জন্য লাইভ সিস্টেম লগ মনিটর করা</h3>
+          <pre><code># রিয়েল-টাইমে সিস্টেমে কী কী এরর বা এক্টিভিটি হচ্ছে তা লাইভ ট্র্যাক করা
+$ sudo tail -f /var/log/messages</code></pre>
+
+          <h2>৫. Troubleshooting ও সাধারণ ডিরেক্টরি চ্যালেঞ্জসমূহ</h2>
+          <ul>
+            <li><strong>"No space left on device" due to `/var/log` overflow:</strong> অনেক সময় সার্ভারে কোনো
+              অ্যাপ্লিকেশনের বাগ (Bug) থাকলে তা অনবরত লক্ষ লক্ষ এরর কোড জেনারেট করে <code>/var/log</code> ডিরেক্টরি
+              সম্পূর্ণ ফুল করে ফেলে। স্টোরেজ ১০০% পূর্ণ হয়ে গেলে ডেটাবেজ বা ক্রন-জব স্তব্ধ হয়ে যায়। সমাধান হিসেবে
+              <code>du -sh /var/log/*</code> কমান্ড দিয়ে সবচেয়ে বড় লগ ফাইলটি সনাক্ত করুন এবং
+              <code>> /var/log/heavy_file.log</code> দিয়ে ফাইলটি ফ্লাশ বা খালি করে দিন।</li>
+            <li><strong>Accidental Configuration Breakdown in `/etc`:</strong> যদি কোনো সার্ভিস (যেমন SSH বা Nginx)
+              কনফিগার করার সময় ভুল এডিটিংয়ের কারণে পুরো সার্ভিস ডাউন হয়ে যায়, তবে তা রিকভার করা কঠিন হয়। বেস্ট
+              প্র্যাকটিস হলো <code>/etc</code>-র কোনো ফাইল এডিট করার আগে তার একটি ব্যাকআপ তৈরি করা:
+              <pre><code>$ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak</code></pre>
+            </li>
+            <li><strong>Storing Production Data in `/tmp`:</strong> নতুন লিনাক্স ইউজাররা অনেক সময় সাময়িকভাবে কোড বা
+              প্রোডাকশন ব্যাকআপ ডাটা <code>/tmp</code> ডিরেক্টরিতে রেখে দেন। মনে রাখবেন, সার্ভার রিবুট বা কার্নেল
+              প্যানিক রিস্টার্ট হলে এই ডিরেক্টরির সবকিছু চিরতরে ডিলিট হয়ে যায়। প্রোডাকশন ফাইল সব সময় <code>/opt</code>
+              বা ডেডিকেটেড পার্টিশনে রাখুন।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Linux System Directories</strong> এবং <strong>Filesystem Hierarchy Standard (FHS)</strong>-এর
+              গভীর জ্ঞান লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেশনের এক অলঙ্ঘনীয় এবং মৌলিক ভিত্তি। লিনাক্সের এই হায়ারার্কিকাল
+              কাঠামো অগোছালো ফাইল সিস্টেমকে দূরে রেখে সার্ভারকে দেয় চরম স্থায়িত্ব এবং নিরাপত্তা। কোন ডিরেক্টরির ভেতরের
+              ফাইল কীভাবে কার্নেল বা ইউজারের সাথে ইন্টারঅ্যাক্ট করছে তা নিখুঁতভাবে বুঝতে পারলে আপনার জন্য ক্লাউড
+              ডিপ্লয়মেন্ট, কন্টেইনারাইজেশন (Docker) কিংবা পারমিশন ম্যানেজমেন্ট করা অত্যন্ত সহজ হয়ে যাবে। নিয়মিত
+              টার্মিনালে বিভিন্ন ডিরেক্টরি এক্সপ্লোর করার অভ্যাসই আপনাকে একজন আত্মবিশ্বাসী এবং দক্ষ সিস্টেম ইঞ্জিনিয়ার
+              হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

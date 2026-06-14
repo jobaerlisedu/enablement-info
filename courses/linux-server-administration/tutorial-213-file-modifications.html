@@ -1,32 +1,361 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Modifications | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux-এ ফাইল এডিটিং, কনটেন্ট মডিফিকেশন, টেক্সট ফিল্টারিং এবং স্ট্রিম এডিটর (sed, awk) এর প্রফেশনাল ব্যবহারের ওপর একটি সম্পূর্ণ ডিপ-ডাইভ কারিগরি গাইড সহজ বাংলায়।">
+  <title>Deep Dive into Linux File Modifications: Mastering Text Editors and Stream Manipulation | tech-enablement.info
+  </title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>File Modifications</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>File Modifications</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction, Concepts and Deep Dive into File Modifications</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেশনের প্রতিদিনের কাজের মধ্যে সবচেয়ে সাধারণ এবং নিয়মিত যে কাজটি আমাদের করতে
+            হয়, তা হলো <strong>File Modifications</strong> বা ফাইলের কনটেন্ট পরিবর্তন করা। লিনাক্সে প্রায় সমস্ত
+            কনফিগারেশন, নেটওয়ার্ক সেটিংস, সার্ভিস প্রপার্টিজ এবং ইউজার ডাটা টেক্সট ফাইল (Plain Text Files) হিসেবে জমা
+            থাকে। তাই একটি সার্ভিস সচল করা, আইপি অ্যাড্রেস পরিবর্তন করা কিংবা কোনো অটোমেশন স্ক্রিপ্ট এডিট করার জন্য
+            ফাইলের ভেতরের ডাটা নিখুঁতভাবে মডিফাই করার মেকানিজম জানা অত্যন্ত জরুরী।</p>
+          <p>কম্যান্ড লাইন বা CLI এনভায়রনমেন্টে ফাইল মডিফিকেশন শুধুমাত্র সাধারণ ইন্টারঅ্যাক্টিভ টেক্সট এডিটর (যেমন Vim
+            বা Nano) ব্যবহারের মধ্যে সীমাবদ্ধ নয়। একজন প্রো-লেভেল সিস্টেম ইঞ্জিনিয়ার বা ডেভঅপ্স (DevOps) প্রফেশনালের
+            জন্য নন-ইন্টারেক্টিভ উপায়ে, অর্থাৎ স্ক্রিপ্টের মাধ্যমে স্বয়ংক্রিয়ভাবে ফাইলের নির্দিষ্ট লাইন বা শব্দ
+            পরিবর্তন করার অ্যাডভান্সড মেকানিজম (Stream Editing) জানা সমানভাবে আবশ্যক। আজকের এই ডিপ-ডাইভ গাইডটিতে আমরা
+            ইন্টারঅ্যাক্টিভ এবং অটোমেটেড—উভয় ধরণের ফাইল মডিফিকেশন টেকনিক নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. ফাইল মডিফিকেশনের ক্লাসিফিকেশন (Interactive vs Non-Interactive)</h2>
+          <p>লিনাক্স ইকোসিস্টেমে ফাইলের ভেতরের ডেটা মূলত দুই উপায়ে মডিফাই বা ম্যানিপুলেট করা যায়:</p>
+          <ul>
+            <li><strong>Interactive Modification:</strong> যখন ব্যবহারকারী নিজে কোনো টেক্সট এডিটর স্ক্রিনে ওপেন করে,
+              কিবোর্ডের কার্সার নাড়িয়ে ম্যানুয়ালি কোনো লাইন টাইপ বা ডিলিট করেন। এটি হিউম্যান ইন্টারেকশনের জন্য তৈরি।
+            </li>
+            <li><strong>Non-Interactive (Stream-based) Modification:</strong> যখন আমরা ফাইলটি স্ক্রিনে ওপেন না করেই,
+              টার্মিনালের এক লাইনের কমান্ড বা স্ক্রিপ্টের সাহায্যে ফাইলের ভেতরের নির্দিষ্ট টেক্সট প্যাটার্ন ম্যাচ করিয়ে
+              স্বয়ংক্রিয়ভাবে ডাটা পরিবর্তন বা রিপ্লেস করে দিই। এটি কনটেইনার ডিপ্লয়মেন্ট এবং সিআই/সিডি (CI/CD) অটোমেশনের
+              জন্য অত্যন্ত শক্তিশালী মেথড।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Document Editing Analogy)</h3>
+            <p>এই দুই মেথডের কাজের সূক্ষ্ম পার্থক্য বুঝতে একটি হাজার পৃষ্ঠার অফিসিয়াল নথির কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Interactive Method:</strong> আপনি নথিটি প্রিন্ট আউট করে টেবিলে নিলেন, পৃষ্ঠা উল্টে উল্টে কলম
+                দিয়ে ৩ নম্বর পৃষ্ঠার একটি লাইন কেটে নতুন কথা লিখে দিলেন। এটি হলো <code>Vim</code> বা <code>Nano</code>-র
+                প্রথাগত ব্যবহার।</li>
+              <li><strong>Non-Interactive Method:</strong> আপনাকে বলা হলো এই হাজার পৃষ্ঠার বইয়ের যেখানে যেখানে পুরানো
+                কোম্পানির নাম "Alpha_IT" লেখা আছে, প্রতিটিকে এক সেকেন্ডে বদলে নতুন নাম "Beta_Cloud" করে দিতে হবে। আপনি
+                যদি পৃষ্ঠা উল্টে ম্যানুয়ালি করতে যান, তবে আপনার কয়েক দিন সময় লেগে যাবে এবং ভুল হওয়ার ঝুঁকি থাকবে। কিন্তু
+                আপনি যদি একটি প্রোগ্রামেটিক্যাল সার্চ-এন্ড-রিপ্লেস (Stream Editing) কমান্ড রান করেন, তবে পুরো বইয়ের
+                সমস্ত শব্দ এক মিলি-সেকেন্ডে নিখুঁতভাবে মডিফাই হয়ে যাবে।</li>
+            </ul>
+          </div>
+
+          <h2>২. ইন্টারঅ্যাক্টিভ এডিটিং: Mastering Nano & Vim</h2>
+          <p>কমান্ড লাইনে ফাইল ম্যানুয়ালি মডিফাই করার জন্য আমাদের এই দুটি কোর টেক্সট এডিটরের মেকানিজম জানতে হয়:</p>
+
+          <h3>ক. GNU Nano (সহজ ও বিগিনার-ফ্রেন্ডলি)</h3>
+          <p>এটি অত্যন্ত সোজা সাপটা এবং ইউজার-ফ্রেন্ডলি এডিটর। ফাইল ওপেন করার সাথে সাথেই কিবোর্ড দিয়ে সরাসরি টাইপ করা
+            যায়। স্ক্রিনের নিচের দিকে প্রয়োজনীয় শর্টকাট কি-গুলোর গাইডলাইন দেওয়া থাকে।</p>
+          <ul>
+            <li><code>Ctrl + O</code>: ফাইলের ভেতরের কাস্টম চেঞ্জগুলো ডিস্কে রাইট বা সেভ করার অপারেশন।</li>
+            <li><code>Ctrl + X</code>: এডিটর সেশন বন্ধ করে টার্মিনালে ব্যাক করা। ফাইলের ডাটা সেভ না হয়ে থাকলে এটি
+              ইউজারকে কনফার্মেশন প্রম্পট দেখায়।</li>
+          </ul>
+
+          <h3>খ. Vim / Vi (অ্যাডভান্সড ও পাওয়ারফুল)</h3>
+          <p>উইন্ডোজের নোটপ্যাড বা ন্যানোর মতো ভিম (Vim) এডিটর সরাসরি ওপেন করে টাইপ করা যায় না। এটি মূলত কয়েকটি মোড
+            (Modes) মেইনটেইন করে কাজ করে। এর ইন-মেমরি বাউন্ডারি আর্কিটেকচার অত্যন্ত শক্তিশালী।</p>
+
+          [Image layout model of Vim editor states switching between Command Mode, Insert Mode, and Visual Mode]
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Vim Mode Name</th>
+                  <th>Activation Key Trigger</th>
+                  <th>Internal Mechanical Action / Scope</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><strong>Command Mode</strong></td>
+                  <td><code>ESC</code> (Default Mode)</td>
+                  <td>কার্সার মুভমেন্ট, ক্যারেক্টার ডিলিট (<code>dd</code>), কপি (<code>yy</code>) এবং পেস্ট করা। সরাসরি
+                    টাইপিং ব্লক থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><strong>Insert Mode</strong></td>
+                  <td><code>i</code> বা <code>a</code></td>
+                  <td>মেমরির বাফারে সরাসরি নতুন টেক্সট বা কনটেন্ট টাইপ করে মডিফাই করা।</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><strong>Visual Mode</strong></td>
+                  <td><code>v</code></td>
+                  <td>নির্দিষ্ট ক্যারেক্টার ব্লক বা প্যারাগ্রাফ মাউস ছাড়া হাইলাইট বা সিলেক্ট করা।</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><strong>Ex Mode / Last Line</strong></td>
+                  <td><code>:</code> (From Command Mode)</td>
+                  <td>ফাইল সেভ করা (<code>:w</code>), সেভ ছাড়া ক্লোজ করা (<code>:q!</code>), এবং রাইট-ক্লোজ
+                    (<code>:wq</code>)।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. নন-ইন্টারেক্টিভ এডিটিং: Stream Manipulation via `sed` & `awk`</h2>
+          <p>যখন আমরা ইনফ্রাস্ট্রাকচার অটোমেশন (যেমন Ansible বা Shell Script) নিয়ে কাজ করি, তখন ফাইল ওপেন করার কোনো
+            সুযোগ থাকে না। তখন আমরা <strong>Stream Editors</strong> ব্যবহার করি, যা ফাইলকে মেমরিতে স্ট্রিম বা লাইন আকারে
+            লোড করে ডাটা ফিল্টার ও মডিফাই করে।</p>
+
+          <h3>ক. দ্য sed এডিপটর (Stream Editor)</h3>
+          <p><code>sed</code> মূলত টেক্সট সাবস্টিটিউশন বা সার্চ-এন্ড-রিপ্লেস অপারেশনের জন্য বিশ্বব্যাপী এক নম্বর পছন্দ।
+          </p>
+          <p><strong>কমান্ড সিনট্যাক্স মেকানিজম:</strong> <code>sed -i 's/old_value/new_value/g' filename</code></p>
+          <ul>
+            <li><code>-i</code>: এর পূর্ণরূপ হলো In-place editing। এই ফ্ল্যাগটি না দিলে মডিফাইড ডাটা শুধু স্ক্রিনে
+              দেখাবে, ফাইলে সেভ হবে না। এটি ডিস্কের মূল ফাইলে সরাসরি রাইট নিশ্চিত করে।</li>
+            <li><code>s</code>: Substitute অপারেশন ট্রিগার করে।</li>
+            <li><code>g</code>: Global ফ্ল্যাগ। এটি অন থাকলে লাইনের সমস্ত ম্যাচিং শব্দ পরিবর্তন হবে, অফ থাকলে শুধু প্রথম
+              শব্দ পরিবর্তন হবে।</li>
+          </ul>
+
+          <pre><code># একটি কনফিগারেশন ফাইলে পোর্টের ভ্যালু ৮০ থেকে ৮০৮০ তে অটো-মডিফাই করা
+$ sed -i 's/port=80/port=8080/g' server.conf</code></pre>
+
+          <h3>খ. দ্য awk এডিটর (Pattern Scanning & Processing)</h3>
+          <p><code>awk</code> শুধুমাত্র একটি কমান্ড নয়, এটি একটি সম্পূর্ণ প্রোগ্রামিং ল্যাঙ্গুয়েজ। এটি ফাইলকে বিভিন্ন
+            কলাম বা ফিল্ডে (Fields) বিভক্ত করে ডাটা প্রসেস করতে পারে। ডিফল্টভাবে এটি স্পেস বা ট্যাব ক্যারেক্টারকে ফিল্ড
+            সেপারেটর হিসেবে ধরে নেয়।</p>
+          <pre><code># সিস্টেমের /etc/passwd ফাইল থেকে কোলন (:) সেপারেটর ভেঙে শুধুমাত্র ইউজারনেম প্রিন্ট করা
+$ awk -F':' '{print $1}' /etc/passwd</code></pre>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন এবং কনফিগারেশন স্টেপস</h2>
+          <p>আসুন আমরা টার্মিনালের সাহায্যে বিভিন্ন ফাইল তৈরি, টেক্সট ইনজেকশন এবং ডাইনামিক সাবস্টিটিউশন অপারেশন
+            প্র্যাকটিক্যালি এক্সিকিউট ও ভেরিফাই করি।</p>
+
+          <h3>ধাপ ১: ইন্টারঅ্যাক্টিভ এডিটরের বাইরে ফাইলের কনটেন্ট মডিফিকেশন (Standard Appending)</h3>
+          <p>শেল রিডাইরেকশন অপারেটর ব্যবহার করে কোনো ফাইলের একদম শেষ লাইনে নতুন ডাটা ইনজেক্ট করার মেথড:</p>
+          <pre><code># /etc/hosts ফাইলে একটি নতুন লোকাল ডিএনএস রেকর্ড এন্ট্রি করা
+$ echo "192.168.10.250   media-server.local" | sudo tee -a /etc/hosts</code></pre>
+          <p><em>ব্যাখ্যা: <code>tee -a</code> কমান্ডটি শেলের স্ট্যান্ডার্ড আউটপুট গ্রহণ করে অ্যাপেন্ড (Append) মোডে
+              ফাইল মডিফাই করে, যা সরাসরি ইকো করার চেয়ে অনেক বেশি সেফ।</em></p>
+
+          <h3>ধাপ ২: sed কমান্ড ব্যবহার করে নির্দিষ্ট লাইন ডিলিট করা</h3>
+          <p>কোনো ফাইলের ভেতরের নির্দিষ্ট কোনো লাইন বা অপ্রয়োজনীয় কমেন্ট এক লাইনে মুছে ফেলার অপারেশন:</p>
+          <pre><code># server.conf ফাইলের ভেতরের সমস্ত খালি বা ব্ল্যাঙ্ক লাইন মুছে ফেলা
+$ sed -i '/^$/d' server.conf
+
+# ফাইলের ৫ম নম্বর লাইনটি সরাসরি মুছে দেওয়া
+$ sed -i '5d' server.conf</code></pre>
+
+          <h3>ধাপ ৩: ফাইলের মডিফিকেশন স্ট্যাটাস ট্র্যাক ও ভেরিফাই করা</h3>
+          <p>আপনি একটি ফাইলে কাস্টম মডিফিকেশন রান করলেন। কিন্তু ফাইলের মেটাডাটায় এর আসল টাইমস্ট্যাম্প (Timestamp)
+            পরিবর্তিত হয়েছে কি না এবং ডাটা ডিস্কে রাইট হয়েছে কি না তা ভেরিফাই করার কমান্ড:</p>
+          <pre><code>$ stat server.conf
+
+# আউটপুটে ৩টি সুনির্দিষ্ট টাইম ব্লক দেখতে পাবেন:
+# Access: ফাইল শেষবার কখন রিড হয়েছে।
+# Modify: ফাইলের ভেতরের কন্টেন্ট শেষবার কখন মডিফাই হয়েছে।
+# Change: ফাইলের পারমিশন বা ইনোড মেটাডাটা কখন আপডেট হয়েছে।</code></pre>
+
+          [Image schema highlighting file metadata timestamp updates after a successful modification invocation]
+
+          <h2>৫. Troubleshooting এবং প্রফেশনাল সেফটি টিপস</h2>
+          <ul>
+            <li><strong>The In-place Sed Disaster (অটো-মডিফিকেশন বিপর্যয়):</strong> অনেক সময় <code>sed -i</code> কমান্ডে
+              ভুল <strong>Regular Expression (RegEx)</strong> ব্যবহার করার কারণে ফাইলের আসল কনফিগারেশন ডেটা ওলটপালট হয়ে
+              পুরো সার্ভিস ডাউন হয়ে যায়। যেহেতু ব্যাকআপ ছাড়া এটি রিকভার করা অসম্ভব, তাই প্রোডাকশন লিঙ্কে এটি মারাত্মক
+              ঝুঁকি তৈরি করে।
+              <br><strong>বেস্ট প্র্যাকটিস সমাধান:</strong> <code>sed</code> কমান্ড চালানোর সময় ইন-প্লেস ফ্ল্যাগের সাথে
+              একটি কাস্টম এক্সটেনশন যুক্ত করে দিন। এতে কার্নেল মডিফিকেশনের ঠিক আগের মুহূর্তে ওরিজিনাল ফাইলের একটি
+              অটো-ব্যাকআপ তৈরি করে নেবে:
+              <pre><code># এই কমান্ডটি মূল ফাইল পরিবর্তনের আগে 'server.conf.bak' নামে একটি ব্যাকআপ ফাইল তৈরি করবে
+$ sed -i.bak 's/SSL=off/SSL=on/g' server.conf</code></pre>
+            </li>
+            <li><strong>Vim Swp File Error (ফাইল লক ক্র্যাশ):</strong> ভিম এডিটরে কোনো ফাইল মডিফাই করার সময় যদি হঠাৎ
+              আপনার SSH সেশন ডিসকানেক্ট হয়ে যায় বা টার্মিনাল ক্র্যাশ করে, তবে পরবর্তী বার ফাইল ওপেন করতে গেলে ওএস একটি
+              বড় ওয়ার্নিং দেখায়: <code>Found a swap file name ".server.conf.swp"</code>।
+              <br><strong>কারণ:</strong> ভিম আন-সেভড ডাটা সুরক্ষার জন্য ব্যাকঅ্যান্ডে একটি গোপন সোয়াপ (.swp) ফাইল লক করে
+              রাখে। সেশন ক্র্যাশ করায় লকটি রিলিজ হয়নি।
+              <br><strong>সমাধান:</strong> প্রথমে <code>vim -r server.conf</code> কমান্ড দিয়ে আপনার আন-সেভড মডিফাইড ডাটা
+              রিকভার করে সেভ করুন। এরপর ওই ডিরেক্টরি থেকে হিডেন সোয়াপ ফাইলটি ম্যানুয়ালি ডিলিট করে দিন:
+              <pre><code>$ rm .server.conf.swp</code></pre>
+            </li>
+            <li><strong>Handling DOS/Windows Line Endings (\r\n):</strong> আপনি যখন উইন্ডোজ পিসিতে কোনো স্ক্রিপ্ট বা
+              কনফিগারেশন ফাইল এডিট করে সেটি লিনাক্স সার্ভারে আপলোড করেন, তখন অনেক সময় স্ক্রিপ্টটি রান করতে ফেইল করে। এর
+              কারণ উইন্ডোজ লাইনের শেষে <code>CRLF (\r\n)</code> ব্যবহার করে, যা লিনাক্স শেল রিড করতে পারে না।
+              <br><strong>সমাধান:</strong> লিনাক্স পোর্টে ফাইলের এন্ড-অফ-লাইন ফরমেট ফিক্সড করতে <code>dos2unix</code>
+              টুল ব্যবহার করুন:
+              <pre><code>$ dos2unix script.sh</code></pre>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>File Modifications</strong> লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেশন এবং কনফিগারেশন ম্যানেজমেন্টের এক
+              অত্যন্ত মৌলিক কিন্তু কারিগরিভাবে অত্যন্ত সংবেদনশীল পার্ট। <code>Vim</code>-এর মাল্টি-মোডাল মেকানিজম আমাদের
+              ম্যানুয়াল এডিটিংকে যেমন গতিশীল করে, তেমনি <code>sed</code> এবং <code>awk</code>-এর মতো স্ট্রিম প্রসেসিং
+              টুলস আমাদের লার্জ-স্কেল ক্লাউড ইনফ্রাস্ট্রাকচার ও সিআই/সিডি অটোমেশনের পথ সুগম করে। একজন টপ-নচ সিস্টেম
+              ইঞ্জিনিয়ার হিসেবে এই দুই ধরণের ফাইল ম্যানিপুলেশন মেথডের ওপর নিখুঁত নিয়ন্ত্রণ থাকা ক্যারিয়ারের গভীরতা
+              বহুগুণ বাড়িয়ে দেবে। প্রোডাকশন ফাইলের লাইভ মডিফিকেশন করার আগে সবসময় <code>.bak</code> ফাইল জেনারেট করার
+              অভ্যাসই আপনাকে যেকোনো কারিগরি বিপর্যয় থেকে শতভাগ নিরাপদ রাখবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

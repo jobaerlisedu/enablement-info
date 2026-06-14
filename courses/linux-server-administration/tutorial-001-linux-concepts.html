@@ -1,32 +1,355 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Linux Concepts | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux Operating System-এর মূল কনসেপ্ট, আর্কিটেকচার, ফাইল সিস্টেম এবং প্র্যাকটিক্যাল কমান্ড লাইনের ওপর একটি সম্পূর্ণ টেকনিক্যাল গাইড সহজ বাংলায়।">
+  <title>Linux Concepts: A Deep Dive Guide for Beginners & Professionals | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Linux Concepts</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Linux Concepts</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Linux Concepts</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>আধুনিক আইটি ওয়ার্ল্ডের ব্যাকবোন বা মেরুদণ্ড হলো <strong>Linux Operating System</strong>। বিশ্বের টপ ৫০০
+            সুপারকম্পিউটার, ইন্টারনেট ক্লাউড ইনফ্রাস্ট্রাকচার (যেমন AWS, Azure), বড় বড় এন্টারপ্রাইজ ডাটা সেন্টার এবং
+            কোটি কোটি অ্যান্ড্রোয়েড স্মার্টফোন—সবকিছুর পেছনেই কাজ করছে লিনাক্স। একজন সিস্টেম অ্যাডমিনিস্ট্রেটর,
+            নেটওয়ার্ক ইঞ্জিনিয়ার বা সাইবার সিকিউরিটি প্রফেশনাল হতে হলে লিনাক্সের ওপর গভীর দক্ষতা থাকা বর্তমান সময়ে
+            প্রায় বাধ্যতামূলক।</p>
+          <p>আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা লিনাক্সের কোর আর্কিটেকচার, ফাইল সিস্টেমের বৈচিত্র্য, প্রসেস এবং পারমিশন
+            মেকানিজম নিয়ে একদম শূন্য থেকে অ্যাডভান্সড লেভেলে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Linux Architecture (কোর আর্কিটেকচার)</h2>
+          <p>লিনাক্স একটি অত্যন্ত সুশৃঙ্খল এবং লেয়ারড আর্কিটেকচার অনুসরণ করে কাজ করে। এর প্রধান স্তরগুলো নিচে বিস্তারিত
+            দেওয়া হলো:</p>
+          <ul>
+            <li><strong>Hardware:</strong> এটি হলো কম্পিউটারের ফিজিক্যাল উপাদান যেমন—CPU, RAM, HDD/SSD ইত্যাদি।</li>
+            <li><strong>Kernel:</strong> এটি লিনাক্সের মস্তিস্ক বা কোর অংশ। কার্নেল সরাসরি হার্ডওয়্যারের সাথে যোগাযোগ
+              করে এবং সফটওয়্যারের রিকোয়েস্ট অনুযায়ী ফিজিক্যাল রিসোর্স বন্টন করে। এটি <strong>Process
+                Management</strong>, <strong>Memory Management</strong> এবং <strong>Device Drivers</strong> নিয়ন্ত্রণ
+              করে।</li>
+            <li><strong>Shell:</strong> এটি হলো ইউজার এবং কার্নেলের মধ্যবর্তী দোভাষী বা ইন্টারফেস। ইউজার যখন টার্মিনালে
+              কোনো কমান্ড লেখেন, শেল সেই কমান্ডকে কার্নেলের বোঝার উপযোগী ভাষায় অনুবাদ করে দেয়। কমন শেলের উদাহরণ হলো
+              <strong>Bash (Bourne Again Shell)</strong> এবং <strong>Zsh</strong>।</li>
+            <li><strong>System Utilities & Applications:</strong> এটি হলো একদম উপরের লেয়ার যেখানে ইউজাররা সরাসরি কাজ
+              করেন। যেমন—টেক্সট এডিটর, ওয়েব সার্ভার (Apache/Nginx), ডাটাবেজ ইত্যাদি।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Restaurant Management Analogy)</h3>
+            <p>লিনাক্স আর্কিটেকচারকে একটি বড় রেস্টুরেন্টের সাথে তুলনা করা যায়:</p>
+            <ul>
+              <li><strong>Hardware:</strong> রেস্টুরেন্টের কিচেনের চুলো, হাড়ি-পাতিল এবং কাঁচামাল।</li>
+              <li><strong>Kernel:</strong> মেইন শেফ বা রাঁধুনি, যে ফিজিক্যাল কাঁচামাল ব্যবহার করে সরাসরি খাবার তৈরি করে।
+                সে কিচেনের মূল নিয়ন্ত্রক।</li>
+              <li><strong>Shell:</strong> টেবিলের ওয়েটার। আপনি (User) ওয়েটারকে অর্ডারের কথা বলেন, ওয়েটার সেই অর্ডারটি
+                কিচেনের শেফকে (Kernel) বুঝিয়ে দেয়।</li>
+              <li><strong>User/Applications:</strong> রেস্টুরেন্টের কাস্টমার যারা খাবার অর্ডার করছেন এবং টেবিলে বসে
+                অ্যাপস বা ইউটিলিটি এনজয় করছেন।</li>
+            </ul>
+          </div>
+
+          <h2>২. Everything is a File (লিনাক্সের মূল দর্শন)</h2>
+          <p>উইন্ডোজ অপারেটিং সিস্টেমের সাথে লিনাক্সের সবচেয়ে বড় কনসেপচুয়াল পার্থক্য হলো—<strong>"In Linux, everything
+              is a file."</strong></p>
+          <p>লিনাক্সে শুধুমাত্র সাধারণ টেক্সট বা ডকুমেন্টই ফাইল নয়; আপনার পিসির হার্ডডিস্ক পার্টিশন, মাউস, কিবোর্ড,
+            নেটওয়ার্ক ইন্টারফেস কার্ড (NIC), এমনকি চলমান কোনো প্রসেসকেও লিনাক্স একটি ফাইল হিসেবে বিবেচনা করে। এর সুবিধা
+            হলো, ওএস খুব সহজে একটি মাত্র স্ট্যান্ডার্ড টুলসেট দিয়ে পুরো ইনফ্রাস্ট্রাকচার হ্যান্ডেল করতে পারে।</p>
+
+          <h3>Linux Directory Structure (FHS)</h3>
+          <p>লিনাক্সে উইন্ডোজের মতো <code>C:</code> বা <code>D:</code> ড্রাইভ থাকে না। এখানে সমস্ত ফাইল এবং ডিরেক্টরি
+            শুরু হয় একটি রুট ডিরেক্টরি থেকে, যাকে স্ল্যাশ (<code>/</code>) চিহ্ন দিয়ে প্রকাশ করা হয়। একে
+            <strong>Filesystem Hierarchy Standard (FHS)</strong> বলা হয়।</p>
+
+
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Directory</th>
+                  <th>কাজের ধরন এবং বিবরণ (Purpose)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">/bin & /sbin</td>
+                  <td>প্রয়োজনীয় বাইনারি এবং সিস্টেম কমান্ড ফাইল (যেমন <code>ls</code>, <code>cd</code>,
+                    <code>fdisk</code>) এখানে থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/etc</td>
+                  <td>সিস্টেমের সমস্ত কনফিগারেশন ফাইল (Configuration Files) এই ডিরেক্টরির ভেতরে থাকে।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/home</td>
+                  <td>সাধারণ ইউজারদের নিজস্ব পার্সোনাল ডাটা এবং ডিরেক্টরি এখানে থাকে (যেমন <code>/home/jobaer</code>)।
+                  </td>
+                </tr>
+                <tr>
+                  <td class="type-column">/root</td>
+                  <td>সিস্টেমের সর্বোচ্চ ক্ষমতাশালী অ্যাডমিনিস্ট্রেটর বা <strong>Superuser</strong>-এর নিজস্ব হোম
+                    ডিরেক্টরি।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/var</td>
+                  <td>পরিবর্তনশীল ডাটা যেমন—সিস্টেম লগ ফাইল (Log Files) এবং মেল স্পুল এখানে জমা হয়।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">/dev</td>
+                  <td>হার্ডওয়্যার ডিভাইস ফাইল (যেমন প্রথম হার্ডডিস্ক <code>/dev/sda</code>) এখানে লজিক্যালি থাকে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৩. Linux File Permissions (নিরাপত্তা মেকানিজম)</h2>
+          <p>লিনাক্স একটি অত্যন্ত সিকিউর এবং <strong>Multi-user</strong> অপারেটিং সিস্টেম। এখানে প্রতিটি ফাইল এবং
+            ডিরেক্টরির জন্য সুনির্দিষ্ট এক্সেস পারমিশন থাকে। টার্মিনালে <code>ls -l</code> কমান্ড দিলে পারমিশনের রূপটি
+            দেখতে নিচের মতো হয়:</p>
+          <pre><code>-rwxr-xr-- 1 jobaer accounting 1024 Jun 14 12:00 report.txt</code></pre>
+
+          <h3>পারমিশন স্ট্রিং-এর নিখুঁত ব্যবচ্ছেদ:</h3>
+          <p>প্রথম ক্যারেক্টারটি ফাইলের ধরণ নির্দেশ করে (<code>-</code> মানে সাধারণ ফাইল, <code>d</code> মানে
+            ডিরেক্টরি)। পরবর্তী ৯টি ক্যারেক্টার ৩টি গ্রুপে বিভক্ত:</p>
+          <ol>
+            <li><strong>User / Owner (u):</strong> প্রথম ৩টি বিট (<code>rwx</code>)—ফাইলের মালিক নিজে কী করতে পারবেন।
+            </li>
+            <li><strong>Group (g):</strong> মাঝের ৩টি বিট (<code>r-x</code>)—নির্দিষ্ট গ্রুপের মেম্বাররা কী করতে পারবেন।
+            </li>
+            <li><strong>Others (o):</strong> শেষ ৩টি বিট (<code>r--</code>)—নেটওয়ার্কের বা সিস্টেমের বাকি সাধারণ ইউজাররা
+              কী করতে পারবেন।</li>
+          </ol>
+
+          <h3>পারমিশনের টাইপ এবং নিউমেরিক ভ্যালু (Numeric Values):</h3>
+          <ul>
+            <li><strong>Read (r):</strong> ফাইল দেখার পারমিশন। এর গাণিতিক মান = <strong>৪</strong></li>
+            <li><strong>Write (w):</strong> ফাইল এডিট বা ডিলিট করার পারমিশন। এর গাণিতিক মান = <strong>২</strong></li>
+            <li><strong>Execute (x):</strong> কোনো স্ক্রিপ্ট বা প্রোগ্রাম রান করার পারমিশন। এর গাণিতিক মান =
+              <strong>১</strong></li>
+          </ul>
+          <p>উদাহরণস্বরূপ, যদি কোনো ফাইলের পারমিশন <code>754</code> দেওয়া হয়, তার মানে ওনার পাবেন $৪+২+১=৭$ (rwx), গ্রুপ
+            পাবে $৪+০+১=৫$ (r-x) এবং আদার্স পাবে $৪+০+০=৪$ (r--)।</p>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI কমান্ড এবং কনফিগারেশন স্টেপস</h2>
+          <p>লিনাক্স সার্ভার অ্যাডমিনিস্ট্রেশনে বহুল ব্যবহৃত কিছু কমান্ড এবং তাদের প্র্যাকটিক্যাল ব্যবহার নিচে দেওয়া
+            হলো:</p>
+
+          <h3>ক. ফাইল এবং পারমিশন ম্যানেজমেন্ট</h3>
+          <pre><code># একটি নতুন ডিরেক্টরি তৈরি করা
+$ mkdir /home/jobaer/secure_data
+
+# ফাইলের পারমিশন পরিবর্তন করে 755 (rwxr-xr-x) করা
+$ chmod 755 /home/jobaer/secure_data/script.sh
+
+# ফাইলের মালিকানা পরিবর্তন করে ইউজার 'jobaer' কে দেওয়া
+$ sudo chown jobaer:accounting /home/jobaer/secure_data/report.txt</code></pre>
+
+          <h3>খ. সিস্টেম এবং রিসোর্স মনিটরিং</h3>
+          <pre><code># সিস্টেমে চলমান প্রসেস এবং মেমরি রিয়েল-টাইমে দেখা
+$ top
+
+# ডিস্ক স্পেস এবং ফ্রি স্টোরেজের বিবরণ দেখা (Human-readable format)
+$ df -h
+
+# সিস্টেমের ফ্রি এবং ব্যবহৃত RAM-এর পরিমাণ দেখা
+$ free -m</code></pre>
+
+          <h2>৫. Linux Process Management</h2>
+          <p>লিনাক্সে যখনই কোনো প্রোগ্রাম বা কমান্ড রান করা হয়, কার্নেল সেটিকে একটি <strong>Process</strong> হিসেবে
+            মেমরিতে জায়গা দেয় এবং প্রতিটি প্রসেসের একটি অনন্য নাম্বার থাকে যাকে বলা হয় <strong>PID (Process
+              ID)</strong>।</p>
+          <ul>
+            <li><strong>Parent and Child Process:</strong> লিনাক্সে প্রতিটি প্রসেস অন্য একটি প্রসেস দ্বারা তৈরি হয়। একদম
+              শুরুর প্রসেসটিকে বলা হয় <strong>systemd</strong> (PID = 1), যা বাকি সব প্রসেসের আদি পিতা।</li>
+            <li><strong>Foreground vs Background:</strong> কোনো কমান্ড রান করার সময় টার্মিনাল ব্লক হয়ে গেলে তা
+              Foreground প্রসেস। কমান্ডের শেষে <code>&</code> চিহ্ন দিলে তা Background-এ রান করে, ফলে টার্মিনাল ফ্রী
+              থাকে।</li>
+          </ul>
+
+          <p><strong>চলমান কোনো প্রসেস ফোর্সফুলি বন্ধ করার কমান্ড:</strong></p>
+          <pre><code># নির্দিষ্ট PID (যেমন 1452) ব্যবহার করে প্রসেস কিল করা
+$ kill -9 1452
+
+# প্রসেসের নাম (যেমন nginx) ব্যবহার করে বন্ধ করা
+$ sudo killall nginx</code></pre>
+
+          <h2>৬. Troubleshooting ও সাধারণ লিনাক্স চ্যালেঞ্জসমূহ</h2>
+          <ul>
+            <li><strong>"Permission Denied" Error:</strong> এটি লিনাক্সের সবচেয়ে কমন এরর। এর মানে আপনার ইউজার আইডির ওই
+              ফাইল বা ডিরেক্টরিতে কাজ করার অনুমতি নেই। সমাধান হলো কমান্ডের শুরুতে <code>sudo</code> (Superuser Do)
+              ব্যবহার করা অথবা ফাইলের পারমিশন চেক করা।</li>
+            <li><strong>Out of Memory (OOM) Killer:</strong> লিনাক্স সার্ভারে হঠাৎ র‍্যামের পরিমাণ শেষ হয়ে গেলে
+              কার্নেলের OOM মেকানিজম স্বয়ংক্রিয়ভাবে সবচেয়ে বেশি রিসোর্স নেওয়া প্রসেসটি (যেমন MySQL) কিল করে দেয়। সমাধান
+              হিসেবে সার্ভারে <strong>Swap Space</strong> বা কাস্টম ভার্চুয়াল মেমরি কনফিগার করতে হয়।</li>
+            <li><strong>High Disk Utilization Logging:</strong> অনেক সময় <code>/var/log</code> ডিরেক্টরি পূর্ণ হয়ে পুরো
+              সার্ভার ডাউন হয়ে যায়। এই সমস্যা এড়াতে <code>logrotate</code> সার্ভিস কনফিগার করা উচিত যা পুরনো লগ ফাইলগুলো
+              অটোমেটিক কমপ্রেস বা ডিলিট করে দেয়।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Linux Concepts</strong> এবং এর ইন্টারনাল আর্কিটেকচার বুঝতে পারা আধুনিক আইটি ইন্ডাস্ট্রিতে টিকে
+              থাকার জন্য এক অপরিহার্য চাবিকাঠি। লিনাক্সের ফাইল সিস্টেমের হায়ারার্কি, পারমিশন মেকানিজম এবং প্রসেস
+              ম্যানেজমেন্টের ওপর যার যত ভালো নিয়ন্ত্রণ থাকবে, সে তত নিখুঁতভাবে প্রোডাকশন সার্ভার এবং ক্লাউড এনভায়রনমেন্ট
+              হ্যান্ডেল করতে পারবে। প্রথম দিকে কমান্ড লাইন কিছুটা কঠিন মনে হলেও, নিয়মিত ল্যাব প্র্যাকটিস এবং টার্মিনালের
+              ব্যবহার আপনাকে একজন দক্ষ এবং আত্মবিশ্বাসী লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেটর হিসেবে গড়ে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

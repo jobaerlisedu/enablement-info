@@ -1,32 +1,367 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User and Session Environmental Variables | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux-এর User এবং Session Environmental Variables কী, এদের মেকানিজম, কাস্টম ভেরিয়েবল তৈরি এবং .bashrc ও .bash_profile ফাইলের মাধ্যমে পারসোনালাইজ করার গভীর প্র্যাকটিক্যাল গাইড।">
+  <title>Deep Dive into User and Session Environmental Variables in Linux | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>User and Session Environmental Variables</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>User and Session Environmental Variables</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>User and Session Environmental Variables</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেশন এবং সেল স্ক্রিপ্টিং নিয়ে প্রফেশনালি কাজ করার সময় আমরা প্রায়ই কাস্টম
+            এনভায়রনমেন্ট বা ডাইনামিক ডাটা পাসিং নিয়ে ডিল করি। একটি সিস্টেম কীভাবে জানে বর্তমানে কোন ইউজার লগইন অবস্থায়
+            আছেন, তার হোম ডিরেক্টরি কোনটি, কিংবা কোন পাথে গিয়ে অ্যাপ্লিকেশন বাইনারিগুলো খুঁজতে হবে? এই সমস্ত
+            গুরুত্বপূর্ণ রিয়েল-টাইম ডাটা মেইনটেইন করার ব্যাকএন্ড মেকানিজমই হলো <strong>Environmental
+              Variables</strong>।</p>
+          <p>বিশেষ করে এন্টারপ্রাইজ লেভেলে মাল্টি-ইউজার এবং জটিল সেশন ম্যানেজমেন্টের ক্ষেত্রে <strong>User and Session
+              Environmental Variables</strong>-এর ভূমিকা অত্যন্ত গভীর। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা শিখবো এই
+            ভেরিয়েবলগুলোর ক্লাসিফিকেশন, লিনাক্স স্ট্যাকের ভেতরের মেকানিজম, কীভাবে কাস্টম ভেরিয়েবল তৈরি করতে হয় এবং
+            কনফিগারেশন ফাইলের মাধ্যমে সেগুলোকে পার্মানেন্ট করার নিখুঁত প্র্যাকটিক্যাল গাইড।</p>
+
+
+
+          <h2>১. Environmental Variables কী? (The Structural Concept)</h2>
+          <p><strong>Environmental Variable</strong> হলো একটি ডাইনামিক-নেমড ভ্যালু (Named Value) যা লিনাক্স ওএস তার
+            মেমরিতে স্টোর করে রাখে এবং যা সিস্টেমে চলমান বিভিন্ন প্রসেস, অ্যাপ্লিকেশন বা সেল সেশন দ্বারা অ্যাক্সেসযোগ্য।
+            এটি মূলত একটি কি-ভ্যালু পেয়ার (Key-Value Pair) হিসেবে কাজ করে। কনভেনশন অনুযায়ী এই ভেরিয়েবলগুলোর নাম সব সময়
+            বড় হাতের অক্ষরে (UPPERCASE) লেখা হয়। যেমন- <code>HOME=/home/jobaer</code>।</p>
+          <p>যখন কোনো অ্যাপ্লিকেশন ব্যাকএন্ডে রান করে, তখন সে নিজের জন্য প্রয়োজনীয় গ্লোবাল প্যারামিটারগুলো আলাদাভাবে ওএস
+            থেকে কুয়েরি না করে সরাসরি শেলের এনভায়রনমেন্ট স্পেস থেকে রিড করে নেয়। এর ফলে অ্যাপ্লিকেশনের ফ্লেক্সিবিলিটি
+            এবং পোর্টেবিলিটি বহুগুণ বৃদ্ধি পায়।</p>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Hotel Stay Analogy)</h3>
+            <p>এনভায়রনমেন্ট ভেরিয়েবলের কাজের ধরণ সহজে বোঝার জন্য একটি ইন্টারন্যাশনাল হোটেলে গেস্টদের থাকার কথা চিন্তা
+              করুন:</p>
+            <ul>
+              <li><strong>The Variables:</strong> হোটেলের প্রতিটি রুমে কিছু কমন গ্লোবাল প্যারামিটার ফিক্সড থাকে, যেমন-
+                রুমের তাপমাত্রা (TEMPERATURE), ওয়াই-ফাই পাসওয়ার্ড (WIFI_PASS) এবং ভাষা (LANGUAGE)।</li>
+              <li><strong>The Session Application:</strong> আপনি যখন কোনো রুমে চেক-ইন (Session Start) করলেন, তখন ওই
+                রুমের ডিভাইস বা সার্ভিসগুলো (Applications) অটোমেটিকভাবে রুমের নির্দিষ্ট ভেরিয়েবল থেকে ডেটা রিড করে
+                আপনাকে সার্ভিস দেবে। </li>
+              <li><strong>User Specific Separation:</strong> রুম ১০১-এর গেস্ট যদি তাপমাত্রা ২০ ডিগ্রি সেট করেন (User
+                Variable), তার প্রভাব কিন্তু পাশের ১০২ নম্বর রুমের ওপর পড়বে না। এটিই হলো লিনাক্সের ইউজার ও সেশন
+                আইসোলেশন।</li>
+            </ul>
+          </div>
+
+          <h2>২. Shell Variables বনাম Environmental Variables</h2>
+          <p>টার্মিনালে কাজ করার সময় বিগিনাররা প্রায়ই এই দুই ধরনের ভেরিয়েবলের মধ্যে গোলমাল করে ফেলেন। এদের মধ্যে সূক্ষ্ম
+            কিন্তু অত্যন্ত গুরুত্বপূর্ণ টেকনিক্যাল পার্থক্য রয়েছে:</p>
+          <ul>
+            <li><strong>Shell Variables (Local Variables):</strong> এই ভেরিয়েবলগুলো শুধুমাত্র বর্তমান নির্দিষ্ট সেল
+              সেশনের (Current Shell) ভেতরেই সীমাবদ্ধ থাকে। এই সেল থেকে যদি কোনো চাইল্ড প্রসেস (Child Process) বা সাব-শেল
+              চালু করা হয়, তবে সেই চাইল্ড প্রসেস এই লোকাল ভেরিয়েবল রিড করতে পারে না।</li>
+            <li><strong>Environmental Variables (Global Variables):</strong> এগুলো এমন ভেরিয়েবল যা বর্তমান শেলের
+              পাশাপাশি ওই শেল থেকে তৈরি হওয়া যেকোনো চাইল্ড প্রসেস, স্ক্রিপ্ট বা ব্যাকএন্ড অ্যাপ্লিকেশনের কাছেও নিজের
+              ডাটা পাস (Inherit) করতে পারে।</li>
+          </ul>
+
+          <h2>৩. বহুল ব্যবহৃত Standard Environmental Variables</h2>
+          <p>লিনাক্স ওএস চালুর পর সিস্টেম এবং ইউজার সেশন মেইনটেইন করতে কিছু স্ট্যান্ডার্ড ভেরিয়েবল ডিফল্টভাবে ব্যাকএন্ডে
+            তৈরি করে নেয়। নিচে এদের বিবরণ দেওয়া হলো:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Variable Name</th>
+                  <th>Technical Definition and Purpose</th>
+                  <th>Common Standard Value Example</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><code>$USER</code></td>
+                  <td>বর্তমানে লগইন থাকা সক্রিয় ইউজারের ইউজারনেম স্টোর করে।</td>
+                  <td><code>jobaer</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$HOME</code></td>
+                  <td>বর্তমান ইউজারের ব্যক্তিগত হোম ডিরেক্টরির পাথ নির্দেশ করে।</td>
+                  <td><code>/home/jobaer</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$PATH</code></td>
+                  <td>কমান্ড টাইপ করলে ওএস কোন কোন ডিরেক্টরিতে বাইনারি খুঁজবে তার লিস্ট।</td>
+                  <td><code>/usr/local/bin:/usr/bin:/bin</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$SHELL</code></td>
+                  <td>ইউজার বর্তমানে কোন সুনির্দিষ্ট সেল ইন্টারফেস ব্যবহার করছেন তা দেখায়।</td>
+                  <td><code>/bin/bash</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$PWD</code></td>
+                  <td>ইউজার বর্তমানে ফিজিক্যালি কোন ওয়ার্কিং ডিরেক্টরিতে আছেন তা ট্র্যাক করে।</td>
+                  <td><code>/var/log/nginx</code></td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>$LANG</code></td>
+                  <td>সিস্টেমের ডিফল্ট ল্যাঙ্গুয়েজ এবং ক্যারেক্টার এনকোডিং ফরমেট।</td>
+                  <td><code>en_US.UTF-8</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন: ভেরিয়েবল রিড ও ভেরিফিকেশন</h2>
+          <p>টার্মিনাল কমান্ড লাইনের সাহায্যে সিস্টেমে বিদ্যমান সব এনভায়রনমেন্ট ভেরিয়েবল দেখা এবং নির্দিষ্ট প্যারামিটার
+            ফিল্টার করার স্ট্যান্ডার্ড কমান্ডগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>ক্লু ১: সব এনভায়রনমেন্ট ভেরিয়েবল ডিসপ্লে করা</h3>
+          <p>আপনার সেশনে বর্তমানে যত গ্লোবাল এনভায়রনমেন্ট ভেরিয়েবল একটিভ আছে তা দেখার জন্য <code>printenv</code> বা
+            <code>env</code> কমান্ড ব্যবহার করা হয়:</p>
+          <pre><code>$ printenv
+
+# নির্দিষ্ট কোনো ভেরিয়েবলের ভ্যালু সরাসরি দেখতে চাইলে নামের শেষে $ ছাড়া কুয়েরি করুন:
+$ printenv HOME</code></pre>
+
+          <h3>ক্লু ২: পাইপলাইনের সাহায্যে নির্দিষ্ট ভেরিয়েবল ফিল্টার করা</h3>
+          <p>বিশাল ভেরিয়েবল লিস্ট থেকে নির্দিষ্ট প্যারামিটার (যেমন- PATH) খুঁজে বের করার কমান্ড:</p>
+          <pre><code>$ env | grep PATH</code></pre>
+
+          <h2>৫. কাস্টম ভেরিয়েবল তৈরি ও এক্সপোর্ট করার মেকানিজম</h2>
+          <p>আসুন আমরা প্র্যাকটিক্যালি একটি লোকাল ভেরিয়েবল তৈরি করি এবং সেটিকে এনভায়রনমেন্ট ভেরিয়েবলে রূপান্তর করার
+            ধাপগুলো দেখি।</p>
+
+          <p><strong>ধাপ ১: একটি লোকাল সেল ভেরিয়েবল তৈরি করা</strong></p>
+          <pre><code>$ MY_PROJECT_DIR="/var/www/html/app"
+$ echo $MY_PROJECT_DIR</code></pre>
+          <p><em>ব্যাখ্যা: এই ভেরিয়েবলটি এখন কাজ করবে। কিন্তু আপনি যদি টার্মিনাল থেকে আরেকটি সাব-শেল (<code>bash</code>)
+              ওপেন করেন, তবে সেখানে এই ভেরিয়েবলটি আর কোনো ডাটা আউটপুট দেবে না কারণ এটি লোকাল।</em></p>
+
+          <p><strong>ধাপ ২: ভেরিয়েবলটিকে গ্লোবাল বা এনভায়রনমেন্ট ভেরিয়েবলে রূপান্তর করা</strong></p>
+          <p>লোকাল ভেরিয়েবলকে চাইল্ড প্রসেসের কাছে দৃশ্যমান করতে <code>export</code> কমান্ড ব্যবহার করা বাধ্যতামূলক:</p>
+          <pre><code>$ export MY_PROJECT_DIR
+# অথবা এক লাইনে তৈরি ও এক্সপোর্ট করা:
+$ export DATABASE_URL="mongodb://localhost:27017/prod"</code></pre>
+
+          [Image workflow illustrating Parent Shell exporting a variable to a Child Sub-shell]
+
+          <h2>৬. ভերিয়েবল পার্মানেন্ট করার কনফিগারেশন ফাইলস (.dotfiles)</h2>
+          <p>টার্মিনালে সরাসরি <code>export</code> কমান্ড দিয়ে তৈরি করা ভেরিয়েবলগুলো কেবল বর্তমান সেশন বা টার্মিনাল
+            উইন্ডো খোলা থাকা পর্যন্তই মেমরিতে বাঁচে। টার্মিনাল বন্ধ করলে বা সার্ভার রিবুট দিলে এগুলো মুছে যায়।
+            ভেরিয়েবলগুলোকে চিরস্থায়ী বা পার্মানেন্ট করতে হলে লিনাক্সের বিশেষ কনফিগারেশন ফাইলে রাইট করতে হয়।</p>
+
+          <h3>ক. User-Specific Permanent Variables (নির্দিষ্ট ইউজারের জন্য)</h3>
+          <p>আপনার হোম ডিরেক্টরির ভেতরে থাকা <strong>.bashrc</strong> বা <strong>.bash_profile</strong> ফাইলে কাস্টম
+            এক্সপোর্ট লাইন লিখে রাখলে, প্রতিবার ওই ইউজার লগইন করার সময় সেল স্বয়ংক্রিয়ভাবে ভেরিয়েবলটি লোড করে নেবে।</p>
+          <pre><code># ইউজারের .bashrc ফাইল ওপেন করুন
+$ nano ~/.bashrc
+
+# ফাইলের একদম শেষ লাইনে গিয়ে আপনার কাস্টম এক্সপোর্টটি যোগ করুন:
+export API_KEY="secret_live_token_12345"
+
+# ফাইলটি সেভ করে বের হয়ে আসুন (Ctrl+O, then Ctrl+X)
+# নতুন লগইন না করেই ফাইলটি লাইভ সেশনে কার্যকর করার কমান্ড:
+$ source ~/.bashrc</code></pre>
+
+          <h3>খ. System-Wide Permanent Variables (সিস্টেমের সমস্ত ইউজারের জন্য)</h3>
+          <p>যদি আপনি এমন কোনো ভেরিয়েবল কনফিগার করতে চান যা সার্ভারের রুট ইউজার থেকে শুরু করে সমস্ত সাধারণ ইউজার
+            অ্যাকাউন্ট সমানভাবে অ্যাক্সেস পাবে, তবে সেটি গ্লোবাল ফাইলে কনফিগার করতে হবে।</p>
+          <pre><code># গ্লোবাল প্রোফাইল ডিরেক্টরিতে একটি কাস্টম স্ক্রিপ্ট তৈরি করা
+$ sudo nano /etc/profile.d/custom_env.sh
+
+# ফাইলের ভেতরে এক্সপোর্ট লাইনটি লিখুন:
+export JAVA_HOME="/usr/lib/jvm/java-11-openjdk"
+
+# ফাইল সেভ করে সিস্টেম সোর্স রিফ্রেশ করুন:
+$ source /etc/profile</code></pre>
+
+          <h2>৭. Troubleshooting ও সাধারণ এনভায়রনমেন্ট চ্যালেঞ্জসমূহ</h2>
+          <ul>
+            <li><strong>The "Command Not Found" after Editing PATH:</strong> এটি নেটওয়ার্ক এবং সিস্টেম অ্যাডমিনদের করা
+              অন্যতম বড় একটি ক্লাসিক ভুল। অনেক সময় কাস্টম পাথের তথ্য <code>$PATH</code> ভেরিয়েবলে যোগ করার সময় ভুল
+              সিনট্যাক্সের কারণে পুরো সিস্টেমের ডিফল্ট পাথ ওভাররাইট হয়ে যায়। যেমন-
+              <code>export PATH="/opt/node/bin"</code>। এটি করার পর <code>ls</code>, <code>clear</code> বা
+              <code>sudo</code> কমান্ড দিলেও ওএস বলবে "Command Not Found"।
+              <br><strong>কারণ:</strong> আপনি নতুন পাথ যোগ করতে গিয়ে আগের ডিফল্ট ওকটেটগুলো মুছে ফেলেছেন।
+              <br><strong>সমাধান:</strong> সবসময় কাস্টম পাথ অ্যাড করার সময় পুরনো <code>$PATH</code> ভেরিয়েবলটিকে কোলন
+              (<code>:</code>) দিয়ে ট্রেইলিং পজিশনে ধরে রাখতে হবে:
+              <pre><code>export PATH=$PATH:/opt/node/bin</code></pre>
+            </li>
+            <li><strong>Variable Missing in Cron Jobs / Systemd:</strong> আপনি আপনার <code>~/.bashrc</code> ফাইলে একটি
+              সিক্রেট টোকেন ভেরিয়েবল পার্মানেন্ট করে রেখেছেন এবং টার্মিনালে সেটি পারফেক্টলি কাজ করছে। কিন্তু যখনই ওই
+              স্ক্রিপ্টটি একটি অটোমেটেড <strong>Cron Job</strong> বা <strong>Systemd Service</strong> দিয়ে ব্যাকঅ্যান্ডে
+              রান করছেন, তখন স্ক্রিপ্টটি ভেরিয়েবলটি রিড করতে পারছে না।
+              <br><strong>কারণ:</strong> ক্রন-জব বা সিস্টেমডি সার্ভিসগুলো নন-ইন্টারেক্টিভ সেল সেশনে চলে, ফলে তারা
+              ইউজারের <code>.bashrc</code> ফাইল রিড করে না।
+              <br><strong>সমাধান:</strong> ক্রন স্ক্রিপ্টের ভেতরেই সরাসরি <code>export</code> লাইন লিখে দিতে হবে অথবা
+              Systemd সার্ভিস ফাইলের ভেতরে <code>Environment="KEY=VALUE"</code> ডিরেক্টিভ ব্যবহার করতে হবে।
+            </li>
+            <li><strong>Unsetting a Variable:</strong> মেমরি থেকে সাময়িকভাবে কোনো একটিভ এনভায়রনমেন্ট ভেরিয়েবল সম্পূর্ণ
+              ডিলিট বা মুছে ফেলার কমান্ড:
+              <pre><code>$ unset DATABASE_URL</code></pre>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>User and Session Environmental Variables</strong> লিনাক্স অপারেটিং সিস্টেমের ব্যাকঅ্যান্ড
+              কনফিগারেশন এবং ডাটা ট্রান্সমিশনের অত্যন্ত শক্তিশালী একটি আর্কিটেকচারাল কম্পোনেন্ট। এটি ওএস লেয়ারে বিভিন্ন
+              অ্যাপ্লিকেশনের মধ্যে আইসোলেশন ও ডায়নামিক সেশন ম্যানেজমেন্ট নিশ্চিত করে। একজন প্রফেশনাল সিস্টেম ইঞ্জিনিয়ার
+              হিসেবে <code>$PATH</code> মডিফিকেশন, <code>~/.bashrc</code> স্কোপিং এবং চাইল্ড প্রসেস ইনহেরিটেন্সের এই
+              নিখুঁত মেকানিজমগুলো বুঝতে পারলে আপনি প্রোডাকশন সার্ভারে যেকোনো জটিল ডিপ্লয়মেন্ট, ডাটাবেজ ডিক্লেয়ারেশন বা
+              অটোমেশন স্ক্রিপ্ট অত্যন্ত নিরাপদ ও দক্ষতার সাথে ট্রাবলশুট ও অপ্টিমাইজ করতে পারবেন। নিয়মিত টার্মিনালে
+              কাস্টম প্রোফাইল স্ক্রিপ্টিং প্র্যাকটিসই আপনাকে এই প্রযুক্তিতে মাস্টার করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

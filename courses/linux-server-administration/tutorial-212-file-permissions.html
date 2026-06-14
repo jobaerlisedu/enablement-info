@@ -1,32 +1,396 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Permissions | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux File Permissions-এর গভীর মেকানিজম নিয়ে একটি বিস্তারিত টেকনিক্যাল টিউটোরিয়াল। সহজ বাংলায় Read, Write, Execute পারমিশন এবং chmod, chown-এর প্র্যাকটিক্যাল ব্যবহার জানুন।">
+  <title>Deep Dive into Linux File Permissions: Mastering chmod and chown | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>File Permissions</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>File Permissions</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction, Concepts and Deep Dive into File Permissions</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স অপারেটিং সিস্টেমের অন্যতম প্রধান শক্তি হলো এর সিকিউরিটি মডেল। এটি একটি পিওর <strong>Multi-user
+              System</strong> হিসেবে ডিজাইন করা হয়েছে, যেখানে একই সার্ভারে বা কম্পিউটারে একসাথে শত শত ইউজার সম্পূর্ণ
+            আইসোলেটেড অবস্থায় কাজ করতে পারেন। এই মাল্টি-ইউজার এনভায়রনমেন্টে ডাটার নিরাপত্তা এবং গোপনীয়তা বজায় রাখার মূল
+            চাবিকাঠি হলো <strong>File Permissions</strong>। কোনো ইউজার অন্য ইউজারের ফাইল দেখতে পারবেন কি না, এডিট করতে
+            পারবেন কি না বা কোনো প্রোগ্রাম রান করতে পারবেন কি না, তা সম্পূর্ণ এই সিস্টেমের মাধ্যমে কার্নেল লেভেলে
+            সুনির্দিষ্টভাবে নিয়ন্ত্রিত হয়।</p>
+          <p>একজন প্রফেশনাল সিস্টেম অ্যাডমিনিস্ট্রেটর বা সাইবার সিকিউরিটি স্পেশালিস্ট হতে হলে লিনাক্স ফাইল পারমিশনের
+            প্রতিটি খুঁটিনাটি নিখুঁতভাবে বোঝা অত্যন্ত জরুরী। পারমিশন সেটিংসের সামান্য একটি ভুল পুরো কোম্পানির সংবেদনশীল
+            ডাটা লিক করে দিতে পারে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা ফাইল পারমিশনের বেসিক স্ট্রাকচার, ৩টি ইউজার ক্লাস,
+            ২টি কনফিগারেশন মেথড এবং বাস্তব জীবনের ট্রাবলশুটিং নিয়ে বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. থ্রি ইউজার ক্লাস (The Three User Classes)</h2>
+          <p>লিনাক্সে যেকোনো ফাইল বা ডিরেক্টরি তৈরি করার সাথে সাথে ওএস তার সুরক্ষার জন্য ব্যবহারকারীদের ৩টি সুনির্দিষ্ট
+            ক্লাসে ভাগ করে ফেলে:</p>
+          <ul>
+            <li><strong>User / Owner (u):</strong> যিনি ফাইলটি ফিজিক্যালি তৈরি করেছেন বা ফাইলের বর্তমান মালিক।
+              ডিফল্টভাবে ফাইলের ওনারের ক্ষমতা ওই ফাইলের ওপর সবচেয়ে বেশি থাকে।</li>
+            <li><strong>Group (g):</strong> লিনাক্সে একাধিক ইউজারকে একটি নির্দিষ্ট গ্রুপে (যেমন: <code>developers</code>
+              বা <code>accounting</code>) যুক্ত করা যায়। এই ক্লাসের পারমিশনটি ওই নির্দিষ্ট গ্রুপের সমস্ত মেম্বারদের ওপর
+              একসাথে প্রযোজ্য হয়।</li>
+            <li><strong>Others / World (o):</strong> ওনার নিজে এবং গ্রুপের মেম্বাররা ছাড়া সিস্টেমের বাকি সমস্ত সাধারণ
+              ব্যবহারকারী যারা এই ফাইলের সাথে সরাসরি যুক্ত নন, তারা এই ক্লাসের অন্তর্ভুক্ত।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Digital Office Locker Analogy)</h3>
+            <p>ফাইল পারমিশনের ৩টি ক্লাস সহজে বোঝার জন্য একটি কর্পোরেট অফিসের লকার বা ড্রয়ারের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>User (ড্রয়ারের মালিক):</strong> আপনি নিজে ওই টেবিল এবং ড্রয়ারের মালিক। আপনার কাছে ড্রয়ার খোলার
+                এবং ভেতরের ফাইল পরিবর্তন করার পূর্ণ স্বাধীনতা আছে।</li>
+              <li><strong>Group (ডিপার্টমেন্টাল কলিগ):</strong> আপনার ফাইন্যান্স টিমের ৫ জন মেম্বার। আপনি ড্রয়ারের একটি
+                কাস্টম চাবি তাদের দিয়ে রাখলেন যাতে তারা প্রয়োজনে ফাইন্যান্স ফাইলগুলো দেখতে পারেন, কিন্তু আইটি টিমের কেউ
+                তা পারবে না।</li>
+              <li><strong>Others (অফিসের পিয়ন বা বাইরের ভিজিটর):</strong> অফিসের বাকি সমস্ত মানুষ যারা ফাইন্যান্স টিমের
+                অংশ নন। তারা ড্রয়ার স্পর্শও করতে পারবেন না।</li>
+            </ul>
+          </div>
+
+          <h2>২. দ্য থ্রি পারমিশন টাইপস (Read, Write, Execute)</h2>
+          <p>প্রতিটি ইউজার ক্লাসের জন্য লিনাক্স ৩ ধরনের অ্যাক্সেস রাইটস বা পারমিশন টাইপ ফিক্সড করতে পারে। ফাইল এবং
+            ডিরেক্টরির (ফোল্ডার) ক্ষেত্রে এদের কাজের মেকানিজম কিছুটা ভিন্ন হয়:</p>
+
+          <h3>ক. Read (r)</h3>
+          <ul>
+            <li><strong>ফাইলের ক্ষেত্রে:</strong> ফাইলের ভেতরের ডাটা বা কন্টেন্ট রিড বা দেখার অনুমতি দেয় (যেমন
+              <code>cat</code> বা <code>less</code> কমান্ড দিয়ে ফাইল দেখা)।</li>
+            <li><strong>ডিরেক্টরির ক্ষেত্রে:</strong> ডিরেক্টরির ভেতরে কী কী ফাইল বা সাব-ফোল্ডার জমা আছে তার লিস্ট দেখার
+              অনুমতি দেয় (যেমন <code>ls</code> কমান্ড রান করা)।</li>
+          </ul>
+
+          <h3>খ. Write (w)</h3>
+          <ul>
+            <li><strong>ফাইলের ক্ষেত্রে:</strong> ফাইলের ভেতরের টেক্সট মডিফাই, এডিট বা পরিবর্তন করার অনুমতি দেয় (যেমন
+              <code>vim</code> বা <code>nano</code> দিয়ে এডিট করে ফাইল সেভ করা)।</li>
+            <li><strong>ডিরেক্টরির ক্ষেত্রে:</strong> ওই ফোল্ডারের ভেতরে নতুন ফাইল তৈরি করা, পুরনো ফাইল ডিলিট করা বা
+              ফাইলের নাম পরিবর্তন (Rename) করার অনুমতি দেয়।</li>
+          </ul>
+
+          <h3>গ. Execute (x)</h3>
+          <ul>
+            <li><strong>ফাইলের ক্ষেত্রে:</strong> ফাইলটি যদি কোনো প্রোগ্রাম, বাইনারি বা <strong>Bash Script</strong> হয়ে
+              থাকে, তবে সেটিকে মেমরিতে এক্সিকিউট বা রান করার অনুমতি দেয়।</li>
+            <li><strong>ডিরেক্টরির ক্ষেত্রে:</strong> এটি অত্যন্ত গুরুত্বপূর্ণ। ডিরেক্টরির ক্ষেত্রে Execute পারমিশনের
+              অর্থ হলো সেই ফোল্ডারের ভেতরে প্রবেশ করা বা ট্রাভার্স করার ক্ষমতা (যেমন <code>cd</code> কমান্ড দিয়ে
+              ফোল্ডারে ঢোকা)। ডিরেক্টরিতে <code>x</code> পারমিশন না থাকলে <code>r</code> বা <code>w</code> কোনো কাজই
+              করতে পারে না।</li>
+          </ul>
+
+          <h2>৩. পারমিশন স্ট্রিং এর নিখুঁত ব্যবচ্ছেদ</h2>
+          <p>টার্মিনালে যখন আমরা <code>ls -l</code> (Long Listing) কমান্ড দিই, তখন ফাইলের নামের শুরুতে ১০টি
+            ক্যারেক্টারের একটি স্ট্রিং দেখা যায়। আসুন এটির নিখুঁত কারিগরি পোস্টমর্টেম করি:</p>
+          <pre><code>drwxr-xr-- 2 jobaer IT_Dept 4096 Jun 14 12:00 projects</code></pre>
+
+          <p>এই ১০টি ক্যারেক্টারকে মূলত ৪টি অংশে ভাগ করে পড়তে হয়:</p>
+          <ol>
+            <li><strong>১ম ক্যারেক্টার (File Type Indicator):</strong> এটি ফাইলের ধরণ নির্দেশ করে। <code>-</code> মানে
+              এটি একটি রেগুলার ফাইল, <code>d</code> মানে ডিরেক্টরি বা ফোল্ডার, এবং <code>l</code> মানে সিম্বলিক লিঙ্ক বা
+              শর্টকাট।</li>
+            <li><strong>২য় থেকে ৪র্থ ক্যარეক্টার (User Permissions):</strong> ওনারের পারমিশন ব্লক। এখানে
+              <code>rwx</code> থাকার মানে ওনার রিড, রাইট এবং এক্সিকিউট করতে পারবেন।</li>
+            <li><strong>৫ম থেকে ৭ম ক্যারেক্টার (Group Permissions):</strong> গ্রুপের পারমিশন ব্লক। এখানে
+              <code>r-x</code> থাকার মানে গ্রুপের মেম্বাররা শুধু রিড এবং এক্সিকিউট করতে পারবেন, কিন্তু মডিফাই বা রাইট
+              করতে পারবেন না (ড্যাশ <code>-</code> মানে পারমিশন অনুপস্থিত)।</li>
+            <li><strong>৮ম থেকে ১০ম ক্যারেক্টার (Others Permissions):</strong> আদার্স ব্লক। এখানে <code>r--</code> থাকার
+              মানে বাইরের বাকি দুনিয়ার সবাই ফাইলটি শুধু রিড করতে পারবেন, রাইট বা এক্সিকিউট করতে পারবেন না।</li>
+          </ol>
+
+          [Image layout breakdown of a 10 character Linux permission string mapping to file type, owner, group, and
+          world bits]
+
+          <h2>৪. ফাইল পারমিশন মেজারমেন্ট ও ক্যালকুলেশন টেবিল</h2>
+          <p>লিনাক্স কার্নেল ব্যাকঅ্যান্ডে পারমিশন বিটগুলোকে বাইনারি ও অক্টাল (Numeric) ভ্যালু দিয়ে প্রসেস করে। প্রতিটি
+            পারমিশনের একটি নির্দিষ্ট গাণিতিক মান রয়েছে:</p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Permission Flag</th>
+                  <th>Binary Weight Representation</th>
+                  <th>Octal / Numeric Value</th>
+                  <th>Technical Access Capability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><code>r</code> (Read)</td>
+                  <td>2^2 = 100 (Binary)</td>
+                  <td><strong>4</strong></td>
+                  <td>Viewing binary data or reading configuration properties.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>w</code> (Write)</td>
+                  <td>2^1 = 010 (Binary)</td>
+                  <td><strong>2</strong></td>
+                  <td>Modifying structure, updating payload, or erasing blocks.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>x</code> (Execute)</td>
+                  <td>2^0 = 001 (Binary)</td>
+                  <td><strong>1</strong></td>
+                  <td>Triggering process execution or crossing directory limits.</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><code>-</code> (None)</td>
+                  <td>000 (Binary)</td>
+                  <td><strong>0</strong></td>
+                  <td>No active logical access granted.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>এই মানগুলো যোগ করে আমরা একটি ৩-ডিজিটের সংখ্যা বা অক্টাল পারমিশন তৈরি করি। উদাহরণস্বরূপ:</p>
+          <ul>
+            <li><strong>755 পারমিশনের অর্থ:</strong>
+              <ul>
+                <li>User: $4 + 2 + 1 = 7$ (rwx)</li>
+                <li>Group: $4 + 0 + 1 = 5$ (r-x)</li>
+                <li>Others: $4 + 0 + 1 = 5$ (r-x)</li>
+              </ul>
+            </li>
+            <li><strong>644 পারমিশনের অর্থ:</strong>
+              <ul>
+                <li>User: $4 + 2 + 0 = 6$ (rw-)</li>
+                <li>Group: $4 + 0 + 0 = 4$ (r--)</li>
+                <li>Others: $4 + 0 + 0 = 4$ (r--)</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h2>৫. প্র্যাকটিক্যাল CLI অপারেশন: chmod ও chown-এর ব্যবহার</h2>
+          <p>ফাইল পারমিশন ও মালিকানা পরিবর্তন করার জন্য লিনাক্সে দুটি শক্তিশালী কমান্ড ব্যবহৃত হয়: <code>chmod</code>
+            (Change Mode) এবং <code>chown</code> (Change Owner)। নিচে ধাপে ধাপে এদের ব্যবহার দেখানো হলো।</p>
+
+          <h3>পদ্ধতি ১: Numeric (Absolute) Method ব্যবহার করে পারমিশন চেঞ্জ</h3>
+          <p>এটি সবচেয়ে ফাস্ট এবং প্রফেশনাল মেথড। এখানে সরাসরি অক্টাল নাম্বার ব্যবহার করা হয়:</p>
+          <pre><code># একটি স্ক্রিপ্ট ফাইলকে ওনারের জন্য ফুল পারমিশন এবং বাকিদের জন্য রিড-অনলি করা
+$ chmod 755 deployment_script.sh
+
+# একটি অত্যন্ত গোপন ফাইলকে শুধুমাত্র ওনার ছাড়া বাকি সবার জন্য সম্পূর্ণ ব্লক (00) করা
+$ chmod 600 private_key.pem</code></pre>
+
+          <h3>পদ্ধতি ২: Symbolic Method ব্যবহার করে পারমিশন চেঞ্জ</h3>
+          <p>যদি আপনি বাকি ক্লাসের পারমিশন স্পর্শ না করে শুধুমাত্র নির্দিষ্ট কোনো ক্লাসের পারমিশন যোগ বা বিয়োগ করতে চান,
+            তবে এটি ব্যবহার করা হয়। এর জন্য প্লাস (<code>+</code>), মাইনাস (<code>-</code>) এবং ইকুয়াল (<code>=</code>)
+            অপারেটর ব্যবহার করা হয়:</p>
+          <pre><code># Others ক্লাসের জন্য এক্সিকিউট পারমিশন যোগ করা
+$ chmod o+x script.sh
+
+# Group ক্লাসের জন্য রাইট পারমিশন কেড়ে নেওয়া বা বিয়োগ করা
+$ chmod g-w documentation.docx
+
+# ওনারের জন্য পারমিশন একদম ফিক্সড (rw-) করে দেওয়া
+$ chmod u=rw data.txt</code></pre>
+
+          <h3>পদ্ধতি ৩: ফাইলের ওনার এবং গ্রুপ মালিকানা পরিবর্তন (chown)</h3>
+          <p>কোনো ফাইলের মালিকানা পরিবর্তন করতে <code>chown</code> কমান্ড রুট বা <code>sudo</code> প্রিভিলেজ নিয়ে রান
+            করতে হয়:</p>
+          <pre><code># ফাইলের ওনার পরিবর্তন করে ইউজার 'jobaer' কে দেওয়া
+$ sudo chown jobaer report.pdf
+
+# একই সাথে ওনার 'jobaer' এবং গ্রুপ 'IT_Dept' সেট করার স্ট্যান্ডার্ড মেথড
+$ sudo chown jobaer:IT_Dept web_configs.conf
+
+# একটি ডিরেক্টরি এবং তার ভেতরের সমস্ত ফাইলের মালিকানা রিকার্সিভলি (-R) চে่ง করা
+$ sudo chown -R jobaer:developers /var/www/html/app</code></pre>
+
+          <h2>৬. Troubleshooting ও সাধারণ পারমিশন চ্যালেঞ্জসমূহ</h2>
+          <ul>
+            <li><strong>The "Permission Denied" Error on Scripts:</strong> আপনি একটি বাশ স্ক্রিপ্ট তৈরি করলেন এবং রুট
+              ইউজার হিসেবে থাকার পরও <code>./backup.sh</code> দিতেই ওএস এরর দিল "Permission Denied"।
+              <br><strong>কারণ:</strong> লিনাক্সে কোনো নতুন ফাইল তৈরি হলে ডিফল্টভাবে সিকিউরিটির জন্য তার
+              <code>Execute (x)</code> পারমিশন বন্ধ থাকে। রুট ইউজারও এক্সিকিউট ফ্ল্যাগ ছাড়া স্ক্রিপ্ট সরাসরি রান করতে
+              পারেন না।
+              <br><strong>সমাধান:</strong> ফাইলটিতে রান করার অনুমতি যোগ করুন:
+              <pre><code>$ chmod +x backup.sh</code></pre>
+            </li>
+            <li><strong>Web Server 403 Forbidden Error:</strong> Nginx বা Apache ওয়েব সার্ভার ডিপ্লয় করার পর ব্রাউজারে
+              সাইট লোড করলে "403 Forbidden" এরর আসে।
+              <br><strong>কারণ:</strong> ওয়েব সার্ভারের নিজস্ব ডেমো ইউজার অ্যাকাউন্টটি (যেমন <code>www-data</code> বা
+              <code>nginx</code>) আপনার ডিরেক্টরি ট্রির ভেতরে ঢোকার বা রিড করার অনুমতি পাচ্ছে না। ফোল্ডারে
+              <code>x</code> পারমিশন মিসিং থাকলে এটি হয়।
+              <br><strong>সমাধান:</strong> নিশ্চিত করুন যে আপনার ওয়েব ডিরেক্টরির পারমিশন <code>755</code> এবং ফাইলের
+              পারমিশন <code>644</code> আছে এবং তাদের প্যারেন্ট ফোল্ডারগুলোতেও অ্যাক্সেস গ্র্যান্টেড আছে:
+              <pre><code>$ sudo find /var/www/html/ -type d -exec chmod 755 {} \;
+$ sudo find /var/www/html/ -type f -exec chmod 644 {} \;</code></pre>
+            </li>
+            <li><strong>The Dangerous `chmod 777` Pitfall:</strong> অনেক সময় জুনিয়র এডমিনরা কোনো পারমিশন এরর পেলেই
+              ট্রাবলশুটিং এড়াতে শর্টকাট হিসেবে <code>chmod 777 filename</code> বা <code>chmod -R 777 /var/www</code>
+              মেরে দেন। এটি একটি মারাত্মক <strong>Security Vulnerability</strong>। 777 এর অর্থ হলো নেটওয়ার্কের যেকোনো
+              সাধারণ ইউজার বা হ্যাকার আপনার ফাইলে যা ইচ্ছা তাই লিখতে পারবে এবং ম্যালিসিয়াস কোড ইনজেক্ট করে পুরো সার্ভার
+              হ্যাক করে নিতে পারবে। প্রোডাকশন সার্ভারে 777 ব্যবহার সম্পূর্ণ নিষিদ্ধ।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Linux File Permissions</strong> অপারেটিং সিস্টেমের নিরাপত্তার প্রথম এবং সবচেয়ে শক্তিশালী লজিক্যাল
+              ডিফেন্স লাইন। ৩টি ইউজার ক্লাসের (User, Group, Others) এবং ৩টি অ্যাক্সেস টাইপের (Read, Write, Execute) এই
+              নিখুঁত গাণিতিক বিন্যাসই লিনাক্সকে দেয় চরম স্থায়িত্ব ও করাপশন-মুক্ত কর্মপরিবেশ। একজন দক্ষ সিস্টেম
+              অ্যাডমিনিস্ট্রেটর হিসেবে <code>chmod</code>-এর অক্টাল ভ্যালু এবং <code>chown</code>-এর রিকার্সিভ
+              অপারেশনগুলোর ওপর নিখুঁত নিয়ন্ত্রণ থাকা ক্যারিয়ারের জন্য অত্যন্ত ফলপ্রসূ। এটি আপনার ডেভঅপ্স আর্কিটেকচার এবং
+              সার্ভার হার্ডেনিংকে রাখবে সম্পূর্ণ নিরাপদ ও এরর-মুক্ত। নিয়মিত ল্যাব প্র্যাকটিস এবং প্যাকেট/ফাইল অডিট করার
+              অভ্যাসই আপনাকে এই কারিগরিতে মাস্টার করে তুলবে।</p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

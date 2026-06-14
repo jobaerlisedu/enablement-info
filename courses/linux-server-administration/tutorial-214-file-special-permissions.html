@@ -1,32 +1,389 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Special Permissions | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux-এর অ্যাডভান্সড File Special Permissions (SUID, SGID, Sticky Bit) কী এবং কীভাবে কাজ করে তার একটি সম্পূর্ণ প্রফেশনাল ডিপ-ডাইভ গাইড সহজ বাংলায়।">
+  <title>Deep Dive into Linux File Special Permissions: SUID, SGID, and Sticky Bit | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>File Special Permissions</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>File Special Permissions</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction, Concepts and Deep Dive into File Special Permissions</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স ফাইল সিস্টেম সিকিউরিটির প্রাথমিক আলোচনায় আমরা প্রথাগত <code>Read (r)</code>,
+            <code>Write (w)</code> এবং <code>Execute (x)</code> পারমিশন (Standard File Permissions) নিয়ে বিস্তারিত
+            পড়াশোনা করেছি। কিন্তু এন্টারপ্রাইজ সিস্টেম অ্যাডমিনিস্ট্রেশন এবং মাল্টি-ইউজার পরিবেশের কিছু জটিল ও সংবেদনশীল
+            কারিগরি চাহিদা মেটাতে স্ট্যান্ডার্ড পারমিশন মডেল একাকী যথেষ্ট নয়। উদাহরণস্বরূপ, একজন সাধারণ ব্যবহারকারী যখন
+            তার নিজের অ্যাকাউন্টের পাসওয়ার্ড পরিবর্তন করতে চান, তখন ব্যাকএন্ডে তাকে এমন একটি সিস্টেম ফাইল
+            (<code>/etc/shadow</code>) মডিফাই করতে হয় যা মূলত সম্পূর্ণ <code>root</code> প্রিভিলেজড লকড অবস্থায় থাকে।
+          </p>
+          <p>সাধারণ ইউজারকে রুট পাসওয়ার্ড না জানিয়ে কীভাবে এই কাজগুলো নিরাপদ উপায়ে স্বয়ংক্রিয়ভাবে সম্পন্ন করা যায়?
+            লিনাক্স কার্নেল এই ধরণের বিশেষ পরিস্থিতির জন্য স্ট্যান্ডার্ড পারমিশন লেয়ারের ঠিক উপরে আরেকটি অ্যাডভান্সড
+            সিকিউরিটি মেকানিজম ব্যবহার করে, যাকে বলা হয় <strong>File Special Permissions</strong>। আজকের এই ডিপ-ডাইভ
+            টিউটোরিয়ালে আমরা লিনাক্সের ৩টি স্পেশাল পারমিশন—<strong>SUID</strong>, <strong>SGID</strong> এবং
+            <strong>Sticky Bit</strong> এর গভীর মেকানিজম, অক্টাল ভ্যালু এবং প্র্যাকটিক্যাল কনফিগারেশন নিয়ে বিস্তারিত
+            আলোচনা করবো।</p>
+
+
+
+          <h2>১. থ্রি স্পেশাল পারমিশন টাইপস (The Three Special Permissions)</h2>
+          <p>স্ট্যান্ডার্ড পারমিশনের মতো স্পেশাল পারমিশনও মূলত ৩ ধরনের হয়ে থাকে এবং এদের প্রতিটির কাজের লজিক্যাল
+            আর্কিটেকচার সম্পূর্ণ ভিন্ন।</p>
+
+          <h3>ক. SUID (Set User ID)</h3>
+          <p><strong>SUID</strong> মূলত শুধুমাত্র এক্সিকিউটেবল বাইনারি ফাইলের ওপর কাজ করে। যখন কোনো ফাইলে SUID সেট করা
+            থাকে, তখন যেকোনো সাধারণ ব্যবহারকারী ওই ফাইল বা কমান্ডটি রান করলে, ফাইলটি মেমরিতে ওই সাধারণ ইউজারের
+            প্রিভিলেজে এক্সিকিউট না হয়ে বরং ফাইলের ওরিজিনাল <strong>Owner (Owner's Privilege)</strong>-এর ক্ষমতা নিয়ে
+            এক্সিকিউট হয়।</p>
+          <ul>
+            <li><strong>The Classical Example:</strong> লিনাক্সের <code>passwd</code> কমান্ড (যা
+              <code>/usr/bin/passwd</code> পাথে থাকে)। এই ফাইলটির ওনার হলো <code>root</code>। সাধারণ ইউজার যখন এটি রান
+              করেন, SUID একটিভ থাকায় কমান্ডটি সাময়িকভাবে <code>root</code> এর ক্ষমতা লাভ করে এবং
+              <code>/etc/shadow</code> ফাইলে নতুন পাসওয়ার্ড হ্যাশ রাইট করে সেশন ক্লোজ করে দেয়।</li>
+            <li><strong>Visual Indicator:</strong> ফাইলের ওনার ব্লকের যেখানে <code>x</code> থাকার কথা, সেখানে ছোট হাতের
+              <code>s</code> (যেমন- <code>rws</code>) দেখা যাবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The Signatory Token Analogy)</h3>
+            <p>SUID-এর কার্যপদ্ধতি সহজে বোঝার জন্য একটি প্রাতিষ্ঠানিক ডকুমেন্টের কথা চিন্তা করুন:</p>
+            <ul>
+              <li>ধরি অফিসের একটি বিশেষ নোটিশে বাধ্যতামূলকভাবে কোম্পানির ম্যানেজিং ডিরেক্টরের (Root User) অফিশিয়াল গোল
+                সিল ও দস্তখত বা সিগনেচার প্রয়োজন। আপনি একজন সাধারণ এমপ্লয়ি (Regular User) হওয়ায় আপনার নিজস্ব কোনো আইনি
+                সিল নেই।</li>
+              <li>কোম্পানি একটি স্বয়ংক্রিয় স্ট্যাম্পিং মেশিন (SUID Binary) তৈরি করে ফ্রন্ট ডেস্কে রেখে দিল। আপনি ওই
+                মেশিনের স্লটে কাগজ ঢুকিয়ে বাটন চাপলেই মেশিনটি ম্যানেজিং ডিরেক্টরের ডেডিকেটেড সিগনেচার টোকেন ব্যবহার করে
+                কাগজে সিল মেরে দেয়। মেশিনটি রান করেছেন আপনি, কিন্তু কাগজের ওপর ক্ষমতা প্রয়োগ হয়েছে ডিরেক্টরের। এটিই হলো
+                <strong>SUID</strong>।</li>
+            </ul>
+          </div>
+
+          <h3>খ. SGID (Set Group ID)</h3>
+          <p><strong>SGID</strong> ফাইল এবং ডিরেক্টরি—উভয়ের ওপরই অত্যন্ত চমৎকারভাবে কাজ করতে পারে:</p>
+          <ul>
+            <li><strong>ফাইলের ক্ষেত্রে:</strong> কোনো ফাইল এক্সিকিউট করার সময় এটি ফাইলের ওরিজিনাল <strong>Group
+                Owner</strong>-এর প্রিভিলেজ নিয়ে মেমরিতে রান করে (SUID-এর মতোই, তবে এখানে ওনারের বদলে গ্রুপ প্রায়োরিটি
+              পায়)।</li>
+            <li><strong>ডিরেক্টরির ক্ষেত্রে:</strong> এটি এন্টারপ্রাইজ শেয়ারড ফোল্ডার ম্যানেজমেন্টের জন্য সবচেয়ে বেশি
+              ব্যবহৃত হয়। কোনো ডিরেক্টরিতে SGID সেট করা থাকলে, ওই ফোল্ডারের ভেতরে যেকোনো ইউজার এসে নতুন কোনো ফাইল বা
+              সাব-ফোল্ডার তৈরি করলে, সেই নতুন ফাইলের গ্রুপ ওনারশিপ স্বয়ংক্রিয়ভাবে ওই প্যারেন্ট ডিরেক্টরির গ্রুপ ওনারশিপ
+              ইনহেরিট (Inherit) বা ক্লোন করে নেয়। ইউজারের নিজস্ব প্রাইমারি গ্রুপ সেখানে স্কিপ হয়ে যায়।</li>
+            <li><strong>Visual Indicator:</strong> গ্রুপের পারমিশন ব্লকের যেখানে <code>x</code> থাকার কথা, সেখানে ছোট
+              হাতের <code>s</code> (যেমন- <code>r-s</code>) দেখা যাবে।</li>
+          </ul>
+
+          [Image layout model of SGID directory inheritance mechanism capturing group ownership replication]
+
+          <h3>গ. Sticky Bit (The Restricted Deletion Flag)</h3>
+          <p><strong>Sticky Bit</strong> মূলত শুধুমাত্র ডিরেক্টরি বা ফোল্ডারের ওপর প্রয়োগ করা হয়। এটি একটি মাল্টি-ইউজার
+            শেয়ারড ডিরেক্টরিতে রাইট পারমিশনের বিশৃঙ্খলা বা এরর প্রতিরোধ করার জন্য একটি প্রাকৃতিক ফায়ারওয়াল।</p>
+          <ul>
+            <li><strong>কাজের মেকানিজম:</strong> একটি ফোল্ডারে যদি সবার জন্য ফুল রাইট পারমিশন (<code>rwx</code>) দেওয়া
+              থাকে, তবে স্বাভাবিক নিয়মে যেকোনো ইউজার অন্য ইউজারের ফাইল ডিলিট বা রিনেম করে দিতে পারেন। কিন্তু ডিরেক্টরিতে
+              <strong>Sticky Bit</strong> অন করে দিলে, ওই ফোল্ডারের ভেতরের কোনো ফাইল শুধুমাত্র সেই ফাইলের
+              <strong>Original Owner</strong> অথবা সিস্টেমের <strong>Root User</strong> ছাড়া অন্য কেউ ডিলিট বা রিনেম
+              করতে পারবেন না।</li>
+            <li><strong>The Classical Example:</strong> লিনাক্সের গ্লোবাল টেম্পোরারি ডিরেক্টরি <code>/tmp</code>। এখানে
+              সব ইউজার ফাইল রাইট করতে পারেন, কিন্তু কেউ কারো ফাইলে হস্তক্ষেপ করতে পারেন না।</li>
+            <li><strong>Visual Indicator:</strong> আদার্স বা ওয়ার্ল্ড ব্লকের যেখানে <code>x</code> থাকার কথা, সেখানে
+              একদম শেষ ক্যারেক্টারটি ছোট হাতের <code>t</code> (যেমন- <code>rwt</code>) হয়ে যাবে।</li>
+          </ul>
+
+          <h2>২. স্পেশাল পারমিশন গাণিতিক ক্যালকুলেশন ও ওকটেট টেবিল</h2>
+          <p>স্ট্যান্ডার্ড পারমিশনের নিউমেরিক মান (Read=4, Write=2, Execute=1) হিসাব করার আগে, ৩-ডিজিটের সংখ্যার একদম
+            শুরুতে আরেকটি ৪র্থ ডিজিট যোগ করে স্পেশাল পারমিশন গাণিতিকভাবে হিসাব করা হয়। এদের ওকটেট মান নিচে দেওয়া হলো:
+          </p>
+
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Special Permission Name</th>
+                  <th>Numeric / Octal Value</th>
+                  <th>Symbolic Flag Representation</th>
+                  <th>Target Execution Scope</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column"><strong>SUID</strong></td>
+                  <td><strong>4</strong></td>
+                  <td><code>s</code> (In Owner Block)</td>
+                  <td>Executable binary files (Changes execution context to file Owner).</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><strong>SGID</strong></td>
+                  <td><strong>2</strong></td>
+                  <td><code>s</code> (In Group Block)</td>
+                  <td>Directories & files (Enforces group ownership inheritance).</td>
+                </tr>
+                <tr>
+                  <td class="type-column"><strong>Sticky Bit</strong></td>
+                  <td><strong>1</strong></td>
+                  <td><code>t</code> (In Others Block)</td>
+                  <td>Shared directories (Restricts file deletion to file Owner only).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>এই মানগুলো যোগ করে আমরা একটি ৪-ডিজিটের সংখ্যা তৈরি করি। উদাহরণস্বরূপ:</p>
+          <ul>
+            <li><strong>4755 পারমিশনের অর্থ:</strong> শুরুতে ৪ থাকায় এটি <strong>SUID</strong> একটিভ করবে, এবং বাকি অংশ
+              ডিফল্ট <code>rwxr-xr-x</code> মোডে থাকবে।</li>
+            <li><strong>2770 পারমিশনের অর্থ:</strong> শুরুতে ২ থাকায় এটি ডিরেক্টরিতে <strong>SGID</strong> লক অন করবে,
+              ওনার ও গ্রুপ ফুল এক্সেস (77) পাবে এবং আদার্স সম্পূর্ণ ব্লক (0) থাকবে।</li>
+            <li><strong>1777 পারমিশনের অর্থ:</strong> শুরুতে ১ থাকায় এটি <strong>Sticky Bit</strong> অন করবে এবং বাকি
+              অংশ গ্লোবাল ফুল এক্সেস (<code>rwxrwxrwx</code>) মোডে থাকবে।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>ক্রিটিক্যাল লজিক: বড় হাতের 'S' বা 'T' দেখার অর্থ কী?</h3>
+            <p>অনেক সময় <code>ls -l</code> দেওয়ার পর পারমিশন স্ট্রিংয়ে ছোট হাতের <code>s</code> বা <code>t</code> এর
+              পরিবর্তে বড় হাতের <strong><code>S</code></strong> বা <strong><code>T</code></strong> দেখা যায়। এটি একটি
+              টেকনিক্যাল এরর কন্ডিশন নির্দেশ করে। এর মানে হলো, আপনি ফাইল বা ডিরেক্টরিতে স্পেশাল পারমিশন অন করেছেন ঠিকই,
+              কিন্তু সেখানে বেসিক <strong>Execute (x)</strong> পারমিশনটি অন করতে ভুলে গেছেন। বেসিক এক্সিকিউট পারমিশন
+              ছাড়া স্পেশাল পারমিশন মেমরিতে কাজ করতে পারে না।</p>
+          </div>
+
+          <h2>৩. প্র্যাকটিক্যাল CLI অপারেশন: কনফিগারেশন এবং ভেরিফিকেশন স্টেপস</h2>
+          <p>আসুন আমরা টার্মিনাল বা কমান্ড লাইনের মাধ্যমে এই স্পেশাল পারমিশনগুলো প্র্যাকটিক্যালি তৈরি, অ্যাসাইন এবং
+            ভেরিফাই করার নিখুঁত ধাপগুলো সম্পাদন করি।</p>
+
+          <h3>ধাপ ১: SUID পারমিশন কনফিগার করা (Numeric & Symbolic)</h3>
+          <p>একটি কাস্টম বাইনারি ফাইলে SUID এনাবল করার কমান্ড:</p>
+          <pre><code># Numeric Method (4000 সিরিজের ওকটেট)
+$ sudo chmod 4755 /usr/local/bin/custom_tool
+
+# Symbolic Method (u+s)
+$ sudo chmod u+s /usr/local/bin/custom_tool
+
+# ভেরিফিকেশন কমান্ড
+$ ls -l /usr/local/bin/custom_tool
+# আউটপুট: -rwxr-xr-x -> পরিবর্তিত হয়ে হবে -> -rwsr-xr-x</code></pre>
+
+          <h3>ধাপ ২: এন্টারপ্রাইজ শেয়ারড ডিরেক্টরিতে SGID লক কনফিগার করা</h3>
+          <p>ধরুন আপনার মিডিয়া হাউসের <code>dev_team</code> গ্রুপের জন্য একটি সেন্ট্রাল ফোল্ডার তৈরি করতে হবে যেখানে
+            সবাই ফাইল শেয়ার করবেন:</p>
+          <pre><code># একটি নতুন শেয়ারড ডিরেক্টরি তৈরি করা
+$ sudo mkdir /opt/shared_pool
+
+# ফোল্ডারের গ্রুপ মালিকানা পরিবর্তন করা
+$ sudo chown :dev_team /opt/shared_pool
+
+# ডিরেক্টরিতে SGID লক অন করা (2000 সিরিজ বা g+s)
+$ sudo chmod 2770 /opt/shared_pool
+
+# ভেরিফিকেশন চেক
+$ ls -ld /opt/shared_pool
+# আউটপুট: drwxrws--- 2 root dev_team 4096 Jun 14 12:00 /opt/shared_pool</code></pre>
+          <p><em>ফলাফল: এখন থেকে যেকোনো ইউজার এই ফোল্ডারের ভেতরে ফাইল বানালে তার গ্রুপ ওনারশিপ অটোমেটিকভাবে
+              <code>dev_team</code> লকড হয়ে যাবে।</em></p>
+
+          <h3>ধাপ ৩: ডিরেক্টরিতে Sticky Bit অন করা</h3>
+          <p>একটি ফোল্ডারকে এক্সিডেন্টাল ডিলিশন থেকে রক্ষা করার জন্য স্টিকি বিট এনাবল করার মেথড:</p>
+          <pre><code># Symbolic Method (o+t) বা Numeric Method (1777)
+$ sudo chmod +t /opt/shared_pool
+
+# ভেরিফিকেশন চেক
+$ ls -ld /opt/shared_pool
+# আউটপুট: drwxrws--t 2 root dev_team 4096 Jun 14 12:00 /opt/shared_pool</code></pre>
+
+          <h2>৪. Troubleshooting এবং মারাত্মক নিরাপত্তা ঝুঁকি (Security Hardening)</h2>
+          <p>স্পেশাল পারমিশন যেমন ইনফ্রাস্ট্রাকচারকে নমনীয়তা দেয়, তেমনি অসচেতনভাবে ব্যবহার করলে এটি হ্যাকারদের জন্য
+            ব্যাকডোর (Backdoor) তৈরির সবচেয়ে বড় হাতিয়ারে পরিণত হতে পারে।</p>
+          <ul>
+            <li><strong>The SUID Security Threat (SUID ব্যাকডোর অ্যাটাক):</strong> সাইবার সিকিউরিটি এবং পেনিট্রেশন
+              টেস্টিং ক্যারিয়ারে <strong>Privilege Escalation</strong>-এর জন্য হ্যাকাররা সবচেয়ে বেশি খোঁজে এই SUID ফাইল।
+              কোনো হ্যাকার যদি সিস্টেমে ঢুকে সাময়িকভাবে সাধারণ ইউজার থেকে রুট হতে চায়, সে টেক্সট এডিটর বা বাশ শেলের
+              বাইনারিতে SUID অন করে রেখে দিতে পারে (যেমন- <code>chmod u+s /bin/bash</code>)। এর ফলে পরবর্তীতে সে যেকোনো
+              নরমাল অ্যাকাউন্ট থেকে <code>bash -p</code> দিলেই সরাসরি কোনো পাসওয়ার্ড ছাড়াই ওএস লেভেলের রুট সেল পেয়ে
+              যাবে।</li>
+            <li><strong>Audit and Detection (সার্ভার অডিট কমান্ড):</strong> একজন সিস্টেম অ্যাডমিনিস্ট্রেটর হিসেবে আপনার
+              সার্ভারে অনাকাঙ্ক্ষিত কোনো SUID বা SGID ফাইল লুকিয়ে আছে কি না তা নিয়মিত নিচের <code>find</code> কমান্ড
+              দিয়ে স্ক্যান করে অডিট করা উচিত:
+              <pre><code># পুরো হার্ডডিস্কে স্ক্যান করে সমস্ত SUID ফাইল খুঁজে বের করা
+$ sudo find / -perm /4000 -type f 2&gt;/dev/null
+
+# সমস্ত SGID ফাইল খুঁজে বের করার কমান্ড
+$ sudo find / -perm /2000 -type f 2&gt;/dev/null</code></pre>
+              <p><em>অ্যানালাইসিস টিপস: আউটপুটের লিস্টে যদি স্ট্যান্ডার্ড বাইনারি (যেমন passwd, sudo, ping) ছাড়া কোনো
+                  কাস্টম স্ক্রিপ্ট বা টেক্সট এডিটরের নাম দেখতে পান, তবে কালক্ষেপণ না করে সেটির পারমিশন অডিট করুন।</em>
+              </p>
+            </li>
+            <li><strong>Removing Special Permissions:</strong> মেমরি বা ফাইল থেকে স্পেশাল পারমিশন সম্পূর্ণ রিমুভ বা
+              প্রত্যাহার করার কমান্ড:
+              <pre><code>$ sudo chmod u-s /usr/local/bin/custom_tool
+$ sudo chmod g-s /opt/shared_pool
+$ sudo chmod -t /opt/shared_pool</code></pre>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Linux File Special Permissions</strong> অপারেটিং সিস্টেমের সিকিউরিটি কনটেক্সট এবং অ্যাক্সেস
+              ম্যানেজমেন্টের এক অত্যন্ত শক্তিশালী ও জটিল কারিগরি স্তর। <strong>SUID</strong>-এর মাধ্যমে রানটাইম ওনার
+              প্রিভিলেজ এলিভেশন, <strong>SGID</strong>-এর মাধ্যমে ডিরেক্টরি গ্রুপ ওনারশিপ ইনহেরিটেন্স এবং <strong>Sticky
+                Bit</strong>-এর মাধ্যমে শেয়ারড ডিলিটিং প্রোটেকশন—প্রতিটি উপাদানই এন্টারপ্রাইজ ইনফ্রাস্ট্রাকচার ডিজাইনে
+              সুনির্দিষ্ট ভূমিকা পালন করে। একজন প্রফেশনাল সিস্টেম ইঞ্জিনিয়ার হিসেবে এই অ্যাডভান্সড ফ্ল্যাগগুলোর ব্যবহার
+              ও তাদের নিরাপত্তা ঝুঁকি (Security Implications) নিখুঁতভাবে বুঝতে পারা ক্যারিয়ারের গভীরতা বহুগুণ বাড়িয়ে
+              দেবে। নিয়মিত সার্ভার অডিট এবং সতর্কতার সাথে ল্যাব লার্নিংই আপনাকে লিনাক্স হার্ডেনিংয়ে এক্সপার্ট করে তুলবে।
+            </p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>

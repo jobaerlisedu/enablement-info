@@ -1,32 +1,379 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Root shell | tech-enablement.info</title>
+  <meta name="description"
+    content="Linux-এর সবচেয়ে শক্তিশালী এবং সংবেদনশীল মোড Root Shell কী, এটি কীভাবে কাজ করে, এর সিকিউরিটি মেকানিজম এবং প্রফেশনাল ব্যবহারের ওপর একটি সম্পূর্ণ ডিপ-ডাইভ গাইড সহজ বাংলায়।">
+  <title>Deep Dive into Linux Root Shell: Mechanism, Security, and Administration | tech-enablement.info</title>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
   <link rel="stylesheet" href="../../css/style.css">
   <style>
-    body, html { margin: 0; padding: 0; background: #fff;  color: var(--text-main); }
-    .blog-content-wrapper { padding: 0; max-width: 100%; margin: 0; }
-    .glass-panel { background: transparent; border: none; border-radius: 0; padding: 40px; box-shadow: none; margin-top: 0; }
-    .article-header { border-bottom: 1px solid var(--glass-border); margin-bottom: 30px; padding-bottom: 20px; }
-    .article-header h1 { font-size: 2.2rem; color: var(--primary-color); margin-bottom: 15px; font-weight: 800; }
-    .article-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); }
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: var(--text-main);
+    }
+
+    .blog-content-wrapper {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .glass-panel {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      box-shadow: none;
+      margin-top: 0;
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--glass-border);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    .article-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .article-body {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .article-body h2 {
+      color: var(--primary-color);
+      margin-top: 40px;
+      border-left: 4px solid var(--primary-color);
+      padding-left: 15px;
+    }
+
+    .article-body h3 {
+      color: #333;
+      margin-top: 25px;
+      font-weight: 700;
+    }
+
+    .article-body p {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul {
+      margin-bottom: 20px;
+    }
+
+    .article-body ul ul {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .content-box {
+      background: #f1f7fd;
+      border-left: 4px solid var(--primary-color);
+      padding: 20px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      margin-bottom: 30px;
+      border: 1px solid lightblue;
+      border-radius: 8px;
+      overflow: hidden;
+      display: table;
+    }
+
+    .custom-table th {
+      background-color: #f8fbff;
+      color: #0056b3;
+      font-weight: 700;
+      text-align: center;
+      padding: 15px;
+      border: 1px solid lightblue;
+    }
+
+    .custom-table td {
+      padding: 15px;
+      border: 1px solid lightblue;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .custom-table td.type-column {
+      font-weight: bold;
+      width: 25%;
+      color: #333;
+      text-align: center;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border-left: 4px solid var(--accent-color);
+      margin-bottom: 20px;
+    }
   </style>
+
 </head>
+
 <body class="tutorial-page">
   <div class="blog-content-wrapper">
     <div class="container">
-        <article class="glass-panel">
-          <header class="article-header">
-            <h1>Root shell</h1>
-          </header>
-          <div class="article-body">
-          <p>Welcome to the fundamental guide on <strong>Root shell</strong>. Detailed technical content, diagrams, and operational insights for this specific networking topic will be added here shortly.</p>
+
+      <article class="glass-panel">
+        <header class="article-header">
+          <h1>Introduction and Core Concepts of Root Shell</h1>
+          <div class="article-meta">
+            <span><i class='bx bx-calendar'></i> 14 June, 2026</span>
+            <span><i class='bx bx-category'></i> Linux Administration</span>
+            <span><i class='bx bx-user'></i> Jobaer Hossain</span>
+          </div>
+        </header>
+
+        <div class="article-body">
+          <p>লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেশনের গভীরে কাজ করার সময় আমরা বিভিন্ন লেভেলের প্রিভিলেজ বা ইউজার টাইপ নিয়ে
+            ডিল করি। লিনাক্স অপারেটিং সিস্টেমের অন্যতম একটি বড় বৈশিষ্ট্য হলো এর কঠোর সিকিউরিটি এবং ইউজার আইসোলেশন মডেল।
+            এই মডেলে সাধারণ ব্যবহারকারীদের ক্ষমতা অত্যন্ত সীমিত থাকে যাতে তারা সিস্টেমের কোনো বড় ক্ষতি করতে না পারেন।
+            কিন্তু সার্ভার মেইনটেন্যান্স, কার্নেল কনফিগারেশন, কিংবা নতুন সফটওয়্যার ইনস্টল করার মতো অ্যাডভান্সড কাজের
+            জন্য আমাদের এমন এক এনভায়রনমেন্টের প্রয়োজন হয় যেখানে সমস্ত সিকিউরিটি বাউন্ডারি ভেঙে সর্বোচ্চ ক্ষমতা পাওয়া
+            যায়। এই সুপারইউজার কমান্ড এনভায়রনমেন্টকেই বলা হয় <strong>Root Shell</strong>।</p>
+          <p>একজন এন্টারপ্রাইজ সিস্টেম এডমিন বা সাইবার সিকিউরিটি স্পেশালিস্ট হিসেবে Root Shell-এর ইন্টারনাল মেকানিজম,
+            অ্যাক্সেস পদ্ধতি এবং এর নিরাপত্তাঝুঁকিগুলো জানা অত্যন্ত গুরুত্বপূর্ণ। এটি যেমন নেটওয়ার্ক পরিচালনার সবচেয়ে
+            শক্তিশালী চাবিকাঠি, তেমনি এর সামান্য একটি ভুল কমান্ড পুরো ডাটা সেন্টারের সমস্ত ডেটা এক সেকেন্ডে চিরতরে মুছে
+            দিতে পারে। আজকের এই ডিপ-ডাইভ টিউটোরিয়ালে আমরা Root Shell নিয়ে একদম স্ক্র্যাচ থেকে অ্যাডভান্সড লেভেলে
+            বিস্তারিত আলোচনা করবো।</p>
+
+
+
+          <h2>১. Root Shell কী? (The Power of UID 0)</h2>
+          <p><strong>Root Shell</strong> হলো লিনাক্স অপারেটিং সিস্টেমের এমন একটি Command Line Interface (CLI) বা সেল
+            সেশন যা <strong>Root User</strong> (সুপারইউজার বা অ্যাডমিনিস্ট্রেটর)-এর অধীনে রান করে। লিনাক্সে এই রুট
+            ইউজারের ক্ষমতাকে ঈশ্বরতুল্য বা আনলিমিটেড (Unlimited Power) বলা যায়।</p>
+          <p>কার্নেল লেভেলে লিনাক্স কোনো ইউজারনেম (যেমন root বা jobaer) চেনে না; এটি মূলত চেনে <strong>UID (User
+              ID)</strong> নামক একটি নিউমেরিক ভ্যালু। সিস্টেমে থাকা সাধারণ ইউজারদের UID সাধারণত ১০০০ বা তার বেশি হয়।
+            কিন্তু লিনাক্স সিস্টেমের সেই বিশেষ অ্যাকাউন্ট যার <strong><code>UID = 0</code></strong>, তাকেই রুট বলা হয়।
+            যখন কোনো সেলের ব্যাকএ্যান্ড প্রসেস এই UID 0 এর অধীনে এক্সিকিউট হয়, তাকেই বলে Root Shell।</p>
+
+          <h3>Root Shell আইডেন্টিফাই করার মূল লক্ষণ:</h3>
+          <ul>
+            <li><strong>The Prompt Sign (#):</strong> সাধারণ ইউজারের শেলের শেষে সব সময় ডলার সাইন (<code>$</code>) থাকে।
+              কিন্তু যখনই আপনি Root Shell-এ প্রবেশ করবেন, শেলের শেষ ক্যারেক্টারটি পরিবর্তিত হয়ে হ্যাশ বা পাউন্ড সাইন
+              (<code>#</code>) হয়ে যাবে। এটি নির্দেশ করে আপনি এখন ডেঞ্জার জোনে আছেন।</li>
+            <li><strong>Home Directory (`/root`):</strong> সাধারণ ইউজারের হোম পাথ <code>/home/username</code> হলেও রুটের
+              নিজস্ব হোম পাথ সরাসরি মেইন রুটের অধীনে থাকে, যা হলো <code>/root</code>।</li>
+          </ul>
+
+          <div class="content-box">
+            <h3>রিয়েল-লাইফ সিনারিও (The High-Security Vault Analogy)</h3>
+            <p>নরমাল সেল এবং রুট সেলের কার্যকারিতা বুঝতে একটি ইন্টারন্যাশনাল ব্যাংকের স্ট্রাকচারের কথা চিন্তা করুন:</p>
+            <ul>
+              <li><strong>Regular User Shell ($):</strong> এটি হলো ব্যাংকের একজন সাধারণ ফ্রন্ট-ডেস্ক ক্যাশিয়ার। সে
+                নির্দিষ্ট কিছু ফাইল দেখতে পারে, কাস্টমার হ্যান্ডেল করতে পারে, কিন্তু ব্যাংকের মেইন সার্ভার রুম বা লকের
+                পাসওয়ার্ড পরিবর্তনের কোনো অধিকার তার নেই। সে ভুল করলেও ব্যাংকের বড় কোনো বিপর্যয় হবে না।</li>
+              <li><strong>Root Shell (#):</strong> এটি হলো ব্যাংকের চিফ সিকিউরিটি অফিসার বা ম্যানেজারের সেই মাস্টার-কী
+                (Master Key) যার মাধ্যমে ব্যাংকের মেইন ভল্ট রুম, সিকিউরিটি ক্যামেরা সিস্টেম থেকে শুরু করে সমস্ত লকিং
+                মেকানিজম বন্ধ বা চালু করা যায়। এই মাস্টার-কী যার হাতে থাকে সে চাইলে যেকোনো ক্যাবিনেট খুলতে পারে। কিন্তু
+                চাবিটি ভুল মানুষের হাতে পড়লে পুরো ব্যাংক দেউলিয়া হয়ে যেতে পারে।</li>
+            </ul>
+          </div>
+
+          <h2>২. Root Shell অ্যাক্সেস করার মেথডসমূহ</h2>
+          <p>প্রফেশনাল এনভায়রনমেন্টে সরাসরি রুট ইউজার হিসেবে সার্ভারে লগইন করা অত্যন্ত অনিরাপদ বলে গণ্য করা হয়। তাই
+            সাধারণ ইউজার সেশন থেকে সাময়িকভাবে Root Shell-এ উন্নীত (Privilege Elevation) হওয়ার জন্য মূলত দুটি ভিন্ন
+            কমান্ড মেকানিজম ব্যবহার করা হয়:</p>
+
+          <h3>ক. `su` Command (Switch User)</h3>
+          <p><code>su</code> কমান্ডের মাধ্যমে বর্তমান সেল সেশন সচল রেখেই অন্য কোনো ইউজারের শেলে সুইচ করা যায়। কোনো
+            ইউজারনেম না দিলে এটি ডিফল্টভাবে রুট সেলে যাওয়ার চেষ্টা করে।</p>
+          <ul>
+            <li><strong>`su` বনাম `su -`:</strong> আপনি যদি শুধু <code>su</code> টাইপ করেন, তবে ওএস আপনাকে রুট সেলে নিয়ে
+              যাবে ঠিকই, কিন্তু আপনার এনভায়রনমেন্ট ভেরিয়েবল এবং কারেন্ট ডিরেক্টরি (PATH) আগের সাধারণ ইউজারেরটাই থেকে
+              যাবে। অন্যদিকে <strong><code>su -</code></strong> (Login Shell) কমান্ডটি দিলে সিস্টেম সম্পূর্ণ ফ্রেশ একটি
+              রুট এনভায়রনমেন্ট, প্রোফাইল ফাইল এবং রুটের নিজস্ব পাথ (<code>/root</code>) লোড করবে। এটিই বেস্ট প্র্যাকটিস
+              স্ট্যান্ডার্ড।</li>
+            <li><strong>পাসওয়ার্ড রিকোয়ারমেন্ট:</strong> এই মেথডে রুট সেলে ঢুকতে হলে আপনাকে সরাসরি <strong>Root
+                অ্যাকাউন্টের নিজস্ব পাসওয়ার্ড</strong> টাইপ করতে হবে।</li>
+          </ul>
+
+          <h3>খ. `sudo -i` বা `sudo su -` Command (Superuser Do Interactive)</h3>
+          <p>আধুনিক লিনাক্স ডিস্ট্রিবিউশনগুলোতে (যেমন Ubuntu) নিরাপত্তার স্বার্থে সরাসরি রুট অ্যাকাউন্ট ডিফল্টভাবে লক
+            করা থাকে। সেখানে রুট সেল পাওয়ার জন্য <code>sudo</code> মেকানিজম ব্যবহার করা হয়।</p>
+          <ul>
+            <li><strong>কাজের প্রক্রিয়া:</strong> <code>sudo -i</code> কমান্ডটি দিলে সিস্টেম <code>/etc/sudoers</code>
+              ফাইলটি চেক করে দেখে বর্তমান ইউজারের রুট প্রিভিলেজ পাওয়ার পারমিশন আছে কি না। পারমিশন থাকলে এটি সরাসরি একটি
+              ইন্টারঅ্যাক্টিভ Root Shell ওপেন করে দেয়।</li>
+            <li><strong>পাসওয়ার্ড রিকোয়ারমেন্ট:</strong> এই মেথডের সবচেয়ে বড় সুবিধা হলো, এখানে রুটের পাসওয়ার্ড জানার
+              প্রয়োজন পড়ে না; ব্যবহারকারী তার <strong>নিজের ব্যক্তিগত পাসওয়ার্ড</strong> টাইপ করেই রুট সেলে উন্নীত হতে
+              পারেন।</li>
+          </ul>
+
+          [Image workflow comparing execution path of 'su -' command vs 'sudo -i' command in Linux terminal]
+
+          <h2>৩. Regular Shell বনাম Root Shell: নিখুঁত কারিগরি পার্থক্য</h2>
+          <div class="table-wrapper">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Technical Feature</th>
+                  <th>Regular User Shell (Non-Privileged)</th>
+                  <th>Root Shell (Superuser Mode)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="type-column">User ID (UID) Value</td>
+                  <td>UID &gt;= 1000 (e.g., 1001, 1002)</td>
+                  <td><strong>UID = 0</strong> (Fixed System Standard)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Shell Prompt Indicator</td>
+                  <td><code>$</code> (Dollar Sign)</td>
+                  <td><code>#</code> (Hash / Pound Sign)</td>
+                </tr>
+                <tr>
+                  <td class="type-column">File System Write Scope</td>
+                  <td>শুধুমাত্র নিজের <code>/home/user</code> এবং <code>/tmp</code> ডিরেক্টরি।</td>
+                  <td><strong>Full Access:</strong> গ্লোবাল <code>/etc</code>, <code>/var</code>, <code>/boot</code> সহ
+                    সমস্ত সিস্টেম ফাইলে রাইট পারমিশন।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">System Ports Binding</td>
+                  <td>শুধুমাত্র নন-প্রিভিলেজড হাই পোর্টস ($&gt;= 1024$) ব্যবহার করতে পারে।</td>
+                  <td><strong>Well-known Ports:</strong> ১ থেকে ১০২৩ পোর্টে সার্ভিস রান করতে পারে (যেমন HTTP 80, SSH
+                    22)।</td>
+                </tr>
+                <tr>
+                  <td class="type-column">Process Management</td>
+                  <td>কেবল নিজের তৈরি করা প্রসেসগুলো কিল (Kill) করতে পারে।</td>
+                  <td>অন্য যেকোনো ইউজারের প্রসেস এবং কোর সিস্টেম ডেমোন বন্ধ করতে পারে।</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>৪. প্র্যাকটিক্যাল CLI অপারেশন এবং কনফিগারেশন ভেরিফিকেশন</h2>
+          <p>টার্মিনালের সাহায্যে কীভাবে রুট সেলে প্রবেশ করতে হয়, নিজের বর্তমান প্রিভিলেজ স্টেট ভেরিফাই করতে হয় এবং কাজ
+            শেষে নিরাপদে বের হতে হয়, তার প্র্যাকটিক্যাল ধাপগুলো নিচে দেওয়া হলো:</p>
+
+          <h3>ধাপ ১: বর্তমান ইউজারের পরিচয় ও UID পরীক্ষা করা</h3>
+          <p>রুট সেলে যাওয়ার আগে আপনি কোন আইডেন্টিটিতে আছেন তা নিশ্চিত হওয়ার কমান্ড:</p>
+          <pre><code>$ whoami
+# আউটপুট: jobaer
+
+$ id
+# আউটপুট: uid=1001(jobaer) gid=1001(jobaer) groups=1001(jobaer),27(sudo)</code></pre>
+          <p><em>ব্যাখ্যা: এখানে গ্রুপ লিস্টে <code>sudo</code> থাকার মানে হলো এই ইউজারটি রুট সেলে যাওয়ার ক্ষমতা
+              রাখে।</em></p>
+
+          <h3>ধাপ ২: Interactive Root Shell-এ প্রবেশ করা</h3>
+          <p>নিচের কমান্ডটি টাইপ করে নিজের পাসওয়ার্ড দিন:</p>
+          <pre><code>$ sudo -i
+[sudo] password for jobaer: </code></pre>
+
+          <h3>ধাপ ৩: নতুন শেলের স্ট্যাটাস ভেরিফাই করা</h3>
+          <p>কমান্ডটি সফল হলে প্রম্পট সাইন <code>#</code> হয়ে যাবে। এবার পুনরায় নিজের UID এবং হোম পাথ ভেরিফাই করুন:</p>
+          <pre><code># এখন আপনি রুট সেলের ভেতরে আছেন
+# whoami
+# আউটপুট: root
+
+# id
+# আউটপুট: uid=0(root) gid=0(root) groups=0(root)
+
+# pwd
+# আউটপুট: /root</code></pre>
+          <p><em>ভেরিফিকেশন চেক: <code>uid=0</code> এবং কারেন্ট ডিরেক্টরি <code>/root</code> নির্দেশ করে যে আপনি সফলভাবে
+              একটি শতভাগ খাঁটি Root Shell এনভায়রনমেন্টে আছেন।</em></p>
+
+          <h3>ধাপ ৪: নিরাপদে রুট সেল থেকে বের হওয়া (Session Termination)</h3>
+          <p>রুট সেলের কাজ শেষ হওয়ামাত্রই সাধারণ ইউজার মোডে ব্যাক করা উচিত, যাতে কোনো ভুল কমান্ড এক্সিকিউট না হয়। রুট
+            সেল সেশন ক্লোজ করার কমান্ড:</p>
+          <pre><code># exit
+# বা কিবোর্ড শর্টকাট: Ctrl + D
+# স্ক্রিনে 'logout' মেসেজ এসে আবার পুরনো '$' প্রম্পট ফিরে আসবে।</code></pre>
+
+          <h2>৫. Troubleshooting এবং মারাত্মক নিরাপত্তা ঝুঁকি (The Danger Zone)</h2>
+          <p>Root Shell ব্যবহার করার সময় সামান্য অসচেতনতা পুরো সার্ভারকে চিরতরে ধ্বংস করে দিতে পারে। নিচে কিছু পরিচিত
+            দুর্ঘটনা এবং তা থেকে বাঁচার প্রফেশনাল গাইডলাইন দেওয়া হলো:</p>
+          <ul>
+            <li><strong>The Nightmare Command (`rm -rf /`):</strong> এটি লিনাক্স ইতিহাসের সবচেয়ে ধ্বংসাত্মক ভুল কমান্ড।
+              রুট সেলে থাকা অবস্থায় যদি কেউ ভুল করে <code>rm -rf /</code> (Remove Recursive Forceful from Root) রান করে
+              দেন, তবে কার্নেল কোনো ওয়ার্নিং বা কনফার্মেশন ছাড়াই মেইন হার্ডডিস্কের সমস্ত সিস্টেম ফাইল, বুটলোডার, ডাটাবেজ
+              এক সেকেন্ডে সম্পূর্ণ ডিলিট করে দেবে।
+              <br><strong>প্রতিরোধ মেকানিজম:</strong> আধুনিক লিনাক্স ডিস্ট্রিবিউশনগুলোতে সুরক্ষার জন্য
+              <code>--preserve-root</code> ফ্ল্যাগ ডিফল্ট থাকে, যা এই কমান্ডটিকে সরাসরি এক্সিকিউট হতে ব্লক করে। কিন্তু
+              জুনিয়র এডমিনরা ভুল করে রিলেটিভ পাথের চক্করে <code>rm -rf ./ *</code> লিখে বসলে কারেন্ট ডিরেক্টরির
+              প্যারেন্ট লেভেল ক্লিন হয়ে যেতে পারে। সবসময় ডিলিট কমান্ড চালানোর আগে <code>pwd</code> দিয়ে অবস্থান নিশ্চিত
+              করুন।
+            </li>
+            <li><strong>SSH Root Login Brute-Force Attack:</strong> হ্যাকাররা অনবরত ইন্টারনেটে থাকা পাবলিক সার্ভারগুলোর
+              <strong>Port 22 (SSH)</strong>-এ রুট ইউজার হিসেবে ভুয়া পাসওয়ার্ড ট্রাই করে অ্যাটাক করতে থাকে, যাকে
+              Brute-Force Attack বলে। যদি আপনার সার্ভারে সরাসরি রুট লগইন অ্যালাউ করা থাকে, তবে সার্ভার হ্যাক হওয়ার ঝুঁকি
+              ৯৯% বেড়ে যায়।
+              <br><strong>সমাধান স্টেপস:</strong> গ্লোবাল SSH কনফিগারেশন ফাইল এডিট করে সরাসরি রুট লগইন নিষিদ্ধ করে দিন:
+              <pre><code># রুট সেলে গিয়ে ফাইলটি ওপেন করুন
+# nano /etc/ssh/sshd_config
+
+# ফাইলের ভেতরে নিচের লাইনটি খুঁজে বের করে 'no' করে দিন:
+PermitRootLogin no
+
+# ফাইল সেভ করে SSH সার্ভিস রিস্টার্ট করুন:
+# systemctl restart sshd</code></pre>
+              <p><em>ফলাফল: এখন কেউ সরাসরি রুট হিসেবে ইন্টারনেটের মাধ্যমে লগইন করতে পারবে না। তাকে প্রথমে সাধারণ ইউজার
+                  হিসেবে ঢুকে ইন্টারনাল শেলের মাধ্যমে <code>sudo</code> দিয়ে রুট প্রিভিলেজ নিতে হবে, যা হ্যাকারদের জন্য
+                  ডাবল সিকিউরিটি লেয়ার তৈরি করে।</em></p>
+            </li>
+            <li><strong>Stuck Terminal via Background Root Processes:</strong> রুট সেলে কোনো বড় স্ক্রিপ্ট বা ব্যাকআপ
+              কমান্ড ব্যাকগ্রাউন্ডে দিয়ে সেল <code>exit</code> করার সময় যদি সেশন ঝুলে থাকে, তবে বুঝবেন চাইল্ড প্রসেসটি
+              এখনও <strong>SIGHUP</strong> (Signal Hang Up) সিগন্যাল হ্যান্ডেল করতে পারছে না। এই ক্ষেত্রে কমান্ডটি রান
+              করার সময় <code>nohup</code> (No Hang Up) অপারেটর ব্যবহার করা উচিত:
+              <pre><code># nohup tar -czf /backup/large_data.tar.gz /var/www/ &amp;</code></pre>
+            </li>
+          </ul>
+
+          <div class="content-box">
+            <h3>উপসংহার (Conclusion)</h3>
+            <p><strong>Root Shell</strong> হলো লিনাক্স সিস্টেম অ্যাডমিনিস্ট্রেশনের এক চরম ক্ষমতাশালী কিন্তু অত্যন্ত
+              সংবেদনশীল হাতিয়ার। <code>UID = 0</code> এর এই গ্লোবাল পাওয়ার সিস্টেম এডমিনকে ইনফ্রাস্ট্রাকচারের ওপর পূর্ণ
+              নিয়ন্ত্রণ দিলেও, এর সাথে জড়িয়ে থাকে সমপরিমাণ কারিগরি দায়িত্ব ও সতর্কতা। প্রফেশনাল ডাটা সেন্টার এবং
+              প্রোডাকশন এনভায়রনমেন্টের স্ট্যান্ডার্ড নিয়ম হলো—কখনো অনর্থক দীর্ঘ সময় রুট সেলে লগইন থাকা যাবে না।
+              শুধুমাত্র সুনির্দিষ্ট কনফিগারেশনের জন্য <code>sudo</code> ব্যবহার করে কুইক টাস্ক সম্পন্ন করা এবং কাজ শেষে
+              সাথে সাথে <code>exit</code> করে সেশন ক্লোজ করাই একজন দক্ষ এবং দায়িত্ববান নেটওয়ার্ক ইঞ্জিনিয়ারের অন্যতম
+              প্রধান লক্ষণ। নিয়মিত সতর্কতার সাথে ল্যাব প্র্যাকটিসই আপনাকে সিস্টেমের নিরাপদ ব্যবস্থাপনায় দক্ষ করে তুলবে।
+            </p>
+          </div>
+
         </div>
       </article>
-      </div>
+    </div>
   </div>
+
+  <script type="module" src="../js/network-background.js"></script>
 </body>
+
 </html>
